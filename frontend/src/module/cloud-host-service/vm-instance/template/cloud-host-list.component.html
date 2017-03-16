@@ -1,184 +1,223 @@
 <div class="page-content cloud_host_list">
 	<h1 class="page-content-header">{{options.title | translate}}</h1>
 
-    <table class="cm-table-left top-table mgb20">
-        <tr>
-            <th class="col-md-1 col-xs-3 text-center">{{'VM_INSTANCE.REGION_LIST' | translate}}</th>
-            <td>
-                <platform-zone #platformZone (onClick)="platformClick($event)"></platform-zone>
-            </td>
-        </tr>
-        <!--<tr>
-            <th class="col-md-1 col-xs-3 text-center">实例归属</th>
-            <td>
-                <div class="col-md-10 btn-group" data-toggle="buttons">
-                    <button (click)="list.ownerType = ''" class="btn btn-default" [ngClass]="{'active':list.ownerType === ''}">所有</button>
 
-                    <button *ngFor="let v of service.ownerType | async;" 
-                            (click)="list.ownerType = v.code" 
-                            [ngClass]="{'active':list.ownerType === v.code}"
-                            class="btn btn-default">{{ v.displayValue }}
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <th class="col-md-1 col-xs-3 text-center">标　　签</th>
-            <td>
-                <div class="col-md-10 btn-group">
-                    <button (click)="list.labelId = ''" class="btn btn-default" [ngClass]="{'active':list.labelId === ''}">所有</button>
-                    
-                    <button *ngFor="let value of labelItem;" 
-                            (click)="list.labelId = value.labelId" 
-                            [ngClass]="{'active':list.labelId === value.labelId}"
-                            class="btn btn-default">{{ value.labelDisplayName }}
-                    </button>
-                </div>
-            </td>
-        </tr>-->
-    </table>
-    <div class="col-md-12 no-padding mgb20">
-        <div class="dropdown float-left mgr10">
-            <select [(ngModel)]="list.queryField" class="form-control">
-                <option
-                 *ngFor="let v of service.queryField | async; let i = index;"
-                 [ngValue]="v.code" >{{ v.displayValue }}</option>
-            </select>
-        </div>
-         <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control"  [(ngModel)]="list.status"> 
-                <option disabled selected value class="hideoption">{{'COMMON.STATUS' | translate}}</option>
-                <option
-                 *ngFor="let v of service.computeStatus | async; let i = index;"
-                 [ngValue]="v.code" >{{ v.displayValue }}</option>
-            </select>
-         </div>
-         <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control"  [(ngModel)]="list.addonType"> 
-                <option disabled selected value class="hideoption">{{'VM_INSTANCE.EXTRA_SERVICES' | translate}}</option>
-                <option
-                 *ngFor="let v of service.addonType | async; let i = index;"
-                 [ngValue]="v.code" >{{ v.displayValue }}</option>
-            </select>
-         </div>
-         <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control"  [(ngModel)]="list.useType"> 
-                <option disabled selected value class="hideoption">{{'COMMON.TYPE' | translate}}</option>
-                <option
-                 *ngFor="let v of service.useType | async; let i = index;"
-                 [ngValue]="v.code" >{{ v.displayValue }}</option>
-            </select>
-         </div>
-         <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control"  [(ngModel)]="list.serviceLevel"> 
-                <option disabled selected value class="hideoption">{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}</option>
-                <option
-                 *ngFor="let v of service.serviceLevel | async; let i = index;"
-                 [ngValue]="v.code" >{{ v.displayValue }}</option>
-            </select>
-         </div>
-        <div class="input-group col-md-2 float-left mgr10">
-            <input class="form-control width-100" [(ngModel)]="list.queryFieldValue" type="email" placeholder="{{'COMMON.ENTER_CLOUD_HOST_INFORMATION_TO_SEARCH' | translate}}">
-            <div class="input-group-addon"  (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
-        </div>
-        <!-- <div class="input-group float-left mgr10">
-            <label class="btn btn-default button-gray-gradient" (click)="superSearch = !superSearch" [ngClass]="{'active': superSearch}">
-                高级搜索
-            </label>
-        </div> -->
-        <div class="input-group float-left">
-            <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> {{'COMMON.RESET_SEARCH' | translate}}</button>
-        </div>
-    </div>
-    <div class="col-md-12 no-padding mgb20">
-        <button class="btn float-left mgr5 btn-primary" (click)="goTo('cloud-host-service/cloud-host-order')"><i class="glyphicon glyphicon-plus"></i> {{'VM_INSTANCE.CREATE_CLOUD_HOST' | translate}}</button>
-        <!-- <button class="btn float-left mgr5 btn-success"><i class="glyphicon glyphicon-edit"></i> 编辑云主机</button> -->
-        <unsubscribe #unsubscribeVm [name]="radioSelected?.instanceName" [id]="radioSelected?.subInstanceId"></unsubscribe>
-        <button (click)="unsubscribeVm.delectVm()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST' | translate}}</button>
+<!-- <div style="width:500px">
+	
+	<div class="form-group has-feedback" [ngClass]="{'has-error':v.result.email}">
+		<input type="text" [(ngModel)]="email" (ngModelChange)="checkForm('email')" placeholder="邮箱" class="form-control">
+		<span *ngIf="v.result.email" class="glyphicon glyphicon-remove form-control-feedback"></span>
+		<div *ngIf="v.result.email" class="alert alert-danger" role="alert">{{v.result.email}}</div>
+	</div>
 
-        <!--<div class="dropdown float-left  mgr5">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            更多操作
-            <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="javascript:">挂载</a></li>
-                <li><a href="javascript:">卸载</a></li>
-                <li><a href="javascript:">备份</a></li>
-            </ul>
-        </div>-->
-    </div>
+	<div class="form-group has-feedback" [ngClass]="{'has-error':v.result.baseInput}">
+		<input type="text" [(ngModel)]="baseInput" (ngModelChange)="checkForm('baseInput')" placeholder="基本表单不包含特殊字符" class="form-control">
+	</div>
 
-    <table class="table table-hover">
-        <tr>
-            <th class="text-center"></th>
-            <th class="text-center">{{'COMMON.CLOUD_HOST_NAME'| translate}}</th>
-            <th class="text-center">{{'COMMON.CONFIGURATION'| translate}}</th>
-            <th class="text-center">{{'VM_INSTANCE.MIRROR' | translate}}</th>
-            <th class="text-center">{{'VM_INSTANCE.INTERNAL_IP' | translate}}</th> 
-            <th class="text-center">{{'VM_INSTANCE.EXTERNA_IP' | translate}}</th>
-            <th class="text-center">{{'COMMON.REGION_AND_AVAILABLE_AREA' | translate}}</th>
-            <th class="text-center">{{'COMMON.STATUS'| translate}}</th>
-            <th class="text-center">{{'COMMON.EXPIRE_DATE'| translate}}</th>
-            <!--<th class="text-center">云硬盘数</th> -->
-            <!--<th class="text-center">快照数</th>-->
-            <!-- <th class="text-center">附加服务</th> -->
-            <!-- <th class="text-center">类型</th> -->
-            <!-- <th class="text-center">服务类别</th> -->
-            <th class="text-center">{{'COMMON.OPERATION'| translate}}</th> 
-        </tr>
-        <tr *ngFor="let vm of vmList;let i = index;" style="line-height: 65px;">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;"  name="host-list"></td>
-            <td class="text-center active" style="position: relative;width: 220px;">
-                <table-edit-name 
-                    (nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])" 
-                    [value]="vm.instanceName" 
-                    (onChange)="changeName($event, vm)"></table-edit-name>
-            </td>
-            <!-- <td class="text-center active"><span class="cursor-pointer " (click)="">{{vm.instanceName}}</span></td> -->
-            <td class="text-center">{{vm.specification}}</td>
-            <td class="text-center">{{vm.osInfo}}</td>
-            <td class="text-center">{{vm.privateIP}}</td> 
-            <td class="text-center">{{vm.publicIP}}</td>
-            <td class="text-center">{{vm.regionZone}}</td>
-            <td class="text-center">{{vm.vmState | dict:service.computeStatus | async}}</td>
-            <td class="text-center">{{vm.expiryDate}}</td>
-            <!--<td class="text-center">{{vm.diskCount}}</td> -->
-            <!--<td class="text-center">{{vm.snapshotCount}}</td>-->
-            <!-- <td class="text-center">无</td> -->
-            <!-- <td class="text-center">生产</td> -->
-            <!-- <td class="text-center">关键</td> -->
-            <td class="text-center">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" [attr.id]="'dropdownMenu'+(index+3)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{'COMMON.MORE_ACTIONS'| translate}}
-                    <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a *ngIf="['14'].indexOf(vm.vmState) > -1" (click)="handleVm('start', vm, '启动')" href="javascript:">{{'COMMON.START'| translate}}</a></li>
-                        <li><a *ngIf="['0'].indexOf(vm.vmState) > -1" (click)="handleVm('stop', vm, '关机')" href="javascript:">{{'COMMON.SHUTDOWN'| translate}}</a></li>
-                        <!-- <li><a (click)="handleVm('stop', vm)" href="javascript:">停止</a></li> -->
-                        <li><a *ngIf="['0'].indexOf(vm.vmState) > -1" (click)="handleVm('pause', vm, '暂停')" href="javascript:">{{'COMMON.PAUSE'| translate}}</a></li>
-                        <li><a *ngIf="['7'].indexOf(vm.vmState) > -1" (click)="handleVm('unpause', vm , '恢复')" href="javascript:">{{'COMMON.RESTORE'| translate}}</a></li>
-                        <!-- <li><a (click)="handleVm('resume', vm)" href="javascript:">恢复</a></li> -->
-                        <li><a *ngIf="['0','14'].indexOf(vm.vmState) > -1" (click)="handleVm('hardReboot', vm , '硬重启')" href="javascript:">{{'COMMON.HARD_REBOOT'| translate}}</a></li>
-                        <li><a *ngIf="['0','14'].indexOf(vm.vmState) > -1" (click)="handleVm('softReboot', vm , '软重启')" href="javascript:">{{'COMMON.SOFT_RESTART'| translate}}</a></li>
-                        <li><a *ngIf="['0'].indexOf(vm.vmState) > -1 && vm.publicIP && vm.platformType === '0'" (click)="handleVm('unbindFloatingIp', vm, '解绑浮动IP')" href="javascript:">{{'VM_INSTANCE.UNBIND_FLOATING_IP'| translate}}</a></li>
-                        <!-- <li><a (click)="handleVm('suspend', vm)" href="javascript:">挂起</a></li> -->
-                        <li><a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1 && !vm.publicIP && vm.platformType === '0'" (click)="handleVm('bindFloatingIp', vm, '绑定浮动IP')" href="javascript:">{{'VM_INSTANCE.BIND_FLOATING_IP'| translate}}</a></li>
-                        <li>
-                            <open-console #console [platformid]="vm.platformId" [uuid]="vm.uuid" [platformtype]="vm.platformType"></open-console>
-                            <a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1" (click)="console.open()" href="javascript:">{{'VM_INSTANCE.VIEW_CONSOLE'| translate}}</a>
-                        </li>
-                        <li role="separator" class="divider"></li>
-                        <li><a (click)="hostReconfig.open(vm)" href="javascript:">配置变更</a></li>
-                        <!-- <li><a (click)="openConsole(vm)" href="javascript:">创建自定义镜像</a></li> -->
-                    </ul>
-                </div>
-            </td> 
-        </tr>
-    </table>
-    <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination>
+	<div class="form-group has-feedback" [ngClass]="{'has-error':v.result.phone}">
+		<input type="text" [(ngModel)]="phone" (ngModelChange)="checkForm('phone')" placeholder="手机号" class="form-control">
+	</div>
+
+	<div class="form-group has-feedback" [ngClass]="{'has-error':v.result.password}">
+		<input type="text" [(ngModel)]="password" (ngModelChange)="checkForm('password')" placeholder="密码" class="form-control">
+	</div>
+
+	<div class="form-group has-feedback" [ngClass]="{'has-error':v.result.passwordCheck}">
+		<input type="text" [(ngModel)]="passwordCheck" (ngModelChange)="checkForm('passwordCheck')" placeholder="再次输入密码" class="form-control">
+	</div>
+
+	<div class="form-group has-feedback" [ngClass]="{'has-error':v.result.username}">
+		<input type="text" [(ngModel)]="username" (ngModelChange)="checkForm('username')" placeholder="用户名" class="form-control">
+	</div>
+
+	<div class="form-group has-feedback" [ngClass]="{'has-error':v.result.numberRange}">
+		<input type="text" [(ngModel)]="numberRange" (ngModelChange)="checkForm('numberRange')" placeholder="大于10小于80" class="form-control">
+	</div>
+
+	<button type="submit" (click)="submitForm()" class="btn btn-default">Submit</button>
+
+</div>
+ -->
+
+
+	<table class="cm-table-left top-table mgb20">
+		<tr>
+			<th class="col-md-1 col-xs-3 text-center">{{'VM_INSTANCE.REGION_LIST' | translate}}</th>
+			<td>
+				<platform-zone #platformZone (onClick)="platformClick($event)"></platform-zone>
+			</td>
+		</tr>
+		<!--<tr>
+			<th class="col-md-1 col-xs-3 text-center">实例归属</th>
+			<td>
+				<div class="col-md-10 btn-group" data-toggle="buttons">
+					<button (click)="list.ownerType = ''" class="btn btn-default" [ngClass]="{'active':list.ownerType === ''}">所有</button>
+
+					<button *ngFor="let v of service.ownerType | async;" 
+							(click)="list.ownerType = v.code" 
+							[ngClass]="{'active':list.ownerType === v.code}"
+							class="btn btn-default">{{ v.displayValue }}
+					</button>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th class="col-md-1 col-xs-3 text-center">标　　签</th>
+			<td>
+				<div class="col-md-10 btn-group">
+					<button (click)="list.labelId = ''" class="btn btn-default" [ngClass]="{'active':list.labelId === ''}">所有</button>
+					
+					<button *ngFor="let value of labelItem;" 
+							(click)="list.labelId = value.labelId" 
+							[ngClass]="{'active':list.labelId === value.labelId}"
+							class="btn btn-default">{{ value.labelDisplayName }}
+					</button>
+				</div>
+			</td>
+		</tr>-->
+	</table>
+	<div class="col-md-12 no-padding mgb20">
+		<div class="dropdown float-left mgr10">
+			<select [(ngModel)]="list.queryField" class="form-control">
+				<option
+				 *ngFor="let v of service.queryField | async; let i = index;"
+				 [ngValue]="v.code" >{{ v.displayValue }}</option>
+			</select>
+		</div>
+		 <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
+			<select class="form-control"  [(ngModel)]="list.status"> 
+				<option disabled selected value class="hideoption">{{'COMMON.STATUS' | translate}}</option>
+				<option
+				 *ngFor="let v of service.computeStatus | async; let i = index;"
+				 [ngValue]="v.code" >{{ v.displayValue }}</option>
+			</select>
+		 </div>
+		 <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
+			<select class="form-control"  [(ngModel)]="list.addonType"> 
+				<option disabled selected value class="hideoption">{{'VM_INSTANCE.EXTRA_SERVICES' | translate}}</option>
+				<option
+				 *ngFor="let v of service.addonType | async; let i = index;"
+				 [ngValue]="v.code" >{{ v.displayValue }}</option>
+			</select>
+		 </div>
+		 <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
+			<select class="form-control"  [(ngModel)]="list.useType"> 
+				<option disabled selected value class="hideoption">{{'COMMON.TYPE' | translate}}</option>
+				<option
+				 *ngFor="let v of service.useType | async; let i = index;"
+				 [ngValue]="v.code" >{{ v.displayValue }}</option>
+			</select>
+		 </div>
+		 <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
+			<select class="form-control"  [(ngModel)]="list.serviceLevel"> 
+				<option disabled selected value class="hideoption">{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}</option>
+				<option
+				 *ngFor="let v of service.serviceLevel | async; let i = index;"
+				 [ngValue]="v.code" >{{ v.displayValue }}</option>
+			</select>
+		 </div>
+		<div class="input-group col-md-2 float-left mgr10">
+			<input class="form-control width-100" [(ngModel)]="list.queryFieldValue" type="email" placeholder="{{'COMMON.ENTER_CLOUD_HOST_INFORMATION_TO_SEARCH' | translate}}">
+			<div class="input-group-addon"  (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
+		</div>
+		<!-- <div class="input-group float-left mgr10">
+			<label class="btn btn-default button-gray-gradient" (click)="superSearch = !superSearch" [ngClass]="{'active': superSearch}">
+				高级搜索
+			</label>
+		</div> -->
+		<div class="input-group float-left">
+			<button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> {{'COMMON.RESET_SEARCH' | translate}}</button>
+		</div>
+	</div>
+	<div class="col-md-12 no-padding mgb20">
+		<button class="btn float-left mgr5 btn-primary" (click)="goTo('cloud-host-service/cloud-host-order')"><i class="glyphicon glyphicon-plus"></i> {{'VM_INSTANCE.CREATE_CLOUD_HOST' | translate}}</button>
+		<!-- <button class="btn float-left mgr5 btn-success"><i class="glyphicon glyphicon-edit"></i> 编辑云主机</button> -->
+		<unsubscribe #unsubscribeVm [name]="radioSelected?.instanceName" [id]="radioSelected?.subInstanceId"></unsubscribe>
+		<button (click)="unsubscribeVm.delectVm()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST' | translate}}</button>
+
+		<!--<div class="dropdown float-left  mgr5">
+			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			更多操作
+			<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+				<li><a href="javascript:">挂载</a></li>
+				<li><a href="javascript:">卸载</a></li>
+				<li><a href="javascript:">备份</a></li>
+			</ul>
+		</div>-->
+	</div>
+
+	<table class="table table-hover">
+		<tr>
+			<th class="text-center"></th>
+			<th class="text-center">{{'COMMON.CLOUD_HOST_NAME'| translate}}</th>
+			<th class="text-center">{{'COMMON.CONFIGURATION'| translate}}</th>
+			<th class="text-center">{{'VM_INSTANCE.MIRROR' | translate}}</th>
+			<th class="text-center">{{'VM_INSTANCE.INTERNAL_IP' | translate}}</th> 
+			<th class="text-center">{{'VM_INSTANCE.EXTERNA_IP' | translate}}</th>
+			<th class="text-center">{{'COMMON.REGION_AND_AVAILABLE_AREA' | translate}}</th>
+			<th class="text-center">{{'COMMON.STATUS'| translate}}</th>
+			<th class="text-center">{{'COMMON.EXPIRE_DATE'| translate}}</th>
+			<!--<th class="text-center">云硬盘数</th> -->
+			<!--<th class="text-center">快照数</th>-->
+			<!-- <th class="text-center">附加服务</th> -->
+			<!-- <th class="text-center">类型</th> -->
+			<!-- <th class="text-center">服务类别</th> -->
+			<th class="text-center">{{'COMMON.OPERATION'| translate}}</th> 
+		</tr>
+		<tr *ngFor="let vm of vmList;let i = index;" style="line-height: 65px;">
+			<td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;"  name="host-list"></td>
+			<td class="text-center active" style="position: relative;width: 220px;">
+				<table-edit-name 
+					(nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])" 
+					[value]="vm.instanceName" 
+					(onChange)="changeName($event, vm)"></table-edit-name>
+			</td>
+			<!-- <td class="text-center active"><span class="cursor-pointer " (click)="">{{vm.instanceName}}</span></td> -->
+			<td class="text-center">{{vm.specification}}</td>
+			<td class="text-center">{{vm.osInfo}}</td>
+			<td class="text-center">{{vm.privateIP}}</td> 
+			<td class="text-center">{{vm.publicIP}}</td>
+			<td class="text-center">{{vm.regionZone}}</td>
+			<td class="text-center">{{vm.vmState | dict:service.computeStatus | async}}</td>
+			<td class="text-center">{{vm.expiryDate}}</td>
+			<!--<td class="text-center">{{vm.diskCount}}</td> -->
+			<!--<td class="text-center">{{vm.snapshotCount}}</td>-->
+			<!-- <td class="text-center">无</td> -->
+			<!-- <td class="text-center">生产</td> -->
+			<!-- <td class="text-center">关键</td> -->
+			<td class="text-center">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" [attr.id]="'dropdownMenu'+(index+3)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					{{'COMMON.MORE_ACTIONS'| translate}}
+					<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a *ngIf="['14'].indexOf(vm.vmState) > -1" (click)="handleVm('start', vm, '启动')" href="javascript:">{{'COMMON.START'| translate}}</a></li>
+						<li><a *ngIf="['0'].indexOf(vm.vmState) > -1" (click)="handleVm('stop', vm, '关机')" href="javascript:">{{'COMMON.SHUTDOWN'| translate}}</a></li>
+						<!-- <li><a (click)="handleVm('stop', vm)" href="javascript:">停止</a></li> -->
+						<li><a *ngIf="['0'].indexOf(vm.vmState) > -1" (click)="handleVm('pause', vm, '暂停')" href="javascript:">{{'COMMON.PAUSE'| translate}}</a></li>
+						<li><a *ngIf="['7'].indexOf(vm.vmState) > -1" (click)="handleVm('unpause', vm , '恢复')" href="javascript:">{{'COMMON.RESTORE'| translate}}</a></li>
+						<!-- <li><a (click)="handleVm('resume', vm)" href="javascript:">恢复</a></li> -->
+						<li><a *ngIf="['0','14'].indexOf(vm.vmState) > -1" (click)="handleVm('hardReboot', vm , '硬重启')" href="javascript:">{{'COMMON.HARD_REBOOT'| translate}}</a></li>
+						<li><a *ngIf="['0','14'].indexOf(vm.vmState) > -1" (click)="handleVm('softReboot', vm , '软重启')" href="javascript:">{{'COMMON.SOFT_RESTART'| translate}}</a></li>
+						<li><a *ngIf="['0'].indexOf(vm.vmState) > -1 && vm.publicIP && vm.platformType === '0'" (click)="handleVm('unbindFloatingIp', vm, '解绑浮动IP')" href="javascript:">{{'VM_INSTANCE.UNBIND_FLOATING_IP'| translate}}</a></li>
+						<!-- <li><a (click)="handleVm('suspend', vm)" href="javascript:">挂起</a></li> -->
+						<li><a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1 && !vm.publicIP && vm.platformType === '0'" (click)="handleVm('bindFloatingIp', vm, '绑定浮动IP')" href="javascript:">{{'VM_INSTANCE.BIND_FLOATING_IP'| translate}}</a></li>
+						<li>
+							<open-console #console [platformid]="vm.platformId" [uuid]="vm.uuid" [platformtype]="vm.platformType"></open-console>
+							<a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1" (click)="console.open()" href="javascript:">{{'VM_INSTANCE.VIEW_CONSOLE'| translate}}</a>
+						</li>
+						<li role="separator" class="divider"></li>
+						<li><a (click)="hostReconfig.open(vm)" href="javascript:">配置变更</a></li>
+						<!-- <li><a (click)="openConsole(vm)" href="javascript:">创建自定义镜像</a></li> -->
+					</ul>
+				</div>
+			</td> 
+		</tr>
+	</table>
+	<fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination>
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
