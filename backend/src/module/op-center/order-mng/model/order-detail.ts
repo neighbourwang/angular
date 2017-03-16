@@ -19,7 +19,12 @@ export class OrderDetailItem {
   instanceName:string = '';//实例名称
   description:string;//说明,接口里无字段，之前用已有字段代替的
   billingModeName:string = null;//计费模式
-
+  extendType : string;//自动续订方式
+  get isExtend():string{
+    if(this.extendType=='0')
+      return '否';
+    return '是';
+  }
   get billingMode():number{
     if(this.productBillingItem)
     {

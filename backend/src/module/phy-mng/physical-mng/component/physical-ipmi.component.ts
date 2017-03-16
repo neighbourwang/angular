@@ -61,7 +61,7 @@ export class PhysicalIpmiComponent implements OnInit {
                     this.poolId=this.physical.pmPoolId;
                    console.log("获取物理机的ILO信息","IP",this.physical.iloIPAddress,"username", this.physical.iloUserName,"password",  this.physical.iloPwd);
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
        })
    }

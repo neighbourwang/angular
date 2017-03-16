@@ -78,8 +78,7 @@ export class ImgMngComponent implements OnInit {
                     this.images = response.resultContent;
                     this.totalPage = response.pageInfo.totalPage;
                 } else {
-                    alert("Res sync error");
-
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -95,7 +94,7 @@ export class ImgMngComponent implements OnInit {
                     this.layoutService.hide();
                     this.areaList = response.resultContent;
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
         )
@@ -119,7 +118,7 @@ export class ImgMngComponent implements OnInit {
                     this.getImageList();
                     this.editPopup.close();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -147,7 +146,7 @@ export class ImgMngComponent implements OnInit {
                         this.editPopup.close();
                         this.getImageList();
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
                 )
