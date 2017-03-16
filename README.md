@@ -14,7 +14,10 @@
 1. 分别进入四个目录
 2. npm install （安装所有依赖） 
 3. npm start   （启动项目）
-4. 打开http://localhost:4200/(后台)http://localhost:4201/(后台登录)http://localhost:4000/(前台)http://localhost:4001/(前台首页登陆页)
+4. 打开http://localhost:4200/(后台)     
+http://localhost:4201/(后台登录)  
+http://localhost:4000/(前台)  
+http://localhost:4001/(前台首页登陆页)
 
 
 # 项目发布
