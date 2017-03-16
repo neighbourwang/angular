@@ -168,7 +168,7 @@ export const TranslateCN = {
         OPERATION_SUC: '操作成功',
 
         //长句子
-        SET_NAME_FORMAT: '2-68个字符，以大小写字母或中文开头，可包含数字，"."，"-"，"_"'
+        SET_NAME_FORMAT: '2-68个字符，以大小写字母或中文开头，可包含数字，"-"，"_"'
     },
     SITE: {
         EXIT: '退出',

@@ -75,7 +75,7 @@
 					<div class="col-md-12 no-padding mgb15">
 						<div class="col-md-2 content-title">{{'CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_INSTANCE_NAME'| translate}}</div>
 						<div class="col-md-4 no-padding mgr15"
-							[ngClass]="{'has-error': check.diskinsname === false }">
+							[ngClass]="{'has-error': v.result.diskinsname }">
 							<input type="text" (keyup)="checkValue('diskinsname')" [(ngModel)]="sendModule.diskinsname.attrValue" class="form-control" placeholder="如不填写，则系统自动生成">
 						</div>
 						<div class="col-md-5 disk-tip no-padding">{{'COMMON.SET_NAME_FORMAT'| translate}}</div>
