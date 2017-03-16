@@ -43,7 +43,7 @@ private enterpriseLoader : ItemLoader<{id:string;name:string}>= null;
 
 private allServiceLoader:ItemLoader<CostPandectItem> = null;//表格-所有服务
 private increaseServiceLoader:ItemLoader<CostPandectItem> = null;//表格-新增服务
-private isAllService:string =null;//null是所有服务，2是新增服务
+private isAllService:string ='1';//1是所有服务，2是新增服务
 
 private consumeLoader:ItemLoader<ConsumeSum> = null;//消费概览
 
@@ -80,14 +80,23 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.allServiceLoader = new ItemLoader<CostPandectItem> (false,'消费总览所有服务列表加载错误','op-center.order-mng.cost-pandect.all-service.post',this.restApiCfg,this.restApi);
         this.increaseServiceLoader = new ItemLoader<CostPandectItem> (false,'消费总览新增服务列表加载错误','op-center.order-mng.cost-pandect.increase-service.post',this.restApiCfg,this.restApi);
 
-          this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
+        this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
 			for(let item of source)
 			{
-				let obj=_.extend({}, item) ;
+				let obj=new CostPandectItem();
 				target.push(obj);
+
+                obj.subinstanceCode = item.subinstanceCode;
+                if(item.priceDetails){
+                    for(let priceItem of item.priceDetails){
+                        obj.priceDetails.push(item);
+                    } 
+                }
 
 			}
 		}
+
+
 
     
        	this.consumeLoader = new ItemLoader<ConsumeSum>(false, '消费概览加载失败', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
@@ -437,6 +446,8 @@ search_chart(){
 
     //两个TOP图
     this.loadTopChart();
+
+    this.loadService();
 }
 
 
@@ -637,7 +648,7 @@ showMsg(msg: string)
         "idList": ids,
         "startTime":this._param.year+'-'+month+'-01'+' 00:00:00'
     };
-        if( this.isAllService == null||this.isAllService =='null'){//所有服务
+        if( this.isAllService =='1'){//所有服务
             this.allServiceLoader.Go(null,null,param)
                 .then(success=>{    
                     this.layoutService.hide();

@@ -23,7 +23,7 @@ export class CostPandectComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
-size:number;
+size:number = 12;
 
 _param:CostPandectParam = new CostPandectParam();
 private timeCaculater :TimeCaculater = new TimeCaculater();
@@ -38,7 +38,7 @@ private enterpriseLoader : ItemLoader<{id:string;name:string}>= null;
 
 private allServiceLoader:ItemLoader<CostPandectItem> = null;//表格-所有服务
 private increaseServiceLoader:ItemLoader<CostPandectItem> = null;//表格-新增服务
-private isAllService:string =null;//null是所有服务，2是新增服务
+private isAllService:string ='1';//1是所有服务，2是新增服务
 
 private consumeLoader:ItemLoader<ConsumeSum> = null;//消费概览
 
@@ -57,10 +57,13 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 		private router: Router,
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi){
+
         
         this.currentYear = this.timeCaculater.getCurrentYear();
         this.currentMonth = this.timeCaculater.getCurrentMonth();
-        
+        this._param.year = this.currentYear.toString(); 
+        this._param.month = (this.currentMonth-1).toString(); 
+
         this.sumChart = this.chartService.creatSumChart();
         this.historyChart = this.chartService.createHstoryBar();
         this.topChart = this.chartService.createTopBar();
@@ -70,14 +73,14 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.allServiceLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.cost-pandect.all-service.post',this.restApiCfg,this.restApi);
         this.increaseServiceLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.cost-pandect.increase-service.post',this.restApiCfg,this.restApi);
 
-          this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
-			for(let item of source)
-			{
-				let obj=_.extend({}, item) ;
-				target.push(obj);
+        //   this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
+		// 	for(let item of source)
+		// 	{
+		// 		let obj=_.extend({}, item) ;
+		// 		target.push(obj);
 
-			}
-		}
+		// 	}
+		// }
 
     
        	this.consumeLoader = new ItemLoader<ConsumeSum>(false, 'ORDER_MNG.CONSUMER_OVERVIEW_FAILED', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
@@ -120,6 +123,8 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 	ngOnInit(){
         this.layoutService.show();
         this.loadYears();
+        this.loadMonths();
+        this.loadLastDay();
         this.loadEnterprise();
 		this.layoutService.hide();
 	}
@@ -200,7 +205,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 
         this.consumeLoader.Go(null,null,param)
         .then(success=>{
-            this.chartService.toSumDatas(this.consumeLoader.FirstItem,this.sumChart);    
+           this.chartService.toSumDatas(this.consumeLoader.FirstItem,this.sumChart);   
             this.layoutService.hide();
         })
         .catch(err=>{
@@ -237,9 +242,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
             this.increseConsumeLoader.Go(null,null,param)
         })
         .then(success=>{ 
-            // this.chartService.toHistoryData(this.totalConsumeLoader.Items,this.increseConsumeLoader.Items,this.historyChart);
-              this.historyChart.datasets[0].data = [100,200,400,500,250];
-              this.historyChart.datasets[1].data = [100,200,400,500,250];
+            this.chartService.toHistoryData(this.totalConsumeLoader.Items,this.increseConsumeLoader.Items,this.historyChart);
         this.layoutService.hide();
         })
         .catch(err=>{
@@ -253,8 +256,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         if(this.isNullEnterprise()){
             this.topConsumeLoader.Go(null,null,param)
             .then(success=>{
-            // this.chartService.topToDatas(this.topConsumeLoader.Items,this.topChart);
-                this.topChart.datasets[0].data = [100,300,600,200,50];
+            this.chartService.topToDatas(this.topConsumeLoader.Items,this.topChart);
                 this.layoutService.hide();
             })
             .catch(err=>{
@@ -264,8 +266,8 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         }else{
             this.topConsumeDepartmentLoader.Go(null,null,param)
             .then(success=>{
-            // this.chartService.topToDatas(this.topConsumeLoader.Items,this.topChart);
-                this.topChart.datasets[0].data = [100,300,600,200,50];
+                let items = this.topConsumeDepartmentLoader.Items;
+                this.chartService.topToDatas(items,this.topChart);
                 this.layoutService.hide();
             })
             .catch(err=>{
@@ -282,8 +284,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         if(this.isNullEnterprise()){
             this.topIncreseConsumeLoader.Go(null,null,param)
             .then(success=>{
-                // this.chartService.topToDatas(this.topIncreseConsumeLoader.Items,this.topIncreaseChart);
-                 this.topIncreaseChart.datasets[0].data = [100,300,600,200,50];
+                this.chartService.topToDatas(this.topIncreseConsumeLoader.Items,this.topIncreaseChart);
                 this.layoutService.hide();
             })
             .catch(err=>{
@@ -293,8 +294,8 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         }else{
             this.topIncreseConsumeDepartmentLoader.Go(null,null,param)
             .then(success=>{
-                // this.chartService.topToDatas(this.topIncreseConsumeLoader.Items,this.topIncreaseChart);
-                   this.topIncreaseChart.datasets[0].data = [100,300,600,200,50];
+                let items = this.topIncreseConsumeDepartmentLoader.Items;
+                this.chartService.topToDatas(items,this.topIncreaseChart);
                 this.layoutService.hide();
             })
             .catch(err=>{
@@ -313,48 +314,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         
     }
 
-    // toHistoryData(source:Array<any>,target:Chart){
-    //     let datas:Array<number>=[];
-    //     let labels :Array<string>=[];
-    //     if(source){
-    //         for(let item of source){
-    //             datas.push(item.doubleValue);
-    //             labels.push(item.num+'月');
-    //         }
-    //     }
-    //     target.datas.splice(0,target.datas.length);
-    //     target.labels.splice(0,target.labels.length);
-    //     target.datas = datas;
-    //     target.labels = labels;
-    // }
-    // toIncreaseHistoryData(source:Array<any>,target:Chart){
-    //     let datas:Array<number>=[];
-    //     if(source){
-    //         for(let item of source){
-    //             datas.push(item.doubleValue);
-    //         }
-    //     }
-    //     target.datas2.splice(0,target.datas2.length);
-    //     target.datas2 = datas;
-    // }
-    // topToDatas(target:Chart,items:Array<any>){
-    //     let datas:Array<number> = [];
-    //     let labels:Array<string>=[];
-    //     // for(let i = 0;i<items.length;i++){
-    //     //     datas[i] = items[i].amount;
-    //     // }
-    //     if(items.length>0){
-    //         for(let item of items){
-    //         datas.push(item.amount);
-    //         labels.push(item.name);
-    //     }
-    // }    
-    //    target.datas.splice(0,target.datas.length);
-    //    target.labels.splice(0,target.labels.length);
-    //    target.datas = datas;
-    //    target.labels = labels;
-    // }
-
+    
 
     search_chart(){
 
@@ -368,167 +328,8 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.loadTopChart();
 
         //加载表格
-        // this.loadService();
+         this.loadService();
     }
-
-
-// createSumBar(){
-//     this.ent_dht=[{
-//                         data: [0,0,0,0],
-//                         borderWidth:[
-//                             0,0,0,0
-//                         ]
-//                     }];
-//     this.d_chart.colors = [
-//             {
-//                 backgroundColor:["#08C895","#82B6B2","#6F7DC8","#2BD2C8"]
-//             }
-//         ];
-// }
-
-// createHstoryBar(){  
-//    this.b_chart.colors = [
-//                 {
-//                     backgroundColor: [
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8'
-//                     ],
-//                     borderColor: [
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8'
-//                     ]
-//                 },{
-
-//                     backgroundColor: "rgba(75,192,192,0.4)",
-//                     borderColor: "rgba(255, 99, 132, 1)",
-//                     pointBorderColor: "rgba(255, 99, 132, 1)",
-//                     pointBackgroundColor: "#fff",
-//                     pointHoverBackgroundColor: "rgba(75,192,192,1)",
-//                     pointHoverBorderColor: "rgba(220,220,220,1)",
-//                 }
-//             ];
-//     this.b_chart.options = {
-//                 scales: {
-//                     xAxes: [{
-//                         stacked: true
-//                     }],
-//                     yAxes: [{
-//                         stacked: true
-
-//                     }]
-//                 }
-//             };
-
-
-// this.ent_bar=[{
-//                         type: "bar",
-//                         label: "总消费",
-//                         data: [],
-                         
-//                     },{   type: 'line',
-//                             label: "新增消费",
-//                             fill: false,
-//                             lineTension: 0.1,
-//                             borderCapStyle: 'butt',
-//                             borderDash: [],
-//                             borderDashOffset: 0.0,
-//                             borderJoinStyle: 'miter',
-//                             pointBorderWidth: 1,
-//                             pointHoverRadius: 5,
-//                             pointHoverBorderWidth: 2,
-//                             pointRadius: 1,
-//                             pointHitRadius: 10,
-//                             data: [],
-//                             spanGaps: false,
-//                         }
-//                    ];
-// }
-
-
-// createTopBar(){
-//      this.ent_hbar=[{
-//         label:'消费总额',
-//         data: [0,0]
-                         
-//      }];
-//     this.h_chart.colors  = [
-//                 {
-//                     backgroundColor: [
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8'
-//                     ],
-//                     borderColor: [
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8'
-//                     ]
-//                 }
-//             ];
-//     this.h_chart.options={
-//                             scales: {
-//                                 xAxes: [{
-//                                     stacked: true
-//                                 }],
-//                                 yAxes: [{
-//                                     stacked: true
-//                                 }]
-//                             }
-//             };
-
-        
-// }
-
-
-
-// createTopBar2(){
-//             this.ent_hbar2=[{
-//             label:'消费总额',
-//             data: [0,0]
-                         
-//      }];
-
-//              this.h_chart2.colors  = [
-//                 {
-//                     backgroundColor: [
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8'
-//                     ],
-//                     borderColor: [
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8',
-//                         '#2BD2C8'
-//                     ]
-//                 }
-//             ];
-//             this.h_chart2.options={
-//                             scales: {
-//                                 xAxes: [{
-//                                     stacked: true
-//                                 }],
-//                                 yAxes: [{
-//                                     stacked: true
-//                                 }]
-//                             }
-//             };
-// }
-
-
 
 
     //进入账单管理页面
@@ -570,7 +371,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         "idList": ids,
         "startTime":this._param.year+'-'+month+'-01'+' 00:00:00'
     };
-        if( this.isAllService == null||this.isAllService =='null'){//所有服务
+        if( this.isAllService =='1'){//所有服务
             this.allServiceLoader.Go(null,null,param)
                 .then(success=>{    
                     this.layoutService.hide();

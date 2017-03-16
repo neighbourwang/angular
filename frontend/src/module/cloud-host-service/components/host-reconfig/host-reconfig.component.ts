@@ -79,16 +79,15 @@ export class HostReconfigComponent implements OnInit {
 
 		this.layoutService.show();
 		this.service.getConfig(vm.itemId, "0").then(res => {
+			this.layoutService.hide();
 			this.config = {};
 			this.res = res;
 			res.serivceConfigChangeVMitem.attrList.forEach(attr => {
 				this.config[attr.attrCode] = attr;
 			})
-				console.log(res ,222)
 
 			this.selectedPlatform = this.config.PLATFORM.valueList[0];
 			this.selectedZone = this.config.ZONE.mapValueList[this.selectedPlatform.attrValueId][0];
-			this.layoutService.hide();
 			console.log(this.config)
 		}).catch(error => {
 			this.layoutService.hide();

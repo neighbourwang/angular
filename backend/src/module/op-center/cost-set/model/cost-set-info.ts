@@ -14,9 +14,10 @@ export class CostSetInfo{
     specialBill:number=null //特殊计费
     
     newPriceEffect:number=null //生效方式
-
+ 
 
 }
+
 
 // {
 //   "detailDescription": "string",

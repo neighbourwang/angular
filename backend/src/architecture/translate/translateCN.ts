@@ -1802,5 +1802,18 @@
         "DESCRIPTION": "说明",
         "CREATE_TIME": "创建时间",
 
+        "PLEASE_CHOOSE_EMAIL_SETUP": "请选择邮件设置",
+        "PLEASE_CHOOSE_EMAIL_TEMPLATE": "请选择邮件模板",
+        "GET_EMAIL_TYPE_TEMPLATES_SUCCESS": "获取某种类型的邮件模板成功",
+
+        "EMAIL_THEME": "Email主题",
+        "Email_CONTENT": "Email内容",
+
+        "EDIT_EMAIL_SETUP_SUCCESS": "编辑Email设置成功",
+        "EDIT_EMAIL_SETUP_FAILED": "编辑Email设置失败",
+        "EDIT_EMAIL_SETUP_EXCEPTION": "编辑Email设置异常",
+        "RETURN_EMAIL_SETUP": "返回Email设置",
+
+
     }
 }
