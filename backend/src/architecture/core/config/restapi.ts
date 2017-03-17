@@ -353,13 +353,13 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "启用启动盘",
         "id": "platform-mng.bootDisk.enable",
-        "method": "PUT",    
+        "method": "GET",    
         "url": "adminui/authsec/platform/bootstorage/{id}/enable"        
     },
     {
         "desc": "禁用启动盘",
         "id": "platform-mng.bootDisk.suspend",
-        "method": "PUT",    
+        "method": "GET",    
         "url": "adminui/authsec/platform/bootstorage/{id}/suspend"        
     },
     {

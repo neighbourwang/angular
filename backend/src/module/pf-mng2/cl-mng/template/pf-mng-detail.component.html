@@ -179,12 +179,12 @@
                         <td>{{zone.memSize}}</td>
                         <td>
                             <span *ngIf="!zone.isEdit">{{zone.exceedPercentage||0}}</span>
-                            <input *ngIf="zone.isEdit" type="number" class="form-control" [(ngModel)]="zone.exceedPercentage" style="display: inline;"
+                            <input *ngIf="zone.isEdit" type="number" class="form-control" min="0" max="10" [(ngModel)]="zone.exceedPercentage" style="display: inline;"
                                 name="exceedPercentage">
                         </td>
                         <td>
                             <span *ngIf="!zone.isEdit">{{zone.quotaPercentDisplay}}</span>
-                            <input *ngIf="zone.isEdit" type="number" class="form-control" [(ngModel)]="zone.quotaPercentDisplay" style="width: 100px; display: inline;"
+                            <input *ngIf="zone.isEdit" type="number" class="form-control" min="0" max="100" [(ngModel)]="zone.quotaPercentDisplay" style="width: 100px; display: inline;"
                                 name="quotaPercentDisplay">
                         </td>
                         <td [ngClass]="{'font-green':zone.status == '1' ,'font-orange':zone.status == '3'}">
@@ -258,11 +258,11 @@
                         <td>{{storage.maximum||0}}</td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.replica||0}}</span>
-                            <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.replica" style="width: 100px; display: inline;">
+                            <input *ngIf="storage.isEdit" type="number" class="form-control" min="0" max="10" [(ngModel)]="storage.replica" style="width: 100px; display: inline;">
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
-                            <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay" style=" display: inline;">
+                            <input *ngIf="storage.isEdit" type="number" class="form-control" min="0" max="100" [(ngModel)]="storage.quotaPercentDisplay" style="width: 100px; display: inline;">
                         </td>
                         <td [ngClass]="{'font-green':zone?.status == '1' ,'font-orange':zone?.status == '3'}">
                             {{storage.status|dict:this.commonService.globalStatus|async}}
@@ -318,13 +318,13 @@
                         <td>{{storage.maximum||0}}</td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.replica||0}}</span>
-                            <input *ngIf="storage.isEdit" type="number" class="form-control" [(ngModel)]="storage.replica" style="width: 100px; display: inline;"
+                            <input *ngIf="storage.isEdit" type="number" class="form-control" min="0" max="10" [(ngModel)]="storage.replica" style="width: 100px; display: inline;"
                                 (blur)="keepSame(storage)">
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
-                            <input *ngIf="storage.isEdit" [class.border-error]="!storage.valid" type="number" class="form-control" [(ngModel)]="storage.quotaPercentDisplay"
-                                style=" display: inline;" (blur)="keepSame(storage)">
+                            <input *ngIf="storage.isEdit" [class.border-error]="!storage.valid" type="number" min="0" max="100" class="form-control" [(ngModel)]="storage.quotaPercentDisplay"
+                                style="width: 100px; display: inline;" (blur)="keepSame(storage)">
                         </td>
                         <td [ngClass]="{'font-green':storage.status == '1' ,'font-orange':storage.status == '3'}">
                             {{storage.status|dict:this.commonService.globalStatus|async}}
