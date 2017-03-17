@@ -1,4 +1,4 @@
-<div class="page-content-header icon-content-header-platform-manage">新建启动盘</div>
+<div class="page-content-header icon-content-header-platform-manage">{{titleName}}</div>
 <div class="page-contentrow mgt20">
     <div class="col-md-4">
         <div class="form-group">
@@ -16,9 +16,11 @@
             <div class="row  row-line-height">
                 <div class="col-md-3 form-control-title">可用区：</div>
                 <div class="col-md-9">
-                    <select class="form-control" [(ngModel)]="selectedZoneId" (ngModelChange)="selectValidZone($event)">
+                    <select *ngIf="!isEdit" class="form-control" [(ngModel)]="selectedZoneId" (ngModelChange)="selectValidZone($event)">
                         <option *ngFor="let zone of validZoneList; let idx=index" [value]="zone.zoneId">{{zone.zoneName}}</option>
                     </select>
+                    <input *ngIf="isEdit" class="form-control" type="text"  [(ngModel)]="service.editBootDiskData.zoneName" disabled
+                        name="zoneName">
                 </div>
             </div>
         </div>
@@ -42,7 +44,7 @@
             <div class="col-md-4 form-control-title boldTitle">所有存储后端</div>
             <div class="col-md-7">
                 <div class="has-feedback">
-                    <input type="text" class="form-control" #userName [(ngModel)]="personAcc">
+                    <input type="text" class="form-control" #userName [(ngModel)]="personAcc" pla>
                     <span class="glyphicon glyphicon-search form-control-feedback font-green"></span>
                     <!--<span class="cancel" (click)="clear('userName')"></span>-->
                 </div>
@@ -53,8 +55,8 @@
             </div>
         </div>
         <div class="row bodyList">
-            <div class="col-md-12" *ngFor="let storage of storageList;let idx=index" (click)="selectStorage(storage,idx)" style="cursor:pointer">
-                {{storage.storageDisplayName}}
+            <div class="col-md-12" *ngFor="let storage of storageList;let idx=index" (click)="selectStorage(storage,idx)" style="cursor:pointer" title="点击选择存储后端">
+                {{storage.storageName}}
             </div>
             <div style="clear:both"></div> 
         </div>
@@ -65,7 +67,7 @@
             <div class="col-md-4 form-control-title boldTitle">选中的存储后端</div>
             <div class="col-md-7">
                 <div class="has-feedback">
-                    <input type="text" class="form-control" #userName [(ngModel)]="personAcc">
+                    <input type="text" class="form-control" #userName [(ngModel)]="personAcc" placeholder="search功能暂需求开发">
                     <span class="glyphicon glyphicon-search form-control-feedback font-green"></span>
                     <!--<span class="cancel" (click)="clear('userName')"></span>-->
                 </div>
@@ -76,7 +78,7 @@
             </div>
         </div>
         <div class="row bodyList">
-            <div class="col-md-12 " *ngFor="let storageName of bootDisk.storageName;let idxx=index" (click)="cancelStorage(idx)" style="cursor:pointer">
+            <div class="col-md-12 " *ngFor="let storageName of bootDisk.storageName;let idxx=index" (click)="cancelStorage(idx)" style="cursor:pointer" title="点击选择存储后端">
                 {{storageName}}
             </div>
             <div style="clear:both"></div> 
@@ -91,3 +93,4 @@
             <span class="icon-button-label">保存</span>
     </button>
 </div>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="nof()"></fc-notice>

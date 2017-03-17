@@ -10,6 +10,9 @@ export class BootDiskService{
         private restApi:RestApi,
         private restApiCfg:RestApiCfg
     ){}
+
+    //编辑启动盘数据传递
+    editBootDiskData:BootDiskModel=new BootDiskModel();
     //获取启动盘列表
     getbootDiskList (id : String){
         let api = this.restApiCfg.getRestApi("platform-mng.bootDiskList.get");
@@ -17,10 +20,11 @@ export class BootDiskService{
         return this.restApi.request(api.method , api.url , [{key :'id' , value : id}],undefined);
     }
     //同步更新启动盘
-    updateFlavorList(id:string){
+    updateFlavorList(bootDisk:BootDiskModel){
+        let list=[];
+        list.push(bootDisk);
         let api = this.restApiCfg.getRestApi("platform-mng.bootDisk.put");
-
-        return this.restApi.request(api.method , api.url , [{key :'id' , value : id}],undefined);
+        return this.restApi.request(api.method , api.url,[],undefined,list); 
     }
     //获取平台启用可用区for创建启动盘    
     getEnableZoneList(id:string){

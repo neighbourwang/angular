@@ -79,6 +79,12 @@ export class bootDiskMngComponent implements OnInit {
    editZoneBootDisk(){
         if(this.selectedZone){
             console.log(this.selectedZone);
+            if(this.selectedZone.bootStorageId){
+                this.service.editBootDiskData=this.selectedZone;
+                this.route.navigate(['pf-mng2/pf-mng-bootDisk-creEdit', {id:this.platformId,type:this.platformType,'isEdit':'edit'}])
+            }else{
+                this.notice.open('操作错误','可用区下没有可编辑启动盘信息');
+            }
         }else{
             this.notice.open('操作错误','请选择可用区');
             return false;

@@ -43,7 +43,7 @@
                     <td (click)="godetail(item)" style="cursor:pointer">{{bootDisk.zoneName}}</td>
                     <td>{{bootDisk.bootStorageName}}</td>
                     <td>
-                        <p *ngFor="let storageName of bootDisk.storageName">{{storageName}}</p>
+                        <p *ngFor="let storageName of bootDisk.storageName" style="margin-bottom: 0">{{storageName}}</p>
                     </td>
                     <td [ngClass]="{'font-green':bootDisk.bootStorageStatus == '1' ,'font-orange':bootDisk.bootStorageStatus == '2'}">
                         <!--{{item.status| dict:this.commonService.globalStatus | async}}-->
