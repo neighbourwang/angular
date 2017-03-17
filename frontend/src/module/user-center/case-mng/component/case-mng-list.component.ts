@@ -222,7 +222,7 @@ export class CaseMngListComponent implements OnInit{
 
     checkForm(key?:string){
         const regs:ValidationRegs = {
-            phone: [this.criteria.contactNo, [this.v.isMoblie], "手机号码输入不正确"],
+            phone: [this.criteria.contactNo, [this.v.isMoblie,this.v.isUnBlank], "手机号码输入不正确"],
             contactor: [this.criteria.contact, [this.v.isBase, this.v.isUnBlank], "不能为空且不能包含特殊字符"],
             subject: [this.criteria.subject, [this.v.isUnBlank], "主题不能为空"],
             type: [this.criteria.type, [this.v.isUnBlank], "类别不能为空"],
