@@ -5,7 +5,8 @@
             <div class="row  row-line-height">
                 <div class="col-md-4 form-control-title">启动盘名称：</div>
                 <div class="col-md-8">
-                    <input class="form-control" type="text" placeholder="{{'COMMON.NAME' | translate}}">
+                    <input class="form-control" type="text" placeholder="{{'COMMON.NAME' | translate}}" [(ngModel)]="bootDisk.bootStorageName"
+                        name="bootStorageName">
                 </div>
             </div>
         </div>
@@ -15,11 +16,9 @@
             <div class="row  row-line-height">
                 <div class="col-md-3 form-control-title">可用区：</div>
                 <div class="col-md-9">
-                    <select class="form-control ">
-	                     <option value="1">可用区1</option>
-	                     <option value="1">可用区2</option>
-	                     <option value="1">可用区3</option>
-	                </select>
+                    <select class="form-control" [(ngModel)]="selectedZoneId" (ngModelChange)="selectValidZone($event)">
+                        <option *ngFor="let zone of validZoneList; let idx=index" [value]="zone.zoneId">{{zone.zoneName}}</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -29,7 +28,8 @@
             <div class="row  row-line-height">
                 <div class="col-md-3 form-control-title">说明：</div>
                 <div class="col-md-9">
-                    <input class="form-control" type="text" placeholder="{{'COMMON.COMMENT' | translate}}">
+                    <input class="form-control" type="text" placeholder="{{'COMMON.COMMENT' | translate}}" [(ngModel)]="bootDisk.bootStorageDescription"
+                        name="bootStorageDescription">
                 </div>
             </div>
         </div>
@@ -53,15 +53,10 @@
             </div>
         </div>
         <div class="row bodyList">
-            <div class="col-md-12 ">
-                helion-cp1-kvm-comp1-001-mgmt
+            <div class="col-md-12" *ngFor="let storage of storageList;let idx=index" (click)="selectStorage(storage,idx)" style="cursor:pointer">
+                {{storage.storageDisplayName}}
             </div>
-            <div class="col-md-12 ">
-                helion-cp1-kvm-comp1-001-mgmt
-            </div>
-            <div class="col-md-12 ">
-                helion-cp1-kvm-comp1-001-mgmt
-            </div>
+            <div style="clear:both"></div> 
         </div>
     </div>
     <div class="col-md-2"></div>
@@ -81,15 +76,10 @@
             </div>
         </div>
         <div class="row bodyList">
-            <div class="col-md-12 ">
-                helion-cp1-kvm-comp1-001-mgmt
+            <div class="col-md-12 " *ngFor="let storageName of bootDisk.storageName;let idxx=index" (click)="cancelStorage(idx)" style="cursor:pointer">
+                {{storageName}}
             </div>
-            <div class="col-md-12 ">
-                helion-cp1-kvm-comp1-001-mgmt
-            </div>
-            <div class="col-md-12 ">
-                helion-cp1-kvm-comp1-001-mgmt
-            </div>
+            <div style="clear:both"></div> 
         </div>
     </div>
 </div>
@@ -97,7 +87,7 @@
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();" style="margin-right:40px;">
             <span class="icon-button-label">取消</span>
         </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="save();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="createBootDisk();">
             <span class="icon-button-label">保存</span>
     </button>
 </div>

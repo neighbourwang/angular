@@ -51,7 +51,7 @@ export class StoreResComponent implements OnInit {
                     this.storageList = response["resultContent"];
                    
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

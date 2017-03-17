@@ -25,6 +25,8 @@ import { HttpModule } from '@angular/http';
 import { TranslateModule } from 'ng2-translate';
 import { DialogTranslate } from './dialog/service/dialog-translate.service';
 
+import { Validation } from './validators';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -63,6 +65,9 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
 		SelectboxComponent,
         StaticTooltipComponent
     ],
-    providers : [DialogTranslate]
+    providers : [
+        DialogTranslate,
+        Validation
+    ]
 })
 export class CommonComponentModule { }

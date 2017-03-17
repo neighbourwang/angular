@@ -69,6 +69,7 @@ export const TranslateCN = {
         SEARCH: '搜索',
         SELECT_ALL: '全选',
         SELECT: '选择',
+        SERIAL:'序号',
         SPECIFICATION: '规格',
         PHONE: '电话',
         ACCOUNT: '账号',
@@ -168,7 +169,8 @@ export const TranslateCN = {
         OPERATION_SUC: '操作成功',
 
         //长句子
-        SET_NAME_FORMAT: '2-68个字符，以大小写字母或中文开头，可包含数字，"."，"-"，"_"'
+        SET_NAME_FORMAT: '2-68个字符，以大小写字母或中文开头，可包含数字，"-"，"_"',
+        GETTING_DATA_FAILED: '获取数据失败'
     },
     SITE: {
         EXIT: '退出',

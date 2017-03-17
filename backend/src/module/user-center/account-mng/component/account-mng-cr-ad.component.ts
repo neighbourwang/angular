@@ -76,7 +76,7 @@ export class AccountMngCrAd implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.attests = response["resultContent"];
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             })
             .catch((e) => this.onRejected(e));
@@ -98,7 +98,7 @@ export class AccountMngCrAd implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.adUsers = response["resultContent"];
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             })
             .catch((e) => this.onRejected(e));
@@ -158,7 +158,7 @@ export class AccountMngCrAd implements OnInit {
                     this.showAlert("USER_CENTER.ACCOUNT_IS_USED"); //USER_CENTER.ACCOUNT_IS_USED=>该账户已经被占用 
 
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             })
             .catch((e) => this.onRejected(e));
@@ -190,7 +190,8 @@ export class AccountMngCrAd implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED"); //NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED=>获取数据失败！ 
+        this.showAlert("NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED"); //NET_MNG_VM_DBT_PORT.GETTING_DATA_FAILED=>获取数据失败！ 
+
     }
 
 }

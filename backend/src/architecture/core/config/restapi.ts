@@ -369,6 +369,18 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/platform/bootstorage/{id}"        
     },
     {
+        "desc": "取得可用区列表",
+        "id": "platform-mng.validZoneList.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{id}/validzones"        
+    },
+    {
+        "desc": "取得可用区下可用存储区列表",
+        "id": "platform-mng.validStorageList.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/zone/{id}/storage"        
+    },    
+    {
         "desc": "新建启动盘",
         "id": "platform-mng.bootDisk.post",
         "method": "POST",    

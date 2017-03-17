@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Router ,ActivatedRoute,Params} from '@angular/router';
+import { Router,ActivatedRoute,Params} from '@angular/router';
 
 import { Location } from '@angular/common';
 
@@ -17,8 +17,6 @@ import { BootDiskModel } from '../model/bootDisk.model';
     providers: []
 })
 export class bootDiskMngComponent implements OnInit {
-
-
     constructor(private layoutService:LayoutService,
                 private service:BootDiskService,
                 private route:Router,
@@ -51,16 +49,18 @@ export class bootDiskMngComponent implements OnInit {
 
     platformId:string;
     platformName:string;
+    platformType:string;
     platformTypeName:string;
+    zoneBootDiskList:Array<BootDiskModel>;
     //初始化
     ngOnInit() {
         this.router.params.forEach((params: Params)=>{
              this.platformId=params['id'];
              this.platformName=params['name'];
+             this.platformType=params['type'];
              this.platformTypeName=
                 params['type']=='0'?'OpenStack':'Vmware';
-        })
-        
+        })       
          
         this.getBootDiskList();
     }
@@ -68,18 +68,37 @@ export class bootDiskMngComponent implements OnInit {
    getBootDiskList(){
        this.service.getbootDiskList(this.platformId).then(res=>{
            console.log(res);
+           this.zoneBootDiskList=res.resultContent;
        }).catch(err=>{
            console.error.bind(err);
        })
    }
+   //选择可用区
+   selectedZone:BootDiskModel;
+   selectZone(zone){
+       console.log(zone);
+       this.selectedZone=zone;
+   }
+   //编辑启动盘
+   //启用启动盘
+   //禁用启动盘
+   //删除启动盘
+
     back(){
         this.location.back();
     }
     goList(){
         this.route.navigate(['pf-mng2/cl-mng/cl-mng'])
     }
-    save(){}
     createBootDisk(){
-        this.route.navigate(['pf-mng2/pf-mng-bootDisk-creEdit'])
+        let isCanSet:boolean=false;
+        for(let zone of this.zoneBootDiskList){
+            if(!zone.bootStorageId){
+                isCanSet=true;
+                this.notice.open('提示','目前所有可用区都已经设置启动盘')
+                return;
+            }
+        }
+        this.route.navigate(['pf-mng2/pf-mng-bootDisk-creEdit', {id:this.platformId,type:this.platformType}])
     }
 }

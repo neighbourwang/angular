@@ -590,37 +590,33 @@ export class OrderMngComponent implements OnInit {
 	}
 
 	//续订
-	renew() {
-		// 		[
-		//   {
-		//     "attrCode": "string",
-		//     "attrDisplayName": "string",
-		//     "attrDisplayValue": "string",
-		//     "attrId": "string",
-		//     "attrValue": "string",
-		//     "attrValueCode": "string",
-		//     "attrValueId": "string",
-		//     "description": "string",
-		//     "valueType": "string",
-		//     "valueUnit": "string"
-		//   }
-		// ]
-		// 		console.log('renew start');
-
-		let param = [{
-			attrCode: "TIMELINE",
-			attrDisplayName: "ORDER_MNG.PURCHASE_TIME",
-			attrDisplayValue: this._renewSetting.value,//界面上获取的的值
-			attrId: "de227a98-a0f7-11e6-a18b-0050568a49fd",
-			attrValue: this._renewSetting.value,//界面上获取的值
-			attrValueCode: "",//可以为空
-			attrValueId: "",//可以为空
-			description: "",
-			valueType: 0,
-			valueUnit: this._renewSetting.unit //可以为空
-		}];
-
-
+	renew(){
+// 		[
+//   {
+//     "attrCode": "string",
+//     "attrDisplayName": "string",
+//     "attrDisplayValue": "string",
+//     "attrId": "string",
+//     "attrValue": "string",
+//     "attrValueCode": "string",
+//     "attrValueId": "string",
+//     "description": "string",
+//     "valueType": "string",
+//     "valueUnit": "string"
+//   }
+// ]
+// 		console.log('renew start');
+		let param = [];
+		
+		let list = this.selectedOrderItem.itemList[0].specList;
+		for(let item of list){
+			if(item.attrCode=='TIMELINEUNIT'){
+				param.push(item);
+			}else if(item.attrCode=='TIMELINE'){
+				item.attrDisplayValue=this._renewSetting.value.toString();
+				param.push(item);
+			}
+		}
 		this.layoutService.show();
 		this._renewHandler.Go(null, [{ key: "_subId", value: this.selectedOrderItem.orderId }], param)
 			.then(success => {

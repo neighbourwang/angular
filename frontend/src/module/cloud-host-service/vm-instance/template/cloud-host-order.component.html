@@ -170,7 +170,7 @@
 
 					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
 						<div class="col-md-2 content-title">{{'VM_INSTANCE.LOGIN_PASSWORD'| translate}}</div>
-						<div class="col-md-4 no-padding" [ngClass]="{'has-error': check.password === false}">
+						<div class="col-md-4 no-padding" [ngClass]="{'has-error': v.result.password}">
 							<input type="password" 
 								(keyup) = "checkValue('password')"
 								[(ngModel)]="sendModule.password.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWORD'| translate}}">
@@ -181,7 +181,7 @@
 					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
 						<div class="col-md-2 content-title">{{'VM_INSTANCE.CONFIRM_PASSWORD'| translate}}</div>
 						<div class="col-md-4 no-padding"
-							[ngClass]="{'has-error': check.passwordShadow === false }">
+							[ngClass]="{'has-error': v.result.passwordShadow }">
 
 							<input type="password" class="form-control" (keyup)="checkValue('passwordShadow')"  [(ngModel)]="passwordShadow"  placeholder="{{'VM_INSTANCE.ENTER_PASSWORD_AGAIN'| translate}}">
 						</div>
@@ -190,7 +190,7 @@
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">{{'VM_INSTANCE.INSTANCE_NAME'| translate}}</div>
 						<div class="col-md-4 no-padding"
-							[ngClass]="{'has-error': check.instancename === false }">
+							[ngClass]="{'has-error': v.result.instancename }">
 							
 							<input type="text" [(ngModel)]="sendModule.instancename.attrValue" (keyup)="checkValue('instancename')" class="form-control" placeholder="{{'VM_INSTANCE.SYSTEM_AUTO_IN'| translate}}">
 						</div>
@@ -212,7 +212,7 @@
 								[ngValue]="value" >{{ value.attrDisplayValue | translate}}</option>
 							</select>
 						</div>
-						<div class="col-md-2 no-padding mr10" [ngClass]="{'has-error': check.timeline === false }">
+						<div class="col-md-2 no-padding mr10" [ngClass]="{'has-error': v.result.timeline }">
 							<input [disabled]="timeForever" 
 								   (keyup)="checkValue('timeline');setVmPrice();setDiskPrice();" 
 								   [(ngModel)]="sendModule.timeline.attrValue" type="text" class="form-control">

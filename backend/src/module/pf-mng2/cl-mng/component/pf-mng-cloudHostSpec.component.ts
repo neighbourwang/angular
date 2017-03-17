@@ -92,7 +92,6 @@ export class CloudHostSpecComponent implements OnInit {
     }
     //确认创建
     otcreate(){
-        // this.layoutService.show();
         this.flavorObj.platformId=this.platformId;
         console.log(this.flavorObj);
         if(!this.flavorObj.name){
@@ -111,8 +110,10 @@ export class CloudHostSpecComponent implements OnInit {
             this.flavorObj.diskValid=false;
             return;
         };
+        this.layoutService.show();
         this.service.vmFlavorNew(this.flavorObj).then(res=>{
             console.log(res);
+            this.flavorObj=new FlavorObj();            
             this.getFlavorList(this.platformId);
             this.createSepc.close()
             this.layoutService.hide();                        
@@ -121,6 +122,10 @@ export class CloudHostSpecComponent implements OnInit {
             this.layoutService.hide();
         })
          
+    }
+    //取消创建
+    ccCreate(){
+        this.flavorObj=new FlavorObj();
     }
     //启用云主机规格
     enableFlavor(id:string){
@@ -135,6 +140,7 @@ export class CloudHostSpecComponent implements OnInit {
             this.layoutService.hide();
         })
     }
+    //删除云主机规格
     deleFlavor(id:string){
         this.layoutService.show();
         console.log(id);
@@ -146,9 +152,9 @@ export class CloudHostSpecComponent implements OnInit {
             console.log(err);
             this.layoutService.hide();
         })
-    }
-    //删除云主机规格
+    }    
     ccf(){}
+    
     back(){
         this.location.back();
     }

@@ -66,8 +66,8 @@ export class CaseDepartService {
             }
         ];
         const api= this.restApiCfg.getRestApi("user-center.case-depart.user");
-        console.log("userInfo","userInfo");
+        console.log("userInfo",this.userInfo);
         return this.restApi.request(api.method, api.url, pathParams, null, null);
     }
-    
+
 }

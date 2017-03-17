@@ -103,8 +103,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
 					this.synNetworks = response.resultContent;
                     //this.filter();
                 } else {
-                    alert("Res sync error");
-
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -152,7 +151,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                     this.getSynList(this.platform_id);
                     //this.filter();
                 }else{
-                     alert("Res sync error");
+                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
         })
         .catch((e)=>this.onRejected(e));
@@ -184,7 +183,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                         this.getSynList(this.platform_id);
                         //this.filter();
                     }else{
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
             })
             .catch((e)=>this.onRejected(e));
@@ -204,7 +203,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                     this.getSynList(this.platform_id);
                     //this.filter();
                 }else{
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
         })
         .catch((e)=>this.onRejected(e));
@@ -231,7 +230,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                         this.getSynList(this.platform_id);
                         //this.filter();
                     }else{
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
             })
             .catch((e)=>this.onRejected(e));
@@ -251,7 +250,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                     this.getSynList(this.platform_id);
                     //this.filter();
                 }else{
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
         })
         .catch((e)=>this.onRejected(e));
@@ -273,7 +272,7 @@ export class OpenstackSynchrNetComponent implements OnInit{
                     this.getSynList(this.platform_id);
                     //this.filter();
                 }else{
-                     alert("Res sync error");
+                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
         })
         .catch((e)=>this.onRejected(e));
