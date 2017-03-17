@@ -781,7 +781,7 @@ export const TranslateCN = {
         EDIT_CONTOR: '只有新建状态下，才能编辑工单',
         DELETE_CONTOR: '只有新建状态下，才能删除工单',
         DELETE_CASE_WARNING: '您选择删除{{value_1}}-{{value_2}}工单，请确认。',
-        CASE_DETAIL: '工单详细：{{value_1}}-{{value_2}}',
+        CASE_DETAIL: '工单详细',
         MY_CASE: '我的工单',
         DEPART_CASE: '部门工单',
         SUBJECT_CANNOT_EMPTY: '主题不能为空',

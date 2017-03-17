@@ -357,7 +357,8 @@
         "ORDER_HISTORY":"订单历史",
         "EXECUTOR":"执行者",
         "ENTER_ORDER_NUMBER_QUERY":"输入订单编号查询",
-        "CANCLE_ORDER":"撤销订单"
+        "CANCLE_ORDER":"撤销订单",
+        "START_UP":"启动"
     },
     "ENT_MNG": {
         "ABNORMAL_RESPONSE": "异常响应",
@@ -1219,7 +1220,7 @@
         "GET_REGION_ERROR": "获取区域信息错误",
         "GET_VERSION_ERROR": "获取版本错误",
         "NO_SYNC_COMPUTING_SOURCE": "暂时没有可同步计算资源信息",
-        "NO_SYNC_ZONES": "暂时没有可同步可用区信息",
+        "NO_SYNC_ZONES": "暂时没有可同步存储信息",
         "ONLY_OPENSTACK_TYPE_AVAILABLE":"配置规格只适用openStack类型平台",
         "PASSWORD_REQUIRED": "请输入密码",
         "PLATFORM_ALEADRY_ENABLED": "云平台状态已启用",
@@ -1464,7 +1465,7 @@
         "INPUT_PRODUCT_NAME": "请输入产品名称",
         "NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT": "不能删除状态为已发布的产品目录",
         "NOT_ALLOW_TO_PUBLISH_THE_PUBLISHED_PRODUCT": "不可以再次发布已发布状态的产品",
-        "NOT_PUBLISHED_YET": "未发布",
+        "NOT_PUBLISHED_YET": "取消发布",
         "ONE_TIME_PRICE": "一次性价格",
         "ORG_STATUS_IS_DISABLED": "机构状态已禁用",
         "ORG_STATUS_IS_ENABLED": "机构状态已启用",
@@ -1761,6 +1762,8 @@
         "RESELECT_CLOSE_CASE":"工单状态为'新建'或'处理中'才能关闭，请选择需要关闭的工单！",
         "SELECT_HANDLE_CASE":"请选择需要处理的工单！",
         "RESELECT_HANDLE_CASE":"工单状态只有为'新建'或'处理中'才能处理，请选择需要处理的工单！",
+        "CASE_HAS_CLOSED":"该工单已关闭，不能进行处理！",
+        "CASE_HAS_CLOSE":"该工单已关闭，不能再次关闭！",
 
         "CASE_DETAIL":"工单详细",
         "CASE_INFO":"基本信息",

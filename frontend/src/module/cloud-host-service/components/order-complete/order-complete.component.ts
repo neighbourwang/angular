@@ -40,13 +40,13 @@ export class orderCompleteComponent implements OnInit {
 		orderList.forEach(order => {
 			order.itemList.forEach(item => {
 				oncePrice += item.billingInfo.basePrice;
-				if(item.billingInfo.periodType) {
+				if(item.billingInfo.basicPrice) {   //主机价格计算
 					if(!billingArr[item.billingInfo.periodType]) billingArr[item.billingInfo.periodType] = 0;  //计算周期价格
-					billingArr[item.billingInfo.periodType] += item.billingInfo.basicPrice + item.billingInfo.cyclePrice; 
+					billingArr[item.billingInfo.periodType] += item.billingInfo.basicPrice * item.quantity * item.billingPeriod; 
 				}
-				if(item.billingInfo.unitType){
-					if(!unitArr[item.billingInfo.unitType]) unitArr[item.billingInfo.unitType] = 0;  //计算周期价格
-					unitArr[item.billingInfo.unitType] += item.billingInfo.unitPrice; 
+				if(item.billingInfo.unitPrice){
+					if(!unitArr[item.billingInfo.periodType]) unitArr[item.billingInfo.periodType] = 0;  //计算周期价格
+					unitArr[item.billingInfo.periodType] += item.billingInfo.unitPrice; 
 				}
 			})
 		});

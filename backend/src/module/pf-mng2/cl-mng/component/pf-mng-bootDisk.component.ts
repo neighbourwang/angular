@@ -25,8 +25,6 @@ export class bootDiskMngComponent implements OnInit {
                 ) {
     }
 
-
-
     @ViewChild('publishConfirm')
     publishConfirm: ConfirmComponent;
 
@@ -75,15 +73,88 @@ export class bootDiskMngComponent implements OnInit {
    }
    //选择可用区
    selectedZone:BootDiskModel;
-   selectZone(zone){
-       console.log(zone);
-       this.selectedZone=zone;
-   }
    //编辑启动盘
+   editZoneBootDisk(){
+        if(this.selectedZone){
+            console.log(this.selectedZone);
+            if(this.selectedZone.bootStorageId){
+                this.service.editBootDiskData=this.selectedZone;
+                this.route.navigate(['pf-mng2/pf-mng-bootDisk-creEdit', {id:this.platformId,type:this.platformType,'isEdit':'edit'}])
+            }else{
+                this.notice.open('操作错误','可用区下没有可编辑启动盘信息');
+            }
+        }else{
+            this.notice.open('操作错误','请选择可用区');
+            return false;
+        }
+        
+   }
    //启用启动盘
+   enableZoneBootDisk(){
+       if(this.selectedZone){
+            console.log(this.selectedZone);
+            if(this.selectedZone.bootStorageStatus=='1'){
+                this.notice.open('操作错误','启动盘状态已启用');
+                return;
+            }
+            this.service.enableBootDisk(this.selectedZone.bootStorageId).then(res=>{
+                console.log(res);
+                this.getBootDiskList();
+            }).catch(err=>{
+                console.log(err);
+            })
+        }else{
+            this.notice.open('操作错误','请选择可用区');
+            return false;
+        }
+   }
    //禁用启动盘
+   suspendZoneBootDisk(){
+      if(this.selectedZone){
+            console.log(this.selectedZone);
+            if(this.selectedZone.bootStorageStatus=='2'){
+                this.notice.open('操作错误','启动盘状态已禁用');
+                return;
+            }
+            this.service.suspendBootDisk(this.selectedZone.bootStorageId).then(res=>{
+                if(res.resultCode=="10006003"){
+                    this.notice.open('操作错误','不能禁用已关联产品目录的启动盘');
+                }else{
+                    this.getBootDiskList();
+                }
+                console.log(res);
+                
+            }).catch(err=>{
+                console.log(err);
+            })
+        }else{
+            this.notice.open('操作错误','请选择可用区');
+            return false;
+        }       
+   }
    //删除启动盘
-
+   deleteZoneBootDisk(){
+       if(this.selectedZone){
+            console.log(this.selectedZone);
+            if(this.selectedZone.bootStorageStatus=='1'){
+                this.notice.open('操作错误','不能删除启用状态下启动盘');
+                return;
+            }
+            this.service.deleteBootDisk(this.selectedZone.bootStorageId).then(res=>{
+                console.log(res);
+                if(res.resultCode=="10006003"){
+                    this.notice.open('操作错误','不能禁用已关联产品目录的启动盘');
+                }else{
+                    this.getBootDiskList();
+                }
+            }).catch(err=>{
+                console.log(err);
+            })
+        }else{
+            this.notice.open('操作错误','请选择可用区');
+            return false;
+        }              
+   }
     back(){
         this.location.back();
     }
@@ -95,10 +166,14 @@ export class bootDiskMngComponent implements OnInit {
         for(let zone of this.zoneBootDiskList){
             if(!zone.bootStorageId){
                 isCanSet=true;
-                this.notice.open('提示','目前所有可用区都已经设置启动盘')
+                isCanSet&&this.route.navigate(['pf-mng2/pf-mng-bootDisk-creEdit', {id:this.platformId,type:this.platformType}])                
                 return;
             }
         }
-        this.route.navigate(['pf-mng2/pf-mng-bootDisk-creEdit', {id:this.platformId,type:this.platformType}])
+        if(!isCanSet){
+                this.notice.open('提示','目前所有可用区都已经设置启动盘')            
+        }
     }
+    ccf(){}
+    nof(){}
 }
