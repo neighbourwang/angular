@@ -9,13 +9,13 @@
 | isBase         | 无                                      | 基本的验证 不含特殊字符          |
 | isUnBlank      | 无                                      | 非空验证                      |
 | isNumber       | 无                                      | 是否为数字                  |
+| isInteger      | 无                                      | 是否是整数             |
 | isMoblie       | 无                                      | 是否为手机号                  |
 | isTel          | 无                                      | 是否是电话号码               |
 | isUrl          | 无                                      | 是否是url             |
 | isInstanceName | 无                                      | 2-68个字符，以大小写字母或中文开头     |
 | isPassword     | 无                                      | 同时包括三项（大写字母，小写字母，数字和特殊符号）|
 | isEmail        | 无                                      | 是否是email                 |
-| isInteger      | 无                                      | 是否是整数             |
 | min            | (min:number)                           | 数字的最小值                    |
 | max            | (max:number)                           | 数字的最大值                    |
 | range          | (min:number, max:number)               | 数字的范围                     |
