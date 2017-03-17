@@ -1,8 +1,9 @@
 export class AutoRenewItem{
+    instanceId: string = null;
     zone: string = null;
     platform: string = null;
     instanceName: string = null;
-    billingMode: string = null;
+    billingMode: number = null;
     password: string = null;
     serviceType: number = null;
     expireDate: string = null;
@@ -12,7 +13,12 @@ export class AutoRenewItem{
     autoRenewalCycle: number = 1;
     settingType: string = null;
     extendType: number = null;
+    onExtendType: number = null;
+    subExtendType: number = null;
+    isSelectedType: boolean = false;
+    status: string = null;
     serivceRenewWayProductItems: Array<SerivceRenewWayProductItem> = [];
+    renewOver: boolean = false;
 
     pushSerivceRenewWayProductItem() {
         let serivceRenewWayProductItem = new SerivceRenewWayProductItem();
@@ -21,6 +27,15 @@ export class AutoRenewItem{
 
     clearSerivceRenewWayProductItems(){
         this.serivceRenewWayProductItems = [];
+    }
+
+    extendTypeToPeriodType() {
+        let periodTypeMap = {
+            '3': 1,
+            '5': 2,
+        }
+        // this.subExtendType = periodTypeMap[String(this.periodType)];
+        this.onExtendType = periodTypeMap[String(this.periodType)];
     }
 }
 

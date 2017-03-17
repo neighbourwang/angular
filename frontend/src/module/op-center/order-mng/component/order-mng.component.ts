@@ -90,7 +90,7 @@ export class OrderMngComponent implements OnInit {
 	//自动续订
 	private autoRenewItem: AutoRenewItem = new AutoRenewItem();
 	private autoRenewConfigItem: ItemLoader<any> = null;
-	private selectedAutoRenewType: any = null;
+	private autoRenewSetting: ItemLoader<any> = null;
 
 	constructor(
 		private layoutService: LayoutService,
@@ -133,27 +133,30 @@ export class OrderMngComponent implements OnInit {
 		this.selectedOrderItem = new SubInstanceResp();
 
 		//自动续订配置变更
-		this.autoRenewConfigItem = new ItemLoader<any>(false, "自动续订配置变更", "op-center.order-mng.order-auto-renew-config.get", restApiCfg, restApi);
+		this.autoRenewConfigItem = new ItemLoader<any>(false, "自动续订配置变更加载失败", "op-center.order-mng.order-auto-renew-config.get", restApiCfg, restApi);
 		this.autoRenewConfigItem.Trait = (target: Array<AutoRenewItem>) => {
+			this.autoRenewItem.subExtendType = -1;
 			if (target[0].serivceRenewWayProductItems) {
 				this.autoRenewItem.clearSerivceRenewWayProductItems();
-				this.selectedAutoRenewType = -1;
 				for (let n in target[0].serivceRenewWayProductItems) {
 					this.autoRenewItem.pushSerivceRenewWayProductItem();
 					let billingInfo = this.autoRenewItem.serivceRenewWayProductItems[n].billingInfo;
 					let targetBillingInfo = target[0].serivceRenewWayProductItems[n].billingInfo;
-					for (let n in billingInfo){
-						if(targetBillingInfo[n]){
+					for (let n in billingInfo) {
+						if (targetBillingInfo[n]) {
 							billingInfo[n] = targetBillingInfo[n];
 						}
 					}
 					this.autoRenewItem.serivceRenewWayProductItems[n].billingInfo.extendTypeToPeriodType();
 				}
+				this.autoRenewItem.extendTypeToPeriodType();
 			} else {
 				this.autoRenewItem.serivceRenewWayProductItems = [];
 			}
-			console.log(target[0].serivceRenewWayProductItems);
 		};
+
+		//对订购实例进行自动续订的设定及取消
+		this.autoRenewSetting = new ItemLoader<any>(false, "已购实例自动续订提交失败", "op-center.order-mng.order-auto-renew-setting.post", restApiCfg, restApi);
 
 		//部门配置
 		this._departmentLoader = new ItemLoader<ListItem>(false, "ORDER_MNG.DEPARTMENT_LIST_DATA_FAILED", "op-center.order-mng.department-list.get", restApiCfg, restApi);
@@ -379,13 +382,16 @@ export class OrderMngComponent implements OnInit {
 
 	//自动续订
 	autoRenew(orderItem: SubInstanceResp) {
+		this.renewOverEnd()
 		let getProperty = _.property("attrDisplayValue");
+		console.log(orderItem);
 		if (!_.isEmpty(orderItem.itemList)) {
+			this.autoRenewItem.isSelectedType = false;
 			let itemList = orderItem.itemList[0].specList;
 			this.autoRenewItem.platform = getProperty(itemList.find(n => n.attrCode == "PLATFORM"));
 			this.autoRenewItem.zone = getProperty(itemList.find(n => n.attrCode == "ZONE"));
 			this.autoRenewItem.instanceName = getProperty(itemList.find(n => n.attrCode == "INSTANCENAME"));
-			this.autoRenewItem.billingMode = getProperty(itemList.find(n => n.attrCode == "BILLINGMODE"));
+			this.autoRenewItem.billingMode = orderItem.itemList[0].billingMode;
 			this.autoRenewItem.settingType = getProperty(itemList.find(n => n.attrCode == "SETTINGTYPE"));
 			this.autoRenewItem.serviceType = orderItem.itemList[0].serviceType;
 			this.autoRenewItem.expireDate = orderItem.itemList[0].expireDate;
@@ -393,10 +399,14 @@ export class OrderMngComponent implements OnInit {
 			this.autoRenewItem.price = orderItem.itemList[0].price;
 			this.autoRenewItem.periodType = orderItem.itemList[0].periodType;
 			this.autoRenewItem.extendType = orderItem.extendType;
+			this.autoRenewItem.instanceId = orderItem.orderId;
+			this.autoRenewItem.status = orderItem.itemList[0].status;
+			
 			this.layoutService.show();
 			if (this.autoRenewItem.extendType == 0) {
 				this.autoRenewConfigItem.Go(null, [{ key: "_instanceId", value: orderItem.orderId }, { key: "_serviceType", value: orderItem.itemList[0].serviceType }])
 					.then(success => {
+						console.log(success);
 						this.layoutService.hide();
 					})
 					.catch(err => {
@@ -405,14 +415,59 @@ export class OrderMngComponent implements OnInit {
 					})
 				this.AutoRenewDialog.open('已购服务自动续订：' + orderItem.orderNo);
 			}
-			else{
-				this.AutoRenewDialog.open('取消已购服务自动续订：' + orderItem.orderNo);
+			else {
+				this.layoutService.hide();
+				this.AutoRenewDialog.open('已购服务取消自动续订：' + orderItem.orderNo);
+				this.autoRenewItem.subExtendType = 0;
+				this.autoRenewItem.isSelectedType = true;
 			}
 		}
 	};
 
 	submitRenew() {
-		alert();
+		if (!this.autoRenewItem.isSelectedType) {
+			this.showMsg('请选择自动续订方式！');
+			return false
+		};
+		this.layoutService.show();
+		if (this.autoRenewItem.subExtendType > 0 ) {
+			this.autoRenewSetting.Go(null, null, { 'extendType': this.autoRenewItem.subExtendType, "subinstanceId": this.autoRenewItem.instanceId })
+			.then(success => {
+				this.layoutService.hide();
+				this.renewOver();
+			})
+			.catch(err => {
+				this.showMsg(err);
+				this.layoutService.hide();
+			})
+
+		} else if (this.autoRenewItem.subExtendType === 0 ){
+			this.autoRenewSetting.Go(null, null, { 'extendType': this.autoRenewItem.subExtendType, "subinstanceId": this.autoRenewItem.instanceId })
+			.then(success => {
+				this.layoutService.hide();
+				this.renewOver()
+			})
+			.catch(err => {
+				this.showMsg(err);
+				this.layoutService.hide();
+			})
+		}
+		else {
+			this.showMsg('此服务无法自动续订');
+			this.layoutService.hide();
+		}
+	}
+
+	renewOver(){
+		this.autoRenewItem.renewOver = true;
+		this.AutoRenewDialog.hideCt();
+		this.AutoRenewDialog.hideOt();
+	}
+
+	renewOverEnd(){
+		this.autoRenewItem.renewOver = false;
+		this.AutoRenewDialog.showCt();
+		this.AutoRenewDialog.showOt();
 	}
 
 	//选择续订	

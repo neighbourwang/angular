@@ -1,5 +1,5 @@
 ﻿<fc-notice #notice ot="{{ 'COMMON.CONFIRM' | translate }}"></fc-notice>
-<fc-popup class="renew-dialog" #AutoRenewDialog ot="{{'DIALOG.COMMIT' | translate}}" ct="{{'DIALOG.CANCEL' | translate}}">
+<fc-popup class="renew-dialog" #AutoRenewDialog ot="{{'DIALOG.COMMIT' | translate}}" ct="{{'DIALOG.CANCEL' | translate}}" (of)="submitRenew()">
 	<table class="popup-table">
 		<thead>
 			<tr>
@@ -7,6 +7,7 @@
 				<th class="text-center">产品类型</th>
 				<th class="text-center">计费模式</th>
 				<th class="text-center">当前费用</th>
+				<th  *ngIf="this.autoRenewItem.renewOver" class="text-center">状态</th>
 				<th class="text-center">到期时间</th>
 			</tr>
 		</thead>
@@ -24,29 +25,30 @@
 					</ul>
 				</td>
 				<td>{{ autoRenewItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async }}</td>
-				<td>{{ autoRenewItem.billingMode }}</td>
+				<td>{{ autoRenewItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async }}</td>
 				<td>
 					<span>{{ 'COMMON.ONE_TIME_COSTS' | translate }}:{{ autoRenewItem.oneTimePrice }}</span>
 					<br/>
 					<span>{{ 'COMMON.PRICE' | translate }}:{{ autoRenewItem.price }}</span>
 					<span *ngIf="autoRenewItem.serviceType==1">/GB</span><span>/{{autoRenewItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
 				</td>
+				<td  *ngIf="this.autoRenewItem.renewOver">{{ autoRenewItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') |async}}</td>
 				<td>{{ autoRenewItem.expireDate }}</td>
 			</tr>
 		</tbody>
 	</table>
 	<div class="auto-renew-info">
-		<div class="renew-type-title">自动续订方式 : </div>
+		<div class="renew-type-title" >自动续订方式 : </div>
 		<div class="renew-type-content">
-			<div class="select-renew-type">{{selectedAutoRenewType}}
-				<input id="unselectedType" name="renewTypeRadio" type="radio" [(ngModel)]="selectedAutoRenewType" value="-1" autocomplete="off" [checked]="selectedAutoRenewType == -1"/>
-				<label for="unselectedType" >
-					不改变
+			<div class="select-renew-type" *ngIf="autoRenewItem.extendType == 0 && !autoRenewItem.renewOver" >
+				<label (click)="autoRenewItem.isSelectedType=true">
+				<input class="fox-cloud-radio" id="unselectedType" name="renewTypeRadio" type="radio" [(ngModel)]="autoRenewItem.subExtendType" value="{{autoRenewItem.onExtendType}}" autocomplete="off"  />
+					维持当前续订方式
 				</label>
 				<br>
 				<span  *ngFor="let item of autoRenewItem.serivceRenewWayProductItems; let i=index">
-					<input id="selectedType" name="renewTypeRadio" type="radio" [(ngModel)]="selectedAutoRenewType" value="{{item.billingInfo.extendType}}" autocomplete="off"/>
-					<label for="selectedType" >
+					<label (click)="autoRenewItem.isSelectedType=true">
+					<input class="fox-cloud-radio" name="renewTypeRadio" type="radio" [(ngModel)]="autoRenewItem.subExtendType" value="{{item.billingInfo.extendType}}"  autocomplete="off"/>
 						{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}续订(周期费用：￥{{item.billingInfo.cyclePrice}}/ {{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}} ，
 						<span *ngIf="item.billingInfo.periodType==3">每6个月续订一次</span>
 						<span *ngIf="item.billingInfo.periodType==5">每一年续订一次</span>)
@@ -54,8 +56,17 @@
 					<br>
 				</span>
 			</div>
-			<div class="show-renew-type">
+			<div class="show-renew-type"  *ngIf="autoRenewItem.extendType > 0 || autoRenewItem.renewOver">
+				{{autoRenewItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}续订(周期费用：￥{{autoRenewItem.price}}/ {{autoRenewItem.periodType  | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}} ，
+				<span *ngIf="autoRenewItem.periodType==3">每6个月续订一次</span>
+				<span *ngIf="autoRenewItem.periodType==5">每一年续订一次</span>)
 			</div>
+		</div>
+		<div class="auto-renew-over" *ngIf="autoRenewItem.renewOver">
+			<div class="auto-renew-over-info">
+				<span *ngIf="autoRenewItem.extendType > 0">取消</span>自动续订申请已完成，可以进入管理控制台查看订单状态及使用相关资源，如需审批，则需要订单审批通过后才能正式生效。
+			</div>
+			<button class="btn button-confirm float-right" routerLink="/mng-console" routerLinkActive="active" >管理控制台</button>
 		</div>
 	</div>
 </fc-popup>

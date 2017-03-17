@@ -357,7 +357,8 @@
         "ORDER_HISTORY":"订单历史",
         "EXECUTOR":"执行者",
         "ENTER_ORDER_NUMBER_QUERY":"输入订单编号查询",
-        "CANCLE_ORDER":"撤销订单"
+        "CANCLE_ORDER":"撤销订单",
+        "START_UP":"启动"
     },
     "ENT_MNG": {
         "ABNORMAL_RESPONSE": "异常响应",
