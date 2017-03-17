@@ -437,10 +437,10 @@ console.log(this.vmProduct)
 			startupsource: [this.sendModule.startupsource.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE"],
 			imagetype: [this.sendModule.imagetype.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE"],
 			os: [this.sendModule.os.attrValueCode, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME"],
-			password: [this.sendModule.password.attrValue, [this.v.isPassword, this.v.lengthRange(8,30)], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
-			passwordShadow: [this.passwordShadow, [this.v.equalTo(this.sendModule.password.attrValue)], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
+			password: [this.sendModule.password.attrValue, [this.v.isPassword, this.v.lengthRange(8,30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
+			passwordShadow: [this.passwordShadow, [this.v.equalTo(this.sendModule.password.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
 			instancename: [this.sendModule.instancename.attrValue, [this.v.isInstanceName, this.v.isBase], "VM_INSTANCE.HOST_NAME_FORMAT_IS_NOT_CORRECT"],
-			timeline: [this.sendModule.timeline.attrValue.trim(), [this.v.isNumber, this.v.max(999)], "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION"],
+			timeline: [this.sendModule.timeline.attrValue.trim(), [this.v.isNumber, this.v.max(999), this.v.isUnBlank], "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION"],
 			timelineunit: [this.sendModule.timelineunit.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"],
 		}
 

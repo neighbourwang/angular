@@ -52,7 +52,7 @@
                     </td>
                 </tr> -->
                 <tr *ngIf="items.billingInfo.unitPrice">
-                    <td>总周期费用</td>
+                    <td>周期费用</td>
                     <td>
                         <font class="font-orange">
                         {{'COMMON.$' | translate}}{{items.billingInfo.unitPrice}}/GB/{{items.billingInfo.periodType | dict:service.weekly | async}}
