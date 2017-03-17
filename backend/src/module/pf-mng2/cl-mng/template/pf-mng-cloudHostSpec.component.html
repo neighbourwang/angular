@@ -36,7 +36,7 @@
                 <tbody>
                     <tr *ngFor="let flavor of flavorlist,let idx=index">
                         <td>{{idx+1}}</td>
-                        <td style="cursor:pointer">{{flavor.name}}</td>
+                        <td>{{flavor.name}}</td>
                         <td>{{flavor.vcpu}}</td>
                         <td>{{flavor.memSize}}</td>
                         <td>{{flavor.diskSize}}</td>
@@ -72,7 +72,7 @@
                 <tbody>
                     <tr *ngFor="let flavor of flavorlist,let idx=index">
                         <td>{{idx+1}}</td>
-                        <td style="cursor:pointer">{{flavor.name}}</td>
+                        <td>{{flavor.name}}</td>
                         <td>{{flavor.vcpu}}</td>
                         <td>{{flavor.memSize}}</td>
                         <td>{{flavor.diskSize}}</td>
@@ -96,7 +96,7 @@
     </div>
     <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="nof()"></fc-notice>
     <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-    <fc-popup #createSepc title="{{'PF_MNG2.NEW_CLOUD_SPEC' | translate}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
+    <fc-popup #createSepc title="{{'PF_MNG2.NEW_CLOUD_SPEC' | translate}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccCreate()">
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">

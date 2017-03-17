@@ -113,6 +113,7 @@ export class CloudHostSpecComponent implements OnInit {
         this.layoutService.show();
         this.service.vmFlavorNew(this.flavorObj).then(res=>{
             console.log(res);
+            this.flavorObj=new FlavorObj();            
             this.getFlavorList(this.platformId);
             this.createSepc.close()
             this.layoutService.hide();                        
@@ -121,6 +122,10 @@ export class CloudHostSpecComponent implements OnInit {
             this.layoutService.hide();
         })
          
+    }
+    //取消创建
+    ccCreate(){
+        this.flavorObj=new FlavorObj();
     }
     //启用云主机规格
     enableFlavor(id:string){
@@ -149,6 +154,7 @@ export class CloudHostSpecComponent implements OnInit {
         })
     }    
     ccf(){}
+    
     back(){
         this.location.back();
     }
