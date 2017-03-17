@@ -93,7 +93,11 @@
 		<div class="form-group">
 			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate }}:</div>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" placeholder="{{ 'COMMON.NAME' | translate }}" [(ngModel)]="entEst.BasicInfo.name">
+				<div class="form-group has-feedback" [ngClass]="{'has-success':isSameName==1,'has-error':isSameName==2}">
+					<input type="text" class="form-control" placeholder="{{ 'COMMON.NAME' | translate }}" [(ngModel)]="entEst.BasicInfo.name" (blur)="checkName();" style="border-color: #ddd;">
+					<span *ngIf="isSameName==1" class="glyphicon glyphicon-ok form-control-feedback" ></span>
+					<span *ngIf="isSameName==2" class="glyphicon glyphicon-remove form-control-feedback" ></span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -119,7 +123,7 @@
 					    <input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.VAILABLE_VCPU_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.vcpuQuota">
 					</div>
 					<div class="col-sm-1">
-					    <span class=" form-control-title mgl5"></span>
+					    <span class=" form-control-title mgl5">核</span>
 					</div>
 				</div>
 			</div>
@@ -141,7 +145,7 @@
 					<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_PYH_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.physicalQuota">
 					</div>
 					<div class="col-sm-1">
-					    <span class=" form-control-title mgl5" ></span>
+					    <span class=" form-control-title mgl5" >台</span>
 					</div>
 				</div>
 			</div>
@@ -163,7 +167,7 @@
 						<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_SNAPSHOT_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.snapShotQuota">
 					</div>
 					<div class="col-sm-1">
-					    <span class=" form-control-title mgl5"></span>
+					    <span class=" form-control-title mgl5">个</span>
 					</div>
 				</div>
 			</div>
@@ -174,7 +178,7 @@
 						<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_IMAGE_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.imageQuota">
 					</div>
 					<div class="col-sm-1">
-					    <span class=" form-control-title mgl5" ></span>
+					    <span class=" form-control-title mgl5" >个</span>
 					</div>
 				</div>
 			</div>
@@ -185,7 +189,7 @@
 						<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_FLOAT_IP_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.floatIpQuota">
 					</div>
 					<div class="col-sm-1">
-					    <span class=" form-control-title mgl5" ></span>
+					    <span class=" form-control-title mgl5" >个</span>
 					</div>
 				</div>
 			</div>

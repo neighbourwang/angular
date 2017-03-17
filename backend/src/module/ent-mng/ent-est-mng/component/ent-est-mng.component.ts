@@ -43,6 +43,9 @@ export class EntEstMngComponent implements OnInit {
 
   private ADflag: string = "";
 
+  private  nameCheckLoader: ItemLoader<{code:string;name:string}> = null;//重名判断
+  private isSameName:number = 0;//0初始状态，1名称不相同，2名称相同
+
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -50,6 +53,7 @@ export class EntEstMngComponent implements OnInit {
     private restApiCfg:RestApiCfg,
     private restApi:RestApi
   ) {
+     this.nameCheckLoader = new ItemLoader<{code:string;name:string}>(false,'企业重名判断错误','ent-mng.ent-est-mng.ent-mng-cre.check-name.post',restApiCfg,restApi);
 
     //认证数据更新
     this._certUpdateHandler = new ItemLoader<any>(false, "ENT_MNG.ENT_CERT_UPDATE_FAILED", "ent-mng.ent-est-mng.enterprise.updateauth", restApiCfg, restApi);
@@ -189,19 +193,26 @@ export class EntEstMngComponent implements OnInit {
   //保存编辑
   acceptEntModify(){
     console.log('保存编辑');
-    if(this.validateEntModify())
+   
+     if(this.validateEntModify())
     {
-      this.service.updateEntInfo(this.entEst.BasicInfo)
-      .then(ret=>{
-        this.editEnt.close();
-        this.search(null);
-      })
-      .catch(err=>{
-        console.log('保存企业基本信息出错', err);
-        this.showMsg("ENT_MNG.FAIL_TO_SAVE_ENTERPRISE_INFO");
-        this.okCallback = ()=>{this.editEnt.open();};
-      })
+      
+       if(this.isSameName!=1){
+          this.showMsg("该用户已存在！");
+        }else{
+          this.service.updateEntInfo(this.entEst.BasicInfo)
+          .then(ret=>{
+            this.editEnt.close();
+            this.search(null);
+          })
+          .catch(err=>{
+            console.log('保存企业基本信息出错', err);
+            this.showMsg("ENT_MNG.FAIL_TO_SAVE_ENTERPRISE_INFO");
+            this.okCallback = ()=>{this.editEnt.open();};
+          })
+        }
     }
+     
     else
     {
       this.editEnt.close();
@@ -233,6 +244,7 @@ export class EntEstMngComponent implements OnInit {
   cancelEntModify(){
     console.log('取消编辑');
     this.entEst.BasicInfo.reset();
+    this.isSameName = 0 
   }
 
   //修改配额
@@ -484,6 +496,7 @@ manageAviPlatform(){
 
   //设置认证
   acceptCertModify(){
+    
     if(this.validateCertModify())
     {
       this.layoutService.show();
@@ -600,4 +613,29 @@ manageAviPlatform(){
     }
   }
   
+
+  
+	checkName(){
+		let param ={
+			name:this.entEst.BasicInfo.name
+		}
+    if(param.name==null||param.name==''){
+			this.isSameName=2;
+		}else{
+      this.nameCheckLoader.Go(null,null,param)
+      .then(succeuss=>{
+        if(this.nameCheckLoader.code==10001004){
+          this.isSameName = 1;//10001004值是代表重名检查通过，允许创建
+        }else{
+          this.isSameName = 2;
+        }
+      })
+      .catch(err=>{
+        this.isSameName = 0;
+        this.showError(err);
+      })
+    }
+    }
+		
+	
 }
