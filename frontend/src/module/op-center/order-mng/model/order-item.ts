@@ -9,6 +9,7 @@ export class SubInstanceResp {
   canRenew:boolean = true;
   showInstance : boolean = true;//是否展示实例名称
   relySubinstanceId : number = null; //是否挂载了主机的标识
+  extendType: number = null;//, optional): 订单的自动续订状态
 
   get isMachine():boolean{//云主机
     return this.itemList && this.itemList[0].serviceType == 0;
@@ -95,11 +96,11 @@ export class ProductBillingItem {
 export class SubInstanceAttrPair {
   attrCode: string = null;//, optional): 服务属性Code ,
   attrDisplayName: string = null;//, optional): 服务属性页面显示的名称 ,
-  attrDisplayValue: string = null;//, optional): 服务属性值显示值 ,
-  attrOrderSeq: number = null;//, optional): 属性显示顺序, 如果为空，则忽略 ,
   attrValueCode: string = null;//, optional): 服务属性值Code ,
-  description: string = null;//, optional): 其他描述性内容，非不要 ,
+  attrDisplayValue: string = null;//, optional): 服务属性值显示值 ,
   valueUnit: string = null;//, optional): 服务属性值的单位
+  attrOrderSeq: number = null;//, optional): 属性显示顺序, 如果为空，则忽略 ,
+  description: string = null;//, optional): 其他描述性内容，非不要 ,
 }
 
 /*

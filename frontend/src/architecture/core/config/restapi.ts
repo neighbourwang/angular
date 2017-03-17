@@ -302,6 +302,19 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.order-renew-price.get",
         "url": "marketplace/authsec/subscription/instance/{_subId}/price"
     },
+    {
+        "desc": "自动续订配置变更",
+        "method": "GET",
+        "id": "op-center.order-mng.order-auto-renew-config.get",
+        "url": "marketplace/authsec/shopping/renewWay/{_instanceId}/serviceType/{_serviceType} "
+    },
+    
+    {
+        "desc": "对订购实例进行自动续订的设定及取消",
+        "method": "POST",
+        "id": "op-center.order-mng.order-auto-renew-setting.post",
+        "url": "marketplace/authsec/shopping/subinstance/setting"
+    },
     //费用中心-已购服务管理-->
 
     //订单查询

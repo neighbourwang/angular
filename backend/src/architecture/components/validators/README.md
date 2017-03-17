@@ -1,32 +1,7 @@
 # 表单验证类
 
+用法：
 
-
-## 验证方式(可以多重验证)：
-
-| 方法             | 参数                                     | 描述                        |
-| -------------- | -------------------------------------- | ------------------------- |
-| isBase         | 无                                      | 基本的验证 不含特殊字符 可为空          |
-| isUnBlank      | 无                                      | 非空验证                      |
-| isNumber       | 无                                      | 是否为数字    可为空                  |
-| isMoblie       | 无                                      | 是否为手机号   可为空                  |
-| isTel          | 无                                      | 是否是电话号码    可为空               |
-| isUrl          | 无                                      | 是否是url       可为空             |
-| isInstanceName | 无                                      | 2-68个字符，以大小写字母或中文开头     可为空  |
-| isPassword     | 无                                      | 同时包括三项（大写字母，小写字母，数字和特殊符号） 可为空|
-| isEmail        | 无                                      | 是否是email        可为空          |
-| min            | (min:number)                           | 数字的最小值                    |
-| max            | (max:number)                           | 数字的最大值                    |
-| range          | (min:number, max:number)               | 数字的范围                     |
-| minLength      | (min:number)                           | 字符的长度最小值                  |
-| maxLength      | (max:number)                           | 字符串长度的最大值                 |
-| lengthRange    | (min:number, max:number)               | 字符串长度范围                   |
-| uuid           | (version:"3"\|"4"\|"5"\|"all" = "all") | uuid                      |
-| equalTo        | (target:any)                           | 等于某个值                     |
-
-
-
-##用法：
 
 
 typescript:
@@ -69,8 +44,8 @@ checkForm(key?:string) {
 		return this.v.check(key, regs);
 	}
 ```
-**注一：select或者rodio等之类的验证直接进行isUnBlank非空验证即可**  
-**注二：regs为定义规则的对象需要和ValidationRegs保持对应，格式为**
+
+**注意：regs为定义规则的对象需要和ValidationRegs保持对应，格式为**
 
 ```javascript
 ValidationRegs {
@@ -129,9 +104,36 @@ submitForm() {
 
 
 
+#### 验证方式：
+
+| 方法             | 参数                                     | 描述                        |
+| -------------- | -------------------------------------- | ------------------------- |
+| isBase         | 无                                      | 基本的验证 不含特殊字符 可为空          |
+| isUnBlank      | 无                                      | 非空验证                      |
+| isNumber       | 无                                      | 是否为数字                     |
+| isMoblie       | 无                                      | 是否为手机号                    |
+| isTel          | 无                                      | 是否是电话号码                   |
+| isUrl          | 无                                      | 是否是url                    |
+| isInstanceName | 无                                      | 2-68个字符，以大小写字母或中文开头       |
+| isPassword     | 无                                      | 同时包括三项（大写字母，小写字母，数字和特殊符号） |
+| isEmail        | 无                                      | 是否是email                  |
+| min            | (min:number)                           | 数字的最小值                    |
+| max            | (max:number)                           | 数字的最大值                    |
+| range          | (min:number, max:number)               | 数字的范围                     |
+| minLength      | (min:number)                           | 字符的长度最小值                  |
+| maxLength      | (max:number)                           | 字符串长度的最大值                 |
+| lengthRange    | (min:number, max:number)               | 字符串长度范围                   |
+| uuid           | (version:"3"\|"4"\|"5"\|"all" = "all") | uuid                      |
+| equalTo        | (target:any)                           | 等于某个值                     |
 
 
-## 完整的例子
+
+
+
+
+
+
+### 完整的例子
 
 html：
 

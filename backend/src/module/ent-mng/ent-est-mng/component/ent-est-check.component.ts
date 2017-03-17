@@ -154,26 +154,26 @@ export class EntEstCheckComponent implements OnInit {
         
 
          // obj.usedCpuRate = item.usedCpuRate;//CPU配额使用率
-        obj.usedCpuRate =  (item.usedCpuQuota/item.cpuQuota)*100;
+        obj.usedCpuRate = Number(((item.usedCpuQuota/item.cpuQuota)*100).toFixed(2));
 
         // obj.usedFloatIpRate= item.usedFloatIpRate;// 浮动IP配额配额
-        obj.usedFloatIpRate= (item.usedFloatIpQuota/item.floatIpQuota)*100;
+        obj.usedFloatIpRate=Number(((item.usedFloatIpQuota/item.floatIpQuota)*100).toFixed(2));
 
         // obj.usedImageRate = item.usedImageRate;//镜像配额使用率
-        obj.usedImageRate = (item.usedImageQuota/item.imageQuota)*100;
+        obj.usedImageRate =Number(((item.usedImageQuota/item.imageQuota)*100).toFixed(2));
 
         // obj.usedMemRate  = item.usedMemRate;//内存使用率
-        obj.usedMemRate = (item.usedMemQuota/item.memQuota)*100;
+        obj.usedMemRate =Number(((item.usedMemQuota/item.memQuota)*100).toFixed(2));
 
         // obj.usedPhysicalMachineRate = item.usedPhysicalMachineRate;//物理机配额使用率
-        obj.usedPhysicalMachineRate = (item.usedPhysicalMachineQuota/item.physicalMachineQuota)*100;
+        obj.usedPhysicalMachineRate = Number(((item.usedPhysicalMachineQuota/item.physicalMachineQuota)*100).toFixed(2));
 
         // obj.usedSnapshotRate = item.usedSnapshotRate; //快照配额使用率
-        obj.usedSnapshotRate = (item.usedSnapshotQuota/item.snapshotQuota)*100; 
+        obj.usedSnapshotRate = Number(((item.usedSnapshotQuota/item.snapshotQuota)*100).toFixed(2)); 
 
         // obj.usedStorageRate = item.usedStorageRate;//储存使用率
 
-        obj.usedStorageRate = (item.usedStorageQuota/item.storageQuota)*100;
+        obj.usedStorageRate =Number(((item.usedStorageQuota/item.storageQuota)*100).toFixed(2));
   
       }
     };

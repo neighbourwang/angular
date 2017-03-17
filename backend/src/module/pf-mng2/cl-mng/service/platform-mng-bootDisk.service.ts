@@ -22,6 +22,18 @@ export class BootDiskService{
 
         return this.restApi.request(api.method , api.url , [{key :'id' , value : id}],undefined);
     }
+    //获取平台启用可用区for创建启动盘    
+    getEnableZoneList(id:string){
+        let api = this.restApiCfg.getRestApi("platform-mng.validZoneList.get");
+
+        return this.restApi.request(api.method , api.url , [{key :'id' , value : id}],undefined);
+    }
+    //获取可用去volumetype或存储后端
+    getEnableStorageList(id:string){
+        let api = this.restApiCfg.getRestApi("platform-mng.validStorageList.get");
+
+        return this.restApi.request(api.method , api.url , [{key :'id' , value : id}],undefined);
+    }
     //新建启动盘
     vmBootDiskNew(bootDisk:BootDiskModel){
         let list=[];
@@ -32,6 +44,11 @@ export class BootDiskService{
     //启用启动盘
     enableBootDisk(id:string){
         let api = this.restApiCfg.getDataRestApi("platform-mng.bootDisk.enable");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    }
+    //禁用启动盘    
+    suspendBootDisk(id:string){
+        let api = this.restApiCfg.getDataRestApi("platform-mng.bootDisk.suspend");
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
     }
     //删除启动盘

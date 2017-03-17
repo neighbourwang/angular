@@ -267,7 +267,8 @@
         "ORDER_HISTORY":"Order history",
         "EXECUTOR":"Executor",
         "ENTER_ORDER_NUMBER_QUERY":"Enter the order number to query",
-        "CANCLE_ORDER":"Cancel order"
+        "CANCLE_ORDER":"Cancel order",
+        "START_UP":"Start-up"
     },
     "ENT_MNG": {
         "ABNORMAL_RESPONSE": "Abnormal response",

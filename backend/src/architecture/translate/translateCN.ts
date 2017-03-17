@@ -357,7 +357,8 @@
         "ORDER_HISTORY":"订单历史",
         "EXECUTOR":"执行者",
         "ENTER_ORDER_NUMBER_QUERY":"输入订单编号查询",
-        "CANCLE_ORDER":"撤销订单"
+        "CANCLE_ORDER":"撤销订单",
+        "START_UP":"启动"
     },
     "ENT_MNG": {
         "ABNORMAL_RESPONSE": "异常响应",
@@ -392,7 +393,7 @@
         "CAN_CREATE_IMAGE_NUM": "可创建镜像数量",
         "CAN_CREATE_PYH_NUM": "可创建物理机数量",
         "CAN_CREATE_SNAPSHOT_NUM": "可创建快照数量",
-        "CAN_CREATE_VCPU_NUM": "可创建vCPU数量",
+        "CAN_CREATE_VCPU_NUM": "可使用vCPU数量",
         "CERT_MANAGEMENT": "认证管理",
         "CERT_TYPE": "认证类型",
         "CHOOSE_ADMIN_TO_EDIT": "请先选择需要编辑的管理员",

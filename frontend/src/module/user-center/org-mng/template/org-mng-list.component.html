@@ -98,10 +98,10 @@
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="width:50%;float: left"> 
-                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota||0}}</span>
+                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota||0}}</span>个
                 </div>
                 <div style="width:50%;float: left">
-                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota-service.entResourceObj.realUsedSnapshotQuota||0}}</span>
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota-service.entResourceObj.realUsedSnapshotQuota||0}}</span>个
                 </div>
                 <div style="clear : both">
                 </div>
@@ -119,10 +119,10 @@
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="width:50%;float: left"> 
-                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota||0}}</span>
+                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota||0}}</span>个
                 </div>
                 <div style="width:50%;float: left">
-                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota-service.entResourceObj.realUsedImageQuota||0}}</span>
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota-service.entResourceObj.realUsedImageQuota||0}}</span>个
                 </div>
                 <div style="clear : both">
                 </div>
@@ -140,10 +140,10 @@
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div style="width:50%;float: left"> 
-                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota||0}}</span>
+                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota||0}}</span>个
                 </div>
                 <div style="width:50%;float: left">
-                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota-service.entResourceObj.realUsedFloatIpQuota||0}}</span>
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota-service.entResourceObj.realUsedFloatIpQuota||0}}</span>个
                 </div>
                 <div style="clear : both">
                 </div>
@@ -162,10 +162,9 @@
 <div class="mgb20" style="overflow : hidden">
     <button class="btn button-confirm float-right" (click)="openCreate()">{{ 'IMAGE.CREATED_DEPARTMENT' | translate }}</button>
 </div>
-
 <table class="table table-hover mgb20">
 	<tbody><tr>
-        <th class="text-center" style="width : 10%">{{ 'COMMON.SELECT' | translate }}</th>
+        <th class="text-center" style="width : 10%">{{ 'COMMON.SERIAL' | translate }}</th>
 		<th class="text-center" style="width : 20%">{{ 'USER_CENTER.DEPARTMENT_NAME' | translate }}</th>
 		<th class="text-center" style="width : 15%">{{ 'USER_CENTER.NUMBER_OF_DEPARTMENT_PERSONNEL' | translate }}</th>
 		<!--<th class="text-center" style="width : 15%">{{ 'USER_CENTER.DEPARTMENT_HEAD' | translate }}</th>-->
@@ -174,7 +173,7 @@
 		<th class="text-center" style="width : 20%">{{ 'COMMON.OPERATION' | translate }}</th>
 	</tr>
 	<tr *ngFor='let organ of orgs;let idx=index'>
-		<td class="text-center"><input name="host-list" type="radio" class="fox-cloud-radio"></td>
+		<td class="text-center">{{idx+1}}</td>
 		<td class="text-center active">{{organ.name}}</td>
 		<td class="text-center">{{organ.headCount}}</td>
 		<!--<td class="text-center">{{organ.leaderName}}</td>-->

@@ -13,16 +13,15 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <li><a href="#">新建</a></li>
-                <li><a href="#">编辑</a></li>
-                <li><a (click)="remove();">删除</a></li>
-                <li><a (click)="enable();">启用</a></li>
-                <li><a (click)="disable();">禁用</a></li>
+                <li><a (click)="editZoneBootDisk()">编辑</a></li>
+                <li><a (click)="deleteZoneBootDisk();">删除</a></li>
+                <li><a (click)="enableZoneBootDisk();">启用</a></li>
+                <li><a (click)="suspendZoneBootDisk();">禁用</a></li>
             </ul>
         </div>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="createBootDisk();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建启动盘</span>
+            <span class="icon-button-label icon-left-button-label">设置启动盘</span>
         </button>
         <div style="clear: both"></div>
     </div>
@@ -39,20 +38,33 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" /></td>
-                    <td (click)="godetail(item)" style="cursor:pointer">可用区1</td>
-                    <td>高性能SSD</td>
-                    <td>cinder-volume1</td>
-                    <td>启用</td>
-                    <td>desc</td>
-                </tr>                
+                <tr *ngFor="let bootDisk of zoneBootDiskList; let idx=index">
+                    <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" (click)="selectedZone=bootDisk;"/></td>
+                    <td (click)="godetail(item)" style="cursor:pointer">{{bootDisk.zoneName}}</td>
+                    <td>{{bootDisk.bootStorageName}}</td>
+                    <td>
+                        <p *ngFor="let storageName of bootDisk.storageName">{{storageName}}</p>
+                    </td>
+                    <td [ngClass]="{'font-green':bootDisk.bootStorageStatus == '1' ,'font-orange':bootDisk.bootStorageStatus == '2'}">
+                        <!--{{item.status| dict:this.commonService.globalStatus | async}}-->
+                        <span [ngSwitch]="bootDisk.bootStorageStatus"> 
+										<template [ngSwitchCase]="0">初始化</template>
+										<template [ngSwitchCase]="1">启用</template>
+										<template [ngSwitchCase]="2">禁用</template>
+										<template ngSwitchDefault>Unknown</template>							
+							</span>
+                    </td>
+                    <td>{{bootDisk.bootStorageDescription}}</td>
+                </tr>
             </tbody>
         </table>
     </div>
 </div>
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="nof()"></fc-notice>
 
-<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="deleteCof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="publishCof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="ccPublishCof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="deleteCof()" ct="HOST_VMWARE_MNG.CANCEL"
+    (cf)="ccf()"></fc-confirm>
+<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="publishCof()" ct="HOST_VMWARE_MNG.CANCEL"
+    (cf)="ccf()"></fc-confirm>
+<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="ccPublishCof()" ct="HOST_VMWARE_MNG.CANCEL"
+    (cf)="ccf()"></fc-confirm>
