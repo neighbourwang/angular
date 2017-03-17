@@ -18,6 +18,8 @@ export class PopupComponent implements OnInit {
     param: any;
     title: String;
     showTitle: String;
+    isHideCt: boolean = false;
+    isHideOt: boolean = false;
 
     constructor(private dialogTranslate: DialogTranslate) {
     }
@@ -50,5 +52,21 @@ export class PopupComponent implements OnInit {
 
     close() {
         this.dialog.close();
+    }
+
+    hideCt(){
+        this.isHideCt = true;
+    }
+
+    hideOt(){
+        this.isHideOt = true;
+    }
+
+    showCt(){
+        this.isHideCt = false;
+    }
+
+    showOt(){
+        this.isHideOt = false;
     }
 }

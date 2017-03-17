@@ -13,16 +13,15 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <li><a href="#">新建</a></li>
-                <li><a href="#">编辑</a></li>
-                <li><a (click)="remove();">删除</a></li>
-                <li><a (click)="enable();">启用</a></li>
-                <li><a (click)="disable();">禁用</a></li>
+                <li><a (click)="editZoneBootDisk()">编辑</a></li>
+                <li><a (click)="deleteZoneBootDisk();">删除</a></li>
+                <li><a (click)="enableZoneBootDisk();">启用</a></li>
+                <li><a (click)="suspendZoneBootDisk();">禁用</a></li>
             </ul>
         </div>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="createBootDisk();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建启动盘</span>
+            <span class="icon-button-label icon-left-button-label">设置启动盘</span>
         </button>
         <div style="clear: both"></div>
     </div>
@@ -39,12 +38,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let bootDisk of bootDiskList;">
-                    <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" /></td>
+                <tr *ngFor="let bootDisk of zoneBootDiskList; let idx=index">
+                    <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" (click)="selectedZone=bootDisk;"/></td>
                     <td (click)="godetail(item)" style="cursor:pointer">{{bootDisk.zoneName}}</td>
                     <td>{{bootDisk.bootStorageName}}</td>
                     <td>
-                        <p *ngFor="let storageName of bootDisk.storageName">{{storageName}}</p>
+                        <p *ngFor="let storageName of bootDisk.storageName" style="margin-bottom: 0">{{storageName}}</p>
                     </td>
                     <td [ngClass]="{'font-green':bootDisk.bootStorageStatus == '1' ,'font-orange':bootDisk.bootStorageStatus == '2'}">
                         <!--{{item.status| dict:this.commonService.globalStatus | async}}-->

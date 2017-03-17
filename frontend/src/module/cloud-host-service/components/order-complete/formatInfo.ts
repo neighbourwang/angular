@@ -28,7 +28,7 @@ export class formatInfo implements PipeTransform {
 					attrDisplayName : "实例规格",
 					attrDisplayValue : info.CPU.attrDisplayName + info.CPU.attrDisplayValue + " / " +
 									   info.MEM.attrDisplayName + info.MEM.attrDisplayValue + " / " +
-									   info.BOOTSIZE.attrDisplayName + info.BOOTSIZE.attrDisplayValue + "GB"
+									   info.BOOTSIZE.attrDisplayName + info.BOOTSIZE.attrDisplayValue
 				},
 				{
 					attrDisplayName : "操作系统",
