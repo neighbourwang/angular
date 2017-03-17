@@ -50,11 +50,11 @@ constructor(
 ```javascript
 checkForm(key?:string) {
 		let regs:ValidationRegs = {  //regs是定义规则的对象
-			email: [this.email, [this.v.isEmail], "Email输入不正确"], 
+			email: [this.email, [this.v.isEmail, this.v.isUnBlank], "Email输入不正确"], 
   			//验证email
 			baseInput: [this.baseInput, [this.v.isBase, this.v.isUnBlank], "不能包含特殊字符"],
   			//两次验证[基础的验证不能包含特殊字符，不能为空]
-			phone: [this.phone, [this.v.isMoblie], "手机号码输入不正确"],
+			phone: [this.phone, [this.v.isMoblie, this.v.isUnBlank], "手机号码输入不正确"],
   			//手机号码验证
 			password: [this.password, [this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
   			//两次验证[密码验证，8-16个字]
