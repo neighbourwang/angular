@@ -1,5 +1,5 @@
-<div class="page-content-header icon-content-header-operation-center">
-   {{'CASE_MNG.HANDLE_CASE'|translate}}：{{caseInfo.id}}-{{caseInfo.subject}}   
+<div class="page-content-header icon-content-header-operation-center ">
+   {{'CASE_MNG.HANDLE_CASE'|translate}}：{{caseInfo.id}}
 </div>
 <div class="page-content">
     <div class="row mgt20" >
@@ -37,7 +37,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title" >{{'CASE_MNG.DESCRIPTION'|translate}}:</div>
             <div class="col-md-4">
-                <textarea class="form-control" rows="3" placeholder="">{{caseInfo.details}}</textarea>
+                <textarea class="form-control" rows="3"  disabled>{{caseInfo.details}}</textarea>
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'CASE_MNG.HANDLE_RECORD'|translate}}:</div>
             <div class="col-md-4">
-                <textarea class="form-control" rows="3" [(ngModel)]="handleInfo.handleInfo"></textarea>
+                <textarea class="form-control" rows="3"  maxlength="1000" [(ngModel)]="handleInfo.handleInfo"></textarea>
             </div>
         </div> 
     </div>
@@ -105,7 +105,7 @@
             <div class="form-group">
                 <div class="col-sm-2 form-control-title">{{'CASE_MNG.HANDLE_RECORD'|translate}}:</div>
                 <div class="col-md-5">  
-                    <textarea class="form-control" rows="3" placeholder="最多只能输入1000个文字">{{handleInfo.handleInfo}}</textarea>
+                    <textarea class="form-control" rows="3" disabled>{{handleInfo.handleInfo}}</textarea>
                 </div> 
             </div>
         </div>

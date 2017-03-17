@@ -50,6 +50,7 @@ export class CaseMngComponent implements OnInit {
     type:string="";
     status:string="";
     emergency:string="";
+
    
   
     ngOnInit() {
@@ -121,6 +122,7 @@ export class CaseMngComponent implements OnInit {
             return;
         }
         if(selectCase.statusName=="新建"||selectCase.statusName=="处理中"){
+            
             this.route.navigate(['mtc-center/case-mng/case-closed',{id:selectCase.id}])
         }
        else{
