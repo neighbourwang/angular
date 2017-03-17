@@ -51,7 +51,7 @@ export class bootDiskMngComponent implements OnInit {
     platformName:string;
     platformType:string;
     platformTypeName:string;
-    bootDiskList:Array<BootDiskModel>;
+    zoneBootDiskList:Array<BootDiskModel>;
     //初始化
     ngOnInit() {
         this.router.params.forEach((params: Params)=>{
@@ -68,19 +68,37 @@ export class bootDiskMngComponent implements OnInit {
    getBootDiskList(){
        this.service.getbootDiskList(this.platformId).then(res=>{
            console.log(res);
-           this.bootDiskList=res.resultContent;
+           this.zoneBootDiskList=res.resultContent;
        }).catch(err=>{
            console.error.bind(err);
        })
    }
+   //选择可用区
+   selectedZone:BootDiskModel;
+   selectZone(zone){
+       console.log(zone);
+       this.selectedZone=zone;
+   }
+   //编辑启动盘
+   //启用启动盘
+   //禁用启动盘
+   //删除启动盘
+
     back(){
         this.location.back();
     }
     goList(){
         this.route.navigate(['pf-mng2/cl-mng/cl-mng'])
     }
-    save(){}
     createBootDisk(){
+        let isCanSet:boolean=false;
+        for(let zone of this.zoneBootDiskList){
+            if(!zone.bootStorageId){
+                isCanSet=true;
+                this.notice.open('提示','目前所有可用区都已经设置启动盘')
+                return;
+            }
+        }
         this.route.navigate(['pf-mng2/pf-mng-bootDisk-creEdit', {id:this.platformId,type:this.platformType}])
     }
 }

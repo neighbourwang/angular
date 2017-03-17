@@ -22,7 +22,7 @@
         </div>
         <button class="fox-cloud-button fox-cloud-button-green" (click)="createBootDisk();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">创建启动盘</span>
+            <span class="icon-button-label icon-left-button-label">设置启动盘</span>
         </button>
         <div style="clear: both"></div>
     </div>
@@ -39,8 +39,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let bootDisk of bootDiskList;">
-                    <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" /></td>
+                <tr *ngFor="let bootDisk of zoneBootDiskList; let idx=index">
+                    <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" (click)="selectZone(bootDisk)"/></td>
                     <td (click)="godetail(item)" style="cursor:pointer">{{bootDisk.zoneName}}</td>
                     <td>{{bootDisk.bootStorageName}}</td>
                     <td>
