@@ -1762,6 +1762,8 @@
         "RESELECT_CLOSE_CASE":"工单状态为'新建'或'处理中'才能关闭，请选择需要关闭的工单！",
         "SELECT_HANDLE_CASE":"请选择需要处理的工单！",
         "RESELECT_HANDLE_CASE":"工单状态只有为'新建'或'处理中'才能处理，请选择需要处理的工单！",
+        "CASE_HAS_CLOSED":"该工单已关闭，不能进行处理！",
+        "CASE_HAS_CLOSE":"该工单已关闭，不能再次关闭！",
 
         "CASE_DETAIL":"工单详细",
         "CASE_INFO":"基本信息",
