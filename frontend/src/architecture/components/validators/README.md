@@ -14,7 +14,8 @@
 | isUrl          | 无                                      | 是否是url             |
 | isInstanceName | 无                                      | 2-68个字符，以大小写字母或中文开头     |
 | isPassword     | 无                                      | 同时包括三项（大写字母，小写字母，数字和特殊符号）|
-| isEmail        | 无                                      | 是否是email        可为空          |
+| isEmail        | 无                                      | 是否是email                 |
+| isInteger      | 无                                      | 是否是整数             |
 | min            | (min:number)                           | 数字的最小值                    |
 | max            | (max:number)                           | 数字的最大值                    |
 | range          | (min:number, max:number)               | 数字的范围                     |
