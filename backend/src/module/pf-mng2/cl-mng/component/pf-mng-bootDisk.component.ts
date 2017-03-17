@@ -25,8 +25,6 @@ export class bootDiskMngComponent implements OnInit {
                 ) {
     }
 
-
-
     @ViewChild('publishConfirm')
     publishConfirm: ConfirmComponent;
 
@@ -95,6 +93,10 @@ export class bootDiskMngComponent implements OnInit {
    enableZoneBootDisk(){
        if(this.selectedZone){
             console.log(this.selectedZone);
+            if(this.selectedZone.bootStorageStatus=='1'){
+                this.notice.open('操作错误','启动盘状态已启用');
+                return;
+            }
             this.service.enableBootDisk(this.selectedZone.bootStorageId).then(res=>{
                 console.log(res);
                 this.getBootDiskList();
@@ -110,9 +112,18 @@ export class bootDiskMngComponent implements OnInit {
    suspendZoneBootDisk(){
       if(this.selectedZone){
             console.log(this.selectedZone);
+            if(this.selectedZone.bootStorageStatus=='2'){
+                this.notice.open('操作错误','启动盘状态已禁用');
+                return;
+            }
             this.service.suspendBootDisk(this.selectedZone.bootStorageId).then(res=>{
+                if(res.resultCode=="10006003"){
+                    this.notice.open('操作错误','不能禁用已关联产品目录的启动盘');
+                }else{
+                    this.getBootDiskList();
+                }
                 console.log(res);
-                this.getBootDiskList();
+                
             }).catch(err=>{
                 console.log(err);
             })
@@ -125,9 +136,17 @@ export class bootDiskMngComponent implements OnInit {
    deleteZoneBootDisk(){
        if(this.selectedZone){
             console.log(this.selectedZone);
+            if(this.selectedZone.bootStorageStatus=='1'){
+                this.notice.open('操作错误','不能删除启用状态下启动盘');
+                return;
+            }
             this.service.deleteBootDisk(this.selectedZone.bootStorageId).then(res=>{
                 console.log(res);
-                this.getBootDiskList();
+                if(res.resultCode=="10006003"){
+                    this.notice.open('操作错误','不能禁用已关联产品目录的启动盘');
+                }else{
+                    this.getBootDiskList();
+                }
             }).catch(err=>{
                 console.log(err);
             })

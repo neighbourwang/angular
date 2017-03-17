@@ -392,6 +392,31 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",    
         "url": "adminui/authsec/sync/platform/bootstorage"        
     },
+    //volumetype信息
+    {
+        "desc": "获取volumeType列表",
+        "id": "platform-mng.volumeTypeList.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/{id}/volumetype"        
+    },
+    {
+        "desc": "更新volumeType列表",
+        "id": "platform-mng.volumeTypeList.put",
+        "method": "PUT",
+        "url": "adminui/authsec/platforms/{id}/volumetype"        
+    },
+    {
+        "desc": "启用volumeType",
+        "id": "platform-mng.volumeType.enable",
+        "method": "GET",
+        "url": "adminui/authsec/platform/volumeType[id]/enable"        
+    },
+    {
+        "desc": "禁用volumeType",
+        "id": "platform-mng.volumeTypeList.suspend",
+        "method": "GET",
+        "url": "adminui/authsec/platform/volumeType/{id}/suspend"        
+    },
     // 企业资源配额管理
     {
         "desc": "取得所有企业的资源配额信息",
