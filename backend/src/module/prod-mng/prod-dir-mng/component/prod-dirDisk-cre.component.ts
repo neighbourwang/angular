@@ -88,18 +88,19 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
 
     //获取启动盘信息
-    selectStorage(id) {
-        for (let platform of this.prodDir.platformList) {
-            for (let zone of platform.platformInfo) {
-                for (let storage of zone.storageItem) {
+    selectStorage(id,idx,idxxx) {
+        console.log(id,idx,idxxx)
+        // for (let platform of this.prodDir.platformList) {
+            // for (let zone of platform.platformInfo) {
+                for (let storage of this._platformlist[idx].platformInfo[idxxx].storageItem) {
                     if (storage.storageId == id) {
                         storage.selected = true;
                     } else {
                         storage.selected = false;
                     }
                 }
-            }
-        }
+            // }
+        // }
     }
     getProdDirDetail(id) {
         this.ProdDirDetailService.getVmProdDirDetail(id).then(
@@ -184,6 +185,16 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
 
     onSubmit() {
+        this.prodDir.platformList = this._platformlist.filter(function (ele) {
+            if (ele.platformInfo) {
+                for (let zone of ele.platformInfo) {
+                    if (zone.selected == true) {
+                        return ele;
+                    }
+                }
+            }
+
+        })
         console.log(this.prodDir);
         if (!this.prodDir.serviceName) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.INPUT_PRODUCT_CAT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.INPUT_PRODUCT_CAT=>请输入产品目录名称 
