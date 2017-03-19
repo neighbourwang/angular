@@ -115,6 +115,12 @@ export class bootDiskCreEditComponent implements OnInit {
             this.bootDisk.storageId.push(storage.storageId)
             // this.bootDisk.storageDisplayName.push(storage.storageDisplayName)
         } else {
+            if (this.bootDisk.storageId[0]) {
+                this.storageList.push({
+                    storageId: this.bootDisk.storageId[0],
+                    storageName: this.bootDisk.storageName[0]
+                })
+            }
             this.bootDisk.storageName[0] = storage.storageName;
             this.bootDisk.storageId[0] = storage.storageId;
             // this.bootDisk.storageDisplayName[0]=storage.storageDisplayName;
@@ -136,14 +142,14 @@ export class bootDiskCreEditComponent implements OnInit {
     }
     //保存启动盘
     createBootDisk() {
-        if(!this.bootDisk.bootStorageName){
-            this.notice.open('操作错误','请输入启动盘名称');
+        if (!this.bootDisk.bootStorageName) {
+            this.notice.open('操作错误', '请输入启动盘名称');
             return;
         }
-        if(this.bootDisk.storageId.length==0){
-            this.notice.open('操作错误','请选择存储后端');
+        if (this.bootDisk.storageId.length == 0) {
+            this.notice.open('操作错误', '请选择存储后端');
             return;
-        }        
+        }
         console.log(this.bootDisk);
         this.layoutService.show();
         if (!this.isEdit) {
@@ -172,7 +178,7 @@ export class bootDiskCreEditComponent implements OnInit {
         this.locaton.back();
     }
 
-    nof(){
+    nof() {
 
     }
 
