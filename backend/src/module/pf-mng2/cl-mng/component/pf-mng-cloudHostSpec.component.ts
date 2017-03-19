@@ -88,6 +88,7 @@ export class CloudHostSpecComponent implements OnInit {
     nof(){}
     //VMware新建云主机规格
     createFlavor(){
+        this.flavorObj=new FlavorObj();
         this.createSepc.open();
     }
     //确认创建
@@ -113,7 +114,6 @@ export class CloudHostSpecComponent implements OnInit {
         this.layoutService.show();
         this.service.vmFlavorNew(this.flavorObj).then(res=>{
             console.log(res);
-            this.flavorObj=new FlavorObj();            
             this.getFlavorList(this.platformId);
             this.createSepc.close()
             this.layoutService.hide();                        
@@ -125,7 +125,6 @@ export class CloudHostSpecComponent implements OnInit {
     }
     //取消创建
     ccCreate(){
-        this.flavorObj=new FlavorObj();
     }
     //启用云主机规格
     enableFlavor(id:string){

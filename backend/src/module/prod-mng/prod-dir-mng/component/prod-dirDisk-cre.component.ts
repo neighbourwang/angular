@@ -88,20 +88,16 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
 
     //获取启动盘信息
-    selectStorage(id,idx,idxx) {
-        console.log(id,idx,idxx);
-        // for (let platform of this.prodDir.platformList) {
-            // for (let zone of platform.platformInfo) {
-                for (let storage of this._platformlist[idx].platformInfo[idxx].storageItem) {
+
+    selectStorage(id,idx,idxxx) {
+        console.log(id,idx,idxxx)
+                for (let storage of this._platformlist[idx].platformInfo[idxxx].storageItem) {
                     if (storage.storageId == id) {
                         storage.selected = true;
                     } else {
                         storage.selected = false;
                     }
                 }
-            // }
-        // }
-        console.log(this.prodDir.platformList);
     }
     getProdDirDetail(id) {
         this.ProdDirDetailService.getVmProdDirDetail(id).then(

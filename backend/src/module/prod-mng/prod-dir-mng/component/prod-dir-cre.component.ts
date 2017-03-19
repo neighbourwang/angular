@@ -33,7 +33,7 @@ export class ProdDirCreComponent implements OnInit {
 
     prodDir = new ProdDir();
     _platformlist: Array<platform> = new Array<platform>();
-    pageTitle:string;
+    pageTitle: string;
     ngOnInit() {
         let prodDirId: string;
         let prodDirType: string;
@@ -42,32 +42,36 @@ export class ProdDirCreComponent implements OnInit {
             prodDirId = params['id'];
             prodDirType = params['type'];
             if (params['vcpu']) {
-                    this.pageTitle='PROD_MNG.CREATE_PRODUCT_CAT'
-                    this.prodDir.specification.vcpu = params['vcpu'];
-                    this.prodDir.specification.mem = params['mem'];
-                    this.prodDir.specification.startupDisk = params['startupDisk'];
-                }
+                this.pageTitle = 'PROD_MNG.CREATE_PRODUCT_CAT'
+                this.prodDir.specification.vcpu = params['vcpu'];
+                this.prodDir.specification.mem = params['mem'];
+                this.prodDir.specification.startupDisk = params['startupDisk'];
+            }
             //获取可用平台
             this.LayoutService.show();
-            this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem,this.prodDir.specification.startupDisk).then(response => {
+            this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem, this.prodDir.specification.startupDisk).then(response => {
                 // console.log(response);
                 if (response && 100 == response.resultCode) {
                     let resultContent = response.resultContent;
                     this._platformlist = response.resultContent;
-                    console.log('pingtai',this._platformlist);
+                    console.log('pingtai', this._platformlist);
                     for (let plate of this._platformlist) {
                         if (!plate.zoneList) continue;
                         for (let zone of plate.zoneList) {
+                            for (let storage of zone.storageList) {
+                                storage.selected = false;
+                            }
                             if (zone.storageList[0]) {
                                 zone.storageId = zone.storageList[0].storageId;
                                 zone.serviceSKUId = zone.storageList[0].serviceSKUId;
+                                zone.storageList[0].selected = true;
                             }
-                            zone.selected=false;
+                            zone.selected = false;
                             // console.log(zone.storageList);
                         }
                     }
                     if (prodDirType == 'edit') {
-                        this.pageTitle='PROD_MNG.EDIT_PRODUCT_CATALOG'
+                        this.pageTitle = 'PROD_MNG.EDIT_PRODUCT_CATALOG'
                         this.getProdDirDetail(prodDirId);
                     }
 
@@ -80,7 +84,7 @@ export class ProdDirCreComponent implements OnInit {
             }).catch(err => {
                 console.error(err);
                 this.LayoutService.hide();
-            });            
+            });
         })
 
     }
@@ -89,7 +93,7 @@ export class ProdDirCreComponent implements OnInit {
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
-                    console.log('vmdetail',response);
+                    console.log('vmdetail', response);
                     let resultContent = response.resultContent;
                     this.prodDir = response.resultContent;
                 } else {
@@ -108,7 +112,7 @@ export class ProdDirCreComponent implements OnInit {
         this.prodDir.specification[arg] = e;
         console.log(this.prodDir.specification.mem);
     }
-    
+
     //选择全部可用区
     selectAllZone: boolean = false;
     selectAllZones() {
@@ -129,13 +133,20 @@ export class ProdDirCreComponent implements OnInit {
         })
     }
     //选择平台启动盘,this 
-    selectStorage(id, idx) {
+    selectStorage(id, idx, idxxx) {
         console.log(id);
         console.log(idx);
+        for (let storage of this._platformlist[idx].zoneList[idxxx].storageList) {
+            if (storage.storageId == id) {
+                storage.selected = true;
+            } else {
+                storage.selected = false;
+            }
+        }
     }
     //选择平台可用区
     selectZone(idx, idxx) {
-        console.log('121212121',idx,idxx);
+        console.log('121212121', idx, idxx);
         this._platformlist[idx].zoneList[idxx].selected = !this._platformlist[idx].zoneList[idxx].selected;
         console.log(this._platformlist[idx]);
         this.prodDir.platformList = this._platformlist.filter(function (ele) {
@@ -145,17 +156,17 @@ export class ProdDirCreComponent implements OnInit {
                 }
             }
         })
-        if (this.prodDir.platformList.length !=this._platformlist.length) { 
+        if (this.prodDir.platformList.length != this._platformlist.length) {
             this.selectAllZone = false;
             return;
         }
-        this.selectAllZone=true;
-        for(let platform of this._platformlist){
-            for(let zone of platform.zoneList){
-                if(zone.selected==false){
-                   return this.selectAllZone=false;                           
+        this.selectAllZone = true;
+        for (let platform of this._platformlist) {
+            for (let zone of platform.zoneList) {
+                if (zone.selected == false) {
+                    return this.selectAllZone = false;
                 }
-            }                
+            }
         }
     }
 
@@ -164,6 +175,13 @@ export class ProdDirCreComponent implements OnInit {
     }
 
     onSubmit() {
+        this.prodDir.platformList = this._platformlist.filter(function (ele) {
+            for (let zone of ele.zoneList) {
+                if (zone.selected == true) {
+                    return ele;
+                }
+            }
+        })
         console.log(this.prodDir);
         if (!this.prodDir.serviceName) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.INPUT_PRODUCT_CAT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.INPUT_PRODUCT_CAT=>请输入产品目录名称 
