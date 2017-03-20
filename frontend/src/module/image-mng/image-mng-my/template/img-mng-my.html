@@ -116,13 +116,15 @@
                         </div>
                     </div>
                 </td>
-                <td class="text-center">{{getDicText(image.type,this.typeDic)}}</td>
+                <td class="text-center">
+                    {{image.type | dict:this.service.typeDic | async}}
+                </td>
                 <td class="text-center">{{image.os}}</td>
-                <td class="text-center">{{getDicText(image.bits,this.bitDic)}}</td>
+                <td class="text-center">{{image.bits | dict:this.service.bitDic | async}}</td>
                 <td class="text-center">{{image.creatorName}}</td>
                 <td class="text-center">{{image.orgName}}</td>
                 <td class="text-center">{{image.createTime}}</td>
-                <td class="text-center" [ngClass]="image.status==1?'font-green':'font-orange'">{{getDicText(image.status,this.statusDic)}}</td>
+                <td class="text-center" [ngClass]="image.status==1?'font-green':'font-orange'">{{image.status | dict:this.service.statusDic | async}}</td>
                 <td class="text-center">{{image.progress}}</td>
                  <td class="text-center td_mirror">
                      {{image.description}} 

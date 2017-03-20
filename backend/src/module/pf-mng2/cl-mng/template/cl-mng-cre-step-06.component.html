@@ -34,9 +34,10 @@
                     <td><input type="text" class="form-control" required [(ngModel)]="item.imageDisplayName"></td>
                     <!--<td><input type="text" class="form-control"></td>-->
                     <td>
-                        <select name="format" class="form-control" [(ngModel)]="item.format">
+                        <!--<select name="format" class="form-control" [(ngModel)]="item.format">
                             <option value={{format.value}} *ngFor="let format of this.commonService.imageFormatList|async">{{format.code}}</option>
-                        </select>
+                        </select>-->
+                        {{item.format| dict:this.commonService.imageFormatList | async}}
                     </td>
                     <td>
                         <input type="text" class="form-control" [(ngModel)]="item.description">
