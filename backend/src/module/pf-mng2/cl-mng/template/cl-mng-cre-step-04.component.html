@@ -39,7 +39,7 @@
                         <td>{{item.typeDisplayName}}</td>
                         <td>{{item.maximum||0}}</td>
                         <td>
-                            <input type="number" class="form-control" required [(ngModel)]="item.replica" style="width: 100px; display: inline;" min="0">
+                            <input type="number" class="form-control" required [(ngModel)]="item.replica" style="width: 100px; display: inline;" min="0" max="9">
                         </td>
                         <td>
                             <input type="number" class="form-control"  required [(ngModel)]="item.quotaPercentDisplay" style=" display: inline;" min="0" max="100">

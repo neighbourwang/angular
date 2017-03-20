@@ -69,6 +69,7 @@ export const TranslateCN = {
         SEARCH: '搜索',
         SELECT_ALL: '全选',
         SELECT: '选择',
+        SERIAL:'序号',
         SPECIFICATION: '规格',
         PHONE: '电话',
         ACCOUNT: '账号',
@@ -168,7 +169,8 @@ export const TranslateCN = {
         OPERATION_SUC: '操作成功',
 
         //长句子
-        SET_NAME_FORMAT: '2-68个字符，以大小写字母或中文开头，可包含数字，"."，"-"，"_"'
+        SET_NAME_FORMAT: '2-68个字符，以大小写字母或中文开头，可包含数字，"-"，"_"',
+        GETTING_DATA_FAILED: '获取数据失败'
     },
     SITE: {
         EXIT: '退出',
@@ -384,7 +386,7 @@ export const TranslateCN = {
         MOUNT_CLOUD_HOST_NAME: '挂载云主机名称',
         CANCELLATION_FAILED: '撤单失败',
         ALL_PURCHASER: '所有订购人',
-        ALL_ZONE: '所有区',
+        ALL_ZONE: '所有平台',
         ALL_AVAILABLE_ZONE: '所有可用区',
         PURCHASED_SERVICES_DETAILS: '已购服务详情',
         PURCHASED_SERVICES_NUMBER: '已购服务编号',
@@ -779,7 +781,7 @@ export const TranslateCN = {
         EDIT_CONTOR: '只有新建状态下，才能编辑工单',
         DELETE_CONTOR: '只有新建状态下，才能删除工单',
         DELETE_CASE_WARNING: '您选择删除{{value_1}}-{{value_2}}工单，请确认。',
-        CASE_DETAIL: '工单详细：{{value_1}}-{{value_2}}',
+        CASE_DETAIL: '工单详细',
         MY_CASE: '我的工单',
         DEPART_CASE: '部门工单',
         SUBJECT_CANNOT_EMPTY: '主题不能为空',

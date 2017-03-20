@@ -123,8 +123,7 @@ export class OpenstackNetMngComponent implements OnInit {
                     this.totalPage = response.pageInfo.totalPage;
                     //this.selectedNetwork= new Network();
                 } else {
-                    alert("Res sync error");
-
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -210,7 +209,7 @@ export class OpenstackNetMngComponent implements OnInit {
                                     //this.selectedNetwork= new Network();
                                 } else {
                                     this.selectedNetwork= new Network();
-                                    alert("Res sync error");
+                                    this.showAlert("COMMON.OPERATION_ERROR");
                                     
                                 }
                             }
@@ -247,7 +246,7 @@ export class OpenstackNetMngComponent implements OnInit {
                                    // this.selectedNetwork= new Network();
                                 } else {
                                     this.selectedNetwork= new Network();
-                                    alert("Res sync error");
+                                    this.showAlert("COMMON.OPERATION_ERROR");
                                 }
                             }
                         )
@@ -301,8 +300,7 @@ export class OpenstackNetMngComponent implements OnInit {
                     this.layoutService.hide();
                     this.regionList = response.resultContent;
                 } else {
-                    alert("Res sync error");
-
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             ) .catch((e) => this.onRejected(e));
@@ -327,7 +325,7 @@ export class OpenstackNetMngComponent implements OnInit {
                             this.tenants = response.resultContent;
                             this.synEnts.open("NET_MNG_OPENSTACK.TITLE_CHOOSE_ENT");
                         } else{
-                            alert("Res.sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -435,7 +433,7 @@ export class OpenstackNetMngComponent implements OnInit {
                     this.selectedNetwork = this.editNetwork;
                 }else{
                     this.selectedNetwork= new Network();
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }).catch((e) => this.onRejected(e));
     }

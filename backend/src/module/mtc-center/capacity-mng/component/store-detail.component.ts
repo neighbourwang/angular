@@ -53,7 +53,7 @@ export class StoreDetailComponent implements OnInit {
                     this.storeInfo = response["resultContent"];
                    
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

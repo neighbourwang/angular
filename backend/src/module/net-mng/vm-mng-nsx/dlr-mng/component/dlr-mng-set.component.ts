@@ -61,7 +61,7 @@ export class DlrMngSetComponent implements OnInit {
                     this.dlrs = response["resultContent"].portResList;
 
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -79,7 +79,7 @@ export class DlrMngSetComponent implements OnInit {
                     this.showAlert("NET_MNG_VM_DBT_PORT.SAVE_SUCCESS");
                     this.gotoPortMng();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

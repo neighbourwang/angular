@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, ValidationService, NoticeComponent,dictPipe,ConfirmComponent,PaginationComponent} from "../../../../architecture";
+import {StaticTooltipComponent} from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 import { CaseMngService} from "../service/case-mng.service";
 
@@ -49,6 +50,7 @@ export class CaseMngComponent implements OnInit {
     type:string="";
     status:string="";
     emergency:string="";
+
    
   
     ngOnInit() {
@@ -70,7 +72,7 @@ export class CaseMngComponent implements OnInit {
                         console.log("工单列表",this.caseList);
                         this.totalPage = response.pageInfo.totalPage;
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -90,7 +92,7 @@ export class CaseMngComponent implements OnInit {
                         this.enterpriseList = response["resultContent"];
                         console.log("企业列表",this.enterpriseList);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -120,6 +122,7 @@ export class CaseMngComponent implements OnInit {
             return;
         }
         if(selectCase.statusName=="新建"||selectCase.statusName=="处理中"){
+            
             this.route.navigate(['mtc-center/case-mng/case-closed',{id:selectCase.id}])
         }
        else{

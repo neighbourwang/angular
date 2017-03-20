@@ -43,7 +43,7 @@ export class CaseOperatedComponent implements OnInit {
   
    ngOnInit() {
          this.activeRoute.params.forEach((params: Params) => {          
-            this.caseId = params["id"];            
+            this.caseId = params["id"];                      
         });
 
         this.getcaseHandleInfo();
@@ -60,9 +60,15 @@ export class CaseOperatedComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         this.layoutService.hide();
                         this.caseInfo = response["resultContent"];
+                        if(this.caseInfo.status=="2"){
+                            this.notice.open("PHYSICAL_MNG.NOTICE","CASE_MNG.CASE_HAS_CLOSED")
+                            this.notice.nof=()=>{
+                               this. backtoList();
+                            }
+                        }
                         console.log("工单基本信息",this.caseInfo);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -81,7 +87,7 @@ export class CaseOperatedComponent implements OnInit {
                         this.handleInfoes= response["resultContent"];
                         console.log("工单处理信息",this.handleInfoes);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -90,7 +96,12 @@ export class CaseOperatedComponent implements OnInit {
     
     //处理工单
     handleCase(){  
-         if(!this.handleInfo.emergency){  
+         if(this.caseInfo.status=="2"){
+            this.backtoList();
+            return;
+        }
+        else {
+            if(!this.handleInfo.emergency){  
             this.showAlert("CASE_MNG.PLEASE_SELECT_EMERGENCY");
             return;
         }
@@ -98,6 +109,9 @@ export class CaseOperatedComponent implements OnInit {
              this.showAlert( "CASE_MNG.PLEASE_INPUT_HANDLE_RECORD");
             return;
         }  
+
+        }
+       
         this.layoutService.hide();
         this.service.handleCase(this.handleInfo,this.caseId)
              .then(
@@ -108,7 +122,7 @@ export class CaseOperatedComponent implements OnInit {
                         console.log("关闭工单成功");
                         this.backtoList();
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -120,6 +134,7 @@ export class CaseOperatedComponent implements OnInit {
          this.route.navigate(['mtc-center/case-mng/case-list'])
      }
 
+
    
 
     showAlert(msg: string): void {
@@ -128,6 +143,7 @@ export class CaseOperatedComponent implements OnInit {
         this.noticeTitle = "PHYSICAL_MNG.NOTICE";
         this.noticeMsg = msg;
         this.notice.open();
+       
     }
 
     showConfirm(msg: string): void {

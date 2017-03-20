@@ -94,7 +94,7 @@ export class PhysicalEditComponent implements OnInit {
                         this.physical = physical;
                         console.log("编辑物理机", this.physical.pmHardwareCPU,this.physical.iloIPAddress);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             );
@@ -112,7 +112,7 @@ export class PhysicalEditComponent implements OnInit {
                    // this.serverTypes = response["resultContent"].serverTypeList;
                     this.brands = response["resultContent"];
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             );
@@ -130,7 +130,7 @@ export class PhysicalEditComponent implements OnInit {
                     //this.showAlert("保存成功！");
                     this.gotoList();
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -222,7 +222,7 @@ export class PhysicalEditComponent implements OnInit {
                                 //this.showAlert("添加物理机成功");
                                 this.gotoList();
                             } else {
-                                alert("Res sync error");
+                                this.showAlert("COMMON.OPERATION_ERROR");
                             }
                         }
                         )

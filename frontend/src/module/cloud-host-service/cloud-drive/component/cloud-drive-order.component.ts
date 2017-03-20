@@ -7,7 +7,7 @@
 import { Component, OnInit, Input , Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent  } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, Validation, ValidationRegs  } from '../../../../architecture';
 import { TranslateService } from 'ng2-translate';
 import { cloudDriveServiceOrder } from '../service/cloud-drive-order.service'
 
@@ -65,6 +65,7 @@ export class cloudDriveComponentOrder implements OnInit {
         private translateService: TranslateService,
 		private layoutService: LayoutService,
 		private router: Router,
+		private v:Validation,
 		private service:cloudDriveServiceOrder
 	) {
 		this.configs = new OrderList();
@@ -243,44 +244,18 @@ export class cloudDriveComponentOrder implements OnInit {
 		return parseInt(value);
 	}
 
-	check = {};
-	checkValue(value?:string){ //动态验证
-		const isinv = value => value === "";
-
-		const regs = {
-			platform : () => !isinv(this.sendModule.platform.attrValue),
-			zone : () => !isinv(this.sendModule.zone.attrValue),
-			disktype : () => !isinv(this.sendModule.disktype.attrValue),
-			storage : () => !isinv(this.sendModule.storage.attrValue),
-			diskinsname : () =>  !this.sendModule.diskinsname.attrValue || /^[a-zA-Z\u4e00-\u9fa5].{1,67}/.test(this.sendModule.diskinsname.attrValue),
-			// timeline: () => this.sendModule.timeline.attrValue && /^\d*$/.test(this.sendModule.timeline.attrValue.trim()) && +this.sendModule.timeline.attrValue.trim() <= 999,
-			// timelineunit: () => !isinv(this.sendModule.timelineunit.attrValue)
-		};
-        const alertValue = {
-            
-			platform : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM",
-			zone : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_AVAILABLE_ZONE",
-			disktype : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK",
-			storage : "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK_TYPE",
-			diskinsname : "CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_NAME_FORMAT_IS NOT_CORRECT",
-			// timeline: "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION", //VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION
-			// timelineunit: "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"//VM_INSTANCE.PLEASE_SELECT_NET_TYPE
+	checkValue(key?:string){
+		const regs:ValidationRegs = {
+			platform: [this.sendModule.platform.attrValue, [this.v.isUnBlank], "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_PLATFORM"],
+			zone: [this.sendModule.zone.attrValue, [this.v.isUnBlank], "CLOUD_DRIVE_ORDER.PLEASE_SELECT_AVAILABLE_ZONE"],
+			disktype: [this.sendModule.disktype.attrValue, [this.v.isUnBlank], "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK"],
+			storage: [this.sendModule.storage.attrValue, [this.v.isUnBlank], "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK_TYPE"],
+			diskinsname: [this.sendModule.diskinsname.attrValue, [this.v.isInstanceName], "CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_NAME_FORMAT_IS_NOT_CORRECT"]
 		}
 
-		const check = value => {
-			this.check[value] = regs[value]();
-			if(!this.check[value]) return alertValue[value];
-		} 
-
-		if(!value){
-			for(let reg in regs){
-				let is = check(reg);
-				if(is) return is;
-			}
-		}else {
-			return check(value);
-		}
+		return this.v.check(key, regs);
 	}
+	
 
 	checkInput() {
 		const al = value => !!this.showNotice("COMMON.PROMPT",value);

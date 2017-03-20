@@ -2,7 +2,7 @@
 import { Component,ViewChild,Input , Output,  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, Validation, ValidationRegs } from '../../../../architecture';
 import { cloudHostServiceList } from '../service/cloud-host-list.service'
 
 import { ListOptions } from '../model/options.model';
@@ -49,11 +49,10 @@ export class cloudHostListComponent implements OnInit {
 	handleData: HandleVm;   //发送操纵云主机的数据
 	labelItem:VMInstanceLabelItem[] = [];
 
-	testTitle = "发送操纵云主机的数据发送操纵云主机的数据发送操纵云主机的数据发送操纵云主机的数据发送操纵云主机的数据"
-
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
+		private v: Validation,
 		private service: cloudHostServiceList
 	) {
 		this.handleData = new HandleVm();
@@ -68,10 +67,6 @@ export class cloudHostListComponent implements OnInit {
 		this.getLabels();  //获取标签列表
 		this.initSelect();
 
-		setTimeout(() => {
-			console.log(213)
-			this.testTitle = "test Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Titletest Title"
-		}, 3000)
 	}
 
 	setHostList(): void {

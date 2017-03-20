@@ -12,7 +12,7 @@
     </div>
 </div>
 <div class="mgb20" style="height:30px;">
-    <button class="btn button-confirm  pull-right" (click)="crePage();isEdit= false">
+    <button class="btn button-confirm  pull-right" (click)="crePage();isEdit= false;v.result.phone='';v.result.contactor='';v.result.subject='';v.result.type='';v.result.emergency='';">
         <span class="icon-create "></span>{{ 'USER_CENTER.CREATE_CASE' | translate}}
     </button>
     <div class="input-group col-md-2 float-left">
@@ -59,7 +59,7 @@
     <tbody>
         <tr *ngFor="let item of data">
             <td class="text-center">{{item.id}}</td>
-            <td class="text-center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100px;"><a href="javascript:void(0);" (click)="getDetail(item)">{{item.subject}}</a></td>
+            <td class="text-center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100px;"><a href="javascript:void(0);" (click)="getDetail(item)" title="{{item.subject}}">{{item.subject}}</a></td>
             <td class="text-center">{{item.typeName}}</td>
             <td class="text-center">{{item.statusName}}</td>
             <td class="text-center">{{item.emergencyName}}</td>
@@ -78,20 +78,35 @@
 <fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
 
 <fc-popup #creCase title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="creOredit()">
-    <form #orgForm="ngForm"  (ngSubmit)="onSubmit()" autocomplete="off">
+  <!--  <form #orgForm="ngForm"  (ngSubmit)="onSubmit()" autocomplete="off">-->
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
         <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.SUBJECT' | translate}}:</div>
-        <div class="col-md-8 no-padding">
-            <textarea #subject="ngModel" name="subject" id="subject" class="form-control" rows="2" [(ngModel)]="criteria.subject" required></textarea>
+<!--        <div class="col-md-8 no-padding">
+            <textarea #subject="ngModel" name="subject" id="subject" class="form-control" rows="2" maxlength="50" [(ngModel)]="criteria.subject" required></textarea>
             <div *ngIf="subject.errors && (subject.dirty || subject.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                 <div [hidden]="!subject.errors.required">
                     {{ 'USER_CENTER.SUBJECT_CANNOT_EMPTY' | translate}}
                 </div>
             </div>
+        </div>-->
+        <div class="col-md-8 no-padding"  [ngClass]="{'has-error': v.result.subject}">
+            <textarea type="text" class="form-control" [(ngModel)]="criteria.subject" (ngModelChange)="checkForm('subject')"></textarea>
+            <span *ngIf="v.result.subject" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            <div *ngIf="v.result.subject" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.subject}}</div>
         </div>
     </div>
     <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_ONE' | translate}}</div>
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.TYPE' | translate}}:</div>
+        <div class="col-md-8 float-left no-padding"  [ngClass]="{'has-error': v.result.type}">
+            <select [(ngModel)]="criteria.type" class="form-control" (ngModelChange)="checkForm('type')">
+                <option value="">{{ 'USER_CENTER.SELECT' | translate}}</option>
+                <option [value]="v.value" *ngFor="let v of service.typeDic | async">{{v.displayValue}}</option>
+            </select>
+            <div *ngIf="v.result.type" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.type}}</div>
+        </div>
+    </div>
+<!--    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
         <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.TYPE' | translate}}:</div>
         <div class="col-md-8 float-left no-padding">
             <select [(ngModel)]="criteria.type" class="form-control" #t="ngModel" name="t" id="t" required>
@@ -104,22 +119,19 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
         <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.EMERGENCY' | translate}}:</div>
-        <div class="col-md-8 float-left no-padding" [ngClass]="{'has-error': emergency.errors && (emergency.dirty || emergency.touched)}">
-            <select [(ngModel)]="criteria.emergency" class="form-control" #emergency="ngModel" name="emergency" id="emergency" required>
-                <option [value]="Default">{{ 'USER_CENTER.SELECT' | translate}}</option>
+        <div class="col-md-8 float-left no-padding" [ngClass]="{'has-error': v.result.emergency}">
+            <select [(ngModel)]="criteria.emergency" class="form-control"  (ngModelChange)="checkForm('emergency')">
+                <option value="">{{ 'USER_CENTER.SELECT' | translate}}</option>
                 <option [value]="v.value" *ngFor="let v of service.emergencyDic | async">{{v.displayValue}}</option>
             </select>
-            <div *ngIf="emergency.errors && (emergency.dirty || emergency.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
-                <div [hidden]="!emergency.errors.required">
-                    {{ 'USER_CENTER.EMERGENCY_CANNOT_EMPTY' | translate}}
-                </div>
-            </div>
+            <div *ngIf="v.result.emergency" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.emergency}}</div>
         </div>
     </div>
-    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
+<!--    </form>-->
+<!--    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
         <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.CONTACTOR' | translate}}:</div>
         <div class="col-md-8 no-padding form-group"  [ngClass]="{'has-error': contactor.errors && (contactor.dirty || contactor.touched)}">
             <input #contactor="ngModel" name="contactor" id="contactor" type="text" class="form-control" [(ngModel)]="criteria.contact" required>
@@ -129,8 +141,16 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.CONTACTOR' | translate}}:</div>
+        <div class="col-md-8 no-padding form-group"  [ngClass]="{'has-error': v.result.contactor}">
+            <input type="text" class="form-control" [(ngModel)]="criteria.contact" (ngModelChange)="checkForm('contactor')" >
+            <span *ngIf="v.result.contactor" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            <div *ngIf="v.result.contactor" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.contactor}}</div>
+        </div>
+    </div>
+<!--    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
         <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.CONTACNO' | translate}}:</div>
         <div class="col-md-8 no-padding form-group"  [ngClass]="{'has-error': contacno.errors && (contacno.dirty || contacno.touched)}">
             <input #contacno="ngModel" name="contacno" id="contacno" type="text" class="form-control" [(ngModel)]="criteria.contactNo" required (blur)="phoneValid(criteria.contactNo)" (focus)='isPhone=true'>
@@ -145,25 +165,32 @@
                 </div>
             </div>
         </div>
+    </div>-->
+    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
+        <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.CONTACNO' | translate}}:</div>
+        <div class="col-md-8 no-padding form-group has-feedback"  [ngClass]="{'has-error': v.result.phone}">
+            <input type="text" class="form-control" [(ngModel)]="criteria.contactNo" (ngModelChange)="checkForm('phone')">
+            <span *ngIf="v.result.phone" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            <div *ngIf="v.result.phone" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.phone}}</div>
+        </div>
     </div>
     <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_THREE' | translate}}</div>
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
         <div class="col-md-3 content-title" style="text-align : right">{{ 'USER_CENTER.DESCRIPTION' | translate}}:</div>
         <div class="col-md-8 no-padding">
-            <textarea #details="ngModel" name="details" id="details" class="form-control" rows="5" [(ngModel)]="criteria.details"></textarea>
+            <textarea #details="ngModel" name="details" id="details" class="form-control" rows="5" maxlength="1000" [(ngModel)]="criteria.details"></textarea>
         </div>
     </div>
-    </form>
     <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_TWO' | translate}}</div>
 </fc-popup>
 
 <fc-popup #caseDetail title="{{ title }}" ot="" ct="">
     <div class="mgb10">{{ 'USER_CENTER.BASIC_INFO' | translate}}</div>
-    <table class="cm-table-left table table-all-boder">
+    <table class="cm-table-left table table-all-boder" style="table-layout:fixed">
         <tbody>
         <tr>
             <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBJECT' | translate}}</th>
-            <td colspan="3">{{basicInfo.subject}}</td>
+            <td colspan="3" title="{{basicInfo.subject}}">{{basicInfo.subject}}</td>
         </tr>
         <tr>
             <th class="col-md-2 text-center">{{ 'COMMON.STATUS' | translate }}</th>

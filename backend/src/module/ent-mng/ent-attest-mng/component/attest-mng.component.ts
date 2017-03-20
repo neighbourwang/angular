@@ -66,7 +66,7 @@ export class AttestMngComponent implements OnInit {
                     this.attests = response["resultContent"];
                     this.totalPage = response.pageInfo.totalPage;
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -129,7 +129,7 @@ export class AttestMngComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         this.getAttests();
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
                 )
@@ -158,7 +158,7 @@ export class AttestMngComponent implements OnInit {
                     } else if (response && 10051003 == response["resultCode"]) {
                         this.showAlert("USER_CENTER.CANT_DELETE_AD_ATTEST");
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
                 )

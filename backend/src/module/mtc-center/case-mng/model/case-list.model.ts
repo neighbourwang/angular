@@ -15,6 +15,7 @@ export class CaseListModel{
     createDate: string;//创建时间
     updateDate: string;//更新时间
     isSelect=false;
+    status:string;
 
 }
 export class queryParm{

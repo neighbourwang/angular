@@ -353,13 +353,13 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "启用启动盘",
         "id": "platform-mng.bootDisk.enable",
-        "method": "PUT",    
+        "method": "GET",    
         "url": "adminui/authsec/platform/bootstorage/{id}/enable"        
     },
     {
         "desc": "禁用启动盘",
         "id": "platform-mng.bootDisk.suspend",
-        "method": "PUT",    
+        "method": "GET",    
         "url": "adminui/authsec/platform/bootstorage/{id}/suspend"        
     },
     {
@@ -368,6 +368,18 @@ export let RestApis: RestApiModel[] = [
         "method": "DELETE",    
         "url": "adminui/authsec/platform/bootstorage/{id}"        
     },
+    {
+        "desc": "取得可用区列表",
+        "id": "platform-mng.validZoneList.get",
+        "method": "GET",
+        "url": "adminui/authsec/platform/{id}/validzones"        
+    },
+    {
+        "desc": "取得可用区下可用存储区列表",
+        "id": "platform-mng.validStorageList.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/zone/{id}/storage"        
+    },    
     {
         "desc": "新建启动盘",
         "id": "platform-mng.bootDisk.post",
@@ -379,6 +391,31 @@ export let RestApis: RestApiModel[] = [
         "id": "platform-mng.bootDisk.put",
         "method": "PUT",    
         "url": "adminui/authsec/sync/platform/bootstorage"        
+    },
+    //volumetype信息
+    {
+        "desc": "获取volumeType列表",
+        "id": "platform-mng.volumeTypeList.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/{id}/volumetype"        
+    },
+    {
+        "desc": "更新volumeType列表",
+        "id": "platform-mng.volumeTypeList.put",
+        "method": "PUT",
+        "url": "adminui/authsec/platforms/{id}/volumetype"        
+    },
+    {
+        "desc": "启用volumeType",
+        "id": "platform-mng.volumeType.enable",
+        "method": "GET",
+        "url": "adminui/authsec/platform/volumeType[id]/enable"        
+    },
+    {
+        "desc": "禁用volumeType",
+        "id": "platform-mng.volumeTypeList.suspend",
+        "method": "GET",
+        "url": "adminui/authsec/platform/volumeType/{id}/suspend"        
     },
     // 企业资源配额管理
     {

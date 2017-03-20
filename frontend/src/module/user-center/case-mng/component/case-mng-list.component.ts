@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary, PaginationComponent, ValidationService  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary, PaginationComponent, ValidationService ,Validation, ValidationRegs } from '../../../../architecture';
 
 //model
 import { CaseMngList } from '../model/case-mng-list.model';
@@ -12,6 +12,7 @@ import { CaseHandle } from '../model/case-handle.model';
 
 //service
 import { CaseMngService } from '../service/case-mng-list.service';
+import { CaseDepartService } from '../service/case-depart-list.service';
 
 @Component({
     selector: 'case-mng-list',
@@ -25,7 +26,9 @@ export class CaseMngListComponent implements OnInit{
     constructor(
         private router : Router,
         private service : CaseMngService,
+        private servicedepart : CaseDepartService,
         private layoutService : LayoutService,
+        private v:Validation,
         private validationService: ValidationService
     ) {
 
@@ -72,8 +75,6 @@ export class CaseMngListComponent implements OnInit{
     selectedType= this.defaultType;
     selectedStatus= this.defaultStatus;
     id: string;
-    Default= null;
-    isPhone: boolean=true;
 
     criteria: CaseMngList= new CaseMngList();
 
@@ -99,7 +100,7 @@ export class CaseMngListComponent implements OnInit{
                         this.totalPage= response.pageInfo.totalPage;
                         console.log("data",response["resultContent"]);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -127,11 +128,12 @@ export class CaseMngListComponent implements OnInit{
     }
 
     crePage(){
-        this.orgForm.reset();
-        this.criteria.emergency= null;
-        this.criteria.type= null;
+        this.criteria.emergency= "";
+        this.criteria.type= "";
+        this.criteria.contact= this.servicedepart.userInfo.userName;
+        this.criteria.contactNo=this.servicedepart.userInfo.phone;
+        this.criteria.details= "";
         this.isEdit= false;
-        this.isPhone= true;
         this.creCase.open("USER_CENTER.CREATE_CASE");
     }
 
@@ -155,7 +157,7 @@ export class CaseMngListComponent implements OnInit{
                             this.creCase.close();
                             console.log("创建",response["resultContent"]);
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -171,7 +173,7 @@ export class CaseMngListComponent implements OnInit{
                             this.creCase.close();
                             console.log("idEdit",this.id);
                         } else {
-                            alert("Res sync error");
+                            this.showAlert("COMMON.OPERATION_ERROR");
                         }
                     }
                 )
@@ -194,7 +196,7 @@ export class CaseMngListComponent implements OnInit{
                             if (response && 100 == response["resultCode"]) {
                                 this.getData();
                             } else {
-                                alert("Res sync error");
+                                this.showAlert("COMMON.OPERATION_ERROR");
                             }
                         }
                     )
@@ -207,7 +209,6 @@ export class CaseMngListComponent implements OnInit{
 
     getDetail(item){
         this.id= item.id;
-        this.subject= item.subject;
         this.layoutService.show();
         Promise.all([this.service.getBasicInfo(this.id), this.service.getHandelInfo(this.id), this.service.getClosedInfo(this.id)])
             .then((arr) =>{
@@ -215,17 +216,20 @@ export class CaseMngListComponent implements OnInit{
                 this.basicInfo= arr[0];
                 this.handledInfo= arr[1];
                 this.closedInfo= arr[2];
-                this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject);
+                this.caseDetail.open("USER_CENTER.CASE_DETAIL");
             }).catch((e) => this.onRejected(e));
     }
 
-    //验证手机号
-    phoneValid(val) {
-        if (val) {
-            this.isPhone =
-                this.validationService.isMoblie(val) ? true : false;
+    checkForm(key?:string){
+        const regs:ValidationRegs = {
+            phone: [this.criteria.contactNo, [this.v.isMoblie,this.v.isUnBlank], "手机号码输入不正确"],
+            contactor: [this.criteria.contact, [this.v.isBase, this.v.isUnBlank], "不能为空且不能包含特殊字符"],
+            subject: [this.criteria.subject, [this.v.isUnBlank], "主题不能为空"],
+            type: [this.criteria.type, [this.v.isUnBlank], "类别不能为空"],
+            emergency: [this.criteria.emergency, [this.v.isUnBlank], "紧急程度不能为空"],
         }
-        console.log('phone', this.isPhone);
+
+        return this.v.check(key, regs);
     }
 
     departCase(){

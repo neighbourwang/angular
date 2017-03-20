@@ -63,7 +63,7 @@ export class EntAdminCreADComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.enterprise = response["resultContent"];
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
@@ -79,7 +79,7 @@ export class EntAdminCreADComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.attests = response["resultContent"];
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             })
             .catch((e) => this.onRejected(e));
@@ -99,7 +99,7 @@ export class EntAdminCreADComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.adUsers = response["resultContent"];
                 } else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             })
             .catch((e) => this.onRejected(e));
@@ -138,7 +138,7 @@ export class EntAdminCreADComponent implements OnInit {
                 } else if (response && "10051101" == response["resultCode"]) {
                     this.showAlert("ENT_MNG.ACCOUNT_HAS_BEEN_OCCUPIED");
                 }else {
-                    this.showAlert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

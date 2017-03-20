@@ -59,8 +59,14 @@ export class CaseClosedComponent implements OnInit {
                         this.layoutService.hide();
                         this.caseInfo = response["resultContent"];
                         console.log("工单基本信息",this.caseInfo);
+                         if(this.caseInfo.status=="2"){
+                            this.notice.open("PHYSICAL_MNG.NOTICE","CASE_MNG.CASE_HAS_CLOSE")
+                            this.notice.nof=()=>{
+                               this. backtoList();
+                            }
+                        }
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -79,7 +85,7 @@ export class CaseClosedComponent implements OnInit {
                         this.handleInfoes= response["resultContent"];
                         console.log("工单处理信息",this.handleInfoes);
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )
@@ -89,7 +95,12 @@ export class CaseClosedComponent implements OnInit {
 
     //关闭工单
     closeCase(){
-        if(!this.closeInfo.closeType){  
+         if(this.caseInfo.status=="2"){
+            this.backtoList();
+            return;
+        }
+        else{
+            if(!this.closeInfo.closeType){  
             this.showAlert("CASE_MNG.PLEASE_SELECT_CLOSE_TYPE");
             return;
         }
@@ -97,6 +108,8 @@ export class CaseClosedComponent implements OnInit {
              this.showAlert("CASE_MNG.PLEASE_INPUT_CLOSE_DESCRIPTION");
             return;
         }
+
+        }      
         this.layoutService.hide();
         this.service.closeCase(this.closeInfo,this.caseId)
              .then(
@@ -107,7 +120,7 @@ export class CaseClosedComponent implements OnInit {
                         console.log("关闭工单成功");
                         this.backtoList();
                     } else {
-                        alert("Res sync error");
+                        this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
             )

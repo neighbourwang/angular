@@ -17,7 +17,7 @@
                 </tr>
                 <tr *ngFor="let key of order.totalPrice.unitArr | objectToArr; let i = index">
                     <td><font *ngIf="i == 0">{{'SHOPPING_CART.UNITARR' | translate}}:</font></td>
-                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{order.totalPrice.unitArr[key]}}/{{key | dict:service.weekly | async}}/GB</font></td>
+                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{order.totalPrice.unitArr[key]}}/GB/{{key | dict:service.weekly | async}}</font></td>
                 </tr>
             </table>
         </span>

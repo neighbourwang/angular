@@ -49,7 +49,7 @@ export class CapacityMngComponent implements OnInit {
                     this.pfList = response["resultContent"];
                    
                 } else {
-                    alert("Res sync error");
+                    this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )

@@ -106,9 +106,9 @@
 							</div>
 						</div>
 						<div class="col-sm-4">
-							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.platformInfo let idx=index'>
-								<select class="form-control" [(ngModel)]="zone.storageId" (ngModelChange)="selectStorage($event,idx,indxx)">
-                                    <option *ngFor="let storage of zone.storageItem; let idxx=index" [value]="storage.storageId">{{storage.displayName}}</option>
+							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.platformInfo let idxxx=index'>
+								<select class="form-control" [(ngModel)]="zone.storageId" (ngModelChange)="selectStorage($event,idx,idxxx)">
+                                    <option *ngFor="let storage of zone.storageItem" [value]="storage.storageId">{{storage.displayName}}</option>
                                 </select>
 							</div>
 						</div>
