@@ -35,7 +35,7 @@ export class PfDetailComponent implements OnInit {
         private route: Router,
         private router: ActivatedRoute,
         private zoneListService: ZoneListService,
-        private storageListService:StorageListService,
+        private storageListService: StorageListService,
         private platformDetailService: PlatformDetailService,
         private commonService: ClMngCommonService,
         private location: Location,
@@ -58,6 +58,7 @@ export class PfDetailComponent implements OnInit {
     @ViewChild('hostSync') hostSync;
     @ViewChild('storageSync') storageSync;
     @ViewChild('memSync') memSync;
+    @ViewChild('volumeTypeSync') volumetypeSync;
 
 
     // 确认Box/通知Box的标题
@@ -71,7 +72,7 @@ export class PfDetailComponent implements OnInit {
         { name: 'PF_MNG2.ZONES_QUOTA', active: false },
         { name: 'PF_MNG2.STOARGE_QUOTA', active: false }
     ]
-    platformId:string;
+    platformId: string;
     platformName: string;
     platformType: string;
     platformTypes: Array<any> = new Array<any>();
@@ -82,7 +83,7 @@ export class PfDetailComponent implements OnInit {
     zoneList: Array<ZoneListModel>;
     updateZoneList: Array<ZoneListModel>;
 
-    hostList: ZoneListModel=new ZoneListModel();
+    hostList: ZoneListModel = new ZoneListModel();
     //初始化
     ngOnInit() {
         this.router.params.forEach((params: Params) => {
@@ -109,13 +110,13 @@ export class PfDetailComponent implements OnInit {
                             if (ele.value == this.platform.platformType) {
                                 ele.isSelected = true;
                                 this.getVersion(ele.code);
-                            }else{
+                            } else {
                                 ele.isSelected = false;
                             }
                         })
                         this.getZoneList();
                         this.getStorageList();
-                        this.getVolumeTypeList(this.platformId);
+                        this.platformType == '0' && this.getVolumeTypeList();
                         this.layoutService.hide();
                     }
                     )
@@ -187,18 +188,18 @@ export class PfDetailComponent implements OnInit {
                         ele.quotaPercentage ? ele.quotaPercentage : 0;
                     ele.quotaPercentDisplay = ele.quotaPercentage * 100;
                 })
-                console.log('zoneList',res);
+                console.log('zoneList', res);
                 this.layoutService.hide();
             }
         ).catch(err => {
             console.error('获取可用区列表出错', err)
             this.layoutService.hide();
         })
-    }   
+    }
     //启用可用区
     enableZone(id: string) {
-        if(this.platform.status!=1){
-            this.notice.open('COMMON.OPERATION_ERROR','PF_MNG2.NONSUPPORT_CHANGES_STATE');
+        if (this.platform.status != 1) {
+            this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.NONSUPPORT_CHANGES_STATE');
             return;
         }
         this.layoutService.show();
@@ -213,8 +214,8 @@ export class PfDetailComponent implements OnInit {
     }
     //禁用可用区
     suspendZone(id: string) {
-        if(this.platform.status!=1){
-            this.notice.open('COMMON.OPERATION_ERROR','PF_MNG2.NONSUPPORT_CHANGES_STAT');
+        if (this.platform.status != 1) {
+            this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.NONSUPPORT_CHANGES_STAT');
             return;
         }
         this.layoutService.show();
@@ -228,11 +229,11 @@ export class PfDetailComponent implements OnInit {
         })
     }
     //更多操作
-    tempZoneList: Array<ZoneListModel>=new Array<ZoneListModel>();
+    tempZoneList: Array<ZoneListModel> = new Array<ZoneListModel>();
     editZone(zone, idx) {
         console.log(zone);
         console.log(this.tempZoneList);
-        this.tempZoneList[idx]=new ZoneListModel();
+        this.tempZoneList[idx] = new ZoneListModel();
         Object.assign(this.tempZoneList[idx], zone)
         this.zoneList[idx].isEdit = true;
     }
@@ -242,27 +243,27 @@ export class PfDetailComponent implements OnInit {
             ele.quotaPercentage = ele.quotaPercentDisplay / 100
         })
         this.layoutService.show();
-        this.zoneListService.putZone(this.platform.id,this.zoneList).then(res => {
+        this.zoneListService.putZone(this.platform.id, this.zoneList).then(res => {
             console.log(res);
             this.getZoneList();
             zone.isEdit = false;
             this.layoutService.hide();
         }).catch(err => {
             console.error(err);
-            this.layoutService.hide();            
+            this.layoutService.hide();
         })
     }
-    cancelEdit(zone,idx) {
+    cancelEdit(zone, idx) {
         console.log(this.tempZoneList[idx]);
         Object.assign(zone, this.tempZoneList[idx]);
-        this.tempZoneList[idx]=new ZoneListModel();
+        this.tempZoneList[idx] = new ZoneListModel();
         zone.isEdit = false;
     }
 
     //更新可用区弹出框
-    updateZone() { 
-        this.updateZoneList=new Array<ZoneListModel>(); 
-        this.layoutService.show();      
+    updateZone() {
+        this.updateZoneList = new Array<ZoneListModel>();
+        this.layoutService.show();
         this.platformDetailService.getUpdateZoneList(this.platform.id).then(
             res => {
                 this.updateZoneList = res.resultContent;
@@ -276,7 +277,7 @@ export class PfDetailComponent implements OnInit {
                     })
                     console.log('同步', res);
                     this.zoneSync.open();
-                    
+
                 }
                 this.layoutService.hide();
             }
@@ -285,11 +286,11 @@ export class PfDetailComponent implements OnInit {
             console.error('获取更新可用区列表出错', err);
         })
     }
-    
+
     //同步更新宿主机信息get    
     updateHostPop(zoneId) {
         console.log(zoneId);
-        this.layoutService.show();              
+        this.layoutService.show();
         this.platformDetailService.getUpdateZone(zoneId).then(
             res => {
                 console.log('同步计算资源', res);
@@ -310,7 +311,7 @@ export class PfDetailComponent implements OnInit {
         })
     }
     // otUpdateResource() {
-    
+
     // }
     ccf() {
 
@@ -318,16 +319,16 @@ export class PfDetailComponent implements OnInit {
     /////////////////////////////////////////////////////////////////////////////////////////////存储区
     //获取存储区列表
     storageList: Array<StorageModel> = new Array<StorageModel>();
-    getStorageList(){
+    getStorageList() {
         this.layoutService.show();
-         this.storageListService.getStorage(this.platform.id).then(
+        this.storageListService.getStorage(this.platform.id).then(
             res => {
                 this.storageList = res.resultContent;
                 this.storageList.forEach(ele => {
-                    ele.quota=
-                        ele.quota?ele.quota:0;
+                    ele.quota =
+                        ele.quota ? ele.quota : 0;
                     ele.quotaPercentDisplay = ele.quota * 100;
-                    ele.valid=true;                    
+                    ele.valid = true;
                 })
                 //Openstack类型同步volumeType信息
                 // if (this.platformType == '0') {
@@ -339,7 +340,7 @@ export class PfDetailComponent implements OnInit {
                 //         console.error(err);
                 //     });
                 // }
-                console.log('sorageList',this.storageList);
+                console.log('sorageList', this.storageList);
                 this.layoutService.hide();
             }
         ).catch(
@@ -375,52 +376,52 @@ export class PfDetailComponent implements OnInit {
         })
     }
     //更多操作
-    
-    tempStorageList: Array<StorageModel>=new Array<StorageModel>();
+
+    tempStorageList: Array<StorageModel> = new Array<StorageModel>();
     editStorage(storage, idx) {
-        this.tempStorageList[idx]=new StorageModel();
+        this.tempStorageList[idx] = new StorageModel();
         Object.assign(this.tempStorageList[idx], storage)
         this.storageList[idx].isEdit = true;
     }
 
     keepSame(item) {
         // if (this.platformType == '2') {
-            let sum:number=0;
-            for (let storage of this.storageList) {
-                storage.valid=true;
-                if (storage.id == item.id) {
-                    // storage.displayName = item.displayName;
-                    // storage.description = item.description;
-                    storage.replica = item.replica;
-                    sum+=storage.quotaPercentDisplay;
-                }
+        let sum: number = 0;
+        for (let storage of this.storageList) {
+            storage.valid = true;
+            if (storage.id == item.id) {
+                // storage.displayName = item.displayName;
+                // storage.description = item.description;
+                storage.replica = item.replica;
+                sum += storage.quotaPercentDisplay;
             }
-            item.valid=
-                sum>100?false:true;
-            console.log(sum);
-            console.log(item.valid);
-            // for(){
+        }
+        item.valid =
+            sum > 100 ? false : true;
+        console.log(sum);
+        console.log(item.valid);
+        // for(){
 
-            // }
+        // }
         // }
     }
 
     saveStorage(storage) {
-        console.log(this.tempStorageList);        
-        let valid:boolean=true;
+        console.log(this.tempStorageList);
+        let valid: boolean = true;
         this.storageList.forEach(ele => {
-            if(ele.valid==false){
-               return valid=false;
+            if (ele.valid == false) {
+                return valid = false;
             }
             ele.quotaPercentage = ele.quotaPercentDisplay / 100
         })
         console.log(valid);
-        if(!valid){
+        if (!valid) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.STOARGE_QUOTA_SET_ERROR');//存储区配额设置错误，同一存储区配额总额设置超额
             return;
         }
         this.layoutService.show();
-        this.storageListService.putStorage(this.platform.id,this.storageList).then(res => {
+        this.storageListService.putStorage(this.platform.id, this.storageList).then(res => {
             console.log(res);
             this.getStorageList();
             storage.isEdit = false;
@@ -430,15 +431,15 @@ export class PfDetailComponent implements OnInit {
             this.layoutService.hide();
         })
     }
-    cancelEditStorage(storage,idx) {
+    cancelEditStorage(storage, idx) {
         console.log(this.tempStorageList[idx]);
         Object.assign(storage, this.tempStorageList[idx]);
-        this.tempStorageList[idx]=new StorageModel();
+        this.tempStorageList[idx] = new StorageModel();
         storage.isEdit = false;
     }
 
     //更新存储区弹出框
-    updateStorageList:Array<StorageModel>
+    updateStorageList: Array<StorageModel>
     updateStorageListPop() {
         this.layoutService.show();
         this.platformDetailService.getUpdateStorageList(this.platform.id).then(
@@ -449,8 +450,8 @@ export class PfDetailComponent implements OnInit {
                     this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_ZONES')  //暂时没有可同步可用区信息
                 } else {
                     this.updateStorageList.forEach(ele => {
-                        ele.quota=
-                            ele.quota?ele.quota:0;
+                        ele.quota =
+                            ele.quota ? ele.quota : 0;
                         ele.quotaPercentDisplay = ele.quota * 100;
                     })
                     console.log('同步', res);
@@ -458,7 +459,7 @@ export class PfDetailComponent implements OnInit {
                 }
             }
         ).catch(err => {
-                this.layoutService.hide();            
+            this.layoutService.hide();
             console.error('获取更新可用区列表出错', err)
         })
     }
@@ -469,7 +470,7 @@ export class PfDetailComponent implements OnInit {
         this.layoutService.show();
         this.platformDetailService.getUpdateStorageCount(StorageId).then(
             res => {
-                this.layoutService.hide();                
+                this.layoutService.hide();
                 console.log('同步存储空间', res);
                 if (res.resultCode == 100) {
                     if (res.resultContent) {
@@ -482,17 +483,17 @@ export class PfDetailComponent implements OnInit {
                 }
             }
         ).catch(err => {
-                this.layoutService.hide();            
+            this.layoutService.hide();
             console.error('获取同步存储空间出错', err)
         })
     }
     //volumeType信息
     volumeTypeList: Array<VolumeTypeModel> = new Array<VolumeTypeModel>();
     //获取volumeType列表
-    getVolumeTypeList(id: string) {
-        this.platformDetailService.getVolumeTypeList(id).then(
+    getVolumeTypeList() {
+        this.platformDetailService.getVolumeTypeList(this.platformId).then(
             res => {
-                console.log('volumeType',res);
+                console.log('volumeType', res);
                 this.volumeTypeList = res.resultContent
             }
         ).catch(err => {
@@ -500,27 +501,27 @@ export class PfDetailComponent implements OnInit {
         });
     }
     //启用VolumeType
-    enableVolumeType(id:string){
+    enableVolumeType(id: string) {
         this.layoutService.show();
         this.platformDetailService.enableVolumeype(id).then(
             res => {
                 this.layoutService.hide();
-                console.log('volumeType',res);
-                this.getVolumeTypeList(this.platformId);
+                console.log('volumeType', res);
+                this.getVolumeTypeList();
             }
         ).catch(err => {
             this.layoutService.hide();
             console.error(err);
         });
-    }   
+    }
     //禁用Volumetype
-    suspendVolumeType(id:string){
+    suspendVolumeType(id: string) {
         this.layoutService.show();
         this.platformDetailService.suspendVolumeType(id).then(
             res => {
                 this.layoutService.hide();
-                console.log('volumeType',res);
-                this.getVolumeTypeList(this.platformId);
+                console.log('volumeType', res);
+                this.getVolumeTypeList();
             }
         ).catch(err => {
             this.layoutService.hide();
@@ -528,18 +529,18 @@ export class PfDetailComponent implements OnInit {
         });
     }
     //操作volumeType
-    tempVolumeTypeList: Array<VolumeTypeModel>=new Array<VolumeTypeModel>();
+    tempVolumeTypeList: Array<VolumeTypeModel> = new Array<VolumeTypeModel>();
     editVolumeType(volumeType, idx) {
-        this.tempVolumeTypeList[idx]=new VolumeTypeModel();
+        this.tempVolumeTypeList[idx] = new VolumeTypeModel();
         Object.assign(this.tempVolumeTypeList[idx], volumeType)
         this.volumeTypeList[idx].isEdit = true;
     }
     saveVolumeType(volumeType) {
-        console.log(this.tempVolumeTypeList);        
+        console.log(this.tempVolumeTypeList);
         this.layoutService.show();
-        this.platformDetailService.putVolumeTypeList(this.platformId,this.volumeTypeList).then(res => {
+        this.platformDetailService.putVolumeTypeList(this.platformId, this.volumeTypeList).then(res => {
             console.log(res);
-            this.getVolumeTypeList(this.platformId);
+            this.getVolumeTypeList();
             volumeType.isEdit = false;
             this.layoutService.hide();
         }).catch(err => {
@@ -547,19 +548,30 @@ export class PfDetailComponent implements OnInit {
             this.layoutService.hide();
         })
     }
-    cancelEditVolumeType(volumeType,idx) {
+    cancelEditVolumeType(volumeType, idx) {
         console.log(this.tempVolumeTypeList[idx]);
         Object.assign(volumeType, this.tempVolumeTypeList[idx]);
-        this.tempVolumeTypeList[idx]=new VolumeTypeModel();
+        this.tempVolumeTypeList[idx] = new VolumeTypeModel();
         volumeType.isEdit = false;
     }
     //同步更新存储类型
-    updateVolumetypeListPop(){
-        this.platformDetailService.getUpdateVolumeType(this.platformId).then(res=>{
-            console.log('updateVolumetype',res);
+    updateVolumeTypeList: Array<VolumeTypeModel> = new Array<VolumeTypeModel>();
+    updateVolumetypeListPop() {
+        this.platformDetailService.getUpdateVolumeType(this.platformId).then(res => {
+            console.log('updateVolumetype', res);
+            this.layoutService.hide();
+            if (res.resultCode == 100) {
+                if (res.resultContent.length!=0) {
+                    this.updateVolumeTypeList = res.resultContent;
+                    this.volumetypeSync.open();
+                } else {
+                    this.notice.open('提示', '暂时没有更新的存储类型');
+                }
+            }
+        }).catch(err => {
+            console.log('更新存储类型出错',err);
         })
     }
-
     //返回
     back() {
         this.location.back();

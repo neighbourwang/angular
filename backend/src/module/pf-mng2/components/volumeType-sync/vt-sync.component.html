@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">同步可用区</h4>
+                <h4 class="modal-title" id="myModalLabel">同步存储类型</h4>
             </div>
             <div class="modal-body">
                 <div class="table-container">
@@ -11,26 +11,24 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>可用区名称</th>
-                                <th>显示名称</th>
-                                <th>当前宿主机</th>
-                                <th>物理CPU总核数</th>
-                                <th >总内存数(MB)</th>
+                                <th>{{"COMMON.NAME" | translate}}</th>
+                                <th style="width:25%">{{"CAPACITY_MNG.DISPLAY_NAME" | translate}}</th>
+                                <th>Volume_backend_name</th>
+                                <th style="width: 25%">{{"COMMON.COMMENT" | translate}}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!--<tr>
-                                <td>1</td>
-                                <td>{{zone?.name||'NULL'}}</td>
+                            <tr *ngFor="let item of volumeTypeList; let idx = index;">
+                                <td>{{idx + 1}}</td>
+                                <td>{{item.name}}</td>
                                 <td>
-                                    {{zone?.displayName||'NULL'}}
+                                    <input class="form-control" [(ngModel)]="item.displayName" style="display: inline;">
                                 </td>
+                                <td>{{item.volumeBackendName}}</td>
                                 <td>
-                                    <p *ngFor="let host of zone.hosts">{{host||0}}</p>
+                                    <input class="form-control" [(ngModel)]="item.description" style="display: inline;">
                                 </td>
-                                <td>{{zone?.vcpunum}}</td>
-                                <td>{{zone?.memSize}}</td>                                
-                            </tr>-->
+                            </tr>
                         </tbody>
                     </table>
                 </div>
