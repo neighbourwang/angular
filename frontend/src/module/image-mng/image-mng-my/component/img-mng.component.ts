@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, SystemDictionary,  SystemDictionaryService} from "../../../../architecture";
+import { LayoutService, NoticeComponent, ConfirmComponent, PaginationComponent, 
+    SystemDictionary,  SystemDictionaryService} from "../../../../architecture";
 
 import { imageList } from "../model/images-mock.model"
 import { Image } from "../model/image.model"
@@ -37,7 +38,7 @@ export class ImgMngComponent_my implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private activatedRouter: ActivatedRoute,
-        private dicService: SystemDictionaryService
+        //private dicService: SystemDictionaryService
     ) {
 
     }
@@ -49,53 +50,53 @@ export class ImgMngComponent_my implements OnInit {
     images:Image[];
     areaList:Array<Area>;
     editImage:Image = new Image();
-    typeDic: Array<SystemDictionary>;
-    ownerDic: Array<SystemDictionary>;
-    statusDic: Array<SystemDictionary>;
-    bitDic: Array<SystemDictionary>;
+    // typeDic: Array<SystemDictionary>;
+    // ownerDic: Array<SystemDictionary>;
+    // statusDic: Array<SystemDictionary>;
+    // bitDic: Array<SystemDictionary>;
 
     queryOpt: CriteriaQuery = new CriteriaQuery();
     ngOnInit() {
         this.getAreaList();
         this.getImages();
-        this.dicService.getItems("IMAGES", "STATUS")
-        .then(
-            (dic) =>{
-                this.statusDic = dic;
-                return this.dicService.getItems("IMAGES","TYPE")
-            })
-        .then(
-            (dic)=>{
-                this.typeDic = dic;
-                return this.dicService.getItems("IMAGES","BITS_TYPE");
-        })
-        .then(
-            (dic)=>{
-                this.bitDic = dic;
-                return this.dicService.getItems("IMAGES","OWNER");
-        })
-        .then(
-            (dic)=>{
-                this.ownerDic = dic;
+        // this.dicService.getItems("IMAGES", "STATUS")
+        // .then(
+        //     (dic) =>{
+        //         this.statusDic = dic;
+        //         return this.dicService.getItems("IMAGES","TYPE")
+        //     })
+        // .then(
+        //     (dic)=>{
+        //         this.typeDic = dic;
+        //         return this.dicService.getItems("IMAGES","BITS_TYPE");
+        // })
+        // .then(
+        //     (dic)=>{
+        //         this.bitDic = dic;
+        //         return this.dicService.getItems("IMAGES","OWNER");
+        // })
+        // .then(
+        //     (dic)=>{
+        //         this.ownerDic = dic;
              
-        });
+        // });
     }
     
     //根据value获取字典的txt
-    getDicText(value: string, dic: Array<SystemDictionary>): String {
-        if (!$.isArray(dic)) {
-            return value;
-        }
-        const d = dic.find((e) => {
-            return e.value == value;
-        });
-        if (d) {
-            return d.displayValue;
-        } else {
-            return value;
-        }
+    // getDicText(value: string, dic: Array<SystemDictionary>): String {
+    //     if (!$.isArray(dic)) {
+    //         return value;
+    //     }
+    //     const d = dic.find((e) => {
+    //         return e.value == value;
+    //     });
+    //     if (d) {
+    //         return d.displayValue;
+    //     } else {
+    //         return value;
+    //     }
 
-    }
+    // }
 
     getImages():void{
         this.layoutService.show();
