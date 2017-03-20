@@ -204,18 +204,26 @@ export class OrderMngComponent implements OnInit {
 		this._orderLoader.Trait = (target: Array<SubInstanceResp>) => {
 
 			let canRenew: (item: SubInstanceItemResp) => boolean = (item: SubInstanceItemResp): boolean => {
-				if (item.serviceType == 1)//云主机
+				if (item.serviceType == 1)//云硬盘
 					return false;
 
-				if (item.billingInfo && item.billingInfo.billingMode == 1)//按流量计费
-					return false;
+			    if(item.billingInfo && item.billingInfo.billingMode == 1)//按流量计费无法续订
+			      return false;
 
-				return true;
+				if(item.status !="2"&&item.status!="7")//成功、即将过期:7的订单可以续订
+					return false;
+			    return true;
 			};
 
+			//只有周期计费可以自动续订
+			let canContinueRenew:(item:SubInstanceItemResp)=>boolean = (item:SubInstanceItemResp):boolean=>{
+			    if(item.billingInfo && item.billingInfo.billingMode != 0)//只有周期计费，0代表周期计费
+			      return false;
+			    return true;
+			};			
 
-			let reloadstruct: (items: Array<SubInstanceItemResp>) => void = (items: Array<SubInstanceItemResp>) => {
-				for (let i = 0; i < items.length; i++) {
+			let reloadstruct:(items:Array<SubInstanceItemResp>)=>void = (items:Array<SubInstanceItemResp>)=>{
+				for(let i = 0; i < items.length; i++){
 					items[i] = _.extendOwn(new SubInstanceItemResp(), items[i]);
 				}
 			};
@@ -238,12 +246,20 @@ export class OrderMngComponent implements OnInit {
 						orderItem.canRenew = false;
 					else
 						orderItem.canRenew = true;
-					if (orderItem.itemList.find(n => showInstance(n) != null))
+
+					if(orderItem.itemList.find(n=>!canContinueRenew(n) !=null))
+						orderItem.canContinueRenew = false;
+					else
+						orderItem.canContinueRenew = true;
+
+			
+					if(orderItem.itemList.find(n=>showInstance(n)!=null))
 						orderItem.showInstance = false;
 					else
 						orderItem.showInstance = true;
 				}
 				else {
+					orderItem.canContinueRenew = true;
 					orderItem.canRenew = true;
 					orderItem.showInstance = true;
 				}

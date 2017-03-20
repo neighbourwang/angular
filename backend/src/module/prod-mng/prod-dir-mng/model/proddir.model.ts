@@ -3,7 +3,7 @@ class storage{
     "storageId": string;
     "storageName": string;
     "displayName": string;
-    "selected": string;
+    "selected": boolean;
     "serviceSKUId":string;
 }
 class zone {

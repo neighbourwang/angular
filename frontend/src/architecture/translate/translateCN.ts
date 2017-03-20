@@ -386,7 +386,7 @@ export const TranslateCN = {
         MOUNT_CLOUD_HOST_NAME: '挂载云主机名称',
         CANCELLATION_FAILED: '撤单失败',
         ALL_PURCHASER: '所有订购人',
-        ALL_ZONE: '所有区',
+        ALL_ZONE: '所有平台',
         ALL_AVAILABLE_ZONE: '所有可用区',
         PURCHASED_SERVICES_DETAILS: '已购服务详情',
         PURCHASED_SERVICES_NUMBER: '已购服务编号',

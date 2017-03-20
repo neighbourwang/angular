@@ -106,6 +106,7 @@
 						<td>{{item.departmentName}}</td>
 						<td>
 							<button class="mgr20  button-gray-gradient" (click)="showDetail(item)">{{ 'ORDER_MNG.DETAILS' | translate }}</button>
+							<!--撤单-->
 							<button *ngIf="item.withDrawOrderFlag==1" class="button-gray-gradient" data-toggle="modal" (click)="selectItem(item)">{{ 'ORDER_MNG.CANCEL_THE_ORDER' | translate }}</button>
 							
 						</td>
