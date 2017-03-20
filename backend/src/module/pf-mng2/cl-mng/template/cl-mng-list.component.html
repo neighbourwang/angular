@@ -53,8 +53,7 @@
                 <td>{{item.uri}}</td>
                 <td>
                     <span *ngIf="item.platformType=='0'">{{item.version| dict:this.commonService.openStackVersionDic | async}}</span>
-                    <span *ngIf="item.platformType=='2'">{{item.version| dict:this.commonService.vmWareVersionDic | async}}</span>
-                    
+                    <span *ngIf="item.platformType=='2'">{{item.version| dict:this.commonService.vmWareVersionDic | async}}</span>                    
                 </td>
                 <td [ngClass]="{'font-green':item.status == '1' ,'font-orange':item.status == '3'}">
                     <!--{{item.status| dict:this.commonService.globalStatus | async}}-->

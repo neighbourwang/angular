@@ -128,11 +128,11 @@ export class CaseMngListComponent implements OnInit{
     }
 
     crePage(){
+        this.criteria= new CaseMngList();
         this.criteria.emergency= "";
         this.criteria.type= "";
         this.criteria.contact= this.servicedepart.userInfo.userName;
         this.criteria.contactNo=this.servicedepart.userInfo.phone;
-        this.criteria.details= "";
         this.isEdit= false;
         this.creCase.open("USER_CENTER.CREATE_CASE");
     }
@@ -222,11 +222,11 @@ export class CaseMngListComponent implements OnInit{
 
     checkForm(key?:string){
         const regs:ValidationRegs = {
-            phone: [this.criteria.contactNo, [this.v.isMoblie,this.v.isUnBlank], "手机号码输入不正确"],
-            contactor: [this.criteria.contact, [this.v.isBase, this.v.isUnBlank], "不能为空且不能包含特殊字符"],
-            subject: [this.criteria.subject, [this.v.isUnBlank], "主题不能为空"],
-            type: [this.criteria.type, [this.v.isUnBlank], "类别不能为空"],
-            emergency: [this.criteria.emergency, [this.v.isUnBlank], "紧急程度不能为空"],
+            phone: [this.criteria.contactNo, [this.v.isMoblie,this.v.isUnBlank], "USER_CENTER.CONTACNO_WRONG"],
+            contactor: [this.criteria.contact, [this.v.isBase, this.v.isUnBlank], "USER_CENTER.CONTACTOR_WRONG"],
+            subject: [this.criteria.subject, [this.v.isUnBlank], "USER_CENTER.SUBJECT_CANNOT_EMPTY"],
+            type: [this.criteria.type, [this.v.isUnBlank], "USER_CENTER.TYPE_CANNOT_EMPTY"],
+            emergency: [this.criteria.emergency, [this.v.isUnBlank], "USER_CENTER.EMERGENCY_CANNOT_EMPTY"],
         }
 
         return this.v.check(key, regs);

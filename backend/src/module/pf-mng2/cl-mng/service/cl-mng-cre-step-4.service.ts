@@ -44,4 +44,14 @@ export class StorageListService {
 
         return this.restApi.request(api.method , api.url , [{key : 'id' , value : id}],undefined);
     }
+     //获取volumeType列表
+    getVolumeTypeList(id:string){
+        let api = this.restApiCfg.getRestApi("platform-mng.volumeTypeList.get");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    } 
+    //PUT 获取volumeType列表
+    putVolumeTypeList(data){
+        let api = this.restApiCfg.getRestApi("platform-mng.volumeTypeList.put");
+        return this.restApi.request(api.method , api.url,[],undefined ,data);
+    }
 }

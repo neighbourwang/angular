@@ -417,6 +417,18 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/platform/volumeType/{id}/suspend"        
     },
+    {
+        "desc": "获取新增volumeType列表",
+        "id": "platform-mng.addVolumeTypeList.get",
+        "method": "GET",
+        "url": "adminui/authsec/sync/platform/{id}/volumetypes"        
+    },
+    {
+        "desc": "添加新增volumeType列表",
+        "id": "platform-mng.addVolumeTypeList.post",
+        "method": "POST",
+        "url": "adminui/authsec/sync/platform/volumetypes"        
+    },
     // 企业资源配额管理
     {
         "desc": "取得所有企业的资源配额信息",

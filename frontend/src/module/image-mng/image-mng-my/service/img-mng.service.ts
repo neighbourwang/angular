@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
-import { RestApiCfg, RestApi } from "../../../../architecture";
+import { RestApiCfg, RestApi, SystemDictionaryService } from "../../../../architecture";
 
  
 import "rxjs/add/operator/toPromise";
@@ -14,7 +14,8 @@ export class ImgMngService_my {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) {
     }
 
@@ -22,6 +23,22 @@ export class ImgMngService_my {
         this.restApiCfg.loadCfgData();
     }
 
+        statusDic = this.dict.get({
+            owner:"IMAGES",
+            field:"STATUS"
+        });
+        typeDic = this.dict.get({
+            owner: "IMAGES",
+            field: "TYPE"
+        });
+        bits_typeDic = this.dict.get({
+            owner: "IMAGES",
+            field: "BITS_TYPE"
+        });
+        ownerDic = this.dict.get({
+            owner: "IMAGES",
+            field: "OWNER"
+        });
     getImages(criteriaQuery:CriteriaQuery, pageIndex: number, pageSize:number):Promise<any>{
         const pathParams=[
             {

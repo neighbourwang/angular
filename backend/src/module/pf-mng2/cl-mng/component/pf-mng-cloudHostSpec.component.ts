@@ -24,8 +24,11 @@ export class CloudHostSpecComponent implements OnInit {
                 private service :FlavorService
                 ) {
     }
-    @ViewChild('confirm')
-    confirm: ConfirmComponent;
+    @ViewChild('enableConfirm')
+    enableConfirm: ConfirmComponent;
+
+    @ViewChild('deleteConfirm')
+    deleteConfirm: ConfirmComponent;
 
     @ViewChild('notice')
     notice: NoticeComponent;
@@ -127,10 +130,15 @@ export class CloudHostSpecComponent implements OnInit {
     ccCreate(){
     }
     //启用云主机规格
-    enableFlavor(id:string){
+    selectFlavor:FlavorObj;
+    enableFlavor(flavor){
+        console.log(flavor);
+        this.selectFlavor=flavor;
+        this.enableConfirm.open('启用启动盘',"你选择启用 '"+flavor.name+"' 云主机规格，请确认")
+    }
+    cofEnable(){
         this.layoutService.show();
-        console.log(id);
-        this.service.enableFlavor(id).then(res=>{
+        this.service.enableFlavor(this.selectFlavor.id).then(res=>{
             console.log(res);
             this.getFlavorList(this.platformId);
             this.layoutService.hide();                        
@@ -140,10 +148,14 @@ export class CloudHostSpecComponent implements OnInit {
         })
     }
     //删除云主机规格
-    deleFlavor(id:string){
+    deleFlavor(flavor){
+        console.log(flavor);        
+        this.selectFlavor=flavor;
+        this.deleteConfirm.open('启用启动盘',"你选择删除 '"+flavor.name+"' 云主机规格，请确认")        
+    }
+    cofDelete(){
         this.layoutService.show();
-        console.log(id);
-        this.service.deleteFlavor(id).then(res=>{
+        this.service.deleteFlavor(this.selectFlavor.id).then(res=>{
             console.log(res);
             this.getFlavorList(this.platformId);
             this.layoutService.hide();                        
