@@ -26,22 +26,32 @@ export class StorageListService {
     //}
 
     //获取资源区配置 pf.cre.storage.get
-    getStorage(id : String){
+    getStorage(id : string){
         let api = this.restApiCfg.getRestApi("pf.cre.storage.get");
 
         return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined);
     }
 
     //更新资源区配置 pf.cre.step.04.storage.put
-    putStorage(id : String , item : Array<StorageModel>){
+    putStorage(id : string , item : Array<StorageModel>){
         let api = this.restApiCfg.getRestApi("pf.cre.step.04.storage.put");
 
         return this.restApi.request(api.method , api.url , [{key : 'pf-id',value : id}],undefined,item )
     }
     //pf.cre.step.04.volumetype.synchronize.get
-    getvolumeType(id : String){
+    getvolumeType(id : string){
         let api = this.restApiCfg.getRestApi("pf.cre.step.04.volumetype.synchronize.get");
 
         return this.restApi.request(api.method , api.url , [{key : 'id' , value : id}],undefined);
+    }
+     //获取volumeType列表
+    getVolumeTypeList(id:string){
+        let api = this.restApiCfg.getRestApi("platform-mng.volumeTypeList.get");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    } 
+    //PUT 获取volumeType列表
+    putVolumeTypeList(id:string,data:any){
+        let api = this.restApiCfg.getRestApi("platform-mng.volumeTypeList.put");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined ,data);
     }
 }

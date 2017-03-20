@@ -43,7 +43,7 @@ export class CaseMngComponent implements OnInit {
     pageIndex =1;
     pageSize = 10;
     
-    caseList:Array< CaseListModel>;
+    caseList:Array< CaseListModel>=new Array<CaseListModel>();
     enterpriseList:Array<Enterprise>=new Array<Enterprise>();
     subject:string="";
     tenantId:string="";

@@ -26,14 +26,14 @@ export class ClMngCreStep5Service {
     //}
 
     //获取云主机规格 pf.cre.flavors.get
-    getFlavors(id : String){
+    getFlavors(id : string){
         let api = this.restApiCfg.getRestApi("pf.cre.flavors.get");
 
         return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined);
     }
 
     //更新云主机规格 pf.cre.step.05.flavors.put
-    putFlavors(id : String , item : Array<CreStep5Model>){
+    putFlavors(id : string , item : Array<CreStep5Model>){
         let api = this.restApiCfg.getRestApi("pf.cre.step.05.flavors.put");
 
         return this.restApi.request(api.method , api.url ,[{key : 'pf-id',value : id}],undefined,item);

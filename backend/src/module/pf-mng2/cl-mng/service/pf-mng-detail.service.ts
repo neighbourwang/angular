@@ -74,9 +74,9 @@ export class PlatformDetailService {
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
     } 
     //PUT 获取volumeType列表
-    putVolumeTypeList(data){
+    putVolumeTypeList(id:string,data:any){
         let api = this.restApiCfg.getRestApi("platform-mng.volumeTypeList.put");
-        return this.restApi.request(api.method , api.url,[],undefined ,data);
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined ,data);
     }
     //启用VolumeType
     enableVolumeype(id:string){
