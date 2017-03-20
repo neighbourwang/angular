@@ -40,7 +40,6 @@ export class cartListComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.getCartList();
 	}
 
 	private setTotalPrice(orderList:any[]) {   //设置价格总价
@@ -67,31 +66,6 @@ export class cartListComponent implements OnInit {
 		console.log(this.totalPrice)
 	}
 
-	getCartList():void {
-	    this.layoutService.show();
-		this.service.getCartList().then(cartList => {
-	    	this.layoutService.hide();
-			this.cartList = cartList;
-			this.setTotalPrice(cartList);
-		}).catch(e => {
-	      this.layoutService.hide()
-	  	})
-	};
-
-	deleteCartList(itemId:string):void {
-		this.modalconfirm = () => {
-	    	this.layoutService.show();
-			this.service.deleteCartList(itemId).then(res => {
-	    		this.layoutService.hide();
-				this.noticeDialog.open("","SHOPPING_CART.SUCCESSFULLY_DELETED");
-				this.getCartList();
-			}).catch(e =>{
-	    		this.layoutService.hide();
-				this.noticeDialog.open("SHOPPING_CART.DELETE_FAILED",e);
-			})
-		}
-		this.confirmDialog.open("","SHOPPING_CART.CONFIRM_TO_DELETE");
-	}
 
 	buyNow():void {
 		const list = this.cartList.map(cart => cart.id);   //提取cartID

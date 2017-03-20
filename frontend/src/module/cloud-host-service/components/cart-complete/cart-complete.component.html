@@ -1,0 +1,94 @@
+<table class="table table-all-boder mgb20">
+    <tr class="table-title">
+        <td style="width: 400px" class="text-center">{{'SHOPPING_CART.PRODUCT_INFORMATION' | translate}}</td>
+        <td class="text-center">{{'SHOPPING_CART.PRODUCT_TYPE' | translate}}</td>
+        <td class="text-center">{{'COMMON.BILLING_MODE'| translate}}</td>
+        <td class="text-center">{{'SHOPPING_CART.PURCHASE_CYCLE' | translate}}</td> 
+        <td class="text-center">{{'SHOPPING_CART.CHARGE_DETAIL' | translate}}</td>
+        <td class="text-center">{{'SHOPPING_CART.QUANTITY' | translate}}</td>
+        <td class="text-center">{{'SHOPPING_CART.NOTE' | translate}}</td>
+    </tr>
+    <tr colspan="7" class="table-gap"></tr>
+    <ng-container *ngFor="let cart of cartList;">
+    <tr>
+        <td colspan="7" class="table-line-head">
+            <font class="font-green">{{cart.itemNo}}</font>
+            <button (click)="deleteCartList(cart.id)" class="btn button-gray-gradient float-right delete-cart"><span class="icon-delete"></span>{{'SHOPPING_CART.REMOVE_FROM_CART' | translate}}</button>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 500px">
+            <table class="cart-info">
+                <tr *ngFor="let attr of cart.attrList | formatInfo:cart.serviceType;">
+                    <td style="width: 150px">{{attr.attrDisplayName}} : </td>
+                    <td>{{attr.attrDisplayValue}}</td>
+                </tr>
+            </table>
+        </td>
+        <td class="text-center table-text-middle">{{cart.serviceType | dict:service.dictProductType | async}}</td>
+        <td class="text-center table-text-middle">{{cart.billingMode | dict:service.packageBilling | async}}</td>
+        <td class="text-center table-text-middle">{{cart.billingInfo.basicPrice ? cart.billingPeriod : "无"}}</td>
+        <td class="text-center table-text-middle">
+            <table class="cart-info">
+                <tr>
+                    <td>{{'COMMON.ONE_TIME_COSTS' | translate}}: </td>
+                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{cart.billingInfo.basePrice}}  {{'COMMON.YUAN' | translate}}</font></td>
+                </tr>
+                <tr *ngIf="cart.billingInfo.basicPrice">
+                    <td>周期费用: </td>
+                    <td>
+                        <font class="font-orange">
+                        {{'COMMON.$' | translate}}{{cart.billingInfo.basicPrice}} {{'COMMON.YUAN' | translate}} / {{cart.billingInfo.periodType | dict:service.weekly | async}}
+                        </font>
+                    </td>
+                </tr>
+                <tr *ngIf="cart.billingInfo.unitPrice">
+                    <td>按量费用</td>
+                    <td>
+                        <font class="font-orange">
+                        {{'COMMON.$' | translate}}{{cart.billingInfo.unitPrice}} {{'COMMON.YUAN' | translate}}/GB/{{cart.billingInfo.periodType | dict:service.weekly | async}}
+                        </font>
+                    </td>
+                </tr>
+            </table>
+        </td> 
+        <td class="text-center table-text-middle">
+            <!--  <count-bar 
+                [step]=1 
+                [max]=2000000 
+                [min]=1
+                [disabled]=false 
+                [value]=cart.quantity #varName (output)="outputValue($event)"></count-bar>  -->
+                {{cart.quantity}}{{'SHOPPING_CART.SET' | translate}}
+        </td>
+        <td class="text-center table-text-middle">
+            <table class="cart-info">
+                <tr>
+                    <td>{{'COMMON.ONE_TIME_COSTS' | translate}}: </td>
+                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{cart.billingInfo.basePrice * cart.quantity}} {{'COMMON.YUAN' | translate}}</font></td>
+                </tr>
+               
+                <tr *ngIf="cart.billingInfo.basicPrice">
+                    <td>总周期费用: </td>
+                    <td>
+                        <font class="font-orange">
+                        {{'COMMON.$' | translate}}{{cart.billingInfo.basicPrice * cart.quantity}} {{'COMMON.YUAN' | translate}} / {{cart.billingInfo.periodType | dict:service.weekly | async}}
+                        </font>
+                    </td>
+                </tr>
+                <tr *ngIf="cart.billingInfo.unitPrice">
+                    <td>总按量费用: </td> 
+                    <td>
+                        <font class="font-orange">
+                        {{'COMMON.$' | translate}}{{cart.billingInfo.unitPrice * cart.quantity * getDiskSize(cart)}} {{'COMMON.YUAN' | translate}}/{{cart.billingInfo.periodType | dict:service.weekly | async}}
+                        </font>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    </ng-container>
+</table>
+<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalcancle()" ct="{{modalCancelTitle}}" (cf)="modalconfirm()"></fc-confirm>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="noticeconfirm()"></fc-notice>
+
