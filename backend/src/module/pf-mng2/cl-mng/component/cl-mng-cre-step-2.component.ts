@@ -35,7 +35,7 @@ export class ClMngCreStep2Component implements OnInit {
 
     platformType: string;
     ngOnInit() {
-        let platFormId: String = this.idService.getPlatformId();
+        let platFormId: string = this.idService.getPlatformId();
         //控制下一步disabled
         this.creStep2Model.isNext = false;
         console.log('init');
@@ -93,7 +93,7 @@ export class ClMngCreStep2Component implements OnInit {
 
 
     private storages() {
-        let platFormId: String = this.idService.getPlatformId();
+        let platFormId: string = this.idService.getPlatformId();
         this.service.storages(platFormId).then(
             res => {
                 console.log('storage', res);
@@ -125,7 +125,7 @@ export class ClMngCreStep2Component implements OnInit {
     }
 
     private flavors() {
-        let platFormId: String = this.idService.getPlatformId();
+        let platFormId: string = this.idService.getPlatformId();
 
         this.service.flavors(platFormId).then(
             res => {
@@ -146,7 +146,7 @@ export class ClMngCreStep2Component implements OnInit {
     }
 
     private images() {
-        let platFormId: String = this.idService.getPlatformId();
+        let platFormId: string = this.idService.getPlatformId();
 
         // this.service.images(platFormId).then(
         //     res => {
@@ -198,7 +198,7 @@ export class ClMngCreStep2Component implements OnInit {
     }
 
     private hosts() {
-        let platFormId: String = this.idService.getPlatformId();
+        let platFormId: string = this.idService.getPlatformId();
 
         this.service.hosts(platFormId).then(
             res => {

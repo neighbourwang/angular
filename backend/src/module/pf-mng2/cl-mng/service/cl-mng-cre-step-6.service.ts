@@ -40,7 +40,7 @@ export class ClMngCreStep6Service {
     // }
 
     //获取镜像 pf.cre.images.get
-    getImageList(id: String) {
+    getImageList(id: string) {
         let data = {
             "enterpriseId": null,
             "imageType": null,

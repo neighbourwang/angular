@@ -17,7 +17,7 @@ import { ClMngCommonService } from '../service/cl-mng-common.service';
 import { Platform } from '../model/platform.model';
 import { ZoneListModel } from '../model/cre-step3.model';
 import { StorageModel } from '../model/cre-step4.model';
-
+import { VolumeTypeModel } from '../model/volumeType.model';
 
 @Component({
     templateUrl: '../template/pf-mng-detail.component.html',
@@ -71,6 +71,7 @@ export class PfDetailComponent implements OnInit {
         { name: 'PF_MNG2.ZONES_QUOTA', active: false },
         { name: 'PF_MNG2.STOARGE_QUOTA', active: false }
     ]
+    platformId:string;
     platformName: string;
     platformType: string;
     platformTypes: Array<any> = new Array<any>();
@@ -84,9 +85,8 @@ export class PfDetailComponent implements OnInit {
     hostList: ZoneListModel=new ZoneListModel();
     //初始化
     ngOnInit() {
-        let id: string;
         this.router.params.forEach((params: Params) => {
-            id = params['id'];
+            this.platformId = params['id'];
             this.platformType = params['type'];
             this.platformName = params['name'];
             console.log(this.platformType);
@@ -100,7 +100,7 @@ export class PfDetailComponent implements OnInit {
                 this.platformTypes = res;
             }
             ).then(() => {
-                this.platformDetailService.getPlatform(id)
+                this.platformDetailService.getPlatform(this.platformId)
                     .then(
                     res => {
                         console.log('platform basic', res);
@@ -115,6 +115,7 @@ export class PfDetailComponent implements OnInit {
                         })
                         this.getZoneList();
                         this.getStorageList();
+                        this.getVolumeTypeList(this.platformId);
                         this.layoutService.hide();
                     }
                     )
@@ -485,7 +486,80 @@ export class PfDetailComponent implements OnInit {
             console.error('获取同步存储空间出错', err)
         })
     }
-   
+    //volumeType信息
+    volumeTypeList: Array<VolumeTypeModel> = new Array<VolumeTypeModel>();
+    //获取volumeType列表
+    getVolumeTypeList(id: string) {
+        this.platformDetailService.getVolumeTypeList(id).then(
+            res => {
+                console.log('volumeType',res);
+                this.volumeTypeList = res.resultContent
+            }
+        ).catch(err => {
+            console.error(err);
+        });
+    }
+    //启用VolumeType
+    enableVolumeType(id:string){
+        this.layoutService.show();
+        this.platformDetailService.enableVolumeype(id).then(
+            res => {
+                this.layoutService.hide();
+                console.log('volumeType',res);
+                this.getVolumeTypeList(this.platformId);
+            }
+        ).catch(err => {
+            this.layoutService.hide();
+            console.error(err);
+        });
+    }   
+    //禁用Volumetype
+    suspendVolumeType(id:string){
+        this.layoutService.show();
+        this.platformDetailService.suspendVolumeType(id).then(
+            res => {
+                this.layoutService.hide();
+                console.log('volumeType',res);
+                this.getVolumeTypeList(this.platformId);
+            }
+        ).catch(err => {
+            this.layoutService.hide();
+            console.error(err);
+        });
+    }
+    //操作volumeType
+    tempVolumeTypeList: Array<VolumeTypeModel>=new Array<VolumeTypeModel>();
+    editVolumeType(volumeType, idx) {
+        this.tempVolumeTypeList[idx]=new VolumeTypeModel();
+        Object.assign(this.tempVolumeTypeList[idx], volumeType)
+        this.volumeTypeList[idx].isEdit = true;
+    }
+    saveVolumeType(volumeType) {
+        console.log(this.tempVolumeTypeList);        
+        this.layoutService.show();
+        this.platformDetailService.putVolumeTypeList(this.platformId,this.volumeTypeList).then(res => {
+            console.log(res);
+            this.getVolumeTypeList(this.platformId);
+            volumeType.isEdit = false;
+            this.layoutService.hide();
+        }).catch(err => {
+            console.error(err);
+            this.layoutService.hide();
+        })
+    }
+    cancelEditVolumeType(volumeType,idx) {
+        console.log(this.tempVolumeTypeList[idx]);
+        Object.assign(volumeType, this.tempVolumeTypeList[idx]);
+        this.tempVolumeTypeList[idx]=new VolumeTypeModel();
+        volumeType.isEdit = false;
+    }
+    //同步更新存储类型
+    updateVolumetypeListPop(){
+        this.platformDetailService.getUpdateVolumeType(this.platformId).then(res=>{
+            console.log('updateVolumetype',res);
+        })
+    }
+
     //返回
     back() {
         this.location.back();

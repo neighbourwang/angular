@@ -11,7 +11,7 @@ export class FlavorService{
         private restApiCfg:RestApiCfg
     ){}
     //获取平台规格列表
-    getFlavorList (id : String){
+    getFlavorList (id : string){
         let api = this.restApiCfg.getRestApi("pf.cre.flavors.get");
 
         return this.restApi.request(api.method , api.url , [{key :'pf-id' , value : id}],undefined);

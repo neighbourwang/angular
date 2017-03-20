@@ -409,7 +409,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "启用volumeType",
         "id": "platform-mng.volumeType.enable",
         "method": "GET",
-        "url": "adminui/authsec/platform/volumeType[id]/enable"        
+        "url": "adminui/authsec/platform/volumeType/{id}/enable"        
     },
     {
         "desc": "禁用volumeType",
