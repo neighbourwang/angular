@@ -1764,6 +1764,8 @@
         "RESELECT_HANDLE_CASE":"工单状态只有为'新建'或'处理中'才能处理，请选择需要处理的工单！",
         "CASE_HAS_CLOSED":"该工单已关闭，不能进行处理！",
         "CASE_HAS_CLOSE":"该工单已关闭，不能再次关闭！",
+        "INPUT_SUBJECT_TO_SEARCH":"输入工单主题搜索",
+        "NO_CASE_MATCH_SEARCH_CRITERIA":"没有搜索到相关的工单!",
 
         "CASE_DETAIL":"工单详细",
         "CASE_INFO":"基本信息",
