@@ -9,7 +9,6 @@ import { Info } from "./formatInfo.model";
 export class formatInfo implements PipeTransform {
 
     transform(lists: Array<any>, serviceType:0|1): Array<any> {
-    	console.log(lists, serviceType);
     	let arr = [],
     		info:Info = new Info;
     	lists.forEach(list => info[list.attrCode] = list);

@@ -34,7 +34,7 @@
             </select>
         </div> 
         <div class="input-group col-md-2 pull-right mgl10 float-left">
-            <input class="form-control " placeholder=" " type="text" [(ngModel)]="subject">
+            <input class="form-control " placeholder="输入工单主题搜索" type="text" [(ngModel)]="subject">
             <div class="input-group-addon" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
         </div>                                                             
      
@@ -92,6 +92,7 @@
             </tbody>
         </table>    
     </div>
+    <div *ngIf="caseList.length==0" style="text-align:center;margin-top:10px">{{'CASE_MNG.NO_CASE_MATCH_SEARCH_CRITERIA'|translate}}</div>
     <div style="height:50px"></div>
     <div class="fox-cloud-pagination-container">
              <fc-pagination #page tp={{totalPage}} (pf)="getCaseList($event)"></fc-pagination>  
