@@ -25,6 +25,7 @@ class Validation {
     isPassword = (v:any):boolean => /(^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^\sA-Za-z0-9])\S*$)/.test(v);  //同时包括三项（大写字母，小写字母，数字和特殊符号）
     isEmail    = (v:any):boolean => /(^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)/.test(v);  //是否是email
     isInteger  = (v:any):boolean => /^\d*$/.test(v);  //是否是整数
+    isIpaddress= (v:any):boolean => /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/.test(v);  //是否是IP
 
     //下面为curry函数
     min = (min:number):Function => (v:any):boolean => +v >= min;   //数字的最小值
