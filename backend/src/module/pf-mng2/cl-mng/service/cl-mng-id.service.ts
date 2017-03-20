@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ClMngIdService {
-    private platformId: String;
+    private platformId: string;
 
     contains(): boolean {
         return !(this.platformId === null || this.platformId === undefined || this.platformId === '')

@@ -44,7 +44,7 @@ export class ClMngCreStep3Component implements OnInit {
             console.log(this.platformType);
         })
 
-        let platFormId: String = this.idService.getPlatformId();
+        let platFormId: string = this.idService.getPlatformId();
         this.layoutService.show();
         this.service.getZone(platFormId).then(
             res => {
@@ -89,7 +89,7 @@ export class ClMngCreStep3Component implements OnInit {
 
     next() {
 
-        let platFormId: String = this.idService.getPlatformId();
+        let platFormId: string = this.idService.getPlatformId();
 
         // this.router.navigateByUrl("pf-mng2/cl-mng/cre-step4");
         for (let zone of this.creStep3Model) {

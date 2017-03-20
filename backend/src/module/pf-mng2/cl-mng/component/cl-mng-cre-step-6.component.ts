@@ -49,7 +49,7 @@ export class ClMngCreStep6Component implements OnInit {
             console.log(this.platformType);
         })       
         console.log(this.commonService.imageFormatList);
-        let id: String = this.idService.getPlatformId();
+        let id: string = this.idService.getPlatformId();
         this.layoutService.show();
         this.service.getImageList(id).then(
             res => {
