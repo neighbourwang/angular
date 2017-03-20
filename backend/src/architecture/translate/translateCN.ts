@@ -1257,7 +1257,7 @@
         "STORAGE_CONFIGURATION":"存储区配置",
         "CLOUD_HOST_SPECIFICATIONS":"云主机规格",
         "IMAGE_CONFIGURATION":"镜像配置",
-        "SUPPORT_CLOUD_HOST_CHANGES":"是否支持云主机变更?",
+        "SUPPORT_CLOUD_HOST_CHANGES":"是否支持云主机变更",
         "ENTER_CLOUD_PLATFORM_ACCESS_INFO":"请输入云平台访问信息",
         "SUPPORT":"支持",
         "NONSUPPORT":"不支持",

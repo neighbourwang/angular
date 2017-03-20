@@ -50,7 +50,7 @@
                         <!--<td>使用中</td>-->
                         <td>{{flavor.updateDate}}</td>
                         <td>
-                            <button  *ngIf="flavor.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor(flavor.id)">{{'COMMON.ENABLE' | translate}}</button>
+                            <button  *ngIf="flavor.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor(flavor)">{{'COMMON.ENABLE' | translate}}</button>
                         </td>
                     </tr>
                 </tbody>
@@ -86,8 +86,8 @@
                         <!--<td>使用中</td>-->
                         <td>{{flavor.updateDate}}</td>
                         <td>
-                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor(flavor.id)">{{'COMMON.ENABLE' | translate}}</button>
-                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="deleFlavor(flavor.id)">{{'COMMON.DELETE' | translate}}</button>
+                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor(flavor)">{{'COMMON.ENABLE' | translate}}</button>
+                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="deleFlavor(flavor)">{{'COMMON.DELETE' | translate}}</button>
                         </td>
                     </tr>
                 </tbody>
@@ -95,7 +95,8 @@
         </div>
     </div>
     <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="nof()"></fc-notice>
-    <fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+    <fc-confirm #enableConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cofEnable()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+    <fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cofDelete()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
     <fc-popup #createSepc title="{{'PF_MNG2.NEW_CLOUD_SPEC' | translate}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccCreate()">
             <div class="row row-line-height">
                 <div class="form-group">
