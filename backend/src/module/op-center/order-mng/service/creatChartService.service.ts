@@ -53,9 +53,19 @@ export class CreatChartService{
                                 '#2BD2C8',
                                 '#2BD2C8',
                                 '#2BD2C8',
-                                '#2BD2C8'
+                                '#2BD2C8',
+                                '#2BD2C8',
+                                '#2BD2C8',
+                                '#2BD2C8',
+                                '#2BD2C8',
+                                '#2BD2C8',
                             ],
                             borderColor: [
+                                '#2BD2C8',
+                                '#2BD2C8',
+                                '#2BD2C8',
+                                '#2BD2C8',
+                                '#2BD2C8',
                                 '#2BD2C8',
                                 '#2BD2C8',
                                 '#2BD2C8',
@@ -219,13 +229,23 @@ export class CreatChartService{
         let _datas:Array<number>=[];
         let labels :Array<string>=[];
         if(source){
-            for(let item of source){
+            // for(let item of source){
+            //     datas.push(item.doubleValue);
+            //     labels.push(item.num+'月');
+            // }
+
+            for(let i=source.length-1;i>=0;i--){
+                let item = source[i];
                 datas.push(item.doubleValue);
                 labels.push(item.num+'月');
             }
         }
         if(_source){
-            for(let item of _source){
+            // for(let item of _source){
+            //     _datas.push(item.doubleValue);
+            // }
+            for(let i=_source.length-1;i>=0;i--){
+                let item = _source[i];
                 _datas.push(item.doubleValue);
             }
         }
