@@ -787,7 +787,7 @@ export const TranslateCN = {
         SUBJECT_CANNOT_EMPTY: '主题不能为空',
         TYPE_CANNOT_EMPTY: '类别不能为空',
         EMERGENCY_CANNOT_EMPTY: '紧急程度不能为空',
-        CONTACTOR_CANNOT_EMPTY: '联系人不能为空',
-        CONTACNO_CANNOT_EMPTY: '联系电话不能为空'
+        CONTACTOR_WRONG: '联系人不能为空且不能包含特殊字符',
+        CONTACNO_WRONG: '手机号码输入不正确'
     }
 }

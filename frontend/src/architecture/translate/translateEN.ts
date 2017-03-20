@@ -752,7 +752,5 @@ export const TranslateEN = {
         SUBJECT_CANNOT_EMPTY: 'Subject cannot be empty',
         TYPE_CANNOT_EMPTY: 'Category cannot be empty',
         EMERGENCY_CANNOT_EMPTY: 'Emergency cannot be empty',
-        CONTACTOR_CANNOT_EMPTY: 'Contacts cannot be empty',
-        CONTACNO_CANNOT_EMPTY: 'Telephone cannot be empty'
     }
 }

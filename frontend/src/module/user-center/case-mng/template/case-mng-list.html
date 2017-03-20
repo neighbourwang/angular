@@ -68,7 +68,7 @@
             <td class="text-center">{{item.createDate}}</td>
             <td class="text-center">{{item.updateDate}}</td>
             <td class="text-center">
-                <span class="glyphicon glyphicon-edit font-green " style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);isEdit= true"></span>
+                <span class="glyphicon glyphicon-edit font-green " style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);isEdit= true;v.result.phone='';v.result.contactor='';v.result.subject='';v.result.type='';v.result.emergency='';"></span>
                 <span class="glyphicon glyphicon-trash font-orange" style="cursor:pointer" (click)="delete(item)"></span>
             </td>
         </tr>
@@ -92,7 +92,7 @@
         <div class="col-md-8 no-padding"  [ngClass]="{'has-error': v.result.subject}">
             <textarea type="text" class="form-control" [(ngModel)]="criteria.subject" (ngModelChange)="checkForm('subject')"></textarea>
             <span *ngIf="v.result.subject" class="glyphicon glyphicon-remove form-control-feedback"></span>
-            <div *ngIf="v.result.subject" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.subject}}</div>
+            <div *ngIf="v.result.subject" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.subject | translate}}</div>
         </div>
     </div>
     <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_ONE' | translate}}</div>
@@ -103,7 +103,7 @@
                 <option value="">{{ 'USER_CENTER.SELECT' | translate}}</option>
                 <option [value]="v.value" *ngFor="let v of service.typeDic | async">{{v.displayValue}}</option>
             </select>
-            <div *ngIf="v.result.type" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.type}}</div>
+            <div *ngIf="v.result.type" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.type | translate}}</div>
         </div>
     </div>
 <!--    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
@@ -127,7 +127,7 @@
                 <option value="">{{ 'USER_CENTER.SELECT' | translate}}</option>
                 <option [value]="v.value" *ngFor="let v of service.emergencyDic | async">{{v.displayValue}}</option>
             </select>
-            <div *ngIf="v.result.emergency" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.emergency}}</div>
+            <div *ngIf="v.result.emergency" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.emergency | translate}}</div>
         </div>
     </div>
 <!--    </form>-->
@@ -147,7 +147,7 @@
         <div class="col-md-8 no-padding form-group"  [ngClass]="{'has-error': v.result.contactor}">
             <input type="text" class="form-control" [(ngModel)]="criteria.contact" (ngModelChange)="checkForm('contactor')" >
             <span *ngIf="v.result.contactor" class="glyphicon glyphicon-remove form-control-feedback"></span>
-            <div *ngIf="v.result.contactor" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.contactor}}</div>
+            <div *ngIf="v.result.contactor" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.contactor | translate}}</div>
         </div>
     </div>
 <!--    <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
@@ -171,7 +171,7 @@
         <div class="col-md-8 no-padding form-group has-feedback"  [ngClass]="{'has-error': v.result.phone}">
             <input type="text" class="form-control" [(ngModel)]="criteria.contactNo" (ngModelChange)="checkForm('phone')">
             <span *ngIf="v.result.phone" class="glyphicon glyphicon-remove form-control-feedback"></span>
-            <div *ngIf="v.result.phone" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.phone}}</div>
+            <div *ngIf="v.result.phone" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.phone | translate}}</div>
         </div>
     </div>
     <div class="col-md-offset-3 col-md-8 text-tip">{{ 'USER_CENTER.LIMIT_DESCRIPTION_THREE' | translate}}</div>
