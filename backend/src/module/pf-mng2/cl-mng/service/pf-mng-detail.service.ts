@@ -66,6 +66,36 @@ export class PlatformDetailService {
     enableStorage (id:string){
         let api = this.restApiCfg.getRestApi("pf-mng-storage.enable");
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////Openstack平台VolumeType
+    //获取volumeType列表
+    getVolumeTypeList(id:string){
+        let api = this.restApiCfg.getRestApi("platform-mng.volumeTypeList.get");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
     } 
-   
+    //PUT 获取volumeType列表
+    putVolumeTypeList(data){
+        let api = this.restApiCfg.getRestApi("platform-mng.volumeTypeList.put");
+        return this.restApi.request(api.method , api.url,[],undefined ,data);
+    }
+    //启用VolumeType
+    enableVolumeype(id:string){
+        let api = this.restApiCfg.getRestApi("platform-mng.volumeType.enable");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    }
+    //禁用VolumeType
+    suspendVolumeType(id:string){
+        let api = this.restApiCfg.getRestApi("platform-mng.volumeTypeList.suspend");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    }
+    //获取更新VolueTypeList
+    getUpdateVolumeType(id:string){
+        let api = this.restApiCfg.getRestApi("platform-mng.addVolumeTypeList.get");
+        return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
+    }
+    //POST更新VolumeypeList
+    postUpdateVolumeType(data:any){
+        let api = this.restApiCfg.getRestApi("adminui/authsec/sync/platform/volumetypes");
+        return this.restApi.request(api.method , api.url,[],undefined ,data);
+    }
 }
