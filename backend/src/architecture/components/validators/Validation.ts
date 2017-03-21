@@ -36,6 +36,9 @@ class Validation {
     lengthRange = (min:number, max:number):Function => (v:string):boolean => this.minLength(min)(v) && this.maxLength(max)(v);   //字符串长度范围
     uuid = (version:"3"|"4"|"5"|"all" = "all"):Function => (v:any):boolean => new RegExp( uuids[version] || uuids.all ).test(v);  //uuid
     equalTo = (target:any):Function => (v:any):boolean => target === v;  //等于某个数
+    equalToArr = (arr:any[]):Function => (v:any):boolean => arr.indexOf(v) > -1;  //在某个数组里含有
+    notEqualTo = (target:any):Function => (v:any):boolean => target !== v;  //不等于某个数
+    notEqualToArr = (arr:any[]):Function => (v:any):boolean => arr.indexOf(v) === -1;  //不在某个数组里含有
 
     check(key, reg:ValidationRegs){  //对外方法  可以验证单个和验证所有
         let errorMessage;  

@@ -172,7 +172,6 @@
         "BY_YEAR": "包年",
         "BY_YEAR1": "按年",
         "CANCEL": "取消",
-        "CANCLE": "取消",
         "CANNOT_BE_EMPTY": " * 必填内容不能为空",
         "CANNOT_BE_INTEGER": "数量或配额不能为空或负数",
         "CAPACITY_GB": "容量(GB)",
@@ -357,7 +356,7 @@
         "ORDER_HISTORY":"订单历史",
         "EXECUTOR":"执行者",
         "ENTER_ORDER_NUMBER_QUERY":"输入订单编号查询",
-        "CANCLE_ORDER":"撤销订单",
+        "CANCEL_ORDER":"撤销订单",
         "START_UP":"启用"
     },
     "ENT_MNG": {
@@ -1197,6 +1196,7 @@
         "ZONE_NAME": "区域名称"
     },
     "PF_MNG2": {
+        "ACCESS_PATH": "访问地址",
         "ADDRESS_REQUIRED": "请输入地址",
         "BASIC_INFO": "基本信息",
         "CANT_DELETE_UNINITIALIZED_PF":"只能删除初始化状态的云平台",
@@ -1784,7 +1784,7 @@
 
         "LESS_THAN_1000_WORDS":"最多只能输入1000个文字",
         "HISTORY_INFO":"历史信息",
-        "CANCLE":"取消",
+        "CANCEL":"取消",
         "SUBMIT":"提交",
          "SAVE":"保存",
         "PLEASE_SELECT_EMERGENCY":"请选择紧急程度！",

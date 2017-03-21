@@ -33,7 +33,7 @@
                 <th>{{ 'PHY_MNG_POOL.DIGIT_CENTER_OWNER' | translate}}</th>
                 <th>{{ 'PHY_MNG_POOL.REGION_OWNER' | translate}}</th>
                 <th>{{ 'USER_CENTER.PLATFORM_TYPE' | translate}}</th>
-                <th>{{ 'PF_MNG2.PF_MNG' | translate}}</th>
+                <th>{{ 'PF_MNG2.ACCESS_PATH' | translate}}</th>
                 <th>{{ 'PF_MNG.VERSION_NUM' | translate}}</th>
                 <th>{{ 'COMMON.STATUS' | translate}}</th>
                 <th>{{ 'PF_MNG2.HEALTH_EXAMINATION' | translate}}</th>
@@ -44,7 +44,10 @@
                 <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" (click)="switchSelectIndividual(idx)"/></td>
                 <!--<td>123</td>-->
                 <td>{{idx+1}}</td>
-                <td (click)="godetail(item)" style="cursor:pointer">{{item.name}}</td>
+                <td (click)="godetail(item)" style="cursor:pointer" [title]="item.status!='0'?'点击查看平台详情':'平台状态初始化'">
+                    
+                <a disabled>{{item.name}}</a>
+                </td>
                 <td>{{item.dataCenter}}</td>
                 <td>{{item.regionName}}</td>
                 <td>
@@ -64,7 +67,10 @@
 										<template ngSwitchDefault>Unknown</template>							
 							</span>
                     </td>
-                <td>{{item.healthFlag}}</td>
+                <td>
+                    <span *ngIf="item.status!='0'" >{{item.healthFlag}} </span>
+                    <button  *ngIf="item.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="resetInit(item)">重置资源并启用</button>
+                </td>
             </tr>
             </tbody>
         </table>

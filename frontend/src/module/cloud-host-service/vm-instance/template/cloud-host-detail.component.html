@@ -1,287 +1,288 @@
 ﻿
 <div class="page-content">
-    <div>
-        <h1 class="page-content-header float-left">{{'VM_INSTANCE.CLOUD_HOST_DETAILS' | translate}}</h1>
-        <div class="float-left mgt5 mgl10 cursor-pointer" (click)="goToUrl('cloud-host-service/cloud-host-list')"><span class="icon-back"></span>{{'VM_INSTANCE.RETURNS_THE_CLOUD_HOST_LIST' | translate}}</div>
-        <button *ngIf="isEditState" (click)="saveEditToServer()" class="btn float-right btn-success"><i class="glyphicon glyphicon-plus"></i> 保存</button>
-        <div class="dropdown float-right mgr5">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{'VM_INSTANCE.MORE_ACTIONS' | translate}}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a (click)="isEditState = true" href="javascript:">{{'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | translate}}</a></li>
+	<div>
+		<h1 class="page-content-header float-left">{{'VM_INSTANCE.CLOUD_HOST_DETAILS' | translate}}</h1>
+		<div class="float-left mgt5 mgl10 cursor-pointer" (click)="goToUrl('cloud-host-service/cloud-host-list')"><span class="icon-back"></span>{{'VM_INSTANCE.RETURNS_THE_CLOUD_HOST_LIST' | translate}}</div>
+		<button *ngIf="isEditState" (click)="saveEditToServer()" class="btn float-right btn-success"><i class="glyphicon glyphicon-plus"></i> 保存</button>
+		<div class="dropdown float-right mgr5">
+			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				{{'VM_INSTANCE.MORE_ACTIONS' | translate}}
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+				<li><a (click)="isEditState = true" href="javascript:">{{'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | translate}}</a></li>
 
-                <li>
-                  <unsubscribe #unsubscribeVm [name]="vm?.instanceName" [id]="vm?.subInstanceId"></unsubscribe>
-                  <a (click)="unsubscribeVm.delectVm()" href="javascript:">{{'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | translate}}</a>
-                </li>
-            </ul>
-        </div>
+				<li>
+				  <unsubscribe #unsubscribeVm [name]="vm?.instanceName" [id]="vm?.subInstanceId"></unsubscribe>
+				  <a (click)="unsubscribeVm.delectVm()" href="javascript:">{{'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | translate}}</a>
+				</li>
+			</ul>
+		</div>
 
-        <open-console #openConsole [platformid]="vm?.platformId" [uuid]="vm?.uuid" [platformtype]="vm?.platformType"></open-console>
-        <button (click)="openConsole.open()" class="btn button-gray-gradient float-right mgr5">
-          <span class="icon-controller"></span>{{'VM_INSTANCE.CONSOLE' | translate}}
-        </button>
-    </div>
-    <div style="clear:both;"></div>
+		<open-console #openConsole [platformid]="vm?.platformId" [uuid]="vm?.uuid" [platformtype]="vm?.platformType"></open-console>
+		<button (click)="openConsole.open()" class="btn button-gray-gradient float-right mgr5">
+		  <span class="icon-controller"></span>{{'VM_INSTANCE.CONSOLE' | translate}}
+		</button>
+	</div>
+	<div style="clear:both;"></div>
 
 
-    <div class="row" style="margin-top:30px;">
+	<div class="row" style="margin-top:30px;">
 
-        <div class="col-md-6 info-menu"  id="accordion-no">
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne"  data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  <h4 class="panel-title">
-                    <span class="icon-basic mgl10"></span>{{'VM_INSTANCE.BASIC_INFORMATION' | translate}}
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                  </h4>
-                </div>
-                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                  <div class="panel-body">
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.INSTANCE_NAME' | translate}}:</font>    
-                          <input *ngIf="isEditState" class="form-control detail-edit-select" [(ngModel)]="postData.instanceDisplayName" type="text">
-                          <span  *ngIf="!isEditState">{{vm?.instanceName}}</span>
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.AVAILABLE_AREA' | translate}}:</font>    {{vm?.regionZone}}
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.OPERATION_HOURS' | translate}}:</font>   {{convertTimeDiff}}
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.STATUS' | translate}}:</font>    {{vm?.vmState | dict:service.computeStatus | async}}
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.RESOURCE' | translate}}:</font>  订购
-                      </div>
-                  </div>
-                </div>
-              </div>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                  <h4 class="panel-title">
-                    <span class="icon-attachment mgl10"></span>{{'VM_INSTANCE.EXTRA_INFORMATION' | translate}}
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                  </h4>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
-                  <div class="panel-body">
-                    
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.EXTRA_SERVICES' | translate}}:</font>   
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.TYPE' | translate}}:</font>    
-                          <select
-                             *ngIf="isEditState"
-                            [(ngModel)]="postData.useType" class="form-control detail-edit-select">
-                              <option
-                              *ngFor="let value of service.useType | async"
-                              [ngValue]="value.value" >{{ value.displayValue }}</option>
-                          </select>
-                          <span *ngIf="!isEditState">{{vm?.useType | dict:service.useType | async}}</span>
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}:</font>    
+		<div class="col-md-6 info-menu"  id="accordion-no">
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingOne"  data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+				  <h4 class="panel-title">
+					<span class="icon-basic mgl10"></span>{{'VM_INSTANCE.BASIC_INFORMATION' | translate}}
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				  </h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+				  <div class="panel-body">
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.INSTANCE_NAME' | translate}}:</font></div>    
+						  <input *ngIf="isEditState" class="form-control detail-edit-select" [(ngModel)]="postData.instanceDisplayName" type="text">
+						  <span  *ngIf="!isEditState">{{vm?.instanceName}}</span>
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.AVAILABLE_AREA' | translate}}:</font></div>    {{vm?.regionZone}}
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.OPERATION_HOURS' | translate}}:</font></div>   {{convertTimeDiff}}
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.STATUS' | translate}}:</font></div>    {{vm?.vmState | dict:service.computeStatus | async}}
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.RESOURCE' | translate}}:</font></div>  订购
+					  </div>
+				  </div>
+				</div>
+			  </div>
+			  <div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+				  <h4 class="panel-title">
+					<span class="icon-attachment mgl10"></span>{{'VM_INSTANCE.EXTRA_INFORMATION' | translate}}
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				  </h4>
+				</div>
+				<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+				  <div class="panel-body">
+					
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.EXTRA_SERVICES' | translate}}:</font></div>   
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.TYPE' | translate}}:</font></div>    
+						  <select
+							 *ngIf="isEditState"
+							[(ngModel)]="postData.useType" class="form-control detail-edit-select">
+							  <option
+							  *ngFor="let value of service.useType | async"
+							  [ngValue]="value.value" >{{ value.displayValue }}</option>
+						  </select>
+						  <span *ngIf="!isEditState">{{vm?.useType | dict:service.useType | async}}</span>
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}:</font></div>    
 
-                          <select
-                             *ngIf="isEditState"
-                            [(ngModel)]="postData.serviceLevel" class="form-control detail-edit-select">
-                              <option
-                              *ngFor="let value of service.serviceLevel | async"
-                              [ngValue]="value.value" >{{ value.displayValue }}</option>
-                          </select>
-                          <span *ngIf="!isEditState">{{vm?.serviceLevel | dict:service.serviceLevel | async}}</span>
-                      </div>
-                      <!-- <div class="line-box"> -->
-         <!--                  <font>{{'VM_INSTANCE.LABEL' | translate}}:</font>    {{vm?.instanceName}}
-                      </div> -->
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.DESCRIPTION' | translate}}:</font>    
-                          <input *ngIf="isEditState" class="form-control detail-edit-select" [(ngModel)]="postData.description" type="text">
-                          <span  *ngIf="!isEditState">{{vm?.description}}</span>
-                      </div>
-                  </div>
-                </div>
-              </div>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                  <h4 class="panel-title">
-                    <span class="icon-setting mgl10"></span>{{'VM_INSTANCE.CONFIGURATION_INFORMATION' | translate}}
-                    <span class="glyphicon glyphicon-chevron-down" ></span>
-                  </h4>
-                </div>
-                <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
-                  <div class="panel-body">
-                    
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.CPU' | translate}}:</font>    {{vm?.vcpus}}核
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.RAM' | translate}}:</font>    {{vm?.memoryMb}}MB
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.MIRROR' | translate}}:</font>    {{vm?.osInfo}}
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.INTERNAL_IP' | translate}}:</font>    {{vm?.privateIP}}
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.EXTERNA_IP' | translate}}:</font>    {{vm?.publicIP}}
-                      </div>
-                  </div>
-                </div>
-           </div>
-        </div>
-        <div class="col-md-6 info-menu">
-           
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingFourth" data-toggle="collapse" data-parent="#accordion" href="#collapseFourth" aria-expanded="true" aria-controls="collapseFourth">
-                  <h4 class="panel-title">
-                    <span class="icon-storage mgl10"></span>{{'VM_INSTANCE.DISK_INFORMATION' | translate}}
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                  </h4>
-                </div>
-                <div id="collapseFourth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFourth">
-                  <div class="panel-body">
-                    
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.BOOT_DISK' | translate}}:</font>    {{vm?.rootGb}}GB
-                      </div>
-                      <div (click)="goToUrl('cloud-host-service/cloud-drive-list')" class="line-box cursor-pointer">
-                          <font>{{'VM_INSTANCE.DATA_DISK' | translate}}:</font>    {{vm?.diskCount}}
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.SNAPSHOT' | translate}}:</font>    0
-                      </div>
-                  </div>
-                </div>
-           </div>
+						  <select
+							 *ngIf="isEditState"
+							[(ngModel)]="postData.serviceLevel" class="form-control detail-edit-select">
+							  <option
+							  *ngFor="let value of service.serviceLevel | async"
+							  [ngValue]="value.value" >{{ value.displayValue }}</option>
+						  </select>
+						  <span *ngIf="!isEditState">{{vm?.serviceLevel | dict:service.serviceLevel | async}}</span>
+					  </div>
+					  <div class="line-box">
+					  	<div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.LABEL' | translate}}:</font></div>
+					  	<div class="col-md-10 no-padding"><tag-input [datas]='["标签一","我的表情","孙悟空","齐天大圣","六小龄童","猪八戒","沙和尚"]'></tag-input></div>
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.DESCRIPTION' | translate}}:</font></div>    
+						  <input *ngIf="isEditState" class="form-control detail-edit-select" [(ngModel)]="postData.description" type="text">
+						  <span  *ngIf="!isEditState">{{vm?.description}}</span>
+					  </div>
+				  </div>
+				</div>
+			  </div>
+			  <div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+				  <h4 class="panel-title">
+					<span class="icon-setting mgl10"></span>{{'VM_INSTANCE.CONFIGURATION_INFORMATION' | translate}}
+					<span class="glyphicon glyphicon-chevron-down" ></span>
+				  </h4>
+				</div>
+				<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+				  <div class="panel-body">
+					
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.CPU' | translate}}:</font></div>    {{vm?.vcpus}}核
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.RAM' | translate}}:</font></div>    {{vm?.memoryMb}}MB
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.MIRROR' | translate}}:</font></div>    {{vm?.osInfo}}
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.INTERNAL_IP' | translate}}:</font></div>    {{vm?.privateIP}}
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.EXTERNA_IP' | translate}}:</font></div>    {{vm?.publicIP}}
+					  </div>
+				  </div>
+				</div>
+		   </div>
+		</div>
+		<div class="col-md-6 info-menu">
+		   
+			  <div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingFourth" data-toggle="collapse" data-parent="#accordion" href="#collapseFourth" aria-expanded="true" aria-controls="collapseFourth">
+				  <h4 class="panel-title">
+					<span class="icon-storage mgl10"></span>{{'VM_INSTANCE.DISK_INFORMATION' | translate}}
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				  </h4>
+				</div>
+				<div id="collapseFourth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFourth">
+				  <div class="panel-body">
+					
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.BOOT_DISK' | translate}}:</font></div>    {{vm?.rootGb}}GB
+					  </div>
+					  <div (click)="goToUrl('cloud-host-service/cloud-drive-list')" class="line-box cursor-pointer">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.DATA_DISK' | translate}}:</font></div>    {{vm?.diskCount}}
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.SNAPSHOT' | translate}}:</font></div>    0
+					  </div>
+				  </div>
+				</div>
+		   </div>
 
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingFifth" data-toggle="collapse" data-parent="#accordion" href="#collapseFifth" aria-expanded="true" aria-controls="collapseFifth">
-                  <h4 class="panel-title">
-                    <span class="icon-safety mgl10"></span>{{'VM_INSTANCE.SECURITY_INFORMATION' | translate}}
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                  </h4>
-                </div>
-                <div id="collapseFifth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFifth">
-                  <div class="panel-body">
-                    
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.SECURITY_GROUP' | translate}}:</font>    DEFAULT
-                      </div>
-                  </div>
-                </div>
-           </div>
+			  <div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingFifth" data-toggle="collapse" data-parent="#accordion" href="#collapseFifth" aria-expanded="true" aria-controls="collapseFifth">
+				  <h4 class="panel-title">
+					<span class="icon-safety mgl10"></span>{{'VM_INSTANCE.SECURITY_INFORMATION' | translate}}
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				  </h4>
+				</div>
+				<div id="collapseFifth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFifth">
+				  <div class="panel-body">
+					
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.SECURITY_GROUP' | translate}}:</font></div>    DEFAULT
+					  </div>
+				  </div>
+				</div>
+		   </div>
 
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingSixth" data-toggle="collapse" data-parent="#accordion" href="#collapseSixth" aria-expanded="true" aria-controls="collapseSixth">
-                  <h4 class="panel-title">
-                    <span class="icon-payment mgl10"></span>{{'VM_INSTANCE.PAID_INFORMATION' | translate}}
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                  </h4>
-                </div>
-                <div id="collapseSixth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSixth">
-                  <div class="panel-body">
-                    
-                      <div (click)="goToUrl('op-center/order-mng/order-mng-search')" class="line-box cursor-pointer">
-                          <font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font>    {{vm?.itemId}}
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.PAYMENT_METHODS' | translate}}:</font>    {{vm?.paymentType}}
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.CREATED_DATE' | translate}}:</font> {{vm?.createDate}}
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.EXPIRE_DATE' | translate}}:</font>    {{vm?.expiryDate}}
-                      </div>
-                      <div class="line-box">
-                          <font>{{'VM_INSTANCE.RELEASE_DATE' | translate}}:</font> {{vm?.releaseDate}}
-                      </div>
-                  </div>
-                </div>
-           </div>
-            <!-- <div class="host-detail-chart">
-                <div class="main-head">
-                    <span class="icon-chart icon float-left"></span>
-                    <span class="title float-left">监控图表</span>
-                    <select class="form-control float-right mgt5 mgr5">
-                        <option value="1">最近6小时</option>
-                        <option value="2">最近12小时</option>
-                        <option value="3">最近24小时</option>
-                    </select>
-                    <button class="btn button-gray-gradient mgt5 mgr5 float-right ">
-                        <span class="icon-reset button-icon" ></span>刷新
-                    </button>
-                    <button class="float-right switch off" id='test_switch'>
-                        <span></span>
-                    </button>
-                    
-                    <span class="title float-right">实时数据</span>
-                </div>
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#detail_chart_a" role="tab" data-toggle="tab" aria-controls="detail_chart_a" aria-expanded="true">CPU使用率</a></li>
-                    <li role="presentation" class=""><a href="#detail_chart_b" role="tab" data-toggle="tab" aria-controls="detail_chart_b" aria-expanded="false">内存使用率</a></li>
-                    <li role="presentation" class=""><a href="#detail_chart_c" role="tab" data-toggle="tab" aria-controls="detail_chart_c" aria-expanded="false">硬盘</a></li>
-                    <li role="presentation" class=""><a href="#detail_chart_d" role="tab" data-toggle="tab" aria-controls="detail_chart_d" aria-expanded="false">网络流入/流出速率</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade active in" id="detail_chart_a" >
-                        <canvas baseChart class="chart-canvas"
-                            chartType="line"
-                            [labels]="a_labels"
-                            [datasets]="a_datasets"
-                            [options]="a_options" ></canvas>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="detail_chart_b" >
-                        <canvas baseChart class="chart-canvas"
-                            chartType="line"
-                            [labels]="b_labels"
-                            [datasets]="b_datasets"
-                            [options]="b_options" ></canvas>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="detail_chart_c" >
-                        <div class="chart-top-select">
-                            <select class="form-control float-right mgt5 mgr5">
-                                <option value="1">系统盘</option>
-                                <option value="2">c:盘</option>
-                                <option value="3">d:盘</option>
-                            </select>
-                        </div>
-                        <div class="chart-box">
-                            <ul class="chart-tab" role="tablist">
-                                <li role="presentation" class="active"><a href="#detail_chart_c_1" role="tab" data-toggle="tab" aria-controls="detail_chart_c_1" aria-expanded="true">磁盘读写速率</a></li>
-                                <li role="presentation"><a href="#detail_chart_c_2" role="tab" data-toggle="tab" aria-controls="detail_chart_c_2" aria-expanded="false">磁盘IOPS</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane fade active in" id="detail_chart_c_1">
-                                    <canvas baseChart class="chart-canvas"
-                                        chartType="line"
-                                        [labels]="c_labels"
-                                        [datasets]="c_datasets"
-                                        [options]="c_options" ></canvas>
-                                </div>
-                                <div role="tabpanel" class="tab-pane fade" id="detail_chart_c_2">
-                                    <canvas baseChart class="chart-canvas"
-                                        chartType="line"
-                                        [labels]="d_labels"
-                                        [datasets]="d_datasets"
-                                        [options]="d_options" ></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="detail_chart_d" aria-labelledby="dropdown2-tab">
+			  <div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingSixth" data-toggle="collapse" data-parent="#accordion" href="#collapseSixth" aria-expanded="true" aria-controls="collapseSixth">
+				  <h4 class="panel-title">
+					<span class="icon-payment mgl10"></span>{{'VM_INSTANCE.PAID_INFORMATION' | translate}}
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				  </h4>
+				</div>
+				<div id="collapseSixth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSixth">
+				  <div class="panel-body">
+					
+					  <div (click)="goToUrl('op-center/order-mng/order-mng-search')" class="line-box cursor-pointer">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font></div>    {{vm?.itemId}}
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.PAYMENT_METHODS' | translate}}:</font></div>    {{vm?.paymentType}}
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.CREATED_DATE' | translate}}:</font></div> {{vm?.createDate}}
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.EXPIRE_DATE' | translate}}:</font></div>    {{vm?.expiryDate}}
+					  </div>
+					  <div class="line-box">
+						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.RELEASE_DATE' | translate}}:</font></div> {{vm?.releaseDate}}
+					  </div>
+				  </div>
+				</div>
+		   </div>
+			<!-- <div class="host-detail-chart">
+				<div class="main-head">
+					<span class="icon-chart icon float-left"></span>
+					<span class="title float-left">监控图表</span>
+					<select class="form-control float-right mgt5 mgr5">
+						<option value="1">最近6小时</option>
+						<option value="2">最近12小时</option>
+						<option value="3">最近24小时</option>
+					</select>
+					<button class="btn button-gray-gradient mgt5 mgr5 float-right ">
+						<span class="icon-reset button-icon" ></span>刷新
+					</button>
+					<button class="float-right switch off" id='test_switch'>
+						<span></span>
+					</button>
+					
+					<span class="title float-right">实时数据</span>
+				</div>
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a href="#detail_chart_a" role="tab" data-toggle="tab" aria-controls="detail_chart_a" aria-expanded="true">CPU使用率</a></li>
+					<li role="presentation" class=""><a href="#detail_chart_b" role="tab" data-toggle="tab" aria-controls="detail_chart_b" aria-expanded="false">内存使用率</a></li>
+					<li role="presentation" class=""><a href="#detail_chart_c" role="tab" data-toggle="tab" aria-controls="detail_chart_c" aria-expanded="false">硬盘</a></li>
+					<li role="presentation" class=""><a href="#detail_chart_d" role="tab" data-toggle="tab" aria-controls="detail_chart_d" aria-expanded="false">网络流入/流出速率</a></li>
+				</ul>
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane fade active in" id="detail_chart_a" >
+						<canvas baseChart class="chart-canvas"
+							chartType="line"
+							[labels]="a_labels"
+							[datasets]="a_datasets"
+							[options]="a_options" ></canvas>
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="detail_chart_b" >
+						<canvas baseChart class="chart-canvas"
+							chartType="line"
+							[labels]="b_labels"
+							[datasets]="b_datasets"
+							[options]="b_options" ></canvas>
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="detail_chart_c" >
+						<div class="chart-top-select">
+							<select class="form-control float-right mgt5 mgr5">
+								<option value="1">系统盘</option>
+								<option value="2">c:盘</option>
+								<option value="3">d:盘</option>
+							</select>
+						</div>
+						<div class="chart-box">
+							<ul class="chart-tab" role="tablist">
+								<li role="presentation" class="active"><a href="#detail_chart_c_1" role="tab" data-toggle="tab" aria-controls="detail_chart_c_1" aria-expanded="true">磁盘读写速率</a></li>
+								<li role="presentation"><a href="#detail_chart_c_2" role="tab" data-toggle="tab" aria-controls="detail_chart_c_2" aria-expanded="false">磁盘IOPS</a></li>
+							</ul>
+							<div class="tab-content">
+								<div role="tabpanel" class="tab-pane fade active in" id="detail_chart_c_1">
+									<canvas baseChart class="chart-canvas"
+										chartType="line"
+										[labels]="c_labels"
+										[datasets]="c_datasets"
+										[options]="c_options" ></canvas>
+								</div>
+								<div role="tabpanel" class="tab-pane fade" id="detail_chart_c_2">
+									<canvas baseChart class="chart-canvas"
+										chartType="line"
+										[labels]="d_labels"
+										[datasets]="d_datasets"
+										[options]="d_options" ></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="detail_chart_d" aria-labelledby="dropdown2-tab">
 
-                    </div>
-                </div>
-            </div> -->
-        </div>
-    </div>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
 </div>
 
 

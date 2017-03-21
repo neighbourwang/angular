@@ -61,17 +61,9 @@ export class ClMngCreStep4Component implements OnInit {
                         ele.quota ? ele.quota : 0;
                     ele.quotaPercentDisplay = ele.quota * 100;
                 })
-                //Openstack类型同步volumeType信息
+                ////获volumeType列表
                 if (this.platformType == '0') {
-                    this.service.getvolumeType(this.platformId).then(
-                        res => {
-                            console.log(res);
-                            //获volumeType列表
-                            this.getVolumeTypeList(this.platformId);
-                        }
-                    ).catch(err => {
-                        console.error(err);
-                    });
+                    this.getVolumeTypeList(this.platformId);
                 }
                 console.log(this.creStep4Model);
                 this.layoutService.hide();
@@ -87,7 +79,7 @@ export class ClMngCreStep4Component implements OnInit {
     }
     //获取volumeType列表
     getVolumeTypeList(id: string) {
-        this.service.getVolumeTypeList(id).then(
+        return this.service.getVolumeTypeList(id).then(
             res => {
                 console.log(res);
                 this.volumeTypeList = res.resultContent

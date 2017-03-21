@@ -14,7 +14,7 @@
     <ng-container *ngFor="let order of orderList | orderBy : 'createDate'; ">
     <tr>
         <td colspan="9" class="table-line-head">
-            <font class="font-green">{{'COMMON.ORDER_NUMBER' | translate}}：{{order.itemNo}} {{'COMMON.ORDER_ID' | translate}}：{{order.id}} {{'COMMON.CREATED_TIME' | translate}}：{{order.createDate}}</font>
+            <font class="font-green">{{'COMMON.ORDER_NUMBER' | translate}}：{{order.itemNo}} {{'COMMON.CREATED_TIME' | translate}}：{{order.createDate}}</font>
         </td>
     </tr>
     <tr *ngFor="let items of order.itemList;">

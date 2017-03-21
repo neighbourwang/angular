@@ -63,6 +63,7 @@ export class ClMngCreStep1Component implements OnInit {
         this.commonService.getPlatFormTypes()
             .then(
             res => {
+                console.log(res);
                 this.platformTypes = res;
                 for (let i = 0; i < this.platformTypes.length; i++) {
                     this.platformTypes[i].isSelected = false;
