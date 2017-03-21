@@ -1,6 +1,6 @@
 import { Input, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { NoticeComponent,PopupComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
+import { ValidationService,NoticeComponent,PopupComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import {CostSetItem,CostSetInfo,UserInfo} from '../model'
 
 import * as _ from 'underscore';
@@ -42,7 +42,8 @@ private flag :boolean = true;//true代表企业设置，false代表默认设置
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
-		private restApi:RestApi){
+		private restApi:RestApi,
+		private validateService:ValidationService){
        		this.costItemLoader = new ItemLoader<CostSetItem>(false, '费用设置列表加载失败', "op-center.order-set.cost-set-list.post", this.restApiCfg, this.restApi);
 			this.costItemLoader.MapFunc=(source:Array<any>,target:Array<CostSetItem>)=>{
 			for(let item of source){
@@ -124,7 +125,7 @@ private flag :boolean = true;//true代表企业设置，false代表默认设置
 	}
 
 	search(page:number){
-		const pageSize= 10;
+		const pageSize= 5;
 		let param = {
 			"currentPage": page,
 			"pageSize": pageSize,
@@ -134,6 +135,7 @@ private flag :boolean = true;//true代表企业设置，false代表默认设置
 		this.layoutService.show();
 		this.costItemLoader.Go(null,null,param)
 		.then(success=>{
+			this.costItemLoader.TotalPages=5;
 			this.payTypeDic.UpdateWithDic(success);
 			this.layoutService.hide();
 		})
@@ -184,18 +186,42 @@ private flag :boolean = true;//true代表企业设置，false代表默认设置
 	}
 
 	popupComplete(data) {
-		if(this.flag){
-			this.entSave(data);
-		}else{
-			this.defalutSave(data);
+		if(this.validateData(data)){
+			if(this.flag){
+				this.entSave(data);
+				}else{
+					this.defalutSave(data);
+				}
 		}
+		
 		// this.defaultSetDailog.close();
 		
 		console.log("组件里发来的数据:",data)
 	}
+
+	validateData(data:any){
+		if(this.validateService.isBlank(data.billCreateDate)){
+			this.showMsg("账单生成日不能为空");
+			return false;
+		}
+		if(!this.validateService.isInteger(data.billCreateDate)||data.billCreateDate<1||data.billCreateDate>20){
+			this.showMsg("账单生成日只能为1-20间的整数");
+			return false;
+		}
+		if(this.validateService.isBlank(data.billSendDate)){
+			this.showMsg("账单发送日不能为空");
+			return false;
+		}
+		
+		if(!this.validateService.isInteger(data.billSendDate)||data.billSendDate<1||data.billSendDate>7){
+			this.showMsg("账单发送日只能为1-7间的整数");
+			return false;
+		}
+		return true;
+	}
 	showMsg(msg: string)
 		{
-			this._notice.open("COMMON.SYSTEM_PROMPT", msg);
+			this._notice.open("系统提示", msg);
 		}
 	selectItem(selectedItem:CostSetItem){
 		this.selectedItem = selectedItem;
@@ -222,4 +248,9 @@ private flag :boolean = true;//true代表企业设置，false代表默认设置
 				this.showMsg(err);
 			})
 	}
+
+	
+  changePage(page: number) {
+    this.search(page);
+  }
 }

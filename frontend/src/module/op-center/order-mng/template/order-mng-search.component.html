@@ -75,43 +75,39 @@
 		<div class="mgb10 float-left">{{ 'ORDER_MNG.CURRENT_QUERY_TO' | translate }} <span class="font-green">{{_orderLoader.TotalRecords}}</span> {{ 'ORDER_MNG.ORDER_ORDER_LIST_IS_AS_FOLLOWS' | translate }}</div>
 			<div class="table-container">
 			<table class="table table-all-boder">
-				<thead>	
-					<tr>
-						<th>{{ 'ORDER_MNG.NUMBER' | translate }}</th>
-						<th>{{ 'ORDER_MNG.ORDER_NUMBER' | translate }}</th>
-						<th>{{ 'ORDER_MNG.PRODUCT_TYPE' | translate }}</th>
-						<th>{{ 'ORDER_MNG.ORDER_TYPE' | translate }}</th>
-						<th>{{ 'ORDER_MNG.ORDER_STATUS' | translate }}</th>
-						<th>{{ 'ORDER_MNG.EXPENSE' | translate }}</th>
+				<tr>
+					<th>{{ 'ORDER_MNG.NUMBER' | translate }}</th>
+					<th>{{ 'ORDER_MNG.ORDER_NUMBER' | translate }}</th>
+					<th>{{ 'ORDER_MNG.PRODUCT_TYPE' | translate }}</th>
+					<th>{{ 'ORDER_MNG.ORDER_TYPE' | translate }}</th>
+					<th>{{ 'ORDER_MNG.ORDER_STATUS' | translate }}</th>
+					<th>{{ 'ORDER_MNG.EXPENSE' | translate }}</th>
+					
+					<th>{{ 'ORDER_MNG.SUBMISSION_TIME' | translate }}</th>
+					<th>{{ 'ORDER_MNG.COMPLETION_TIME' | translate }}</th>
+					<th>{{ 'ORDER_MNG.SUBMITTER' | translate }}</th>
+					<th>{{ 'ORDER_MNG.DEPARTMENT' | translate }}</th>
+					<th>{{ 'ORDER_MNG.OPERATION' | translate }}</th>
+				</tr>			
+				<tr *ngFor="let item of _orderLoader.Items;let i = index;">
+					<td>{{i + 1}}</td>
+					<td>{{item.orderNo}}</td>
+					<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
+					<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
+					<td>{{item.statusName}}</td>
+					<td>{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}: {{ 'COMMON.$' | translate }} {{item.oncePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}: {{ 'COMMON.$' | translate }} {{item.price}}<span *ngIf="item.serviceType==1">/GB</span><span>/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
+					</td>
+					<td>{{item.submitTime}}</td>
+					<td>{{item.EndTime}}</td>
+					<td>{{item.submitPeople}}</td>
+					<td>{{item.departmentName}}</td>
+					<td>
+						<button class="mgr20  button-gray-gradient" (click)="showDetail(item)">{{ 'ORDER_MNG.DETAILS' | translate }}</button>
+						<!--撤单-->
+						<button *ngIf="item.withDrawOrderFlag==1" class="button-gray-gradient" data-toggle="modal" (click)="selectItem(item)">{{ 'ORDER_MNG.CANCEL_THE_ORDER' | translate }}</button>
 						
-						<th>{{ 'ORDER_MNG.SUBMISSION_TIME' | translate }}</th>
-						<th>{{ 'ORDER_MNG.COMPLETION_TIME' | translate }}</th>
-						<th>{{ 'ORDER_MNG.SUBMITTER' | translate }}</th>
-						<th>{{ 'ORDER_MNG.DEPARTMENT' | translate }}</th>
-						<th>{{ 'ORDER_MNG.OPERATION' | translate }}</th>
-					</tr>			
-				</thead>
-				<tbody>
-					<tr *ngFor="let item of _orderLoader.Items;let i = index;">
-						<td>{{i + 1}}</td>
-						<td>{{item.orderNo}}</td>
-						<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
-						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
-						<td>{{item.statusName}}</td>
-						<td>{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}: {{ 'COMMON.$' | translate }} {{item.oncePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}: {{ 'COMMON.$' | translate }} {{item.price}}<span *ngIf="item.serviceType==1">/GB</span><span>/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
-						</td>
-						<td>{{item.submitTime}}</td>
-						<td>{{item.EndTime}}</td>
-						<td>{{item.submitPeople}}</td>
-						<td>{{item.departmentName}}</td>
-						<td>
-							<button class="mgr20  button-gray-gradient" (click)="showDetail(item)">{{ 'ORDER_MNG.DETAILS' | translate }}</button>
-							<!--撤单-->
-							<button *ngIf="item.withDrawOrderFlag==1" class="button-gray-gradient" data-toggle="modal" (click)="selectItem(item)">{{ 'ORDER_MNG.CANCEL_THE_ORDER' | translate }}</button>
-							
-						</td>
-					</tr>
-				</tbody>
+					</td>
+				</tr>
 			</table>
 		</div>
 		<fc-pagination tp={{_orderLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>

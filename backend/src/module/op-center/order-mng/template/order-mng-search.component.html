@@ -135,7 +135,8 @@
 				  	<div class="modal-header">
 					 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<h4 class="modal-title" id="myModalLabel">{{ 'COMMON.ORDER_NUM' | translate}}: {{_orderDetailLoader.FirstItem.orderCode}}</h4>
-				  	</div>
+						<!--<button class="fox-cloud-button fox-cloud-button-green pull-right" style="margin-top:-10px;" (click)="back()"><span>返回订单查询</span></button>
+					 --> </div>
 				 	<div class="modal-body"> 
 			          <!--<account-mng-cr-local></account-mng-cr-local>-->
 			          <order-mng-searchDetail [detail]="_orderDetailLoader.FirstItem" ></order-mng-searchDetail>

@@ -68,7 +68,7 @@ export class OrderMngSearchComponent implements OnInit{
 				}
 			}
 		}
-		this._orderDetailLoader.Trait = (items:Array<SearchOrderDetail>)=>{
+		this._orderDetailLoader.Trait = (target:Array<SearchOrderDetail>)=>{
 			let firstItem = this._orderDetailLoader.FirstItem;
 
 			this._orderStatusDic.UpdateWithDic([firstItem], "statusName", "status");
@@ -77,6 +77,18 @@ export class OrderMngSearchComponent implements OnInit{
 			this._productTypeLoader.UpdateWithDic([firstItem], 'productTypeName', 'productType');
 			this._productTypeLoader.UpdateWithDic(firstItem.subInstanceList, 'serviceTypeName', 'serviceType');
 
+			if(firstItem.productType=='0'){//云主机服务,
+				if(firstItem.subInstanceList[0].specList){
+					for(let item of firstItem.subInstanceList[0].specList){
+						if(!this.checkVm(item)){
+							let index = firstItem.subInstanceList[0].specList.indexOf(item);
+							firstItem.subInstanceList[0].specList.splice(index,1);
+						}
+							
+					}
+				}
+			}
+			console.log(firstItem.subInstanceList[0].specList);
 		}
 		this._orderDetailLoader.FirstItem = new SearchOrderDetail();
 		this._orderDetailLoader.FirstItem.subInstanceList = [];
@@ -222,6 +234,12 @@ export class OrderMngSearchComponent implements OnInit{
 //     @ApiModelProperty(notes = "所属部门")
 //     private String departmentName;
 		 
+	}
+
+	checkVm(vm:any){//云主机产品显示 区域，可用区，实例规格(CPU,MEM,BOOTSTORAGE)，IP地址（无），操作系统(无)，密码，实例名称
+		if(vm.attrCode== "PLATFORM"||vm.attrCode== "ZONE"||vm.attrCode== "CPU"||vm.attrCode== "MEM"||vm.attrCode== "BOOTSTORAGE"||vm.attrCode== "PASSWORD"||vm.attrCode== "INSTANCENAME")
+			return true;
+		return false;
 	}
 	ngOnInit(){
 		this.layoutService.show();

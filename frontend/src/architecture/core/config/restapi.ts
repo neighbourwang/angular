@@ -399,7 +399,34 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.cost-pandect.increase-service.post",
         "method": "POST",
         "url": "adminui/authsec/enterrpise/subinstance/increase/bill"
-    },//消费总览
+    },{
+        "desc": "部门消费总览-部门消费概览",
+        "id": "op-center.order-mng.cost-pandect-department.consume.post",
+        "method": "POST",
+        "url": "adminui/authsec/department/consume/sum"
+    },{
+        "desc": "部门消费总览-部门消费趋势-总消费",
+        "id": "op-center.order-mng.cost-pandect-department.total.post",
+        "method": "POST",
+        "url": "adminui/authsec/department/consume/history"
+    },{
+        "desc": "部门消费总览-部门消费趋势-新增消费",
+        "id": "op-center.order-mng.cost-pandect-department.increase.post",
+        "method": "POST",
+        "url": "adminui/authsec/department/increase/consume/history"
+    },{
+        "desc": "部门消费总览-所有服务",
+        "id": "op-center.order-mng.cost-pandect-department.all-service.post",
+        "method": "POST",
+        "url": "adminui/authsec/department/subinstance/bill"
+    },{
+        "desc": "部门消费总览-新增服务",
+        "id": "op-center.order-mng.cost-pandect-department.increase-service.post",
+        "method": "POST",
+        "url": "adminui/authsec/department/subinstance/increase/bill"
+    },
+    
+    //消费总览
     //用户中心
     //个人账户管理
     {
