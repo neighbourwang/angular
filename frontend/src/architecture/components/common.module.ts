@@ -11,6 +11,7 @@ import { PopupComponent } from './dialog/component/popup.component';
 import { CountBarComponent } from './countBar/component/count-bar.component';
 import { TableEditNameComponent } from './tableEditName/component/tableEditName.component';
 import { StaticTooltipComponent } from './staticTooltip/staticTooltip.component';
+import { tagInputComponent } from './tagInput/tagInput.component';
 
 import { PopoverModule } from './popover/index';
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
@@ -52,7 +53,8 @@ import { Validation } from './validators';
         PopupComponent,
         CountBarComponent,
         TableEditNameComponent,
-        StaticTooltipComponent
+        StaticTooltipComponent,
+        tagInputComponent
         // OrderByPipe
         // DonutChart,
         // LineChart
@@ -72,6 +74,7 @@ import { Validation } from './validators';
         ChartsModule,
         TableEditNameComponent,
         StaticTooltipComponent,
+        tagInputComponent,
         AfterNgForModule,
         HttpModule,
         TranslateModule
