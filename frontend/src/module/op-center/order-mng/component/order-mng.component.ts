@@ -70,9 +70,10 @@ export class OrderMngComponent implements OnInit {
 	private _renewHandler: ItemLoader<any> = null;
 
 	//退订
-	private cancelObj: CancelParam = new CancelParam();
+	// private cancelObj: CancelParam = new CancelParam();
 	private _cancelHandler: ItemLoader<any> = null;
-
+    private detail : OrderDetailItem = new OrderDetailItem();
+	private cancelParamList =[];
 	private _entId: string = "191af465-b5dc-4992-a5c9-459e339dc719";
 
 	//计费模式
@@ -649,8 +650,16 @@ export class OrderMngComponent implements OnInit {
 	//退订
 	cancel() {
 		this.layoutService.show();
-		this._cancelHandler.Go(null, [{ key: "_subId", value: this.cancelObj.subId },
-		{ key: "_cascadeFlag", value: this.cancelObj.cascadeFlag }])
+		let param;
+		if(this.selectedOrderItem.isChecked){
+			param.push(this.selectedOrderItem.orderId);
+		}
+		for(let item of this.detail.relatedOrderList){
+			if(item.isChecked){
+				param.push(item.instanceId);
+			}
+		}
+		this._cancelHandler.Go(null,null,param)
 			.then(success => {
 				this.layoutService.hide();
 				$('#cancelOrder').modal('hide');
@@ -661,18 +670,36 @@ export class OrderMngComponent implements OnInit {
 				this.showMsg(err);
 			})
 	}
+	selectedCancelItem(item:OrderDetailItem){
+      item.isChecked=!item.isChecked;
+	}
+	selectedSubItem(prodItem:SubInstanceResp){
+		prodItem.isChecked=!prodItem.isChecked;
+	}
 
 	cancelSelect(orderItem: SubInstanceResp) {
 		// 成功、即将过期:7的订单可以  续订
 		if (!_.isEmpty(orderItem.itemList)
 			&& orderItem.itemList.filter(n => n.status == "2").length > 0) {
 			// console.log('cancel select', orderItem);
-			$('#cancelOrder').modal('show');
+			
+			this.selectedOrderItem = orderItem;
+			this.layoutService.show();
+			this._orderDetailLoader.Go(null, [{ key: "subinstanceCode", value: orderItem.orderId }])
+			.then(success => {
+				this.layoutService.hide();
+				this.detail = this._orderDetailLoader.FirstItem;
+				$('#cancelOrder').modal('show');
+			})
+			.catch(err => {
+				this.layoutService.hide();
+				this.showMsg(err);
+			})
 
 			// todo: set the cancelObj here
-			this.cancelObj = new CancelParam(orderItem.isDisk, orderItem.isMachine, orderItem.isInUse);
-			this.cancelObj.subId = orderItem.orderId;
-			console.log('cancelObj', this.cancelObj);
+			// this.cancelObj = new CancelParam(orderItem.isDisk, orderItem.isMachine, orderItem.isInUse);
+			// this.cancelObj.subId = orderItem.orderId;
+			// console.log('cancelObj', this.cancelObj);
 		}
 		else {
 			this.showMsg(`ORDER_MNG.ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_UNSUBSCRIBE`);

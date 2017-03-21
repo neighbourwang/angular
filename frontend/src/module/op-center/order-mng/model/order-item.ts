@@ -12,6 +12,8 @@ export class SubInstanceResp {
   relySubinstanceId : number = null; //是否挂载了主机的标识
   extendType: number = null;//, optional): 订单的自动续订状态
 
+  isChecked:boolean= false;
+
   get isMachine():boolean{//云主机
     return this.itemList && this.itemList[0].serviceType == 0;
   }
