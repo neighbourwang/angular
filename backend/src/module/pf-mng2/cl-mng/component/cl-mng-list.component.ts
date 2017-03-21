@@ -11,6 +11,7 @@ import { ClMngCreStep1Service } from '../service/cl-mng-cre-step-1.service';
 
 import { ClMngCommonService } from '../service/cl-mng-common.service';
 
+import { ClMngIdService } from '../service/cl-mng-id.service';
 //model
 import { Platform } from '../model/platform.model';
 
@@ -25,6 +26,7 @@ export class ClMngListComponent implements OnInit {
 
     constructor(private layoutService: LayoutService,
         private service: ClMngListService,
+        private idService: ClMngIdService,
         private router: Router,
         private platFormTypeService: ClMngCreStep1Service,
         private commonService: ClMngCommonService,
@@ -126,7 +128,9 @@ export class ClMngListComponent implements OnInit {
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
-        } else if(platForm.status==1){
+        }else if(platForm.status==0){
+            this.notice.open('COMMON.OPERATION_ERROR','不能启用初始化初始化状态云平台，请先重置资源并启用平台');//不能启用初始化云平台
+        }else if(platForm.status==1){
             this.notice.open('COMMON.OPERATION_ERROR','PF_MNG2.PLATFORM_ALEADRY_ENABLED');//云平台状态已启用
         }else{
             this.enableConfirm.open('PF_MNG2.ENABLE_PLATFORM', 'PF_MNG2.CONFIRM_ENABLE_PF^^^'+platForm.name)
@@ -139,7 +143,9 @@ export class ClMngListComponent implements OnInit {
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
-        } else if(platForm.status==2){
+        } else if(platForm.status==0){
+            this.notice.open('COMMON.OPERATION_ERROR','不能禁用初始化初始化状态云平台，请先重置资源并启用平台');//不能禁用初始化云平台
+        }else if(platForm.status==2){
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.PLATFORM_ALEADRY_DISALED'); //云平台状态已禁用
         }else {
             this.disableConfirm.open('PF_MNG2.DISABLE_PLATFORM', 'PF_MNG2.CONFIRM_DISABLE_PF^^^' + platForm.name)
@@ -182,8 +188,6 @@ export class ClMngListComponent implements OnInit {
                 this.notice.open('PF_MNG2.ERROR_PROMPT', 'PF_MNG2.DLETE_PLATFORM_EXCEPTION_TRY_AGAIN');
             }
             );
-
-
     }
 
     // 启用弹出框确认按钮
@@ -325,28 +329,36 @@ export class ClMngListComponent implements OnInit {
 
     //去详情
     godetail(item){
-        console.log(item);
-        this.router.navigate(["pf-mng2/pf-mng-detail", {id:item.id,type:item.platformType,name:item.name}]);
+        console.log(item);        
+        item.status!='0'&&this.router.navigate(["pf-mng2/pf-mng-detail", {id:item.id,type:item.platformType,name:item.name}]);
+    }
+    //初始化状态平台充值资源
+    resetInit(item){
+        console.log(item)
+        this.idService.setPlatformId(item.id);
+        item.status=='0'&&this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: item.platformType }]);
     }
 
     //管理启动盘
     goDiskMng(){
-         console.log('bootDisk');
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
-        } else {
+        } else if(platForm.status==0){
+            this.notice.open('COMMON.OPERATION_ERROR','不能操作初始化初始化状态云平台，请先重置资源并启用平台');//不能操作初始化云平台
+        }else{
             this.router.navigate(["pf-mng2/pf-mng-bootDisk", {id:platForm.id,type:platForm.platformType,name:platForm.name}]);
         }
         
     }
     //管理云主机规格(只针对openstack平台)
     goVmSpec(){
-         console.log('vmConfig');
         let platForm: Platform = this.getPlatForm();
         if (!platForm) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
-        } else {
+        } else if(platForm.status==0){
+            this.notice.open('COMMON.OPERATION_ERROR','不能操作初始化初始化状态云平台，请先重置资源并启用平台');//不能操作初始化云平台
+        }else {
             this.router.navigate(["pf-mng2/pf-mng-cloudHostSpec", {id:platForm.id,type:platForm.platformType,name:platForm.name}]);
         }
     }
