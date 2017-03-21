@@ -292,8 +292,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="mgt30" style="padding-bottom: 10px;">
-            <div  style="font-size: 16px;padding-left: 0;float:left" *ngIf="platformType=='0'">
+        <div class="mgt30" style="padding-bottom: 10px;" *ngIf="platformType=='0'">
+            <div  style="font-size: 16px;padding-left: 0;float:left" >
                 <span style="line-height: 34px;">卷类型( Volume Type )信息 :</span>
             </div>
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
@@ -326,6 +326,7 @@
                         <td>{{volumeType.volumeBackendName}}</td>
                         <td>
                             <span [ngSwitch]="volumeType.status">
+                                <template [ngSwitchCase]="0">初始化</template>
                                 <template [ngSwitchCase]="1">已启用</template>
                                 <template [ngSwitchCase]="2">已禁用</template>
                                 <template ngSwitchDefault>Unknown</template>
@@ -415,6 +416,7 @@
 
         <storage-sync #storageSync [type]="platformType" [storageList]="updateStorageList" (complete)="getStorageList()"></storage-sync>
         <mem-sync #memSync [storage]="updateStorageMem" (complete)="getStorageList()"></mem-sync>
+        <vt-sync #volumeTypeSync [volumeTypeList]="updateVolumeTypeList" (complete)="getVolumeTypeList()"></vt-sync>
     </div>
 </div>
 

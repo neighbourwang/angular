@@ -93,9 +93,4 @@ export class PlatformDetailService {
         let api = this.restApiCfg.getRestApi("platform-mng.addVolumeTypeList.get");
         return this.restApi.request(api.method , api.url,[{key:'id',value:id}],undefined );
     }
-    //POST更新VolumeypeList
-    postUpdateVolumeType(data:any){
-        let api = this.restApiCfg.getRestApi("adminui/authsec/sync/platform/volumetypes");
-        return this.restApi.request(api.method , api.url,[],undefined ,data);
-    }
 }

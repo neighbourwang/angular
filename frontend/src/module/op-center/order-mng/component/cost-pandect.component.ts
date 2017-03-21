@@ -26,7 +26,7 @@ export class CostPandectComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
-size:number=6; 
+size:number=12; 
 isRoot = false;
 
 currentYear :number;
@@ -142,8 +142,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 
 }
 	ngOnInit(){
-        this.layoutService.show();
-        this.loadUserType();
+        
         this.loadYears();
         this.loadMonths();
         this.loadLastDay();
@@ -152,18 +151,12 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.createHstoryBar();
         this.createTopBar();
         this.createTopBar2();
-        // this.search_chart();
-        // this._buyerLoader.Go(null, [{key:"departmentId", value:null}])
-        // .then(success=>{
-        //    this._orderTypeDic.Go();
-        // })
-        // .catch(err=>{
-		// 	this.layoutService.hide();
-		// 	this.showMsg(err);
-		// });
-		this.layoutService.hide();
+        this.loadUserType();
 	}
-
+loadChart(){
+    this.loadLastDay();
+    this.search_chart();
+}
 isRootUser(){
     let item = this.userTypeLoader.FirstItem;
     if(item.roleName&&item.roleName=='ENTERPRISE_ADMIN')
@@ -196,6 +189,7 @@ isRootUser(){
             .then(sucess=>{
                 let item = this.userTypeLoader.FirstItem;
                 this.isRootUser();
+                this.search_chart();
                 this.layoutService.hide();
             })
             .catch(err=>{
@@ -371,10 +365,11 @@ toHistoryData(source:Array<any>,target:Chart){
     let datas:Array<number>=[];
     let labels :Array<string>=[];
     if(source){
-        for(let item of source){
-            datas.push(item.doubleValue);
-            labels.push(item.num+'月');
-        }
+         for(let i=source.length-1;i>=0;i--){
+                let item = source[i];
+                datas.push(item.doubleValue);
+                labels.push(item.num+'月');
+            }
     }
     target.datas.splice(0,target.datas.length);
     target.labels.splice(0,target.labels.length);
@@ -384,13 +379,15 @@ toHistoryData(source:Array<any>,target:Chart){
 toIncreaseHistoryData(source:Array<any>,target:Chart){
     let datas:Array<number>=[];
     if(source){
-        for(let item of source){
-            datas.push(item.doubleValue);
-        }
+          for(let i=source.length-1;i>=0;i--){
+                let item = source[i];
+                datas.push(item.doubleValue);
+            }
     }
     target.datas2.splice(0,target.datas2.length);
     target.datas2 = datas;
 }
+
 topToDatas(target:Chart,items:Array<any>){
     let datas:Array<number> = [];
     let labels:Array<string>=[];
@@ -411,9 +408,6 @@ topToDatas(target:Chart,items:Array<any>){
 
 
 search_chart(){
-    //this.clear();
-//是canvas没有清除画布内容？？？？
-    //消费概览
     this.consumeLoad();
 
     //消费趋势
