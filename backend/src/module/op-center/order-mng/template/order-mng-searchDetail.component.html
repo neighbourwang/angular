@@ -1,4 +1,8 @@
-   <div class="SearchDetail">   
+   <div class="SearchDetail"> 
+	   <!--<div class="page-content-header float-left" style="width:1300px;padding-left: 0;">  
+		<span>订单查询编号: {{_detail.orderCode}}</span>
+		
+		</div>  -->
 						<div class="page-content">
 							<div class="noborder mgb10">{{ 'COMMON.ORDERS_INFO' | translate}}</div>
 							<div class="table-container">
@@ -56,6 +60,8 @@
 													<ul *ngFor="let specItem of prodItem.specList">
 														<li>{{specItem.attrDisplayName}}：&nbsp;&nbsp;{{specItem.attrDisplayValue}}</li>
 													</ul>
+													<!--<vm-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==0"></vm-view> 显示云主机 -->
+						 							<!-- <disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view>显示云硬盘 -->
 												</td>
 												<td>{{prodItem.quantity}}</td>
 												<td>{{prodItem.period}}</td>
@@ -65,9 +71,9 @@
 									</table>
 							</div>
 
-							<div class="noborder mgb10">{{ 'COMMON.TOTAL_COSTTOTAL_COST' | translate}}</div>
+							<div class="noborder mgb10">费用总计</div>
 							<div class="table-container mgb20 " style="border:1px solid #ddd;">
-									<table class="table"  *ngFor="let item of _detail.subInstanceList">
+									<table class="table table-all-boder"  *ngFor="let item of _detail.subInstanceList">
 										<thead>
 											<tr>
 												<th>{{ 'COMMON.ONE_TIME_COSTS' | translate}}</th>

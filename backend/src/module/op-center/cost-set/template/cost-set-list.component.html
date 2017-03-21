@@ -1,3 +1,5 @@
+<fc-notice #notice ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
+
 <div class="CostSet">	
 	<div class="page-content-header icon-operator-Blank">费用设置</div>
 	<div class="page-content">
@@ -31,7 +33,9 @@
 			            </tr>               
 			        </tbody>
 			    </table>
+				<fc-pagination tp={{costItemLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>
 			</div>
+
 		</div>
 	</div>
 </div>
