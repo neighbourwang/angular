@@ -83,7 +83,6 @@
         "BY_YEAR": "By year",
         "BY_YEAR1": "By year",
         "CANCEL": "Cancel",
-        "CANCEL": "Cancel",
         "CANNOT_BE_EMPTY": " * cannot be empty",
         "CANNOT_BE_INTEGER": "Amount and Quote cannot be empty or negative",
         "CAPACITY_GB": "Capacity(GB)",
