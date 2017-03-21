@@ -86,7 +86,7 @@ export class cartListComponent implements OnInit {
 	}
 
 	modalconfirm = function(){};
-	modalcancle = function(){};
+	modalCANCEL = function(){};
 	noticeconfirm = function(){};
 
 	

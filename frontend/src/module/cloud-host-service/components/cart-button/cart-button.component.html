@@ -3,6 +3,6 @@
     <div class="col-md-6"><button (click)="delectAllCart()" class="btn button-gray-gradient"><span class="icon-delete"></span>{{'COMMON.EMPTY_SHOPPING_CART' | translate}}</button></div>
 </div>
 
-<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalcancle()" ct="{{modalCancelTitle}}" (cf)="modalconfirm()"></fc-confirm>
+<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalCANCEL()" ct="{{modalCancelTitle}}" (cf)="modalconfirm()"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalnotice()"></fc-notice>
 

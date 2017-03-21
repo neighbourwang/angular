@@ -41,15 +41,19 @@ export class PfDetailComponent implements OnInit {
         private location: Location,
         private dictPipe: dictPipe,
     ) {
-    }
-    @ViewChild('removeConfirm')
-    removeConfirm: ConfirmComponent;
+    }   
 
-    @ViewChild('enableConfirm')
-    enableConfirm: ConfirmComponent;
+    @ViewChild('enableZoneConfirm')
+    enableZoneConfirm: ConfirmComponent;
 
-    @ViewChild('disableConfirm')
-    disableConfirm: ConfirmComponent;
+    @ViewChild('suspendZoneConfirm')
+    suspendZoneConfirm: ConfirmComponent;
+ 
+    @ViewChild('enableStorageConfirm')
+    enableStorageConfirm: ConfirmComponent;
+
+    @ViewChild('suspendStorageConfirm')
+    suspendStorageConfirm: ConfirmComponent;
 
     @ViewChild('notice')
     notice: NoticeComponent;
@@ -197,13 +201,18 @@ export class PfDetailComponent implements OnInit {
         })
     }
     //启用可用区
-    enableZone(id: string) {
+    selectedZone:ZoneListModel;
+    enableZone(zone){
         if (this.platform.status != 1) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.NONSUPPORT_CHANGES_STATE');
             return;
         }
+        this.selectedZone=zone;
+        this.enableZoneConfirm.open('启用可用区',"你选择启用 '"+zone.name+" '可用区")
+    }
+    enableZoneCof() {        
         this.layoutService.show();
-        this.platformDetailService.enableZone(id).then(res => {
+        this.platformDetailService.enableZone(this.selectedZone.id).then(res => {
             console.log(res)
             this.getZoneList();
             this.layoutService.hide();
@@ -213,13 +222,17 @@ export class PfDetailComponent implements OnInit {
         })
     }
     //禁用可用区
-    suspendZone(id: string) {
+    suspendZone(zone){
         if (this.platform.status != 1) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.NONSUPPORT_CHANGES_STAT');
             return;
         }
+        this.selectedZone=zone;        
+        this.suspendZoneConfirm.open('禁用可用区',"你选择禁用 '"+zone.name+" '可用区")
+    }
+    suspendZoneCof(id: string) {
         this.layoutService.show();
-        this.platformDetailService.suspendZone(id).then(res => {
+        this.platformDetailService.suspendZone(this.selectedZone.id).then(res => {
             console.log(res)
             this.getZoneList();
             this.layoutService.hide();
@@ -351,10 +364,14 @@ export class PfDetailComponent implements OnInit {
             )
     }
     //启用存储区
-    enableStorage(id: string) {
-        console.log(id);
+    selectedStorage:StorageModel;
+    enableStorage(storage){
+        this.selectedStorage=storage;
+        this.enableStorageConfirm.open('启用存储区',"你选择启用 '"+storage.name+"'存储区 ")
+    }
+    enableStorageCof() {
         this.layoutService.show();
-        this.platformDetailService.enableStorage(id).then(res => {
+        this.platformDetailService.enableStorage(this.selectedStorage.id).then(res => {
             console.log(res)
             this.getStorageList();
             this.layoutService.hide();
@@ -364,10 +381,13 @@ export class PfDetailComponent implements OnInit {
         })
     }
     //禁用存储区
-    suspendStorage(id: string) {
-        console.log(id);
+    suspendStorage(storage){
+        this.selectedStorage=storage;
+        this.suspendStorageConfirm.open('禁用存储区',"你选择禁用 '"+storage.name+"'存储区 ")
+    }
+    suspendStorageCof(id: string) {
         this.layoutService.show();
-        this.platformDetailService.suspendStorage(id).then(res => {
+        this.platformDetailService.suspendStorage(this.selectedStorage.id).then(res => {
             console.log(res)
             this.getStorageList();
             this.layoutService.hide();
@@ -376,7 +396,6 @@ export class PfDetailComponent implements OnInit {
         })
     }
     //更多操作
-
     tempStorageList: Array<StorageModel> = new Array<StorageModel>();
     editStorage(storage, idx) {
         this.tempStorageList[idx] = new StorageModel();

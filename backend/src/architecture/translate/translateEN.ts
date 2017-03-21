@@ -83,7 +83,7 @@
         "BY_YEAR": "By year",
         "BY_YEAR1": "By year",
         "CANCEL": "Cancel",
-        "CANCLE": "Cancel",
+        "CANCEL": "Cancel",
         "CANNOT_BE_EMPTY": " * cannot be empty",
         "CANNOT_BE_INTEGER": "Amount and Quote cannot be empty or negative",
         "CAPACITY_GB": "Capacity(GB)",
@@ -267,7 +267,7 @@
         "ORDER_HISTORY":"Order history",
         "EXECUTOR":"Executor",
         "ENTER_ORDER_NUMBER_QUERY":"Enter the order number to query",
-        "CANCLE_ORDER":"Cancel order",
+        "CANCEL_ORDER":"Cancel order",
         "START_UP":"Start-up"
     },
     "ENT_MNG": {

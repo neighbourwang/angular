@@ -188,13 +188,13 @@
                                 name="quotaPercentDisplay">
                         </td>
                         <td [ngClass]="{'font-green':zone.status == '1' ,'font-orange':zone.status == '3'}">
-                            <!--<span [ngSwitch]="zone.status">
-                                <template [ngSwitchCase]="0">未发布</template>
+                            <span [ngSwitch]="zone.status">
+                                <template [ngSwitchCase]="0">未启用</template>
                                 <template [ngSwitchCase]="1">已启用</template>
-                                <template [ngSwitchCase]="3">已禁用</template>
+                                <template [ngSwitchCase]="2">已禁用</template>
                                 <template ngSwitchDefault>Unknown</template>
-                    	    </span>-->
-                            {{zone.status|dict:this.commonService.globalStatus|async}}
+                    	    </span>
+                            <!--{{zone.status|dict:this.commonService.globalStatus|async}}-->
                         </td>
                         <td>
                             <span *ngIf="!zone.isEdit">{{zone.description}}</span>
@@ -202,15 +202,15 @@
                         </td>
                         <td>
                             <div *ngIf="!zone.isEdit">
-                                <button *ngIf="zone.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone.id)">{{'COMMON.ENABLE' | translate}}</button>
-                                <button *ngIf="zone.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone.id)">{{'COMMON.DISABLE' | translate}}</button>
+                                <button *ngIf="zone.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone)">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="zone.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone)">{{'COMMON.DISABLE' | translate}}</button>
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editZone(zone,idx)">{{'COMMON.EDIT' | translate}}</button>
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateHostPop(zone.id)">{{'PF_MNG2.SYNC_HOST' | translate}}</button>
                             </div>
 
                             <div *ngIf="zone.isEdit">
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveZone(zone,idx)">{{'COMMON.SAVE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEdit(zone,idx)">{{'COMMON.CANCEL' | translate}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEdit(zone,idx)">{{'COMMON.CANCEL' | translate}}</button>
                             </div>
 
                         </td>
@@ -221,6 +221,12 @@
     </div>
     <zone-sync #zoneSync [zoneList]="updateZoneList" (complete)=getZoneList()> </zone-sync>
     <host-sync #hostSync [zone]="hostList" (complete)=getZoneList()> </host-sync>
+    <fc-confirm #enableZoneConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="enableZoneCof()" ct="HOST_VMWARE_MNG.CANCEL"
+    (cf)="ccf()"></fc-confirm>
+<fc-confirm #deleteZoneConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="deleteZoneCof()" ct="HOST_VMWARE_MNG.CANCEL"
+    (cf)="ccf()"></fc-confirm>
+<fc-confirm #suspendZoneConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="suspendZoneCof()" ct="HOST_VMWARE_MNG.CANCEL"
+    (cf)="ccf()"></fc-confirm>
 </div>
 <div *ngIf="Tabels[2].active">
     <div class="page-content">
@@ -269,7 +275,13 @@
                             <input *ngIf="storage.isEdit" type="number" class="form-control" min="0" max="100" [(ngModel)]="storage.quotaPercentDisplay" style="width: 100px; display: inline;">
                         </td>
                         <td [ngClass]="{'font-green':zone?.status == '1' ,'font-orange':zone?.status == '3'}">
-                            {{storage.status|dict:this.commonService.globalStatus|async}}
+                            <span [ngSwitch]="storage.status">
+                                <template [ngSwitchCase]="0">未启用</template>
+                                <template [ngSwitchCase]="1">已启用</template>
+                                <template [ngSwitchCase]="2">已禁用</template>
+                                <template ngSwitchDefault>Unknown</template>
+                    	    </span>
+                            <!--{{storage.status|dict:this.commonService.globalStatus|async}}-->
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.description||'NULL'}}</span>
@@ -277,8 +289,8 @@
                         </td>
                         <td>
                             <div *ngIf="!storage.isEdit">
-                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage.id)">{{'COMMON.ENABLE' | translate}}</button>
-                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">{{'COMMON.DISABLE' | translate}}</button>
+                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage)">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage)">{{'COMMON.DISABLE' | translate}}</button>
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">{{'COMMON.EDIT' | translate}}</button>
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
                             </div>
@@ -288,7 +300,6 @@
                             </div>
                         </td>
                     </tr>
-
                 </tbody>
             </table>
         </div>
@@ -391,7 +402,13 @@
                                 style="width: 100px; display: inline;" (blur)="keepSame(storage)">
                         </td>
                         <td [ngClass]="{'font-green':storage.status == '1' ,'font-orange':storage.status == '3'}">
-                            {{storage.status|dict:this.commonService.globalStatus | async}}
+                            <span [ngSwitch]="storage.status">
+                                <template [ngSwitchCase]="0">未启用</template>
+                                <template [ngSwitchCase]="1">已启用</template>
+                                <template [ngSwitchCase]="3">已禁用</template>
+                                <template ngSwitchDefault>Unknown</template>
+                    	    </span>
+                            <!--{{storage.status|dict:this.commonService.globalStatus | async}}-->
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.description||'NULL'}}</span>
@@ -417,13 +434,17 @@
         <storage-sync #storageSync [type]="platformType" [storageList]="updateStorageList" (complete)="getStorageList()"></storage-sync>
         <mem-sync #memSync [storage]="updateStorageMem" (complete)="getStorageList()"></mem-sync>
         <vt-sync #volumeTypeSync [volumeTypeList]="updateVolumeTypeList" (complete)="getVolumeTypeList()"></vt-sync>
+        <fc-confirm #enableStorageConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="enableStorageCof()" ct="HOST_VMWARE_MNG.CANCEL"
+    (cf)="ccf()"></fc-confirm>
+        <fc-confirm #suspendStorageConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="suspendStorageCof()" ct="HOST_VMWARE_MNG.CANCEL"
+    (cf)="ccf()"></fc-confirm>
     </div>
 </div>
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL"
-    (cf)="ccf()"></fc-confirm>
+
+
 
     
 
