@@ -2,25 +2,23 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
-import { CartList } from '../model/cart-list.model';
+import { CartList } from '../../shoping-cart/model/cart-list.model'
 
 
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class cartListService {
+export class cartCompleteService {
     constructor(private http:Http,
                 private restApiCfg:RestApiCfg,
                 private dict:SystemDictionaryService,
                 private restApi:RestApi) {
     }
 
-    
-    
-    purchaseCart(senData:string[]) : Promise<any>{
-        const api = this.restApiCfg.getRestApi("shopping.purchase.cart");
+    getCartList() : Promise<CartList[]>{
+        const api = this.restApiCfg.getRestApi("shopping.cart.items");
 
-        const request = this.restApi.request(api.method, api.url, undefined, undefined, senData)
+        const request = this.restApi.request(api.method, api.url, undefined, undefined)
                             .then(res => {
                                 if(res.resultCode !== "100"){
                                     throw "";
@@ -30,7 +28,21 @@ export class cartListService {
         return request;
     }
 
+    deleteCartList(itemId) : Promise<any>{
+        const api = this.restApiCfg.getRestApi("delete.shopping.cart");
 
+        let pathParams = [
+            {
+                key: 'itemId',
+                value: itemId
+            }
+        ];
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
+                           
+        return request;
+    }
+
+   
     //数据字典所用到的值
     dictProductType = this.dict.get({  //获取产品type
         owner : "GLOBAL",
@@ -49,8 +61,4 @@ export class cartListService {
         owner : "PACKAGE_BILLING",
         field : "PERIOD_TYPE"
     })
-    
-    
-    
-    
 }

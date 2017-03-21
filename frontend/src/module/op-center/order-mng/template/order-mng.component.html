@@ -197,8 +197,8 @@
 				<tr>
 					<td class=" font-green leftAlign pdl20" colspan="6" (click)="showDetail(orderItem)"><span>{{orderItem.purchaseDate}}</span> <span class="pointer mgl10 float-none">{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate }}: {{orderItem.orderNo}}</span></td>
 					<td colspan="6">	
-						<button *ngIf="!orderItem.canContinueRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">取消自动续订</button>
-						<button *ngIf="!orderItem.canContinueRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">自动续订</button>
+						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType > 0" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">取消自动续订</button>
+						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType == 0" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">自动续订</button>
 						<button  *ngIf="orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
 						<button *ngIf="orderItem.canRenew" class="pull-right button-gray-gradient" (click)="renewSelect(orderItem)">{{ 'COMMON.RENEW' | translate }}</button>
 						

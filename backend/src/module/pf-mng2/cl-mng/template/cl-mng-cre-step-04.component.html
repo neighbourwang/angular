@@ -17,8 +17,14 @@
     </div>
     <div class="row">
         <div class="col-md-1"></div>
+        <div class="col-md-10" style="font-size: 16px;padding-left: 0">
+            后端存储( Backends )信息 :
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
         <div class="col-md-10 table-container no-padding">
-            <table class="table table-hover mgt20" *ngIf="platformType=='0'">
+            <table class="table table-hover" *ngIf="platformType=='0'">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -86,6 +92,42 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row mgt30" *ngIf="platformType=='0'">
+        <div class="col-md-1"></div>
+        <div class="col-md-10" style="font-size: 16px;padding-left: 0">
+            卷类型( Volume Type )信息 :
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 table-container no-padding">
+            <table class="table table-hover" *ngIf="platformType=='0'">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{"COMMON.NAME" | translate}}</th>
+                        <th style="width:25%">{{"CAPACITY_MNG.DISPLAY_NAME" | translate}}</th>
+                        <th>Volume_backend_name</th>
+                        <th style="width: 25%">{{"COMMON.COMMENT" | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of volumeTypeList; let idx = index;">
+                        <td>{{idx + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td>
+                            <input  class="form-control"  [(ngModel)]="item.displayName" style="display: inline;">
+                        </td>
+                        <td>{{item.volumeBackendName}}</td>
+                        <td>
+                            <input  class="form-control" [(ngModel)]="item.description" style="display: inline;">
+                        </td>                        
+                    </tr>
+                </tbody>
+            </table>            
         </div>
         <div class="col-md-1"></div>
     </div>

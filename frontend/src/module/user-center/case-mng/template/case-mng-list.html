@@ -90,7 +90,7 @@
             </div>
         </div>-->
         <div class="col-md-8 no-padding"  [ngClass]="{'has-error': v.result.subject}">
-            <textarea type="text" class="form-control" [(ngModel)]="criteria.subject" (ngModelChange)="checkForm('subject')"></textarea>
+            <textarea type="text" class="form-control" [(ngModel)]="criteria.subject" (ngModelChange)="checkForm('subject')" maxlength="50"></textarea>
             <span *ngIf="v.result.subject" class="glyphicon glyphicon-remove form-control-feedback"></span>
             <div *ngIf="v.result.subject" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.subject | translate}}</div>
         </div>

@@ -61,7 +61,7 @@ export class CaseOperatedComponent implements OnInit {
                         this.layoutService.hide();
                         this.caseInfo = response["resultContent"];
                         if(this.caseInfo.status=="2"){
-                            this.notice.open("PHYSICAL_MNG.NOTICE","CASE_MNG.CASE_HAS_CLOSED")
+                            this.notice.open("PHYSICAL_MNG.NOTICE","CASE_MNG.CASE_HAS_CLOSED");
                             this.notice.nof=()=>{
                                this. backtoList();
                             }

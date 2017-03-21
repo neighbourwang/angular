@@ -225,11 +225,15 @@
 <div *ngIf="Tabels[2].active">
     <div class="page-content">
         <div style="padding-bottom: 10px;">
+            <div style="font-size: 16px;padding-left: 0;float:left">
+                <span style="line-height: 34px;">后端存储( Backends )信息 :</span>
+            </div>
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
                 <span class="icon-button-label" (click)='updateStorageListPop()'>{{'PF_MNG2.SYNC_STORAGE_BACKEND' | translate}}</span>
              </button>
             <div style="clear:both"></div>
         </div>
+        
         <div class="table-container" *ngIf="platformType==0">
             <table class="table table-hover">
                 <thead>
@@ -287,6 +291,66 @@
 
                 </tbody>
             </table>
+        </div>
+        <div class="mgt30" style="padding-bottom: 10px;" *ngIf="platformType=='0'">
+            <div  style="font-size: 16px;padding-left: 0;float:left" >
+                <span style="line-height: 34px;">卷类型( Volume Type )信息 :</span>
+            </div>
+            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
+                <span class="icon-button-label" (click)='updateVolumetypeListPop()'>同步存储类型</span>
+             </button>
+            <div style="clear:both"></div>
+        </div>
+        
+        <div class="table-container no-padding" *ngIf="platformType=='0'">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{'COMMON.NAME' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.DISPLAY_NAME' | translate}}</th>
+                        <th>Volume_backend_name</th>
+                        <th>{{'COMMON.STATUS' | translate}}</th>
+                        <th>{{'COMMON.COMMENT' | translate}}</th>
+                        <th style="width:20%">{{'COMMON.OPERATION' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let volumeType of volumeTypeList; let idx = index;">
+                        <td>{{idx + 1}}</td>
+                        <td>{{volumeType.name}}</td>
+                        <td>
+                            <span *ngIf="!volumeType.isEdit">{{volumeType.displayName||'NULL'}}</span>
+                            <input *ngIf="volumeType.isEdit" class="form-control"  [(ngModel)]="volumeType.displayName" style="display: inline;">
+                        </td>
+                        <td>{{volumeType.volumeBackendName}}</td>
+                        <td>
+                            <span [ngSwitch]="volumeType.status">
+                                <template [ngSwitchCase]="0">初始化</template>
+                                <template [ngSwitchCase]="1">已启用</template>
+                                <template [ngSwitchCase]="2">已禁用</template>
+                                <template ngSwitchDefault>Unknown</template>
+                            </span>
+                        </td>
+                        <td>
+                            <span *ngIf="!volumeType.isEdit">{{volumeType.description||'NULL'}}</span>                            
+                            <input *ngIf="volumeType.isEdit" class="form-control" [(ngModel)]="volumeType.description" style="display: inline;">
+                        </td>
+                        <td>
+                            <div *ngIf="!volumeType.isEdit">
+                                <button *ngIf="volumeType.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableVolumeType(volumeType.id)">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="volumeType.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendVolumeType(volumeType.id)">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editVolumeType(volumeType,idx)">{{'COMMON.EDIT' | translate}}</button>
+                            </div>
+                            <div *ngIf="volumeType.isEdit">
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveVolumeType(volumeType,idx)">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditVolumeType(volumeType,idx)">{{'COMMON.CANCEL' | translate}}</button>
+                            </div>
+                        </td>                        
+                    </tr>
+                </tbody>
+            </table>
+            
         </div>
         <div class="table-container" *ngIf="platformType==2">
             <table class="table table-hover">
@@ -349,8 +413,10 @@
                 </tbody>
             </table>
         </div>
+
         <storage-sync #storageSync [type]="platformType" [storageList]="updateStorageList" (complete)="getStorageList()"></storage-sync>
         <mem-sync #memSync [storage]="updateStorageMem" (complete)="getStorageList()"></mem-sync>
+        <vt-sync #volumeTypeSync [volumeTypeList]="updateVolumeTypeList" (complete)="getVolumeTypeList()"></vt-sync>
     </div>
 </div>
 

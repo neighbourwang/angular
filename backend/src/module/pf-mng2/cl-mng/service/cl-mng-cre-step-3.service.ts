@@ -25,14 +25,14 @@ export class ZoneListService {
     //}
 
     //获取所有可用区 pf.cre.zone.get
-    getZone(id : String){
+    getZone(id : string){
         let api = this.restApiCfg.getRestApi("pf.cre.zone.get");
 
         return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined);
     }
     
     //更新可用区配置 pf.cre.step.03.zone.put
-    putZone(id : String , zone : Array<ZoneListModel>){
+    putZone(id : string , zone : Array<ZoneListModel>){
         let api = this.restApiCfg.getRestApi("pf.cre.step.03.zone.put");
 
         return this.restApi.request(api.method , api.url ,[{key : 'pf-id',value : id }],undefined , zone)

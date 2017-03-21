@@ -43,7 +43,7 @@ export class ClMngCreStep5Component implements OnInit {
             console.log(this.platformType);
         })
 
-        let platFormId: String = this.idService.getPlatformId();
+        let platFormId: string = this.idService.getPlatformId();
         // platFormId = "4f565fe7-09fc-4b8b-8227-a0b5b8b1eb6c";
         if (this.platformType != '2') {
             this.layoutService.show();
@@ -69,7 +69,7 @@ export class ClMngCreStep5Component implements OnInit {
 
     next() {
         if (this.platformType != '2') {
-            let platFormId: String = this.idService.getPlatformId();
+            let platFormId: string = this.idService.getPlatformId();
             this.service.putFlavors(platFormId, this.creStep5Model).then(
                 res => {
                     // console.log(res);

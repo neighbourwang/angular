@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 
-import { cartListService } from '../../shoping-cart/service/cart-list.service'
+import { cartCompleteService } from '../../components/cart-complete/cart-complete.service';
 import { CartList } from '../../shoping-cart/model/cart-list.model';
 
 @Component({
@@ -26,7 +26,7 @@ export class CartButtonComponent implements OnInit {
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
-		private cartService: cartListService
+		private cartComplete: cartCompleteService
 	) { }
 
 	ngOnInit() {
@@ -38,14 +38,14 @@ export class CartButtonComponent implements OnInit {
 	}
 
 	setCartList(): void {
-		this.cartService.getCartList().then(cartList => {
+		this.cartComplete.getCartList().then(cartList => {
 			this.cartLength = cartList.length;
 			this.cartList = cartList;
 		})
 	}
 	delectAllCart(): void {
 		this.modalconfirm = () => {
-			const promiseList = this.cartList.map(cart => this.cartService.deleteCartList(cart.id));
+			const promiseList = this.cartList.map(cart => this.cartComplete.deleteCartList(cart.id));
 			Promise.all(promiseList).then(arr => {
 				this.setCartList();
 				this.noticeDialog.open("","SHOPPING_CART.SUCCESSFULLY_EMPTY_SHOPPING_CART");
