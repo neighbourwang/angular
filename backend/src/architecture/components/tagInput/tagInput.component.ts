@@ -33,14 +33,14 @@ export class tagInputComponent implements OnInit{
         if(this.datas.indexOf(tagtext) > -1 || tagtext === "") return;   //如果数组里面有 直接返回
         this.datas.push(tagtext);
 
-        this.onAdd.emit({datas: this.datas});
-        this.onDatasChanged.emit({datas: this.datas});
+        this.onAdd.emit(this.datas);
+        this.onDatasChanged.emit(this.datas);
     }
     delete(text) {
         this.datas = this.datas.filter(data => data !== text);
         
-        this.onRemove.emit({data: text});
-        this.onDatasChanged.emit({datas: this.datas});
+        this.onRemove.emit(text);
+        this.onDatasChanged.emit(this.datas);
     }
 
     checkForm(key?:string) {
@@ -57,13 +57,13 @@ export class tagInputComponent implements OnInit{
     }
 
     private buttonSelect(text) {
-        this.onSelect.emit({data:text})
+        this.onSelect.emit(text)
     }
     private inputBlur() {
-        this.onBlur.emit({data:this.tagtext})
+        this.onBlur.emit(this.tagtext)
     }
     private inputChange() {
         this.checkForm("tagtext");
-        this.onTextChange.emit({data:this.tagtext})
+        this.onTextChange.emit(this.tagtext)
     }
 }

@@ -271,6 +271,11 @@ export class cloudHostDetailComponent implements OnInit {
 		this.fetchDetailAndFill();
 	}
 
+	private labelDatasChange(datas){
+		console.log(datas)
+		this.postData.labelIds = datas;
+	}
+
 	fetchDetailAndFill(callbackFn?) {
         this.layoutService.show();
 
@@ -282,6 +287,7 @@ export class cloudHostDetailComponent implements OnInit {
 					useType      : res.useType.toString(),
 					serviceLevel : res.serviceLevel.toString(),
 					description  : res.description,
+					labelIds: [],
                     instanceDisplayName : res.instanceName
 				};
                 this.layoutService.hide();
