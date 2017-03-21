@@ -341,19 +341,42 @@
 				<h4 class="modal-title" id="myModalLabel">{{ 'ORDER_MNG.ORDERS_UNSUBSCRIBE' | translate }}</h4>
 			</div>
 			<div class="modal-body">
-				<div *ngIf="cancelObj.isMachine">
+				<order-mng-cancel [orderItem]="selectedOrderItem" [detail]="detail"></order-mng-cancel>
+				<!--<div *ngIf="cancelObj.isMachine">
 					<input type="checkbox" class="float-left mgr20  fox-cloud-checkbox" [(ngModel)]="cancelObj.removeDisk" />
 					<span style="display: block;padding-top: 4px;">{{ 'ORDER_MNG.UNSUBSCRIBE_FROM___HARD_DRIVE' | translate }}</span>
 				</div>
-				<!-- 云主机 -->
+				 云主机 
 				<div *ngIf="cancelObj.isDisk && !cancelObj.isInUse">
 					{{ 'ORDER_MNG.WHETHER_TO_CONFIRM___EXIT_THE_PROCESS' | translate }}.
 				</div>
-				<!-- 云硬盘:空闲 -->
+				 云硬盘:空闲 
 				<div *ngIf="cancelObj.isDisk && cancelObj.isInUse">
 					{{ 'ORDER_MNG.WHETHER_TO_CONFIRM_FORCE___EXIT_THE_PROCESS' | translate }}.
 				</div>
-				<!-- 云硬盘：挂载 -->
+				 云硬盘：挂载 -->
+				 <div class="mgl20 pdl10 font-red">您的已购服务一旦退订，所有相关的资源和数据都会被删除，无法恢复！请谨慎选择退订服务。</div>
+				 <div *ngIf="_renewSetting.completed" class="OrderRenew">
+					<div class="page-content">
+						<div class="page-second-container mgb20">
+							<div class="float-left">
+								<span class="font-red float-left mgb20">{{ 'ORDER_MNG.YOUR_ORDER_HAS_BEEN_RENEWED___AND_THE_ASSOCIATED_RESOURCES' | translate }}<br>{{ 'ORDER_MNG.FOR_APPROVAL___TO_TAKE_EFFECT' | translate }}.</span>
+							</div>
+							<div class="float-right">
+								<span  class="float-left">（费用合计）</span>
+								<ul  class="float-left mgr20">
+									<li>一次性费用：<span class="font-red">{{_renewSetting.onetimePrice}}</span></li>
+									<li class="mgl48">费用： <span class="font-red">{{_renewSetting.price}}<br>
+																		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;￥100/年
+									</span>
+									</li>
+								</ul>
+								<button class="button-size-big button-confirm pull-right" data-dismiss="modal" (click)="search()">{{ 'SITE.MNG_CONSOLE' | translate }}</button>
+							</div>
+							<div style="height: 40px;"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<!-- 退订 -->

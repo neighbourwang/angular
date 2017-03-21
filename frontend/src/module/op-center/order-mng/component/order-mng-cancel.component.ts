@@ -2,7 +2,7 @@
 import { Input,Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp} from '../model'
+import {OrderDetailItem, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp} from '../model'
 
 
 @Component({
@@ -15,6 +15,8 @@ export class OrderMngCancelComponent implements OnInit{
 
 	@Input()
 	private orderItem : SubInstanceResp = new SubInstanceResp();
+	@Input()
+	private detail : OrderDetailItem = new OrderDetailItem();
 
 	private _param:OrderMngParam = new OrderMngParam();
 	private _orderId:string = null;

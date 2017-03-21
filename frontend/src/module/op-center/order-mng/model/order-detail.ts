@@ -2,6 +2,7 @@
 
 //订单详情
 export class OrderDetailItem {
+  instanceId:string = null;//订单Id
   instanceCode:string = null;//订单编号
   type:number = null;//订单类型
   typeName:string = null;//订单类型
@@ -21,7 +22,10 @@ export class OrderDetailItem {
   description:string;//说明
   billingModeName:string = null;//计费模式
   extendType:string;//自动续订方式
+  period: number = null;//, optional): 购买周期 ,
+  quantity: number = null;//, optional): 订购数量 ,
 
+  isChecked:boolean = false;
   get isExtend():string{
     if(this.extendType=='0')
       return '否';
