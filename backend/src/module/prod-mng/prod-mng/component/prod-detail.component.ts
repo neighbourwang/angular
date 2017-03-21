@@ -32,8 +32,8 @@ export class ProdDetailComponent implements OnInit {
         private location: Location,
         private service: ProductEditService
     ) { }
-    product = new Product();
-    prodDir = new ProductDir();
+    product :Product;
+    prodDir :ProductDir;
     vmProdDir: boolean;
     productId: string;
     historyPriceList: Array<HistoryPriceList> = new Array<HistoryPriceList>();
@@ -53,6 +53,8 @@ export class ProdDetailComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.product= new Product();
+        this.prodDir= new ProductDir();
         console.log(this.router.params);
         let type: string;
         this.router.params.forEach((params: Params) => {
@@ -82,7 +84,8 @@ export class ProdDetailComponent implements OnInit {
         this.layoutService.show();        
         return this.getProduct.getProduct(id).then((response) => {
             if (response && 100 == response.resultCode) {
-                this.product = response.resultContent;
+                if(response.resultContent){
+                    this.product = response.resultContent;
                 // this.product.id=this.productId;
                 this.tempProductName = this.product.name;
                 this.tempProductDesc = this.product.desc;
@@ -91,6 +94,7 @@ export class ProdDetailComponent implements OnInit {
                 this.tempOneTimePrice = this.product.oneTimePrice;
                 this.tempUnitPrice = this.product.unitPrice;
                 console.log('产品', this.product);
+                }
                 this.layoutService.hide();
             }
         }).catch((err) => {
@@ -103,8 +107,10 @@ export class ProdDetailComponent implements OnInit {
         return this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {
+                if(response.resultContent){
                 this.prodDir = response.resultContent;
                 console.log(this.prodDir);
+            }
             } else {
 
             }

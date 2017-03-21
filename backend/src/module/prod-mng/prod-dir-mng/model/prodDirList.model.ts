@@ -15,6 +15,7 @@
     productNum: number;
     serviceId: string;
     serviceName: string;
+    serviceType:string;
     serviceTemplateName: string;
     specification:string;
     status: string;
