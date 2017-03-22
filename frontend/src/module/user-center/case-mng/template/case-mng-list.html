@@ -146,7 +146,7 @@
     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
         <div class="col-md-3 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.CONTACTOR' | translate}}:</div>
         <div class="col-md-8 no-padding form-group"  [ngClass]="{'has-error': v.result.contactor}">
-            <input type="text" class="form-control" [(ngModel)]="criteria.contact" (ngModelChange)="checkForm('contactor')" >
+            <input type="text" class="form-control" [(ngModel)]="criteria.contact" (ngModelChange)="checkForm('contactor')" maxlength="50">
             <span *ngIf="v.result.contactor" class="glyphicon glyphicon-remove form-control-feedback"></span>
             <div *ngIf="v.result.contactor" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.contactor | translate}}</div>
         </div>
