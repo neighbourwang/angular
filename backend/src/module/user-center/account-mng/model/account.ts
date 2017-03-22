@@ -16,6 +16,7 @@ export class Account {
     status:number;
     isRoot:boolean;
     organizations: Array<Organization> = [];
+    organizationName: string = '';
     constructor() {
     }
 }
