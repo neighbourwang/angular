@@ -1,0 +1,262 @@
+<div class="page-content cloud_host_order cloud_drive_order">
+	<div class="col-md-12">
+		<h1 class="page-content-header" (click)="payLoadFormat()">云硬盘</h1>
+		<ul class="page-box"  style="padding-left: 0;">
+			<li>
+				<div class="col-md-1 li-title">
+					<p><span class="icon-location"></span>地域：</p>
+				</div>
+				<div class="col-md-12 li-content">
+					<div class="col-md-12">
+						<div class="col-md-2">
+						    <button style="width:100%">1
+						    </button>
+						    <select style="width:100%">
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>2
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>3
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>4
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>5
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>6
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-2">
+						    <button>21
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>22
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>23
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>24
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>25
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>26
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-2">
+						    <button>31
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>32
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>33
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+						<div class="col-md-2">
+						    <button>34
+						    </button>
+						    <select>
+								<option>a</option>
+								<option>b</option>
+								<option>c</option>
+						    </select>
+						</div>
+					</div>
+
+					
+					<div class="col-md-12 text-tip">云盘只能挂载在同一可用区的ECS实例内，订购后不支持更换地域，请谨慎选择，教我选择</div>
+				</div>
+			</li>
+			
+			<li>
+				<div class="col-md-1 li-title">
+					<p><span class="icon-configure"></span>云盘：</p>
+				</div>
+				<div class="col-md-12 li-content" >
+
+					<div class="col-md-12 no-padding mgb20">
+						<select class="select_input_size">
+							<option>123</option>
+							<option>456</option>
+							<option>789</option>
+						</select>
+						<input class="select_input_size"  />
+						<span class="text-tip">
+							用快照创建磁盘
+						</span>
+					</div>
+
+				</div>
+			</li>
+			<li>
+				<div class="col-md-1 li-title">
+					<p><span class="icon-amount"></span>购买量：</p>
+				</div>
+				<div class="col-md-12 li-content">
+					<div class="col-md-12 no-padding mgb20">
+						    <div style="display: inline">  
+							    <count-bar 
+					                [step]="sendModulediskstepsizeattrValue" 
+					                [max]="sendModulediskmaxsizeattrValue" 
+					                [min]="sendModulediskinitialsizeattrValue" 
+					                [stepCheck]=true
+					                [value]="sendModulediskinitialsizeattrValue" (output)="outputValue($event)">
+								</count-bar>台
+						    </div>						
+					</div>
+				</div>
+			</li>
+			<li class="li_line_backgroud">
+				<div class="col-md-1 li-title">
+					<p><span></span>当前配置：</p>
+				</div>
+				<div class="col-md-12 li-content">					
+					<div class="col-md-12">
+						<div class=" float-right">
+							购买须知>>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-4">
+							<span>地域：</span>
+							<span>华东2 华东2可用区</span>
+						</div>
+						<div class="col-md-4">							
+							<span>云盘：</span>
+							<span>20G SSD云盘</span>
+						</div>
+						<div class="col-md-4">
+							<span>数量：</span>
+							<span>1 块</span>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+
+		<ul class="col-md-12 no-padding bottom-box">
+			<li>
+			<div class="col-md-12" style="padding: 35px 20px 25px 40px;">
+			  <div class="float-left">
+                <span >配置费用：</span>
+                <span >￥0.225/时</span>
+              </div>
+              <div class="float-right">
+                <button (click)="buyNow()" class="btn button-orange-deep">加入清单</button>
+                <button (click)="addCart()" class="btn button-orange-light">立即购买</button>
+              </div>
+			</div>
+			</li>
+		</ul>
+	</div>
+	 <!-- [ngClass]="{'right-fixed' : rightFixed}" (window:scroll)="onScroll($event)" 
+	<div class="col-md-12 no-padding">
+        <div class="float-left">
+            <span >配置费用：</span>
+            <span >￥0.225/时</span>
+        </div>
+        <div class="float-right">
+            <button (click)="buyNow()" class="btn button-orange-deep">加入清单</button>
+            <button (click)="addCart()" class="btn button-orange-light">立即购买</button>
+        </div>
+	</div>
+	-->
+</div>
+
+
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>

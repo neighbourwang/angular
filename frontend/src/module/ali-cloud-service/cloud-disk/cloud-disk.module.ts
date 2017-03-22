@@ -9,7 +9,7 @@ import { AliCloudDiskListComponent } from './component/cloud-disk-list.component
 import { AliCloudDiskOrderComponent } from './component/cloud-disk-order.component';
 
 //service 
-//import { MsgMngService } from './service/msg-mng.service';
+import { AliCloudDiskService } from "./service/cloud-disk.service";
 
 //routing
 import { AliCloudDiskRouting } from './cloud-disk.routing';
@@ -29,7 +29,7 @@ import { AliCloudDiskRouting } from './cloud-disk.routing';
         AliCloudDiskOrderComponent
     ],
     providers: [
-        //MsgMngService
+        AliCloudDiskService
     ]
 
 })

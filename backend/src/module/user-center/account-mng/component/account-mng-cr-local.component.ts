@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, ValidationService } from "../../../../architecture";
 
+import { Validation, ValidationRegs } from '../../../../architecture';
+
 //service
 import { AccountMngService } from "../service/account-mng-list.service";
 
@@ -20,6 +22,7 @@ export class AccountMngCrLocal implements OnInit {
         private service: AccountMngService,
         private layoutservice: LayoutService,
         private router: Router,
+        private v: Validation,
         private route: ActivatedRoute,
         private validService: ValidationService,
     ) {
@@ -342,4 +345,26 @@ export class AccountMngCrLocal implements OnInit {
         this.router.navigateByUrl('user-center/account-mng/account-mng-list');
     }
     nof() { }
+
+    //表单验证
+    checkForm(key?:string) {
+		let regs:ValidationRegs = {  //regs是定义规则的对象
+			// email: [this.email, [this.v.isEmail], "Email输入不正确"], 
+  			//验证email
+			// baseInput: [this.baseInput, [this.v.isBase, this.v.isUnBlank], "不能包含特殊字符"],
+  			//两次验证[基础的验证不能包含特殊字符，不能为空]
+			// phone: [this.phone, [this.v.isMoblie], "手机号码输入不正确"],
+  			//手机号码验证
+			// password: [this.password, [this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
+  			//两次验证[密码验证，8-16个字]
+			// passwordCheck: [this.passwordCheck, [this.v.equalTo(this.password)], "两次密码输入不一致"],
+  			//再次输入密码验证
+			username: [this.account.userName, [this.v.isInstanceName, this.v.isBase,this.v.isUnBlank], "用户名输入格式不正确"],
+  			//云主机名称验证
+			// numberRange: [this.numberRange, [this.v.range(10, 80)], "数字范围不对"],
+  			//数字范围10-80
+		}
+
+		return this.v.check(key, regs);
+	}
 }
