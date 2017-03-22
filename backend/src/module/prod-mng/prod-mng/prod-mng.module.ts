@@ -24,7 +24,7 @@ import { ProdMngRouting } from './prod-mng.routing';
 import { ProdListService } from './service/prodList.service';
 import { ProdDirListService } from "./service/prodDirList.service";
 import { PostProduct } from './service/postProd.service';
-import { GetProduct } from './service/getProduct.service';
+import { GetProductService } from './service/getProduct.service';
 import { CreateProdStepService } from './service/createProdStep.service';
 import { ProductEditService } from './service/product.edit.service';
 
@@ -49,7 +49,7 @@ import { ProductEditService } from './service/product.edit.service';
         ProdListService,
         ProdDirListService,
         PostProduct,
-        GetProduct,
+        GetProductService,
         CreateProdStepService,
         ProductEditService
     ]
