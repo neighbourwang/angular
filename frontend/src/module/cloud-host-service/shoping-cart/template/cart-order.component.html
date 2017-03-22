@@ -9,7 +9,7 @@
             <table>
                 <tr>
                     <td>{{'COMMON.ONE_TIME_COSTS' | translate}}: </td>
-                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{order.totalPrice.oncePrice | decimalPlaces}} {{'COMMON.YUAN' | translate}}</font></td>
+                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{order.totalPrice.oncePrice | decimalPlaces}}</font></td>
                 </tr>
                 <tr *ngFor="let key of order.totalPrice.billingArr | objectToArr; let i = index">
                     <td><font *ngIf="i == 0">{{'SHOPPING_CART.BILLINGARR' | translate}}:</font></td>

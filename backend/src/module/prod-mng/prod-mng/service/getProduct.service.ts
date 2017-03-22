@@ -6,7 +6,7 @@ import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class GetProduct {
+export class GetProductService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
@@ -16,6 +16,18 @@ export class GetProduct {
     // 查看产品
     getProduct(id:string) {
         let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.detail");
+
+        return this.restApi.request(api.method, api.url, [{key:'id',value:id}], undefined);
+    }
+    //获取vm产品目录详情
+    getVmServiceDetail(id:string){
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-edit-vm.detail");
+
+        return this.restApi.request(api.method, api.url, [{key:'id',value:id}], undefined);
+    }
+    //获取Disk产品目录详情
+    getDiskServiceDetail(id:string){
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-edit-disk.detail");
 
         return this.restApi.request(api.method, api.url, [{key:'id',value:id}], undefined);
     }

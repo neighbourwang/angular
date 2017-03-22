@@ -20,7 +20,7 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let prodItem of orderItem.itemList">
-						<td><input type="checkbox" class="fox-cloud-checkbox" (click)='selectedSubItem(prodItem)'></td>
+						<td><input type="checkbox" class="fox-cloud-checkbox" (click)='selectedSubItem(prodItem)' [(ngModel)]="prodItem.isChecked"></td>
 						<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
 							<ul>
 								<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
@@ -38,7 +38,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div>请选择是否退订下列关联的已购服务（如果选择，表示一起退订）</div>
+		<div class="font-red">请选择是否退订下列关联的已购服务（如果选择，表示一起退订）</div>
 		<div class="table-container mgb20">
 			<table class="table">
 				<thead>	
@@ -57,7 +57,7 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let relatedItem of detail.relatedSubInstanceList">
-						<td><input type="checkbox" class="fox-cloud-checkbox" (click)='selectedCancelItem(relatedItem)'></td>
+						<td><input type="checkbox" class="fox-cloud-checkbox" (click)='selectedCancelItem(relatedItem)' [(ngModel)]="relatedItem.isChecked"></td>
 						<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
 							<ul>
 								<li *ngFor="let detailItem of relatedItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
@@ -69,7 +69,7 @@
 						<td>{{relatedItem.quantity}}</td>
 						<td style="width: 100px;">
 							{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{relatedItem.oneTimePrice}}<br/>
-						<span>费用:￥{{relatedItem.price}}/</span><span>{{relatedItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
+						<span>费用:￥{{relatedItem.price}}/</span><!--<span>{{relatedItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>--></td>
 						<td class="font-green">{{relatedItem.statusName}}</td>
 						<td>{{relatedItem.createDate}}</td>
 						<td>{{relatedItem.expireDate}}</td>
@@ -79,3 +79,8 @@
 		</div>
 	</div>				
  </div>
+ <!-- 退订 -->
+			<div *ngIf="!_isCanceled" class="modal-footer" style="text-align: center;">
+				<button type="button" class="btn button-confirm button-size-big" (click)="cancel()">{{ 'COMMON.CONFIRM' | translate }}</button>
+				<button type="button" class="btn  button-size-big button-white" data-dismiss="modal">{{ 'COMMON.CANCEL' | translate }}</button>
+			</div>

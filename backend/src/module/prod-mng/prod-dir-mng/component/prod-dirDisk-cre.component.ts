@@ -116,6 +116,17 @@ export class ProdDirDiskCreComponent implements OnInit {
     //同步countBar数据
     outputValue(e, arg) {
         this.prodDir.specification[arg] = e;
+        if(arg!='maxSize'){
+            this.prodDir.specification.maxSize=
+                this.prodDir.specification.maxSize?this.prodDir.specification.maxSize:0;
+            this.prodDir.specification.initialSize=
+                this.prodDir.specification.initialSize?this.prodDir.specification.initialSize:0;
+            this.prodDir.specification.stepSize=
+                this.prodDir.specification.stepSize?this.prodDir.specification.stepSize:1;
+            const beyond = (this.prodDir.specification.maxSize - this.prodDir.specification.initialSize)%this.prodDir.specification.stepSize;
+            if( beyond !== 0)  this.prodDir.specification.maxSize = 
+            (this.prodDir.specification.stepSize/2 <= beyond) ? this.prodDir.specification.maxSize - beyond + this.prodDir.specification.stepSize : this.prodDir.specification.maxSize - beyond;
+        }        
     }
     //选择全部可用区
     selectAllZone: boolean = false;
