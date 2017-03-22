@@ -91,6 +91,7 @@ export class OpenstackMngService{
                 value: image.id
             }
         ];
+        //let capacity_str:string = image.capacity+"";
         const api = this.restApiCfg.getRestApi('host-mng.openstack-mng.image.saveedit');
         return this.restApi.request(api.method, api.url, pathParams, null, {
              "displayName": image.displayName,

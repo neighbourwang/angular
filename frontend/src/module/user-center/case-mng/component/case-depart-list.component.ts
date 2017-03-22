@@ -124,7 +124,6 @@ export class CaseDepartListComponent implements OnInit{
 
     getDetail(item){
         this.id= item.id;
-        this.subject= item.subject;
         this.layoutService.show();
         Promise.all([this.servicemng.getBasicInfo(this.id), this.servicemng.getHandelInfo(this.id), this.servicemng.getClosedInfo(this.id)])
             .then((arr) =>{
@@ -132,7 +131,7 @@ export class CaseDepartListComponent implements OnInit{
                 this.basicInfo= arr[0];
                 this.handledInfo= arr[1];
                 this.closedInfo= arr[2];
-                this.caseDetail.open("USER_CENTER.CASE_DETAIL^^^"+this.id+"^^^"+this.subject);
+                this.caseDetail.open("USER_CENTER.CASE_DETAIL");
             }).catch((e) => this.onRejected(e));
     }
 
