@@ -73,8 +73,8 @@ export class OrderMngComponent implements OnInit {
 	//退订
 	// private cancelObj: CancelParam = new CancelParam();
 	private _cancelHandler: ItemLoader<any> = null;
-    private detail : OrderDetailItem = new OrderDetailItem();
-	private cancelParamList =[];
+	private detail: OrderDetailItem = new OrderDetailItem();
+	private cancelParamList = [];
 	private _entId: string = "191af465-b5dc-4992-a5c9-459e339dc719";
 
 	//计费模式
@@ -209,23 +209,25 @@ export class OrderMngComponent implements OnInit {
 				if (item.serviceType == 1)//云硬盘
 					return false;
 
-			    if(item.billingInfo && item.billingInfo.billingMode == 1)//按流量计费无法续订
-			      return false;
-
-				if(item.status !="2"&&item.status!="7")//成功、即将过期:7的订单可以续订
+				if (item.billingInfo && item.billingInfo.billingMode == 1)//按流量计费无法续订
 					return false;
-			    return true;
+
+				if (item.status != "2" && item.status != "7")//成功、即将过期:7的订单可以续订
+					return false;
+				return true;
 			};
 
 			//只有周期计费可以自动续订
-			let canContinueRenew:(item:SubInstanceItemResp)=>boolean = (item:SubInstanceItemResp):boolean=>{
-			    if(item.billingInfo && item.billingInfo.billingMode != 0)//只有周期计费，0代表周期计费
-			      return false;
-			    return true;
-			};			
+			let canContinueRenew: (item: SubInstanceItemResp) => boolean = (item: SubInstanceItemResp): boolean => {
+				if (item.billingInfo && item.billingInfo.billingMode != 0)//只有周期计费，0代表周期计费
+					return false;
+				if (item.status != "2" && item.status != "7")//成功、即将过期:7的订单可以续订
+					return false;
+				return true;
+			};
 
-			let reloadstruct:(items:Array<SubInstanceItemResp>)=>void = (items:Array<SubInstanceItemResp>)=>{
-				for(let i = 0; i < items.length; i++){
+			let reloadstruct: (items: Array<SubInstanceItemResp>) => void = (items: Array<SubInstanceItemResp>) => {
+				for (let i = 0; i < items.length; i++) {
 					items[i] = _.extendOwn(new SubInstanceItemResp(), items[i]);
 				}
 			};
@@ -249,13 +251,13 @@ export class OrderMngComponent implements OnInit {
 					else
 						orderItem.canRenew = true;
 
-					if(orderItem.itemList.find(n=>!canContinueRenew(n) !=null))
+					if (orderItem.itemList.find(n => !canContinueRenew(n) != null))
 						orderItem.canContinueRenew = false;
 					else
 						orderItem.canContinueRenew = true;
 
-			
-					if(orderItem.itemList.find(n=>showInstance(n)!=null))
+
+					if (orderItem.itemList.find(n => showInstance(n) != null))
 						orderItem.showInstance = false;
 					else
 						orderItem.showInstance = true;
@@ -419,7 +421,7 @@ export class OrderMngComponent implements OnInit {
 			this.autoRenewItem.extendType = orderItem.extendType;
 			this.autoRenewItem.instanceId = orderItem.orderId;
 			this.autoRenewItem.status = orderItem.itemList[0].status;
-			
+
 			this.layoutService.show();
 			if (this.autoRenewItem.extendType == 0) {
 				this.autoRenewConfigItem.Go(null, [{ key: "_instanceId", value: orderItem.orderId }, { key: "_serviceType", value: orderItem.itemList[0].serviceType }])
@@ -448,27 +450,27 @@ export class OrderMngComponent implements OnInit {
 			return false
 		};
 		this.layoutService.show();
-		if (this.autoRenewItem.subExtendType > 0 ) {
+		if (this.autoRenewItem.subExtendType > 0) {
 			this.autoRenewSetting.Go(null, null, { 'extendType': this.autoRenewItem.subExtendType, "subinstanceId": this.autoRenewItem.instanceId })
-			.then(success => {
-				this.layoutService.hide();
-				this.renewOver();
-			})
-			.catch(err => {
-				this.showMsg(err);
-				this.layoutService.hide();
-			})
+				.then(success => {
+					this.layoutService.hide();
+					this.renewOver();
+				})
+				.catch(err => {
+					this.showMsg(err);
+					this.layoutService.hide();
+				})
 
-		} else if (this.autoRenewItem.subExtendType === 0 ){
+		} else if (this.autoRenewItem.subExtendType === 0) {
 			this.autoRenewSetting.Go(null, null, { 'extendType': this.autoRenewItem.subExtendType, "subinstanceId": this.autoRenewItem.instanceId })
-			.then(success => {
-				this.layoutService.hide();
-				this.renewOver()
-			})
-			.catch(err => {
-				this.showMsg(err);
-				this.layoutService.hide();
-			})
+				.then(success => {
+					this.layoutService.hide();
+					this.renewOver()
+				})
+				.catch(err => {
+					this.showMsg(err);
+					this.layoutService.hide();
+				})
 		}
 		else {
 			this.showMsg('此服务无法自动续订');
@@ -476,13 +478,13 @@ export class OrderMngComponent implements OnInit {
 		}
 	}
 
-	renewOver(){
+	renewOver() {
 		this.autoRenewItem.renewOver = true;
 		this.AutoRenewDialog.hideCt();
 		this.AutoRenewDialog.hideOt();
 	}
 
-	renewOverEnd(){
+	renewOverEnd() {
 		this.autoRenewItem.renewOver = false;
 		this.AutoRenewDialog.showCt();
 		this.AutoRenewDialog.showOt();
@@ -608,30 +610,30 @@ export class OrderMngComponent implements OnInit {
 	}
 
 	//续订
-	renew(){
-// 		[
-//   {
-//     "attrCode": "string",
-//     "attrDisplayName": "string",
-//     "attrDisplayValue": "string",
-//     "attrId": "string",
-//     "attrValue": "string",
-//     "attrValueCode": "string",
-//     "attrValueId": "string",
-//     "description": "string",
-//     "valueType": "string",
-//     "valueUnit": "string"
-//   }
-// ]
-// 		console.log('renew start');
+	renew() {
+		// 		[
+		//   {
+		//     "attrCode": "string",
+		//     "attrDisplayName": "string",
+		//     "attrDisplayValue": "string",
+		//     "attrId": "string",
+		//     "attrValue": "string",
+		//     "attrValueCode": "string",
+		//     "attrValueId": "string",
+		//     "description": "string",
+		//     "valueType": "string",
+		//     "valueUnit": "string"
+		//   }
+		// ]
+		// 		console.log('renew start');
 		let param = [];
-		
+
 		let list = this.selectedOrderItem.itemList[0].specList;
-		for(let item of list){
-			if(item.attrCode=='TIMELINEUNIT'){
+		for (let item of list) {
+			if (item.attrCode == 'TIMELINEUNIT') {
 				param.push(item);
-			}else if(item.attrCode=='TIMELINE'){
-				item.attrDisplayValue=this._renewSetting.value.toString();
+			} else if (item.attrCode == 'TIMELINE') {
+				item.attrDisplayValue = this._renewSetting.value.toString();
 				param.push(item);
 			}
 		}
@@ -660,7 +662,7 @@ export class OrderMngComponent implements OnInit {
 				param.push(item.instanceId);
 			}
 		}
-		this._cancelHandler.Go(null,null,param)
+		this._cancelHandler.Go(null, null, param)
 			.then(success => {
 				this.layoutService.hide();
 				$('#cancelOrder').modal('hide');
@@ -678,19 +680,19 @@ export class OrderMngComponent implements OnInit {
 		if (!_.isEmpty(orderItem.itemList)
 			&& orderItem.itemList.filter(n => n.status == "2").length > 0) {
 			// console.log('cancel select', orderItem);
-			
+
 			this.selectedOrderItem = orderItem;
 			this.layoutService.show();
 			this._orderDetailLoader.Go(null, [{ key: "subinstanceCode", value: orderItem.orderId }])
-			.then(success => {
-				this.layoutService.hide();
-				this.detail = this._orderDetailLoader.FirstItem;
-				$('#cancelOrder').modal('show');
-			})
-			.catch(err => {
-				this.layoutService.hide();
-				this.showMsg(err);
-			})
+				.then(success => {
+					this.layoutService.hide();
+					this.detail = this._orderDetailLoader.FirstItem;
+					$('#cancelOrder').modal('show');
+				})
+				.catch(err => {
+					this.layoutService.hide();
+					this.showMsg(err);
+				})
 
 			// todo: set the cancelObj here
 			// this.cancelObj = new CancelParam(orderItem.isDisk, orderItem.isMachine, orderItem.isInUse);

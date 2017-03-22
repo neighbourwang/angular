@@ -110,8 +110,12 @@ export class AccountMngComponent implements OnInit {
         this.service.searchAccountByName(0, this.pp, this.keyup).then(
             res => {
                 this.layoutService.hide();
+                
                 console.log(res);
-                this.accounts = res.resultContent;
+                this.accounts= res.resultContent;
+                 if(this.accounts.length==0){
+                    this.notice.open('提示',"没有找到 '"+this.keyup+"' 相关的账户信息 ")
+                }
                 this.tp = res.pageInfo.totalPage;
                 for (let item of this.accounts) {
                     item.selected = false;
@@ -180,7 +184,7 @@ export class AccountMngComponent implements OnInit {
         }
         if (this.chooseAccount.id) {
             this.confirmType = 2;
-            this.confirm.open("USER_CENTER.ENABLE_ACCOUNT", "CHECK_CENTER.CONFIRM_TO_ENABLE_ACCOUNT^^^" + this.chooseAccount.loginName ); //USER_CENTER.ENABLE_ACCOUNT=>启用帐号 
+            this.confirm.open("USER_CENTER.ENABLE_ACCOUNT", "CHECK_CENTER.CONFIRM_TO_ENABLE_ACCOUNT^^^" + this.chooseAccount.loginName + '^^^' + this.chooseAccount.organizationName); //USER_CENTER.ENABLE_ACCOUNT=>启用帐号 
 
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
@@ -205,7 +209,7 @@ export class AccountMngComponent implements OnInit {
         }
         if (this.chooseAccount.id) {
             this.confirmType = 3;
-            this.confirm.open("USER_CENTER.DISABLE_ACCOUNT", "CHECK_CENTER.CONFIRM_TO_DISABLE_ACCOUNT^^^" + this.chooseAccount.loginName ); //USER_CENTER.DISABLE_ACCOUNT=>禁用帐号 
+            this.confirm.open("USER_CENTER.DISABLE_ACCOUNT", "CHECK_CENTER.CONFIRM_TO_DISABLE_ACCOUNT^^^" + this.chooseAccount.loginName + '^^^' + this.chooseAccount.organizationName); //USER_CENTER.DISABLE_ACCOUNT=>禁用帐号 
 
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 
@@ -231,7 +235,7 @@ export class AccountMngComponent implements OnInit {
         }
         if (this.chooseAccount.id) {
             this.confirmType = 4;
-            this.confirm.open("USER_CENTER.DELETE_ACCOUNT", "CHECK_CENTER.CONFIRM_TO_REMOVE_ACCOUNT^^^" + this.chooseAccount.loginName); //USER_CENTER.DELETE_ACCOUNT=>删除帐号 
+            this.confirm.open("USER_CENTER.DELETE_ACCOUNT", "CHECK_CENTER.CONFIRM_TO_REMOVE_ACCOUNT^^^" + this.chooseAccount.loginName + '^^^' + this.chooseAccount.organizationName); //USER_CENTER.DELETE_ACCOUNT=>删除帐号 
 
         } else {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ACCOUNT') //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ACCOUNT=>请选择账号 

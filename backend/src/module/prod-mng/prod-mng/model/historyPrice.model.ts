@@ -34,5 +34,8 @@ export class HistoryPriceList {
     "productName": string;
     "serviceId": string;
     "serviceName": string;
-    "serviceType": string
+    "serviceType": string;
+    constructor(){
+        this.serviceName="";
+    }
 }

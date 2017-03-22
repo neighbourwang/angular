@@ -23,6 +23,9 @@ import { ImgMngModule } from './module/image-mng/image-mng.module';
 //审批中心
 import { CheckCenterModule } from './module/check-center/check-center.module';
 
+//阿里云服务
+import { AliCloudModule } from './module/ali-cloud-service/ali-cloud.module';
+
 
 import { routing } from './app.routing';
 
@@ -37,6 +40,7 @@ import { routing } from './app.routing';
         CheckCenterModule,
         ImgMngModule,
         MngConsoleModule,
+        AliCloudModule,
         routing
     ],
     declarations: [MenuComponent, SiteComponent],

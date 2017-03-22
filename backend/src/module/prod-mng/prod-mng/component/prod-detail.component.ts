@@ -4,8 +4,7 @@ import { Location } from '@angular/common';
 // import { Location }               from '@angular/common';
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, CountBarComponent } from '../../../../architecture';
 //service
-import { GetProduct } from '../service/getProduct.service';
-import { ProdDirDetailService } from '../../prod-dir-mng/service/prod-dir-detail.service';
+import { GetProductService } from '../service/getProduct.service';
 import { ProductEditService } from '../service/product.edit.service';
 //model
 import { Product } from '../model/product.model';
@@ -24,16 +23,14 @@ import { HistoryPriceList } from '../model/historyPrice.model';
 //     };
 export class ProdDetailComponent implements OnInit {
     constructor(
-        private GetProduct: GetProduct,
         private router: ActivatedRoute,
-        private getProduct: GetProduct,
-        private ProdDirDetailService: ProdDirDetailService,
+        private getProductService: GetProductService,
         private layoutService: LayoutService,
         private location: Location,
         private service: ProductEditService
     ) { }
-    product = new Product();
-    prodDir = new ProductDir();
+    product :Product;
+    prodDir :ProductDir;
     vmProdDir: boolean;
     productId: string;
     historyPriceList: Array<HistoryPriceList> = new Array<HistoryPriceList>();
@@ -53,6 +50,8 @@ export class ProdDetailComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.product= new Product();
+        this.prodDir= new ProductDir();
         console.log(this.router.params);
         let type: string;
         this.router.params.forEach((params: Params) => {
@@ -80,9 +79,10 @@ export class ProdDetailComponent implements OnInit {
     //请求产品详情
     getProductDetail(id) {
         this.layoutService.show();        
-        return this.getProduct.getProduct(id).then((response) => {
+        return this.getProductService.getProduct(id).then((response) => {
             if (response && 100 == response.resultCode) {
-                this.product = response.resultContent;
+                if(response.resultContent){
+                    this.product = response.resultContent;
                 // this.product.id=this.productId;
                 this.tempProductName = this.product.name;
                 this.tempProductDesc = this.product.desc;
@@ -91,6 +91,7 @@ export class ProdDetailComponent implements OnInit {
                 this.tempOneTimePrice = this.product.oneTimePrice;
                 this.tempUnitPrice = this.product.unitPrice;
                 console.log('产品', this.product);
+                }
                 this.layoutService.hide();
             }
         }).catch((err) => {
@@ -100,11 +101,13 @@ export class ProdDetailComponent implements OnInit {
     }
     //获取vm产品目录详情
     getVmProdDirDetail(id) {
-        return this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
+        return this.getProductService.getVmServiceDetail(id).then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {
+                if(response.resultContent){
                 this.prodDir = response.resultContent;
                 console.log(this.prodDir);
+            }
             } else {
 
             }
@@ -114,7 +117,7 @@ export class ProdDetailComponent implements OnInit {
     }
     //获取disk产品目录详情
     getDiskProdDirDetail(id) {
-        return this.ProdDirDetailService.getDiskProdDirDetail(id).then(response => {
+        return this.getProductService.getDiskServiceDetail(id).then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {
                 this.prodDir = response.resultContent;

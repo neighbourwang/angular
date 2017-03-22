@@ -97,7 +97,13 @@
 					  </div>
 					  <div class="line-box">
 					  	<div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.LABEL' | translate}}:</font></div>
-					  	<div class="col-md-10 no-padding"><tag-input [datas]='["标签一","我的表情","孙悟空","齐天大圣","六小龄童","猪八戒","沙和尚"]'></tag-input></div>
+					  	<div class="col-md-10 no-padding" *ngIf="!isEditState">{{ postData.labelIds?.join(",") }}</div>
+					  	<div class="col-md-10 no-padding" *ngIf="isEditState">
+					  		<tag-input 
+					  			(onDatasChanged)="labelDatasChange($event)"
+					  			[datas]='postData.labelIds'>
+					  		</tag-input>
+					  	</div>
 					  </div>
 					  <div class="line-box">
 						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.DESCRIPTION' | translate}}:</font></div>    
