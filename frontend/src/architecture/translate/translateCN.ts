@@ -356,7 +356,7 @@ export const TranslateCN = {
         UNSUBSCRIBE_FROM___NO_DRIVE: '你确认要退订该云主机吗',
         WHETHER_TO_CONFIRM___EXIT_THE_PROCESS: '是否确认删除该云硬盘. 如果选"确认", 则卸载该云硬盘并删除. 如果选"取消", 则退出流程',
         WHETHER_TO_CONFIRM_FORCE___EXIT_THE_PROCESS: '是否强制删除. 如果选"确认", 则卸载该云硬盘并删除。 如果选"取消", 则退出流程',
-        UNIT_PRICE: '单价费用',
+        UNIT_PRICE: '原费用',
         ASSOCIATED_LIST_OF_SUBSCRIBED_SERVICES: '关联的已订购服务列表',
         ORIGINAL_EXPIRATION_TIME: '原到期时间',
         CONFIRM: '确定',

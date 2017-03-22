@@ -515,6 +515,7 @@ export class OrderMngComponent implements OnInit {
 
 					orderItem.itemList.map(n => {
 						n.renewPrice = getRenewPrice();
+						n.renewPeriodType = this._renewPriceLoader.FirstItem.periodType;
 					});
 				})
 				.catch(err => {
