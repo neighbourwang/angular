@@ -1,0 +1,19 @@
+<div class="col-md-12 btn-group">
+	<button (click)="zoneList=[];setCurrentArea();" class="btn mgb5 btn-default" [ngClass]="{'active':currentArea.id === ''}">{{'COMMON.ALL' | translate}}</button>
+
+    <button *ngFor="let value of areaList;" 
+            (click)="setZone(value.id);setCurrentArea(value);" 
+            [ngClass]="{'active':currentArea.id === value.id}"
+            class="btn mgb5 btn-default">{{ value.name }}
+    </button>
+</div>
+<div class="col-md-12 btn-group areaAble" data-toggle="buttons">
+	<button (click)="setCurrentZone();" class="btn mgb5 btn-default" [ngClass]="{'active':currentZone.zoneId === ''}">{{'COMMON.ALL' | translate}}</button>
+
+    <button *ngFor="let value of zoneList;" 
+            (click)="setCurrentZone(value)" 
+            [ngClass]="{'active':currentZone.zoneId === value.zoneId}"
+            class="btn mgb5 btn-default">{{ value.zoneName }}
+    </button>
+</div>
+

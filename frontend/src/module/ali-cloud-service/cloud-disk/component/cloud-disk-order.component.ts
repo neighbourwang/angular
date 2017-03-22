@@ -17,7 +17,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
 @Component({
     selector: "alics_diskorder",
     templateUrl: "../template/cloud-disk-order.html",
-    styleUrls: [],
+    styleUrls: ["../style/cloud-disk.less"],
     providers: []
 })
 export class AliCloudDiskOrderComponent implements OnInit {

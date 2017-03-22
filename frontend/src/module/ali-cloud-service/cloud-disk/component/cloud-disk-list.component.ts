@@ -8,10 +8,10 @@ import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
-//import { MsgAlertModel, MsgModel } from "../model/msg-alert.model";
+import { regionModel, keysecretModel } from "../model/cloud-disk.model";
 
 //Service
-//import { MsgMngService } from "../service/msg-mng.service";
+import { AliCloudDiskService } from "../service/cloud-disk.service";
 
 
 @Component({
@@ -24,7 +24,7 @@ export class AliCloudDiskListComponent implements OnInit {
     constructor(
         private layoutService: LayoutService,
         private router: Router,
-        //private service: MsgMngService,
+        private service: AliCloudDiskService,
         private activatedRouter : ActivatedRoute,
 
     ) {
@@ -49,6 +49,10 @@ export class AliCloudDiskListComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
+    keysecret: keysecretModel = new keysecretModel();
+
+    regions: Array<regionModel> = [];
+
     private okCallback: Function = null;
     okClicked() {
         console.log('okClicked');
@@ -69,33 +73,50 @@ export class AliCloudDiskListComponent implements OnInit {
 
     ngOnInit(): void {
 
-        //this.getMsgList(this.paginationFlag);
+        this.getKeySecret();
 
     }
-    /*
 
-    getMsgList(status:string, pageIndex?): void {
-        this.paginationFlag = status;
-        this.pageIndex = 1; 
-        this.allSelected = false;
+    getKeySecret(): void {
+        this.layoutService.show();
+        this.service.getKeySecret()
+            .then(
+            response => {
+                this.layoutService.hide();                
+                if (response && 100 == response["resultCode"]) {
+                    this.keysecret = response.resultContent;
+                    console.log(this.keysecret, "this.keysecret!");
+                    this.getAllRegions();
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+
+    }
+    
+    getAllRegions(): void {
 
         this.layoutService.show();
-        this.service.getMsgListStatus(this.pageIndex, this.pageSize, this.paginationFlag)
+        this.service.getAllRegions(this.keysecret)
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "msgList response!");
+                console.log(response, "response!");
                 if (response && 100 == response["resultCode"]) {
-                    this.msgAlert.edge = response.pageInfo.totalRecords;
-                    this.msgAlert.list = response.resultContent;
-                    this.totalPage = response.pageInfo.totalPage;
-                    this.pager.render(1);
-                    if(this.paginationFlag == "0") {
-                        this.unreadnumber.num = this.msgAlert.edge;
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
                     }
+                    this.regions = result.Regions.Region;
+                    console.log(this.regions, "this.regions!");
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
-                    this.msgAlert.edge = 0;
                     return;
                 }
             })
@@ -103,6 +124,7 @@ export class AliCloudDiskListComponent implements OnInit {
                 this.onRejected(e);
             });
     }
+
 
 
 
@@ -130,7 +152,7 @@ export class AliCloudDiskListComponent implements OnInit {
         this.notice.open(msg.title, msg.desc);
     }
 
-
+/*
     //选择行
     selectItem(index:number): void {
         this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;
