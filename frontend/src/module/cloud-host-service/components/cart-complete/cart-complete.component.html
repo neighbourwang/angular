@@ -32,13 +32,13 @@
             <table class="cart-info">
                 <tr>
                     <td>{{'COMMON.ONE_TIME_COSTS' | translate}}: </td>
-                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{cart.billingInfo.basePrice}}  {{'COMMON.YUAN' | translate}}</font></td>
+                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{cart.billingInfo.basePrice}}  </font></td>
                 </tr>
                 <tr *ngIf="cart.billingInfo.basicPrice">
                     <td>周期费用: </td>
                     <td>
                         <font class="font-orange">
-                        {{'COMMON.$' | translate}}{{cart.billingInfo.basicPrice}} {{'COMMON.YUAN' | translate}} / {{cart.billingInfo.periodType | dict:service.weekly | async}}
+                        {{'COMMON.$' | translate}}{{cart.billingInfo.basicPrice}}  / {{cart.billingInfo.periodType | dict:service.weekly | async}}
                         </font>
                     </td>
                 </tr>
@@ -46,7 +46,7 @@
                     <td>按量费用</td>
                     <td>
                         <font class="font-orange">
-                        {{'COMMON.$' | translate}}{{cart.billingInfo.unitPrice}} {{'COMMON.YUAN' | translate}}/GB/{{cart.billingInfo.periodType | dict:service.weekly | async}}
+                        {{'COMMON.$' | translate}}{{cart.billingInfo.unitPrice}} /GB/{{cart.billingInfo.periodType | dict:service.weekly | async}}
                         </font>
                     </td>
                 </tr>
@@ -65,14 +65,14 @@
             <table class="cart-info">
                 <tr>
                     <td>{{'COMMON.ONE_TIME_COSTS' | translate}}: </td>
-                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{cart.billingInfo.basePrice * cart.quantity}} {{'COMMON.YUAN' | translate}}</font></td>
+                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{cart.billingInfo.basePrice * cart.quantity}} </font></td>
                 </tr>
                
                 <tr *ngIf="cart.billingInfo.basicPrice">
                     <td>总周期费用: </td>
                     <td>
                         <font class="font-orange">
-                        {{'COMMON.$' | translate}}{{cart.billingInfo.basicPrice * cart.quantity}} {{'COMMON.YUAN' | translate}} / {{cart.billingInfo.periodType | dict:service.weekly | async}}
+                        {{'COMMON.$' | translate}}{{cart.billingInfo.basicPrice * cart.quantity}}  / {{cart.billingInfo.periodType | dict:service.weekly | async}}
                         </font>
                     </td>
                 </tr>
@@ -80,7 +80,7 @@
                     <td>总按量费用: </td> 
                     <td>
                         <font class="font-orange">
-                        {{'COMMON.$' | translate}}{{cart.billingInfo.unitPrice * cart.quantity * getDiskSize(cart)}} {{'COMMON.YUAN' | translate}}/{{cart.billingInfo.periodType | dict:service.weekly | async}}
+                        {{'COMMON.$' | translate}}{{cart.billingInfo.unitPrice * cart.quantity * getDiskSize(cart)}} /{{cart.billingInfo.periodType | dict:service.weekly | async}}
                         </font>
                     </td>
                 </tr>
