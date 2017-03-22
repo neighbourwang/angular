@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,EventEmitter,Output} from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -41,6 +41,7 @@ export class OrderMngComponent implements OnInit {
 	@ViewChild("AutoRenewDialog")
 	AutoRenewDialog: PopupComponent;
 
+ 
 	//订单详情加载
 	private _orderDetailLoader: ItemLoader<OrderDetailItem> = null;
 
@@ -648,13 +649,13 @@ export class OrderMngComponent implements OnInit {
 	}
 
 	//退订
-	cancel() {
-		this.layoutService.show();
-		let param;
-		if(this.selectedOrderItem.isChecked){
+	acceptCancel(data) {
+		// this.layoutService.show();
+		let param=[];
+		if(data[0].itemList[0].isChecked){
 			param.push(this.selectedOrderItem.orderId);
 		}
-		for(let item of this.detail.relatedOrderList){
+		for(let item of data[1].relatedOrderList){
 			if(item.isChecked){
 				param.push(item.instanceId);
 			}
@@ -669,12 +670,7 @@ export class OrderMngComponent implements OnInit {
 			.catch(err => {
 				this.showMsg(err);
 			})
-	}
-	selectedCancelItem(item:OrderDetailItem){
-      item.isChecked=!item.isChecked;
-	}
-	selectedSubItem(prodItem:SubInstanceResp){
-		prodItem.isChecked=!prodItem.isChecked;
+		this.layoutService.hide();
 	}
 
 	cancelSelect(orderItem: SubInstanceResp) {
@@ -719,7 +715,7 @@ export class OrderMngComponent implements OnInit {
 	get selectedPeriodTypeName(): string {
 		if (this.selectedOrderItem
 			&& !_.isEmpty(this.selectedOrderItem.itemList)
-			&& this.selectedOrderItem.itemList[0].billingInfo) {
+			&& this.selectedOrderItem.itemList[0].billingInfo&& this.selectedOrderItem.itemList[0].billingInfo.periodType!=null) {
 			let item = this._periodTypeDic.Items.find(n => n.value == this.selectedOrderItem.itemList[0].billingInfo.periodType.toString());
 			if (item)
 				return item.displayValue as string;
