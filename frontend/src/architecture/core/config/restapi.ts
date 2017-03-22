@@ -748,4 +748,19 @@ export let RestApis: RestApiModel[] = [
         "url" : "messagemgmt/authsec/message/delete"
     },
 
+    // 阿里云
+    {
+        "desc" : "Get alicloud region list",
+        "id" : "al-cloud.cloud-disk.regions.get",
+        "method" : "POST",
+        "url" : "alicloud/authsec/alicloud/ecs/action/describeregions"        
+    },
+    {
+        "desc" : "Get user key and secret",
+        "id" : "al-cloud.cloud-disk.key-secret.get",
+        "method" : "POST",
+        "url" : "alicloud/authsec/alicloud/getkey"        
+    },
+
+
 ]

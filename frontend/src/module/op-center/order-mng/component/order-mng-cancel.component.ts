@@ -1,5 +1,5 @@
 	
-import { Input,Component, OnInit, ViewChild, } from '@angular/core';
+import { Input,Component, OnInit, ViewChild, EventEmitter,Output} from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import {OrderDetailItem, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp} from '../model'
@@ -18,6 +18,8 @@ export class OrderMngCancelComponent implements OnInit{
 	@Input()
 	private detail : OrderDetailItem = new OrderDetailItem();
 
+	 @Output()  complete=new EventEmitter(); 
+
 	private _param:OrderMngParam = new OrderMngParam();
 	private _orderId:string = null;
 	
@@ -31,15 +33,14 @@ export class OrderMngCancelComponent implements OnInit{
 	
 	}
 
-	cancel(){
-/*
-{
-        "desc": "订单退订",
-        "method": "GET",
-        "id": "op-center.order-mng.order-cancel.get",
-        "url": " /marketplace/authsec/subscription/instance/{_subId}/cancel"        
-    }
-*/
+	selectedCancelItem(item:OrderDetailItem){
+      item.isChecked=!item.isChecked;
 	}
-	
+	selectedSubItem(item:SubInstanceResp){
+		item.isChecked=!item.isChecked;
+	}
+	cancel() {
+		// alert("cancel页面");
+		this.complete.emit([this.orderItem,this.detail]);
+	}
 }
