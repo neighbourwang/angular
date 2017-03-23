@@ -1,16 +1,23 @@
 <div class="page-content cloud_host_list">
 	<h1 class="page-content-header">云硬盘</h1>
 
-	<table class="cm-table-left top-table mgb20">
-		<tr>
-			<th class="col-md-1 col-xs-3 text-center">区域列表</th>
-			<td *ngFor="let region of regions">
-			    <!--<platform-zone #platformZone (onClick)="platformClick($event)"></platform-zone>-->
-				{{region.LocalName}}
-
-			</td>
-		</tr>
-	</table>
+    <div class="row mgb20">
+        <div class="col-md-3">区域列表</div>
+        <div class="col-md-9">
+            <div class="region" *ngFor="let region of this.regions;">
+                <div class="regionName">{{region.LocalName}}</div>
+                <div class="regionArea">
+                    <select>
+                        <option value="">随机分配</option>
+                        <!--<option *ngFor="let item of region.Area" value="item.id">
+                            {{item.text}}
+                        </option>-->
+                    </select>
+                    <span class="caret"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
 	<div class="col-md-12 no-padding mgb20">
 		<div class="dropdown float-left mgr10">
