@@ -41,7 +41,7 @@ export class ProdDirDiskCreComponent implements OnInit {
         this.prodDir= new ProdDirDisk();
         this.route.params.forEach((params: Params) => {
             this.type = params['type'];
-            if (this.type == 'new') {
+            if (this.type == 'edit') {
                 this.serviceId=params['id'];
                 console.log(this.serviceId);
             } 
@@ -86,7 +86,6 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
 
     //获取启动盘信息
-
     selectStorage(id,idx,idxxx) {
         console.log(id,idx,idxxx)
                 for (let storage of this._platformlist[idx].platformInfo[idxxx].storageItem) {
@@ -98,13 +97,14 @@ export class ProdDirDiskCreComponent implements OnInit {
                 }
     }
     getProdDirDetail(id) {
-        this.ProdDirDetailService.getVmProdDirDetail(id).then(
+        this.ProdDirDetailService.getDiskProdDirDetail(id).then(
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
                     console.log('diskdetail',response);
                     if(response.resultContent){
                         this.prodDir = response.resultContent;
+                        this._platformlist=this.prodDir.platformList;
                     }
                 }
                 this.LayoutService.hide();

@@ -58,6 +58,7 @@ export class ProdDetailComponent implements OnInit {
             this.productId = params['id'];
             type = params['type'];
             console.log(type);
+            console.log(this.productId);
             (type == '0') && (this.vmProdDir = true);
             (type == '1') && (this.vmProdDir = false);
         })
