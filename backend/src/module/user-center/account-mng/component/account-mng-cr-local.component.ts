@@ -359,12 +359,12 @@ export class AccountMngCrLocal implements OnInit {
   			//两次验证[密码验证，8-16个字]
 			// passwordCheck: [this.passwordCheck, [this.v.equalTo(this.password)], "两次密码输入不一致"],
   			//再次输入密码验证
-			username: [this.account.userName, [this.v.isInstanceName, this.v.isBase,this.v.isUnBlank], "用户名输入格式不正确"],
+			userName: [this.account.userName, [this.v.isInstanceName, this.v.isBase,this.v.isUnBlank], "用户名输入格式不正确"],
   			//云主机名称验证
 			// numberRange: [this.numberRange, [this.v.range(10, 80)], "数字范围不对"],
   			//数字范围10-80
 		}
-
+        console.log(this.v.check(key, regs));
 		return this.v.check(key, regs);
 	}
 }

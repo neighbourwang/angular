@@ -9,19 +9,19 @@
                             <span class="asterisk">*</span> {{'USER_CENTER.NAME' | translate}}
                             <!--姓名-->
                         </div>
-                        <div class="col-sm-4" [ngClass]="{'has-error': userName.errors && (userName.dirty || userName.touched)}">
+                        <!--<div class="col-sm-4" [ngClass]="{'has-error': userName.errors && (userName.dirty || userName.touched)}">
                             <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}" [(ngModel)]="account.userName" id="userName" required name="userName" #userName="ngModel">
                             <div *ngIf="userName.errors && (userName.dirty || userName.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!userName.errors.required">
                                     {{'USER_CENTER.NAME_NOT_NULL' | translate}}
                                 </div>
                             </div>
-                        </div>
-                        <!--<div class="col-sm-4 form-group has-feedback" [ngClass]="{'has-error':v.result.email}">
-                            <input type="text" [(ngModel)]="account.userName" (ngModelChange)="checkForm('userName')" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}" class="form-control">
+                        </div>-->
+                        <div class="col-sm-4 form-group has-feedback" [ngClass]="{'has-error':v.result.email}">
+                            <input type="text" [(ngModel)]="account.userName" (ngModelChange)="checkForm('userName')" name="userName" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}" class="form-control">
                             <span *ngIf="v.result.userName" class="glyphicon glyphicon-remove form-control-feedback"></span>
                             <div *ngIf="v.result.userName" class="alert alert-danger" role="alert">{{v.result.userName}}</div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
 
