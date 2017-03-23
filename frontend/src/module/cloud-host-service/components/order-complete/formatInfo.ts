@@ -27,7 +27,7 @@ export class formatInfo implements PipeTransform {
 					attrDisplayName : "实例规格",
 					attrDisplayValue : info.CPU.attrDisplayName + info.CPU.attrDisplayValue + " / " +
 									   info.MEM.attrDisplayName + info.MEM.attrDisplayValue + " / " +
-									   info.BOOTSIZE.attrDisplayName + info.BOOTSIZE.attrDisplayValue
+									   "启动盘" + info.BOOTSIZE.attrDisplayValue
 				},
 				{
 					attrDisplayName : "操作系统",
@@ -39,7 +39,7 @@ export class formatInfo implements PipeTransform {
 				},
 				{
 					attrDisplayName : "密码",
-					attrDisplayValue : "以设置"
+					attrDisplayValue : "已设置"
 				},
 				{
 					attrDisplayName : info.INSTANCENAME.attrDisplayName,

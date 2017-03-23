@@ -57,7 +57,7 @@
                         <!--{{item.status| dict:this.service.accStatusList | async}}-->
                         <span [ngSwitch]="item.status">
                             <template [ngSwitchCase]="1">{{'COMMON.ENABLED' | translate}}</template>
-                            <template [ngSwitchCase]="3">{{'COMMON.EUNABLED' | translate}}</template>
+                            <template [ngSwitchCase]="3">{{'COMMON.UNABLED' | translate}}</template>
                             <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED' | translate}}</template>
                             <template [ngSwitchCase]="4">4</template>
                             <template ngSwitchDefault>Unknown</template>
