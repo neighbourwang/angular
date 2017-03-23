@@ -2,13 +2,15 @@ import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, } from "
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { NgForm } from "@angular/forms";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
-    PaginationComponent, PopupComponent } from "../../../../architecture";
+import {
+    LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
+    PaginationComponent, PopupComponent
+} from "../../../../architecture";
 
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
-import { regionModel, keysecretModel } from "../model/cloud-disk.model";
+import { RegionModel, keysecretModel } from "../model/cloud-disk.model";
 
 //Service
 import { AliCloudDiskService } from "../service/cloud-disk.service";
@@ -17,7 +19,7 @@ import { AliCloudDiskService } from "../service/cloud-disk.service";
 @Component({
     selector: "alics_disklist",
     templateUrl: "../template/cloud-disk-list.html",
-    styleUrls: [],
+    styleUrls: ["../style/cloud-disk.less"],
     providers: []
 })
 export class AliCloudDiskListComponent implements OnInit {
@@ -25,14 +27,13 @@ export class AliCloudDiskListComponent implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private service: AliCloudDiskService,
-        private activatedRouter : ActivatedRoute,
-
+        private activatedRouter: ActivatedRoute,
     ) {
     }
 
     @ViewChild("pager")
     pager: PaginationComponent;
-    
+
     @ViewChild("notice")
     notice: NoticeComponent;
 
@@ -51,9 +52,10 @@ export class AliCloudDiskListComponent implements OnInit {
 
     keysecret: keysecretModel = new keysecretModel();
 
-    regions: Array<regionModel> = [];
+    regions: Array<RegionModel> = [];
 
     private okCallback: Function = null;
+
     okClicked() {
         console.log('okClicked');
         if (this.okCallback) {
@@ -64,6 +66,7 @@ export class AliCloudDiskListComponent implements OnInit {
     }
 
     private confirmedHandler: Function = null;
+
     onConfirmed() {
         if (this.confirmedHandler) {
             this.confirmedHandler();
@@ -72,7 +75,6 @@ export class AliCloudDiskListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
         this.getKeySecret();
 
     }
@@ -82,10 +84,10 @@ export class AliCloudDiskListComponent implements OnInit {
         this.service.getKeySecret()
             .then(
             response => {
-                this.layoutService.hide();                
+                this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.keysecret = response.resultContent;
-                    console.log(this.keysecret, "this.keysecret!");
+                    this.service.keysecret = response.resultContent;
+                    console.log(this.service.keysecret, "this.keysecret!");
                     this.getAllRegions();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -95,13 +97,12 @@ export class AliCloudDiskListComponent implements OnInit {
             .catch((e) => {
                 this.onRejected(e);
             });
-
     }
-    
+
     getAllRegions(): void {
 
         this.layoutService.show();
-        this.service.getAllRegions(this.keysecret)
+        this.service.getAllRegions()
             .then(
             response => {
                 this.layoutService.hide();
@@ -126,8 +127,6 @@ export class AliCloudDiskListComponent implements OnInit {
     }
 
 
-
-
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason, "onRejected");
@@ -142,50 +141,87 @@ export class AliCloudDiskListComponent implements OnInit {
         this.notice.open();
     }
 
-    
+
     showMsg(msg: string) {
         console.log(msg, "showMsg");
         this.notice.open("COMMON.SYSTEM_PROMPT", msg);
-    }	
+    }
 
     showError(msg: any) {
         this.notice.open(msg.title, msg.desc);
     }
 
-/*
-    //选择行
-    selectItem(index:number): void {
-        this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;
-        console.log(this.msgAlert.list, "=== Please see which ones are selected ===");
-        let selectedml = this.msgAlert.list.filter(n=> { return (n.checked == true);});
-        if(selectedml.length == this.pageSize) {
-            console.log("The latest one was selected, so all selected!");
-            this.allSelected = true;
-        } else {
-            this.allSelected = false;
+
+    selectRegion(region: RegionModel) {
+        this.regions.map((item) => {
+            item.selected = false;
+        });
+        region.selected = true;
+        if (region.areas == null || region.areas.length == 0) {
+            this.getArea(region);
         }
     }
 
-    selectOrUnSAllItems(): void {
-        if (this.allSelected) {
-            console.log("All checked before, so set them all unselected");
-            this.allSelected = false;
-            this.msgAlert.list.map(n=> { n.checked = false;});
-        } else {
-            console.log("All unchecked before, so set them all selected");
-            this.allSelected = true;
-            this.msgAlert.list.map(n=> { n.checked = true;});
-        }
+    //根据regionId获取可用区列表
+    getArea(region:RegionModel) {
+        this.layoutService.show();
+        this.service.getArea(region.RegionId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    region.areas = result.Zones.Zone;
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
     }
 
-    getSelectedItems() {
-        this.selectedmsglist = this.msgAlert.list.filter(n=> { return (n.checked == true);});
-        if (this.selectedmsglist.length != 0){
-            return this.selectedmsglist;
-        } else {
-            return [];
+    /*
+        //选择行
+        selectItem(index:number): void {
+            this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;
+            console.log(this.msgAlert.list, "=== Please see which ones are selected ===");
+            let selectedml = this.msgAlert.list.filter(n=> { return (n.checked == true);});
+            if(selectedml.length == this.pageSize) {
+                console.log("The latest one was selected, so all selected!");
+                this.allSelected = true;
+            } else {
+                this.allSelected = false;
+            }
         }
-    }
-    */
+    
+        selectOrUnSAllItems(): void {
+            if (this.allSelected) {
+                console.log("All checked before, so set them all unselected");
+                this.allSelected = false;
+                this.msgAlert.list.map(n=> { n.checked = false;});
+            } else {
+                console.log("All unchecked before, so set them all selected");
+                this.allSelected = true;
+                this.msgAlert.list.map(n=> { n.checked = true;});
+            }
+        }
+    
+        getSelectedItems() {
+            this.selectedmsglist = this.msgAlert.list.filter(n=> { return (n.checked == true);});
+            if (this.selectedmsglist.length != 0){
+                return this.selectedmsglist;
+            } else {
+                return [];
+            }
+        }
+        */
 
 }
