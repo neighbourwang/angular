@@ -3,7 +3,7 @@ import { Input,Component, OnInit, ViewChild, EventEmitter,Output} from '@angular
 import { Router } from '@angular/router';
 import { NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import {OrderDetailItem, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp} from '../model'
-
+import {DictService} from '../../../../architecture/core/service/dict-service';
 
 @Component({
 	selector: 'order-mng-cancel',
@@ -27,7 +27,8 @@ export class OrderMngCancelComponent implements OnInit{
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
-		private restApi:RestApi){
+		private restApi:RestApi,
+		private _dictServ:DictService){
 	}
 	ngOnInit(){
 	
