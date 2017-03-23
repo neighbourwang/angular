@@ -6,10 +6,10 @@ import * as _ from 'underscore';
 	selector:'disk-view'
 	,template:`
 	<ul>
-		<li>{{ 'CHECK_CENTER.CLOUD_HARD_DISK_INSTANCE_NAME' | translate }}: {{_obj.diskInstanceName | translate}}</li>
-		<li>{{ 'COMMON.AVAILABLE_ZONE' | translate }}: {{_obj.zone}}</li>
-		<li>{{ 'COMMON.CAPATITY' | translate }}: {{_obj.capacity}}</li>
-		<li>{{ 'ORDER_MNG.MOUNT_HOSTING_NAME' | translate }}：{{_obj.vmName | translate}}</li>
+		<li>区域: {{_obj.platform}}</li>
+		<li>可用区: {{_obj.zone}}</li>
+		<li>云硬盘类型: {{_obj.storage}}</li>
+		<li>云硬盘容量: {{_obj.capacity}}</li>
 	</ul>
 	`
 })
@@ -17,19 +17,24 @@ export class DiskViewComponent implements OnInit{
 	@Input()
 	private values:Array<SubInstanceAttrPair>;
 
-	private _obj:{diskInstanceName:string;
-		zone:string;
-		capacity:string;
-		vmName:string
-	}
+	private _obj:{//diskInstanceName:string;云硬盘实例名称
+		platform:string;//区域
+		zone:string;//可用区
+		storage:string;//云硬盘类型
+		capacity:string;//云硬盘容量
+		//vmName:string挂载云主机
+	}//PLATFORM,ZONE,STORAGE,DISKSIZE,DISKINSNAME
 
 	ngOnInit(){
 		let getProperty = _.property("attrDisplayValue");
 		this._obj = {
-			diskInstanceName: getProperty(this.values.find(n=>n.attrCode == "DISKINSNAME"))
-			,capacity: getProperty(this.values.find(n=>n.attrCode == 'DISKSIZE'))
-			,vmName: getProperty(this.values.find(n=>n.attrCode == 'DISKMOUNTHOSTNAME')) || 'COMMON.NONE'
+			// diskInstanceName: getProperty(this.values.find(n=>n.attrCode == "DISKINSNAME"))
+			 platform:getProperty(this.values.find(n=>n.attrCode == 'PLATFORM'))
 			,zone:getProperty(this.values.find(n=>n.attrCode == 'ZONE'))
+			,storage:getProperty(this.values.find(n=>n.attrCode == 'STORAGE'))
+			,capacity: getProperty(this.values.find(n=>n.attrCode == 'DISKSIZE'))
+			// ,vmName: getProperty(this.values.find(n=>n.attrCode == 'DISKMOUNTHOSTNAME')) || 'COMMON.NONE'
+			
 		};
 
 		console.log('disk init', this.values);//.instanceName = 
