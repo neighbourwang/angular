@@ -8,10 +8,10 @@ import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
-//import { MsgAlertModel, MsgModel } from "../model/msg-alert.model";
+import { RegionModel, keysecretModel } from "../model/cloud-disk.model";
 
 //Service
-//import { MsgMngService } from "../service/msg-mng.service";
+import { AliCloudDiskService } from "../service/cloud-disk.service";
 
 
 @Component({
@@ -24,7 +24,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
     constructor(
         private layoutService: LayoutService,
         private router: Router,
-        //private service: MsgMngService,
+        private service: AliCloudDiskService,
         private activatedRouter : ActivatedRoute,
 
     ) {
@@ -49,6 +49,14 @@ export class AliCloudDiskOrderComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
+    keysecret: keysecretModel = new keysecretModel();
+
+    regions: Array<RegionModel> = [];
+
+    defaultRegion: RegionModel = new RegionModel();
+
+    selectedRegion: RegionModel = this.defaultRegion;
+
     private okCallback: Function = null;
     okClicked() {
         console.log('okClicked');
@@ -68,34 +76,22 @@ export class AliCloudDiskOrderComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
-        //this.getMsgList(this.paginationFlag);
+        this.getKeySecret();
 
     }
-    /*
 
-    getMsgList(status:string, pageIndex?): void {
-        this.paginationFlag = status;
-        this.pageIndex = 1; 
-        this.allSelected = false;
-
+    getKeySecret(): void {
         this.layoutService.show();
-        this.service.getMsgListStatus(this.pageIndex, this.pageSize, this.paginationFlag)
+        this.service.getKeySecret()
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "msgList response!");
                 if (response && 100 == response["resultCode"]) {
-                    this.msgAlert.edge = response.pageInfo.totalRecords;
-                    this.msgAlert.list = response.resultContent;
-                    this.totalPage = response.pageInfo.totalPage;
-                    this.pager.render(1);
-                    if(this.paginationFlag == "0") {
-                        this.unreadnumber.num = this.msgAlert.edge;
-                    }
+                    this.service.keysecret = response.resultContent;
+                    //console.log(this.service.keysecret, "this.keysecret!");
+                    this.getAllRegions();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
-                    this.msgAlert.edge = 0;
                     return;
                 }
             })
@@ -103,6 +99,96 @@ export class AliCloudDiskOrderComponent implements OnInit {
                 this.onRejected(e);
             });
     }
+
+    getAllRegions(): void {
+
+        this.layoutService.show();
+        this.service.getAllRegions()
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.regions = result.Regions.Region;
+                    console.log(this.regions, "this.regions!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+    }
+
+    selectRegion(region: RegionModel) {
+        this.regions.map((item) => {
+            item.selected = false;
+        });
+        region.selected = true;
+        if (region.areas == null || region.areas.length == 0) {
+            this.getArea(region);
+        }
+
+        this.resetSelectedRegion();
+
+        this.selectedRegion.areas = region.areas;
+        this.selectedRegion.selected = region.selected;
+        this.selectedRegion.RegionId = region.RegionId;
+        this.selectedRegion.LocalName = region.LocalName;
+        console.log(this.selectedRegion, "this.selectedRegion!");
+
+    }
+
+    resetSelectedRegion() {
+        this.defaultRegion = new RegionModel();
+        this.defaultRegion.areas = [];
+        this.defaultRegion.count = 1;
+        this.defaultRegion.diskCount = "";
+        this.defaultRegion.LocalName = "";
+        this.defaultRegion.selected = false;
+        this.defaultRegion.selectedArea.AvailableDiskCategories.DiskCategories = [];
+        this.defaultRegion.selectedDisk = "";
+        this.selectedRegion = this.defaultRegion;
+    }
+
+    //根据regionId获取可用区列表
+    getArea(region:RegionModel) {
+        this.layoutService.show();
+        this.service.getArea(region.RegionId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                //console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    region.areas = result.Zones.Zone;
+                    console.log(region.areas, "region.areas!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+    }
+
+    outputValue(e:number) {
+        this.selectedRegion.count = e;
+        console.log(this.selectedRegion.count);
+    }
+    
 
 
 
@@ -130,7 +216,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
         this.notice.open(msg.title, msg.desc);
     }
 
-
+/*
     //选择行
     selectItem(index:number): void {
         this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;
