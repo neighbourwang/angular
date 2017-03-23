@@ -23,7 +23,8 @@ export class VmViewComponent implements OnInit{
 		cpu:string;
 		mem:string
 	}
-
+// if(vm.attrCode== "PLATFORM"||vm.attrCode== "ZONE"||vm.attrCode== "CPU"||vm.attrCode== "MEM"||vm.attrCode== "BOOTSTORAGE"||vm.attrCode== "PASSWORD"||vm.attrCode== "INSTANCENAME")
+		
 	ngOnInit(){
 		let getProperty = _.property("attrDisplayValue");
 		this._obj = {

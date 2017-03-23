@@ -217,6 +217,7 @@
         "EMPTY_SHOPPING_CART": "清空购物车",
         "ENABLE": "启用",
         "ENABLED": "已启用",
+        "UNABLED": "已禁用",
         "ENABLE_VALUE": "启用{{value_1}}",
         "END_TIME": "结束时间",
         "ENTERPRISE": "企业",
@@ -1506,6 +1507,7 @@
         "VIEW_PRODUCT": "查看产品",
 
         "EDIT_PRODUCT_CATALOG":"编辑产品目录",
+        "CREATE_PRODUCT_CATALOG":"创建产品目录",
         "ERROR_GETTING_PLATFORM_LIST":"获取平台列表错误",
         "SELECT_CLOUD_HOST_SPECIFICATIONS":"云主机规格选择",
         "CLOUD_HARD_DISK_SERVICES":"云硬盘服务",

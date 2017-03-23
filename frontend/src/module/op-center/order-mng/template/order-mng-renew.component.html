@@ -24,10 +24,13 @@
 							</td>
 							<td>{{prodItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async}}</td>
 							<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>
-							<td>{{prodItem.period}}</td>
+							<td>{{prodItem.period}}/{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async |slice:1}}</td>
 							<td>{{prodItem.quantity}}</td>
-							<td style="width: 100px;">{{prodItem.oneTimePrice}}</td>
-							<td class="font-green">{{prodItem.renewPrice}}</td>
+							<td style="width: 100px;">
+								{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}<br/>
+							<span>费用:￥{{prodItem.price}}/</span><span *ngIf="prodItem.serviceType==1">GB</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
+							</td>
+							<td class="font-green">￥{{prodItem.renewPrice}}/{{prodItem.renewPeriodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async |slice:1}}</td>
 							<td>{{prodItem.expireDate}}</td>
 						</tr>
 					</tbody>

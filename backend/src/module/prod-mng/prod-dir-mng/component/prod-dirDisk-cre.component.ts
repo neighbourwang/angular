@@ -47,6 +47,7 @@ export class ProdDirDiskCreComponent implements OnInit {
             } 
         })
         if(this.type=='new'){
+            this.pageTitle="PROD_MNG.CREATE_PRODUCT_CATALOG";
             this.getPlateForm();            
         }else{
              this.pageTitle='PROD_MNG.EDIT_PRODUCT_CATALOG'

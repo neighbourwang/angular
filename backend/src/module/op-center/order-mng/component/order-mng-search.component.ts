@@ -77,17 +77,17 @@ export class OrderMngSearchComponent implements OnInit{
 			this._productTypeLoader.UpdateWithDic([firstItem], 'productTypeName', 'productType');
 			this._productTypeLoader.UpdateWithDic(firstItem.subInstanceList, 'serviceTypeName', 'serviceType');
 
-			if(firstItem.productType=='0'){//云主机服务,
-				if(firstItem.subInstanceList[0].specList){
-					for(let item of firstItem.subInstanceList[0].specList){
-						if(!this.checkVm(item)){
-							let index = firstItem.subInstanceList[0].specList.indexOf(item);
-							firstItem.subInstanceList[0].specList.splice(index,1);
-						}
+			// if(firstItem.productType=='0'){//云主机服务,
+			// 	if(firstItem.subInstanceList[0].specList){
+			// 		for(let item of firstItem.subInstanceList[0].specList){
+			// 			if(!this.checkVm(item)){
+			// 				let index = firstItem.subInstanceList[0].specList.indexOf(item);
+			// 				firstItem.subInstanceList[0].specList.splice(index,1);
+			// 			}
 							
-					}
-				}
-			}
+			// 		}
+			// 	}
+			// }
 			console.log(firstItem.subInstanceList[0].specList);
 		}
 		this._orderDetailLoader.FirstItem = new SearchOrderDetail();
