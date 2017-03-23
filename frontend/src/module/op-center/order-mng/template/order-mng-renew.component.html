@@ -18,9 +18,12 @@
 					<tbody>
 						<tr *ngFor="let prodItem of orderItem.itemList">
 							<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
-								<ul>
+								<ul *ngIf="prodItem.serviceType>1">
 									<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 								</ul>
+									<vm-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==0"></vm-view>
+									<!-- 显示云主机 -->
+									<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view>
 							</td>
 							<td>{{prodItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async}}</td>
 							<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>

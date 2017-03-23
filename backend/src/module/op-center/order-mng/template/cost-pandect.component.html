@@ -41,7 +41,8 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="console-box">
-		                <div class="console-title">部门消费概览</div>
+		                <div class="console-title" *ngIf='!this.isNullEnterprise()'>部门消费概览</div>
+						<div class="console-title" *ngIf='this.isNullEnterprise()'>消费概览</div>						
 		                <div class="ues-content">
 							 <canvas baseChart *ngIf="sumChart" 
                           width="200" height="70"
@@ -54,7 +55,8 @@
 				</div>
                 <div class="col-sm-6">
                     <div class="console-box">
-                        <div class="console-title">部门消费趋势</div>
+                        <div class="console-title" *ngIf='!this.isNullEnterprise()'>部门消费趋势</div>
+						<div class="console-title" *ngIf='this.isNullEnterprise()'>消费趋势</div>
                         <div class="ues-content">
 							 <canvas baseChart *ngIf="historyChart"
                           width="200" height="70"
