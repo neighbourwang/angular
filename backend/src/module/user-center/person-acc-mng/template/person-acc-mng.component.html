@@ -7,17 +7,20 @@
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'USER_CENTER.NAME' | translate}}：</div><!--姓名-->
-
-						<div class="col-sm-4">
+						<!--<div class="col-sm-4">
 							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.userName">
-						</div>
+						</div>-->
+						<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.userName}">
+                            <input type="text" [(ngModel)]="personAcc.userName" (ngModelChange)="checkForm('userName')" [disabled]="!edit" name="userName" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}" class="form-control">
+                            <span *ngIf="v.result.userName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="v.result.userName" class="alert alert-danger" role="alert">{{v.result.userName}}</div>
+                        </div>
 					</div>
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.ACCOUNT' | translate}}：</div><!--账号-->
-
-						<div class="col-sm-4">
+						<div class="col-sm-4 no-padding">
 							<input type="text" class="form-control font-gray" [disabled]="true" [(ngModel)]="personAcc.loginName">
 						</div>
 					</div>
@@ -25,19 +28,21 @@
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.CONTACT_PHONE' | translate}}：</div><!--联系电话-->
-
-						<div class="col-sm-4">
+						<!--<div class="col-sm-4 no-padding">
 							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.phone">
-						</div>
+						</div>-->
+						<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.phone}">
+                            <input type="text" [(ngModel)]="personAcc.phone" (ngModelChange)="checkForm('phone')" name="phone" [disabled]="!edit" placeholder="{{'USER_CENTER.INPUT_MOBILE_PHONE' | translate}}" class="form-control">
+                            <span *ngIf="v.result.phone" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="v.result.phone" class="alert alert-danger" role="alert">{{v.result.phone| translate}}</div>
+                        </div>
 					</div>
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title">{{'HOST_OPENSTACK_MNG.TYPE' | translate}}：</div><!--类型-->
-
-						<div class="col-sm-4">
+						<div class="col-sm-4 no-padding">
 							<span *ngIf="!personAcc.isAD" style="line-height:34px;">{{'COMMON.LOCAL' | translate}}</span><!--本地-->
-
 							<span *ngIf="personAcc.isAD" style="line-height:34px;">AD</span>
 						</div>
 					</div>
@@ -45,10 +50,14 @@
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title">{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}：</div><!--描述-->
-
-						<div class="col-sm-4">
+						<!--<div class="col-sm-4">
 							<textarea class="form-control font-gray" rows="4" placeholder="{{'COMMON.DESCRIPTION' | translate}}" [disabled]="!edit" [(ngModel)]="personAcc.description"></textarea>
-						</div>
+						</div>-->
+						<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
+                            <textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" [disabled]="!edit" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3" [(ngModel)]="personAcc.description"
+                                name="description">
+                            </textarea>
+                        </div>
 					</div>
 				</div>
 			</div>
@@ -76,7 +85,6 @@
 	<div style="height:50px"></div>
 	<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="NET_MNG_VM_DBT_PORT.COMFIRM" (of)="nof()"></fc-notice>
 	<fc-popup #editPassWord title="{{title}}" ot="NET_MNG_OPENSTACK.SAVE" (of)="otEditPwd()" ct="NET_MNG_VM_DBT_PORT.CNACLE" (cf)="ccf()">
-		<div class="page-content">
 			<div class="row" style="padding-top: 10px;">
 				<div class="col-md-12">
 					<!--<div class="row row-line-height">
@@ -165,6 +173,5 @@
 					</form>
 				</div>
 			</div>
-		</div>
 	</fc-popup>
 </div>

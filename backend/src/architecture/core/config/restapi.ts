@@ -1113,7 +1113,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/product/{id}/historyBilling"
     },
-
+    {
+        "desc": "编辑产品详细信息",
+        "id": "prod-mng.prod-mng.editBasic",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/product/update/basic"
+    },
     //用户中心
     {
         "desc": "获取所有机构",
