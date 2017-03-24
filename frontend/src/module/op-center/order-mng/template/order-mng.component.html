@@ -27,9 +27,9 @@
 				<td>{{ autoRenewItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async }}</td>
 				<td>{{ autoRenewItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async }}</td>
 				<td>
-					<span>{{ 'COMMON.ONE_TIME_COSTS' | translate }}:{{ autoRenewItem.oneTimePrice }}</span>
+					<span>{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{ autoRenewItem.oneTimePrice }}</span>
 					<br/>
-					<span>{{ 'COMMON.PRICE' | translate }}:{{ autoRenewItem.price }}</span>
+					<span>{{ 'COMMON.PRICE' | translate }}:￥{{ autoRenewItem.price }}</span>
 					<span *ngIf="autoRenewItem.serviceType==1">/GB</span><span>/{{autoRenewItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
 				</td>
 				<td  *ngIf="this.autoRenewItem.renewOver">{{ autoRenewItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') |async}}</td>
@@ -41,15 +41,15 @@
 		<div class="renew-type-title" >自动续订方式 : </div>
 		<div class="renew-type-content">
 			<div class="select-renew-type" *ngIf="autoRenewItem.extendType == 0 && !autoRenewItem.renewOver" >
-				<label (click)="autoRenewItem.isSelectedType=true">
+				<!--<label (click)="autoRenewItem.isSelectedType=true">
 				<input class="fox-cloud-radio" id="unselectedType" name="renewTypeRadio" type="radio" [(ngModel)]="autoRenewItem.subExtendType" value="{{autoRenewItem.onExtendType}}" autocomplete="off"  />
 					维持当前续订方式
 				</label>
-				<br>
+				<br>-->
 				<span  *ngFor="let item of autoRenewItem.serivceRenewWayProductItems; let i=index">
 					<label (click)="autoRenewItem.isSelectedType=true">
 					<input class="fox-cloud-radio" name="renewTypeRadio" type="radio" [(ngModel)]="autoRenewItem.subExtendType" value="{{item.billingInfo.extendType}}"  autocomplete="off"/>
-						{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}续订(周期费用：￥{{item.billingInfo.cyclePrice}}/ {{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}} ，
+						{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}续订(周期费用：￥{{item.billingInfo.basePrice}}/ {{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}} ，
 						<span *ngIf="item.billingInfo.periodType==3">每6个月续订一次</span>
 						<span *ngIf="item.billingInfo.periodType==5">每一年续订一次</span>)
 					</label>
@@ -197,8 +197,8 @@
 				<tr>
 					<td class=" font-green leftAlign pdl20" colspan="6" (click)="showDetail(orderItem)"><span>{{orderItem.purchaseDate}}</span> <span class="pointer mgl10 float-none">{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate }}: {{orderItem.orderNo}}</span></td>
 					<td colspan="6">	
-						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType > 0" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">取消自动续订</button>
-						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType == 0" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">自动续订</button>
+						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType > 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">取消自动续订</button>
+						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType == 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">自动续订</button>
 						<button  *ngIf="orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
 						<button *ngIf="orderItem.canRenew" class="pull-right button-gray-gradient" (click)="renewSelect(orderItem)">{{ 'COMMON.RENEW' | translate }}</button>
 						

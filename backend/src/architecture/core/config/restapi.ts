@@ -1113,7 +1113,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/product/{id}/historyBilling"
     },
-
+    {
+        "desc": "编辑产品详细信息",
+        "id": "prod-mng.prod-mng.editBasic",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/product/update/basic"
+    },
     //用户中心
     {
         "desc": "获取所有机构",
@@ -2400,6 +2405,20 @@ export let RestApis: RestApiModel[] = [
         "id":"store-detail.storage.info",
         "method":"GET",
         "url":"maintenance/storage/info/{storageId}"
+     },
+
+     //超分管理
+     {
+        "desc": "获取hyper列表",
+        "id":"assign-mng.hyper.list",
+        "method":"POST",
+        "url":"maintenance/hyper/list"
+     },
+     {
+        "desc": "获取hyper详情",
+        "id":"assign-detail.hyper.info",
+        "method":"GET",
+        "url":"maintenance/hyper/{vmid}/info/{period}"
      },
 ]
 

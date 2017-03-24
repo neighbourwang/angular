@@ -23,7 +23,7 @@ class enterprise {
     "code" :string;
 }
 class Product {
-    "id":string;
+    "productId":string;
     "billingId":string;
     "basicCyclePrice": number;
     "billingCycle": string;
