@@ -506,7 +506,7 @@ export class OrderMngComponent implements OnInit {
 			};
 
 			this._renewSetting.reset();
-
+	
 
 			this.layoutService.show();
 			this._renewPriceLoader.Go(null, [{ key: "_subId", value: orderItem.orderId }])
@@ -517,6 +517,10 @@ export class OrderMngComponent implements OnInit {
 						n.renewPrice = getRenewPrice();
 						n.renewPeriodType = this._renewPriceLoader.FirstItem.periodType;
 					});
+			this._renewSetting.onetimePrice = this._renewPriceLoader.FirstItem.basePrice;
+			this._renewSetting.price = this._renewPriceLoader.FirstItem.cyclePrice;
+			this._renewSetting.periodType = this._renewPriceLoader.FirstItem.periodType;
+			
 				})
 				.catch(err => {
 					this.layoutService.hide();
