@@ -164,7 +164,7 @@ export class PersonAccMngComponent implements OnInit {
             //验证email
             // baseInput: [this.baseInput, [this.v.isBase, this.v.isUnBlank], "不能包含特殊字符"],
             //两次验证[基础的验证不能包含特殊字符，不能为空]
-            // phone: [this.account.phone, [this.v.isMoblie, this.v.isUnBlank], "USER_CENTER.MOBILE_PHONE_FORMAT_ERROR"],
+            phone: [this.personAcc.phone, [this.v.isMoblie, this.v.isUnBlank], "USER_CENTER.MOBILE_PHONE_FORMAT_ERROR"],
             //手机号码验证
             description:[this.personAcc.description, [this.v.maxLength(68)], "描述输入错误"],
         }

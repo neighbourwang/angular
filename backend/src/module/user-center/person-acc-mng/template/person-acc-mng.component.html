@@ -28,9 +28,14 @@
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.CONTACT_PHONE' | translate}}：</div><!--联系电话-->
-						<div class="col-sm-4 no-padding">
+						<!--<div class="col-sm-4 no-padding">
 							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.phone">
-						</div>
+						</div>-->
+						<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.phone}">
+                            <input type="text" [(ngModel)]="personAcc.phone" (ngModelChange)="checkForm('phone')" name="phone" [disabled]="!edit" placeholder="{{'USER_CENTER.INPUT_MOBILE_PHONE' | translate}}" class="form-control">
+                            <span *ngIf="v.result.phone" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="v.result.phone" class="alert alert-danger" role="alert">{{v.result.phone| translate}}</div>
+                        </div>
 					</div>
 				</div>
 				<div class="row row-line-height">
