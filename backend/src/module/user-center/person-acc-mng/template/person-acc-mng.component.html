@@ -54,7 +54,7 @@
 							<textarea class="form-control font-gray" rows="4" placeholder="{{'COMMON.DESCRIPTION' | translate}}" [disabled]="!edit" [(ngModel)]="personAcc.description"></textarea>
 						</div>-->
 						<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
-                            <textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3" [(ngModel)]="personAcc.description"
+                            <textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" [disabled]="!edit" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3" [(ngModel)]="personAcc.description"
                                 name="description">
                             </textarea>
                         </div>
