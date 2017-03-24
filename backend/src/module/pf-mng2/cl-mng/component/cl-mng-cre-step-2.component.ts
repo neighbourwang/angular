@@ -102,7 +102,9 @@ export class ClMngCreStep2Component implements OnInit {
                 this.creStep2Model.message = 'PF_MNG2.SYNC_STORAGE_COMP_SYNC_SPEC';
                 this.creStep2Model.percentage = 40;
                 if (this.platformType != '2') {
-                    this.flavors();
+                    //openstack 同步规格和volumeType;
+                    this.flavors();                    
+                    this.service.getvolumeType(platFormId);
                 } else {
                     window.setTimeout(() => {
                         this.creStep2Model.flavors = 'ok';

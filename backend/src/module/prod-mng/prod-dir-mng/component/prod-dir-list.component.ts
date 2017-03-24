@@ -284,22 +284,8 @@ export class ProdDirListComponent implements OnInit {
             })
         // }else{
         //     this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录
-        // }
-        
-         
-
+        // }    
     }
-    //选择产品目录类型
-    // selectProDirType(item,index) {
-    //     this.prodDirTypeList.forEach(ele=>{
-    //                 ele.isSelected=false;
-    //             })
-    //     item.isSelected=true;
-    //     this.prodDirTypeId=item.id;
-    //     console.log(item);
-    //     this.showSpec =
-    //         item.id == '33f23ade-a0f8-11e6-a18b-0050568a49fd' ? true : false;
-    // }
     //选择云主机产品目录规格
     prodDirSpecIdx:number=0;
     selectProDirSpec(e){
@@ -324,9 +310,9 @@ export class ProdDirListComponent implements OnInit {
     //去编辑详情
     goDetail(item) {
         console.log(item);
-        if(item.serviceTemplateName=="云主机服务"){
+        if(item.serviceType=="0"){
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre",{id:item.serviceId,type:'edit'}]);
-        }else{
+        }else if(item.serviceType=="1"){
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre",{id:item.serviceId,type:'edit'}]);
         }
     }
@@ -340,11 +326,15 @@ export class ProdDirListComponent implements OnInit {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
                     let resultContent = response.resultContent;
+                    if(resultContent.length==0){
+                        this.notice.open('提示','未找到相关产品信息');
+                    }
                     let backend = new Array<Proddir>();
                     for (let content of resultContent) {
                         let proddir = new Proddir();
                         proddir.serviceId = content.serviceId;
                         proddir.serviceName = content.serviceName;
+                        proddir.serviceType = content.serviceType;
                         proddir.productNum = content.productNum;
                         proddir.serviceTemplateName = content.serviceTemplateName;
                         proddir.createrName = content.createrName;
@@ -385,7 +375,6 @@ export class ProdDirListComponent implements OnInit {
     nof() {
 
     }
-
     paging(page) {
         this.backend({
             "categoryId": this.queryProDirTypeId,

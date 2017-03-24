@@ -25,6 +25,9 @@
 | lengthRange    | (min:number, max:number)               | 字符串长度范围                   |
 | uuid           | (version:"3"\|"4"\|"5"\|"all" = "all") | uuid                      |
 | equalTo        | (target:any)                           | 等于某个值                     |
+| equalToArr        | (arr:any[])                           | 在某个数组里含有                     |
+| notEqualTo        | (target:any)                           | 不等于某个数                     |
+| notEqualToArr        | (arr:any[])                           | 不在某个数组里含有                     |
 
 
 

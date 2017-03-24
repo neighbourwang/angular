@@ -1,0 +1,123 @@
+<div class="page-content cloud_host_order cloud_drive_order">
+    <div class="col-md-12">
+        <h1 class="page-content-header" (click)="payLoadFormat()">云硬盘</h1>
+        <ul class="page-box" style="padding-left: 0;">
+            <li>
+                <div class="col-md-1 li-title">
+                    <p><span class="icon-location"></span>地域：</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-12">
+                        <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);">
+                            <div class="regionName">{{region.LocalName}}</div>
+                            <div class="regionArea">
+                                <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
+                                <span class="caret"></span>
+                                <!-- <select [(ngModel)] ="region.selectedArea" (change)="selectedRegion=region; selectedRegion.selectedArea=region.selectedArea;"> -->
+                                <select [(ngModel)]="region.selectedArea" (change)="selectedRegion.selectedArea=region.selectedArea;">
+                        <option *ngFor="let item of region.areas" [ngValue]="item">
+							{{item.LocalName}}
+                        </option>
+                    </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12 text-tip">云盘只能挂载在同一可用区的ECS实例内，订购后不支持更换地域，请谨慎选择，<a href="javascript:void(0);">教我选择>></a></div>
+                </div>
+            </li>
+
+            <li>
+                <div class="col-md-1 li-title">
+                    <p><span class="icon-configure"></span>云盘：</p>
+                </div>
+                <div class="col-md-12 li-content">
+
+                    <div class="col-md-12 no-padding mgb20">
+                        <select class="select_input_size" [(ngModel)]="selectedRegion.selectedDisk">
+							<option *ngIf="selectedRegion==defaultRegion" [value]="">请选择可用区</option>
+							<option *ngFor="let disktype of selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories" [value]="disktype">{{disktype}}</option>
+						</select>
+                        <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" /> G
+                        <span class="text-tip">
+							用快照创建磁盘
+						</span>
+                    </div>
+
+                </div>
+            </li>
+            <li>
+                <div class="col-md-1 li-title">
+                    <p><span class="icon-amount"></span>购买量：</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-12 no-padding mgb20">
+                        <div style="display: inline">
+                            <count-bar [step]=1 [max]=2000 [min]=1 [stepCheck]=true [value]=1 (output)="outputValue($event)">
+                            </count-bar>台
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="li_line_backgroud">
+                <div class="col-md-1 li-title">
+                    <p><span></span>当前配置：</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-12">
+                        <div class=" float-right">
+                            <a href="javascript: void(0);">购买须知>></a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <span>地域：</span>
+                            <span>{{selectedRegion.LocalName || ""}} {{selectedRegion.selectedArea.LocalName || ""}}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span>云盘：</span>
+                            <span>{{selectedRegion.diskCount || ""}}G {{selectedRegion.selectedDisk || ""}}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span>数量：</span>
+                            <span>{{selectedRegion.count || ""}}</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <ul class="col-md-12 no-padding bottom-box">
+            <li>
+                <div class="col-md-12" style="padding: 35px 20px 25px 40px;">
+                    <div class="float-left">
+                        <span>配置费用：</span>
+                        <span>￥0.225/时</span>
+                    </div>
+                    <div class="float-right">
+                        <button (click)="buyNow()" class="btn button-orange-deep">加入清单</button>
+                        <button (click)="addCart()" class="btn button-orange-light">立即购买</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- [ngClass]="{'right-fixed' : rightFixed}" (window:scroll)="onScroll($event)" 
+	<div class="col-md-12 no-padding">
+        <div class="float-left">
+            <span >配置费用：</span>
+            <span >￥0.225/时</span>
+        </div>
+        <div class="float-right">
+            <button (click)="buyNow()" class="btn button-orange-deep">加入清单</button>
+            <button (click)="addCart()" class="btn button-orange-light">立即购买</button>
+        </div>
+	</div>
+	-->
+</div>
+
+{{selectedRegion.toString()}}
+
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>

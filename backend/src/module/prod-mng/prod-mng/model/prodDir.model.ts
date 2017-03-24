@@ -42,9 +42,11 @@ class ProductDir {
   "serviceName": string;
   "specification" = new specification();
   serviceType:string;
-  // constructor(){
-  //     this.platformInfo= new Array<plateform>();
-  // }
+  constructor(){
+      // this.platformInfo= new Array<plateform>();
+      this.serviceName="";
+      this.description="";
+  }
 } 
 export {
   ProductDir,

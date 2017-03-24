@@ -1025,8 +1025,15 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/services/platforms/vm/detailinfo"
     },
     {
-        "desc": "获取某个VM产品目录详细信息",
+        "desc": "编辑某个VM产品目录详细信息带未选平台get",
         "id": "prod-mng.prod-dir-vm.detail",
+        "method": "GET",
+        "url": "adminui/authsec/services/service/{id}/preview"
+    },
+    //for产品编辑
+     {
+        "desc": "获取某个VM产品目录详细信息",
+        "id": "prod-mng.prod-edit-vm.detail",
         "method": "GET",
         "url": "adminui/authsec/service/{id}/type/vm/detail "
     },
@@ -1044,8 +1051,15 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/services/type/disk "
     },
     {
-        "desc": "获取某个DISK产品目录详细信息",
+        "desc": "编辑某个DISK产品目录详细信息带未选平台",
         "id": "prod-mng.prod-dir-disk.detail",
+        "method": "GET",
+        "url": "adminui/authsec/services/Disk/{id}"
+    },
+    //for产品编辑
+    {
+        "desc": "获取某个DISK产品目录详细信息",
+        "id": "prod-mng.prod-edit-disk.detail",
         "method": "GET",
         "url": "adminui/authsec/services/{id}/disk/"
     },

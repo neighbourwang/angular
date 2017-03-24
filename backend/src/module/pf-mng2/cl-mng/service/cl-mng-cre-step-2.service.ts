@@ -107,4 +107,12 @@ export class ClMngCreStep2Service {
         return this.restApi.request(api.method , api.url , [{key : 'pf-id' , value : id}],undefined);
     }
 
+    //openstack 同步volumeType
+    //pf.cre.step.02.volumetype.synchronize.get
+    getvolumeType(id : string){
+        let api = this.restApiCfg.getRestApi("pf.cre.step.04.volumetype.synchronize.get");
+
+        return this.restApi.request(api.method , api.url , [{key : 'id' , value : id}],undefined);
+    }
+
 }

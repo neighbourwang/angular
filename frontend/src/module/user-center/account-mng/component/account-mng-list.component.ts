@@ -158,6 +158,9 @@ export class AccountMngListComponent implements OnInit {
             res => {
                 console.log(res);
                 this.accounts = res.resultContent;
+                if(this.accounts.length==0){
+                    this.notice.open('',"未找到跟 '"+this.keyword+"' 相关的账户信息");
+                }
                 this.tp = res.pageInfo.totalPage;
             }
         )

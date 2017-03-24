@@ -34,23 +34,29 @@ export class ProdDirCreComponent implements OnInit {
     prodDir = new ProdDir();
     _platformlist: Array<platform> = new Array<platform>();
     pageTitle: string;
+    //编辑
+    serviceId:string;
+    type:string;
     ngOnInit() {
-        let prodDirId: string;
-        let prodDirType: string;
         this.route.params.forEach((params: Params) => {
-            // let id=+params['id'];
-            prodDirId = params['id'];
-            prodDirType = params['type'];
-            if (params['vcpu']) {
-                this.pageTitle = 'PROD_MNG.CREATE_PRODUCT_CAT'
+            this.type=params['type'];
+            if (this.type=='new'&&params['vcpu']) {
                 this.prodDir.specification.vcpu = params['vcpu'];
                 this.prodDir.specification.mem = params['mem'];
                 this.prodDir.specification.startupDisk = params['startupDisk'];
-            }
+
+            }else{
+                this.serviceId=params['id']
+                console.log(this.serviceId);
+            }            
+        })
+        //创建
+        if(this.type=='new'){
+            this.pageTitle = 'PROD_MNG.CREATE_PRODUCT_CAT'            
             //获取可用平台
             this.LayoutService.show();
-            this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem, this.prodDir.specification.startupDisk).then(response => {
-                // console.log(response);
+            this.CreateProdDirService.postCpuMmr(this.prodDir.specification.vcpu, this.prodDir.specification.mem, this.prodDir.specification.startupDisk)
+            .then(response => {
                 if (response && 100 == response.resultCode) {
                     let resultContent = response.resultContent;
                     this._platformlist = response.resultContent;
@@ -67,17 +73,8 @@ export class ProdDirCreComponent implements OnInit {
                                 zone.storageList[0].selected = true;
                             }
                             zone.selected = false;
-                            // console.log(zone.storageList);
                         }
                     }
-                    if (prodDirType == 'edit') {
-                        this.pageTitle = 'PROD_MNG.EDIT_PRODUCT_CATALOG'
-                        this.getProdDirDetail(prodDirId);
-                    }
-
-
-                } else {
-
                 }
                 this.LayoutService.hide();
                 this.selectAllZone = false;
@@ -85,9 +82,12 @@ export class ProdDirCreComponent implements OnInit {
                 console.error(err);
                 this.LayoutService.hide();
             });
-        })
-
+        }else{
+                this.pageTitle = 'PROD_MNG.EDIT_PRODUCT_CATALOG'            
+                this.getProdDirDetail(this.serviceId);            
+        }
     }
+    //获取目录详情
     getProdDirDetail(id) {
         this.ProdDirDetailService.getVmProdDirDetail(id).then(
             response => {
@@ -96,6 +96,7 @@ export class ProdDirCreComponent implements OnInit {
                     console.log('vmdetail', response);
                     let resultContent = response.resultContent;
                     this.prodDir = response.resultContent;
+                    this._platformlist=this.prodDir.platformList;
                 } else {
 
                 }

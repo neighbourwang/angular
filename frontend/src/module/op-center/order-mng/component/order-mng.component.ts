@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,EventEmitter,Output} from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -41,6 +41,7 @@ export class OrderMngComponent implements OnInit {
 	@ViewChild("AutoRenewDialog")
 	AutoRenewDialog: PopupComponent;
 
+ 
 	//订单详情加载
 	private _orderDetailLoader: ItemLoader<OrderDetailItem> = null;
 
@@ -70,9 +71,10 @@ export class OrderMngComponent implements OnInit {
 	private _renewHandler: ItemLoader<any> = null;
 
 	//退订
-	private cancelObj: CancelParam = new CancelParam();
+	// private cancelObj: CancelParam = new CancelParam();
 	private _cancelHandler: ItemLoader<any> = null;
-
+	private detail: OrderDetailItem = new OrderDetailItem();
+	private cancelParamList = [];
 	private _entId: string = "191af465-b5dc-4992-a5c9-459e339dc719";
 
 	//计费模式
@@ -207,23 +209,25 @@ export class OrderMngComponent implements OnInit {
 				if (item.serviceType == 1)//云硬盘
 					return false;
 
-			    if(item.billingInfo && item.billingInfo.billingMode == 1)//按流量计费无法续订
-			      return false;
-
-				if(item.status !="2"&&item.status!="7")//成功、即将过期:7的订单可以续订
+				if (item.billingInfo && item.billingInfo.billingMode == 1)//按流量计费无法续订
 					return false;
-			    return true;
+
+				if (item.status != "2" && item.status != "7")//成功、即将过期:7的订单可以续订
+					return false;
+				return true;
 			};
 
 			//只有周期计费可以自动续订
-			let canContinueRenew:(item:SubInstanceItemResp)=>boolean = (item:SubInstanceItemResp):boolean=>{
-			    if(item.billingInfo && item.billingInfo.billingMode != 0)//只有周期计费，0代表周期计费
-			      return false;
-			    return true;
-			};			
+			let canContinueRenew: (item: SubInstanceItemResp) => boolean = (item: SubInstanceItemResp): boolean => {
+				if (item.billingInfo && item.billingInfo.billingMode != 0)//只有周期计费，0代表周期计费
+					return false;
+				if (item.status != "2" && item.status != "7")//成功、即将过期:7的订单可以续订
+					return false;
+				return true;
+			};
 
-			let reloadstruct:(items:Array<SubInstanceItemResp>)=>void = (items:Array<SubInstanceItemResp>)=>{
-				for(let i = 0; i < items.length; i++){
+			let reloadstruct: (items: Array<SubInstanceItemResp>) => void = (items: Array<SubInstanceItemResp>) => {
+				for (let i = 0; i < items.length; i++) {
 					items[i] = _.extendOwn(new SubInstanceItemResp(), items[i]);
 				}
 			};
@@ -247,13 +251,13 @@ export class OrderMngComponent implements OnInit {
 					else
 						orderItem.canRenew = true;
 
-					if(orderItem.itemList.find(n=>!canContinueRenew(n) !=null))
+					if (orderItem.itemList.find(n => !canContinueRenew(n) != null))
 						orderItem.canContinueRenew = false;
 					else
 						orderItem.canContinueRenew = true;
 
-			
-					if(orderItem.itemList.find(n=>showInstance(n)!=null))
+
+					if (orderItem.itemList.find(n => showInstance(n) != null))
 						orderItem.showInstance = false;
 					else
 						orderItem.showInstance = true;
@@ -417,7 +421,7 @@ export class OrderMngComponent implements OnInit {
 			this.autoRenewItem.extendType = orderItem.extendType;
 			this.autoRenewItem.instanceId = orderItem.orderId;
 			this.autoRenewItem.status = orderItem.itemList[0].status;
-			
+
 			this.layoutService.show();
 			if (this.autoRenewItem.extendType == 0) {
 				this.autoRenewConfigItem.Go(null, [{ key: "_instanceId", value: orderItem.orderId }, { key: "_serviceType", value: orderItem.itemList[0].serviceType }])
@@ -446,27 +450,27 @@ export class OrderMngComponent implements OnInit {
 			return false
 		};
 		this.layoutService.show();
-		if (this.autoRenewItem.subExtendType > 0 ) {
+		if (this.autoRenewItem.subExtendType > 0) {
 			this.autoRenewSetting.Go(null, null, { 'extendType': this.autoRenewItem.subExtendType, "subinstanceId": this.autoRenewItem.instanceId })
-			.then(success => {
-				this.layoutService.hide();
-				this.renewOver();
-			})
-			.catch(err => {
-				this.showMsg(err);
-				this.layoutService.hide();
-			})
+				.then(success => {
+					this.layoutService.hide();
+					this.renewOver();
+				})
+				.catch(err => {
+					this.showMsg(err);
+					this.layoutService.hide();
+				})
 
-		} else if (this.autoRenewItem.subExtendType === 0 ){
+		} else if (this.autoRenewItem.subExtendType === 0) {
 			this.autoRenewSetting.Go(null, null, { 'extendType': this.autoRenewItem.subExtendType, "subinstanceId": this.autoRenewItem.instanceId })
-			.then(success => {
-				this.layoutService.hide();
-				this.renewOver()
-			})
-			.catch(err => {
-				this.showMsg(err);
-				this.layoutService.hide();
-			})
+				.then(success => {
+					this.layoutService.hide();
+					this.renewOver()
+				})
+				.catch(err => {
+					this.showMsg(err);
+					this.layoutService.hide();
+				})
 		}
 		else {
 			this.showMsg('此服务无法自动续订');
@@ -474,13 +478,13 @@ export class OrderMngComponent implements OnInit {
 		}
 	}
 
-	renewOver(){
+	renewOver() {
 		this.autoRenewItem.renewOver = true;
 		this.AutoRenewDialog.hideCt();
 		this.AutoRenewDialog.hideOt();
 	}
 
-	renewOverEnd(){
+	renewOverEnd() {
 		this.autoRenewItem.renewOver = false;
 		this.AutoRenewDialog.showCt();
 		this.AutoRenewDialog.showOt();
@@ -511,6 +515,7 @@ export class OrderMngComponent implements OnInit {
 
 					orderItem.itemList.map(n => {
 						n.renewPrice = getRenewPrice();
+						n.renewPeriodType = this._renewPriceLoader.FirstItem.periodType;
 					});
 				})
 				.catch(err => {
@@ -606,33 +611,102 @@ export class OrderMngComponent implements OnInit {
 	}
 
 	//续订
-	renew(){
-// 		[
+	renew() {
+		// 		[
+		//   {
+		//     "attrCode": "string",
+		//     "attrDisplayName": "string",
+		//     "attrDisplayValue": "string",
+		//     "attrId": "string",
+		//     "attrValue": "string",
+		//     "attrValueCode": "string",
+		//     "attrValueId": "string",
+		//     "description": "string",
+		//     "valueType": "string",
+		//     "valueUnit": "string"
+		//   }
+		// ]
+		// 		console.log('renew start');
+// 		示例：
+// {
+//   "attrList": [
+//     {
+//       "attrId": "de229819-a0f7-11e6-a18b-0050568a49fd",
+//       "attrCode": "TIMELINEUNIT",
+//       "attrDisplayValue": "按年",
+//       "attrDisplayName": "时长单位",
+//       "attrValueId": "bc5d2ca5-a1bb-11e6-a18b-0050568a49fd",
+//       "attrValue": "5",
+//       "attrValueCode": "c550ef3a-a099-4bc7-b23a-36e61609e15d"
+//     },
+//     {
+//       "attrId": "de227a98-a0f7-11e6-a18b-0050568a49fd",
+//       "attrCode": "TIMELINE",
+//       "attrDisplayValue": "",
+//       "attrDisplayName": "购买时长",
+//       "attrValueId": "",
+//       "attrValue": "1",
+//       "attrValueCode": ""
+//     }
+//   ]
+// }
+
+// [
 //   {
-//     "attrCode": "string",
-//     "attrDisplayName": "string",
-//     "attrDisplayValue": "string",
-//     "attrId": "string",
-//     "attrValue": "string",
-//     "attrValueCode": "string",
-//     "attrValueId": "string",
-//     "description": "string",
-//     "valueType": "string",
-//     "valueUnit": "string"
+//     "attrCode": "TIMELINEUNIT",
+//     "attrDisplayName": "时长单位",
+//     "attrValueCode": "cac86c31-30f3-493a-872e-37d8a84b3e19",
+//     "attrDisplayValue": "按月",
+//     "valueUnit": null,
+//     "attrOrderSeq": null,
+//     "description": null
+//   },
+//   {
+//     "attrCode": "TIMELINE",
+//     "attrDisplayName": "购买时长",
+//     "attrValueCode": "",
+//     "attrDisplayValue": "1",
+//     "valueUnit": null,
+//     "attrOrderSeq": null,
+//     "description": null
 //   }
 // ]
-// 		console.log('renew start');
-		let param = [];
-		
+		// let param = {"attrList":[]};
+
 		let list = this.selectedOrderItem.itemList[0].specList;
-		for(let item of list){
-			if(item.attrCode=='TIMELINEUNIT'){
-				param.push(item);
-			}else if(item.attrCode=='TIMELINE'){
-				item.attrDisplayValue=this._renewSetting.value.toString();
-				param.push(item);
+
+		let items = [];
+		for (let item of list) {
+			if (item.attrCode == 'TIMELINEUNIT') {
+				items.push(item);
+			} else if (item.attrCode == 'TIMELINE') {
+				item.attrDisplayValue = this._renewSetting.value.toString();
+				items.push(item);
 			}
 		}
+		
+		let param = 
+			[
+			{
+			"attrId": this.selectedOrderItem.orderId,
+			"attrCode": "TIMELINEUNIT",
+			"attrDisplayValue":items[0].attrDisplayValue,
+			"attrDisplayName": "时长单位",
+			"attrValueId": "",
+			"attrValue": "5",
+			"attrValueCode": items[0].attrValueCode
+			},
+			{
+			"attrId": this.selectedOrderItem.orderId,
+			"attrCode": "TIMELINE",
+			"attrDisplayName": "购买时长",
+			"attrDisplayValue": "",
+			"attrValueId": "",
+			"attrValue": this._renewSetting.value.toString(),
+			"attrValueCode": ""
+			}
+		]
+
 		this.layoutService.show();
 		this._renewHandler.Go(null, [{ key: "_subId", value: this.selectedOrderItem.orderId }], param)
 			.then(success => {
@@ -647,10 +721,18 @@ export class OrderMngComponent implements OnInit {
 	}
 
 	//退订
-	cancel() {
-		this.layoutService.show();
-		this._cancelHandler.Go(null, [{ key: "_subId", value: this.cancelObj.subId },
-		{ key: "_cascadeFlag", value: this.cancelObj.cascadeFlag }])
+	acceptCancel(data) {
+		// this.layoutService.show();
+		let param=[];
+		if(data[0].itemList[0].isChecked){
+			param.push(this.selectedOrderItem.orderId);
+		}
+		for(let item of data[1].relatedOrderList){
+			if(item.isChecked){
+				param.push(item.instanceId);
+			}
+		}
+		this._cancelHandler.Go(null, null, param)
 			.then(success => {
 				this.layoutService.hide();
 				$('#cancelOrder').modal('hide');
@@ -660,6 +742,7 @@ export class OrderMngComponent implements OnInit {
 			.catch(err => {
 				this.showMsg(err);
 			})
+		this.layoutService.hide();
 	}
 
 	cancelSelect(orderItem: SubInstanceResp) {
@@ -667,12 +750,24 @@ export class OrderMngComponent implements OnInit {
 		if (!_.isEmpty(orderItem.itemList)
 			&& orderItem.itemList.filter(n => n.status == "2").length > 0) {
 			// console.log('cancel select', orderItem);
-			$('#cancelOrder').modal('show');
+
+			this.selectedOrderItem = orderItem;
+			this.layoutService.show();
+			this._orderDetailLoader.Go(null, [{ key: "subinstanceCode", value: orderItem.orderId }])
+				.then(success => {
+					this.layoutService.hide();
+					this.detail = this._orderDetailLoader.FirstItem;
+					$('#cancelOrder').modal('show');
+				})
+				.catch(err => {
+					this.layoutService.hide();
+					this.showMsg(err);
+				})
 
 			// todo: set the cancelObj here
-			this.cancelObj = new CancelParam(orderItem.isDisk, orderItem.isMachine, orderItem.isInUse);
-			this.cancelObj.subId = orderItem.orderId;
-			console.log('cancelObj', this.cancelObj);
+			// this.cancelObj = new CancelParam(orderItem.isDisk, orderItem.isMachine, orderItem.isInUse);
+			// this.cancelObj.subId = orderItem.orderId;
+			// console.log('cancelObj', this.cancelObj);
 		}
 		else {
 			this.showMsg(`ORDER_MNG.ONLY_SUCCESS_OR_EXPIRING_ORDERS_CAN_BE_UNSUBSCRIBE`);
@@ -692,7 +787,7 @@ export class OrderMngComponent implements OnInit {
 	get selectedPeriodTypeName(): string {
 		if (this.selectedOrderItem
 			&& !_.isEmpty(this.selectedOrderItem.itemList)
-			&& this.selectedOrderItem.itemList[0].billingInfo) {
+			&& this.selectedOrderItem.itemList[0].billingInfo&& this.selectedOrderItem.itemList[0].billingInfo.periodType!=null) {
 			let item = this._periodTypeDic.Items.find(n => n.value == this.selectedOrderItem.itemList[0].billingInfo.periodType.toString());
 			if (item)
 				return item.displayValue as string;

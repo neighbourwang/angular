@@ -43,6 +43,8 @@ class Product {
         this.productEnterpiseReqs = Array<enterprise>();
         this.productPlatformReqs=Array<platform>();
         this.billingCycleClick=false;
+        this.name="";
+        this.desc="";
     }
 }
 export {

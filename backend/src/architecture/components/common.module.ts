@@ -13,6 +13,7 @@ import { CountBarComponent} from './countBar/component/count-bar.component'
 import { PopoverModule } from './popover/index';
 import { SelectboxComponent } from './selectbox/component/selectbox.component';
 import { StaticTooltipComponent } from './staticTooltip/staticTooltip.component';
+import { tagInputComponent } from './tagInput/tagInput.component';
 
 import { MyDatePickerModule } from './date-picker/my-date-picker.module';
 import { BootstrapPopoverDirective } from './popover/bootstrap-popover.directive';
@@ -44,7 +45,8 @@ import { Validation } from './validators';
         CountBarComponent,
         BootstrapPopoverDirective,
         SelectboxComponent,
-        StaticTooltipComponent
+        StaticTooltipComponent,
+        tagInputComponent
     ],
     exports: [
         CommonModule,
@@ -63,7 +65,8 @@ import { Validation } from './validators';
         ChartsModule,
         TranslateModule,
 		SelectboxComponent,
-        StaticTooltipComponent
+        StaticTooltipComponent,
+        tagInputComponent
     ],
     providers : [
         DialogTranslate,

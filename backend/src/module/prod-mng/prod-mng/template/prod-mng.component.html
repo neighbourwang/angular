@@ -92,16 +92,16 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let item of productList; let idx = index;">
-					<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)"
-						/></td>
-					<td (click)="goDetail(item)" style="cursor: pointer">{{item.name}}</td>
+					<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)"/></td>
+					<td>
+						<a (click)="goDetail(item)" style="cursor: pointer">{{item.name}}</a>	
+					</td>
 					<td>{{item.serviceName}}</td>
 					<td>
 						<!--{{item.serviceType}}-->
 						<span [ngSwitch]="item.serviceType"> 
 							<template ngSwitchCase="0">{{'COMMON.CLOUD_HOSTING' | translate}}</template>
 							<template ngSwitchCase="1">{{'COMMON.CLOUD_HARD_DISK' | translate}}</template><!--云硬盘-->
-
 							<template ngSwitchDefault>Unknown</template>							
 						</span>
 					</td>

@@ -31,30 +31,28 @@ export class ProdDirDiskCreComponent implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
 
-
-    prodDir = new ProdDirDisk();
+    prodDir:ProdDirDisk 
     _platformlist: Array<platform> = new Array<platform>();
 
     pageTitle:string='';
+    type:string;
+    serviceId:string;
     ngOnInit() {
-        let prodDirId: string;
-        let prodDirType: string;
+        this.prodDir= new ProdDirDisk();
         this.route.params.forEach((params: Params) => {
-            // let id=+params['id'];
-            prodDirId = params['id'];
-            prodDirType = params['type'];
-            if (prodDirType == 'new') {
-                
-            } else {
-                this.pageTitle='PROD_MNG.EDIT_PRODUCT_CATALOG'
-                this.getProdDirDetail(prodDirId);
-                console.log(prodDirId);
-                console.log(prodDirType);
-            }
-            
+            this.type = params['type'];
+            if (this.type == 'edit') {
+                this.serviceId=params['id'];
+                console.log(this.serviceId);
+            } 
         })
-
-        this.getPlateForm();
+        if(this.type=='new'){
+            this.pageTitle="PROD_MNG.CREATE_PRODUCT_CATALOG";
+            this.getPlateForm();            
+        }else{
+             this.pageTitle='PROD_MNG.EDIT_PRODUCT_CATALOG'
+             this.getProdDirDetail(this.serviceId);
+        }
     }
     //获取平台列表;
     getPlateForm() {
@@ -88,7 +86,6 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
 
     //获取启动盘信息
-
     selectStorage(id,idx,idxxx) {
         console.log(id,idx,idxxx)
                 for (let storage of this._platformlist[idx].platformInfo[idxxx].storageItem) {
@@ -100,15 +97,15 @@ export class ProdDirDiskCreComponent implements OnInit {
                 }
     }
     getProdDirDetail(id) {
-        this.ProdDirDetailService.getVmProdDirDetail(id).then(
+        this.ProdDirDetailService.getDiskProdDirDetail(id).then(
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
                     console.log('diskdetail',response);
-                    let resultContent = response.resultContent;
-                    this.prodDir = response.resultContent;
-                } else {
-
+                    if(response.resultContent){
+                        this.prodDir = response.resultContent;
+                        this._platformlist=this.prodDir.platformList;
+                    }
                 }
                 this.LayoutService.hide();
             }
@@ -119,9 +116,18 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
     //同步countBar数据
     outputValue(e, arg) {
-        console.log(arg);
         this.prodDir.specification[arg] = e;
-        console.log(e);
+        if(arg!='maxSize'){
+            this.prodDir.specification.maxSize=
+                this.prodDir.specification.maxSize?this.prodDir.specification.maxSize:0;
+            this.prodDir.specification.initialSize=
+                this.prodDir.specification.initialSize?this.prodDir.specification.initialSize:0;
+            this.prodDir.specification.stepSize=
+                this.prodDir.specification.stepSize?this.prodDir.specification.stepSize:1;
+            const beyond = (this.prodDir.specification.maxSize - this.prodDir.specification.initialSize)%this.prodDir.specification.stepSize;
+            if( beyond !== 0)  this.prodDir.specification.maxSize = 
+            (this.prodDir.specification.stepSize/2 <= beyond) ? this.prodDir.specification.maxSize - beyond + this.prodDir.specification.stepSize : this.prodDir.specification.maxSize - beyond;
+        }        
     }
     //选择全部可用区
     selectAllZone: boolean = false;

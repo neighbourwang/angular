@@ -1,0 +1,26 @@
+<div class="tag-input">
+	<div class="bs-example">
+		<!-- Single button -->
+		<div *ngFor="let data of datas" class="btn-group">
+			<button type="button" (click)="buttonSelect(data)" class="btn btn-primary">{{data}}</button>
+			<button (click)="delete(data)" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span class="glyphicon glyphicon-remove"></span>
+			</button>
+		</div>
+	</div>
+
+	<div class="input-group has-feedback" [ngClass]="{'has-error':v.result.tagtext}">
+
+		<div style="position: relative;">
+			<input type="text" 
+				[(ngModel)]="tagtext" 
+				(blur)="inputBlur()" 
+				(keyup)="inputKeyup($event)"
+				(ngModelChange)="inputChange($event)" class="form-control">
+	        <span *ngIf="v.result.tagtext" class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+		<div class="input-group-btn">
+			<button type="submit" [disabled]="v.result.tagtext" (click)="add()" class="btn btn-default">添加</button>
+		</div>
+	</div>
+</div>

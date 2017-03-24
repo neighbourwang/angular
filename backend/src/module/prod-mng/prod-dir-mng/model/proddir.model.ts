@@ -30,6 +30,7 @@ class ProdDir {
     "description": string;
     "platformList": Array<platform>;
     "serviceName": string;
+    serviceType:string;
     "specification" = {
         "mem": 0,
         "startupDisk": 0,
@@ -37,6 +38,7 @@ class ProdDir {
     };
     constructor() {
         this.description = "";
+        this.serviceName="";
         this.platformList = new Array<platform>();
         this.specification.mem = 0;
         this.specification.startupDisk = 0;

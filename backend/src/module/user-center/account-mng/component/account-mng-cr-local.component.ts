@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, ValidationService } from "../../../../architecture";
 
+import { Validation, ValidationRegs } from '../../../../architecture';
+
 //service
 import { AccountMngService } from "../service/account-mng-list.service";
 
@@ -20,6 +22,7 @@ export class AccountMngCrLocal implements OnInit {
         private service: AccountMngService,
         private layoutservice: LayoutService,
         private router: Router,
+        private v: Validation,
         private route: ActivatedRoute,
         private validService: ValidationService,
     ) {
@@ -172,45 +175,45 @@ export class AccountMngCrLocal implements OnInit {
         }
     }
     //验证手机号
-    isPhone: boolean = true;
-    phoneValid(val) {
-        if (val) {
-            this.isPhone =
-                this.validService.isMoblie(val) ? true : false;
+    // isPhone: boolean = true;
+    // phoneValid(val) {
+    //     if (val) {
+    //         this.isPhone =
+    //             this.validService.isMoblie(val) ? true : false;
+    //     }
+    //     console.log('phone', this.isPhone)
+    // }
+
+    //表单验证
+    checkForm(key?: string) {
+        let regs: ValidationRegs = {  //regs是定义规则的对象
+            userName: [this.account.userName, [this.v.isInstanceName, this.v.isBase, this.v.isUnBlank], "用户名输入格式不正确"],
+            loginName: [this.account.loginName, [this.v.isEmail, this.v.isUnBlank], "USER_CENTER.ACCOUNT_FORMAT_ERROR"],
+            //验证email
+            // baseInput: [this.baseInput, [this.v.isBase, this.v.isUnBlank], "不能包含特殊字符"],
+            //两次验证[基础的验证不能包含特殊字符，不能为空]
+            phone: [this.account.phone, [this.v.isMoblie, this.v.isUnBlank], "USER_CENTER.MOBILE_PHONE_FORMAT_ERROR"],
+            //手机号码验证
+            description:[this.account.description, [this.v.maxLength(68)], "描述输入错误"],
+
         }
-        console.log('phone', this.isPhone)
+        console.log(this.v.check(key, regs));
+        return this.v.check(key, regs);
     }
     //创建
     create() {
+        let errorMessage = this.checkForm();   //不传入参数则验证regs里所有规则
+        if (errorMessage) return ;
         console.log(this.account);
-        // if(!this.account.userName){
-        //     this.notice.open('COMMON.OPERATION_ERROR','请输入姓名'); //COMMON.OPERATION_ERROR=>操作错误 
-
-        //     return
-        // }
-        // if(!this.account.loginName){
-        //     this.notice.open('COMMON.OPERATION_ERROR','请输入账号'); //COMMON.OPERATION_ERROR=>操作错误 
-
-        //     return
-        // }
-        //  if(!this.account.phone){
-        //     this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.INPUT_PHONE_NUMBER'); //USER_CENTER.INPUT_PHONE_NUMBER=>请输入电话  //COMMON.OPERATION_ERROR=>操作错误 
-
-
-        //     return
-        // }        
         if (this.account.roles.length < 1) {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ROLE'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ROLE=>请选择角色 
-
-
             return
         }
         if (this.account.organizations.length < 1) {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ORG'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ORG=>请选择组织机构 
-
-
             return
-        }
+        }       
+
         if (!this.isCreate) {
             this.layoutservice.show()
             this.service.editAccount(this.accountId, this.account)
@@ -228,21 +231,27 @@ export class AccountMngCrLocal implements OnInit {
                 }
                 );
         } else {
-            this.layoutservice.show()
-            this.service.createAccount(this.account)
-                .then(
-                res => {
-                    console.log(res);
+            this.layoutservice.show();
+            //验证邮箱唯一性
+            this.service.loginNameValid(this.account.loginName).then(res => {
+                console.log(res);
+                if (res.resultCode == '10001001') {
                     this.layoutservice.hide();
-                    this.router.navigateByUrl('user-center/account-mng/account-mng-list');
+                    return this.notice.open('COMMON.OPERATION_ERROR', '该邮箱已注册，请重新输入');              
+                } else {
+                    this.service.createAccount(this.account)
+                        .then(
+                        res => {
+                            console.log(res);
+                            this.layoutservice.hide();
+                            this.router.navigateByUrl('user-center/account-mng/account-mng-list');
+                        }
+                        )
                 }
-                )
-                .catch(
-                err => {
-                    console.error(err);
-                    this.layoutservice.hide();
-                }
-                );
+            }).catch(err => {
+                console.error(err);
+                 this.layoutservice.hide();
+            })
         }
     }
 
@@ -342,4 +351,6 @@ export class AccountMngCrLocal implements OnInit {
         this.router.navigateByUrl('user-center/account-mng/account-mng-list');
     }
     nof() { }
+
+
 }
