@@ -414,7 +414,7 @@ export class OrderMngComponent implements OnInit {
 			this.autoRenewItem.serviceType = orderItem.itemList[0].serviceType;
 			this.autoRenewItem.expireDate = orderItem.itemList[0].expireDate;
 			this.autoRenewItem.oneTimePrice = orderItem.itemList[0].oneTimePrice;
-			this.autoRenewItem.price = orderItem.itemList[0].price;
+			this.autoRenewItem.price = orderItem.itemList[0].billingInfo.basicPrice;
 			this.autoRenewItem.periodType = orderItem.itemList[0].periodType;
 			this.autoRenewItem.extendType = orderItem.extendType;
 			this.autoRenewItem.instanceId = orderItem.orderId;

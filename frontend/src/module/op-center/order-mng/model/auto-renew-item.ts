@@ -49,6 +49,7 @@ export class BillingInfo{
     cyclePrice: number = null;
     extendType: number = null;
     basePrice: number = null;
+    basicPrice: number = null;
 
     extendTypeToPeriodType() {
         let periodTypeMap = {
