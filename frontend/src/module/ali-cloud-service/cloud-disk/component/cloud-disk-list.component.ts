@@ -2,37 +2,38 @@ import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, } from "
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { NgForm } from "@angular/forms";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
-    PaginationComponent, PopupComponent } from "../../../../architecture";
+import {
+    LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
+    PaginationComponent, PopupComponent
+} from "../../../../architecture";
 
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
-//import { MsgAlertModel, MsgModel } from "../model/msg-alert.model";
+import { RegionModel, keysecretModel } from "../model/cloud-disk.model";
 
 //Service
-//import { MsgMngService } from "../service/msg-mng.service";
+import { AliCloudDiskService } from "../service/cloud-disk.service";
 
 
 @Component({
     selector: "alics_disklist",
     templateUrl: "../template/cloud-disk-list.html",
-    styleUrls: [],
+    styleUrls: ["../style/cloud-disk.less"],
     providers: []
 })
 export class AliCloudDiskListComponent implements OnInit {
     constructor(
         private layoutService: LayoutService,
         private router: Router,
-        //private service: MsgMngService,
-        private activatedRouter : ActivatedRoute,
-
+        private service: AliCloudDiskService,
+        private activatedRouter: ActivatedRoute,
     ) {
     }
 
     @ViewChild("pager")
     pager: PaginationComponent;
-    
+
     @ViewChild("notice")
     notice: NoticeComponent;
 
@@ -49,7 +50,12 @@ export class AliCloudDiskListComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
+    keysecret: keysecretModel = new keysecretModel();
+
+    regions: Array<RegionModel> = [];
+
     private okCallback: Function = null;
+
     okClicked() {
         console.log('okClicked');
         if (this.okCallback) {
@@ -60,6 +66,7 @@ export class AliCloudDiskListComponent implements OnInit {
     }
 
     private confirmedHandler: Function = null;
+
     onConfirmed() {
         if (this.confirmedHandler) {
             this.confirmedHandler();
@@ -68,34 +75,22 @@ export class AliCloudDiskListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
-        //this.getMsgList(this.paginationFlag);
+        //this.getKeySecret();
 
     }
-    /*
 
-    getMsgList(status:string, pageIndex?): void {
-        this.paginationFlag = status;
-        this.pageIndex = 1; 
-        this.allSelected = false;
-
+    getKeySecret(): void {
         this.layoutService.show();
-        this.service.getMsgListStatus(this.pageIndex, this.pageSize, this.paginationFlag)
+        this.service.getKeySecret()
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "msgList response!");
                 if (response && 100 == response["resultCode"]) {
-                    this.msgAlert.edge = response.pageInfo.totalRecords;
-                    this.msgAlert.list = response.resultContent;
-                    this.totalPage = response.pageInfo.totalPage;
-                    this.pager.render(1);
-                    if(this.paginationFlag == "0") {
-                        this.unreadnumber.num = this.msgAlert.edge;
-                    }
+                    this.service.keysecret = response.resultContent;
+                    console.log(this.service.keysecret, "this.keysecret!");
+                    this.getAllRegions();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
-                    this.msgAlert.edge = 0;
                     return;
                 }
             })
@@ -104,6 +99,32 @@ export class AliCloudDiskListComponent implements OnInit {
             });
     }
 
+    getAllRegions(): void {
+
+        this.layoutService.show();
+        this.service.getAllRegions()
+            .then(
+            response => {
+                this.layoutService.hide();
+                console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.regions = result.Regions.Region;
+                    console.log(this.regions, "this.regions!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+    }
 
 
     onRejected(reason: any) {
@@ -120,50 +141,87 @@ export class AliCloudDiskListComponent implements OnInit {
         this.notice.open();
     }
 
-    
+
     showMsg(msg: string) {
         console.log(msg, "showMsg");
         this.notice.open("COMMON.SYSTEM_PROMPT", msg);
-    }	
+    }
 
     showError(msg: any) {
         this.notice.open(msg.title, msg.desc);
     }
 
 
-    //选择行
-    selectItem(index:number): void {
-        this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;
-        console.log(this.msgAlert.list, "=== Please see which ones are selected ===");
-        let selectedml = this.msgAlert.list.filter(n=> { return (n.checked == true);});
-        if(selectedml.length == this.pageSize) {
-            console.log("The latest one was selected, so all selected!");
-            this.allSelected = true;
-        } else {
-            this.allSelected = false;
+    selectRegion(region: RegionModel) {
+        this.regions.map((item) => {
+            item.selected = false;
+        });
+        region.selected = true;
+        if (region.areas == null || region.areas.length == 0) {
+            this.getArea(region);
         }
     }
 
-    selectOrUnSAllItems(): void {
-        if (this.allSelected) {
-            console.log("All checked before, so set them all unselected");
-            this.allSelected = false;
-            this.msgAlert.list.map(n=> { n.checked = false;});
-        } else {
-            console.log("All unchecked before, so set them all selected");
-            this.allSelected = true;
-            this.msgAlert.list.map(n=> { n.checked = true;});
-        }
+    //根据regionId获取可用区列表
+    getArea(region:RegionModel) {
+        this.layoutService.show();
+        this.service.getArea(region.RegionId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    region.areas = result.Zones.Zone;
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
     }
 
-    getSelectedItems() {
-        this.selectedmsglist = this.msgAlert.list.filter(n=> { return (n.checked == true);});
-        if (this.selectedmsglist.length != 0){
-            return this.selectedmsglist;
-        } else {
-            return [];
+    /*
+        //选择行
+        selectItem(index:number): void {
+            this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;
+            console.log(this.msgAlert.list, "=== Please see which ones are selected ===");
+            let selectedml = this.msgAlert.list.filter(n=> { return (n.checked == true);});
+            if(selectedml.length == this.pageSize) {
+                console.log("The latest one was selected, so all selected!");
+                this.allSelected = true;
+            } else {
+                this.allSelected = false;
+            }
         }
-    }
-    */
+    
+        selectOrUnSAllItems(): void {
+            if (this.allSelected) {
+                console.log("All checked before, so set them all unselected");
+                this.allSelected = false;
+                this.msgAlert.list.map(n=> { n.checked = false;});
+            } else {
+                console.log("All unchecked before, so set them all selected");
+                this.allSelected = true;
+                this.msgAlert.list.map(n=> { n.checked = true;});
+            }
+        }
+    
+        getSelectedItems() {
+            this.selectedmsglist = this.msgAlert.list.filter(n=> { return (n.checked == true);});
+            if (this.selectedmsglist.length != 0){
+                return this.selectedmsglist;
+            } else {
+                return [];
+            }
+        }
+        */
 
 }

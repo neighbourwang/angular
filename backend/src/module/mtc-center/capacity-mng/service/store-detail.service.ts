@@ -23,7 +23,7 @@ export class StoreDetailService {
             }
            
         ];
-        //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.list");
+        //const api = this.restApiCfg.getRestApi("store-detail.storage.info");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => StoreInfoList_mock);
     }

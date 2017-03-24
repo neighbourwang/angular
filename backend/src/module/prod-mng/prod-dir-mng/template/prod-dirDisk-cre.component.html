@@ -1,4 +1,4 @@
-<div class="page-content-header icon-create-product">{{pageTitle}}: {{'PROD_MNG.CLOUD_HARD_DISK_SERVICES' | translate}}</div><!--创建产品目录--><!--云硬盘-->
+<div class="page-content-header icon-create-product">{{pageTitle| translate}}: {{'PROD_MNG.CLOUD_HARD_DISK_SERVICES' | translate}}</div><!--创建产品目录--><!--云硬盘-->
 
 
 <div class="page-content fix-page-content">
@@ -7,7 +7,6 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}:</div><!--产品目录名称-->
-
 					<div class="col-sm-4">
 						<input type="text" class="form-control" [(ngModel)]="prodDir.serviceName" placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}(必须)"><!--产品目录名称-->
 					</div>
@@ -19,7 +18,7 @@
 					<div class="col-sm-5">
 						<div class="row">
 							<div class="col-sm-3">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'initialSize')"></count-bar>
+								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="prodDir.specification.initialSize" (output)="outputValue($event,'initialSize')"></count-bar>
 							</div>
 							<div class="col-sm-2">
 								<span style="line-height:34px;margin-left:-15px;">GB</span>
@@ -34,7 +33,7 @@
 					<div class="col-sm-5">
 						<div class="row">
 							<div class="col-sm-3">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event,'stepSize')"></count-bar>
+								<count-bar [default]=1 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="prodDir.specification.stepSize" (output)="outputValue($event,'stepSize')"></count-bar>
 							</div>
 							<div class="col-sm-2">
 								<span style="line-height:34px;margin-left:-15px;">GB</span>
@@ -49,7 +48,7 @@
 					<div class="col-sm-5">
 						<div class="row">
 							<div class="col-sm-3">
-								<count-bar [default]=0 [step]="prodDir.specification.stepSize" [max]=200000 [min]="prodDir.specification.initialSize" [disabled]=false [value]=0 (output)="outputValue($event,'maxSize')"></count-bar>
+								<count-bar [default]=0 [step]="prodDir.specification.stepSize" [max]=200000 [min]="prodDir.specification.initialSize" [disabled]=false [value]="this.prodDir.specification.maxSize" (output)="outputValue($event,'maxSize')" [stepCheck]="true"></count-bar>
 							</div>
 							<div class="col-sm-2">
 								<span style="line-height:34px;margin-left:-15px;">GB</span>
@@ -74,7 +73,49 @@
 					</div>
 				</div>
 			</div>
-			<div class="row row-line-height">
+			<div class="row row-line-height" *ngIf="type=='new'">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6 border selectPlateForm">
+					<div class="row  tabHeader row-line-height">
+						<div class="col-sm-4">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div><!--平台名称-->
+
+						<div class="col-sm-2 secondDiv">
+							{{'COMMON.AVAILABLE_ZONE' | translate}}<!--可用区-->
+
+						</div>
+						<div class="col-sm-2" style="text-align: left">
+							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()" [(ngModel)]="selectAllZone">
+						</div>
+						<div class="col-sm-4">
+							{{'PROD_MNG.SELECT_STORAGE_DEVICE' | translate}}<!--选择存储设备-->
+						</div>
+					</div>
+					<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index">
+						<div class="col-sm-4 oneChild">
+							<p>{{plateform.platformName}}</p>
+						</div>
+						<div class="col-sm-2 secondDiv">
+							<div class="row wyLine-height"  *ngFor='let zone of plateform.platformInfo'>
+								<div class="col-sm-12">{{zone.zoneName}}</div>
+							</div>
+						</div>
+						<div class="col-sm-2 thirdChild"  >
+							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.platformInfo;  let idxx=index;'>
+								<div class="col-sm-12"><input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="zone.selected" name="zoneSelected" (change)=selectZone(idx,idxx)></div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.platformInfo let idxxx=index'>
+								<select class="form-control" [(ngModel)]="zone.storageId" (ngModelChange)="selectStorage($event,idx,idxxx)">
+                                    <option *ngFor="let storage of zone.storageItem" [value]="storage.storageId">{{storage.displayName}}</option>
+                                </select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+			<div class="row row-line-height" *ngIf="type=='edit'">
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6 border selectPlateForm">
 					<div class="row  tabHeader row-line-height">

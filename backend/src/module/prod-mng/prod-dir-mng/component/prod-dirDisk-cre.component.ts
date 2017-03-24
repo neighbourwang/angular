@@ -41,12 +41,13 @@ export class ProdDirDiskCreComponent implements OnInit {
         this.prodDir= new ProdDirDisk();
         this.route.params.forEach((params: Params) => {
             this.type = params['type'];
-            if (this.type == 'new') {
+            if (this.type == 'edit') {
                 this.serviceId=params['id'];
                 console.log(this.serviceId);
             } 
         })
         if(this.type=='new'){
+            this.pageTitle="PROD_MNG.CREATE_PRODUCT_CATALOG";
             this.getPlateForm();            
         }else{
              this.pageTitle='PROD_MNG.EDIT_PRODUCT_CATALOG'
@@ -85,7 +86,6 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
 
     //获取启动盘信息
-
     selectStorage(id,idx,idxxx) {
         console.log(id,idx,idxxx)
                 for (let storage of this._platformlist[idx].platformInfo[idxxx].storageItem) {
@@ -97,13 +97,14 @@ export class ProdDirDiskCreComponent implements OnInit {
                 }
     }
     getProdDirDetail(id) {
-        this.ProdDirDetailService.getVmProdDirDetail(id).then(
+        this.ProdDirDetailService.getDiskProdDirDetail(id).then(
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
                     console.log('diskdetail',response);
                     if(response.resultContent){
                         this.prodDir = response.resultContent;
+                        this._platformlist=this.prodDir.platformList;
                     }
                 }
                 this.LayoutService.hide();
@@ -116,6 +117,17 @@ export class ProdDirDiskCreComponent implements OnInit {
     //同步countBar数据
     outputValue(e, arg) {
         this.prodDir.specification[arg] = e;
+        if(arg!='maxSize'){
+            this.prodDir.specification.maxSize=
+                this.prodDir.specification.maxSize?this.prodDir.specification.maxSize:0;
+            this.prodDir.specification.initialSize=
+                this.prodDir.specification.initialSize?this.prodDir.specification.initialSize:0;
+            this.prodDir.specification.stepSize=
+                this.prodDir.specification.stepSize?this.prodDir.specification.stepSize:1;
+            const beyond = (this.prodDir.specification.maxSize - this.prodDir.specification.initialSize)%this.prodDir.specification.stepSize;
+            if( beyond !== 0)  this.prodDir.specification.maxSize = 
+            (this.prodDir.specification.stepSize/2 <= beyond) ? this.prodDir.specification.maxSize - beyond + this.prodDir.specification.stepSize : this.prodDir.specification.maxSize - beyond;
+        }        
     }
     //选择全部可用区
     selectAllZone: boolean = false;

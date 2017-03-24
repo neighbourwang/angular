@@ -110,8 +110,12 @@ export class AccountMngComponent implements OnInit {
         this.service.searchAccountByName(0, this.pp, this.keyup).then(
             res => {
                 this.layoutService.hide();
+                
                 console.log(res);
-                this.accounts = res.resultContent;
+                this.accounts= res.resultContent;
+                 if(this.accounts.length==0){
+                    this.notice.open('提示',"没有找到 '"+this.keyup+"' 相关的账户信息 ")
+                }
                 this.tp = res.pageInfo.totalPage;
                 for (let item of this.accounts) {
                     item.selected = false;

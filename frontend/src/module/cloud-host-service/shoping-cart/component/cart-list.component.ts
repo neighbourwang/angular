@@ -23,14 +23,14 @@ export class cartListComponent implements OnInit {
 
 	@ViewChild('notice')
 	private noticeDialog: NoticeComponent;
+
+	@ViewChild('cart') private cart:any;
   
 	modalTitle: string = '';
 	modalMessage: string = '';
 	modalOKTitle: string = '';
 
 	totalPrice : TotalPrice = new TotalPrice();
-
-	cartList: CartList[];
 
 	constructor(
 		private layoutService: LayoutService,
@@ -68,7 +68,7 @@ export class cartListComponent implements OnInit {
 
 
 	buyNow():void {
-		const list = this.cartList.map(cart => cart.id);   //提取cartID
+		const list = this.cart.cartList.map(cart => cart.id);   //提取cartID
 		this.layoutService.show();
 		this.service.purchaseCart(list).then(res => {
 			this.layoutService.hide();

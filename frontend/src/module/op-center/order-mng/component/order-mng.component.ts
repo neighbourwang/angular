@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,EventEmitter,Output} from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -41,6 +41,7 @@ export class OrderMngComponent implements OnInit {
 	@ViewChild("AutoRenewDialog")
 	AutoRenewDialog: PopupComponent;
 
+ 
 	//订单详情加载
 	private _orderDetailLoader: ItemLoader<OrderDetailItem> = null;
 
@@ -512,6 +513,7 @@ export class OrderMngComponent implements OnInit {
 
 					orderItem.itemList.map(n => {
 						n.renewPrice = getRenewPrice();
+						n.renewPeriodType = this._renewPriceLoader.FirstItem.periodType;
 					});
 				})
 				.catch(err => {
@@ -623,17 +625,86 @@ export class OrderMngComponent implements OnInit {
 		//   }
 		// ]
 		// 		console.log('renew start');
-		let param = [];
+// 		示例：
+// {
+//   "attrList": [
+//     {
+//       "attrId": "de229819-a0f7-11e6-a18b-0050568a49fd",
+//       "attrCode": "TIMELINEUNIT",
+//       "attrDisplayValue": "按年",
+//       "attrDisplayName": "时长单位",
+//       "attrValueId": "bc5d2ca5-a1bb-11e6-a18b-0050568a49fd",
+//       "attrValue": "5",
+//       "attrValueCode": "c550ef3a-a099-4bc7-b23a-36e61609e15d"
+//     },
+//     {
+//       "attrId": "de227a98-a0f7-11e6-a18b-0050568a49fd",
+//       "attrCode": "TIMELINE",
+//       "attrDisplayValue": "",
+//       "attrDisplayName": "购买时长",
+//       "attrValueId": "",
+//       "attrValue": "1",
+//       "attrValueCode": ""
+//     }
+//   ]
+// }
+
+// [
+//   {
+//     "attrCode": "TIMELINEUNIT",
+//     "attrDisplayName": "时长单位",
+//     "attrValueCode": "cac86c31-30f3-493a-872e-37d8a84b3e19",
+//     "attrDisplayValue": "按月",
+//     "valueUnit": null,
+//     "attrOrderSeq": null,
+//     "description": null
+//   },
+//   {
+//     "attrCode": "TIMELINE",
+//     "attrDisplayName": "购买时长",
+//     "attrValueCode": "",
+//     "attrDisplayValue": "1",
+//     "valueUnit": null,
+//     "attrOrderSeq": null,
+//     "description": null
+//   }
+// ]
+		// let param = {"attrList":[]};
 
 		let list = this.selectedOrderItem.itemList[0].specList;
+
+		let items = [];
 		for (let item of list) {
 			if (item.attrCode == 'TIMELINEUNIT') {
-				param.push(item);
+				items.push(item);
 			} else if (item.attrCode == 'TIMELINE') {
 				item.attrDisplayValue = this._renewSetting.value.toString();
-				param.push(item);
+				items.push(item);
 			}
 		}
+		
+		let param = 
+			[
+			{
+			"attrId": this.selectedOrderItem.orderId,
+			"attrCode": "TIMELINEUNIT",
+			"attrDisplayValue":items[0].attrDisplayValue,
+			"attrDisplayName": "时长单位",
+			"attrValueId": "",
+			"attrValue": "5",
+			"attrValueCode": items[0].attrValueCode
+			},
+			{
+			"attrId": this.selectedOrderItem.orderId,
+			"attrCode": "TIMELINE",
+			"attrDisplayName": "购买时长",
+			"attrDisplayValue": "",
+			"attrValueId": "",
+			"attrValue": this._renewSetting.value.toString(),
+			"attrValueCode": ""
+			}
+		]
+
 		this.layoutService.show();
 		this._renewHandler.Go(null, [{ key: "_subId", value: this.selectedOrderItem.orderId }], param)
 			.then(success => {
@@ -648,14 +719,14 @@ export class OrderMngComponent implements OnInit {
 	}
 
 	//退订
-	cancel() {
-		this.layoutService.show();
-		let param;
-		if (this.selectedOrderItem.isChecked) {
+	acceptCancel(data) {
+		// this.layoutService.show();
+		let param=[];
+		if(data[0].itemList[0].isChecked){
 			param.push(this.selectedOrderItem.orderId);
 		}
-		for (let item of this.detail.relatedOrderList) {
-			if (item.isChecked) {
+		for(let item of data[1].relatedOrderList){
+			if(item.isChecked){
 				param.push(item.instanceId);
 			}
 		}
@@ -669,12 +740,7 @@ export class OrderMngComponent implements OnInit {
 			.catch(err => {
 				this.showMsg(err);
 			})
-	}
-	selectedCancelItem(item: OrderDetailItem) {
-		item.isChecked = !item.isChecked;
-	}
-	selectedSubItem(prodItem: SubInstanceResp) {
-		prodItem.isChecked = !prodItem.isChecked;
+		this.layoutService.hide();
 	}
 
 	cancelSelect(orderItem: SubInstanceResp) {
@@ -719,7 +785,7 @@ export class OrderMngComponent implements OnInit {
 	get selectedPeriodTypeName(): string {
 		if (this.selectedOrderItem
 			&& !_.isEmpty(this.selectedOrderItem.itemList)
-			&& this.selectedOrderItem.itemList[0].billingInfo) {
+			&& this.selectedOrderItem.itemList[0].billingInfo&& this.selectedOrderItem.itemList[0].billingInfo.periodType!=null) {
 			let item = this._periodTypeDic.Items.find(n => n.value == this.selectedOrderItem.itemList[0].billingInfo.periodType.toString());
 			if (item)
 				return item.displayValue as string;

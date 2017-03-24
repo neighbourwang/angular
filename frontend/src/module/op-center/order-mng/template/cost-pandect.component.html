@@ -119,7 +119,6 @@
 		<div class="thirdPanel" *ngIf="isAllService==1">
             <div class="table-container">
                 <table class="table table-hover table-all-boder">
-                    <thead>
                         <tr>
                             <th class="text-center">已购服务编号</th>
                             <th class="text-center">产品名称</th>
@@ -128,8 +127,6 @@
                             <th class="text-center">应付金额</th>
                           
                         </tr>
-                    </thead>
-                    <tbody>
                         <tr class="text-center" *ngFor="let item of allServiceLoader.Items;">
                             <td class="vertical-center"><a (click)='showDetail(item.subinstanceCode)'>{{item.subinstanceCode}}</a></td>
                             <td class="vertical-center">{{item.productName}}</td>
@@ -141,14 +138,12 @@
 							</td>
                             <td class="vertical-center">{{item.total_amount}}</td>
                         </tr>               
-                    </tbody>
                 </table>
             </div>
 		</div><!--  表格<div class="row row-line-height">-->
 		<div  class="thirdPanel" *ngIf="isAllService==2">
             <div class="table-container">
                 <table class="table table-hover table-all-boder">
-                    <thead>
                         <tr>
                             <th class="text-center">已购服务编号</th>
                             <th class="text-center">产品名称</th>
@@ -157,8 +152,6 @@
                             <th class="text-center">应付金额</th>
                           
                         </tr>
-                    </thead>
-                    <tbody>
                         <tr class="text-center" *ngFor="let item of increaseServiceLoader.Items;">
                             <td class="vertical-center"><a (click)='showDetail(item.subinstanceCode)'>{{item.subinstanceCode}}</a></td>
                             <td class="vertical-center">{{item.productName}}</td>
@@ -170,7 +163,6 @@
 							</td>
                             <td class="vertical-center">{{item.total_amount}}</td>
                         </tr>               
-                    </tbody>
                 </table>
             </div>
 		</div><!--  表格<div class="row row-line-height">-->
@@ -204,7 +196,6 @@
 								<div class="secondePanel ">
 									<div class="table-container">
 										<table class="table table-hover table-all-boder">
-											<thead>
 												<tr>
 													<th class="text-center">账单</th>
 													<th class="text-center">记账周期</th>
@@ -213,8 +204,6 @@
 													<th class="text-center">账单状态</th>
 													<th class="text-center">操作</th>
 												</tr>
-											</thead>
-											<tbody>
 												<tr class="text-center">
 													<td class="vertical-center">2016年10月</td>
 													<td class="vertical-center">2016年10月1日-2016年10月30日</td>
@@ -223,7 +212,6 @@
 													<td class="vertical-center">已出账</td>
 													<td class="vertical-center"><button class="btn btn-default button-gray-gradient">下载</button></td>
 												</tr>               
-											</tbody>
 										</table>
 									</div>
 								</div><!--  表格行 ending-->

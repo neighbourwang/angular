@@ -54,15 +54,14 @@
                     <td>{{item.type==1?"AD":"COMMON.LOCAL" | translate}}</td><!--本地-->
 
                     <td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
-                        {{item.status| dict:this.service.accStatusList | async}}
-                        <!--<span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}</template>
-                            <template [ngSwitchCase]="3">{{'HOST_VMWARE_MNG.DISABLE' | translate}}</template>
+                        <!--{{item.status| dict:this.service.accStatusList | async}}-->
+                        <span [ngSwitch]="item.status">
+                            <template [ngSwitchCase]="1">{{'COMMON.ENABLED' | translate}}</template>
+                            <template [ngSwitchCase]="3">{{'COMMON.UNABLED' | translate}}</template>
                             <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED' | translate}}</template>
-
                             <template [ngSwitchCase]="4">4</template>
                             <template ngSwitchDefault>Unknown</template>
-                    	</span>-->
+                    	</span>
                     </td>
                     <td>{{item.description}}</td>
                 </tr>

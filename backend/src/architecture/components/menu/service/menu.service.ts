@@ -108,19 +108,19 @@ export class MenuService {
 					"isShow": !isRoot,
 					"icon": "icon-operation-center ",
 					"top2_menu": [
-						// {
-						// 	"label": "容量管理",
-						// 	"isOpen": false,
-						// 	"isActive": false,
-						// 	"isShow": !isRoot,							
-						// 	"routing": "mtc-center/capacity-mng/capacity-mng"
-						// }, {
-						// 	"label": "超分管理",
-						// 	"isOpen": false,
-						// 	"isActive": false,
-						// 	"isShow": !isRoot,
-						// 	"routing": "mtc-center/assign-mng/assign-mng"
-      //                   },
+						 {
+						 	"label": "容量管理",
+						 	"isOpen": false,
+						 	"isActive": false,
+						 	"isShow": !isRoot,							
+						 	"routing": "mtc-center/capacity-mng/capacity-mng"
+						 }, {
+						 	"label": "超分管理",
+						 	"isOpen": false,
+						 	"isActive": false,
+						 	"isShow": !isRoot,
+						 	"routing": "mtc-center/assign-mng/assign-mng"
+                         },
                         {
 							"label": "工单管理",
 							"isOpen": false,

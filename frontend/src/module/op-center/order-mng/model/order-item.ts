@@ -58,9 +58,10 @@ export class SubInstanceItemResp {
   get price():number{
  
     if(this.billingInfo){
-      if(this.billingMode == 0)//包年包月
+      if(this.billingMode == 0)//云主机，包年包月
       {
-        return this.billingInfo.basicPrice + this.billingInfo.cyclePrice;
+        return this.billingInfo.cyclePrice;//周期费用
+        // return this.billingInfo.basicPrice + this.billingInfo.cyclePrice;//增量费用+周期费用
       }
       else if(this.billingMode == 1)//按量计费
       {
@@ -75,6 +76,7 @@ export class SubInstanceItemResp {
   serviceTypeName: string = null;//产品类型名称
   billingModeName: string = null;//计费模式名称
   renewPrice:number = null;//续订费用，每次续订时组装。
+  renewPeriodType:number ;//续订费用单位
   periodTypeName: string = null;//计费时长单位
 
   buyer:string = null;//订购人

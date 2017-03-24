@@ -1,5 +1,100 @@
-<div>
-    <p>
-        Test Ali cloud!
-    </p>
+<div class="page-content cloud_host_list">
+    <h1 class="page-content-header">云硬盘</h1>
+
+    <div class="row mgb20">
+        <div class="col-md-2">区域列表</div>
+        <div class="col-md-10">
+            <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);">
+                <div class="regionName">{{region.LocalName}}</div>
+                <div class="regionArea" >
+                    <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
+                    <span class="caret"></span>
+                    <select [(ngModel)] ="region.selectedArea">
+                        <option *ngFor="let item of region.areas" [ngValue]="item">
+                            {{item.LocalName}}
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 no-padding mgb20">
+        <div class="dropdown float-left mgr10">
+            <select [(ngModel)]="listqueryField" class="form-control">
+                <option>云硬盘名称</option>
+                <option>其他</option>
+            </select>
+        </div>
+
+        <div class="input-group col-md-2 float-left mgr10">
+            <input type="text" class="form-control" [(ngModel)]="phynet_create" style="display: inline" />
+            <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
+        </div>
+
+        <div class="input-group float-left">
+            <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
+        </div>
+
+        <div class="dropdown float-right  mgr5">
+            <button class="btn float-left mgr5 btn-success" (click)="goTo('cloud-host-service/cloud-host-order')"><i class="glyphicon glyphicon-plus"></i>创建云硬盘</button>
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                更多操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><a href="javascript:">挂载</a></li>
+                <li><a href="javascript:">卸载</a></li>
+                <li><a href="javascript:">备份</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <tr>
+            <th class="text-center">选择</th>
+            <th class="text-center">实例ID/名称</th>
+            <th class="text-center">云硬盘种类</th>
+            <th class="text-center">状态</th>
+            <th class="text-center">付费类型</th>
+            <th class="text-center">可卸载</th>
+            <th class="text-center">可用区</th>
+            <th class="text-center">属性</th>
+        </tr>
+        <tr style="line-height: 65px;">
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
+            <td class="text-center active" style="position: relative;width: 220px;">
+                d-bp1cwuop03pj6cn8hu1g
+                <!--<table-edit-name
+                    (nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])"
+                    [value]="vm.instanceName"
+                    (onChange)="changeName($event, vm)">
+                </table-edit-name>
+                -->
+            </td>
+            <td class="text-center">高效云盘</td>
+            <td class="text-center">使用中</td>
+            <td class="text-center">包年包月</td>
+            <td class="text-center">支持</td>
+            <td class="text-center">华南1 可用区B</td>
+            <td class="text-center">数据盘</td>
+        </tr>
+        <tr style="line-height: 65px;">
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
+            <td class="text-center active" style="position: relative;width: 220px;">
+                d-bp1cwuop03pj6cn8hu2g
+            </td>
+            <td class="text-center">本地SSD盘</td>
+            <td class="text-center">挂在中</td>
+            <td class="text-center">按量付费</td>
+            <td class="text-center">不支持</td>
+            <td class="text-center">华南1 可用区A</td>
+            <td class="text-center">系统盘</td>
+        </tr>
+    </table>
+    <fc-pagination tp={{totalPage}} (pf)="changePage($event)"></fc-pagination>
+    <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
 </div>
+<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>

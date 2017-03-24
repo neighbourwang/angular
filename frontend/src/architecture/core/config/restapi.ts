@@ -165,8 +165,8 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "获取购物车列表",
         "method": "GET",
-        "id" : "shopping.cart.items",
-        "url" : "marketplace/authsec/shopping/cart/items"
+        "id": "shopping.cart.items",
+        "url": "marketplace/authsec/shopping/cart/items"
     },
     {
         "desc": "删除购物车元素",
@@ -248,7 +248,7 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/platforms/status/activation"
     }
     // 管理控制台
-    ,{
+    , {
         "desc": "获取管理控制台里的相关信息",
         "method": "GET",
         "id": "mng-console-info",
@@ -256,48 +256,48 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/mpp/organization/{organizationId}/ext"
     }
     //<--费用中心-已购服务管理
-    ,{
+    , {
         "desc": "部门列表获取",
         "method": "GET",
         "id": "op-center.order-mng.department-list.get",
         // "url": "/basis/authsec/mpp/organizations/page/0/size/10"
         "url": "basis/authsec/adm/organization/enterprise/{enterpriseId}"
     }
-    ,{
+    , {
         "desc": "区域获取",
         "method": "GET",
         "id": "op-center.order-mng.platform-list.get",
         "url": "marketplace/authsec/platforms/status/activation"
     }
-    ,{
+    , {
         "desc": "可用区获取",
         "method": "GET",
         "id": "op-center.order-mng.region-list.get",
         "url": "marketplace/authsec/platform/{_id}/zone"
     }
-    ,{
+    , {
         "desc": "订单列表查询",
         "method": "POST",
         "id": "op-center.order-mng.order-list.post",
         "url": "marketplace/authsec/subinstance/subscription/orderlist"
     }
-    ,{
+    , {
         "desc": "订单详情查询",
         "method": "POST",
         "id": "op-center.order-mng.order-detail.get",
         "url": "marketplace/authsec/subinstance/{subinstanceCode}/orderDetail"
-    },{
+    }, {
         "desc": "订单退订",
         "method": "GET",
         "id": "op-center.order-mng.order-cancel.get",
         "url": "marketplace/authsec/shopping/subinstances/cancel"//修改后的接口
         // "url": "marketplace/authsec/subscription/instance/{_subId}/cascadeFlag/{_cascadeFlag}/cancel"y以前的
-    },{
+    }, {
         "desc": "订单续订",
         "method": "POST",
         "id": "op-center.order-mng.order-renew.get",
         "url": "marketplace/authsec/subscription/instance/{_subId}/renew"
-    },{
+    }, {
         "desc": "获取续订费用",
         "method": "GET",
         "id": "op-center.order-mng.order-renew-price.get",
@@ -309,7 +309,7 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.order-auto-renew-config.get",
         "url": "marketplace/authsec/shopping/renewWay/{_instanceId}/serviceType/{_serviceType} "
     },
-    
+
     {
         "desc": "对订购实例进行自动续订的设定及取消",
         "method": "POST",
@@ -324,7 +324,7 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "id": "op-center.order-search.list.post",
         // "url": "marketplace/authsec/subinstance/subscription/orderlist"
-        "url":"marketplace/authsec/order/search/paging"
+        "url": "marketplace/authsec/order/search/paging"
     },
     {
         "desc": "查询订单详情",
@@ -341,8 +341,8 @@ export let RestApis: RestApiModel[] = [
     },
     //订单查询
 
-//消费总览
-{
+    //消费总览
+    {
         "desc": "部门消费概览",
         "id": "op-center.order-mng.cost-pandect.consume.post",
         "method": "POST",
@@ -384,7 +384,7 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminui/authsec/enterprise/department/order/increase/count/top"
     },
-     {
+    {
         "desc": "用户类型判断",
         "id": "op-center.order-mng.ent-type.get",
         "method": "GET",
@@ -395,38 +395,38 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.cost-pandect.all-service.post",
         "method": "POST",
         "url": "adminui/authsec/enterrpise/subinstance/bill"
-    },{
+    }, {
         "desc": "消费管理-新增服务",
         "id": "op-center.order-mng.cost-pandect.increase-service.post",
         "method": "POST",
         "url": "adminui/authsec/enterrpise/subinstance/increase/bill"
-    },{
+    }, {
         "desc": "部门消费总览-部门消费概览",
         "id": "op-center.order-mng.cost-pandect-department.consume.post",
         "method": "POST",
         "url": "adminui/authsec/department/consume/sum"
-    },{
+    }, {
         "desc": "部门消费总览-部门消费趋势-总消费",
         "id": "op-center.order-mng.cost-pandect-department.total.post",
         "method": "POST",
         "url": "adminui/authsec/department/consume/history"
-    },{
+    }, {
         "desc": "部门消费总览-部门消费趋势-新增消费",
         "id": "op-center.order-mng.cost-pandect-department.increase.post",
         "method": "POST",
         "url": "adminui/authsec/department/increase/consume/history"
-    },{
+    }, {
         "desc": "部门消费总览-所有服务",
         "id": "op-center.order-mng.cost-pandect-department.all-service.post",
         "method": "POST",
         "url": "adminui/authsec/department/subinstance/bill"
-    },{
+    }, {
         "desc": "部门消费总览-新增服务",
         "id": "op-center.order-mng.cost-pandect-department.increase-service.post",
         "method": "POST",
         "url": "adminui/authsec/department/subinstance/increase/bill"
     },
-    
+
     //消费总览
     //用户中心
     //个人账户管理
@@ -437,65 +437,65 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/mpp/user/current"
     },
     {
-        "desc" : "编辑账户本地",
-        "id" : "user-center.account-mng.editLocal",
-        "method" : "PUT",
-        "url" : "basis/authsec/mpp/user/{id}"
+        "desc": "编辑账户本地",
+        "id": "user-center.account-mng.editLocal",
+        "method": "PUT",
+        "url": "basis/authsec/mpp/user/{id}"
     },
     {
-        "desc" : "更改账户密码",
-        "id" : "user-center.account-mng-pwd.edit",
-        "method" : "PUT",
-        "url" : "basis/authsec/mpp/user/password/modify"
+        "desc": "更改账户密码",
+        "id": "user-center.account-mng-pwd.edit",
+        "method": "PUT",
+        "url": "basis/authsec/mpp/user/password/modify"
     },
     {
-        "desc" : "用户中心，帐号管理，帐号列表",
-        "id" : "user-center.account-mng.list",
-        "method" : "GET",
-        "url" : "basis/authsec/mpp/users/page/{page}/size/{size}"
+        "desc": "用户中心，帐号管理，帐号列表",
+        "id": "user-center.account-mng.list",
+        "method": "GET",
+        "url": "basis/authsec/mpp/users/page/{page}/size/{size}"
     },
     {
-        "desc" : "用户中心，帐号管理，搜索帐号列表By用户名",
-        "id" : "user-center.search-account.list",
-        "method" : "GET",
-        "url" : "basis/authsec/mpp/users/search/page/{page}/size/{size}"
+        "desc": "用户中心，帐号管理，搜索帐号列表By用户名",
+        "id": "user-center.search-account.list",
+        "method": "GET",
+        "url": "basis/authsec/mpp/users/search/page/{page}/size/{size}"
     },
     {
-        "desc" : "用户中心，帐号管理，启用帐号",
-        "id" : "user-center.account-mng.enableAcc",
-        "method" : "PUT",
-        "url" : "basis/authsec/mpp/user/{id}/enable"
+        "desc": "用户中心，帐号管理，启用帐号",
+        "id": "user-center.account-mng.enableAcc",
+        "method": "PUT",
+        "url": "basis/authsec/mpp/user/{id}/enable"
     },
     {
-        "desc" : "用户中心，帐号管理，禁用帐号",
-        "id" : "user-center.account-mng.disableAcc",
-        "method" : "PUT",
-        "url" : "basis/authsec/mpp/user/{id}/disable"
+        "desc": "用户中心，帐号管理，禁用帐号",
+        "id": "user-center.account-mng.disableAcc",
+        "method": "PUT",
+        "url": "basis/authsec/mpp/user/{id}/disable"
     },
     {
-        "desc" : "用户中心，帐号管理，删除帐号",
-        "id" : "user-center.account-mng.deleteAcc",
-        "method" : "DELETE",
-        "url" : "basis/authsec/mpp/user/{id}"
+        "desc": "用户中心，帐号管理，删除帐号",
+        "id": "user-center.account-mng.deleteAcc",
+        "method": "DELETE",
+        "url": "basis/authsec/mpp/user/{id}"
     },
     //账号管理
     {
-        "desc" : "验证账号的唯一性",
-        "id" : "user-center.account-mng.loginNameValid",
-        "method" : "GET",
-        "url" : "basis/authsec/mpp/user/{_loginName}/validation"
+        "desc": "验证账号的唯一性",
+        "id": "user-center.account-mng.loginNameValid",
+        "method": "GET",
+        "url": "basis/authsec/mpp/user/{_loginName}/validation"
     },
     {
-        "desc" : "用户中心，帐号管理，帐号创建，获取所有角色",
-        "id" : "user-center.account-mng.create.roleList",
-        "method" : "GET",
-        "url" : "basis/authsec/mpp/roles/page/{page}/size/{size}"
+        "desc": "用户中心，帐号管理，帐号创建，获取所有角色",
+        "id": "user-center.account-mng.create.roleList",
+        "method": "GET",
+        "url": "basis/authsec/mpp/roles/page/{page}/size/{size}"
     },
     {
-        "desc" : "用户中心，帐号管理，帐号创建，获取所有机构",
-        "id" : "user-center.account-mng.create.orgList",
-        "method" : "GET",
-        "url" : "basis/authsec/mpp/organizations/page/{page}/size/{size}"
+        "desc": "用户中心，帐号管理，帐号创建，获取所有机构",
+        "id": "user-center.account-mng.create.orgList",
+        "method": "GET",
+        "url": "basis/authsec/mpp/organizations/page/{page}/size/{size}"
     },
     {
         "desc": "创建账户",
@@ -504,10 +504,10 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/mpp/user"
     },
     {
-        "desc" : "用户中心，帐号管理，帐号编辑，获取账号详情",
-        "id" : "user-center.account-mng.detail",
-        "method" : "GET",
-        "url" : "basis/authsec/mpp/user/{id}"
+        "desc": "用户中心，帐号管理，帐号编辑，获取账号详情",
+        "id": "user-center.account-mng.detail",
+        "method": "GET",
+        "url": "basis/authsec/mpp/user/{id}"
     },
     {
         "desc": "用户中心，帐号管理，获取AD认证源列表",
@@ -546,7 +546,7 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/mpp/user/{id}"
     },
     //组织管理
-     {
+    {
         "desc": "获取所有机构",
         "id": "user-center.org-mng.list",
         "method": "GET",
@@ -595,13 +595,13 @@ export let RestApis: RestApiModel[] = [
         "url": "basis/authsec/mpp/users/organization/{id}"
         // adm/users/organization/e264346e-2857-4876-ba96-9fc2b0eeeb89
     },
-     {
-        "desc" : "编辑机构",
-        "id" : "user-center.org-mng.edit",
-        "method" : "PUT",
-        "url" : "basis/authsec/mpp/organization/{id}"
+    {
+        "desc": "编辑机构",
+        "id": "user-center.org-mng.edit",
+        "method": "PUT",
+        "url": "basis/authsec/mpp/organization/{id}"
     },
-     {
+    {
         "desc": "获取未管理人员列表",
         "id": "user-center.org-mng.nomnguser.list",
         "method": "GET",
@@ -628,7 +628,7 @@ export let RestApis: RestApiModel[] = [
     },
 
     // 审批中心
-     {
+    {
         "desc": "订购人、提交者列表",
         "id": "check-center.submiter-list.get",
         "method": "GET",
@@ -645,28 +645,28 @@ export let RestApis: RestApiModel[] = [
         "id": "check-center.orderType-list.get",
         "method": "GET",
         "url": ""
-    },{
+    }, {
         "desc": "审批设置保存",
         "id": "check-center.approve-set.put",
         "method": "PUT",
         "url": "adminui/authsec/enterprise/audit"
-    },{
+    }, {
         "desc": "审批设置获取",
         "id": "check-center.approve-set.get",
         "method": "GET",
         "url": "adminui/authsec/enterprise/{_enterpriseId}/simple "
-    },{
+    }, {
         "desc": "审批列表",
         "id": "check-center.get-list.post",
         "method": "POST",
         "url": "marketplace/authsec/order/approval/orders/search/paging "
-    },{
+    }, {
         "desc": "审批同意/拒绝",
         "id": "check-center.approve-refust.post",
         "method": "POST",
         "url": "marketplace/authsec/order/approval/order/{orderId}/operation/{operation}/reason/{reason}"
     }
-    ,{
+    , {
         "desc": "获取审批意见",
         "id": "check-center.approve-info.get",
         "method": "GET",
@@ -674,78 +674,105 @@ export let RestApis: RestApiModel[] = [
     },
     // 工单管理
     {
-        "desc" : "工单列表",
-        "id" : "user-center.case-mng.list",
-        "method" : "POST",
-        "url" : "basis/authsec/mpp/worklist/{page}/{size}"
+        "desc": "工单列表",
+        "id": "user-center.case-mng.list",
+        "method": "POST",
+        "url": "basis/authsec/mpp/worklist/{page}/{size}"
     },
     {
-        "desc" : "新建工单",
-        "id" : "user-center.case-mng.create",
-        "method" : "POST",
-        "url" : "basis/authsec/mpp/worklist"
+        "desc": "新建工单",
+        "id": "user-center.case-mng.create",
+        "method": "POST",
+        "url": "basis/authsec/mpp/worklist"
     },
     {
-        "desc" : "编辑工单",
-        "id" : "user-center.case-mng.edit",
-        "method" : "POST",
-        "url" : "basis/authsec/mpp/worklist/{id}"
+        "desc": "编辑工单",
+        "id": "user-center.case-mng.edit",
+        "method": "POST",
+        "url": "basis/authsec/mpp/worklist/{id}"
     },
     {
-        "desc" : "删除工单",
-        "id" : "user-center.case-mng.delete",
-        "method" : "DELETE",
-        "url" : "basis/authsec/mpp/worklist/{id}"
+        "desc": "删除工单",
+        "id": "user-center.case-mng.delete",
+        "method": "DELETE",
+        "url": "basis/authsec/mpp/worklist/{id}"
     },
     {
-        "desc" : "获取工单基本信息",
-        "id" : "user-center.case-mng.basicInfo",
-        "method" : "GET",
-        "url" : "basis/authsec/mpp/worklist/{id}"
+        "desc": "获取工单基本信息",
+        "id": "user-center.case-mng.basicInfo",
+        "method": "GET",
+        "url": "basis/authsec/mpp/worklist/{id}"
     },
     {
-        "desc" : "获取工单处理信息",
-        "id" : "user-center.case-mng.handleInfo",
-        "method" : "GET",
-        "url" : "basis/authsec/mpp/worklist/{id}/handle"
+        "desc": "获取工单处理信息",
+        "id": "user-center.case-mng.handleInfo",
+        "method": "GET",
+        "url": "basis/authsec/mpp/worklist/{id}/handle"
     },
     {
-        "desc" : "获取工单关闭信息",
-        "id" : "user-center.case-mng.closedInfo",
-        "method" : "GET",
-        "url" : "basis/authsec/mpp/worklist/{id}/closeinfo"
+        "desc": "获取工单关闭信息",
+        "id": "user-center.case-mng.closedInfo",
+        "method": "GET",
+        "url": "basis/authsec/mpp/worklist/{id}/closeinfo"
     },
     {
-        "desc" : "部门工单列表",
-        "id" : "user-center.case-depart.list",
-        "method" : "POST",
-        "url" : "basis/authsec/mpp/worklist/organization/{page}/{size}"
+        "desc": "部门工单列表",
+        "id": "user-center.case-depart.list",
+        "method": "POST",
+        "url": "basis/authsec/mpp/worklist/organization/{page}/{size}"
     },
     {
-        "desc" : "获取指定机构下所有用户",
-        "id" : "user-center.case-depart.user",
-        "method" : "GET",
-        "url" : "basis/authsec/mpp/users/organization/{organizationId}"
+        "desc": "获取指定机构下所有用户",
+        "id": "user-center.case-depart.user",
+        "method": "GET",
+        "url": "basis/authsec/mpp/users/organization/{organizationId}"
     },
 
     // 消息中心
     {
-        "desc" : "获取消息列表、所有/未读/已读",
-        "id" : "user-center.msg-mng.message.get",
-        "method" : "GET",
-        "url" : "messagemgmt/authsec/message/getmessages/page/{page}/size/{size}/status/{status}"
+        "desc": "获取消息列表、所有/未读/已读",
+        "id": "user-center.msg-mng.message.get",
+        "method": "GET",
+        "url": "messagemgmt/authsec/message/getmessages/page/{page}/size/{size}/status/{status}"
     },
     {
-        "desc" : "设置消息已读",
-        "id" : "user-center.msg-mng.message.setread",
-        "method" : "POST",
-        "url" : "messagemgmt/authsec/message/setread"
+        "desc": "设置消息已读",
+        "id": "user-center.msg-mng.message.setread",
+        "method": "POST",
+        "url": "messagemgmt/authsec/message/setread"
     },
     {
-        "desc" : "删除消息",
-        "id" : "user-center.msg-mng.message.delete",
-        "method" : "DELETE",
-        "url" : "messagemgmt/authsec/message/delete"
+        "desc": "删除消息",
+        "id": "user-center.msg-mng.message.delete",
+        "method": "DELETE",
+        "url": "messagemgmt/authsec/message/delete"
     },
+
+    // 阿里云
+    { //获取region列表
+        "desc": "Get alicloud region list",
+        "id": "al-cloud.cloud-disk.regions.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeregions"
+    },
+    {//获取secretKey
+        "desc": "Get user key and secret",
+        "id": "al-cloud.cloud-disk.key-secret.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/getkey"
+    },
+    { //根据regionId获取可用区列表
+        "desc": "根据regionId获取可用区列表",
+        "id": "al-cloud.cloud-disk.regionZone.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describezones/regionid/{regionid}"
+    },
+    { //计算云硬盘购买的价格
+        "desc": "Get cloud disk price",
+        "id": "al-cloud.cloud-disk.price.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/price/disk"
+    },
+
 
 ]

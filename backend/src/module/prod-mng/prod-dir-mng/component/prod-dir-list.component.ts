@@ -326,6 +326,9 @@ export class ProdDirListComponent implements OnInit {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
                     let resultContent = response.resultContent;
+                    if(resultContent.length==0){
+                        this.notice.open('提示','未找到相关产品信息');
+                    }
                     let backend = new Array<Proddir>();
                     for (let content of resultContent) {
                         let proddir = new Proddir();

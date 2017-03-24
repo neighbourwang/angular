@@ -4,8 +4,7 @@ import { Location } from '@angular/common';
 // import { Location }               from '@angular/common';
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, CountBarComponent } from '../../../../architecture';
 //service
-import { GetProduct } from '../service/getProduct.service';
-import { ProdDirDetailService } from '../../prod-dir-mng/service/prod-dir-detail.service';
+import { GetProductService } from '../service/getProduct.service';
 import { ProductEditService } from '../service/product.edit.service';
 //model
 import { Product } from '../model/product.model';
@@ -24,10 +23,8 @@ import { HistoryPriceList } from '../model/historyPrice.model';
 //     };
 export class ProdDetailComponent implements OnInit {
     constructor(
-        private GetProduct: GetProduct,
         private router: ActivatedRoute,
-        private getProduct: GetProduct,
-        private ProdDirDetailService: ProdDirDetailService,
+        private getProductService: GetProductService,
         private layoutService: LayoutService,
         private location: Location,
         private service: ProductEditService
@@ -61,6 +58,7 @@ export class ProdDetailComponent implements OnInit {
             this.productId = params['id'];
             type = params['type'];
             console.log(type);
+            console.log(this.productId);
             (type == '0') && (this.vmProdDir = true);
             (type == '1') && (this.vmProdDir = false);
         })
@@ -82,7 +80,7 @@ export class ProdDetailComponent implements OnInit {
     //请求产品详情
     getProductDetail(id) {
         this.layoutService.show();        
-        return this.getProduct.getProduct(id).then((response) => {
+        return this.getProductService.getProduct(id).then((response) => {
             if (response && 100 == response.resultCode) {
                 if(response.resultContent){
                     this.product = response.resultContent;
@@ -104,7 +102,7 @@ export class ProdDetailComponent implements OnInit {
     }
     //获取vm产品目录详情
     getVmProdDirDetail(id) {
-        return this.ProdDirDetailService.getVmProdDirDetail(id).then(response => {
+        return this.getProductService.getVmServiceDetail(id).then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {
                 if(response.resultContent){
@@ -120,7 +118,7 @@ export class ProdDetailComponent implements OnInit {
     }
     //获取disk产品目录详情
     getDiskProdDirDetail(id) {
-        return this.ProdDirDetailService.getDiskProdDirDetail(id).then(response => {
+        return this.getProductService.getDiskServiceDetail(id).then(response => {
             console.log('产品目录详情', response);
             if (response && 100 == response.resultCode) {
                 this.prodDir = response.resultContent;
