@@ -25,13 +25,13 @@ export class ComputeResService {
             }
            
         ];
-        //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.list");
+        //const api = this.restApiCfg.getRestApi("compute-res.platform.info");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => ComputeRes_mock);
     }
 
     //获取可用区资源信息
-    getZoneResInfo(zone_Id:string) {
+    getZoneResInfo(zone_Id:string): Promise<any> {
         const pathParams = [
             {
                 key: "zoneId",
@@ -39,12 +39,12 @@ export class ComputeResService {
             }
            
         ];
-        //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.list");
+        //const api = this.restApiCfg.getRestApi("compute-res.zone.info");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => Zone_mock);
     }
 
-    getHostList(zone_Id:string) {
+    getHostList(zone_Id:string): Promise<any> {
         const pathParams = [
             {
                 key: "zoneId",
@@ -52,7 +52,7 @@ export class ComputeResService {
             }
            
         ];
-        //const api = this.restApiCfg.getRestApi("net-img.vm-mng.network.list");
+        //const api = this.restApiCfg.getRestApi("compute-res.host.list");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => HostList_mock);
     }

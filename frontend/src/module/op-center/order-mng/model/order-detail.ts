@@ -67,7 +67,8 @@ export class OrderDetailItem {
     {
       if(this.productBillingItem.billingMode == 0)//包年包月
       {
-        return this.productBillingItem.basicPrice + this.productBillingItem.cyclePrice;
+        return this.productBillingItem.cyclePrice;//周期费用
+        // return this.productBillingItem.basicPrice + this.productBillingItem.cyclePrice;//增量费用+周期费用
       }
       else if(this.productBillingItem.billingMode == 1)//一次性费用
       {
