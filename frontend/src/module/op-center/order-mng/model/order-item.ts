@@ -58,9 +58,10 @@ export class SubInstanceItemResp {
   get price():number{
  
     if(this.billingInfo){
-      if(this.billingMode == 0)//包年包月
+      if(this.billingMode == 0)//云主机，包年包月
       {
-        return this.billingInfo.basicPrice + this.billingInfo.cyclePrice;
+        return this.billingInfo.cyclePrice;//周期费用
+        // return this.billingInfo.basicPrice + this.billingInfo.cyclePrice;//增量费用+周期费用
       }
       else if(this.billingMode == 1)//按量计费
       {
