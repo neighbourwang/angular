@@ -767,6 +767,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/describezones/regionid/{regionid}"
     },
+    { //计算云硬盘购买的价格
+        "desc": "Get cloud disk price",
+        "id": "al-cloud.cloud-disk.price.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/price/disk"
+    },
 
 
 ]
