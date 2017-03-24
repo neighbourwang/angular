@@ -221,8 +221,6 @@ export class OrderMngComponent implements OnInit {
 			let canContinueRenew: (item: SubInstanceItemResp) => boolean = (item: SubInstanceItemResp): boolean => {
 				if (item.billingInfo && item.billingInfo.billingMode != 0)//只有周期计费，0代表周期计费
 					return false;
-				if (item.status != "2" && item.status != "7")//成功、即将过期:7的订单可以续订
-					return false;
 				return true;
 			};
 
@@ -627,17 +625,86 @@ export class OrderMngComponent implements OnInit {
 		//   }
 		// ]
 		// 		console.log('renew start');
-		let param = [];
+// 		示例：
+// {
+//   "attrList": [
+//     {
+//       "attrId": "de229819-a0f7-11e6-a18b-0050568a49fd",
+//       "attrCode": "TIMELINEUNIT",
+//       "attrDisplayValue": "按年",
+//       "attrDisplayName": "时长单位",
+//       "attrValueId": "bc5d2ca5-a1bb-11e6-a18b-0050568a49fd",
+//       "attrValue": "5",
+//       "attrValueCode": "c550ef3a-a099-4bc7-b23a-36e61609e15d"
+//     },
+//     {
+//       "attrId": "de227a98-a0f7-11e6-a18b-0050568a49fd",
+//       "attrCode": "TIMELINE",
+//       "attrDisplayValue": "",
+//       "attrDisplayName": "购买时长",
+//       "attrValueId": "",
+//       "attrValue": "1",
+//       "attrValueCode": ""
+//     }
+//   ]
+// }
+
+// [
+//   {
+//     "attrCode": "TIMELINEUNIT",
+//     "attrDisplayName": "时长单位",
+//     "attrValueCode": "cac86c31-30f3-493a-872e-37d8a84b3e19",
+//     "attrDisplayValue": "按月",
+//     "valueUnit": null,
+//     "attrOrderSeq": null,
+//     "description": null
+//   },
+//   {
+//     "attrCode": "TIMELINE",
+//     "attrDisplayName": "购买时长",
+//     "attrValueCode": "",
+//     "attrDisplayValue": "1",
+//     "valueUnit": null,
+//     "attrOrderSeq": null,
+//     "description": null
+//   }
+// ]
+		// let param = {"attrList":[]};
 
 		let list = this.selectedOrderItem.itemList[0].specList;
+
+		let items = [];
 		for (let item of list) {
 			if (item.attrCode == 'TIMELINEUNIT') {
-				param.push(item);
+				items.push(item);
 			} else if (item.attrCode == 'TIMELINE') {
 				item.attrDisplayValue = this._renewSetting.value.toString();
-				param.push(item);
+				items.push(item);
 			}
 		}
+		
+		let param = 
+			[
+			{
+			"attrId": this.selectedOrderItem.orderId,
+			"attrCode": "TIMELINEUNIT",
+			"attrDisplayValue":items[0].attrDisplayValue,
+			"attrDisplayName": "时长单位",
+			"attrValueId": "",
+			"attrValue": "5",
+			"attrValueCode": items[0].attrValueCode
+			},
+			{
+			"attrId": this.selectedOrderItem.orderId,
+			"attrCode": "TIMELINE",
+			"attrDisplayName": "购买时长",
+			"attrDisplayValue": "",
+			"attrValueId": "",
+			"attrValue": this._renewSetting.value.toString(),
+			"attrValueCode": ""
+			}
+		]
+
 		this.layoutService.show();
 		this._renewHandler.Go(null, [{ key: "_subId", value: this.selectedOrderItem.orderId }], param)
 			.then(success => {

@@ -67,4 +67,25 @@ export class AliCloudDiskService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
+    calculatePrice(selectedRegion: RegionModel): Promise<any> {
+        const body = [
+            {
+                "orderType": "disk-buy",
+                "regionId": selectedRegion.RegionId,
+                "commodity": {
+                    "zoneId": selectedRegion.selectedArea.ZoneId,
+                    "dataDisk": {
+                        "category": selectedRegion.selectedDisk,
+                        "size": selectedRegion.diskCount,
+                        "snapshotId": null
+                    },
+                    "amount": selectedRegion.count
+                }
+            }
+        ]
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.price.get");
+        return this.restApi.request(api.method, api.url, null, null, body);
+    }
+
 }

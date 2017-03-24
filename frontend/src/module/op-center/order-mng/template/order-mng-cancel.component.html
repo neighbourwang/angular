@@ -29,12 +29,15 @@
 									<!-- 显示云主机 -->
 									<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view>
 						</td>
-						<td>{{prodItem.productType}}</td>
-						<td>{{prodItem.billingModeName}}</td>
+						<td>{{prodItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async}}</td>
+						<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>
 						<td>{{prodItem.period}}</td>
 						<td>{{prodItem.quantity}}</td>
-						<td style="width: 100px;">{{prodItem.oneTimePriceAndPrice}}</td>
-						<td class="font-green">{{prodItem.statusName}}</td>
+						<td style="width: 100px;">
+							{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}<br/>
+							<span>费用:￥{{prodItem.price}}/</span><span *ngIf="prodItem.serviceType==1">GB</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
+						</td>
+						<td class="font-green">{{prodItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') |async}}</td>
 						<td>{{prodItem.createDate}}</td>
 						<td>{{prodItem.expireDate}}</td>
 					</tr>

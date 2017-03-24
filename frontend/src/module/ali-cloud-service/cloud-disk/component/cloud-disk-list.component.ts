@@ -75,7 +75,7 @@ export class AliCloudDiskListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getKeySecret();
+        //this.getKeySecret();
 
     }
 

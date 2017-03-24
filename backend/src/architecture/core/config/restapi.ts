@@ -2350,5 +2350,75 @@ export let RestApis: RestApiModel[] = [
         "method":"GET",
         "url":"mailmgmt/authsec/mailmgmt/templates"
     },
+
+    //容量管理
+     {
+        "desc": "获取平台列表",
+        "id":"capacity-mng.platforms.list",
+        "method":"GET",
+        "url":"adminui/authsec/platforms/page/{_page}/size/{_size}"
+    },
+     {
+        "desc": "生成报告",
+        "id":"capacity-mng.report",
+        "method":"GET",
+        "url":"maintenance/report"
+    },
+     {
+        "desc": "管理计算资源-获取平台信息",
+        "id":"compute-res.platform.info",
+        "method":"GET",
+        "url":"maintenance/platform/{platformId}/info"
+     },
+     {
+        "desc": "获得可用区资源信息(包括环形图)",
+        "id":"compute-res.zone.info",
+        "method":"GET",
+        "url":"maintenance/zone/{zoneId}/info"
+     },
+     {
+        "desc": "获取宿主机列表",
+        "id":"compute-res.host.list",
+        "method":"GET",
+        "url":"maintenance/host/list/{zoneId}"
+     },
+     {
+        "desc": "获取宿主机详情",
+        "id":"host-detail.host.info",
+        "method":"GET",
+        "url":"maintenance/host/{hostId}/info/{period}"
+     },
+     {
+        "desc": "获取宿主机详情-折线图",
+        "id":"host-detail.host.graph",
+        "method":"GET",
+        "url":"maintenance/host/{hostId}/graph/line/{period}"
+     },
+     {
+        "desc": "存储列表",
+        "id":"store-res.storage.list",
+        "method":"GET",
+        "url":"maintenance/storage/list/{platformId}"
+     },
+     {
+        "desc": "存储详情",
+        "id":"store-detail.storage.info",
+        "method":"GET",
+        "url":"maintenance/storage/info/{storageId}"
+     },
+
+     //超分管理
+     {
+        "desc": "获取hyper列表",
+        "id":"assign-mng.hyper.list",
+        "method":"POST",
+        "url":"maintenance/hyper/list"
+     },
+     {
+        "desc": "获取hyper详情",
+        "id":"assign-detail.hyper.info",
+        "method":"GET",
+        "url":"maintenance/hyper/{vmid}/info/{period}"
+     },
 ]
 
