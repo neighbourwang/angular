@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { LayoutService, ValidationService, PopupComponent ,NoticeComponent} from '../../../../architecture';
 
+import { Validation, ValidationRegs } from '../../../../architecture';
+
 //service
 import { GetPersonAccService } from '../service/person-acc-get.service';
 import { PutPersonAccService } from '../service/person-acc-put.service';
@@ -26,7 +28,9 @@ export class PersonAccMngComponent implements OnInit {
         private getPersonAcc: GetPersonAccService,
         private putPersonAcc: PutPersonAccService,
         private putPersonAccPwd:EditPersonAccPwdService,
-        private validationService:ValidationService
+        private validationService:ValidationService,
+        private layoutService :LayoutService,
+        private v: Validation,
     ) { }
     @ViewChild('editPassWord')
     editPassWord: PopupComponent;
@@ -42,22 +46,26 @@ export class PersonAccMngComponent implements OnInit {
     }
     //获取当前登录信息
     getCurrentAccount() {
+        this.layoutService.show();
         this.getPersonAcc.getPersonAcc().then(
             response => {
                 if (response && 100 == response.resultCode) {
                     console.log(response);
-                    this.personAcc = Object.assign({}, response.resultContent)
-                    this.temPersonAcc = response.resultContent;
+                    this.temPersonAcc=JSON.parse(JSON.stringify(response.resultContent));                    
+                    this.personAcc = Object.assign({}, response.resultContent);
+                    // this.temPersonAcc = Object.assign({}, this.personAcc);
                     // console.log('1',sessionStorage['userInfo']);
                     sessionStorage.removeItem('userInfo');
                     sessionStorage["userInfo"] = JSON.stringify(response.resultContent);
                     console.log(this.personAcc);
                     // console.log('2',sessionStorage['userInfo']);
+                    this.layoutService.hide();
                 } else {
 
                 }
             }).catch((err) => {
                 console.error(err);
+                this.layoutService.hide();
             });
     }
     //编辑账号
@@ -121,8 +129,6 @@ export class PersonAccMngComponent implements OnInit {
                         console.log(response);
                         this.editPassWord.close();
                         this.notice.open('USER_CENTER.OPERATION_SUCCESS', 'USER_CENTER.NEW_PASSWORD_WORKED'); //USER_CENTER.NEW_PASSWORD_WORKED=>新密码已生效  //USER_CENTER.OPERATION_SUCCESS=>操作成功 
-
-
                     }else if(response &&response.resultCode==10001001){
                         this.editPassWord.close();
                         this.notice.open('COMMON.OPERATION_ERROR', 'you have input wrong password') //COMMON.OPERATION_ERROR=>操作错误 
@@ -137,20 +143,6 @@ export class PersonAccMngComponent implements OnInit {
             this.samePassword = false;
         }
     }
-    // otEditPwd() {
-    //     this.accPwd.id=this.personAcc.id;
-    //     console.log(this.accPwd);
-    //     this.putPersonAccPwd.putPersonAccPwd(this.accPwd).then(
-    //         response => {
-    //             if (response && 100 == response.resultCode) {
-    //                 console.log(response);
-    //             } else {
-
-    //             }
-    //         }).catch((err) => {
-    //             console.error(err);
-    //         });
-    // }
     ccf() {
 
     }
@@ -159,29 +151,41 @@ export class PersonAccMngComponent implements OnInit {
     }
     //cancel edit
     cancel() {
-        this.personAcc = this.temPersonAcc;
+        console.log(this.temPersonAcc);
+        this.personAcc = Object.assign({},this.temPersonAcc);
         this.edit = false;
+    }
+
+    //表单验证
+    checkForm(key?: string) {
+        let regs: ValidationRegs = {  //regs是定义规则的对象
+            userName: [this.personAcc.userName, [this.v.isInstanceName, this.v.isBase, this.v.isUnBlank], "用户名输入格式不正确"],
+            // loginName: [this.account.loginName, [this.v.isEmail, this.v.isUnBlank], "USER_CENTER.ACCOUNT_FORMAT_ERROR"],
+            //验证email
+            // baseInput: [this.baseInput, [this.v.isBase, this.v.isUnBlank], "不能包含特殊字符"],
+            //两次验证[基础的验证不能包含特殊字符，不能为空]
+            // phone: [this.account.phone, [this.v.isMoblie, this.v.isUnBlank], "USER_CENTER.MOBILE_PHONE_FORMAT_ERROR"],
+            //手机号码验证
+            description:[this.personAcc.description, [this.v.maxLength(68)], "描述输入错误"],
+        }
+        console.log(this.v.check(key, regs));
+        return this.v.check(key, regs);
     }
     //submit edit
     onSubmit() {
-        if(!this.personAcc.userName){
-            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.NAME_NOT_NULL'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.NAME_NOT_NULL=>姓名不能为空 
-            return;
-        }
+        let message=this.checkForm();
+        if(message) return ;
         if(this.personAcc.phone){
             if(!this.validationService.isMoblie(this.personAcc.phone)){
             this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.MOBILE_PHONE_INPUT_ERROR'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.MOBILE_PHONE_INPUT_ERROR=>手机号码输入错误 
-
-
             return;
         }
         }else{
             this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.MOBILE_PHONE_NOT_NULL'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.MOBILE_PHONE_NOT_NULL=>手机号码不能为空 
-
-
             return;
         }        
         console.log(this.personAcc);
+        this.layoutService.show();
         this.putPersonAcc.putPersonAcc(this.personAcc.userId, this.personAcc).then(response => {
             console.log(response);
             if (response && 100 == response.resultCode) {
@@ -190,8 +194,10 @@ export class PersonAccMngComponent implements OnInit {
             } else {
 
             }
+            this.layoutService.hide();
         }).catch(err => {
-            console.error(err)
+            console.error(err);
+            this.layoutService.hide();            
         })
     }
 }
