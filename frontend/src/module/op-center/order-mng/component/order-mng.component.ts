@@ -220,8 +220,6 @@ export class OrderMngComponent implements OnInit {
 			let canContinueRenew: (item: SubInstanceItemResp) => boolean = (item: SubInstanceItemResp): boolean => {
 				if (item.billingInfo && item.billingInfo.billingMode != 0)//只有周期计费，0代表周期计费
 					return false;
-				if (item.status != "2" && item.status != "7")//成功、即将过期:7的订单可以续订
-					return false;
 				return true;
 			};
 
