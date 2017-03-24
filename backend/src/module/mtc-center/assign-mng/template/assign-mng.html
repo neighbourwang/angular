@@ -98,18 +98,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr *ngFor="let hyper of hyperList">
                     <td>1</td>
-                    <td><a (click)="gotoAssignMng()">ABC</a></td>
+                    <td><a (click)="gotoAssignDetail(hyper.id)">{{hyper.name}}</a></td>
+                    <td>{{hyper.platform}}</td>
+                    <td>{{hyper.region}}</td>
                     <td></td>
-                    <td>北京</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{hyper.enterprise}}</td>
+                    <td>{{hyper.orgnization}}</td>
+                    <td>{{hyper.cpu}}</td>
+                    <td>{{hyper.mem}}</td>
+                    <td>{{hyper.cpuPeak}}</td>
+                    <td>{{hyper.memPeak}}</td>
                 </tr>
             </tbody>
         </table>
@@ -127,6 +127,7 @@
     </div>
 </div>
 
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
 <fc-popup #exportAllData  title="{{title}}"  ot="导出" of="acceptExport()" ct="取消" cf=""  cssClass="minWidth900">
     <div class="row row-line-height" >
         

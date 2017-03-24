@@ -141,8 +141,6 @@ export class HostDetailComponent implements OnInit {
             }
         ];
        
-        
-
         //内存使用率数据
         this.memChart.DataSets = [{
 
@@ -176,9 +174,6 @@ export class HostDetailComponent implements OnInit {
                 pointHoverBorderColor: '#6fdcd6'
             }
         ];
-       
-        
-
     }
 
     refresh() {

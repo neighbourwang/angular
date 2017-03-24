@@ -2401,5 +2401,19 @@ export let RestApis: RestApiModel[] = [
         "method":"GET",
         "url":"maintenance/storage/info/{storageId}"
      },
+
+     //超分管理
+     {
+        "desc": "获取hyper列表",
+        "id":"assign-mng.hyper.list",
+        "method":"POST",
+        "url":"maintenance/hyper/list"
+     },
+     {
+        "desc": "获取hyper详情",
+        "id":"assign-detail.hyper.info",
+        "method":"GET",
+        "url":"maintenance/hyper/{vmid}/info/{period}"
+     },
 ]
 

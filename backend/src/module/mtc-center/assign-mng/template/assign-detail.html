@@ -19,9 +19,9 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>ABC</td>
-                    <td>337</td>
-                    <td>256</td>
+                    <td>{{hyperInfo.hostName}}</td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -44,19 +44,19 @@
         </select>
         </div>
         <div class="col-md-2">
-            <button class="fox-cloud-button fox-cloud-button-white">刷新</button>
+            <button class="fox-cloud-button fox-cloud-button-white" (click)="refresh()">刷新</button>
         </div>       
     </div>
     <div class="mgt15">
         <div class="row row-line-height" style="background: #eff4f8;margin:0;">
-            <div class="col-md-2">CPU平均使用率：0.1%</div>
-            <div class="col-md-2">CPU峰值使用率：23%</div>
-            <div class="col-md-4">CPU峰值记录时间：2017年1月18日   18：00：53</div>
+            <div class="col-md-2">CPU平均使用率：{{hyperInfo.cpuAverage}}</div>
+            <div class="col-md-2">CPU峰值使用率：{{hyperInfo.cpuPeak}}</div>
+            <div class="col-md-4">CPU峰值记录时间：{{hyperInfo.cpuPeakTime}}</div>
         </div>
         <div class="row row-line-height" style="background: #eff4f8;margin:0;">
-            <div class="col-md-2">内存平均使用率：  39.9%</div>
-            <div class="col-md-2">内存峰值使用率：  67%</div>
-            <div class="col-md-4">内存峰值记录时间：     2017年1月18日    18：00：53</div>
+            <div class="col-md-2">内存平均使用率： {{hyperInfo.memoryAverage}}</div>
+            <div class="col-md-2">内存峰值使用率： {{hyperInfo.memoryPeak}}</div>
+            <div class="col-md-4">内存峰值记录时间： {{hyperInfo.memoryPeakTime}}</div>
         </div>
     </div>
     <div class="row mgt15">
@@ -66,7 +66,13 @@
                     <h3 class="panel-title">CPU使用率</h3>
                 </div>
                 <div class="panel-body">
-                    
+                    <canvas baseChart
+                          *ngIf="cpuChart.DataSets"
+                          [datasets]="cpuChart.DataSets "
+                          [chartType]="cpuChart.ChartType"
+                          [colors]="cpuChart.Colors"
+						  [labels]="cpuChart.Labels">
+                    </canvas>
                 </div>
             </div>
         </div>
@@ -76,9 +82,16 @@
                     <h3 class="panel-title">内存使用率</h3>
                 </div>
                 <div class="panel-body">
-                    
+                    <canvas baseChart
+                          *ngIf="memChart.DataSets"
+                          [datasets]="memChart.DataSets "
+                          [chartType]="memChart.ChartType"
+                          [colors]="memChart.Colors"
+						  [labels]="memChart.Labels">
+                    </canvas>
                 </div>
         </div>
     </div>
 </div>
 </div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
