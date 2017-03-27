@@ -352,7 +352,7 @@
 				<h4 class="modal-title" id="myModalLabel">{{ 'ORDER_MNG.ORDERS_UNSUBSCRIBE' | translate }}</h4>
 			</div>
 			<div class="modal-body">
-				<order-mng-cancel (complete)="acceptCancel($event)" [orderItem]="selectedOrderItem" [detail]="detail"></order-mng-cancel>
+				<order-mng-cancel (complete)="acceptCancel($event)" [orderItem]="selectedOrderItem" [detail]="detail" ></order-mng-cancel>
 				<!--<div *ngIf="cancelObj.isMachine">
 					<input type="checkbox" class="float-left mgr20  fox-cloud-checkbox" [(ngModel)]="cancelObj.removeDisk" />
 					<span style="display: block;padding-top: 4px;">{{ 'ORDER_MNG.UNSUBSCRIBE_FROM___HARD_DRIVE' | translate }}</span>
