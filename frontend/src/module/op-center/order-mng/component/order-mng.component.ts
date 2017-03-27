@@ -126,7 +126,7 @@ export class OrderMngComponent implements OnInit {
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
 		//退订
-		this._cancelHandler = new ItemLoader<any>(false, "COMMON.UNSUBSCRIBE_DATA_FAILED", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
+		this._cancelHandler = new ItemLoader<any>(false, "退订失败！", "op-center.order-mng.order-cancel.post", restApiCfg, restApi);
 
 		//续订
 		this._renewHandler = new ItemLoader<any>(false, "COMMON.RENEW_DATA_FAILED", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
@@ -499,8 +499,9 @@ export class OrderMngComponent implements OnInit {
 			let self = this;
 			let getRenewPrice: () => number = function () {
 				let item = self._renewPriceLoader.FirstItem;
+					return item.cyclePrice;
 
-				return item.basePrice || item.basicPrice || item.cyclePrice || item.unitPrice;
+				// return item.basePrice || item.basicPrice || item.cyclePrice || item.unitPrice;
 			};
 
 			this._renewSetting.reset();
@@ -729,7 +730,7 @@ export class OrderMngComponent implements OnInit {
 		if(data[0].itemList[0].isChecked){
 			param.push(this.selectedOrderItem.orderId);
 		}
-		for(let item of data[1].relatedOrderList){
+		for(let item of data[1].relatedSubInstanceList){
 			if(item.isChecked){
 				param.push(item.instanceId);
 			}
@@ -815,6 +816,7 @@ export class OrderMngComponent implements OnInit {
 			&& _.isNumber([0, 1, 2, 3, 5].find(n => n == this.selectedOrderItem.itemList[0].billingInfo.periodType))) {
 			this._renewSetting.renewDate = this.calRenewDate(this.selectedOrderItem.itemList[0].billingInfo.periodType.toString(), this._renewSetting.value);
 			this._renewSetting.unit = this.selectedOrderItem.itemList[0].billingInfo.periodType;
+			this.selectedOrderItem.itemList[0].renewDate = this._renewSetting.renewDate;
 		}
 		else {
 			console.log("续订计算前提发生错误", this.selectedOrderItem, this._renewSetting);
