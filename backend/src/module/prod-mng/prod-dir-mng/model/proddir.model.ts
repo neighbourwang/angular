@@ -10,6 +10,9 @@ class zone {
     "storageId": string;
     "zoneId": string;
     "serviceSKUId":string;
+    skuId:string;
+    zoneName:string;
+    storageName:string;
     storageList:Array<storage>;
     selected:boolean;
 }
@@ -29,6 +32,7 @@ class ProdDir {
     "serviceTemplateId":string;
     "description": string;
     "platformList": Array<platform>;
+    platformInfo:Array<platform>;
     "serviceName": string;
     serviceType:string;
     "specification" = {
