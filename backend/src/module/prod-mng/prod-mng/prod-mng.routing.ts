@@ -15,32 +15,32 @@ import { ProdMngCreStep4Component} from './component/prod-mng-cre-step-4.compone
 
 export const ProdMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'prod-mng/prod-mng/prod-mng',
+        path: 'prod-mng/prod-mng',
         component: ProdMngComponent
     },
     {
-        path: 'prod-mng/prod-mng/prod-cre',
+        path: 'prod-mng/prod-cre',
         component: ProdCreComponent
     },
     {
-        path: 'prod-mng/prod-mng/prod-mng-cre-1',
+        path: 'prod-mng/prod-mng-cre-1',
         component: ProdMngCreStep1Component
     },
     {
-        path: 'prod-mng/prod-mng/prod-mng-cre-2',
+        path: 'prod-mng/prod-mng-cre-2',
         component: ProdMngCreStep2Component
     },
     {
-        path: 'prod-mng/prod-mng/prod-mng-cre-3',
+        path: 'prod-mng/prod-mng-cre-3',
         component: ProdMngCreStep3Component
     },
     {
-        path: 'prod-mng/prod-mng/prod-mng-cre-4',
+        path: 'prod-mng/prod-mng-cre-4',
         component: ProdMngCreStep4Component
     },
 
     {
-        path: 'prod-mng/prod-mng/prod-detail',
+        path: 'prod-mng/prod-detail',
         component: ProdDetailComponent
     }
 
