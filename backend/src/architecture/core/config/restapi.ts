@@ -1032,8 +1032,8 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "编辑某个VM产品目录详细信息带未选平台put",
-        "id": "prod-mng.prod-dir-vm.detail",
-        "method": "GET",
+        "id": "prod-mng.prod-dir-vm.edit",
+        "method": "PUT",
         "url": "adminui/authsec/services/vm/{id}",
     },
     

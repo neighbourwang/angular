@@ -272,7 +272,7 @@ export class ProdMngComponent implements OnInit {
                 if (response && 100 == response.resultCode) {
                     this.productList = response.resultContent;
                     if(this.productList.length==0){
-                        this.notice.open('提示','未找到相关产品目录信息');
+                        this.notice.open('提示','未找到相关产品信息');
                     }
                     this.tp = response.pageInfo.totalPage;
                 }
