@@ -288,8 +288,8 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subinstance/{subinstanceCode}/orderDetail"
     }, {
         "desc": "订单退订",
-        "method": "GET",
-        "id": "op-center.order-mng.order-cancel.get",
+        "method": "POST",
+        "id": "op-center.order-mng.order-cancel.post",
         "url": "marketplace/authsec/shopping/subinstances/cancel"//修改后的接口
         // "url": "marketplace/authsec/subscription/instance/{_subId}/cascadeFlag/{_cascadeFlag}/cancel"y以前的
     }, {

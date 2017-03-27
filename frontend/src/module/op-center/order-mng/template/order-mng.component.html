@@ -218,8 +218,8 @@
 					</td>
 					<td>{{prodItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async}}</td>
 					<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>
-					<td>{{prodItem.period}} {{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async |slice:1}}</td>
-					<td>{{prodItem.quantity}}</td>
+					<td>{{prodItem.period}} {{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</td>
+					<td>{{prodItem.quantity}}台</td>
 					<td style="width: 100px;">
 						{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}<br/>
 						<span>费用:￥{{prodItem.price}}/</span><span *ngIf="prodItem.serviceType==1">GB</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
@@ -283,7 +283,7 @@
 									<span class="float-left mgr20" style="margin-top: 8px;">{{ 'ORDER_MNG.PURCHASE_TIME' | translate }}:</span>
 									<div class="float-left mgr20">
 										<input class="float-left" type="text" [ngModel]="selectedPeriodTypeName" disabled="true">
-										<input *ngIf="!_renewSetting.isForever" class="float-left" type="number" name="" (change)="renewValueChange()" [(ngModel)]="_renewSetting.value">
+										<input *ngIf="!_renewSetting.isForever" class="float-left" type="number" name="" (blur)="renewValueChange()" [(ngModel)]="_renewSetting.value">
 									</div>
 									<button class="btn  mgr20" [ngClass]="{'button-confirm':!_renewSetting.isForever!=1,'button-gray-gradient':!_renewSetting.isForever==1}"
 									 (click)="selectForever();">{{ 'COMMON.PERMANENCE' | translate }}</button>
@@ -293,9 +293,9 @@
 								</div>
 								<div class="float-right">
 								<span  class="float-left">（费用合计）</span>
-										<ul  class="float-left mgr20">
-											<li>一次性费用： <span class="font-red">￥{{_renewSetting.onetimePrice}}</span></li>
-											<li class="mgl48">费用： <span class="font-red">￥{{_renewSetting.price}}/{{_renewSetting.periodType  | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}<br></span>
+										<ul  class="float-left mgr20"><!--{{_renewSetting.onetimePrice}}-->
+											<li>一次性费用： <span class="font-red">￥0</span></li>
+											<li class="mgl48">费用： <span class="font-red">￥{{_renewSetting.price}}/{{_renewSetting.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async }}<br></span>
 											</li>
 										</ul>
 								</div>
@@ -352,7 +352,7 @@
 				<h4 class="modal-title" id="myModalLabel">{{ 'ORDER_MNG.ORDERS_UNSUBSCRIBE' | translate }}</h4>
 			</div>
 			<div class="modal-body">
-				<order-mng-cancel (complete)="acceptCancel($event)" [orderItem]="selectedOrderItem" [detail]="detail"></order-mng-cancel>
+				<order-mng-cancel (complete)="acceptCancel($event)" [orderItem]="selectedOrderItem" [detail]="detail" ></order-mng-cancel>
 				<!--<div *ngIf="cancelObj.isMachine">
 					<input type="checkbox" class="float-left mgr20  fox-cloud-checkbox" [(ngModel)]="cancelObj.removeDisk" />
 					<span style="display: block;padding-top: 4px;">{{ 'ORDER_MNG.UNSUBSCRIBE_FROM___HARD_DRIVE' | translate }}</span>
