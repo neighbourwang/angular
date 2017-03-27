@@ -218,6 +218,8 @@ export class EntEstCreComponent implements OnInit{
 		{
 			if(this.isSameName!=1){
 				this.showMsg("该用户已存在！");
+			}else if(0){
+
 			}else{
 				this.layoutService.show();
 				this.service.createEnterpise(this.entEst).then(ret=>{

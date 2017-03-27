@@ -499,8 +499,9 @@ export class OrderMngComponent implements OnInit {
 			let self = this;
 			let getRenewPrice: () => number = function () {
 				let item = self._renewPriceLoader.FirstItem;
+					return item.cyclePrice;
 
-				return item.basePrice || item.basicPrice || item.cyclePrice || item.unitPrice;
+				// return item.basePrice || item.basicPrice || item.cyclePrice || item.unitPrice;
 			};
 
 			this._renewSetting.reset();
@@ -815,6 +816,7 @@ export class OrderMngComponent implements OnInit {
 			&& _.isNumber([0, 1, 2, 3, 5].find(n => n == this.selectedOrderItem.itemList[0].billingInfo.periodType))) {
 			this._renewSetting.renewDate = this.calRenewDate(this.selectedOrderItem.itemList[0].billingInfo.periodType.toString(), this._renewSetting.value);
 			this._renewSetting.unit = this.selectedOrderItem.itemList[0].billingInfo.periodType;
+			this.selectedOrderItem.itemList[0].renewDate = this._renewSetting.renewDate;
 		}
 		else {
 			console.log("续订计算前提发生错误", this.selectedOrderItem, this._renewSetting);
