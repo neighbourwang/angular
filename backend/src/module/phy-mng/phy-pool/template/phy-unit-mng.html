@@ -1,0 +1,98 @@
+﻿<div class="page-content-header icon-content-header-physical-mng" > 物理机部件管理 </div>
+<div class="page-content">
+    <div style="margin-bottom:10px">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="creat();">
+            <span class="glyphicon glyphicon-plus"></span>
+            <span class="icon-button-label icon-left-button-label">新建物理机部件</span>
+        </button>
+        <div class="dropdown pull-right" style="margin-left:10px;">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{'PHY_MNG_POOL.SELECT_OPERATION' | translate}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a (click)="gotoEdit();">{{'PHY_MNG_POOL.EDIT' | translate}}</a></li>
+                <li><a (click)="phyIfEnable('2');">{{'PHY_MNG_POOL.DELETE' | translate}}</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>{{'PHY_MNG_POOL.SELECT' | translate}}</th>
+                <th>{{'PHY_MNG_POOL.NUMBER' | translate}}</th>
+                <th>部件名称</th>
+                <th>规格</th>
+                <th>规格值</th>
+                <th>参考价值</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of data">
+                <td><input type='radio' class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
+                <td>{{item.index}}</td>
+                <td><a href="javascript:void(0);" (click)="gotoPhyList(item);">{{item.pmPoolName}}</a></td>
+                <td>{{item.region}}</td>
+                <td>{{item.dataCenter}}</td>
+                <td>{{item.amount}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
+    </div>
+</div>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" ></fc-confirm>
+
+<fc-popup #creUnit title="{{title}}" ot="保存"  ct="取消">
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-3 form-control-title">部件名称:</div>
+            <div class="col-sm-4">
+                <select class="form-control">
+                    <option>其他</option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-3 form-control-title">规格:</div>
+            <div class="col-sm-4">
+                <select class="form-control">
+                    <option>其他</option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-3 form-control-title">规格值:</div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control">
+                <div class="mgt5">GB</div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-3 form-control-title">参考价值:</div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+</fc-popup>
+
+
