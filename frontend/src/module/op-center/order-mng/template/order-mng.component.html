@@ -49,7 +49,7 @@
 				<span  *ngFor="let item of autoRenewItem.serivceRenewWayProductItems; let i=index">
 					<label (click)="autoRenewItem.isSelectedType=true">
 					<input class="fox-cloud-radio" name="renewTypeRadio" type="radio" [(ngModel)]="autoRenewItem.subExtendType" value="{{item.billingInfo.extendType}}"  autocomplete="off"/>
-						{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}续订(周期费用：￥{{item.billingInfo.basePrice}}/ {{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}} ，
+						{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}续订(周期费用：￥{{item.billingInfo.basicPrice}}/ {{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}} ，
 						<span *ngIf="item.billingInfo.periodType==3">每6个月续订一次</span>
 						<span *ngIf="item.billingInfo.periodType==5">每一年续订一次</span>)
 					</label>
@@ -57,7 +57,7 @@
 				</span>
 			</div>
 			<div class="show-renew-type"  *ngIf="autoRenewItem.extendType > 0 || autoRenewItem.renewOver">
-				{{autoRenewItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}续订(周期费用：￥{{autoRenewItem.price}}/ {{autoRenewItem.periodType  | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}} ，
+				{{autoRenewItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}续订(周期费用：￥{{autoRenewItem.basicPrice}}/ {{autoRenewItem.periodType  | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}} ，
 				<span *ngIf="autoRenewItem.periodType==3">每6个月续订一次</span>
 				<span *ngIf="autoRenewItem.periodType==5">每一年续订一次</span>)
 			</div>
@@ -271,7 +271,10 @@
 				<div class="modal-body">
 					<!--<account-mng-cr-local></account-mng-cr-local>
 			          <order-mng-detail></order-mng-detail>-->
-					<order-mng-renew [orderItem]="selectedOrderItem"></order-mng-renew>
+					<order-mng-renew *ngIf="!_renewSetting.completed" [orderItem]="selectedOrderItem"></order-mng-renew>
+
+					<!-- 订单续订完成 -->
+					<order-renew-complete *ngIf="_renewSetting.completed" [orderItem]="selectedOrderItem"></order-renew-complete>
 					<!-- 订单续订 -->
 					<div *ngIf="!_renewSetting.completed" class="OrderRenew">
 						<div class="page-content">
@@ -285,20 +288,18 @@
 									<button class="btn  mgr20" [ngClass]="{'button-confirm':!_renewSetting.isForever!=1,'button-gray-gradient':!_renewSetting.isForever==1}"
 									 (click)="selectForever();">{{ 'COMMON.PERMANENCE' | translate }}</button>
 								</div>
-								<div class="float-right">
+								<div class="float-left mgt5 mgl20">
 									{{ 'ORDER_MNG.RENEWAL_EXPIRATION_TIME' | translate }}: <span class="font-red">{{_renewSetting.renewDate}}</span>
 								</div>
 								<div class="float-right">
 								<span  class="float-left">（费用合计）</span>
 										<ul  class="float-left mgr20">
-											<li>一次性费用：<span class="font-red">{{_renewSetting.onetimePrice}}</span></li>
-											<li class="mgl48">费用： <span class="font-red">{{_renewSetting.price}}<br>
-																		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;￥100/年
-														</span>
+											<li>一次性费用： <span class="font-red">￥{{_renewSetting.onetimePrice}}</span></li>
+											<li class="mgl48">费用： <span class="font-red">￥{{_renewSetting.price}}/{{_renewSetting.periodType  | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}<br></span>
 											</li>
 										</ul>
-								<button class="button-size-big button-confirm pull-right" data-dismiss="modal" (click)="search()">{{ 'SITE.MNG_CONSOLE' | translate }}</button>
-							</div>
+								</div>
+							
 							</div>
 						</div>
 					</div>
@@ -308,9 +309,8 @@
 					<button type="button" class="btn button-confirm button-size-big " data-toggle="modal" data-target="#renewOrderOk" (click)="renew()">{{ 'COMMON.CONFIRM' | translate }}</button>
 					<button type="button" class="btn  button-size-big button-white" data-dismiss="modal">{{ 'COMMON.CANCEL' | translate }}</button>
 				</div>
-
 				<!-- 订单续订完成 -->
-				<div *ngIf="_renewSetting.completed" class="OrderRenew">
+					<div *ngIf="_renewSetting.completed" class="OrderRenew">
 					<div class="page-content">
 						<div class="page-second-container mgb20">
 							<div class="float-left">
@@ -319,9 +319,8 @@
 							<div class="float-right">
 								<span  class="float-left">（费用合计）</span>
 										<ul  class="float-left mgr20">
-											<li>一次性费用：<span class="font-red">{{_renewSetting.onetimePrice}}</span></li>
-											<li class="mgl48">费用： <span class="font-red">{{_renewSetting.price}}<br>
-																		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;￥100/年
+											<li>一次性费用：<span class="font-red">￥0</span></li>
+											<li class="mgl48">费用： <span class="font-red">￥{{_renewSetting.price}}/{{_renewSetting.periodType  | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}<br>
 														</span>
 											</li>
 										</ul>
@@ -340,6 +339,7 @@
 		</div>
 	</div>
 </div>
+
 
 
 <!--退订-->
