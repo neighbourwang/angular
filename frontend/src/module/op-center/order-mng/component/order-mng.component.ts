@@ -74,6 +74,7 @@ export class OrderMngComponent implements OnInit {
 	// private cancelObj: CancelParam = new CancelParam();
 	private _cancelHandler: ItemLoader<any> = null;
 	private detail: OrderDetailItem = new OrderDetailItem();
+
 	private cancelParamList = [];
 	private _entId: string = "191af465-b5dc-4992-a5c9-459e339dc719";
 

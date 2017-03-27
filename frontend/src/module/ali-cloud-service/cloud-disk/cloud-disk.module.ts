@@ -10,6 +10,7 @@ import { AliCloudDiskOrderComponent } from './component/cloud-disk-order.compone
 
 //service 
 import { AliCloudDiskService } from "./service/cloud-disk.service";
+import { AliCloudDiskDictService } from "./service/cloud-disk-dict.service";
 
 //routing
 import { AliCloudDiskRouting } from './cloud-disk.routing';
@@ -29,7 +30,8 @@ import { AliCloudDiskRouting } from './cloud-disk.routing';
         AliCloudDiskOrderComponent
     ],
     providers: [
-        AliCloudDiskService
+        AliCloudDiskService,
+        AliCloudDiskDictService
     ]
 
 })
