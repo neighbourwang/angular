@@ -33,7 +33,10 @@ export class CreateProdDirService {
         let api = this.restApiCfg.getRestApi("prod-dir-vmPlate");
         return this.restApi.request(api.method, api.url, undefined, undefined, body, );
     }
-    //
+    //编辑云主机产品你目录
+    
+
+
     //新建Disk产品
     postDiskProdDir(data: any) {
         let api = this.restApiCfg.getRestApi("prod-mng.prod-disk-dir.create");

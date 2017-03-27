@@ -96,7 +96,7 @@ export class ProdDirCreComponent implements OnInit {
                     console.log('vmdetail', response);
                     let resultContent = response.resultContent;
                     this.prodDir = response.resultContent;
-                    this._platformlist=this.prodDir.platformList;
+                    this._platformlist=this.prodDir.platformInfo;
                 } else {
 
                 }
