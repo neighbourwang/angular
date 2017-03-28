@@ -41,6 +41,9 @@ export class  TimeCaculater{
 	}
 //月份下拉列表
 	getMonths(year:number){
+        if(this.months.length>0){
+            this.months.splice(0,this.months.length);
+        }
         let _months :number; 
    
         if( this.currentYear== year){
