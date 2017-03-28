@@ -425,7 +425,7 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.cost-pandect-department.increase-service.post",
         "method": "POST",
         "url": "adminui/authsec/department/subinstance/increase/bill"
-    }, {
+    },{
         "desc": "企业消防总览-下载账单",
         "id": "op-center.order-mng.cost-pandect.bill-download.post",
         "method": "POST",

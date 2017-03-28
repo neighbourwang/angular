@@ -33,27 +33,27 @@ export class ProdDirDiskCreComponent implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
 
-    prodDir:ProdDirDisk 
+    prodDir: ProdDirDisk
     _platformlist: Array<platform> = new Array<platform>();
 
-    pageTitle:string='';
-    type:string;
-    serviceId:string;
+    pageTitle: string = '';
+    type: string;
+    serviceId: string;
     ngOnInit() {
-        this.prodDir= new ProdDirDisk();
+        this.prodDir = new ProdDirDisk();
         this.route.params.forEach((params: Params) => {
             this.type = params['type'];
             if (this.type == 'edit') {
-                this.serviceId=params['id'];
+                this.serviceId = params['id'];
                 console.log(this.serviceId);
-            } 
+            }
         })
-        if(this.type=='new'){
-            this.pageTitle="PROD_MNG.CREATE_PRODUCT_CATALOG";
-            this.getPlateForm();            
-        }else{
-             this.pageTitle='PROD_MNG.EDIT_PRODUCT_CATALOG'
-             this.getProdDirDetail(this.serviceId);
+        if (this.type == 'new') {
+            this.pageTitle = "PROD_MNG.CREATE_PRODUCT_CATALOG";
+            this.getPlateForm();
+        } else {
+            this.pageTitle = 'PROD_MNG.EDIT_PRODUCT_CATALOG'
+            this.getProdDirDetail(this.serviceId);
         }
     }
     //获取平台列表;
@@ -83,30 +83,32 @@ export class ProdDirDiskCreComponent implements OnInit {
             }
         ).catch(err => {
             console.error(err);
-             this.LayoutService.hide();
+            this.LayoutService.hide();
         })
     }
 
     //获取启动盘信息
-    selectStorage(id,idx,idxxx) {
-        console.log(id,idx,idxxx)
-                for (let storage of this._platformlist[idx].platformInfo[idxxx].storageItem) {
-                    if (storage.storageId == id) {
-                        storage.selected = true;
-                    } else {
-                        storage.selected = false;
-                    }
-                }
+    selectStorage(id, idx, idxxx) {
+        console.log(id, idx, idxxx)
+        for (let storage of this._platformlist[idx].platformInfo[idxxx].storageItem) {
+            if (storage.storageId == id) {
+                storage.selected = true;
+            } else {
+                storage.selected = false;
+            }
+        }
     }
     getProdDirDetail(id) {
         this.ProdDirDetailService.getDiskProdDirDetail(id).then(
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
-                    console.log('diskdetail',response);
-                    if(response.resultContent){
+                    console.log('diskdetail', response);
+                    if (response.resultContent) {
                         this.prodDir = response.resultContent;
-                        this._platformlist=this.prodDir.platformList;
+                        this._platformlist = this.prodDir.platformList;
+                        this.prodDir.description =
+                            this.prodDir.description == 'null' ? this.prodDir.description : '';
                     }
                 }
                 this.LayoutService.hide();
@@ -119,17 +121,17 @@ export class ProdDirDiskCreComponent implements OnInit {
     //同步countBar数据
     outputValue(e, arg) {
         this.prodDir.specification[arg] = e;
-        if(arg!='maxSize'){
-            this.prodDir.specification.maxSize=
-                this.prodDir.specification.maxSize?this.prodDir.specification.maxSize:0;
-            this.prodDir.specification.initialSize=
-                this.prodDir.specification.initialSize?this.prodDir.specification.initialSize:0;
-            this.prodDir.specification.stepSize=
-                this.prodDir.specification.stepSize?this.prodDir.specification.stepSize:1;
-            const beyond = (this.prodDir.specification.maxSize - this.prodDir.specification.initialSize)%this.prodDir.specification.stepSize;
-            if( beyond !== 0)  this.prodDir.specification.maxSize = 
-            (this.prodDir.specification.stepSize/2 <= beyond) ? this.prodDir.specification.maxSize - beyond + this.prodDir.specification.stepSize : this.prodDir.specification.maxSize - beyond;
-        }        
+        if (arg != 'maxSize') {
+            this.prodDir.specification.maxSize =
+                this.prodDir.specification.maxSize ? this.prodDir.specification.maxSize : 0;
+            this.prodDir.specification.initialSize =
+                this.prodDir.specification.initialSize ? this.prodDir.specification.initialSize : 0;
+            this.prodDir.specification.stepSize =
+                this.prodDir.specification.stepSize ? this.prodDir.specification.stepSize : 1;
+            const beyond = (this.prodDir.specification.maxSize - this.prodDir.specification.initialSize) % this.prodDir.specification.stepSize;
+            if (beyond !== 0) this.prodDir.specification.maxSize =
+                (this.prodDir.specification.stepSize / 2 <= beyond) ? this.prodDir.specification.maxSize - beyond + this.prodDir.specification.stepSize : this.prodDir.specification.maxSize - beyond;
+        }
     }
     //选择全部可用区
     selectAllZone: boolean = false;
@@ -171,21 +173,22 @@ export class ProdDirDiskCreComponent implements OnInit {
 
         })
         console.log(this.prodDir.platformList);
-        if (this.prodDir.platformList.length !=this._platformlist.length) {
+        if (this.prodDir.platformList.length != this._platformlist.length) {
             this.selectAllZone = false;
             return;
         }
-        this.selectAllZone=true;
-        for(let platform of this._platformlist){
-            for(let zone of platform.platformInfo){
-                if(zone.selected==false){
-                   return this.selectAllZone=false;                           
+        this.selectAllZone = true;
+        for (let platform of this._platformlist) {
+            for (let zone of platform.platformInfo) {
+                if (zone.selected == false) {
+                    return this.selectAllZone = false;
                 }
-            }                
-        }        
+            }
+        }
     }
     //表单验证
     checkForm(key?: string) {
+
         let regs: ValidationRegs = {  //regs是定义规则的对象
             serviceName: [this.prodDir.serviceName, [this.v.isInstanceName, this.v.isBase, this.v.isUnBlank], "产品目录名称格式不正确"],
 
@@ -207,7 +210,7 @@ export class ProdDirDiskCreComponent implements OnInit {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_SPEC_ERROR'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_SPEC_ERROR=>产品规格数据设置错误 
             return;
         }
-        this.prodDir.platformList=[];
+        this.prodDir.platformList = [];
         this.prodDir.platformList = this._platformlist.filter(function (ele) {
             if (ele.platformInfo) {
                 for (let zone of ele.platformInfo) {
@@ -216,20 +219,25 @@ export class ProdDirDiskCreComponent implements OnInit {
                     }
                 }
             }
-        })        
+        })
         if (this.prodDir.platformList.length == 0) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PLATFORM'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PLATFORM=>请选择可用平台 
             return;
         }
-        this.LayoutService.show();
-        this.CreateProdDirService.postDiskProdDir(this.prodDir).then(response => {
-            console.log(response)
-            this.LayoutService.hide();
-            this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
-        }).catch(err => {
-            console.error(err);
-            this.LayoutService.hide();
-        })
+        if (this.type == 'new') {
+            this.LayoutService.show();
+            this.CreateProdDirService.postDiskProdDir(this.prodDir).then(response => {
+                console.log(response)
+                this.LayoutService.hide();
+                this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+            }).catch(err => {
+                console.error(err);
+                this.LayoutService.hide();
+            })
+        } else {
+            console.log(this.prodDir);
+        }
+
     }
 
 
