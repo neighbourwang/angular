@@ -39,6 +39,31 @@ export class RestApi {
         return this.httpRequest(type, url, undefined, pathParams, queryParams, body);
     }
 
+    //下载文件
+    downloadFile(type: string, 
+                 url: string, 
+                 fileName:string = new Date().getTime().toString(), 
+                 pathParams: Array<any> = undefined, 
+                 queryParams: Array<any> = undefined): Promise<any>{
+        let headers = new Headers();
+        // headers.append("Content-Type", "application/octet-stream");
+        // headers.append('responseType', 'arraybuffer');
+        return this.httpRequest(type, url, undefined, pathParams, queryParams, undefined, headers)
+                   .then(res => {
+                       const blob = new Blob([res._body],{ type: 'octet/stream' });
+                       return window.URL.createObjectURL(blob);
+                   })
+                   .then((url) => {
+                        var a = document.createElement("a");
+                        a.style.display = "none";
+                        a.href = url;
+                        a.download = fileName + ".xls";
+                        a.click();
+                        // window.URL.revokeObjectURL(url);
+                        // window.open(url)
+                   })
+    }
+
     getLoginInfo() : {userInfo:UserInfo} {   //获取当前的登陆信息
         if(!sessionStorage["userInfo"] || !sessionStorage["token"]) {
             window.location.href = "/login.html";
@@ -53,7 +78,8 @@ export class RestApi {
         jwt: string,
         pathParams: Array<any>,
         queryParams: Array<any>,
-        body: any): Promise<any> {
+        body: any,
+        headerParams: Headers = new Headers()): Promise<any> {
         console.debug(`START ${type} ${new Date().toLocaleString()}: ${url}`);
 
         const path = pathParams ? this.createPath(url, pathParams) : url;
@@ -62,7 +88,6 @@ export class RestApi {
 
 
         const queryParameters = this.createQueryParams(queryParams);
-        const headerParams = new Headers();
         
         const requestOptions: RequestOptionsArgs = {
             method: type,
@@ -126,7 +151,11 @@ export class RestApi {
     private extractData(res: Response) {
         let body: any;
         if (res.text() != "") {
-            body = res.json();
+           try{
+                body = res.json();
+            }catch(e){
+                body = res;
+            }
         } else {
             body = {};
         }

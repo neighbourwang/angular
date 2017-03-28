@@ -39,13 +39,23 @@ export class RestApi {
         return this.httpRequest(type, url, undefined, pathParams, queryParams, body);
     }
 
-    downloadFile(type: string, url: string, pathParams: Array<any> = undefined, queryParams: Array<any> = undefined): Promise<any>{
+    downloadFile(type: string, url: string, fileName:string = new Date().getTime().toString(), pathParams: Array<any> = undefined, queryParams: Array<any> = undefined): Promise<any>{
         let headers = new Headers();
         // headers.append("Content-Type", "application/octet-stream");
-        headers.append('responseType', 'arraybuffer');
+        // headers.append('responseType', 'arraybuffer');
         return this.httpRequest(type, url, undefined, pathParams, queryParams, undefined, headers)
                    .then(res => {
-                       console.log(new Blob([res],{ type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }))
+                       const blob = new Blob([res._body],{ type: 'octet/stream' });
+                       return window.URL.createObjectURL(blob);
+                   })
+                   .then((url) => {
+                        var a = document.createElement("a");
+                        a.style.display = "none";
+                        a.href = url;
+                        a.download = fileName + ".xls";
+                        a.click();
+                        // window.URL.revokeObjectURL(url);
+                        // window.open(url)
                    })
     }
 
@@ -130,8 +140,13 @@ export class RestApi {
 
     private extractData(res: Response) {
         let body: any;
+        
         if (res.text() != '') {
-            body = res.json();
+            try{
+                body = res.json();
+            }catch(e){
+                body = res;
+            }
         } else {
             body = {};
         }
