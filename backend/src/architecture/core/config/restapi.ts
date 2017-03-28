@@ -2428,6 +2428,12 @@ export let RestApis: RestApiModel[] = [
         "url":"maintenance/trend/query/platform"
      },
      {
+        "desc": "超分管理首页--获取环形图数据",
+        "id":"assign-mng.usagestate.info",
+        "method":"POST",
+        "url":"maintenance/hyper/general"
+     },
+     {
         "desc": "获取hyper列表",
         "id":"assign-mng.hyper.list",
         "method":"POST",
