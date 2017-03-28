@@ -3,9 +3,6 @@ import { LayoutService } from '../../../core/service/layout.service';
 import { SystemDictionaryService, RestApi } from '../../../../architecture';
 import { Router } from '@angular/router';
 import { SiteService } from '../service/site.service';
-import { TranslateService } from 'ng2-translate';
-import { TranslateEN } from '../../../../architecture/translate/translateEN';
-import { TranslateCN } from '../../../../architecture/translate/translateCN';
 
 
 @Component({
@@ -25,16 +22,8 @@ export class SiteComponent implements OnInit {
     private restApi: RestApi,
     private service: SiteService,
     private dictService: SystemDictionaryService,
-    public translate: TranslateService
   ) {
-    translate.setTranslation('EN',  TranslateEN);
-    translate.setTranslation('CN',  TranslateCN);
-
-    translate.addLangs(["EN", "CN"]);
-    translate.setDefaultLang('CN');
-
-    let browserLang: string = translate.getBrowserLang();
-    translate.use(browserLang.match(/EN|CN/) ? browserLang : 'CN');
+   
   }
 
   ngOnInit() {
