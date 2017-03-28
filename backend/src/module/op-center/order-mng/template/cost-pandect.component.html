@@ -123,28 +123,34 @@
 		<div class="thirdPanel" *ngIf="isAllService==1">
             <div class="table-container">
                 <table class="table table-hover table-all-boder">
-                    <thead>
-                        <tr>
-                            <th class="text-center">已购服务编号</th>
-                            <th class="text-center">产品名称</th>
+					<thead>
+						<tr>
+							<th class="text-center">已购服务编号</th>
+							<th class="text-center">产品名称</th>
 							<th class="text-center">购买数量</th>
 							<th class="text-center">费用类型</th>
-                            <th class="text-center">应付金额</th>
-                          
-                        </tr>
-                    </thead>
-                    <tbody>
+							<th class="text-center">应付金额</th>
+										
+						</tr>
+					</thead>
+					<tbody>
                         <tr class="text-center" *ngFor="let item of allServiceLoader.Items;">
-                            <td class="vertical-center"><a (click)='showDetail(item.subinstanceCode)'>{{item.subinstanceCode}}</a></td>
-                            <td class="vertical-center">{{item.productName}}</td>
-                            <td class="vertical-center">{{item.num}}</td>
-                            <td class="vertical-center" >
-								<ul *ngFor="let priceItem of item.priceDetails">
-									<li>{{priceItem.billName}}</li>
-								</ul></td>
-                            <td class="vertical-center">{{item.total_amount}}</td>
-                        </tr>               
-                    </tbody>
+							<td colspan="5">
+								<table class="cart-info">
+									<tr *ngFor="let priceItem of item.priceDetails">
+										<td class="vertical-center"><a (click)='showDetail(item.subinstanceCode)'>{{item.subinstanceCode}}</a></td>
+                            			<td class="vertical-center">{{item.productName}}</td>
+                            			<td class="vertical-center">{{item.num}}</td>
+										<td>
+											{{priceItem.billName}}
+										</td>
+										<td class="vertical-center">￥{{item.total_amount}}</td>
+									</tr>
+									 
+								</table>
+							</td>		
+                    	</tr> 
+					</tbody>                  
                 </table>
             </div>
 		</div><!--  表格<div class="row row-line-height">-->
