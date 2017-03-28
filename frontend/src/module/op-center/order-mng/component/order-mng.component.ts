@@ -711,6 +711,27 @@ export class OrderMngComponent implements OnInit {
 			}
 		]
 
+    //   let param =
+	//    [
+	// 		{	"attrId": this.selectedOrderItem.orderId,
+	// 			"attrCode": "TIMELINEUNIT",
+	// 			"attrDisplayName": "时长单位",
+	// 			"attrValueCode":items[0].attrValueCode,
+	// 			"attrDisplayValue": "按月",
+	// 			"valueUnit": '',
+	// 			"attrOrderSeq": '',
+	// 			"description": ''
+	// 		},
+	// 		{	"attrId": this.selectedOrderItem.orderId,
+	// 			"attrCode": "TIMELINE",
+	// 			"attrDisplayName": "购买时长",
+	// 			"attrValueCode": "",
+	// 			"attrDisplayValue": this._renewSetting.value.toString(),
+	// 			"valueUnit": '',
+	// 			"attrOrderSeq": '',
+	// 			"description": ''
+	// 		}
+	// 	]
 		this.layoutService.show();
 		this._renewHandler.Go(null, [{ key: "_subId", value: this.selectedOrderItem.orderId }], param)
 			.then(success => {
