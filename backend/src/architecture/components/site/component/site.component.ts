@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../../core/service/layout.service';
 import { SystemDictionaryService, RestApi } from '../../../../architecture';
@@ -18,6 +19,7 @@ export class SiteComponent implements OnInit{
   title: string = 'Fox Cloud Portal!';
   left_content_script: string;
   username : string;
+  showCssload: boolean = true;
   
   constructor (
     private layoutService: LayoutService,
@@ -51,6 +53,14 @@ export class SiteComponent implements OnInit{
     this.dictService.get();  //初始化获取所有的数据字典
     // this.userService.loginService();
   }
+  onActivate(e) {
+    if(this.showCssload) this.showCssload = false;
+  }
+ 
+  navClock(url) {
+    this.showCssload = true;
+  }
+  
   logOut() {
     this.service.logOut().then();
     

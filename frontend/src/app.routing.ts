@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'cloud-host-service/cloud-host-list',
+        redirectTo: 'mng-console',
         pathMatch: 'full'
     },
     { path: 'check-center', loadChildren: 'module/check-center/check-center.module#CheckCenterModule' },

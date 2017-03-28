@@ -17,6 +17,7 @@ export class SiteComponent implements OnInit {
   title: string = 'Fox Cloud Portal!';
   left_content_script: string;
   username: string;
+  showCssload: boolean = true;
 
   constructor(
     private layoutService: LayoutService,
@@ -46,6 +47,13 @@ export class SiteComponent implements OnInit {
   }
   preLoad() {
     this.dictService.get();  //初始化获取所有的数据字典
+  }
+  onActivate(e) {
+    if(this.showCssload) this.showCssload = false;
+  }
+ 
+  navClock(url) {
+    this.showCssload = true;
   }
   logOut() {
     this.service.logOut().then();

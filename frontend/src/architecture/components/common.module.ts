@@ -77,7 +77,7 @@ import { Validation } from './validators';
         tagInputComponent,
         AfterNgForModule,
         HttpModule,
-        TranslateModule
+        TranslateModule,
         // OrderByPipe
         // DonutChart,
         // LineChart

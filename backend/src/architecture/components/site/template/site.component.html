@@ -22,12 +22,12 @@
     <div class="row content">
         <!--Left Menu-->
         <div *ngIf="layoutService.showHeader" class="col-md-2 no-padding left-content">
-            <fc-menu></fc-menu>
+            <fc-menu (navOnClick)='navClock()'></fc-menu>
         </div>
 
         <!--Body-->
-        <div class="col-md-10 right-content">
-            <router-outlet></router-outlet>
+        <div [ngClass]="{'content-hide': showCssload}" class="col-md-10 right-content">
+            <router-outlet (activate)='onActivate($event)'></router-outlet>
         </div>
     </div>
 
