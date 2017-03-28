@@ -39,6 +39,10 @@ export class cloudHostServiceList {
         // })
     }
 
+    downloadExcel() {
+        this.restApi.downloadFile("GET", "http://15.114.102.32:31072/adminui/authsec/subinstance/excel")
+         
+    }
     
     postVmInfo(instanceId:string, postData:InstanceVMProfile) : Promise<any> {
         const api = this.restApiCfg.getRestApi("vm.instance.detail.updata");
