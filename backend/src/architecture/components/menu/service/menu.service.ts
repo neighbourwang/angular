@@ -121,6 +121,27 @@ export class MenuService {
 						 	"isShow": !isRoot,
 						 	"routing": "mtc-center/assign-mng/assign-mng"
                          },
+                           {
+						 	"label": "趋势管理",
+						 	"isOpen": false,
+						 	"isActive": false,
+						 	"isShow": !isRoot,
+                              "routing": "",
+                              "top3_menu": [
+				 				{
+				 					"label": "计算资源",
+				 					"isShow": !isRoot,
+				 					"routing": "mtc-center/trend-mng/compute-trend",
+				 					"isActive": false
+				 				},
+				 				{
+				 					"label": "存储资源",
+				 					"routing": "mtc-center/trend-mng/store-trend",
+				 					"isShow": !isRoot,
+				 					"isActive": false
+				 				}
+				 			]
+                         },
                         {
 							"label": "工单管理",
 							"isOpen": false,

@@ -7,7 +7,7 @@
             "storageId": "111",
             "storageName": "cinder1",
             "displayName": "高速I/O-1",
-            "storeType": "CEPH",//数据字典
+            "storageType": "CEPH",//数据字典
             "capacity": 12800,//总容量
             "copy": 1,//副本数
             "peie": 85,//配额
@@ -20,7 +20,7 @@
             "storageId": "222",
             "storageName": "cinder2",
             "displayName": "高速I/O-2",
-            "storeType": "CEPH",//数据字典
+            "storageType": "CEPH",//数据字典
             "capacity": 12800,//总容量
             "copy": 1,//副本数
             "peie": 85,//配额
