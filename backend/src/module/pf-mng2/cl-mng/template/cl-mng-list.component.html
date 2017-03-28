@@ -68,8 +68,8 @@
 							</span>
                     </td>
                 <td>
-                    <span *ngIf="item.status!='0'" >{{item.healthFlag}} </span>
-                    <button  *ngIf="item.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="resetInit(item)">重置资源并启用</button>
+                    <span>{{item.healthFlag}} </span>
+                    <!--<button  *ngIf="item.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="resetInit(item)">重置资源并启用</button>-->
                 </td>
             </tr>
             </tbody>
