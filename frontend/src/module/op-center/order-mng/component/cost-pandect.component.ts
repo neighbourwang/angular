@@ -290,21 +290,27 @@ totalconsumeLoad(){
 
     this.totalConsumeLoader.Go(null,null,param)
      .then(success=>{
-        this.increseConsumeLoader.Go(null,null,param)
+        this.increaseConsumeLoad(param);
     })
-    .then(success=>{
-        this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);
-        this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);
+   .catch(err=>{
+        this.layoutService.hide();
+        this.showMsg(err);
+    })
+}
+increaseConsumeLoad(param:any){
+    this.increseConsumeLoader.Go(null,null,param)
+     .then(success=>{
+        this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);   
+        this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);   
         this.ent_bar[0].data =  this.b_chart.datas;
         this.ent_bar[1].data =  this.b_chart.datas2;
-       this.layoutService.hide();
+        this.layoutService.hide();
     })
     .catch(err=>{
         this.layoutService.hide();
         this.showMsg(err);
     })
 }
-
 topConsumeLoad(param:any){
     this.layoutService.show();
     // if(this.isNullEnterprise()){
