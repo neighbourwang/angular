@@ -1384,7 +1384,7 @@
         "LOCATION":"位置信息",
         "POWER_STATUS":"电源状态",
         "USEAGE_STATUS":"使用状态",
-        "MAINTAIN_STATUS":"维修状态",
+        "MAINTAIN_STATUS":"运维状态",
         "HEALTH_STATUS":"健康  检查",
 
         "SET_ILO_INFO":"设置ILO访问信息",

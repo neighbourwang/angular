@@ -67,6 +67,8 @@ export class PhysicalEditComponent implements OnInit {
                 case "create":
                     this.title = "PHYSICAL_MNG.CREATE_PHYSICAL";
                     break;
+                case "editParts":
+                    this.title="编辑物理机部件";
             }
 
         });
@@ -269,6 +271,27 @@ export class PhysicalEditComponent implements OnInit {
 
     }
 
+    myDatePickerOptions = {   //如果自定义的话传入下方表格相应的属性   这个是可选的
+        todayBtnTxt: 'Today',
+        dateFormat: 'yyyy-mm-dd',
+        firstDayOfWeek: 'mo',
+        sunHighlight: true,
+        height: '34px',
+        width: '404px',
+        inline: false,
+        disableUntil: {year: 2016, month: 8, day: 10},
+        selectionTxtFontSize: '16px'
+    };
+    
+    //维保起始时间
+     startTimeChange($event){
+		//this._param.createDate = $event.formatted;
+	}
+    
+    //维保结束时间
+	endTimeChange($event){
+		//this._param.expireDate = $event.formatted;
+	}
     showAlert(msg: string): void {
         this.layoutService.hide();
 

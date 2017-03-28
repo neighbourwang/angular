@@ -43,7 +43,7 @@ export class PhysicalListService {
     dicPower = this.dict.get(
                 {      
                     owner : "PM",
-                    field : "POWER_STATUS"    //运维
+                    field : "POWER_STATUS"    //电源
                 }             
     );
 

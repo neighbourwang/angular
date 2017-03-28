@@ -5,9 +5,15 @@
 <div class="page-content">
     <div class="row" style="margin-top:30px;">
         <div class="col-md-12">
+             <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">基本信息</div>
+                    <div class="col-md-4">  </div>
+                </div>
+            </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>{{'PHYSICAL_MNG.PHYSICAL_NAME'|translate}}:</div>
+                    <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.PHYSICAL_NAME'|translate}}:</div>
                     <div class="col-md-4">
                         <input type="text" class="form-control" [(ngModel)]="physical.pmName"  [disabled]="eidtMode=='view'">
                     </div>
@@ -104,6 +110,106 @@
                     </div>
                 </div>
             </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">维保起始日期:</div>
+                    <div class="col-md-4">
+                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="startTimeChange($event)"></date-picker>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">维保结束日期:</div>
+                    <div class="col-md-4">
+                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="endTimeChange($event)"></date-picker>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">硬件信息</div>
+                    <div class="col-md-4">    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">物理机型号:</div>
+                    <div class="col-md-4"> 
+                        <input type="text" class="form-control"  >
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">序列号:</div>
+                    <div class="col-md-4"> 
+                        <input type="text" class="form-control"  >
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">部件同步结果:</div>
+                    <div class="col-md-4"> 
+                        <div class="table-container">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>部件</th>
+                                        <th>规格值</th>
+                                        <th>数量</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>                         
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">设置服务器部件:</div>
+                    <div class="col-md-4"> 
+                        <div class="mgt5">
+                            <button  class="fox-cloud-button-md fox-cloud-button-white">新增</button>
+                            <button  class="fox-cloud-button-md fox-cloud-button-white">编辑</button>
+                            <button  class="fox-cloud-button-md fox-cloud-button-white">删除</button>
+                        </div>
+                         <div class="table-container mgt10">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>选择</th>
+                                        <th>部件名称</th>
+                                        <th>规格</th>
+                                        <th>规格值</th>
+                                        <th>数量</th>   
+                                        <th>总容量</th>                                   
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="radio" class="fox-cloud-radio"></td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+
             <div *ngIf="read || eidtMode =='view'||eidtMode =='edit'">
                 <div class="row row-line-height">
                     <div class="form-group">

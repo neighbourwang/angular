@@ -129,7 +129,7 @@ export class PhysicalListComponent implements OnInit {
     }
 
     
-    //删除、修改物理机的状态 0禁用 1启用 2删除
+    //删除、修改物理机的运维状态 0禁用 1启用 2删除
     changePhysicalStatusAndDelete(status:string){
          const physical = this.physicalList.find((physical) => { return physical.isSelect });
         
@@ -148,9 +148,8 @@ export class PhysicalListComponent implements OnInit {
             }                   
         }
          console.log("选择的物理机",physical.pmName);
-        if(physical.pmUseageStatus==status){
-          
-            this.dictPipe.transform(physical.pmUseageStatus,this.service.dictUseage)
+        if(physical.pmMainStatus==status){          
+            this.dictPipe.transform(physical.pmMainStatus,this.service.dicMain)
             .then(
                 res=> {
                     // console.log(res);
@@ -166,6 +165,10 @@ export class PhysicalListComponent implements OnInit {
         
         switch (status) {
                 case "0":
+                    if(physical.pmUseageStatus=="已分配"){
+                       this.notice.open("提示","已分配的物理机不能禁用,请选择未分配的物理机！")
+                       return;
+                    }
                    this.noticeMsg ="PHYSICAL_MNG.DISABLE_PHYSICAL_MSG^^^" + physical.pmName;
                    this.noticeTitle="PHYSICAL_MNG.DISABLE_PHYSICAL_TITLE";
                     break;
@@ -175,9 +178,12 @@ export class PhysicalListComponent implements OnInit {
                    this.noticeTitle="PHYSICAL_MNG.ENABLE_PHYSICAL_TITLE";
                     break;
                 case "2":
-                    this.noticeMsg = "PHYSICAL_MNG.DELETE_PHYSICAL_MSG^^^" + physical.pmName;
-                    this.noticeTitle="PHYSICAL_MNG.DELETE_PHYSICAL_TITLE";
-                    break;
+                   if(physical.pmUseageStatus=="未分配"&&physical.pmMainStatus=="0"){
+                     this.noticeMsg = "PHYSICAL_MNG.DELETE_PHYSICAL_MSG^^^" + physical.pmName;
+                     this.noticeTitle="PHYSICAL_MNG.DELETE_PHYSICAL_TITLE";
+                     break;
+                   }
+                    
             }
 
         
@@ -242,6 +248,24 @@ export class PhysicalListComponent implements OnInit {
             return;
         }
         this.route.navigate(['physical-mng/physical-mng/physical-ipmiInfoChange',{id:physical.pmId}])
+
+    }
+    
+    //编辑物理机部件
+    editPhysicalParts(){
+         this.type="editParts";
+         const physical = this.physicalList.find((physical) => { return physical.isSelect });
+          if(!physical){
+            this.showAlert("PHYSICAL_MNG.SELECT_PHYSICAL");
+            return;
+        }
+        if(physical.pmMainStatus=="1"){
+            this.showAlert("物理机为启用状态，不能编辑物理机部件，请先禁用该物理机！");
+            return;
+        }
+        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,pmPoolId:this.pmPoolId}])
+        //this.route.navigate(['physical-mng/physical-mng/physical-edit/${physical.pmId}',{type:this.type,poolId:this.pmPoolId}])
+
 
     }
 
