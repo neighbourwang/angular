@@ -3,7 +3,7 @@ export class StorageModel {
     storageId: string;
     storageName: string;
     displayName: string;
-    storeType: string;
+    storageType: string;
     capacity: string;
     copy: number; //¸±±¾Êý
     peie: string;

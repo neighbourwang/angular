@@ -2404,6 +2404,18 @@ export let RestApis: RestApiModel[] = [
 
      //超分管理
      {
+        "desc": "获取企业联动列表",
+        "id":"assign-mng.ent.list",
+        "method":"GET",
+        "url":"maintenance/trend/query/enterprise"
+     },
+     {
+        "desc": "获取平台联动列表",
+        "id":"assign-mng.plf.list",
+        "method":"GET",
+        "url":"maintenance/trend/query/platform"
+     },
+     {
         "desc": "获取hyper列表",
         "id":"assign-mng.hyper.list",
         "method":"POST",
@@ -2414,6 +2426,6 @@ export let RestApis: RestApiModel[] = [
         "id":"assign-detail.hyper.info",
         "method":"GET",
         "url":"maintenance/hyper/{vmid}/info/{period}"
-     },
+     }
 ]
 

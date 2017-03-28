@@ -1,7 +1,9 @@
 ﻿import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
-
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
+
+import {EntModel, DeptModel} from"../model/ent.model";
+import {PlfModel,RegionModel,ZoneModel} from"../model/plf.model";
 import {Hyper} from "../model/hyper.model";
 //service
 import { AssignMngService } from "../service/assign-mng.service";
@@ -31,12 +33,63 @@ export class AssignMngComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
-    hyperList: Array<Hyper>;
     
+
+    defaultEnt:EntModel = new EntModel();
+    selectedEnt: EntModel = this.defaultEnt;
+    defaultDept: DeptModel = new DeptModel();
+    selectedDept: DeptModel = this.defaultDept;
+
+    defaultPlf: PlfModel = new PlfModel();
+    selectedPlf: PlfModel = this.defaultPlf;
+    defaultRegion: RegionModel = new RegionModel();
+    selectedRegion: RegionModel = this.defaultRegion;
+    defaultZone: ZoneModel = new ZoneModel();
+    selectedZone: ZoneModel = this.defaultZone;
+
+    entList: Array<EntModel>;
+    plfList: Array<PlfModel>;
+    hyperList: Array<Hyper>;
+
     ngOnInit() {
+        this.getEntList();
+        this.getPlfList();
         this.getHyperList();
     }
 
+    getEntList() {
+        this.layoutService.show();
+        this.service.getEntList()  
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.entList = response["resultContent"];
+                   
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    getPlfList() {
+        this.layoutService.show();
+        this.service.getPlfList()  
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.plfList = response["resultContent"];
+                   
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
     getHyperList() {
         this.layoutService.show();
         this.service.getHyperList()  //post 待完善
