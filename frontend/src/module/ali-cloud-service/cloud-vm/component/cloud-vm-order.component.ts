@@ -8,23 +8,23 @@ import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
-//import { MsgAlertModel, MsgModel } from "../model/msg-alert.model";
+import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
 
 //Service
-//import { MsgMngService } from "../service/msg-mng.service";
+import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
 
 
 @Component({
     selector: "alics_vmorder",
     templateUrl: "../template/cloud-vm-order.html",
-    styleUrls: [],
+    styleUrls: ["../../cloud-disk/style/cloud-disk.less"],
     providers: []
 })
 export class AliCloudVmOrderComponent implements OnInit {
     constructor(
         private layoutService: LayoutService,
         private router: Router,
-        //private service: MsgMngService,
+        private service: AliCloudDiskService,
         private activatedRouter : ActivatedRoute,
 
     ) {
@@ -49,6 +49,14 @@ export class AliCloudVmOrderComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
+    keysecret: keysecretModel = new keysecretModel();
+
+    regions: Array<RegionModel> = [];
+
+    defaultRegion: RegionModel = new RegionModel();
+
+    selectedRegion: RegionModel = this.defaultRegion;
+
     private okCallback: Function = null;
     okClicked() {
         console.log('okClicked');
@@ -68,34 +76,48 @@ export class AliCloudVmOrderComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.getKeySecret();
 
-        //this.getMsgList(this.paginationFlag);
-
-    }
-    /*
-
-    getMsgList(status:string, pageIndex?): void {
-        this.paginationFlag = status;
-        this.pageIndex = 1; 
-        this.allSelected = false;
-
+    } 
+    getKeySecret(): void {
         this.layoutService.show();
-        this.service.getMsgListStatus(this.pageIndex, this.pageSize, this.paginationFlag)
+        this.service.getKeySecret()
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "msgList response!");
                 if (response && 100 == response["resultCode"]) {
-                    this.msgAlert.edge = response.pageInfo.totalRecords;
-                    this.msgAlert.list = response.resultContent;
-                    this.totalPage = response.pageInfo.totalPage;
-                    this.pager.render(1);
-                    if(this.paginationFlag == "0") {
-                        this.unreadnumber.num = this.msgAlert.edge;
-                    }
+                    this.service.keysecret = response.resultContent;
+                    console.log(this.service.keysecret, "this.keysecret!");
+                    this.getAllRegions();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
-                    this.msgAlert.edge = 0;
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+    }
+
+    getAllRegions(): void {
+
+        this.layoutService.show();
+        this.service.getAllRegions()
+            .then(
+            response => {
+                this.layoutService.hide();
+                console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.regions = result.Regions.Region;
+                    console.log(this.regions, "this.regions!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
                 }
             })
@@ -130,7 +152,7 @@ export class AliCloudVmOrderComponent implements OnInit {
         this.notice.open(msg.title, msg.desc);
     }
 
-
+/*
     //选择行
     selectItem(index:number): void {
         this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;

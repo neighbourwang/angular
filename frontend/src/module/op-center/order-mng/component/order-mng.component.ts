@@ -74,6 +74,7 @@ export class OrderMngComponent implements OnInit {
 	// private cancelObj: CancelParam = new CancelParam();
 	private _cancelHandler: ItemLoader<any> = null;
 	private detail: OrderDetailItem = new OrderDetailItem();
+
 	private cancelParamList = [];
 	private _entId: string = "191af465-b5dc-4992-a5c9-459e339dc719";
 
@@ -126,7 +127,7 @@ export class OrderMngComponent implements OnInit {
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
 		//退订
-		this._cancelHandler = new ItemLoader<any>(false, "COMMON.UNSUBSCRIBE_DATA_FAILED", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
+		this._cancelHandler = new ItemLoader<any>(false, "退订失败！", "op-center.order-mng.order-cancel.post", restApiCfg, restApi);
 
 		//续订
 		this._renewHandler = new ItemLoader<any>(false, "COMMON.RENEW_DATA_FAILED", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
@@ -220,8 +221,6 @@ export class OrderMngComponent implements OnInit {
 			//只有周期计费可以自动续订
 			let canContinueRenew: (item: SubInstanceItemResp) => boolean = (item: SubInstanceItemResp): boolean => {
 				if (item.billingInfo && item.billingInfo.billingMode != 0)//只有周期计费，0代表周期计费
-					return false;
-				if (item.status != "2" && item.status != "7")//成功、即将过期:7的订单可以续订
 					return false;
 				return true;
 			};
@@ -416,7 +415,7 @@ export class OrderMngComponent implements OnInit {
 			this.autoRenewItem.serviceType = orderItem.itemList[0].serviceType;
 			this.autoRenewItem.expireDate = orderItem.itemList[0].expireDate;
 			this.autoRenewItem.oneTimePrice = orderItem.itemList[0].oneTimePrice;
-			this.autoRenewItem.price = orderItem.itemList[0].price;
+			this.autoRenewItem.price = orderItem.itemList[0].billingInfo.basicPrice;
 			this.autoRenewItem.periodType = orderItem.itemList[0].periodType;
 			this.autoRenewItem.extendType = orderItem.extendType;
 			this.autoRenewItem.instanceId = orderItem.orderId;
@@ -501,12 +500,13 @@ export class OrderMngComponent implements OnInit {
 			let self = this;
 			let getRenewPrice: () => number = function () {
 				let item = self._renewPriceLoader.FirstItem;
+					return item.cyclePrice;
 
-				return item.basePrice || item.basicPrice || item.cyclePrice || item.unitPrice;
+				// return item.basePrice || item.basicPrice || item.cyclePrice || item.unitPrice;
 			};
 
 			this._renewSetting.reset();
-
+	
 
 			this.layoutService.show();
 			this._renewPriceLoader.Go(null, [{ key: "_subId", value: orderItem.orderId }])
@@ -517,6 +517,10 @@ export class OrderMngComponent implements OnInit {
 						n.renewPrice = getRenewPrice();
 						n.renewPeriodType = this._renewPriceLoader.FirstItem.periodType;
 					});
+			this._renewSetting.onetimePrice = this._renewPriceLoader.FirstItem.basePrice;
+			this._renewSetting.price = this._renewPriceLoader.FirstItem.cyclePrice;
+			this._renewSetting.periodType = this._renewPriceLoader.FirstItem.periodType;
+			
 				})
 				.catch(err => {
 					this.layoutService.hide();
@@ -727,7 +731,7 @@ export class OrderMngComponent implements OnInit {
 		if(data[0].itemList[0].isChecked){
 			param.push(this.selectedOrderItem.orderId);
 		}
-		for(let item of data[1].relatedOrderList){
+		for(let item of data[1].relatedSubInstanceList){
 			if(item.isChecked){
 				param.push(item.instanceId);
 			}
@@ -813,6 +817,7 @@ export class OrderMngComponent implements OnInit {
 			&& _.isNumber([0, 1, 2, 3, 5].find(n => n == this.selectedOrderItem.itemList[0].billingInfo.periodType))) {
 			this._renewSetting.renewDate = this.calRenewDate(this.selectedOrderItem.itemList[0].billingInfo.periodType.toString(), this._renewSetting.value);
 			this._renewSetting.unit = this.selectedOrderItem.itemList[0].billingInfo.periodType;
+			this.selectedOrderItem.itemList[0].renewDate = this._renewSetting.renewDate;
 		}
 		else {
 			console.log("续订计算前提发生错误", this.selectedOrderItem, this._renewSetting);

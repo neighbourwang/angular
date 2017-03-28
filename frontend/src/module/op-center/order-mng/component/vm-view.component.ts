@@ -29,7 +29,7 @@ export class VmViewComponent implements OnInit{
 		password:string;//密码
 		instanceName:string;//实例名称
 	}
-// if(vm.attrCode== "PLATFORM"||vm.attrCode== "ZONE"||vm.attrCode== "CPU"||vm.attrCode== "MEM"||vm.attrCode== "BOOTSTORAGE"||vm.attrCode== "PASSWORD"||vm.attrCode== "INSTANCENAME")
+// if(vm.attrCode== "PLATFORM"||vm.attrCode== "ZONE"||vm.attrCode== "CPU"||vm.attrCode== "MEM"||vm.attrCode== "BOOTSIZE"||vm.attrCode== "PASSWORD"||vm.attrCode== "INSTANCENAME")
 		
 	ngOnInit(){
 		let getProperty = _.property("attrDisplayValue");
@@ -38,11 +38,16 @@ export class VmViewComponent implements OnInit{
 			,zone:getProperty(this.values.find(n=>n.attrCode == 'ZONE'))
 			,cpu: getProperty(this.values.find(n=>n.attrCode == 'CPU'))
 			,mem: getProperty(this.values.find(n=>n.attrCode == 'MEM'))
-			,bootstorage:getProperty(this.values.find(n=>n.attrCode == 'BOOTSTORAGE'))
+			,bootstorage:getProperty(this.values.find(n=>n.attrCode == 'BOOTSIZE'))//启动盘容量
 			,password:getProperty(this.values.find(n=>n.attrCode == 'PASSWORD'))
 			,instanceName: getProperty(this.values.find(n=>n.attrCode == "INSTANCENAME"))
 		};
 
+		if(this._obj.password&&this._obj.password!=null){
+			this._obj.password='已设置';
+		}else{
+			this._obj.password='未设置';
+		}
 		console.log('vm-view init', this.values);//.instanceName = 
 	}
 }

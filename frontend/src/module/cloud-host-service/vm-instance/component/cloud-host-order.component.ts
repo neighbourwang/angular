@@ -465,9 +465,9 @@ console.log(this.vmProduct)
 			const [platformQuota, quotaResoure] = res;
 			
 			return argAllTrue(
-				compare(quotaResoure.mem || 0 - quotaResoure.usedMem || 0, this.sendModule.mem.attrValue),
+				compare(quotaResoure.mem || 0 - quotaResoure.usedMem || 0, +this.sendModule.mem.attrValue * 1024),
 				compare(quotaResoure.vcpu || 0 - quotaResoure.usedCpu || 0, this.sendModule.cpu.attrValue),
-				compare(platformQuota.memory || 0, this.sendModule.mem.attrValue),
+				compare(platformQuota.memory || 0, +this.sendModule.mem.attrValue * 1024),
 				compare(platformQuota.cpu || 0, this.sendModule.cpu.attrValue),
 			)
 		})

@@ -16,7 +16,7 @@
 		   <!--<span class="float-left  mgr5 mgt10">日期：</span> -->
 	       <div class="float-left"> <!--[(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()"
 		    *ngFor="let item of _departmentLoader.Items" [value]="item.id"-->
-				<select class="form-control fix-width-120" [(ngModel)]="_param.year" (ngModelChange)="getMonths()">
+				<select class="form-control fix-width-120" [(ngModel)]="_param.year" (ngModelChange)="loadMonths()">
 					<!--<option class="hands" [value]="null">所有年份</option>-->
 					<option class="hands" *ngFor="let item of _years" [value]="item.id">{{item.name}}年</option>
 				</select>
@@ -29,7 +29,7 @@
 			</div>
 			
 			<div class="float-right">
-				<button class="btn button-gray-gradient"><span>下载账单</span></button>
+				<button class="btn button-gray-gradient" (click)="download()"><span>下载账单</span></button>
 			</div>
 			<!--<div class="float-right">
 				<button class="fox-cloud-button-green">导出</button>
@@ -172,7 +172,7 @@
 
 
 <!--下载账单--> 
-	<div class="modal fade" id="downloadDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div #downloadDialog class="modal fade" id="downloadDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  	<div class="modal-dialog" role="document">
 				<div class="modal-content">
 				  	<div class="modal-header">

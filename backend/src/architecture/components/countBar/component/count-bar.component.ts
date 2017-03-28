@@ -34,6 +34,8 @@ export class CountBarComponent implements OnInit{
     stepCheck:boolean = false;   //强制开启step检测 手动输入的时候不允许输入不是step倍数的数字
     @Input()
     valueError:boolean=false; //数据非法样式
+    @Input()
+    decimal:boolean=false;//小数
     @Output()
     output=new EventEmitter();
 
@@ -54,17 +56,17 @@ export class CountBarComponent implements OnInit{
         }      
     }
     valueChange(){
+        console.log(!this.decimal);
+        this.value=this.value?this.value:this.min;
+        if(!this.decimal)this.value=parseInt(this.value+'',10); //取整
+        if(Number.isNaN(this.value))this.value=this.min;
         const beyond = (this.value - this.min)%this.step;
         if(this.stepCheck && beyond !== 0)  this.value = (this.step/2 <= beyond) ? this.value - beyond + this.step : this.value - beyond;   //检测是否输入了非步长倍数的数字
-
         this.value = +this.value > +this.max ? +this.max : +this.value < +this.min ? +this.min : +this.value;
-        if(!this.value){
-            this.value = this.min;
-            this.output.emit(this.value);
-        }else{
-            this.output.emit(this.value);
-        }    //检测是否非法
-        
+        // if(!this.decimal)this.value=Math.ceil(this.value); //取整
+        this.output.emit(this.value);  
+        console.log(!this.value);
+             
     }
     unEdit(){
         this.value=this.min;

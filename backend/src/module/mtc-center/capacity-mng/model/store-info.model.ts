@@ -3,11 +3,11 @@ export class StoreInfoModel{
     storageId: string;
     storageName: string;
     displayName: string;
-    storeType: string;
+    storageType: string;
     total: number;
     copy: number;
-    peie: number;
-    qurta: number;
+    quota: number; //Åä¶î
+    rate: number;  //·ÖÅäÂÊ
     usage: number;
     status: string;
     capacity: number;

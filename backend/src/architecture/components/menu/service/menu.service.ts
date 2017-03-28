@@ -121,6 +121,27 @@ export class MenuService {
 						 	"isShow": !isRoot,
 						 	"routing": "mtc-center/assign-mng/assign-mng"
                          },
+                           {
+						 	"label": "趋势管理",
+						 	"isOpen": false,
+						 	"isActive": false,
+						 	"isShow": !isRoot,
+                              "routing": "",
+                              "top3_menu": [
+				 				{
+				 					"label": "计算资源",
+				 					"isShow": !isRoot,
+				 					"routing": "mtc-center/trend-mng/compute-trend",
+				 					"isActive": false
+				 				},
+				 				{
+				 					"label": "存储资源",
+				 					"routing": "mtc-center/trend-mng/store-trend",
+				 					"isShow": !isRoot,
+				 					"isActive": false
+				 				}
+				 			]
+                         },
                         {
 							"label": "工单管理",
 							"isOpen": false,
@@ -173,26 +194,41 @@ export class MenuService {
                     "icon": "icon-physical-mng",
                     "top2_menu": [
                         {
-                            "label": "USER_CENTER.PHY_INSTANCE",
+                            "label": "物理机资源池管理",
                             "isOpen": false,
                             "isActive": false,
                             "isShow": !isRoot,
-                            "routing": "phy-mng/phy-pool/phy-pool-mng"
-						},
+                            "top3_menu": [
+                                {
+                                    "label": "物理机资源池",
+                                    "isOpen": false,
+                                    "isActive": false,
+                                    "isShow": !isRoot,
+                                    "routing": "phy-mng/phy-pool/phy-pool-mng"
+                                },
+                                {
+                                    "label": "物理机部件管理",
+                                    "isOpen": false,
+                                    "isActive": false,
+                                    "isShow": !isRoot,
+                                    "routing": "phy-mng/phy-pool/phy-unit-mng"
+                                }
+                            ]
+                        },
 						{
                             "label": "USER_CENTER.PHY_IMAGE_MNG",
                             "isOpen": false,
                             "isActive": false,
                             "isShow": !isRoot,
                             "routing": "phy-mng/phy-img/phy-img-mng"
-                        },	
+                        },
 						{
                             "label": "PHY_NET_MNG.PHY_NET",
                             "isOpen": false,
                             "isActive": false,
                             "isShow": !isRoot,
                             "routing": "phy-mng/phy-net/phy-net-mng"
-                        }                        
+                        }
                     ]
                 },
 				{

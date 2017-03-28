@@ -7,15 +7,21 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}:</div><!--产品目录名称-->
-					<div class="col-sm-4">
-						<input type="text" class="form-control" [(ngModel)]="prodDir.serviceName" placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}(必须)"><!--产品目录名称-->
-					</div>
+					<!--<div class="col-sm-4">
+						<input type="text" class="form-control" [(ngModel)]="prodDir.serviceName" placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}(必须)">
+					</div>-->
+					<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.serviceName}">
+					<input type="text" [(ngModel)]="prodDir.serviceName" (ngModelChange)="checkForm('serviceName')" name="serviceName" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}"
+					 class="form-control">
+					<span *ngIf="v.result.serviceName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					<div *ngIf="v.result.serviceName" class="alert alert-danger" role="alert">{{v.result.serviceName}}</div>
+				</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.INIT_SIZE' | translate}}:</div><!--初始大小-->
-					<div class="col-sm-5">
+					<div class="col-sm-5 no-padding">
 						<div class="row">
 							<div class="col-sm-3">
 								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="prodDir.specification.initialSize" (output)="outputValue($event,'initialSize')"></count-bar>
@@ -30,10 +36,10 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.STEP' | translate}}:</div>
-					<div class="col-sm-5">
+					<div class="col-sm-5 no-padding">
 						<div class="row">
 							<div class="col-sm-3">
-								<count-bar [default]=1 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="prodDir.specification.stepSize" (output)="outputValue($event,'stepSize')"></count-bar>
+								<count-bar [default]=1 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="1" (output)="outputValue($event,'stepSize')"></count-bar>
 							</div>
 							<div class="col-sm-2">
 								<span style="line-height:34px;margin-left:-15px;">GB</span>
@@ -45,7 +51,7 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.MAX' | translate}}</div>
-					<div class="col-sm-5">
+					<div class="col-sm-5 no-padding">
 						<div class="row">
 							<div class="col-sm-3">
 								<count-bar [default]=0 [step]="prodDir.specification.stepSize" [max]=200000 [min]="prodDir.specification.initialSize" [disabled]=false [value]="this.prodDir.specification.maxSize" (output)="outputValue($event,'maxSize')" [stepCheck]="true"></count-bar>
@@ -60,9 +66,11 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div for="firstname" class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>
-					<div class="col-sm-4">
-						<textarea class="form-control" rows="4" [(ngModel)]="prodDir.description" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"></textarea>
-					</div>
+					<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
+					<textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
+					 rows="3" [(ngModel)]="prodDir.description" name="description">
+                            </textarea>
+				</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
@@ -165,8 +173,8 @@
         <span class="icon-button-label">{{'NET_MNG_OPENSTACK.CNACLE' | translate}}</span>
     </button>
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();" style="margin-left:40px;">
-        <span class="icon-button-label">{{'PHY_MNG_POOL.CREATE' | translate}}</span><!--创建-->
-
+        <span *ngIf="type=='new'" class="icon-button-label">{{'PHY_MNG_POOL.CREATE' | translate}}</span><!--创建-->
+        <span *ngIf="type=='edit'" class="icon-button-label">{{'COMMON.SAVE' | translate}}</span><!--保存-->
     </button>
 </div>
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>

@@ -21,7 +21,12 @@ export class ProductEditService {
     }
     //获取产品历史价格
     getHistoryPrice(id:string){
-         let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.historyPrice");
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.historyPrice");
         return this.restApi.request(api.method, api.url,[{key:'id',value:id}], undefined);
+    }
+    //编辑产品基本信息
+    editProductbasic(data:any){
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.editBasic");
+        return this.restApi.request(api.method, api.url,[], undefined,data);
     }
 }

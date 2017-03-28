@@ -27,7 +27,7 @@ export class CreateProdStepService{
     getVmProdDirDetail(id:string) {
         this.layoutService.show();
         this.productDir=new ProductDir();
-        let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-vm.detail");
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-edit-vm.detail");
         this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined).then(response => {
             console.log('VM产品目录详情', response);
             if (response && 100 == response.resultCode) {                
@@ -54,7 +54,7 @@ export class CreateProdStepService{
     getDiskProdDirDetail(id:string) {
         this.layoutService.show();
         this.productDir=new ProductDir();
-        let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-disk.detail");
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-edit-disk.detail");
         this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined).then(response => {
             console.log('DISK产品目录详情', response);
             if (response && 100 == response.resultCode) {                
