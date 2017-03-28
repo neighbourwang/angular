@@ -83,7 +83,7 @@ export class AssignDetailComponent implements OnInit {
                     this.memChart.SourceData = this.memList;
                     this.getGraphData(this.cpuChart);
                     this.getGraphData(this.memChart);
-                    this.showGraph();
+                   
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -102,16 +102,19 @@ export class AssignDetailComponent implements OnInit {
         })
         chart._data = temp_value;
         chart.Labels = temp_time;
-    }
-    //画折线图
-    showGraph() {
-        //CPU使用率数据
-        this.cpuChart.DataSets = [{
+
+        let _label="";
+        if (chart == this.cpuChart) {
+            _label = "CPU使用率";
+        } else {
+            _label = "内存使用率";
+        }
+
+        chart.DataSets = [{
 
             data: this.cpuChart._data,
-            label: 'CPU使用率',
+            label:_label,
             fill: true,
-           
             lineTension: 0.1,
             borderCapStyle: 'butt',
             borderDash: [],
@@ -126,43 +129,9 @@ export class AssignDetailComponent implements OnInit {
         }
         ];
 
-         this.cpuChart.ChartType= "line";
+        chart.ChartType= "line";
         
-        this.cpuChart.Colors = [
-            { // grey
-                backgroundColor: '#f9f9fb',
-                borderColor: '#2bd2c8',
-                pointBackgroundColor: '#f1f3f2',
-                pointBorderColor: '#2cd2c8',
-                pointHoverBackgroundColor: '#e8f0f2',
-                pointHoverBorderColor: '#6fdcd6'
-            }
-        ];
-       
-        //内存使用率数据
-        this.memChart.DataSets = [{
-
-            data: this.memChart._data,
-            label: '内存使用率',
-            fill: true,
-           
-            lineTension: 0.1,
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderWidth: 2,
-            pointHoverRadius: 5,
-            pointHoverBorderWidth: 2,
-            pointRadius: 4,
-            pointHitRadius: 10,
-            spanGaps: false,
-        }
-        ];
-
-         this.memChart.ChartType= "line";
-        
-        this.memChart.Colors = [
+        chart.Colors = [
             { // grey
                 backgroundColor: '#f9f9fb',
                 borderColor: '#2bd2c8',
@@ -173,6 +142,8 @@ export class AssignDetailComponent implements OnInit {
             }
         ];
     }
+    
+   
 
     refresh() {
         this.getHyperInfo();
