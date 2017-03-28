@@ -239,11 +239,8 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5æ¶ˆè
         param.ids = historyIds;
 
         this.totalConsumeLoader.Go(null,null,param)
-        .then(success=>{
-            this.increseConsumeLoader.Go(null,null,param)
-        })
         .then(success=>{ 
-            this.chartService.toHistoryData(this.totalConsumeLoader.Items,this.increseConsumeLoader.Items,this.historyChart);
+           this.increaseConsumeLoad(param);
         this.layoutService.hide();
         })
         .catch(err=>{
@@ -252,6 +249,17 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5æ¶ˆè
         })
     }
 
+    increaseConsumeLoad(param:any){
+    this.increseConsumeLoader.Go(null,null,param)
+     .then(success=>{
+        this.chartService.toHistoryData(this.totalConsumeLoader.Items,this.increseConsumeLoader.Items,this.historyChart);
+        this.layoutService.hide();
+    })
+    .catch(err=>{
+        this.layoutService.hide();
+        this.showMsg(err);
+    })
+}
     topConsumeLoad(param:any){
         this.layoutService.show();
         if(this.isNullEnterprise()){
