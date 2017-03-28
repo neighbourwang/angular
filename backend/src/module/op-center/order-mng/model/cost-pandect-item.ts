@@ -36,6 +36,9 @@ export class  TimeCaculater{
 
 //年份下拉列表
 	getYears(){
+        if(this.years.length>0){
+            this.years.splice(0,this.years.length);
+        }
 		for(let i = 1999; i<=this.currentYear ; i++){
 			let year = {id:i,name:i};
         	this.years.push(year);
@@ -44,6 +47,9 @@ export class  TimeCaculater{
 	}
 //月份下拉列表
 	getMonths(year:number){
+        if(this.months.length>0){
+            this.months.splice(0,this.months.length);
+        }
         let _months :number; 
    
         if( this.currentYear== year){
