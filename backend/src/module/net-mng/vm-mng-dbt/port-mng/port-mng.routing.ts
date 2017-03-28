@@ -6,11 +6,11 @@ import { PortMngSetComponent } from './component/port-mng-set.component';
 
 export const VMPortMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'net-mng/vm-mng-dbt/port-mng',
+        path: 'vm-mng-dbt/port-mng',
         component: PortMngComponent
     },
     {
-        path: 'net-mng/vm-mng-dbt/port-mng-set',
+        path: 'vm-mng-dbt/port-mng-set',
         component: PortMngSetComponent
     },
 ]);

@@ -9,23 +9,6 @@ import { SiteService } from './architecture/components/site/service/site.service
 import { MenuService } from './architecture/components/menu/service/menu.service';
 
 
-//mng-console
-import {MngConsoleModule} from './module/mng-console/mng-console.module';
-//vm-instance
-import { CloudHostService } from './module/cloud-host-service/cloud-host-service.module';
-//用户中心
-import { UserCenterModule } from './module/user-center/user-center.module';
-//费用中心
-import { OrderMngModule } from './module/op-center/order-mng/order-mng.module';
-//镜像管理
-import { ImgMngModule } from './module/image-mng/image-mng.module';
-
-//审批中心
-import { CheckCenterModule } from './module/check-center/check-center.module';
-
-//阿里云服务
-import { AliCloudModule } from './module/ali-cloud-service/ali-cloud.module';
-
 
 import { routing } from './app.routing';
 
@@ -34,13 +17,7 @@ import { routing } from './app.routing';
         BrowserModule,
         CoreModule,
         CommonComponentModule,
-        CloudHostService,
-        UserCenterModule,
-        OrderMngModule,
-        CheckCenterModule,
-        ImgMngModule,
-        MngConsoleModule,
-        AliCloudModule,
+       
         routing
     ],
     declarations: [MenuComponent, SiteComponent],

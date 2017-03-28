@@ -142,7 +142,7 @@ export class PhysicalIpmiComponent implements OnInit {
 
    //返回物理机列表
     gotoList() {
-        this.route.navigate(["physical-mng/physical-mng/physical-list",{pmpoolId: this.poolId}]);
+        this.route.navigate(["phy-mng/physical-mng/physical-list",{pmpoolId: this.poolId}]);
     }
     
     //取消

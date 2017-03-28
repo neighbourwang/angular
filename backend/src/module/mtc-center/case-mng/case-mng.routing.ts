@@ -8,20 +8,20 @@ import { CaseOperatedComponent } from "./component/case-operated.component";
 
 export const CaseMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'mtc-center/case-mng/case-list',
+        path: 'case-mng/case-list',
         component: CaseMngComponent
     },
      {
-        path: 'mtc-center/case-mng/case-detail',
+        path: 'case-mng/case-detail',
         component: CaseDetailComponent
     },
 
     {
-        path: 'mtc-center/case-mng/case-closed',
+        path: 'case-mng/case-closed',
         component:  CaseClosedComponent
     },
     {
-        path: 'mtc-center/case-mng/case-operated',
+        path: 'case-mng/case-operated',
         component:  CaseOperatedComponent
     },
     

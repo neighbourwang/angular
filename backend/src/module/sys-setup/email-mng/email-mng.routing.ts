@@ -7,15 +7,15 @@ import { EmailTemplateDetailsComponent } from './component/email-template-detail
 
 export const EmailMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'sys-setup/email-mng/email-list',
+        path: 'email-mng/email-list',
         component: EmailMngComponent
     },
     {
-        path: 'sys-setup/email-mng/email-template-list',
+        path: 'email-mng/email-template-list',
         component: EmailTemplateListComponent
     },
     {
-        path: 'sys-setup/email-mng/email-template-details',
+        path: 'email-mng/email-template-details',
         component: EmailTemplateDetailsComponent
     }
 

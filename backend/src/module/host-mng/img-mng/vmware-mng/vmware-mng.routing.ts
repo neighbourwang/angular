@@ -8,15 +8,15 @@ import { VmwareImgEntSetupComponent } from './component/vmware-img-ent-setup.com
 
 export const VmwareMngRouting = RouterModule.forChild([
     {
-        path: 'host-mng/img-mng/vmware-img-list/:platformId',
+        path: 'img-mng/vmware-img-list/:platformId',
         component: VmwareImgListComponent
     },
     {
-        path : 'host-mng/img-mng/vmware-img-sync/:platformId',
+        path : 'img-mng/vmware-img-sync/:platformId',
         component : VmwareImgSyncComponent
     },
     {
-        path : 'host-mng/img-mng/vmware-img-ent-setup/:platformId',
+        path : 'img-mng/vmware-img-ent-setup/:platformId',
         component : VmwareImgEntSetupComponent
     }
 ]);
