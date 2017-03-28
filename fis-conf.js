@@ -1,7 +1,7 @@
 fis.set('project.ignore', ['*/node_modules/**','node_modules/**','fis-conf.js', '*/e2e/**', '*/src/**', '*/foxcloud-dist/**']);
 
-const RegBackend = /(?:backend\/dist\/(.*)\.*)|(?:backend-portal\/dist\/(.*)\.*)|(?:backend-portal(\/public\/.*)?\.*)/i;
-const RegFrontend = /(?:frontend\/dist\/(.*)\.*)|(?:frontend-portal\/dist\/(.*)\.*)|(?:frontend-portal(\/public\/.*)?\.*)/i;
+const RegBackend = /(?:backend\/dist\/(.*)\.*)|(?:backend\/src(\/architecture\/translate\/.*)\.*)|(?:backend-portal\/dist\/(.*)\.*)|(?:backend-portal(\/public\/.*)?\.*)/i;
+const RegFrontend = /(?:frontend\/dist\/(.*)\.*)|(?:frontend\/src(\/architecture\/translate\/.*)\.*)|(?:frontend-portal\/dist\/(.*)\.*)|(?:frontend-portal(\/public\/.*)?\.*)/i;
 
 const releaseToLocal = (name, path, reg) =>    //发布到本地
 	fis.media(name).match(reg, {
