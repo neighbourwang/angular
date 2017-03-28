@@ -180,6 +180,10 @@ export class AssignDetailComponent implements OnInit {
         
     }
 
+    BacktoAssignMng() {
+        this.router.navigate([`mtc-center/assign-mng/assign-mng`]);  
+    }
+
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
