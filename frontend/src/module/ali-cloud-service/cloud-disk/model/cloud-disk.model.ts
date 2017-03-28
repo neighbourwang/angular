@@ -76,3 +76,51 @@ export class keysecretModel {
     accessId: string = "";
     accessSecret: string = "";
 }
+
+
+export class diskListModel {
+    DiskChargeType: string = "";
+    ImageId: string = "";
+    Device: string = "";
+    DetachedTime: string = "";
+    Type: string = "";
+    InstanceId: string = "";
+    EnableAutoSnapshot: boolean = false;
+    ZoneId: string = "";
+    AttachedTime: string = "";
+    SourceSnapshotId: string = "";
+    DeleteAutoSnapshot: boolean = false;
+    Size: number = 0;
+    Description: string = "";
+    Portable: boolean = false;
+    ProductCode: string = "";
+    EnableAutomatedSnapshotPolicy: boolean = false;
+    DiskName: string = "";
+    AutoSnapshotPolicyId: string = "";
+    CreationTime: string = "";
+    Tags: TagModel = new TagModel();
+    Status: string = "";
+    Category: string = "";
+    RegionId: string = "";
+    DeleteWithInstance: boolean = false;
+    OperationLocks: OperationLockModel = new OperationLockModel();
+    ExpiredTime: string = "";
+    DiskId: string = "";
+}
+
+export class TagModel {
+    Tag: Array<string> = [];
+}
+
+export class OperationLockModel {
+    OperationLock: Array<string> = [];
+}
+
+export class diskOrderModel {
+    clientToken: string = "";
+    description: string = "";
+    diskCategory: string = "";
+    diskName: string = "";
+    size: string = "";
+    snapshotId: string = "";
+}

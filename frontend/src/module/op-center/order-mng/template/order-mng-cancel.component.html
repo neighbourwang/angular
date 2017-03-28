@@ -31,8 +31,8 @@
 						</td>
 						<td>{{prodItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async}}</td>
 						<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>
-						<td>{{prodItem.period}}</td>
-						<td>{{prodItem.quantity}}</td>
+						<td>{{prodItem.period}}{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</td>
+						<td>{{prodItem.quantity}}台</td>
 						<td style="width: 100px;">
 							{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}<br/>
 							<span>费用:￥{{prodItem.price}}/</span><span *ngIf="prodItem.serviceType==1">GB</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
@@ -69,14 +69,14 @@
 								<li *ngFor="let detailItem of relatedItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 							</ul>
 						</td>
-						<td>{{relatedItem.productType}}</td>
-						<td>{{relatedItem.billingMode}}</td>
-						<td>{{relatedItem.period}}</td>
-						<td>{{relatedItem.quantity}}</td>
+						<td>{{relatedItem.productType|dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async}}</td>
+						<td>{{getBillingMode()}}</td>
+						<td>{{relatedItem.period}}{{relatedItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</td>
+						<td>{{relatedItem.quantity}}台</td>
 						<td style="width: 100px;">
-							{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{relatedItem.oneTimePrice}}<br/>
-						<span>费用:￥{{relatedItem.price}}/</span><!--<span>{{relatedItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>--></td>
-						<td class="font-green">{{relatedItem.statusName}}</td>
+							{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{getOneTimePrice()}}<br/>
+						<span>费用:￥{{getPrice()}}/{{getPeriodType()}}</span><!--<span>{{relatedItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>--></td>
+						<td class="font-green">{{relatedItem.status}}</td>
 						<td>{{relatedItem.createDate}}</td>
 						<td>{{relatedItem.expireDate}}</td>
 					</tr>

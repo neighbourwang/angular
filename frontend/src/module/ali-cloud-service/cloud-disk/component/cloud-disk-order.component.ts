@@ -10,7 +10,7 @@ import {
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
-import { RegionModel, keysecretModel, AreaModel } from "../model/cloud-disk.model";
+import { RegionModel, keysecretModel, AreaModel, diskOrderModel } from "../model/cloud-disk.model";
 
 //Service
 import { AliCloudDiskService } from "../service/cloud-disk.service";
@@ -40,9 +40,6 @@ export class AliCloudDiskOrderComponent implements OnInit {
     @ViewChild("confirm")
     confirm: ConfirmComponent;
 
-    @ViewChild("deletemsgbox")
-    deletemsgbox: PopupComponent;
-
     noticeTitle = "";
     noticeMsg = "";
 
@@ -59,6 +56,8 @@ export class AliCloudDiskOrderComponent implements OnInit {
     selectedRegion: RegionModel = this.defaultRegion;
 
     calculatetimer: any = null;
+
+    diskorder: diskOrderModel = new diskOrderModel(); //订购body模型
 
     private okCallback: Function = null;
 
@@ -275,18 +274,55 @@ export class AliCloudDiskOrderComponent implements OnInit {
         }
     }
 
+    buyNow() {
+        this.diskorder.clientToken = "";
+        this.diskorder.description = "";
+        this.diskorder.diskCategory = this.selectedRegion.selectedDisk;
+        this.diskorder.diskName = "";
+        this.diskorder.size = this.selectedRegion.diskCount;
+        this.diskorder.snapshotId = "";
+
+        this.layoutService.show();
+        this.service.createDiskOrder(this.selectedRegion.RegionId, this.selectedRegion.selectedArea.ZoneId, this.diskorder)
+            .then(
+            response => {
+                this.layoutService.hide();
+                console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    console.log(result.DiskId, "result.DiskId was ordered!");
+                    this.showAlert("云硬盘订购成功！", () => {
+                        this.router.navigate([`ali-cloud-service/cloud-disk/cloud-disk-list`]);
+                    });
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+
+    }
+
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason, "onRejected");
         this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 
-    showAlert(msg: string): void {
+    showAlert(msg: string, of?:any): void {
         console.log(msg, "showAlert");
         this.layoutService.hide();
         this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
+        this.notice.nof = of;
     }
 
     
@@ -298,41 +334,5 @@ export class AliCloudDiskOrderComponent implements OnInit {
     showError(msg: any) {
         this.notice.open(msg.title, msg.desc);
     }
-
-/*
-    //选择行
-    selectItem(index:number): void {
-        this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;
-        console.log(this.msgAlert.list, "=== Please see which ones are selected ===");
-        let selectedml = this.msgAlert.list.filter(n=> { return (n.checked == true);});
-        if(selectedml.length == this.pageSize) {
-            console.log("The latest one was selected, so all selected!");
-            this.allSelected = true;
-        } else {
-            this.allSelected = false;
-        }
-    }
-
-    selectOrUnSAllItems(): void {
-        if (this.allSelected) {
-            console.log("All checked before, so set them all unselected");
-            this.allSelected = false;
-            this.msgAlert.list.map(n=> { n.checked = false;});
-        } else {
-            console.log("All unchecked before, so set them all selected");
-            this.allSelected = true;
-            this.msgAlert.list.map(n=> { n.checked = true;});
-        }
-    }
-
-    getSelectedItems() {
-        this.selectedmsglist = this.msgAlert.list.filter(n=> { return (n.checked == true);});
-        if (this.selectedmsglist.length != 0){
-            return this.selectedmsglist;
-        } else {
-            return [];
-        }
-    }
-    */
 
 }

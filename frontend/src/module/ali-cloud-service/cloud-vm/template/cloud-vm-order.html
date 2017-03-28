@@ -9,8 +9,11 @@
                     <p><span class="icon-configure"></span>计费方式：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <button style="display: inline">包年包月</button>
-                    <button>按量付费</button>
+                    <div class="col-md-12">
+                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;" style="display: inline">包年包月</button>
+                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;" style="display: inline">按量付费</button>
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                    </div>
                 </div>
             </li>
 
@@ -21,158 +24,24 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
-                        <div class="col-md-2">
-                            <button style="width:100%">1
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">2
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">3
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">4
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">5
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">6
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
+                        <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);">
+                            <div class="regionName">{{region.LocalName}}</div>
+                            <div class="regionArea">
+                                <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
+                                <span class="caret"></span>
+                                <!-- <select [(ngModel)] ="region.selectedArea" (change)="selectedRegion=region; selectedRegion.selectedArea=region.selectedArea;"> -->
+                                <select [(ngModel)]="selectedRegion.selectedArea" (change)="AreaChanged(region);">
+                                   <option *ngFor="let item of region.areas" [ngValue]="item">
+							           {{item.LocalName}}
+                                   </option>
+                                </select>
+
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="col-md-2">
-                            <button style="width:100%">21
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">22
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">23
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">24
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">25
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">26
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-2">
-                            <button style="width:100%">31
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">32
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">33
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button style="width:100%">34
-						    </button>
-                            <select style="width:100%">
-								<option>a</option>
-								<option>b</option>
-								<option>c</option>
-						    </select>
-                        </div>
+                    <div class="col-md-12 text-tip">不同地域的实例之间内网互不相通；选择靠近您客户的地域，可降低网络时延、提高您客户的访问速度，<a href="javascript:void(0);">教我选择>></a><span class="glyphicon glyphicon-question-sign"></span>
                     </div>
 
-
-                    <div class="col-md-12 text-tip">不同地域的实例之间内网互不相通；选择靠近您客户的地域，可降低网络时延、提高您客户的访问速度，<a href="javascript:void(0);">教我选择>></a></div>
                 </div>
             </li>
 
@@ -183,17 +52,19 @@
                 </div>
                 <div class="col-md-12 li-content">
 
-                    <div class="col-md-12 no-padding mgb20">
-                        <button style="display: inline">经典网络</button>
-                        <button>专有网络</button>
+                    <div class="col-md-12 mgb20">
+                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;" style="display: inline">经典网络</button>
+                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">专有网络</button>
+                        <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
-                    <div class="col-md-12text-tip">
+                    <div class="col-md-12 text-tip">
                         <span> 购买后不能更换网络类型 </span>
                     </div>
-                    <div class="col-md-12 no-padding mgb20">
-                        <button style="display: inline">选择安全组</button>
+                    <div class="col-md-12 mgb20">
+                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;" style="display: inline">选择安全组</button>
+                        <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
-                    <div class="col-md-12text-tip">
+                    <div class="col-md-12 text-tip">
                         <span> 安全组类似防火墙功能，用于设置网络访问控制，您也可以到管理控制台 <a href="javascript:void(0);">新建安全组>></a> <a href="javascript:void(0);">教我选择>></a> </span>
                     </div>
 
@@ -235,8 +106,9 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
-                        <button>按固定带宽</button>
-                        <button>按使用流量</button>
+                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">按固定带宽</button>
+                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">按使用流量</button>
+                        <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                     <div class="col-md-12">
                         预付费模式，带宽费用合并在ECS实例中收取
@@ -264,8 +136,20 @@
                     <p><span class="icon-amount"></span>镜像：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12 no-padding mgb20">
-
+                    <div class="col-md-12 mgb20">
+                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">公共镜像</button>
+                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">自定义镜像</button>
+                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">共享镜像</button>
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                        <select>
+                            <option>请选择操作系统类别</option>
+                        </select>
+                        <select>
+                            <option>请选择版本</option>
+                        </select>
+                        <a href="javascript:void(0);">
+                        较我选择>>
+                        </a>
                     </div>
                 </div>
             </li>
@@ -276,7 +160,24 @@
                     <p><span class="icon-amount"></span>存储：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12 no-padding mgb20">
+                    <div class="col-md-12 mgb20">
+                        <div>
+                            系统盘：
+                            <select>
+                            <option>高效云盘</option>
+                        </select>
+                            <input />
+                        </div>
+                        <div>
+                            数据盘：
+                            <count-bar [step]=1 [max]=2000 [min]=1 [stepCheck]=true [value]="selectedRegion.count" (output)="outputValue($event);">
+                            </count-bar>增加数据盘
+                            <div>
+                                您还可选配4块；
+                            </div>
+
+                        </div>
+
 
                     </div>
                 </div>
@@ -288,7 +189,7 @@
                     <p><span class="icon-amount"></span>购买量：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12 no-padding mgb20">
+                    <div class="col-md-12 mgb20">
 
                     </div>
                 </div>
@@ -300,12 +201,51 @@
                     <p><span class="icon-amount"></span>安全设置：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12 no-padding mgb20">
+                    <div class="col-md-12 mgb20">
+                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">设置密码
+                        </button> 请牢记您所设置的密码，如遗忘可登陆ECS控制台重置密码
+                        <div>
+                            <div>
+                                登陆密码：<input /> 8-30个字符，且同时包含三项(大写字母，小写字母，数字或特殊符号)
+                            </div>
+                            <div>
+                                确认密码：<input />
+                            </div>
+                            <div>
+                                实例名称：<input /> 长度为2-128个字符，以大小写字母或中文开头，可包含数字，".","_"或"-"
+                            </div>
+                        </div>
 
                     </div>
                 </div>
             </li>
 
+            <li class="li_line_backgroud">
+                <div class="col-md-1 li-title">
+                    <p><span></span>当前配置：</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-12">
+                        <div class=" float-right">
+                            <a href="javascript: void(0);">购买须知>></a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <span>地域：</span>
+                            <span>{{selectedRegionLocalName || ""}} ({{selectedRegionselectedAreaLocalName || ""}})</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span>云盘：</span>
+                            <span>{{selectedRegiondiskCount || ""}}G {{selectedRegionselectedDisk || ""}}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span>数量：</span>
+                            <span>{{selectedRegioncount || ""}}</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
 
         </ul>
 
@@ -317,8 +257,7 @@
                         <span>￥0.225/时</span>
                     </div>
                     <div class="float-right">
-                        <button (click)="buyNow()" class="btn button-orange-deep">加入清单</button>
-                        <button (click)="addCart()" class="btn button-orange-light">立即购买</button>
+                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true; addCart()" class="btn button-orange-light">立即购买</button>
                     </div>
                 </div>
             </li>

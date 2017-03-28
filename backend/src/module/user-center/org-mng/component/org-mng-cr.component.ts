@@ -5,6 +5,7 @@ import { LayoutService, NoticeComponent , ConfirmComponent ,PopupComponent } fro
 
 import { OrgMngService } from '../service/org-mng.service';
 
+import { Validation, ValidationRegs } from '../../../../architecture';
 // import { Account } from '../model/account';
 // import { PlatForm } from '../model/platform';
 //model
@@ -22,7 +23,8 @@ export class OrgMngCrComponent implements OnInit{
         private router : Router,
         private route : ActivatedRoute,
         private service : OrgMngService,
-        private layoutService : LayoutService
+        private layoutService : LayoutService,
+        private v: Validation
         ) { }
 
 
@@ -253,15 +255,20 @@ export class OrgMngCrComponent implements OnInit{
         }
         }
     }
-
-    create(){
-        if(!this.org.name){
-            this.notice.open('COMMON.OPERATION_ERROR','USER_CENTER.ORG_NAME_NOT_NULL'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.ORG_NAME_NOT_NULL=>机构名称不能为空 
-
-
-            return;
+    //表单验证
+    checkForm(key?: string) {
+        let regs: ValidationRegs = {  //regs是定义规则的对象
+            name: [this.org.name, [this.v.isInstanceName, this.v.isBase, this.v.isUnBlank], "机构名称输入格式不正确"],           
+           
+            description: [this.org.description, [this.v.maxLength(68)], "描述输入错误"],
         }
-         this.layoutService.show();
+        console.log(this.v.check(key, regs));
+        return this.v.check(key, regs);
+    }
+    create(){
+        let message = this.checkForm();
+        if(message) return ;
+        this.layoutService.show();
         if(this.isCreate){
             this.service.createOrg(this.org).then(
                 res => {

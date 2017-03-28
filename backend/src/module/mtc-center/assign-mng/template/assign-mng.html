@@ -7,34 +7,39 @@
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title" >企业：</div>
         <div class="col-md-2">
-            <select class="form-control">
-                <option>所有企业</option>
+            <select class="form-control" [(ngModel)]="selectedEnt" (change)="selectedDept=defaultDept">
+                <option [ngValue]="defaultEnt">所有企业</option>
+                <option *ngFor="let ent of entList" [ngValue]="ent">{{ent.enterpriseName}}</option>
             </select>
         </div>
         <div class="col-md-2 form-control-title" >部门：</div>
         <div class="col-md-2">
-            <select class="form-control">
-                <option>所有部门</option>
+            <select class="form-control" [(ngModel)]="selectedDept">
+                <option [ngValue]="defaultDept">所有部门</option>
+                <option *ngFor="let dept of selectedEnt.department" [ngValue]="dept">{{dept.departmentName}}</option>
             </select>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title" >平台：</div>
         <div class="col-md-2">
-            <select class="form-control">
-                <option>所有平台</option>
+            <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion">
+                <option [ngValue]="defaultPlf">所有平台</option>
+                <option *ngFor="let plf of plfList" [ngValue]="plf" >{{plf.platformName}}</option>
             </select>
         </div>
         <div class="col-md-2 form-control-title" >Region/DC：</div>
         <div class="col-md-2">
-            <select class="form-control">
-                <option>所有Region/DC</option>
+            <select class="form-control" [(ngModel)]="selectedRegion" (click)="selectedZone=defaultZone">
+                <option [ngValue]="defaultRegion">所有Region/DC</option>
+                <option *ngFor="let reg of selectedPlf.region" [ngValue]="reg">{{reg.region}}</option>
             </select>
         </div>
         <div class="col-md-2 form-control-title" >可用区：</div>
         <div class="col-md-2">
-            <select class="form-control">
-                <option>所有可用区</option>
+            <select class="form-control" [(ngModel)]="selectedZone">
+                <option [ngValue]="defaultZone">所有可用区</option>
+                <option *ngFor="let z of selectedRegion.zone" [ngValue]="z">{{z.zoneName}}</option>
             </select>
         </div>
     </div>

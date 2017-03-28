@@ -236,7 +236,7 @@
         "INCREMENT": "增量",
         "INIT": "初始",
         "INPUT_ACC": "请输入帐号",
-        "INPUT_CONTACT_DESC": "请输入联系描述",
+        "INPUT_CONTACT_DESC": "请输入描述",
         "INPUT_NAME": "请输入姓名",
         "INPUT_PASSWORD": "请输入密码",
         "INPUT_PHONE": "请输入联系电话",
