@@ -59,7 +59,6 @@ export class cloudHostListComponent implements OnInit {
 
 		this.service.computeStatus.then(res => {
 		})
-		this.service.downloadExcel()
 	}
 	ngOnInit() {
 		
