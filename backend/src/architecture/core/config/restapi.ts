@@ -1030,6 +1030,13 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/services/service/{id}/preview"
     },
+    {
+        "desc": "编辑某个VM产品目录详细信息带未选平台put",
+        "id": "prod-mng.prod-dir-vm.edit",
+        "method": "PUT",
+        "url": "adminui/authsec/services/vm/{id}",
+    },
+    
     //for产品编辑
      {
         "desc": "获取某个VM产品目录详细信息",
@@ -2409,6 +2416,18 @@ export let RestApis: RestApiModel[] = [
 
      //超分管理
      {
+        "desc": "获取企业联动列表",
+        "id":"assign-mng.ent.list",
+        "method":"GET",
+        "url":"maintenance/trend/query/enterprise"
+     },
+     {
+        "desc": "获取平台联动列表",
+        "id":"assign-mng.plf.list",
+        "method":"GET",
+        "url":"maintenance/trend/query/platform"
+     },
+     {
         "desc": "获取hyper列表",
         "id":"assign-mng.hyper.list",
         "method":"POST",
@@ -2419,6 +2438,6 @@ export let RestApis: RestApiModel[] = [
         "id":"assign-detail.hyper.info",
         "method":"GET",
         "url":"maintenance/hyper/{vmid}/info/{period}"
-     },
+     }
 ]
 

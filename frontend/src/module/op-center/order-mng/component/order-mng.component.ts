@@ -74,6 +74,7 @@ export class OrderMngComponent implements OnInit {
 	// private cancelObj: CancelParam = new CancelParam();
 	private _cancelHandler: ItemLoader<any> = null;
 	private detail: OrderDetailItem = new OrderDetailItem();
+
 	private cancelParamList = [];
 	private _entId: string = "191af465-b5dc-4992-a5c9-459e339dc719";
 
@@ -126,7 +127,7 @@ export class OrderMngComponent implements OnInit {
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
 		//退订
-		this._cancelHandler = new ItemLoader<any>(false, "COMMON.UNSUBSCRIBE_DATA_FAILED", "op-center.order-mng.order-cancel.get", restApiCfg, restApi);
+		this._cancelHandler = new ItemLoader<any>(false, "退订失败！", "op-center.order-mng.order-cancel.post", restApiCfg, restApi);
 
 		//续订
 		this._renewHandler = new ItemLoader<any>(false, "COMMON.RENEW_DATA_FAILED", "op-center.order-mng.order-renew.get", restApiCfg, restApi);
@@ -730,7 +731,7 @@ export class OrderMngComponent implements OnInit {
 		if(data[0].itemList[0].isChecked){
 			param.push(this.selectedOrderItem.orderId);
 		}
-		for(let item of data[1].relatedOrderList){
+		for(let item of data[1].relatedSubInstanceList){
 			if(item.isChecked){
 				param.push(item.instanceId);
 			}

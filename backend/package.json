@@ -37,6 +37,7 @@
     "bootstrap-touchspin": "^3.1.1",
     "chart.js": "^2.5.0",
     "core-js": "^2.4.1",
+    "echarts": "^3.5.0",
     "ip": "^1.1.4",
     "ng2-bs3-modal": "^0.10.1",
     "ng2-charts": "1.4.0",

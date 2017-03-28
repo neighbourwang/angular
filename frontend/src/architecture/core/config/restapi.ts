@@ -288,8 +288,8 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/subinstance/{subinstanceCode}/orderDetail"
     }, {
         "desc": "订单退订",
-        "method": "GET",
-        "id": "op-center.order-mng.order-cancel.get",
+        "method": "POST",
+        "id": "op-center.order-mng.order-cancel.post",
         "url": "marketplace/authsec/shopping/subinstances/cancel"//修改后的接口
         // "url": "marketplace/authsec/subscription/instance/{_subId}/cascadeFlag/{_cascadeFlag}/cancel"y以前的
     }, {
@@ -772,6 +772,25 @@ export let RestApis: RestApiModel[] = [
         "id": "al-cloud.cloud-disk.price.get",
         "method": "POST",
         "url": "alicloud/authsec/alicloud/price/disk"
+    },
+    
+    { //订购阿里云硬盘
+        "desc": "create alicloud disk",
+        "id": "al-cloud.cloud-disk.diskorder.post",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/createdisk/regionid/{regionid}/zoneid/{zoneid}"
+    },
+    { //获得阿里云硬盘的列表
+        "desc": "query alicloud disk",
+        "id": "al-cloud.cloud-disk.disklist.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describedisks/regionid/{regionid}"
+    },
+    { //删除阿里云硬盘
+        "desc": "delete alicloud disk",
+        "id": "al-cloud.cloud-disk.diskorder.delete",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/deletedisk/diskid/{diskid}"
     },
 
 

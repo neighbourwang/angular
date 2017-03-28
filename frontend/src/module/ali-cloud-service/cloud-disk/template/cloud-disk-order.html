@@ -9,7 +9,7 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
                         <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);">
-                            <div class="regionName" >{{region.LocalName}}</div>
+                            <div class="regionName">{{region.LocalName}}</div>
                             <div class="regionArea">
                                 <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
                                 <span class="caret"></span>
@@ -25,7 +25,7 @@
                     </div>
 
 
-                    <div class="col-md-12 text-tip">云盘只能挂载在同一可用区的ECS实例内，订购后不支持更换地域，请谨慎选择，<a href="javascript:void(0);">教我选择>></a></div>
+                    <div class="col-md-12 text-tip">云盘只能挂载在同一可用区的ECS实例内，订购后不支持更换地域，请谨慎选择，<a href="javascript:void(0);">教我选择>></a><span class="glyphicon glyphicon-question-sign"></span></div>
                 </div>
             </li>
 
@@ -98,8 +98,8 @@
                         <span>{{selectedRegion.price}}</span>
                     </div>
                     <div class="float-right">
-                        <button (click)="buyNow()" class="btn button-orange-deep">加入清单</button>
-                        <button (click)="addCart()" class="btn button-orange-light">立即购买</button>
+                        <!-- <button (click)="buyNow()" class="btn button-orange-deep">加入清单</button> -->
+                        <button (click)="buyNow()" class="btn button-orange-light">立即购买</button>
                     </div>
                 </div>
             </li>
