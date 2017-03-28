@@ -20,7 +20,7 @@ export class ProdDirDetailService {
     }
     // 取得Disk产品目录详情
     getDiskProdDirDetail(id:string) {
-        let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-disk.detail");
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-edit.get");
         return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined);
     }
 
