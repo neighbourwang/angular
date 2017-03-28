@@ -51,6 +51,7 @@ export class SubInstanceItemResp {
     return this.billingInfo ? this.billingInfo.periodType : null;
   }
   
+  //basePrice:一次性费用  basicPrice:周期费用  cyclePrice:增量费用
   get oneTimePrice():number{
     return this.billingInfo ? this.billingInfo.basePrice : 0;
   }
@@ -60,8 +61,8 @@ export class SubInstanceItemResp {
     if(this.billingInfo){
       if(this.billingMode == 0)//云主机，包年包月
       {
-        return this.billingInfo.cyclePrice;//周期费用
-        // return this.billingInfo.basicPrice + this.billingInfo.cyclePrice;//增量费用+周期费用
+        return this.billingInfo.basicPrice;//周期费用
+        // return this.billingInfo.basicPrice + this.billingInfo.cyclePrice;//周期费用+增量费用
       }
       else if(this.billingMode == 1)//按量计费
       {

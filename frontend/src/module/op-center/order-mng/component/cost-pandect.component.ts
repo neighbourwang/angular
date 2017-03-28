@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import {CostManageItem,TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import * as _ from 'underscore';
 
@@ -56,7 +56,10 @@ private topConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消费总�
 
 private topIncreseConsumeLoader:ItemLoader<BillInfo> = null;//TOP5消费增长总额
 private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消费增长总额-某个企业
-	
+
+private downLoadItemLoader:ItemLoader<CostManageItem> = null;//下载账单表格数据
+private downLoadHandler:ItemLoader<CostManageItem> = null;//下载账单表格数据
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -70,7 +73,23 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         
         this.enterpriseLoader = new ItemLoader<{id:string;name:string}> (false,'企业列表加载错误','op-center.order-mng.ent-list.get',this.restApiCfg,this.restApi);
         this.userTypeLoader = new ItemLoader<UserInfo> (false,'用户类型加载出错','op-center.order-mng.ent-type.get',this.restApiCfg,this.restApi);
-       
+        this.downLoadItemLoader = new ItemLoader<CostManageItem> (false,'下载账单数据加载出错','op-center.order-mng.cost-manage.post',this.restApiCfg,this.restApi);
+       	this.downLoadItemLoader.MapFunc =(source:Array<any>,target:Array<CostManageItem>)=>{
+			for(let item of source){
+				let obj = new CostManageItem();
+				target.push(obj);
+				obj.id=item.id;
+				obj.startTime = item.startTime;
+				obj.endTime = item.endTime;
+				obj.money = item.amount;
+				obj.endDate = item.billDate;
+				obj.sentDate = item.sendDate;
+				obj.status = item.status;
+			}
+		}
+        this.downLoadHandler = new ItemLoader<CostManageItem> (false,'下载出错','op-center.order-mng.cost-pandect.bill-download.post',this.restApiCfg,this.restApi);
+
+
         this.userTypeLoader.MapFunc = (source:Array<any>, target:Array<UserInfo>)=>{
                 let obj = new UserInfo();
                 for(let item of source){
@@ -663,7 +682,64 @@ showMsg(msg: string)
     }
 
     download(){
+         this._param.year = this.currentYear.toString(); 
+         this.loadYears();
         $('#downloadDialog').modal('show');
+
+//         {
+//   "enterpiseSubinstanceSearchCondition": {
+//     "endTime": "2017-03-28T02:28:20.794Z",
+//     "idList": [
+//       "string"
+//     ],
+//     "startTime": "2017-03-28T02:28:20.794Z"
+//   },
+//   "id": "string"
+// }
     }
-	
+    showDownLoad(){
+    	let param;
+		let endTime = this._param.year+'-12-31'+' 23:59:59';
+		let startTime = this._param.year+'-01-01'+' 00:00:00';
+		param={
+  			"billEndTime": null,
+  			"billStartTime": null,
+  			"idList": [this.userTypeLoader.FirstItem.enterpriseId],
+			"sendEndTime": endTime,
+  			"sendStartTime": startTime
+		}
+		// param = _.extend({},this._param);
+		this.layoutService.show();
+		this.downLoadItemLoader.Go(null,null,param)
+		.then(success=>{
+			this.layoutService.hide();
+		})
+	.catch(err=>{
+		this.layoutService.hide();
+		this.showMsg(err);
+	})
+}
+
+acceptDownload(item:CostManageItem){
+	let endTime = this._param.year+'-12-31'+' 23:59:59';
+	let startTime = this._param.year+'-01-01'+' 00:00:00';
+    let param = {
+                "enterpiseSubinstanceSearchCondition": {
+                    "endTime": endTime,
+                    "idList": [this.userTypeLoader.FirstItem.enterpriseId],
+                    "startTime": startTime
+                },
+                "id": item.id
+            }
+    this.layoutService.show();
+    this.downLoadHandler.Go(null,null,param)
+    .then(success=>{
+            alert("success");
+			this.layoutService.hide();
+		})
+	.catch(err=>{
+		this.layoutService.hide();
+		this.showMsg(err);
+	})
+}
 }
