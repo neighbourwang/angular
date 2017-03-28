@@ -212,10 +212,15 @@ export class CreatChartService{
                 datas.push(source.dbOrderPriceSum);
                 datas.push(source.diskOrderPriceSum);
                 datas.push(source.vmOrderPriceSum);  
-                labels.push('物理机：'+source.physicalMachineOrderPriceSum);
-                labels.push('数据库：'+source.dbOrderPriceSum);
-                labels.push('云硬盘：'+source.diskOrderPriceSum);
-                labels.push('云主机：'+source.vmOrderPriceSum); 
+
+                // labels.push('物理机：'+source.physicalMachineOrderPriceSum);
+                // labels.push('数据库：'+source.dbOrderPriceSum);
+                // labels.push('云硬盘：'+source.diskOrderPriceSum);
+                // labels.push('云主机：'+source.vmOrderPriceSum); 
+                labels.push('物理机');
+                labels.push('数据库');
+                labels.push('云硬盘');
+                labels.push('云主机'); 
         }
         target.datasets[0].data.splice(0,target.datasets[0].data.length);
         target.labels.splice(0,target.labels.length);
