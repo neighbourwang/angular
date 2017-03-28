@@ -30,6 +30,9 @@ export class  TimeCaculater{
 
 //年份下拉列表
 	getYears(){
+        if(this.years.length>0){
+            this.years.splice(0,this.years.length);
+        }
 		for(let i = 1999; i<=this.currentYear ; i++){
 			let year = {id:i,name:i};
         	this.years.push(year);
@@ -38,6 +41,9 @@ export class  TimeCaculater{
 	}
 //月份下拉列表
 	getMonths(year:number){
+        if(this.months.length>0){
+            this.months.splice(0,this.months.length);
+        }
         let _months :number; 
    
         if( this.currentYear== year){
@@ -118,6 +124,23 @@ export class  Chart{
         this.labels = [];
         this.options = null;
     }
-
-    
 }
+
+export class CostManageItem{
+
+     id:string;
+     
+     startTime:string;
+     endTime:string;//记账周期
+
+     money:string;//账单金额
+     endDate:string;//账单生成日
+     sentDate:string;//账单发送日
+     status:string;//账单状态
+     statusName:string;//用于显示
+
+    adjustAmount:string;//调整金额
+
+    adjustReason:string;//调整项目
+}
+

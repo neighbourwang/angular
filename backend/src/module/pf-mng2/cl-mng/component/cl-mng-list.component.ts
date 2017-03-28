@@ -331,6 +331,7 @@ export class ClMngListComponent implements OnInit {
     godetail(item){
         console.log(item);        
         item.status!='0'&&this.router.navigate(["pf-mng2/pf-mng-detail", {id:item.id,type:item.platformType,name:item.name}]);
+        item.status=='0'&&this.resetInit(item);
     }
     //初始化状态平台充值资源
     resetInit(item){

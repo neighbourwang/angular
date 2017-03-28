@@ -85,8 +85,12 @@ export class PhyUnitMngComponent implements OnInit{
         item.selected= true;
     }
 
-    creat(){
+    crePage(){
         this.creUnit.open("新建部件");
+    }
+
+    editPage(){
+        this.creUnit.open("编辑部件");
     }
 
 

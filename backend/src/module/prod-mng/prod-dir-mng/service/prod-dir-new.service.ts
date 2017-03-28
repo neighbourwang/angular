@@ -33,12 +33,11 @@ export class CreateProdDirService {
         let api = this.restApiCfg.getRestApi("prod-dir-vmPlate");
         return this.restApi.request(api.method, api.url, undefined, undefined, body, );
     }
-    //编辑云主机产品你目录    
+    //编辑云主机产品目录    
      editVmProdDir(id:string,data: any) {
         let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-vm.edit");
         return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined, data);
     }
-
     //新建Disk产品
     postDiskProdDir(data: any) {
         let api = this.restApiCfg.getRestApi("prod-mng.prod-disk-dir.create");
@@ -49,5 +48,9 @@ export class CreateProdDirService {
         let api = this.restApiCfg.getRestApi("prod-mng.prod-disk-dir.plateforms");
         return this.restApi.request(api.method, api.url, undefined, undefined);
     }
-
+    //编辑云硬盘产品目录
+    editDiskProdDir(id:string,data: any){        
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-dir-edit.put");
+        return this.restApi.request(api.method, api.url, [{ key: "id", value: id }], undefined, data);
+    }
 }
