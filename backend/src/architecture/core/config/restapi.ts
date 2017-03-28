@@ -1030,6 +1030,13 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/services/service/{id}/preview"
     },
+    {
+        "desc": "编辑某个VM产品目录详细信息带未选平台put",
+        "id": "prod-mng.prod-dir-vm.edit",
+        "method": "PUT",
+        "url": "adminui/authsec/services/vm/{id}",
+    },
+    
     //for产品编辑
      {
         "desc": "获取某个VM产品目录详细信息",
@@ -1113,7 +1120,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/product/{id}/historyBilling"
     },
-
+    {
+        "desc": "编辑产品详细信息",
+        "id": "prod-mng.prod-mng.editBasic",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/product/update/basic"
+    },
     //用户中心
     {
         "desc": "获取所有机构",

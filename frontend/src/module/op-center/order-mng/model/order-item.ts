@@ -77,6 +77,7 @@ export class SubInstanceItemResp {
   billingModeName: string = null;//计费模式名称
   renewPrice:number = null;//续订费用，每次续订时组装。
   renewPeriodType:number ;//续订费用单位
+  renewDate:string;//续订后到期时间
   periodTypeName: string = null;//计费时长单位
 
   buyer:string = null;//订购人

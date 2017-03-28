@@ -4,16 +4,17 @@ import { NgForm } from "@angular/forms";
 
 import {
     LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
-    PaginationComponent, PopupComponent
+    PaginationComponent, PopupComponent, SystemDictionary
 } from "../../../../architecture";
 
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
-import { RegionModel, keysecretModel } from "../model/cloud-disk.model";
+import { RegionModel, keysecretModel, AreaModel, diskOrderModel, diskListModel } from "../model/cloud-disk.model";
 
 //Service
 import { AliCloudDiskService } from "../service/cloud-disk.service";
+import { AliCloudDiskDictService } from "../service/cloud-disk-dict.service";
 
 
 @Component({
@@ -27,6 +28,7 @@ export class AliCloudDiskListComponent implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private service: AliCloudDiskService,
+        private dictService: AliCloudDiskDictService,
         private activatedRouter: ActivatedRoute,
     ) {
     }
@@ -40,9 +42,6 @@ export class AliCloudDiskListComponent implements OnInit {
     @ViewChild("confirm")
     confirm: ConfirmComponent;
 
-    @ViewChild("deletemsgbox")
-    deletemsgbox: PopupComponent;
-
     noticeTitle = "";
     noticeMsg = "";
 
@@ -53,6 +52,10 @@ export class AliCloudDiskListComponent implements OnInit {
     keysecret: keysecretModel = new keysecretModel();
 
     regions: Array<RegionModel> = [];
+
+    disks: Array<diskListModel> = []; //订购body模型
+
+    diskDictArray: Array<SystemDictionary> = [];
 
     private okCallback: Function = null;
 
@@ -75,10 +78,15 @@ export class AliCloudDiskListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        //this.getKeySecret();
+        this.getKeySecret();
 
-    }
+        this.dictService.diskDict
+        .then((items) => {
+            this.diskDictArray = items;
+            console.log(this.diskDictArray, "this.diskDictArray");
+        });
 
+    } 
     getKeySecret(): void {
         this.layoutService.show();
         this.service.getKeySecret()
@@ -126,40 +134,46 @@ export class AliCloudDiskListComponent implements OnInit {
             });
     }
 
-
-    onRejected(reason: any) {
-        this.layoutService.hide();
-        console.log(reason, "onRejected");
-        this.showAlert("COMMON.GETTING_DATA_FAILED");
-    }
-
-    showAlert(msg: string): void {
-        console.log(msg, "showAlert");
-        this.layoutService.hide();
-        this.noticeTitle = "COMMON.PROMPT";
-        this.noticeMsg = msg;
-        this.notice.open();
-    }
-
-
-    showMsg(msg: string) {
-        console.log(msg, "showMsg");
-        this.notice.open("COMMON.SYSTEM_PROMPT", msg);
-    }
-
-    showError(msg: any) {
-        this.notice.open(msg.title, msg.desc);
-    }
-
-
     selectRegion(region: RegionModel) {
         this.regions.map((item) => {
             item.selected = false;
         });
         region.selected = true;
+        this.getDiskList(region); // 列出对应region的disk list
         if (region.areas == null || region.areas.length == 0) {
             this.getArea(region);
         }
+    }
+
+    getDiskList(region: RegionModel) {
+        this.layoutService.show();
+        this.service.getDiskList(this.pageIndex, this.pageSize, region.RegionId)
+        .then(
+            response => {
+                this.layoutService.hide();
+                console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    console.log("==============");
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.disks = result.Disks.Disk;
+                    this.totalPage = result.TotalCount;
+                    for(let i=0; i<this.disks.length; i++) {
+                        console.log(this.disks[i].DiskId, " == ");
+                    }
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+        })
+        .catch((e) => {
+                this.onRejected(e);
+            });
+
     }
 
     //根据regionId获取可用区列表
@@ -186,6 +200,34 @@ export class AliCloudDiskListComponent implements OnInit {
             .catch((e) => {
                 this.onRejected(e);
             });
+    }
+
+    goToDiskOrder() {
+        this.router.navigate([`ali-cloud-service/cloud-disk/cloud-disk-order`]);
+    }
+
+    onRejected(reason: any) {
+        this.layoutService.hide();
+        console.log(reason, "onRejected");
+        this.showAlert("COMMON.GETTING_DATA_FAILED");
+    }
+
+    showAlert(msg: string): void {
+        console.log(msg, "showAlert");
+        this.layoutService.hide();
+        this.noticeTitle = "COMMON.PROMPT";
+        this.noticeMsg = msg;
+        this.notice.open();
+    }
+
+
+    showMsg(msg: string) {
+        console.log(msg, "showMsg");
+        this.notice.open("COMMON.SYSTEM_PROMPT", msg);
+    }
+
+    showError(msg: any) {
+        this.notice.open(msg.title, msg.desc);
     }
 
     /*

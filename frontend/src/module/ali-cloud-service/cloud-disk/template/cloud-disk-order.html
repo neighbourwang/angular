@@ -14,18 +14,18 @@
                                 <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
                                 <span class="caret"></span>
                                 <!-- <select [(ngModel)] ="region.selectedArea" (change)="selectedRegion=region; selectedRegion.selectedArea=region.selectedArea;"> -->
-                                <select [(ngModel)]="region.selectedArea" (change)="selectedRegion.selectedArea=region.selectedArea;">
-                        <option *ngFor="let item of region.areas" [ngValue]="item">
-							{{item.LocalName}}
-                        </option>
-                    </select>
+                                <select [(ngModel)]="selectedRegion.selectedArea" (change)="AreaChanged(region);">
+                                   <option *ngFor="let item of region.areas" [ngValue]="item">
+							           {{item.LocalName}}
+                                   </option>
+                                </select>
 
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="col-md-12 text-tip">云盘只能挂载在同一可用区的ECS实例内，订购后不支持更换地域，请谨慎选择，<a href="javascript:void(0);">教我选择>></a></div>
+                    <div class="col-md-12 text-tip">云盘只能挂载在同一可用区的ECS实例内，订购后不支持更换地域，请谨慎选择，<a href="javascript:void(0);">教我选择>></a><span class="glyphicon glyphicon-question-sign"></span></div>
                 </div>
             </li>
 
@@ -36,11 +36,11 @@
                 <div class="col-md-12 li-content">
 
                     <div class="col-md-12 no-padding mgb20">
-                        <select class="select_input_size" [(ngModel)]="selectedRegion.selectedDisk">
-							<option *ngIf="selectedRegion==defaultRegion" [value]="">请选择可用区</option>
+                        <select class="select_input_size" [(ngModel)]="selectedRegion.selectedDisk" (change)="DiskChanged();">
+							<option value="">请选择云盘</option>
 							<option *ngFor="let disktype of selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories" [value]="disktype">{{disktype}}</option>
 						</select>
-                        <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" /> G
+                        <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (change)="calculatePrice();" /> G
                         <span class="text-tip">
 							用快照创建磁盘
 						</span>
@@ -55,7 +55,7 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 no-padding mgb20">
                         <div style="display: inline">
-                            <count-bar [step]=1 [max]=2000 [min]=1 [stepCheck]=true [value]=1 (output)="outputValue($event)">
+                            <count-bar [step]=1 [max]=2000 [min]=1 [stepCheck]=true [value]="selectedRegion.count" (output)="outputValue($event);">
                             </count-bar>台
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                     <div class="col-md-12">
                         <div class="col-md-4">
                             <span>地域：</span>
-                            <span>{{selectedRegion.LocalName || ""}} {{selectedRegion.selectedArea.LocalName || ""}}</span>
+                            <span>{{selectedRegion.LocalName || ""}} ({{selectedRegion.selectedArea.LocalName || ""}})</span>
                         </div>
                         <div class="col-md-4">
                             <span>云盘：</span>
@@ -94,30 +94,25 @@
                 <div class="col-md-12" style="padding: 35px 20px 25px 40px;">
                     <div class="float-left">
                         <span>配置费用：</span>
-                        <span>￥0.225/时</span>
+                        <!-- <span>￥{{selectedRegion.price}}/时</span> -->
+                        <span>{{selectedRegion.price}}</span>
                     </div>
                     <div class="float-right">
-                        <button (click)="buyNow()" class="btn button-orange-deep">加入清单</button>
-                        <button (click)="addCart()" class="btn button-orange-light">立即购买</button>
+                        <!-- <button (click)="buyNow()" class="btn button-orange-deep">加入清单</button> -->
+                        <button (click)="buyNow()" class="btn button-orange-light">立即购买</button>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
-    <!-- [ngClass]="{'right-fixed' : rightFixed}" (window:scroll)="onScroll($event)" 
-	<div class="col-md-12 no-padding">
-        <div class="float-left">
-            <span >配置费用：</span>
-            <span >￥0.225/时</span>
-        </div>
-        <div class="float-right">
-            <button (click)="buyNow()" class="btn button-orange-deep">加入清单</button>
-            <button (click)="addCart()" class="btn button-orange-light">立即购买</button>
-        </div>
-	</div>
-	-->
+
 </div>
 
+<!--
 {{selectedRegion.toString()}}
+<br />
+<br />
+{{selectedRegion.selectedArea.toString()}}
+-->
 
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>

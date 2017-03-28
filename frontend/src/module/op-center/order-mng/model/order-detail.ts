@@ -26,6 +26,7 @@ export class OrderDetailItem {
   quantity: number = null;//, optional): 订购数量 ,
 
   isChecked:boolean = false;
+
   get isExtend():string{
     if(this.extendType=='0')
       return '否';

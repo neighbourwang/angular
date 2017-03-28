@@ -2,7 +2,7 @@ import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import { TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
-
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import * as _ from 'underscore';
 
 @Component({
@@ -26,6 +26,7 @@ export class CostPandectComponent implements OnInit{
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;
+
 size:number=12; 
 isRoot = false;
 
@@ -444,9 +445,19 @@ createHstoryBar(){
                         '#2BD2C8',
                         '#2BD2C8',
                         '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
                         '#2BD2C8'
                     ],
                     borderColor: [
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
+                        '#2BD2C8',
                         '#2BD2C8',
                         '#2BD2C8',
                         '#2BD2C8',
@@ -515,9 +526,11 @@ createTopBar(){
                         '#2BD2C8',
                         '#2BD2C8',
                         '#2BD2C8',
+                        '#2BD2C8',
                         '#2BD2C8'
                     ],
                     borderColor: [
+                        '#2BD2C8',
                         '#2BD2C8',
                         '#2BD2C8',
                         '#2BD2C8',
@@ -554,9 +567,11 @@ createTopBar2(){
                         '#2BD2C8',
                         '#2BD2C8',
                         '#2BD2C8',
+                        '#2BD2C8',
                         '#2BD2C8'
                     ],
                     borderColor: [
+                        '#2BD2C8',
                         '#2BD2C8',
                         '#2BD2C8',
                         '#2BD2C8',
@@ -645,6 +660,10 @@ showMsg(msg: string)
             return true;
         return false;
         
+    }
+
+    download(){
+        $('#downloadDialog').modal('show');
     }
 	
 }

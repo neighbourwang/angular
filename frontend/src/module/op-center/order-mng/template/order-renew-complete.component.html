@@ -1,4 +1,4 @@
-<!--订单续订-->
+<!--订单续订完成-->
 	<div class="OrderRenew"> 
 		<div class="page-content">
 			<div class="table-container mgb20">
@@ -10,9 +10,10 @@
 							<th>{{ 'ORDER_MNG.CHARGING_MODE' | translate}}</th>
 							<th>{{ 'ORDER_MNG.PURCHASE_CYCLE' | translate}}</th>
 							<th>{{ 'COMMON.QUANTITY' | translate}}</th>
-							<th>{{ 'ORDER_MNG.UNIT_PRICE' | translate}}</th>
-							<th>{{ 'ORDER_MNG.RENEWAL_FEE' | translate}}</th>
-							<th>{{ 'ORDER_MNG.ORIGINAL_EXPIRATION_TIME' | translate}}</th>
+							<th>新费用</th>
+							<th>状态</th>
+							<th>新费用开始时间</th>
+                            <th>续订后到期时间</th>
 						</tr>			
 					</thead>
 					<tbody>
@@ -30,11 +31,12 @@
 							<td>{{prodItem.period}}{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async }}</td>
 							<td>{{prodItem.quantity}}台</td>
 							<td style="width: 100px;">
-								{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}<br/>
+								{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥0<br/>
 							<span>费用:￥{{prodItem.price}}/</span><span *ngIf="prodItem.serviceType==1">GB</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
 							</td>
-							<td class="font-green">￥{{prodItem.renewPrice}}/{{prodItem.renewPeriodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async }}</td>
+							<td class="font-green">审批中</td>
 							<td>{{prodItem.expireDate}}</td>
+                            <td>{{prodItem.renewDate}}</td>
 						</tr>
 					</tbody>
 				</table>

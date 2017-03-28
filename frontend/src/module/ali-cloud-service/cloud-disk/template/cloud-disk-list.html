@@ -6,10 +6,10 @@
         <div class="col-md-10">
             <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);">
                 <div class="regionName">{{region.LocalName}}</div>
-                <div class="regionArea" >
+                <div class="regionArea">
                     <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
                     <span class="caret"></span>
-                    <select [(ngModel)] ="region.selectedArea">
+                    <select [(ngModel)]="region.selectedArea">
                         <option *ngFor="let item of region.areas" [ngValue]="item">
                             {{item.LocalName}}
                         </option>
@@ -38,7 +38,7 @@
         </div>
 
         <div class="dropdown float-right  mgr5">
-            <button class="btn float-left mgr5 btn-success" (click)="goTo('cloud-host-service/cloud-host-order')"><i class="glyphicon glyphicon-plus"></i>创建云硬盘</button>
+            <button class="btn float-left mgr5 btn-success" (click)="goToDiskOrder();"><i class="glyphicon glyphicon-plus"></i>创建云硬盘</button>
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 更多操作
                 <span class="caret"></span>
@@ -62,16 +62,29 @@
             <th class="text-center">可用区</th>
             <th class="text-center">属性</th>
         </tr>
-        <tr style="line-height: 65px;">
+        <tr style="line-height: 65px;" *ngFor="let disk of disks; let i=index;">
             <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
             <td class="text-center active" style="position: relative;width: 220px;">
-                d-bp1cwuop03pj6cn8hu1g
+                {{disk.DiskId}}
                 <!--<table-edit-name
                     (nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])"
                     [value]="vm.instanceName"
                     (onChange)="changeName($event, vm)">
                 </table-edit-name>
                 -->
+            </td>
+            <td class="text-center">{{disk.Category}}</td>
+            <td class="text-center">{{disk.Status}}</td>
+            <td class="text-center">{{disk.DiskChargeType}}</td>
+            <td class="text-center">支持</td>
+            <td class="text-center">华南1 可用区B</td>
+            <td class="text-center">{{disk.Type}}</td>
+        </tr>
+        <!--
+        <tr style="line-height: 65px;" >
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
+            <td class="text-center active" style="position: relative;width: 220px;">
+                d-bp1cwuop03pj6cn8hu1g
             </td>
             <td class="text-center">高效云盘</td>
             <td class="text-center">使用中</td>
@@ -92,6 +105,7 @@
             <td class="text-center">华南1 可用区A</td>
             <td class="text-center">系统盘</td>
         </tr>
+        -->
     </table>
     <fc-pagination tp={{totalPage}} (pf)="changePage($event)"></fc-pagination>
     <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
