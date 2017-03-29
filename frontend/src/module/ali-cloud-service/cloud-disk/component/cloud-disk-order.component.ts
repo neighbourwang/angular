@@ -4,7 +4,7 @@ import { NgForm } from "@angular/forms";
 
 import {
     LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
-    PaginationComponent, PopupComponent
+    PaginationComponent, PopupComponent, SystemDictionary
 } from "../../../../architecture";
 
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
@@ -14,6 +14,7 @@ import { RegionModel, keysecretModel, AreaModel, diskOrderModel } from "../model
 
 //Service
 import { AliCloudDiskService } from "../service/cloud-disk.service";
+import { AliCloudDiskDictService } from "../service/cloud-disk-dict.service";
 
 
 @Component({
@@ -27,6 +28,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private service: AliCloudDiskService,
+        private dictService: AliCloudDiskDictService,
         private activatedRouter: ActivatedRoute,
     ) {
     }
@@ -59,6 +61,8 @@ export class AliCloudDiskOrderComponent implements OnInit {
 
     diskorder: diskOrderModel = new diskOrderModel(); //订购body模型
 
+    diskCategoryDictArray: Array<SystemDictionary> = [];
+
     private okCallback: Function = null;
 
     okClicked() {
@@ -80,6 +84,12 @@ export class AliCloudDiskOrderComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.dictService.diskCategoryDict
+        .then((items) => {
+            this.diskCategoryDictArray = items;
+            console.log(this.diskCategoryDictArray, "this.diskCategoryDictArray");
+        });
+
         this.getKeySecret();
 
     } 
@@ -236,6 +246,17 @@ export class AliCloudDiskOrderComponent implements OnInit {
         window.setTimeout(() => {
             this.calculatePrice();
         }, 50); //window内的代码要延后50ms执行
+    }
+
+    displayDiskType(disktype: string):string {
+        let diskDict:Array<SystemDictionary> = this.diskCategoryDictArray.filter((item) => {
+            return item.value == disktype;
+        });
+        if (diskDict.length != 0) {
+            return diskDict[0].displayValue;
+        } else {
+            return disktype;
+        }
     }
 
     calculatePrice() {

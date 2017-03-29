@@ -215,16 +215,16 @@ export class PhysicalListComponent implements OnInit {
     //添加物理机
     createPhysical(){
         this.type="create";
-        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,pmPoolId:this.pmPoolId}])
-           //this.route.navigate(['physical-mng/physical-mng/physical-edit/${this.pmPoolId}',{type:this.type}])
+        this.route.navigate(['phy-mng/physical-mng/physical-edit',{type:this.type,pmPoolId:this.pmPoolId}])
+           //this.route.navigate(['phy-mng/physical-mng/physical-edit/${this.pmPoolId}',{type:this.type}])
     }
 
     //跳转查看物理机
     gotoPhysicalView(physical:PhysicalModel){
         this.type="view";
         
-        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,pmPoolId:this.pmPoolId}])
-        //this.route.navigate(['physical-mng/physical-mng/physical-edit/${physical.pmId}',{type:this.type,poolId:this.pmPoolId}])
+        this.route.navigate(['phy-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,pmPoolId:this.pmPoolId}])
+        //this.route.navigate(['phy-mng/physical-mng/physical-edit/${physical.pmId}',{type:this.type,poolId:this.pmPoolId}])
     }
 
     //跳转编辑物理机
@@ -235,8 +235,8 @@ export class PhysicalListComponent implements OnInit {
             this.showAlert("PHYSICAL_MNG.SELECT_PHYSICAL");
             return;
         }
-        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,pmPoolId:this.pmPoolId}])
-        //this.route.navigate(['physical-mng/physical-mng/physical-edit/${physical.pmId}',{type:this.type,poolId:this.pmPoolId}])
+        this.route.navigate(['phy-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,pmPoolId:this.pmPoolId}])
+        //this.route.navigate(['phy-mng/physical-mng/physical-edit/${physical.pmId}',{type:this.type,poolId:this.pmPoolId}])
     }
 
     //跳转编辑ipmi信息
@@ -247,7 +247,7 @@ export class PhysicalListComponent implements OnInit {
             this.showAlert("PHYSICAL_MNG.SELECT_PHYSICAL");
             return;
         }
-        this.route.navigate(['physical-mng/physical-mng/physical-ipmiInfoChange',{id:physical.pmId}])
+        this.route.navigate(['phy-mng/physical-mng/physical-ipmiInfoChange',{id:physical.pmId}])
 
     }
     

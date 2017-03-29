@@ -24,7 +24,7 @@
 					<div class="col-sm-5 no-padding">
 						<div class="row">
 							<div class="col-sm-3">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="prodDir.specification.initialSize" (output)="outputValue($event,'initialSize')"></count-bar>
+								<count-bar [default]=0 [step]=10 [max]=2048 [min]=0 [disabled]=false [value]="prodDir.specification.initialSize" (output)="outputValue($event,'initialSize')"></count-bar>
 							</div>
 							<div class="col-sm-2">
 								<span style="line-height:34px;margin-left:-15px;">GB</span>
@@ -39,7 +39,7 @@
 					<div class="col-sm-5 no-padding">
 						<div class="row">
 							<div class="col-sm-3">
-								<count-bar [default]=1 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="1" (output)="outputValue($event,'stepSize')"></count-bar>
+								<count-bar [default]=1 [step]=10 [max]=2048 [min]=0 [disabled]=false [value]="1" (output)="outputValue($event,'stepSize')"></count-bar>
 							</div>
 							<div class="col-sm-2">
 								<span style="line-height:34px;margin-left:-15px;">GB</span>
@@ -54,7 +54,7 @@
 					<div class="col-sm-5 no-padding">
 						<div class="row">
 							<div class="col-sm-3">
-								<count-bar [default]=0 [step]="prodDir.specification.stepSize" [max]=200000 [min]="prodDir.specification.initialSize" [disabled]=false [value]="this.prodDir.specification.maxSize" (output)="outputValue($event,'maxSize')" [stepCheck]="true"></count-bar>
+								<count-bar [default]=0 [step]="prodDir.specification.stepSize" [max]=2048 [min]="prodDir.specification.initialSize" [disabled]=false [value]="this.prodDir.specification.maxSize" (output)="outputValue($event,'maxSize')" [stepCheck]="true"></count-bar>
 							</div>
 							<div class="col-sm-2">
 								<span style="line-height:34px;margin-left:-15px;">GB</span>
@@ -76,7 +76,6 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div for="firstname" class="col-sm-4 form-control-title"style="cursor:pointer;">{{'PROD_MNG.SELECT_AVAIL_PLATFORM' | translate}}:</div><!--选择可用平台-->
-
 					<div class="col-sm-4">
 					</div>
 				</div>

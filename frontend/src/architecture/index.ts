@@ -8,6 +8,7 @@ export * from './components/spinner/component/spinner.component';
 export * from './components/date-picker/';
 export * from './components/validators/';
 export * from './components/common.module';
+export * from './shared/shared.module';
 export * from './core/service/validation.service';
 export * from './core/service/layout.service';
 export * from './core/service/restapicfg.service';

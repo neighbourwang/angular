@@ -290,21 +290,27 @@ totalconsumeLoad(){
 
     this.totalConsumeLoader.Go(null,null,param)
      .then(success=>{
-        this.increseConsumeLoader.Go(null,null,param)
+        this.increaseConsumeLoad(param);
     })
-    .then(success=>{
-        this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);
-        this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);
+   .catch(err=>{
+        this.layoutService.hide();
+        this.showMsg(err);
+    })
+}
+increaseConsumeLoad(param:any){
+    this.increseConsumeLoader.Go(null,null,param)
+     .then(success=>{
+        this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);   
+        this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);   
         this.ent_bar[0].data =  this.b_chart.datas;
         this.ent_bar[1].data =  this.b_chart.datas2;
-       this.layoutService.hide();
+        this.layoutService.hide();
     })
     .catch(err=>{
         this.layoutService.hide();
         this.showMsg(err);
     })
 }
-
 topConsumeLoad(param:any){
     this.layoutService.show();
     // if(this.isNullEnterprise()){
@@ -370,10 +376,14 @@ toSumDatas(source:any,target:Chart){
             datas.push(source.dbOrderPriceSum);
             datas.push(source.diskOrderPriceSum);
             datas.push(source.vmOrderPriceSum);  
-            labels.push('物理机：'+source.physicalMachineOrderPriceSum);
-            labels.push('数据库：'+source.dbOrderPriceSum);
-            labels.push('云硬盘：'+source.diskOrderPriceSum);
-            labels.push('云主机：'+source.vmOrderPriceSum); 
+            // labels.push('物理机：'+source.physicalMachineOrderPriceSum);
+            // labels.push('数据库：'+source.dbOrderPriceSum);
+            // labels.push('云硬盘：'+source.diskOrderPriceSum);
+            // labels.push('云主机：'+source.vmOrderPriceSum); 
+            labels.push('物理机');
+            labels.push('数据库');
+            labels.push('云硬盘');
+            labels.push('云主机'); 
     }
     target.datas.splice(0,target.datas.length);
     target.labels.splice(0,target.labels.length);

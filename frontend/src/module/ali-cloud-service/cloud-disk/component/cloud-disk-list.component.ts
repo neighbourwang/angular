@@ -55,7 +55,11 @@ export class AliCloudDiskListComponent implements OnInit {
 
     disks: Array<diskListModel> = []; //订购body模型
 
-    diskDictArray: Array<SystemDictionary> = [];
+    diskCategoryDictArray: Array<SystemDictionary> = [];
+    diskStatusDictArray: Array<SystemDictionary> = [];
+    diskChargeTypeDictArray: Array<SystemDictionary> = [];
+    diskTypeDictArray: Array<SystemDictionary> = [];
+    diskBoolDictArray: Array<SystemDictionary> = [];
 
     private okCallback: Function = null;
 
@@ -80,10 +84,30 @@ export class AliCloudDiskListComponent implements OnInit {
     ngOnInit(): void {
         this.getKeySecret();
 
-        this.dictService.diskDict
+        this.dictService.diskCategoryDict
         .then((items) => {
-            this.diskDictArray = items;
-            console.log(this.diskDictArray, "this.diskDictArray");
+            this.diskCategoryDictArray = items;
+            console.log(this.diskCategoryDictArray, "this.diskCategoryDictArray");
+        });
+        this.dictService.diskStatusDict
+        .then((items) => {
+            this.diskStatusDictArray = items;
+            console.log(this.diskStatusDictArray, "this.diskStatusDictArray");
+        });
+        this.dictService.diskChargeTypeDict
+        .then((items) => {
+            this.diskChargeTypeDictArray = items;
+            console.log(this.diskChargeTypeDictArray, "this.diskChargeTypeDictArray");
+        });
+        this.dictService.diskTypeDict
+        .then((items) => {
+            this.diskTypeDictArray = items;
+            console.log(this.diskTypeDictArray, "this.diskTypeDictArray");
+        });
+        this.dictService.diskBoolDict
+        .then((items) => {
+            this.diskBoolDictArray = items;
+            console.log(this.diskBoolDictArray, "this.diskBoolDictArray");
         });
 
     } 
@@ -151,9 +175,8 @@ export class AliCloudDiskListComponent implements OnInit {
         .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "response!");
+                //console.log(response, "response!");
                 if (response && 100 == response["resultCode"]) {
-                    console.log("==============");
                     let result;
                     try {
                         result = JSON.parse(response.resultContent);
@@ -161,10 +184,12 @@ export class AliCloudDiskListComponent implements OnInit {
                         console.log(ex);
                     }
                     this.disks = result.Disks.Disk;
-                    this.totalPage = result.TotalCount;
+                    this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
+                    console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
                     for(let i=0; i<this.disks.length; i++) {
                         console.log(this.disks[i].DiskId, " == ");
                     }
+                    console.log(this.disks, "this.disks!");
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -183,7 +208,7 @@ export class AliCloudDiskListComponent implements OnInit {
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "response!");
+                //console.log(response, "response!");
                 if (response && 100 == response["resultCode"]) {
                     let result;
                     try {
@@ -192,6 +217,7 @@ export class AliCloudDiskListComponent implements OnInit {
                         console.log(ex);
                     }
                     region.areas = result.Zones.Zone;
+                    console.log(region.areas, "areas of selected Region!");
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -204,6 +230,17 @@ export class AliCloudDiskListComponent implements OnInit {
 
     goToDiskOrder() {
         this.router.navigate([`ali-cloud-service/cloud-disk/cloud-disk-order`]);
+    }
+
+    displayDiskType(disktype: string):string {
+        let diskDict:Array<SystemDictionary> = this.diskCategoryDictArray.filter((item) => {
+            return item.value == disktype;
+        });
+        if (diskDict.length != 0) {
+            return diskDict[0].displayValue;
+        } else {
+            return disktype;
+        }
     }
 
     onRejected(reason: any) {

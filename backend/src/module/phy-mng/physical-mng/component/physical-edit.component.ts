@@ -292,7 +292,7 @@ export class PhysicalEditComponent implements OnInit {
     }
 
     gotoList() {
-        this.route.navigate(["physical-mng/physical-mng/physical-list",{pmpoolId: this.poolId}]);
+        this.route.navigate(["phy-mng/physical-mng/physical-list",{pmpoolId: this.poolId}]);
 
     }
 

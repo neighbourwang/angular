@@ -11,12 +11,12 @@
             </ul>
 
             <!--选择页面语言框-测试用-->
-            <label style="left: 480px; top:30px;position: absolute">
+<!--             <label style="left: 480px; top:30px;position: absolute">
                 <span style="color: #fff">{{ 'LANG' | translate }}</span>
                 <select #langSelect (change)="translate.use(langSelect.value)">
                     <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
                 </select>
-            </label>
+            </label> -->
 
             <div class="col-md-7 header-right">
                 <!-- <span class="header-right-line"><span class="tip-number">8</span><span class="icon-notice"></span></span> -->
@@ -31,16 +31,23 @@
             </div>
         </div>
     </div>
-
     <div class="row content">
         <!--Left Menu-->
         <div *ngIf="layoutService.showHeader" class="col-md-2 no-padding left-content">
-            <fc-menu></fc-menu>
+            <fc-menu (navOnClick)='navClock()'></fc-menu>
         </div>
 
         <!--Body-->
-        <div class="col-md-10 right-content">
-            <router-outlet></router-outlet>
+
+        <!-- <div  *ngIf="showCssload" class="css-spinner">
+          <div class="rect1"></div>
+          <div class="rect2"></div>
+          <div class="rect3"></div>
+          <div class="rect4"></div>
+          <div class="rect5"></div>
+        </div> -->
+        <div [ngClass]="{'content-hide': showCssload}" class="col-md-10 right-content">
+            <router-outlet (activate)='onActivate($event)'></router-outlet>
         </div>
     </div>
 </div>

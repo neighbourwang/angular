@@ -38,7 +38,7 @@
                     <div class="col-md-12 no-padding mgb20">
                         <select class="select_input_size" [(ngModel)]="selectedRegion.selectedDisk" (change)="DiskChanged();">
 							<option value="">请选择云盘</option>
-							<option *ngFor="let disktype of selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories" [value]="disktype">{{disktype}}</option>
+                            <option *ngFor="let disktype of selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories" [value]="disktype">{{displayDiskType(disktype)}}</option>
 						</select>
                         <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (change)="calculatePrice();" /> G
                         <span class="text-tip">

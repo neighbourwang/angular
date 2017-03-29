@@ -7,11 +7,11 @@ import { AliCloudVmOrderComponent } from './component/cloud-vm-order.component';
 
 export const AliCloudVmRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path : 'ali-cloud-service/cloud-vm/cloud-vm-list',
+        path : 'cloud-vm/cloud-vm-list',
         component : AliCloudVmListComponent
     },
     {
-        path : 'ali-cloud-service/cloud-vm/cloud-vm-order',
+        path : 'cloud-vm/cloud-vm-order',
         component : AliCloudVmOrderComponent
     }
 ]);

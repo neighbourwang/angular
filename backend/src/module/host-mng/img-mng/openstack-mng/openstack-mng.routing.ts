@@ -7,15 +7,15 @@ export const OpenstackMngRouting = RouterModule.forChild([
 
     {
         //path:'host-mng/img-mng/openstack-mng',
-        path:'host-mng/img-mng/openstack-mng',
+        path:'img-mng/openstack-mng',
         component: OpenstackMngComponent
     },
     {
-        path:"host-mng/img-mng/openstack-mng/img-openstack-image-sync-public",
+        path:"img-mng/openstack-mng/img-openstack-image-sync-public",
         component: OpenstackImageSyncPublicComponent
     },
     {
-        path:"host-mng/img-mng/openstack-mng/img-openstack-image-sync-ent",
+        path:"img-mng/openstack-mng/img-openstack-image-sync-ent",
         component: OpenstackImageSyncEntComponent
     }
 ])

@@ -10,19 +10,19 @@ import { vwDiskListComponent } from './component/vw-disk-list.component';
 
 export const CloudDriveRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'cloud-host-service/cloud-drive-list',
+        path: 'cloud-drive-list',
         component: osDiskListComponent
     },
     {
-        path: 'cloud-host-service/vw-disk-list',
+        path: 'vw-disk-list',
         component: vwDiskListComponent
     },
     {
-        path: 'cloud-host-service/cloud-drive-order',
+        path: 'cloud-drive-order',
         component: osDiskOrderComponent
     },
     {
-        path: 'cloud-host-service/vw-disk-order',
+        path: 'vw-disk-order',
         component: vwDiskOrderComponent
     },
 ]);
