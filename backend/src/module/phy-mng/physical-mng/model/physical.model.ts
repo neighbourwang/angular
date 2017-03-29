@@ -64,10 +64,20 @@ export class Part{
    // id: string;
   partsId: string;
   partsName: string;
-  specList: Array<Space>;
+  specList: Array<Space>=[];
 }
 export class Space{
     specId: string;
     specName: string;
+}
+export class PartList{
+    partsId: string;
+    partsName: string;
+    specId: string;
+    specName: string;
+    specValue:string;
+    partsNum:string;
+    partsCap:string;
+    isSelect=false;
 }
 

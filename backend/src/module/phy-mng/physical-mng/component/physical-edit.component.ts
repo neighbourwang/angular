@@ -5,7 +5,7 @@ import { LayoutService, ValidationService, NoticeComponent,dictPipe,PopupCompone
 
 import { PhysicalEditService } from "../service/physical-edit.service";
 
-import { PhysicalModel,CPU,Memory,Disk,Part,Space } from "../model/physical.model";
+import { PhysicalModel,CPU,Memory,Disk,Part,Space,PartList } from "../model/physical.model";
 import { ServerType } from "../model/serverType.model";
 import { Brand, Model } from "../model/brand.model";
 //import { IpmiInfo } from "../model/physical-ipmi.model";
@@ -47,7 +47,13 @@ export class PhysicalEditComponent implements OnInit {
     selectedBrand: Brand = this.defaultBrand;
     poolId:string;
     diskValue:boolean;
-    parts:Part[];
+    parts:Array<Part>= new Array<Part>();
+    part:Part;
+    selectedPart:Part=this.defaultPart;
+    defaultPart = new Part(); //
+    partsList:Array<PartList>=new Array<PartList>();
+    partList:PartList=new PartList();
+    isEdit: boolean;
   
     ngOnInit() {
         this.activeRoute.params.forEach((params: Params) => {
@@ -84,6 +90,8 @@ export class PhysicalEditComponent implements OnInit {
                     this.physical=new PhysicalModel();
                 }
             });
+        this.getPartList();
+        this.getPartsList();
     }
 
     //获取物理机信息
@@ -124,6 +132,45 @@ export class PhysicalEditComponent implements OnInit {
             );
     }
 
+    //获取物理机部件清单
+    getPartList(){
+        this.layoutService.show();
+        this.service.getPartList()
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.parts= response["resultContent"];
+                    console.log("部件清单",this.parts)
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+
+    }
+
+    //获取物理机部件列表
+    getPartsList(){
+        this.layoutService.show();
+        this.service.getPartsList()
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.partsList= response["resultContent"];
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+    
+
     //编辑物理机
     editPhysical() {
         this.layoutService.show();
@@ -143,10 +190,6 @@ export class PhysicalEditComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    // isNumber(event:any){
-    //      event.target.value= event.target.value.replace(/[^(\d|.)]/g,"");
-
-    // }
     //判断磁盘规格值是否为空
     notNull(disk:Disk) {
        if(!disk.value){
@@ -267,26 +310,59 @@ export class PhysicalEditComponent implements OnInit {
 
     //新增物理机部件
      addPart() {
+         this.isEdit=false;
         this.addParts.open("新建部件");
+    }
+    //确认新增部件
+    addPartConfirm(partList:PartList){
+        partList.partsName=this.selectedPart.partsName;
+        this.partsList.push(partList);
+
     }
 
     //编辑物理机部件
     editPart(){
-
+        this.isEdit=true;
+        const part = this.partsList.find((e) => { return e.isSelect });
+         this.selectedPart.partsId=part.partsId;
+         this.selectedPart.partsName=part.partsName;
+        if(!part){
+            this.showAlert("请选择需要编辑的物理机部件！");
+            return;
+        }
+        let editPart= new PartList();
+            editPart.partsName=part.partsName;
+            editPart.partsNum=part.partsNum;
+            editPart.specName=part.specName;
+            editPart.specId=part.specId;
+            editPart.specValue=part.specValue;
+            this.partList= editPart;  
+                 
+            this.addParts.open("编辑部件");
     }
-    
+
     //删除物理机部件
-    deletePart(){
-        
+    deletePart(){       
+        const part = this.partsList.find((e) => { return e.isSelect });
+          if(!part){
+            this.showAlert("请选择需要删除的物理机部件！");
+            return;
+        }
+         for (var i = this.partsList.length - 1; i >= 0; i--) {
+            if (this.partsList[i].isSelect) {
+                 this.partsList.splice(i, 1);
+            }
+        }
     }
 
     //选择物理机部件
-    getSelectPhysicalPart() {
-        // this.physicalList.forEach((physical) => {
-        //     physical.isSelect = false;
-        // });
-        // physical.isSelect= true;
+     getSelectPart(part: PartList,index:string) {
+        this.partsList.forEach((part) => {
+            part.isSelect = false;
+        });
+        part.isSelect= true;
     }
+  
     cancel() {
         this.gotoList();
     }

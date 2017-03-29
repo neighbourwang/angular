@@ -169,32 +169,73 @@ export const PhysicalList_mock = {
   }  
 }
 
-export const Hardware_mock = {
-    "resultCode":"100",
+export const PortsList_mock = {
+"resultCode": "100",
   "detailDescription": null,
-  "resultContent": {
-    "model": "DL380 G9",
-    "sn": "ABC124ABC",
-    "pmHardwareCPU": {
-      "version": "Xeon E5 2560",
-      "value": 8
+  "resultContent": [
+    {
+      "id": null,
+      "partsId": "part00001",
+      "partsName": "CPU",
+      "specId": "spec00001",
+      "specName": "Xeon E5 2560",
+      "specValue": null,
+      "partsNum": 100,
+      "partsCap":100,
+      "index": 1
     },
-    "pmHardwareMemory": {
-      "version": "32GB X4 PC3L-10600",
-      "value": 128
-    },
-    "pmHardwareDiskList": [
-      {
-        "version": "4*SSD",
-        "value": null
-      },
-      {
-        "version": "4*SAS",
-        "value": null
-      }
-    ]
+    {
+      "id": null,
+      "partsId": "part00002",
+      "partsName": "内存",
+      "specId": "spec00002",
+      "specName": "PC3L-10600",
+      "specValue": "32",
+      "partsNum": 200,
+      "partsCap":100,
+      "index": 2
+    }
+  ],
   }
-}
+  export const PortList_mock={
+      "resultCode": "100",
+  "detailDescription": null,
+  "resultContent": [
+    {
+      "partsId": "part0001",
+      "partsName": "磁盘",
+      "specList": [
+        {
+          "specId": "spec0001",
+          "specName": "SAS"
+        },
+        {
+          "specId": "spec0002",
+          "specName": "SATA"
+        },
+        {
+          "specId": "spec0003",
+          "specName": "SSD"
+        }
+      ]
+    },
+    {
+      "partsId": "part0002",
+      "partsName": "网卡",
+      "specList": [
+        {
+          "specId": "spec0004",
+          "specName": "千兆"
+        },
+        {
+          "specId": "spec0005",
+          "specName": "万兆"
+        }
+      ]
+    }
+  ]
+  }
+
 
 
   

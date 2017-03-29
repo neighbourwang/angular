@@ -2133,6 +2133,12 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "pmresourcemgmt/noauth/pm/parts/edit"  
     },
+     {
+        "desc": "查询物理机部件清单",
+        "id": "physical-mng.physical.partList.get",
+        "method": "GET",
+        "url": "pmresourcemgmt/noauth/pm/parts/partsList"  
+    },
 
     //物理机网络管理
     {

@@ -126,7 +126,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="read">
+            <div *ngIf="read|| eidtMode =='view' ||eidtMode =='edit' ||eidtMode =='editParts'">
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">硬件信息</div>
@@ -181,8 +181,8 @@
                     <div class="col-md-4"> 
                         <div class="mgt5">
                             <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="addPart();">新增</button>
-                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editParts();">编辑</button>
-                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="deleteParts();">删除</button>
+                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editPart();">编辑</button>
+                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="deletePart();">删除</button>
                         </div>
                          <div class="table-container mgt10">
                             <table class="table table-hover">
@@ -197,13 +197,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><input type="radio" class="fox-cloud-radio"></td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>3</td>
-                                        <td>3</td>
+                                    <tr *ngFor="let item of partsList; let idex=index;">
+                                        <td><input type="radio" class="fox-cloud-radio" name="part" (change)="getSelectPart(item,idex);"[checked]="item.isSelect"></td>
+                                        <td>{{item.partsName}}</td>
+                                        <td>{{item.specName}}</td>
+                                        <td>{{item.specValue}}</td>
+                                        <td>{{item.partsNum}}</td>
+                                        <td>{{item.partsCap}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -357,41 +357,44 @@
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice>
  <!--{{ physical.toString() }}-->
 
- <fc-popup #addParts title="{{title}}" ot="保存"  ct="取消" of="" >
+ <fc-popup #addParts title="{{title}}" ot="{{isEdit== false? '添加': '保存'}}"  ct="取消" of="addPartConfirm(partList)" >
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">部件名称:</div>
             <div class="col-sm-4">
-                <select class="form-control" [(ngModel)]="binding">
-                    <option *ngFor="let item of parts">{{item.partsName}}</option>
+                <select class="form-control" [(ngModel)]="selectedPart" (change)="partList.specId=''">
+                    <option [ngValue]="defaultPart">请选择</option>
+                    <option *ngFor="let item of parts" [ngValue]="item">{{item.partsName}}</option>
                 </select>
             </div>
         </div>
     </div>
-    <div class="row row-line-height">
+    <!--<div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">规格:</div>
             <div class="col-sm-4">
-                <select class="form-control">
-                    <option>其他</option>
+                <select class="form-control" [(ngModel)]="partList.specId">
+                      <option value="">请选择</option>
+                     <option *ngFor="let item of selectedPart.specList" [ngValue]="item.specId">{{item.specName}}</option>
                 </select>
             </div>
         </div>
     </div>
+    -->
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">规格值:</div>
             <div class="col-sm-4">
-                <input type="text" class="form-control">
-                <div class="mgt5">GB</div>
+                <input type="text" class="form-control" [(ngModel)]="partList.specValue">
             </div>
+             <div class="col-sm-2" style="line-height:34px;padding-left:0px" *ngIf="partList.partsName=='内存' || partList.partsName=='磁盘'">GB</div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">数量:</div>
             <div class="col-sm-4">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" [(ngModel)]="partList.partsNum">
             </div>
         </div>
     </div>

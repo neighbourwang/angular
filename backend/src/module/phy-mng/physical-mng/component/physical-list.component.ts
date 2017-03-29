@@ -161,28 +161,46 @@ export class PhysicalListComponent implements OnInit {
            
             return;
         }
-        
-        
-        switch (status) {
-                case "0":
-                    if(physical.pmUseageStatus=="已分配"){
-                       this.notice.open("提示","已分配的物理机不能禁用,请选择未分配的物理机！")
+        if(status=="0"){
+            if(physical.pmUseageStatus=="1"){
+                          this.showAlert("已分配的物理机不能禁用,请选择未分配的物理机！")
                        return;
                     }
-                   this.noticeMsg ="PHYSICAL_MNG.DISABLE_PHYSICAL_MSG^^^" + physical.pmName;
+             else{
+                this.noticeMsg ="PHYSICAL_MNG.DISABLE_PHYSICAL_MSG^^^" + physical.pmName;
                    this.noticeTitle="PHYSICAL_MNG.DISABLE_PHYSICAL_TITLE";
-                    break;
-                   
-                case "1":
-                   this.noticeMsg = "PHYSICAL_MNG.ENABLE_PHYSICAL_MSG^^^" + physical.pmName;
-                   this.noticeTitle="PHYSICAL_MNG.ENABLE_PHYSICAL_TITLE";
-                    break;
-                case "2":
-                   if(physical.pmUseageStatus=="未分配"&&physical.pmMainStatus=="0"){
+             }                   
+        }
+        else if(status=="1"){
+            this.noticeMsg = "PHYSICAL_MNG.ENABLE_PHYSICAL_MSG^^^" + physical.pmName;
+            this.noticeTitle="PHYSICAL_MNG.ENABLE_PHYSICAL_TITLE";
+        }
+        else {
+            if(physical.pmUseageStatus=="0"&&physical.pmMainStatus=="0"){
                      this.noticeMsg = "PHYSICAL_MNG.DELETE_PHYSICAL_MSG^^^" + physical.pmName;
                      this.noticeTitle="PHYSICAL_MNG.DELETE_PHYSICAL_TITLE";
-                     break;
-                   }
+        }
+        
+        // switch (status) {
+        //         case "0":
+        //             if(physical.pmUseageStatus=="已分配"){
+        //                this.notice.open("提示","已分配的物理机不能禁用,请选择未分配的物理机！")
+        //                return;
+        //             }
+        //            this.noticeMsg ="PHYSICAL_MNG.DISABLE_PHYSICAL_MSG^^^" + physical.pmName;
+        //            this.noticeTitle="PHYSICAL_MNG.DISABLE_PHYSICAL_TITLE";
+        //             break;
+                   
+        //         case "1":
+        //            this.noticeMsg = "PHYSICAL_MNG.ENABLE_PHYSICAL_MSG^^^" + physical.pmName;
+        //            this.noticeTitle="PHYSICAL_MNG.ENABLE_PHYSICAL_TITLE";
+        //             break;
+        //         case "2":
+        //            if(physical.pmUseageStatus=="未分配"&&physical.pmMainStatus=="0"){
+        //              this.noticeMsg = "PHYSICAL_MNG.DELETE_PHYSICAL_MSG^^^" + physical.pmName;
+        //              this.noticeTitle="PHYSICAL_MNG.DELETE_PHYSICAL_TITLE";
+        //              break;
+        //            }
                     
             }
 
