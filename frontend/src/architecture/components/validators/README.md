@@ -1,5 +1,9 @@
 # 表单验证类
 
+2017-03-29 更新
+1. 在constructor里添加 this.v.result = {};  使初始化组件的时候设置result为空
+
+
 
 
 ## 验证方式(可以多重验证)(除了isUnBlank，其它的方法空值验证返回均为true)：
@@ -47,7 +51,9 @@ constructor里面加入装饰类Validation
 ```javascript
 constructor(
 		private v: Validation
-	){}
+	){
+	    this.v.result = {};   //初始化组件的时候设置result为空
+	}
 ```
 
 加入以下函数：
@@ -181,6 +187,12 @@ html：
 javascript：
 
 ```javascript
+constructor(
+		private v: Validation
+	){
+	    this.v.result = {};  //初始化组件的时候设置result为空
+	}
+	
 checkForm(key?:string) {
 		let regs:ValidationRegs = {  //regs是定义规则的对象
 			email: [this.email, [this.v.isEmail, this.v.isUnBlank], "Email输入不正确"], 
