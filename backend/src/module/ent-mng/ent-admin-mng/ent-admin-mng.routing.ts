@@ -8,23 +8,23 @@ import { EntAdminEditADComponent } from "./component/ent-admin-edit-ad.component
 
 export const EntAdminMngRouting = RouterModule.forChild([
     {
-        path: "ent-mng/ent-admin-mng/ent-admin-mng/:id",
+        path: "ent-admin-mng/ent-admin-mng/:id",
         component: EntAdminMngComponent
     },
     {
-        path: "ent-mng/ent-admin-mng/ent-admin-cre/enterprise/:eid/id/:aid",
+        path: "ent-admin-mng/ent-admin-cre/enterprise/:eid/id/:aid",
         component: EntAdminCreComponent
     },
     {
-        path: "ent-mng/ent-admin-mng/ent-admin-cre/enterprise/:eid",
+        path: "ent-admin-mng/ent-admin-cre/enterprise/:eid",
         component: EntAdminCreComponent
     },
     {
-        path: "ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/:eid/id/:aid",
+        path: "ent-admin-mng/ent-admin-cre-ad/enterprise/:eid/id/:aid",
         component: EntAdminEditADComponent
     },
     {
-        path: "ent-mng/ent-admin-mng/ent-admin-cre-ad/enterprise/:eid",
+        path: "ent-admin-mng/ent-admin-cre-ad/enterprise/:eid",
         component: EntAdminCreADComponent
     }
 ]);

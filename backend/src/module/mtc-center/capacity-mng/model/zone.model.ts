@@ -1,4 +1,5 @@
-﻿export class ZoneModel {
+﻿//计算资源--包含环形图
+export class ZoneModel {
     cpus: number;
     memory: number;
     cpuOversubscription: number;

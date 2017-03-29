@@ -94,6 +94,7 @@ export class cloudHostComponentOrder implements OnInit {
 		this.configs = new OrderList();
 		this.sendModule = new SendModule();
 		this.payLoad = new PayLoad();
+		this.v.result = {};
 	};
 
 	ngOnInit() {
@@ -111,7 +112,7 @@ export class cloudHostComponentOrder implements OnInit {
 				this.configs[config.attrCode.toLowerCase()] = config;
 				this.setSenModule(config);
 			});
-			this.configs["bootstorage"].mapValueList = this.configs["storage"].mapValueList;  //临时添加
+			// this.configs["bootstorage"].mapValueList = this.configs["storage"].mapValueList;  //临时添加
 			this.sendModule.username.attrValue = "root";
 			console.log(this.sendModule, this.configs)
 

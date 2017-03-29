@@ -85,6 +85,137 @@
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">确认</button>
     </div>
     <div style="clear:both;"></div>
+    <div class="row mgt15">
+        <div class="col-md-4">
+            <div class="panel panel-default" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">CPU使用率概览</h3>
+                </div>
+                <div class="panel-body">
+                     <div class="row">
+                        <div class="col-md-6">
+                            <div style="position:relative;">
+                                <div class="circle-mask"></div>
+                                <div class="circle-text">293个</div>
+                                 <canvas baseChart
+                                 *ngIf="cpuChart.DataSets"
+                                 [datasets]="cpuChart.DataSets "
+                                 [chartType]="cpuChart.ChartType"
+                                 [options]="cpuChart.Options"
+                                 [colors]="cpuChart.Colors">
+                                </canvas>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="margin-top:40px;margin-left:20px;">
+                                <div class="row" style="padding:5px 0;">
+                                    <span class="legend" style="background: #2bd2c8;"></span>&nbsp;&lt;30%
+                                    <span style="margin-left:54px;">{{cpuInfo.level1}}</span>
+                                </div>
+                                <div class="row" style="padding:5px 0;">
+                                    <span class="legend" style="background: #05ab83"></span>&nbsp;30%-70%
+                                    <span style="margin-left:30px;">{{cpuInfo.level2}}</span>
+                                </div>
+                                <div class="row" style="padding:5px 0;">
+                                    <span class="legend" style="background: #c9cacc"></span>&nbsp;&gt;70%
+                                    <span style="margin-left:54px;">{{cpuInfo.level3}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">内存使用率概览</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div style="position:relative;">
+                                <div class="circle-mask"></div>
+                                <div class="circle-text">293个</div>
+                                 <canvas baseChart
+                                 *ngIf="memChart.DataSets"
+                                 [datasets]="memChart.DataSets "
+                                 [chartType]="memChart.ChartType"
+                                 [options]="memChart.Options"
+                                 [colors]="memChart.Colors">
+                                </canvas>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="margin-top:40px;margin-left:20px;">
+                                <div class="row" style="padding:5px 0;">
+                                    <span class="legend" style="background: #2bd2c8;"></span>&nbsp;&lt;30%
+                                    <span style="margin-left:54px;">{{memInfo.level1}}</span>
+                                </div>
+                                <div class="row" style="padding:5px 0;">
+                                    <span class="legend" style="background: #05ab83"></span>&nbsp;30%-70%
+                                    <span style="margin-left:30px;">{{memInfo.level2}}</span>
+                                </div>
+                                <div class="row" style="padding:5px 0;">
+                                    <span class="legend" style="background: #c9cacc"></span>&nbsp;&gt;70%
+                                    <span style="margin-left:54px;">{{memInfo.level3}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 ">
+            <div class="panel panel-default" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">云主机运行状态</h3>
+                </div>
+                <div class="panel-body" style="padding:0;">                  
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <td>运行中：</td>
+                                <td>99</td>
+                            </tr>
+                            <tr>
+                                <td>关闭：</td>
+                                <td>12</td>
+                            </tr>
+                        </tbody>
+                    </table>                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="panel panel-default" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">云主机规格信息</h3>
+                </div>
+                <div class="panel-body" style="padding:0;">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <td>1CPU</td>
+                                <td>2G内存：</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td>2CPU</td>
+                                <td>4G内存：</td>
+                                <td>19</td>
+                            </tr>
+                             <tr>
+                                <td>4CPU</td>
+                                <td>8G内存：</td>
+                                <td>21</td>
+                            </tr>
+                        </tbody>
+                    </table>     
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="table-container mgt20">
         <table class="table table-hover">
             <thead>
@@ -121,7 +252,7 @@
     </div>
     <div class="fox-cloud-pagination-container">
         <ul class="fox-cloud-pagination">
-            <span>&lt;&lt;</span>
+            <span>&lt;</span>
             <li>1</li>
             <li>2</li>
             <li>3</li>

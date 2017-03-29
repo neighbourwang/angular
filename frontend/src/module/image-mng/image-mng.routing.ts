@@ -31,7 +31,7 @@ export const ImgMngRouting = RouterModule.forChild([
     //    component: ImgMngComponent_wxl
     //},
     {
-        path: "image-mng/image-mng",
+        path: "image-mng",
         component: ImgMngComponent
     }
 ]);

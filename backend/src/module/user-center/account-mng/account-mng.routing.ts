@@ -8,27 +8,27 @@ import { AccountMngEditAd } from './component/account-mng-edit-ad.component';
 
 export const AccountMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'user-center/account-mng/account-mng-list',
+        path: 'account-mng/account-mng-list',
         component: AccountMngComponent
     },
     //编辑本地
     {
-        path: 'user-center/account-mng/account-mng-cr-local/:id',
+        path: 'account-mng/account-mng-cr-local/:id',
         component: AccountMngCrLocal
     },
     //编辑ad
     {
-        path : 'user-center/account-mng/account-mng-edit-ad/:id',
+        path : 'account-mng/account-mng-edit-ad/:id',
         component: AccountMngEditAd
     },
     //创建本地
     {
-        path: 'user-center/account-mng/account-mng-cr-local',
+        path: 'account-mng/account-mng-cr-local',
         component: AccountMngCrLocal
     },
     //创建ad
     {
-        path : 'user-center/account-mng/account-mng-cr-ad',
+        path : 'account-mng/account-mng-cr-ad',
         component : AccountMngCrAd
     }
 

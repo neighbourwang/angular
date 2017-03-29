@@ -7,11 +7,11 @@ import { AliCloudDiskOrderComponent } from './component/cloud-disk-order.compone
 
 export const AliCloudDiskRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path : 'ali-cloud-service/cloud-disk/cloud-disk-list',
+        path : 'cloud-disk/cloud-disk-list',
         component : AliCloudDiskListComponent
     },
     {
-        path : 'ali-cloud-service/cloud-disk/cloud-disk-order',
+        path : 'cloud-disk/cloud-disk-order',
         component : AliCloudDiskOrderComponent
     }
 ]);
