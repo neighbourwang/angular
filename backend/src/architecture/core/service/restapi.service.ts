@@ -44,11 +44,12 @@ export class RestApi {
                  url: string, 
                  fileName:string = new Date().getTime().toString(), 
                  pathParams: Array<any> = undefined, 
-                 queryParams: Array<any> = undefined): Promise<any>{
+                 queryParams: Array<any> = undefined,
+                 body = undefined): Promise<any>{
         let headers = new Headers();
         // headers.append("Content-Type", "application/octet-stream");
         // headers.append('responseType', 'arraybuffer');
-        return this.httpRequest(type, url, undefined, pathParams, queryParams, undefined, headers)
+        return this.httpRequest(type, url, undefined, pathParams, queryParams, body, headers)
                    .then(res => {
                        const blob = new Blob([res._body],{ type: 'octet/stream' });
                        return window.URL.createObjectURL(blob);
