@@ -21,6 +21,8 @@ import { OpenConsoleService } from '../components/open-console/open-console.serv
 
 import { formatInfo } from '../components/order-complete/formatInfo'; 
 
+// import { OrderMngCancelComponent } from '../../op-center/order-mng/component/order-mng-cancel.component';
+
 
 @NgModule({
     imports: [
@@ -36,7 +38,8 @@ import { formatInfo } from '../components/order-complete/formatInfo';
         cartCompleteComponent,
         UnsubscribeComponent,
         OpenConsoleComponent,
-        formatInfo
+        formatInfo,
+        // OrderMngCancelComponent
     ],
     exports: [
         CartButtonComponent,
