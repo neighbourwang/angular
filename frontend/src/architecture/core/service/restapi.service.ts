@@ -39,7 +39,7 @@ export class RestApi {
         return this.httpRequest(type, url, undefined, pathParams, queryParams, body);
     }
 
-    downloadFile(type: string, url: string, fileName:string = new Date().getTime().toString(), pathParams: Array<any> = undefined, queryParams: Array<any> = undefined, body): Promise<any>{
+    downloadFile(type: string, url: string, fileName:string = new Date().getTime().toString(), pathParams: Array<any> = undefined, queryParams: Array<any> = undefined, body = undefined): Promise<any>{
         let headers = new Headers();
         // headers.append("Content-Type", "application/octet-stream");
         // headers.append('responseType', 'arraybuffer');
