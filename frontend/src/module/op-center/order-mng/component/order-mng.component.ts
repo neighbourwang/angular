@@ -690,26 +690,54 @@ export class OrderMngComponent implements OnInit {
 		}
 		
 		let param = 
-			[
+
+		[
 			{
-			"attrId": this.selectedOrderItem.orderId,
-			"attrCode": "TIMELINEUNIT",
-			"attrDisplayValue":items[0].attrDisplayValue,
-			"attrDisplayName": "时长单位",
-			"attrValueId": "",
-			"attrValue": "5",
-			"attrValueCode": items[0].attrValueCode
-			},
-			{
-			"attrId": this.selectedOrderItem.orderId,
-			"attrCode": "TIMELINE",
-			"attrDisplayName": "购买时长",
-			"attrDisplayValue": "",
-			"attrValueId": "",
-			"attrValue": this._renewSetting.value.toString(),
-			"attrValueCode": ""
+				"attrCode": "TIMELINEUNIT",
+				"attrDisplayName":  "时长单位",
+				"attrDisplayValue": items[0].attrDisplayValue,
+				"attrId": this.selectedOrderItem.orderId,
+				"attrValue": "6",//1,2,3,4,5
+				"attrValueCode":  items[0].attrValueCode,
+				"attrValueId": "",
+				"description":items[0].description,
+				"valueType": "",
+				"valueUnit": items[0].valueUnit
+			},{
+				"attrCode": "TIMELINE",
+				"attrDisplayName":  "购买时长",
+				"attrDisplayValue": items[1].attrDisplayValue,
+				"attrId": this.selectedOrderItem.orderId,
+				"attrValue":this._renewSetting.value.toString(),
+				"attrValueCode":  items[1].attrValueCode,
+				"attrValueId": "",
+				"description":items[1].description,
+				"valueType": "",
+				"valueUnit": items[1].valueUnit
 			}
 		]
+
+		// 	[
+		// 	{
+		// 	"attrId": this.selectedOrderItem.orderId,
+		// 	"attrCode": "TIMELINEUNIT",
+		// 	"attrDisplayValue":items[0].attrDisplayValue,
+		// 	"attrDisplayName": "时长单位",
+		// 	"attrValueId": "",
+		// 	"attrValue": "5",
+		// 	"attrValueCode": items[0].attrValueCode
+		// 	},
+		// 	{
+		// 	"attrId": this.selectedOrderItem.orderId,
+		// 	"attrCode": "TIMELINE",
+		// 	"attrDisplayName": "购买时长",
+		// 	"attrDisplayValue": "",
+		// 	"attrValueId": "",
+		// 	"attrValue": this._renewSetting.value.toString(),
+		// 	"attrValueCode": ""
+		// 	}
+		// ]
+		
 
     //   let param =
 	//    [

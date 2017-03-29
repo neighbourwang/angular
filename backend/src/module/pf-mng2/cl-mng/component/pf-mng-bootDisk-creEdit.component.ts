@@ -98,8 +98,12 @@ export class bootDiskCreEditComponent implements OnInit {
     //选择可用区
     selectValidZone(e) {
         console.log(e);
-        this.bootDisk.zoneName = e.zoneName;
-        this.bootDisk.zoneId = e.zoneId;
+        this.bootDisk.zoneId = e;        
+        for(let zone of this.validZoneList){
+            if(zone.zoneId==e){
+                this.bootDisk.zoneName=zone.zoneName;
+            }
+        }
         this.getStorgeList(e);
         this.bootDisk.storageId = [];
         this.bootDisk.storageName = [];
