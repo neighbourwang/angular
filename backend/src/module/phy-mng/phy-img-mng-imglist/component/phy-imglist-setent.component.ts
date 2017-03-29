@@ -45,7 +45,7 @@ export class PhyImgListSetentComponent implements OnInit{
     }
 
     backToList(){
-        this.router.navigate(['phy-img-mng/imglist', {"pmImagePoolId":this.sourceId, "sourceName":this.sourceName}])
+        this.router.navigate(['phy-mng/phy-img-mng/imglist', {"pmImagePoolId":this.sourceId, "sourceName":this.sourceName}])
     }
 
     getEntList(){

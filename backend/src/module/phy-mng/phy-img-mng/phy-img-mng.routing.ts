@@ -7,11 +7,11 @@ import { PhyImgMngAllocateComponent } from'./component/phy-img-mng-allocate.comp
 export const PhyImgRouting= RouterModule.forChild([
     
     {
-        path: "phy-mng/phy-img/phy-img-mng",
+        path: "phy-img/phy-img-mng",
         component: PhyImgMngComponent
     },
     {
-        path: "phy-mng/phy-img/phy-img-mng-allocate",
+        path: "phy-img/phy-img-mng-allocate",
         component: PhyImgMngAllocateComponent
     }
     

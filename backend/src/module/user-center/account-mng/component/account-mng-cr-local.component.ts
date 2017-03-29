@@ -26,6 +26,7 @@ export class AccountMngCrLocal implements OnInit {
         private route: ActivatedRoute,
         private validService: ValidationService,
     ) {
+        this.v.result = {};
     }
 
     @ViewChild('notice')

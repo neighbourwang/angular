@@ -1,20 +1,20 @@
-fis.set('project.ignore', ['*/node_modules/**','node_modules/**','fis-conf.js', '*/e2e/**', '*/src/**', '*/foxcloud-dist/**']);
+fis.set('project.ignore', ['*/node_modules/**','node_modules/**','fis-conf.js', '**/README.md', '*/e2e/**', '*/src/module/**', '*/src/architecture/components/**', '*/src/architecture/assets/**', '*/src/architecture/core/**', '*/src/architecture/pipe/**', '*/src/architecture/environments/**', '*/foxcloud-dist/**']);
 
-const RegBackend = /(?:backend\/dist\/(.*)\.*)|(?:backend-portal\/dist\/(.*)\.*)|(?:backend-portal(\/public\/.*)?\.*)/i;
-const RegFrontend = /(?:frontend\/dist\/(.*)\.*)|(?:frontend-portal\/dist\/(.*)\.*)|(?:frontend-portal(\/public\/.*)?\.*)/i;
+const RegBackend = /(?:backend\/dist\/(.*)\.*)|(?:backend-portal\/dist\/(.*)\.*)|(?:backend-portal(\/public\/.*)?\.*)|(?:backend\/src(\/architecture\/translate\/.*)?\.*)/i;
+const RegFrontend = /(?:frontend\/dist\/(.*)\.*)|(?:frontend-portal\/dist\/(.*)\.*)|(?:frontend-portal(\/public\/.*)?\.*)|(?:frontend\/src(\/architecture\/translate\/.*)?\.*)/i;
 
 const releaseToLocal = (name, path, reg) =>    //发布到本地
 	fis.media(name).match(reg, {
-		release: '/$1$2$3',
+		release: '/$1$2$3$4',
 		deploy: fis.plugin('local-deliver', {
 			to: path
-	  	})
+		})
 	});
 
 const releaseServer = (name, path, reg, ip) =>    //发布到服务器
 	fis.media(name).match(reg, {
-		release: '/$1$2$3',
-	  	deploy: fis.plugin('http-push', {
+		release: '/$1$2$3$4',
+		deploy: fis.plugin('http-push', {
 			receiver: 'http://'+ ip +'/receiver',
 			to: path
 		})

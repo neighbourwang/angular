@@ -221,6 +221,7 @@ export class ProdDirCreComponent implements OnInit {
                 this.LayoutService.hide();
             })
         } else {
+            this.prodDir.platformList=this.prodDir.platformInfo;
             console.log(this.prodDir);
             this.CreateProdDirService.editVmProdDir(this.serviceId,this.prodDir).then(response => {
                 console.log(response);

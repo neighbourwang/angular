@@ -67,7 +67,7 @@ module.exports = {
 			            success: function (response) {
 			                sessionStorage["userInfo"] = JSON.stringify(response.resultContent);
 			                sessionStorage["token"] = token;
-							location.href="/cloud-host-service/cloud-host-list"
+							location.href="/mng-console"
 							isChecked = 0;
 			            },
 			            error: function (xhr, status) {

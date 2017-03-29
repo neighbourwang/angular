@@ -14,7 +14,8 @@ export class AliCloudDiskService {
         private restApi: RestApi
     ) { }
 
-    keysecret: keysecretModel;
+    //keysecret: keysecretModel;
+    keysecret: keysecretModel = new keysecretModel();
 
     getKeySecret(): Promise<any> {
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.key-secret.get");

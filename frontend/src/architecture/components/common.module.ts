@@ -27,6 +27,8 @@ import { DialogTranslate } from './dialog/service/dialog-translate.service';
 
 import { Validation } from './validators';
 
+import { SharedModule } from '../shared/shared.module';
+
 
 
 // import { DonutChart } from './donutChart/component/chart.component';
@@ -42,7 +44,7 @@ import { Validation } from './validators';
         ClickOutsideModule,
         AfterNgForModule,
         HttpModule,
-        TranslateModule.forRoot()
+        SharedModule
         // ChartsModule
     ],
     declarations: [
@@ -77,7 +79,7 @@ import { Validation } from './validators';
         tagInputComponent,
         AfterNgForModule,
         HttpModule,
-        TranslateModule
+        SharedModule
         // OrderByPipe
         // DonutChart,
         // LineChart

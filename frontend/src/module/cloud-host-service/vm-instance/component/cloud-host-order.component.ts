@@ -94,6 +94,7 @@ export class cloudHostComponentOrder implements OnInit {
 		this.configs = new OrderList();
 		this.sendModule = new SendModule();
 		this.payLoad = new PayLoad();
+		this.v.result = {};
 	};
 
 	ngOnInit() {
@@ -113,7 +114,7 @@ export class cloudHostComponentOrder implements OnInit {
 			});
 			// this.configs["bootstorage"].mapValueList = this.configs["storage"].mapValueList;  //临时添加
 			this.sendModule.username.attrValue = "root";
-			console.log(this.sendModule, this.configs)
+			// console.log(this.sendModule, this.configs)
 
 			this.skuMap = configList.skuMap;
 			this.proMap = configList.proMap;
@@ -235,14 +236,14 @@ console.log(this.vmProduct)
 				this.payLoadArr.push(payLoad);  //加入云硬盘
 			}
 		}
-		console.log("发送的订单数据：" , this.payLoadArr)
+		// console.log("发送的订单数据：" , this.payLoadArr)
 		return this.payLoadArr;
 	}
 
 	setVmPrice(): void {   //设置主机的价格
 		const sku = this.vmSku.skuId,
 			timeline = +(this.sendModule.timeline.attrValue || "0");
-		console.log(this.sendModule.timelineunit.attrValueCode)
+		// console.log(this.sendModule.timelineunit.attrValueCode)
 		if (!this.sendModule.timelineunit.attrValueCode || !sku) return;
 		this.vmProduct = this.proMap[`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`];  //获取产品信息
 
@@ -463,11 +464,11 @@ console.log(this.vmProduct)
 
 		return Promise.all([this.service.getPlatformQuota(this.sendModule.platform.attrValue), this.service.getQuotaResoure()]).then(res => {
 			const [platformQuota, quotaResoure] = res;
-			
+			console.log(platformQuota, quotaResoure, this.sendModule.mem.attrValue, this.sendModule.cpu.attrValue)
 			return argAllTrue(
-				compare(quotaResoure.mem || 0 - quotaResoure.usedMem || 0, +this.sendModule.mem.attrValue * 1024),
+				compare(quotaResoure.mem || 0 - quotaResoure.usedMem || 0, +this.sendModule.mem.attrValue),
 				compare(quotaResoure.vcpu || 0 - quotaResoure.usedCpu || 0, this.sendModule.cpu.attrValue),
-				compare(platformQuota.memory || 0, +this.sendModule.mem.attrValue * 1024),
+				compare(platformQuota.memory || 0, +this.sendModule.mem.attrValue),
 				compare(platformQuota.cpu || 0, this.sendModule.cpu.attrValue),
 			)
 		})
@@ -485,7 +486,7 @@ console.log(this.vmProduct)
 			this.layoutService.hide();
 			if(!isEnoughQuota) {
 				this.showNotice("提示","部门或平台配额不足, 无法完成购买！");
-				return;
+				throw "配额不足";
 			}
 
 			return this.payLoadFormat();   //获取最新的的payload的对象
@@ -510,6 +511,8 @@ console.log(this.vmProduct)
 	}
 	buyNow() {
 		this.submitCheck().then(payLoadArr => {
+			if(!payLoadArr) return;
+
 			this.layoutService.show();
 			this.service.saveOrder(payLoadArr).then(res => {
 				this.layoutService.hide();

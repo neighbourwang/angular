@@ -1,6 +1,8 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { DictService} from '../../../core/service/dict-service';
+import { LayoutService } from '../../../core/service/layout.service';
 import { MenuService } from '../service/menu.service';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
     selector: 'fc-menu',
@@ -11,11 +13,21 @@ import { MenuService } from '../service/menu.service';
 export class MenuComponent implements OnInit {
     endMenu: Array<Object>;
 
+    @Output() navOnClick=new EventEmitter();
+
     active: Array<number> = new Array<number>();
 
     constructor(
         private service:MenuService,
-        ) {}
+        private layoutService: LayoutService,
+        private router:Router
+    ) {
+        router.events.subscribe(val => {
+            if(val instanceof NavigationStart){
+                this.urlChanged(val);
+            }
+        });
+    }
 
     ngOnInit() {
         this.setMenu();
@@ -77,6 +89,14 @@ export class MenuComponent implements OnInit {
         }
 
         this.active = new Array<number>();
+    }
+
+    lastUrl: string;
+    urlChanged(val) {
+        if(val.url === this.lastUrl) return;
+        
+        this.lastUrl = val.url;
+        this.navOnClick.emit(val);
     }
 
 }

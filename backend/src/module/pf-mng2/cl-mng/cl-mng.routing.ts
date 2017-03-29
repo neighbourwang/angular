@@ -20,47 +20,47 @@ import { ClMngCreStep6Component } from './component/cl-mng-cre-step-6.component'
 
 export const ClMngRouting:ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'pf-mng2/cl-mng/cl-mng',
+        path: 'cl-mng/cl-mng',
         component: ClMngListComponent
     },
     {
-        path : 'pf-mng2/cl-mng/cre-step1',
+        path : 'cl-mng/cre-step1',
         component : ClMngCreStep1Component
     },
     {
-        path : 'pf-mng2/cl-mng/cre-step2',
+        path : 'cl-mng/cre-step2',
         component : ClMngCreStep2Component
     },
     {
-        path : 'pf-mng2/cl-mng/cre-step3',
+        path : 'cl-mng/cre-step3',
         component : ClMngCreStep3Component
     },
     {
-        path : 'pf-mng2/cl-mng/cre-step4',
+        path : 'cl-mng/cre-step4',
         component : ClMngCreStep4Component
     },
     {
-        path : 'pf-mng2/cl-mng/cre-step5',
+        path : 'cl-mng/cre-step5',
         component : ClMngCreStep5Component
     },
     {
-        path : 'pf-mng2/cl-mng/cre-step6',
+        path : 'cl-mng/cre-step6',
         component : ClMngCreStep6Component
     },
     {
-        path: 'pf-mng2/pf-mng-detail',
+        path: 'pf-mng-detail',
         component: PfDetailComponent
     },
     {
-        path: 'pf-mng2/pf-mng-bootDisk',
+        path: 'pf-mng-bootDisk',
         component: bootDiskMngComponent
     },
     {
-        path: 'pf-mng2/pf-mng-bootDisk-creEdit',
+        path: 'pf-mng-bootDisk-creEdit',
         component: bootDiskCreEditComponent
     },
     {
-        path: 'pf-mng2/pf-mng-cloudHostSpec',
+        path: 'pf-mng-cloudHostSpec',
         component:CloudHostSpecComponent
     },
     
