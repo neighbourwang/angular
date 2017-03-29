@@ -2,7 +2,7 @@
 
 2017-03-29 更新  
   
-在constructor里添加 this.v.result = {};  使初始化组件的时候设置result为空,避免重新载入组件的时候错误提示还存在 
+在constructor里添加 this.v.result = {};  使初始化组件的时候设置result为空,避免重新载入组件的时候错误提示还存在   
 查看[用法](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/validators/README.md#用法)  
 
 
