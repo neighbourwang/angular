@@ -6,7 +6,7 @@ import { OrgMngListComponent } from './component/org-mng-list.component';
 
 export const OrgMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path : 'user-center/org-mng/org-mng-list',
+        path : 'org-mng/org-mng-list',
         component : OrgMngListComponent
     }
 ]);

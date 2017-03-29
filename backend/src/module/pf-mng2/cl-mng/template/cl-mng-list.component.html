@@ -44,7 +44,7 @@
                 <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" (click)="switchSelectIndividual(idx)"/></td>
                 <!--<td>123</td>-->
                 <td>{{idx+1}}</td>
-                <td (click)="godetail(item)" style="cursor:pointer" [title]="item.status!='0'?'点击查看平台详情':'平台状态初始化'">
+                <td (click)="godetail(item)" style="cursor:pointer" [title]="item.status!='0'?'点击查看平台详情':'点击重置资源并启用'">
                     
                 <a disabled>{{item.name}}</a>
                 </td>
@@ -68,8 +68,8 @@
 							</span>
                     </td>
                 <td>
-                    <span *ngIf="item.status!='0'" >{{item.healthFlag}} </span>
-                    <button  *ngIf="item.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="resetInit(item)">重置资源并启用</button>
+                    <span>{{item.healthFlag}} </span>
+                    <!--<button  *ngIf="item.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="resetInit(item)">重置资源并启用</button>-->
                 </td>
             </tr>
             </tbody>

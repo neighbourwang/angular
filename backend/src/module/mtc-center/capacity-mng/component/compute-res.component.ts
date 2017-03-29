@@ -38,7 +38,7 @@ export class ComputeResComponent implements OnInit {
 
    
     selectedPf: PlatformModel = new PlatformModel();
-    computeRes: ComputeResModel = new ComputeResModel();
+   // computeRes: ComputeResModel = new ComputeResModel();
     hostList: Array<HostModel>;
     regionList: Array<Region>;
     selectedRegion: Region = new Region();
@@ -72,7 +72,7 @@ export class ComputeResComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.computeRes = response["resultContent"];
+                    //this.computeRes = response["resultContent"];
                     this.regionList = response["resultContent"].regions;
                     this.getZoneList(this.regionList[0].regionId);
                     

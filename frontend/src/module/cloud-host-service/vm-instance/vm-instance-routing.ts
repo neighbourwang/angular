@@ -11,23 +11,23 @@ import {cloudHostDetailComponent} from './component/cloud-host-detail.component'
 
 export const VmInstanceRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'cloud-host-service/vw-vm-list',
+        path: 'vw-vm-list',
         component: vwVmListComponent
     },
     {
-        path: 'cloud-host-service/vw-vm-order',
+        path: 'vw-vm-order',
         component: vwVmOrderComponent
     },
     {
-        path: 'cloud-host-service/cloud-host-list',
+        path: 'cloud-host-list',
         component: osVmListComponent
     },
     {
-        path: 'cloud-host-service/cloud-host-order',
+        path: 'cloud-host-order',
         component: osVmOrderComponent
     },
     {
-        path: 'cloud-host-service/cloud-host-detail/:itemId',
+        path: 'cloud-host-detail/:itemId',
         component: cloudHostDetailComponent
     }
 ]);

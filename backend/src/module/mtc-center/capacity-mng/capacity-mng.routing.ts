@@ -9,23 +9,23 @@ import { HostDetailComponent} from './component/host-detail.component';
 
 export const CapacityMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'mtc-center/capacity-mng/capacity-mng',
+        path: 'capacity-mng/capacity-mng',
         component: CapacityMngComponent
     },
     {
-        path: 'mtc-center/capacity-mng/compute-res',
+        path: 'capacity-mng/compute-res',
         component: ComputeResComponent
     },
     {
-        path: 'mtc-center/capacity-mng/store-res',
+        path: 'capacity-mng/store-res',
         component: StoreResComponent
     },
      {
-        path: 'mtc-center/capacity-mng/store-detail',
+        path: 'capacity-mng/store-detail',
         component: StoreDetailComponent
     },
      {
-        path: 'mtc-center/capacity-mng/host-detail',
+        path: 'capacity-mng/host-detail',
         component: HostDetailComponent
     }
 ]);

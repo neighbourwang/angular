@@ -9,15 +9,15 @@ import {PhysicalMachineDetailComponent} from './component/physical-machine-detai
 
 export const PhysicalMachineRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'physical-machine-service/physical-machine-list',
+        path: 'physical-machine-list',
         component: PhysicalMachineListComponent
     },
     {
-        path: 'physical-machine-service/physical-machine-order',
+        path: 'physical-machine-order',
         component: PhysicalMachineOrderComponent
     },
     {
-        path: 'physical-machine-service/physical-machine-detail',
+        path: 'physical-machine-detail',
         component: PhysicalMachineDetailComponent
     }
 ]);

@@ -268,7 +268,7 @@ export class PhyImgMngComponent implements OnInit {
     
 
     gotoPhyImageList(source:PhyImgSource){
-        this.router.navigate(['phy-img-mng/imglist', {"pmImagePoolId": source.id,"sourceName": source.imageName}]);
+        this.router.navigate(['phy-mng/phy-img-mng/imglist', {"pmImagePoolId": source.id,"sourceName": source.imageName}]);
     }
 
 

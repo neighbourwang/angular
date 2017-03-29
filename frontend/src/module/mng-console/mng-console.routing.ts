@@ -4,7 +4,7 @@ import { MngConsoleComponent } from './component/mng-console.component';
 
 export const MngConsoleRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'mng-console',
+        path: '',
         component: MngConsoleComponent
     }
     

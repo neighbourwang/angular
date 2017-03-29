@@ -36,6 +36,7 @@ private costItemLoader:ItemLoader<CostManageItem> = null;
 
 private showLoader:ItemLoader<CostManageItem> = null;
 private saveLoader:ItemLoader<CostManageItem> = null;
+private downLoadHandler:ItemLoader<CostManageItem> = null;//下载账单表格数据
 
 //状态
 private _statusTypeDic:DicLoader = null;
@@ -68,7 +69,7 @@ private selectedItem :CostManageItem = new CostManageItem();
 				obj.status = item.status;
 			}
 		}
-
+		this.downLoadHandler = new ItemLoader<CostManageItem> (false,'下载出错','op-center.order-mng.cost-pandect.bill-download.post',this.restApiCfg,this.restApi);
 		this.saveLoader = new ItemLoader<CostManageItem>(false,'金额调整失败','op-center.order-mng.cost-manage.cost-update.put',restApiCfg,restApi); 
 
 }
@@ -163,5 +164,26 @@ private selectedItem :CostManageItem = new CostManageItem();
 			this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 		}
 
-	
+	acceptDownload(item:CostManageItem){
+	let endTime = this._param.year+'-12-31'+' 23:59:59';
+	let startTime = this._param.year+'-01-01'+' 00:00:00';
+    let param = {
+                "enterpiseSubinstanceSearchCondition": {
+                    "endTime": endTime,
+                    "idList": [],
+                    "startTime": startTime
+                },
+                "id": item.id
+            }
+    this.layoutService.show();
+    this.downLoadHandler.Go(null,null,param)
+    .then(success=>{
+            alert("success");
+			this.layoutService.hide();
+		})
+	.catch(err=>{
+		this.layoutService.hide();
+		this.showMsg(err);
+	})
+}
 }

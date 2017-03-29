@@ -25,7 +25,9 @@ export class OrgMngCrComponent implements OnInit{
         private service : OrgMngService,
         private layoutService : LayoutService,
         private v: Validation
-        ) { }
+        ) { 
+            this.v.result = {};
+        }
 
 
     @ViewChild('notice')

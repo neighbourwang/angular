@@ -13,19 +13,19 @@ import { PhsicalProdDirCreComponent } from "./component/prod-dirPhsical-cre.comp
 export const ProdDirMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
         // path: 'pf-mng2/cl-mng/cl-mng',
-        path: 'prod-mng/prod-dir-mng/prod-dir-mng',
+        path: 'prod-dir-mng/prod-dir-mng',
         component: ProdDirListComponent
     },
     {
-        path: 'prod-mng/prod-dir-mng/prod-dir-cre',
+        path: 'prod-dir-mng/prod-dir-cre',
         component: ProdDirCreComponent
     },
     {
-        path: 'prod-mng/prod-dir-mng/prod-dirDisk-cre',
+        path: 'prod-dir-mng/prod-dirDisk-cre',
         component: ProdDirDiskCreComponent
     },
     {
-        path: 'prod-mng/prod-dir-mng/prod-dirPhsical-cre',
+        path: 'prod-dir-mng/prod-dirPhsical-cre',
         component: PhsicalProdDirCreComponent
     },
 ]);

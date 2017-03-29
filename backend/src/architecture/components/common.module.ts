@@ -23,10 +23,11 @@ import { ClickOutsideModule } from 'ng2-click-outside';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { HttpModule } from '@angular/http';
-import { TranslateModule } from 'ng2-translate';
 import { DialogTranslate } from './dialog/service/dialog-translate.service';
 
 import { Validation } from './validators';
+
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -34,7 +35,7 @@ import { Validation } from './validators';
         Ng2Bs3ModalModule,
         FormsModule,
         HttpModule,
-        TranslateModule.forRoot()
+        SharedModule,
     ],
     declarations: [
         SpinnerComponent,
@@ -63,9 +64,9 @@ import { Validation } from './validators';
         PopoverModule,
         HttpModule,
         ChartsModule,
-        TranslateModule,
 		SelectboxComponent,
         StaticTooltipComponent,
+        SharedModule,
         tagInputComponent
     ],
     providers : [
