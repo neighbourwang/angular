@@ -3,6 +3,7 @@ export class Hyper {
     name: string;
     platform: string;
     region: string;
+    zone: string;
     enterprise: string;
     orgnization: string;
     cpu: number;

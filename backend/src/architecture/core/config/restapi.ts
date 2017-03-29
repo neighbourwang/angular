@@ -2455,6 +2455,13 @@ export let RestApis: RestApiModel[] = [
         "id":"assign-detail.hyper.info",
         "method":"GET",
         "url":"maintenance/hyper/{vmid}/info/{period}"
-     }
+     },
+     //趋势管理
+     {
+        "desc": "计算资源-基本信息",
+        "id":"compute-trend.basic.info",
+        "method":"POST",
+        "url":"maintenance/trend/general"
+     },
 ]
 

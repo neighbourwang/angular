@@ -1,11 +1,10 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
-   云主机ABC详情
+   云主机{{hyperInfo.name}}详情
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoAssignMng()">
         返回云主机超分管理
     </button>
 </div>
 <div class="page-content">
-    <div class="mgt20" style="font-size:18px;font-weight:bold;">云主机ABC详情：</div>
     <div class="table-container mgt10">
         <table class="table table-hover" >
             <thead>
@@ -22,14 +21,14 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{hyperInfo.hostName}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>2016-12-08</td>
+                    <td>{{hyperInfo.name}}</td>
+                    <td>{{hyperInfo.platformName}}</td>
+                    <td>{{hyperInfo.region}}</td>
+                    <td>{{hyperInfo.zoneName}}</td>
+                    <td>{{hyperInfo.enterpriseName}}</td>
+                    <td>{{hyperInfo.departmentName}}</td>
+                    <td>{{hyperInfo.createName}}</td>
+                    <td>{{hyperInfo.createDate}}</td>
                 </tr>
             </tbody>
         </table>

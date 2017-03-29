@@ -9,7 +9,10 @@ import { AliCloudVmListComponent } from './component/cloud-vm-list.component';
 import { AliCloudVmOrderComponent } from './component/cloud-vm-order.component';
 
 //service 
-//import { MsgMngService } from './service/msg-mng.service';
+import { AliCloudVmService } from "./service/cloud-vm.service";
+import { AliCloudDiskService } from "../cloud-disk/service/cloud-disk.service";
+import { AliCloudDiskDictService } from "../cloud-disk/service/cloud-disk-dict.service";
+
 
 //routing
 import { AliCloudVmRouting } from './cloud-vm.routing';
@@ -29,7 +32,9 @@ import { AliCloudVmRouting } from './cloud-vm.routing';
         AliCloudVmOrderComponent
     ],
     providers: [
-        //MsgMngService
+        AliCloudDiskService,
+        AliCloudDiskDictService,
+        AliCloudVmService
     ]
 
 })
