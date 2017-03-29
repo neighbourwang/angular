@@ -2,7 +2,8 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
-
+import {PlfModel, RegionModel, ZoneModel} from"../model/plf.model";
+import {BasicModel, Percent}from "../model/basic.model";
 //service
 import { ComputeTrendService } from "../service/compute-trend.service";
 const echarts = require('echarts');
@@ -22,12 +23,66 @@ export class ComputeTrendComponent implements OnInit {
     ) {
         
     }
-    
+
+    @ViewChild("notice")
+    notice: NoticeComponent;
+
+
+    noticeTitle = "";
+    noticeMsg = "";
+    //平台联动列表
+    defaultPlf: PlfModel = new PlfModel();
+    selectedPlf: PlfModel = this.defaultPlf;
+    defaultRegion: RegionModel = new RegionModel();
+    selectedRegion: RegionModel = this.defaultRegion;
+    defaultZone: ZoneModel = new ZoneModel();
+    selectedZone: ZoneModel = this.defaultZone;
+
+    plfList: Array<PlfModel>;
+    basicList:Array<BasicModel>;
 
     ngOnInit() {
+        this.getPlfList();
+        this.getBasicList();
         this.showChart();
         //echarts: any = require('echarts')
         
+    }
+
+    //获取平台联动列表
+    getPlfList() {
+        this.layoutService.show();
+        this.service.getPlfList()  
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.plfList = response["resultContent"];
+                   
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    //post 待完善
+    getBasicList() {
+        this.layoutService.show();
+        this.service.getBasicList()  
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.basicList = response["resultContent"].zones;
+                   
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     showChart(){
@@ -145,5 +200,18 @@ export class ComputeTrendComponent implements OnInit {
         myChart.setOption(option);
     } //函数结尾
 
-   
+
+    onRejected(reason: any) {
+        this.layoutService.hide();
+        console.log(reason);
+        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+    }
+
+     showAlert(msg: string): void {
+        this.layoutService.hide();
+
+        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
+        this.noticeMsg = msg;
+        this.notice.open();
+    }
 }

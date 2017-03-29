@@ -9,6 +9,11 @@ export class orderVmPageModel {
     selectedArea: AreaModel = new AreaModel();
     selectedChargeType: string = "";
     selectedImage: string = "";
+    selectedQuantity: number = 0;
+
+    Password: string = "";
+    passwordCheck: string = "";
+    InstanceName: string = "";
 
     price: string = "  ";
 
@@ -50,3 +55,9 @@ export class TagModel {
 export class DiskDeviceMappingModel {
         DiskDeviceMapping: Array<string> = []; 
 }
+
+export class QuantityModel {
+    displayValue: string = "";
+    monthnum: number = 0;
+}
+
