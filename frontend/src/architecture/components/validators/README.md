@@ -1,10 +1,10 @@
-# 表单验证类
+
 
 2017-03-29 更新
-1. 在constructor里添加 this.v.result = {};  使初始化组件的时候设置result为空
+1. 在constructor里添加 this.v.result = {};  使初始化组件的时候设置result为空,避免重新载入组件的时候错误提示还存在  
 
 
-
+# 表单验证类
 
 ## 验证方式(可以多重验证)(除了isUnBlank，其它的方法空值验证返回均为true)：
 
