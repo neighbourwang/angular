@@ -17,7 +17,7 @@ export class OrderMngService {
   download(filename:string,param:any){
 	  	let api = this.restApiCfg.getRestApi("op-center.order-mng.cost-pandect.bill-download.post");
 
-		return this.restApi.downloadFile( api.method, api.url, filename,undefined,param);
+		return this.restApi.downloadFile( api.method, api.url, filename,undefined,undefined,param);
   }
 
 

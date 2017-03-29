@@ -740,8 +740,7 @@ acceptDownload(item:CostManageItem){
     let param = {
                 "enterpiseSubinstanceSearchCondition": {
                     "endTime": endTime,
-                    // "idList": [this.userTypeLoader.FirstItem.enterpriseId],
-                    "idList": ['c0bb260f-cf6a-46c2-bdf5-f4fbda562999'],
+                    "idList": [this.userTypeLoader.FirstItem.enterpriseId],
                     "startTime": startTime
                 },
                 "id": item.id
@@ -749,7 +748,7 @@ acceptDownload(item:CostManageItem){
     this.layoutService.show();
     this.service.download(filename,param)
     .then(success=>{
-            alert("success");
+            // alert("success");
 			this.layoutService.hide();
 		})
 	.catch(err=>{
