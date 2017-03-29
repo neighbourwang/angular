@@ -21,6 +21,7 @@ export class MyDatePicker implements OnChanges ,OnInit {
     @Input() defaultMonth:string;
     @Input() selDate:string;
     @Input() initDate:string;
+    @Input() disabled:boolean = false;
     @Output() dateChanged:EventEmitter<Object> = new EventEmitter();
 
     showSelector: boolean = false;
@@ -235,6 +236,8 @@ export class MyDatePicker implements OnChanges ,OnInit {
     }
 
     removeBtnClicked():void {
+        if(this.disabled) return;
+
         this.selectionDayTxt = '';
         this.selectedDate = {year: 0, month: 0, day: 0};
         this.dateChanged.emit({date: {}, formatted: this.selectionDayTxt, epoc: 0});
@@ -242,6 +245,8 @@ export class MyDatePicker implements OnChanges ,OnInit {
     }
 
     openBtnClicked():void {
+        if(this.disabled) return;
+        
         this.showSelector = !this.showSelector;
 
         if (this.showSelector || this.inline) {

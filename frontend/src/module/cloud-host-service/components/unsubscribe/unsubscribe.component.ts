@@ -33,6 +33,12 @@ export class UnsubscribeComponent implements OnInit {
        
     }
 
+    open() {
+        $('#unsubscribe').modal('show');
+        
+
+    }
+
 	delectVm() {  //退订云主机
         if( !this.id )  return this.showNotice("VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST", "VM_INSTANCE.CHOOSE_HOST_UN");
         this.forceDelect = false;
