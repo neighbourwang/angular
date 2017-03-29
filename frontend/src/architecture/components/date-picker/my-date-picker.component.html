@@ -1,13 +1,13 @@
 <div class="input-group data-picker" style="margin-top: 10px" [ngStyle]="{'height': height, 'width': width}">
     <div class="selectiongroup" *ngIf="!inline" has-warning>
-        <input type="text" class="form-control" maxlength="10" [ngClass]="{'invaliddate': invalidDate&&indicateInvalidDate}" placeholder="{{showDateFormatPlaceholder?dateFormat:''}}"
+        <input type="text" class="form-control" maxlength="10" [disabled]="disabled" [ngClass]="{'invaliddate': invalidDate&&indicateInvalidDate}" placeholder="{{showDateFormatPlaceholder?dateFormat:''}}"
                 [ngStyle]="{'height': height, 'line-height': height, 'font-size': selectionTxtFontSize, 'padding-right': selectionDayTxt.length>0 ? '60px' : '30px'}"
                 (keyup)="userDateInput($event)" [value]="selectionDayTxt">
         <span class="selbtngroup" [style.height]="height">
-            <button type="button" class="btnclear" *ngIf="selectionDayTxt.length>0" (click)="removeBtnClicked()">
+            <button type="button" class="btnclear" [ngClass]="{'buttion-disabled':disabled}" *ngIf="selectionDayTxt.length>0" (click)="removeBtnClicked()">
                 <span class="icon icon-cross" [ngStyle]="{'line-height': height}"></span>
             </button>
-            <button type="button" class="btnpicker" (click)="openBtnClicked()">
+            <button type="button" class="btnpicker" [ngClass]="{'buttion-disabled':disabled}" (click)="openBtnClicked()">
                 <span class="icon icon-calendar" [ngStyle]="{'line-height': height}"></span>
             </button>
         </span>
