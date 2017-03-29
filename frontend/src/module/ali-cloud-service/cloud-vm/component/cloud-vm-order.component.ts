@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 import { NgForm } from "@angular/forms";
 
 import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
-    PaginationComponent, PopupComponent } from "../../../../architecture";
+    PaginationComponent, PopupComponent, SystemDictionary } from "../../../../architecture";
 
 import { Validation, ValidationRegs } from '../../../../architecture';
 
@@ -15,6 +15,7 @@ import { orderVmPageModel, imageModel, QuantityModel } from "../model/cloud-vm.m
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
+import { AliCloudDiskDictService } from "../../cloud-disk/service/cloud-disk-dict.service";
 import { AliCloudVmService } from "../service/cloud-vm.service";
 
 
@@ -30,6 +31,7 @@ export class AliCloudVmOrderComponent implements OnInit {
         private router: Router,
         private commonService: AliCloudDiskService,
         private service: AliCloudVmService,
+        private dictService: AliCloudDiskDictService,
         private activatedRouter : ActivatedRoute,
         private v: Validation,
 
@@ -60,6 +62,8 @@ export class AliCloudVmOrderComponent implements OnInit {
 
     images: Array<imageModel> = [];
 
+    diskCategoryDictArray: Array<SystemDictionary> = [];
+
     private okCallback: Function = null;
     okClicked() {
         console.log('okClicked');
@@ -79,6 +83,13 @@ export class AliCloudVmOrderComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+        this.dictService.diskCategoryDict
+        .then((items) => {
+            this.diskCategoryDictArray = items;
+            console.log(this.diskCategoryDictArray, "this.diskCategoryDictArray");
+        });
+        
         this.getKeySecret();
 
     } 
@@ -90,8 +101,8 @@ export class AliCloudVmOrderComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.commonService.keysecret = response.resultContent;
-                    this.service.keysecret2 = response.resultContent;
-                    console.log(this.service.keysecret2, "this.keysecret2!");
+                    this.service.keysecret = response.resultContent;
+                    console.log(this.service.keysecret, "this.keysecret!");
                     this.getAllRegions();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -140,7 +151,7 @@ export class AliCloudVmOrderComponent implements OnInit {
         region.selected = true;
         if (region.areas == null || region.areas.length == 0) {
             this.getArea(region);
-            this.getImages(region);
+            //this.getImages(region);
         } else {
             console.log(region, "the region which is selected and don't do getArea()!");
 
@@ -218,12 +229,12 @@ export class AliCloudVmOrderComponent implements OnInit {
 
     AreaChanged(region: RegionModel) {
         window.setTimeout(() => {
-            console.log(region, "region in AreaChanged()!");
+            console.log(region, this.selectedOrderVmPage, "Before AreaChanged()!");
             region.selectedArea = new AreaModel();
             region.selectedArea.LocalName = this.selectedOrderVmPage.selectedArea.LocalName;
             region.selectedArea.ZoneId = this.selectedOrderVmPage.selectedArea.ZoneId;
             region.selectedArea.AvailableDiskCategories = this.selectedOrderVmPage.selectedArea.AvailableDiskCategories;
-            console.log(region, this.selectedOrderVmPage, "region, this.selectedOrderVmPage in AreaChanged()!");
+            console.log(region, this.selectedOrderVmPage, "After AreaChanged()!");
         }, 50); //window内的代码要延后50ms执行
     }
 
@@ -252,6 +263,61 @@ export class AliCloudVmOrderComponent implements OnInit {
                 this.onRejected(e);
             });
 
+    }
+
+    DiskChanged() {
+        window.setTimeout(() => {
+            this.calculatePrice();
+        }, 50); //window内的代码要延后50ms执行
+    }
+
+    displayDiskType(disktype: string):string {
+        let diskDict:Array<SystemDictionary> = this.diskCategoryDictArray.filter((item) => {
+            return item.value == disktype;
+        });
+        if (diskDict.length != 0) {
+            return diskDict[0].displayValue;
+        } else {
+            return disktype;
+        }
+    }
+
+    calculatePrice() {
+        /*
+        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "") {
+            this.selectedRegion.price = "计算中...";
+            this.calculatetimer  && window.clearTimeout(this.calculatetimer);
+            this.calculatetimer = window.setTimeout(() => {
+
+                this.layoutService.show();
+                this.service.calculatePrice(this.selectedRegion)
+                    .then(
+                    response => {
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            let result;
+                            try {
+                                result = JSON.parse(response.resultContent);
+                            } catch (ex) {
+                                console.log(ex);
+                            }
+                            this.selectedRegion.price = "￥ " + result + " /时";
+                            console.log(this.selectedRegion.price, "this.selectedRegion.price!");
+                        } else {
+                            this.showMsg("COMMON.GETTING_DATA_FAILED");
+                            return;
+                        }
+                    })
+                    .catch((e) => {
+                        this.onRejected(e);
+                    });
+
+            }, 300);
+
+        } else {
+            this.selectedRegion.price = "  ";
+        }
+        */
     }
 
 

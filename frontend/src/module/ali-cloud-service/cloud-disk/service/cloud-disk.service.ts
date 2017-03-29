@@ -118,14 +118,6 @@ export class AliCloudDiskService {
     getDiskList(pageIndex: number, pageSize: number, regionid: string): Promise<any> {
         const pathParams = [
             {
-                key: "page",
-                value: pageIndex
-            },
-            {
-                key: "size",
-                value: pageSize
-            },
-            {
                 key: "regionid",
                 value: regionid
             }
@@ -136,6 +128,8 @@ export class AliCloudDiskService {
                 "accessSecret": this.keysecret.accessSecret
             },
             "conditionModel": {
+                "pageNumber": pageIndex,
+                "pageSize": pageSize,
             }
         }
         console.log(body, "body");

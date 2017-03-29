@@ -11,6 +11,9 @@ export class orderVmPageModel {
     selectedImage: string = "";
     selectedQuantity: number = 0;
 
+    selectedDisk: string = "";
+    diskCount: string = "";
+
     Password: string = "";
     passwordCheck: string = "";
     InstanceName: string = "";
