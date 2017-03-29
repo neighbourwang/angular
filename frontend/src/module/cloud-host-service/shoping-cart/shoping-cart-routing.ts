@@ -9,11 +9,11 @@ import { cartOrderComponent } from './component/cart-order.component';
 
 export const ShopingCartRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'cloud-host-service/cart-list',
+        path: 'cart-list',
         component: cartListComponent
     },
     {
-        path: 'cloud-host-service/cart-order/:orderlist',
+        path: 'cart-order/:orderlist',
         component: cartOrderComponent
     },
 ]);

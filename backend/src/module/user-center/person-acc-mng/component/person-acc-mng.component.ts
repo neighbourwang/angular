@@ -31,7 +31,9 @@ export class PersonAccMngComponent implements OnInit {
         private validationService: ValidationService,
         private layoutService: LayoutService,
         private v: Validation,
-    ) { }
+    ) { 
+        this.v.result = {};
+    }
     @ViewChild('editPassWord')
     editPassWord: PopupComponent;
     @ViewChild('notice')

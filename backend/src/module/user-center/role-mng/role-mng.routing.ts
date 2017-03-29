@@ -8,11 +8,11 @@ import { RoleMngDetailComponent } from './component/role-mng-detail.component';
 
 export const RoleMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'user-center/role-mng/role-mng-list',
+        path: 'role-mng/role-mng-list',
         component: RoleMngListComponent
     },
     {
-        path: 'user-center/role-mng/role-mng-detail/:id',
+        path: 'role-mng/role-mng-detail/:id',
         component: RoleMngDetailComponent
     }
 ]);

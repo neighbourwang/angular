@@ -7,13 +7,13 @@ import { CheckMngSetComponent } from './component/check-mng-set.component';
 
 export const CheckCenterRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'check-center/check-mng-list',
+        path: 'check-mng-list',
         component: CheckMngListComponent
     }, {
-        path: 'check-center/check-mng-hascheck',
+        path: 'check-mng-hascheck',
         component: CheckMngHascheckComponent
     }, {
-        path: 'check-center/check-mng-set',
+        path: 'check-mng-set',
         component: CheckMngSetComponent
     }  
 ]);

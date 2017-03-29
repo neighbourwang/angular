@@ -150,14 +150,15 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5æ¶ˆè
 		});
 	}
 
-    showDetail(orderItemId:string){
-            this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
-        }	
+    showDetail(item:CostPandectItem){
+        let orderItemId= item.id;
+        this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
+    }	
 
     loadTopChart(){
         
         let month:string;
-        let enterprises : Array<{key:string;}>=[];
+        let enterprises : Array<{key:string;value:string;}>=[];
         month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
         let param ={
                 endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
@@ -166,12 +167,12 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5æ¶ˆè
             };
         if(this.isNullEnterprise()){    
                 for(let item of this.enterpriseLoader.Items){
-                    let ent = {key:item.id};
+                    let ent = {key:item.id,value:item.name};
                     enterprises.push(ent);
                 }       
         }
         else{
-            enterprises.push({key:this._param.enterpriseId});     
+            enterprises.push({key:this._param.enterpriseId,value:this._param.enterprise});     
         }
 
         
@@ -239,11 +240,8 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5æ¶ˆè
         param.ids = historyIds;
 
         this.totalConsumeLoader.Go(null,null,param)
-        .then(success=>{
-            this.increseConsumeLoader.Go(null,null,param)
-        })
         .then(success=>{ 
-            this.chartService.toHistoryData(this.totalConsumeLoader.Items,this.increseConsumeLoader.Items,this.historyChart);
+           this.increaseConsumeLoad(param);
         this.layoutService.hide();
         })
         .catch(err=>{
@@ -252,6 +250,17 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5æ¶ˆè
         })
     }
 
+    increaseConsumeLoad(param:any){
+    this.increseConsumeLoader.Go(null,null,param)
+     .then(success=>{
+        this.chartService.toHistoryData(this.totalConsumeLoader.Items,this.increseConsumeLoader.Items,this.historyChart);
+        this.layoutService.hide();
+    })
+    .catch(err=>{
+        this.layoutService.hide();
+        this.showMsg(err);
+    })
+}
     topConsumeLoad(param:any){
         this.layoutService.show();
         if(this.isNullEnterprise()){

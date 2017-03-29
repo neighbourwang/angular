@@ -73,12 +73,12 @@
                 </table-edit-name>
                 -->
             </td>
-            <td class="text-center">{{disk.Category}}</td>
-            <td class="text-center">{{disk.Status}}</td>
-            <td class="text-center">{{disk.DiskChargeType}}</td>
-            <td class="text-center">支持</td>
-            <td class="text-center">华南1 可用区B</td>
-            <td class="text-center">{{disk.Type}}</td>
+            <td class="text-center">{{disk.Category | dict:this.dictService.diskCategoryDict | async}}</td>
+            <td class="text-center">{{disk.Status | dict:this.dictService.diskStatusDict | async}}</td>
+            <td class="text-center">{{disk.DiskChargeType | dict:this.dictService.diskChargeTypeDict | async}}</td>
+            <td class="text-center">{{disk.Portable.toString() | dict:this.dictService.diskBoolDict | async}}</td>
+            <td class="text-center">{{disk.RegionId}} {{disk.ZoneId}}</td>
+            <td class="text-center">{{disk.Type | dict:this.dictService.diskTypeDict | async}}</td>
         </tr>
         <!--
         <tr style="line-height: 65px;" >

@@ -71,6 +71,7 @@ export class cloudDriveComponentOrder implements OnInit {
 		this.configs = new OrderList();
 		this.sendModule = new SendModule();
 		this.payLoad = new PayLoad();
+		this.v.result = {};
 	}
 
 	ngOnInit() {
