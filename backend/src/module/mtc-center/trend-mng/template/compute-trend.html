@@ -19,26 +19,25 @@
             <div class="col-md-10" >
                 <div class="col-md-2 form-control-title">平台：</div>
                 <div class="col-md-2">
-                    <select class="form-control">
-                        <option>所有平台</option>
+                    <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion">
+                        <option [ngValue]="defaultPlf">所有平台</option>
+                        <option *ngFor="let plf of plfList" [ngValue]="plf">{{plf.platformName}}</option>
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title" >Region/DC：</div>
+                <div class="col-md-2 form-control-title">Region/DC：</div>
                 <div class="col-md-2">
-                    <select class="form-control">
-                        <option>所有Region/DC</option>
-                        <option>Region name</option>
-                        <option>DC name</option>
+                    <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedZone=defaultZone">
+                        <option [ngValue]="defaultRegion">所有Region/DC</option>
+                        <option *ngFor="let reg of selectedPlf.region" [ngValue]="reg">{{reg.region}}</option>
                     </select>
                 </div>
                 <div class="col-md-2 form-control-title">可用区：</div>
                 <div class="col-md-2">
-                    <select class="form-control">
-                        <option>所有可用区</option>
-                        <option>可用区A</option>
-                        <option>可用区B</option>
+                    <select class="form-control" [(ngModel)]="selectedZone">
+                        <option [ngValue]="defaultZone">所有可用区</option>
+                        <option *ngFor="let z of selectedRegion.zone" [ngValue]="z">{{z.zoneName}}</option>
                     </select>
-                </div>           
+                </div>     
             </div>
             <div class="col-md-2" >
                 <div style="font-size:18px;line-height:34px;letter-spacing:2px;">
@@ -72,7 +71,9 @@
             <div class="col-md-10" >
                  <div class="col-md-2 form-control-title">主机规格选择：</div>
                  <div class="col-md-2">
-                     <button class="fox-cloud-button fox-cloud-button-white" style="width:100%;">选择规格</button>
+                     <select class="form-control">
+                        <option>所有规格</option>                     
+                    </select>
                  </div>
                 <div class="col-md-2 form-control-title">
                     <input class="fox-cloud-checkbox" type="checkbox" />&nbsp;所有规格&nbsp;&nbsp;
@@ -106,14 +107,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>可用区1</td>
-                    <td>1348核</td>
-                    <td>1024GB</td>
-                    <td>4倍</td>
-                    <td>85%</td>
-                    <td>4583核</td>
-                    <td>870GB</td>
+                <tr *ngFor="let basic of basicList">
+                    <td>{{basic.zonename}}</td>
+                    <td>{{basic.cpus}}</td>
+                    <td>{{basic.memory}}</td>
+                    <td>{{basic.cpuOversubscription}}</td>
+                    <td>{{basic.cpuQurta}}</td>
+                    <td>{{basic.cpuCapacity}}</td>
+                    <td>{{basic.memoryCapacity}}</td>
                 </tr>
             </tbody>
         </table>
@@ -183,3 +184,5 @@
     </div>
 
 </div>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>

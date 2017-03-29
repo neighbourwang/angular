@@ -34,8 +34,6 @@ export class AssignMngComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
-    
-
     defaultEnt:EntModel = new EntModel();
     selectedEnt: EntModel = this.defaultEnt;
     defaultDept: DeptModel = new DeptModel();
