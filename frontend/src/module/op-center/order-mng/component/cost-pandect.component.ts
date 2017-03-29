@@ -228,14 +228,14 @@ showDetail(orderItemId:string){
 loadTopChart(){
     
     let month:string;
-    let enterprises : Array<{key:string;}>=[];
+   let enterprises : Array<{key:string;value:string;}>=[];
     month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
     let param ={
             endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
             startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
             ids:[]
         };
-    enterprises.push({key:this.userTypeLoader.FirstItem.enterpriseId});     
+    enterprises.push({key:this.userTypeLoader.FirstItem.enterpriseId,value:this.userTypeLoader.FirstItem.enterpriseName});     
 
     
 

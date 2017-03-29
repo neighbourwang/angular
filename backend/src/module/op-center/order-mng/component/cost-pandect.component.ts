@@ -157,7 +157,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5æ¶ˆè
     loadTopChart(){
         
         let month:string;
-        let enterprises : Array<{key:string;}>=[];
+        let enterprises : Array<{key:string;value:string;}>=[];
         month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
         let param ={
                 endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
@@ -166,12 +166,12 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5æ¶ˆè
             };
         if(this.isNullEnterprise()){    
                 for(let item of this.enterpriseLoader.Items){
-                    let ent = {key:item.id};
+                    let ent = {key:item.id,value:item.name};
                     enterprises.push(ent);
                 }       
         }
         else{
-            enterprises.push({key:this._param.enterpriseId});     
+            enterprises.push({key:this._param.enterpriseId,value:this._param.enterprise});     
         }
 
         
