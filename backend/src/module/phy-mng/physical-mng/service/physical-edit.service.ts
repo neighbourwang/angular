@@ -130,5 +130,12 @@ export class PhysicalEditService {
        );
     }
 
+    //新增物理机部件
+    addPhysicalPart():Promise<any>{
+        const api = this.restApiCfg.getRestApi("physical-mng.physical.addParts.post");
+        return this.restApi.request(api.method, api.url, null, null, null   );
+
+    }
+
 
 }

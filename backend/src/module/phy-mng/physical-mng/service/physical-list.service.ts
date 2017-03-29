@@ -22,28 +22,28 @@ export class PhysicalListService {
         this.restApiCfg.loadCfgData();
     }
 
-    dictUseage = this.dict.get(
+    dicMain = this.dict.get(
              {      
                 owner : "PM",
-                field : "STATUS"             //使用
+                field : "STATUS"             //运维状态
             }             
     );
-    dictHealth = this.dict.get(
+    dicHealth = this.dict.get(
                 {      
                     owner : "PM",
-                    field : "HEALTH_STATUS"    //健康
+                    field : "HEALTH_STATUS"    //健康检查
                 }             
     );
-    dicMain = this.dict.get(
+    dicUseage = this.dict.get(
                 {      
                     owner : "PM",
-                    field : "MAIN_STATUS"    //运维
+                    field : "USED_STATUS"    //使用状态
                 }             
     );
     dicPower = this.dict.get(
                 {      
                     owner : "PM",
-                    field : "POWER_STATUS"    //电源
+                    field : "POWER_STATUS"    //电源状态
                 }             
     );
 

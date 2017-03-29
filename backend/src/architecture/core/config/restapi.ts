@@ -2104,6 +2104,24 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "pmresourcemgmt/noauth/pmpool/pm/modellist"
     },
+    {
+        "desc": "添加物理机部件",
+        "id": "physical-mng.physical.addParts.post",
+        "method": "POST",
+        "url": "pmresourcemgmt/noauth/pm/parts" 
+    },
+    {
+        "desc": "删除物理机部件",
+        "id": "physical-mng.physical.deleteParts.delete",
+        "method": "DELETE",
+        "url": "pmresourcemgmt/noauth/pm/parts/delete/{pmPartsId}"  
+    },
+    {
+        "desc": "修改物理机部件",
+        "id": "physical-mng.physical.editParts.put",
+        "method": "PUT",
+        "url": "pmresourcemgmt/noauth/pm/parts/edit"  
+    },
 
     //物理机网络管理
     {

@@ -1,11 +1,11 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, ValidationService, NoticeComponent,dictPipe} from "../../../../architecture";
+import { LayoutService, ValidationService, NoticeComponent,dictPipe,PopupComponent} from "../../../../architecture";
 
 import { PhysicalEditService } from "../service/physical-edit.service";
 
-import { PhysicalModel,CPU,Memory,Disk } from "../model/physical.model";
+import { PhysicalModel,CPU,Memory,Disk,Part,Space } from "../model/physical.model";
 import { ServerType } from "../model/serverType.model";
 import { Brand, Model } from "../model/brand.model";
 //import { IpmiInfo } from "../model/physical-ipmi.model";
@@ -32,6 +32,9 @@ export class PhysicalEditComponent implements OnInit {
 
     @ViewChild("notice")
     notice: NoticeComponent;
+    @ViewChild("addParts")
+    addParts: PopupComponent;
+
 
     physical: PhysicalModel = new PhysicalModel(); //物理机实力
  
@@ -44,6 +47,7 @@ export class PhysicalEditComponent implements OnInit {
     selectedBrand: Brand = this.defaultBrand;
     poolId:string;
     diskValue:boolean;
+    parts:Part[];
   
     ngOnInit() {
         this.activeRoute.params.forEach((params: Params) => {
@@ -258,10 +262,31 @@ export class PhysicalEditComponent implements OnInit {
        }
        else{
            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_ILO_INFO");
-       }
-       
+       }      
     }
 
+    //新增物理机部件
+     addPart() {
+        this.addParts.open("新建部件");
+    }
+
+    //编辑物理机部件
+    editPart(){
+
+    }
+    
+    //删除物理机部件
+    deletePart(){
+        
+    }
+
+    //选择物理机部件
+    getSelectPhysicalPart() {
+        // this.physicalList.forEach((physical) => {
+        //     physical.isSelect = false;
+        // });
+        // physical.isSelect= true;
+    }
     cancel() {
         this.gotoList();
     }

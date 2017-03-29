@@ -60,4 +60,14 @@ export class Disk {
     value: number;
 }
 
+export class Part{
+   // id: string;
+  partsId: string;
+  partsName: string;
+  specList: Array<Space>;
+}
+export class Space{
+    specId: string;
+    specName: string;
+}
 

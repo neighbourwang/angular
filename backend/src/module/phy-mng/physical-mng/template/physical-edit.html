@@ -5,7 +5,7 @@
 <div class="page-content">
     <div class="row" style="margin-top:30px;">
         <div class="col-md-12">
-             <div class="row row-line-height">
+             <div class="row row-line-height" *ngIf="eidtMode !='create'">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">基本信息</div>
                     <div class="col-md-4">  </div>
@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.PHYSICAL_NAME'|translate}}:</div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" [(ngModel)]="physical.pmName"  [disabled]="eidtMode=='view'">
+                        <input type="text" class="form-control" [(ngModel)]="physical.pmName"  [disabled]="eidtMode !='create'">
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.LOCATION'|translate}}:</div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" [(ngModel)]="physical.locale" [disabled]="eidtMode =='view'">
+                        <input type="text" class="form-control" [(ngModel)]="physical.locale" [disabled]="eidtMode =='view' || editMode =='editParts'">
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.DESCRIPTION'|translate}}:</div>
                     <div class="col-md-4">
-                        <textarea class="form-control" rows="3" [(ngModel)]="physical.description" [disabled]="eidtMode =='view'"></textarea>
+                        <textarea class="form-control" rows="3" [(ngModel)]="physical.description" [disabled]="eidtMode =='view' ||editMode =='editParts'"></textarea>
                     </div>
                 </div>
             </div>
@@ -114,62 +114,64 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">维保起始日期:</div>
                     <div class="col-md-4">
-                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="startTimeChange($event)"></date-picker>
+                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="startTimeChange($event)" ></date-picker>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
-                <div class="form-group">
+                <div class="form-group">   <!--[disabled]="eidtMode =='view'||editMode=='editParts'" 日期组件没有diasbled属性-->
                     <div class="col-sm-4 form-control-title">维保结束日期:</div>
                     <div class="col-md-4">
-                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="endTimeChange($event)"></date-picker>
+                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="endTimeChange($event)" ></date-picker>
                     </div>
                 </div>
             </div>
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">硬件信息</div>
-                    <div class="col-md-4">    </div>
-                </div>
-            </div>
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">物理机型号:</div>
-                    <div class="col-md-4"> 
-                        <input type="text" class="form-control"  >
+            <div *ngIf="read">
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">硬件信息</div>
+                        <div class="col-md-4">    </div>
                     </div>
                 </div>
-            </div>
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">序列号:</div>
-                    <div class="col-md-4"> 
-                        <input type="text" class="form-control"  >
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">物理机型号:</div>
+                        <div class="col-md-4"> 
+                            <input type="text" class="form-control"  [(ngModel)]="physical.model" [disabled]="eidtMode !='create'">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row row-line-height">
-                <div class="form-group">
-                    <div class="col-sm-4 form-control-title">部件同步结果:</div>
-                    <div class="col-md-4"> 
-                        <div class="table-container">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>部件</th>
-                                        <th>规格值</th>
-                                        <th>数量</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>3</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>                         
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">序列号:</div>
+                        <div class="col-md-4"> 
+                            <input type="text" class="form-control"  [(ngModel)]="physical.sn"[disabled]="eidtMode !='create'" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">部件同步结果:</div>
+                        <div class="col-md-4"> 
+                            <div class="table-container">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>部件</th>
+                                            <th>规格值</th>
+                                            <th>数量</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>3</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>                         
+                        </div>
                     </div>
                 </div>
             </div>
@@ -178,9 +180,9 @@
                     <div class="col-sm-4 form-control-title">设置服务器部件:</div>
                     <div class="col-md-4"> 
                         <div class="mgt5">
-                            <button  class="fox-cloud-button-md fox-cloud-button-white">新增</button>
-                            <button  class="fox-cloud-button-md fox-cloud-button-white">编辑</button>
-                            <button  class="fox-cloud-button-md fox-cloud-button-white">删除</button>
+                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="addPart();">新增</button>
+                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editParts();">编辑</button>
+                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="deleteParts();">删除</button>
                         </div>
                          <div class="table-container mgt10">
                             <table class="table table-hover">
@@ -210,7 +212,7 @@
                 </div>
             </div>
 
-            <div *ngIf="read || eidtMode =='view'||eidtMode =='edit'">
+            <div *ngIf="read || eidtMode =='view'||eidtMode =='edit'||eidtMode =='editParts'">
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.HARDWARE_INFO'|translate}}:</div>
@@ -354,3 +356,43 @@
 <div style="height:50px"></div>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice>
  <!--{{ physical.toString() }}-->
+
+ <fc-popup #addParts title="{{title}}" ot="保存"  ct="取消" of="" >
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">部件名称:</div>
+            <div class="col-sm-4">
+                <select class="form-control" [(ngModel)]="binding">
+                    <option *ngFor="let item of parts">{{item.partsName}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">规格:</div>
+            <div class="col-sm-4">
+                <select class="form-control">
+                    <option>其他</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">规格值:</div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control">
+                <div class="mgt5">GB</div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">数量:</div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+</fc-popup>
