@@ -65,8 +65,10 @@ class Validation {
     private checkSigle(key, reg:ValidationRegs):string {   //验证单个key值 私有方法
         if(!reg[key]) return;
 
-        let [value = "", regulars, alertText] = reg[key],
+        let [value , regulars, alertText] = reg[key],
             errorMessage = "";
+        value = this.isUnBlank(value) ? value : "";
+
         for(let regular of regulars){
             // console.log(regular, value, regular(value))
             if(this.checkBlank(regular)(value)) {

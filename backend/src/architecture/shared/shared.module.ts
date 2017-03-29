@@ -28,11 +28,12 @@ export class SharedModule {
                   
         // translate.setTranslation('EN',  TranslateEN);
         // translate.setTranslation('CN',  TranslateCN);
+        const languageCode = window.localStorage["languageCode"] || "cn";  
 
         translate.addLangs(["EN", "CN"]);
-        translate.setDefaultLang('CN');
+        translate.use(languageCode.toLocaleUpperCase());
 
-        let browserLang: string = translate.getBrowserLang();
-        translate.use(browserLang.match(/EN|CN/) ? browserLang : 'CN');
+        // let browserLang: string = translate.getBrowserLang();
+        // translate.use(browserLang.match(/EN|CN/) ? browserLang : 'CN');
     }
 }

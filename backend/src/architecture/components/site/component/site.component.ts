@@ -6,6 +6,8 @@ import { UserService } from '../../../core/service/user.service';
 import { SiteService } from '../service/site.service';
 import { DictService} from '../../../core/service/dict-service';
 
+import { TranslateService } from 'ng2-translate';
+
 @Component({
   selector: 'fc-root',
   templateUrl: '../template/site.component.html',
@@ -23,6 +25,7 @@ export class SiteComponent implements OnInit{
     private dictService: SystemDictionaryService,
     private restApi : RestApi,
     private service : SiteService,
+    private translate: TranslateService,
     private userService: UserService,
   ) {
     
@@ -56,5 +59,10 @@ export class SiteComponent implements OnInit{
       window.sessionStorage["userInfo"] = "";
       window.location.href = "/login.html";
     },200)
+  }
+
+  translateCodeChange(code) {
+    window.localStorage["languageCode"] = code.toLocaleLowerCase();
+    window.location.reload();
   }
 }
