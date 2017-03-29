@@ -6,16 +6,20 @@
                 <form #accountForm="ngForm"  (ngSubmit)="save(heroForm)">
                     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
                         <div class="col-md-2 content-title" style="text-align : center"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate }}</div>
-                        <div class="col-md-8 no-padding form-group" [ngClass]="{'has-error': name.errors && (name.dirty || name.touched)}">
+                        <!--<div class="col-md-8 no-padding form-group" [ngClass]="{'has-error': name.errors && (name.dirty || name.touched)}">
                             <input class="form-control" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_A_NAME' | translate }}" type="text" [(ngModel)]="account.userName" name="name" id="name" required
                                 #name='ngModel' />
-                            <!--<span class="help-block" *ngIf="name.errors?.required">name不能为空</span>-->
                             <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!name.errors.required">
                                     {{ 'USER_CENTER.NAME_CANNOT_BE_EMPTY' | translate }}
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
+                        <div class="col-md-8 no-padding mgr15 has-feedback" [ngClass]="{'has-error': v.result.userName }">
+							<input type="text" class="form-control" [(ngModel)]="account.userName" (ngModelChange)="checkValue('userName')" name="userName" placeholder="{{'USER_CENTER.PLEASE_ENTER_A_NAME' | translate}}">
+					        <span *ngIf="v.result.userName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					        <div *ngIf="v.result.userName" class="alert alert-danger normal-line-height" role="alert" >{{v.result.userName}}</div>
+						</div>
                     </div>
 
                     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
@@ -23,6 +27,7 @@
                         <div class="col-md-8 no-padding" [ngClass]="{'has-error': (email.errors && (email.dirty || email.touched))||!loginNameIsOnly||!isEmail}">
                             <input class="form-control" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_A_ACCOUNT' | translate }}" type="email" [(ngModel)]="account.loginName" name="email" id="email" #email='ngModel' [disabled]="isEdit"
                                 required (blur)="checkOnly(account.loginName)" (focus)="isEmail=true">
+                            <span *ngIf="(email.errors && (email.dirty || email.touched))||!loginNameIsOnly||!isEmail" class="glyphicon glyphicon-remove form-control-feedback"></span>      
                             <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!email.errors.required">
                                     {{ 'USER_CENTER.ACCOUNT_CANNOT_BE_EMPTY' | translate }}
@@ -39,11 +44,16 @@
                                 </div>
                             </div>                            
                         </div>
+                        <!--<div class="col-sm-8 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.loginName}">
+                            <input type="text" [(ngModel)]="account.loginName" (ngModelChange)="checkValue('loginName')" name="loginName" placeholder="{{'USER_CENTER.PLEASE_ENTER_A_ACCOUNT' | translate}}" class="form-control">
+                            <span *ngIf="v.result.loginName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="v.result.loginName" class="alert alert-danger" role="alert">{{v.result.loginName| translate}}</div>
+                        </div>-->
                     </div>
 
                     <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
                         <div class="col-md-2 content-title" style="text-align : center"><span class="asterisk">*</span>{{ 'COMMON.PHONE' | translate }}</div>
-                        <div class="col-md-8 no-padding" [ngClass]="{'has-error': phone.errors && (phone.dirty || phone.touched)||!isPhone}">
+                        <!--<div class="col-md-8 no-padding" [ngClass]="{'has-error': phone.errors && (phone.dirty || phone.touched)||!isPhone}">
                             <input class="form-control" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_A_PHONE' | translate }}" type="phone" [(ngModel)]="account.phone" name="phone" required #phone="ngModel" (blur)="phoneValid(account.phone)" (focus)='isPhone=true'>
                             <div *ngIf="phone.errors && (phone.dirty || phone.touched)" class="alert alert-danger" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">
                                 <div [hidden]="!phone.errors.required">
@@ -55,16 +65,25 @@
                                     {{ 'USER_CENTER.PHONE_ERRO_ENTER_PHONE' | translate }}
                                 </div>
                             </div>
+                        </div>-->
+                        <div class="col-sm-8 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.phone}">
+                            <input type="text" [(ngModel)]="account.phone" (ngModelChange)="checkValue('phone')" name="phone" placeholder="{{'USER_CENTER.PLEASE_ENTER_A_PHONE' | translate}}" class="form-control">
+                            <span *ngIf="v.result.phone" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="v.result.phone" class="alert alert-danger normal-line-height" role="alert">{{v.result.phone| translate}}</div>
                         </div>
                     </div>
                     <div class="col-md-12 no-padding mgb15" style="height : 60px ; line-height : 35px">
                         <div class="col-md-2 content-title" style="text-align : center">{{ 'COMMON.DESCRIPTION' | translate }}</div>
-                        <div class="col-md-8 no-padding">
+                        <!--<div class="col-md-8 no-padding">
                             <textarea class="form-control" rows="3" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_THE_DESCRIPTION' | translate }}" [(ngModel)]="account.description" name="description"></textarea>
+                        </div>-->
+                        <div class="col-sm-8 no-padding" [ngClass]="{'has-error':v.result.description}">
+                            <textarea type="text" class="form-control" (ngModelChange)="checkValue('description')" placeholder="{{'USER_CENTER.PLEASE_ENTER_THE_DESCRIPTION' | translate}}" rows="3" [(ngModel)]="account.description"
+                                name="description">
+                            </textarea>
                         </div>
                     </div>
                 </form>
-
             </td>
         </tr>
         <tr>
