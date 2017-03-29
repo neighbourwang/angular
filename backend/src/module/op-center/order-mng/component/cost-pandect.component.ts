@@ -150,9 +150,10 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5æ¶ˆè
 		});
 	}
 
-    showDetail(orderItemId:string){
-            this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
-        }	
+    showDetail(item:CostPandectItem){
+        let orderItemId= item.id;
+        this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
+    }	
 
     loadTopChart(){
         
