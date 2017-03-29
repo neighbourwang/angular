@@ -69,7 +69,7 @@
 
             .text-tip {
                 color: @text-tip-color;
-                padding: 0px 15px 20px 15px;
+                //padding: 0px 15px 20px 15px;
             }
 
             .text-tip-orange {
@@ -215,4 +215,37 @@
     border: 1px solid #2bd2ca;
     background: #2bd2ca !important;
     color: white;
+}
+
+.btn-chain {
+    width: 80px;
+    height: 30px;
+    float: left;
+    margin: 0;
+    border: 1px solid @ddd-color;
+
+    .btn-content {
+        text-align: center;
+        height: 30px;
+        line-height: 30px;
+        overflow: none;
+        border-bottom: 1px solid @ddd-color;
+    }
+
+}
+
+.btn-chain.selected {
+    border: 1px solid #2bd2ca;
+    background: #2bd2ca !important;
+    color: white;
+}
+
+.input_style {
+    display: inline !important;
+    width: 300px !important;
+}
+
+.select_style {
+    display: inline !important;
+    width: 200px !important;
 }

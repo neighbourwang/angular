@@ -5,11 +5,13 @@ import { NgForm } from "@angular/forms";
 import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
     PaginationComponent, PopupComponent } from "../../../../architecture";
 
+import { Validation, ValidationRegs } from '../../../../architecture';
+
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
-import { orderVmPageModel, imageModel } from "../model/cloud-vm.model";
+import { orderVmPageModel, imageModel, QuantityModel } from "../model/cloud-vm.model";
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
@@ -29,8 +31,10 @@ export class AliCloudVmOrderComponent implements OnInit {
         private commonService: AliCloudDiskService,
         private service: AliCloudVmService,
         private activatedRouter : ActivatedRoute,
+        private v: Validation,
 
     ) {
+        this.v.result = {};
     }
 
     @ViewChild("pager")
@@ -310,5 +314,42 @@ export class AliCloudVmOrderComponent implements OnInit {
         }
     }
     */
+
+    show(mnum:QuantityModel) {
+        console.log(mnum, "month button");
+    }
+
+    checkForm(key?:string) {
+		let regs:ValidationRegs = {  //regs是定义规则的对象
+            /*
+			email: [this.email, [this.v.isEmail, this.v.isUnBlank], "Email输入不正确"], 
+  			//验证email
+			baseInput: [this.baseInput, [this.v.isBase, this.v.isUnBlank], "不能包含特殊字符"],
+  			//两次验证[基础的验证不能包含特殊字符，不能为空]
+			phone: [this.phone, [this.v.isMoblie, this.v.isUnBlank], "手机号码输入不正确"],
+  			//手机号码验证
+              */
+			password: [this.selectedOrderVmPage.Password, [this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
+  			//两次验证[密码验证，8-16个字]
+			passwordCheck: [this.selectedOrderVmPage.passwordCheck, [this.v.equalTo(this.selectedOrderVmPage.Password)], "两次密码输入不一致"],
+  			//再次输入密码验证
+            alicloud_instance: [this.selectedOrderVmPage.InstanceName, [this.v.isInstanceName], "阿里云实例名称不对"],
+            /*
+			username: [this.username, [this.v.isInstanceName, this.v.isBase], "用户名输入格式不正确"],
+  			//云主机名称验证
+			numberRange: [this.numberRange, [this.v.range(10, 80)], "数字范围不对"],
+  			//数字范围10-80
+              */
+            
+		}
+
+		return this.v.check(key, regs);
+	}
+    
+    submitForm() {
+		var errorMessage = this.checkForm();
+		if(errorMessage) return alert(errorMessage);
+		console.log("通过！");
+	}
 
 }

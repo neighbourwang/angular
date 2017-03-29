@@ -5,6 +5,7 @@ import { RestApiCfg, RestApi } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
 import { RegionModel, keysecretModel } from '../../cloud-disk/model/cloud-disk.model';
+import { QuantityModel } from "../model/cloud-vm.model";
 
 @Injectable()
 export class AliCloudVmService {
@@ -15,6 +16,56 @@ export class AliCloudVmService {
     ) { }
 
     keysecret2: keysecretModel = new keysecretModel();
+    quantity: Array<QuantityModel> = [
+        {
+            displayValue: "1",
+            monthnum: 1
+        },
+        {
+            displayValue: "2",
+            monthnum: 2
+        },
+        {
+            displayValue: "3",
+            monthnum: 3
+        },
+        {
+            displayValue: "4",
+            monthnum: 4
+        },
+        {
+            displayValue: "5",
+            monthnum: 5
+        },
+        {
+            displayValue: "6",
+            monthnum: 6
+        },
+        {
+            displayValue: "7",
+            monthnum: 7
+        },
+        {
+            displayValue: "8",
+            monthnum: 8
+        },
+        {
+            displayValue: "9",
+            monthnum: 9
+        },
+        {
+            displayValue: " 1",
+            monthnum: 12
+        },
+        {
+            displayValue: " 2",
+            monthnum: 24
+        },
+        {
+            displayValue: " 3",
+            monthnum: 36
+        },
+    ];
 
     getVmImage(regionid: string): Promise<any> {
         const pathParams = [
@@ -123,5 +174,8 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
     */
+
+
+
 
 }
