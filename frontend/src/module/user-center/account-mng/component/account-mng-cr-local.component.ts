@@ -25,6 +25,7 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
         private validService: ValidationService,
         private v: Validation
     ) {
+        this.v.result = {};
     }
 
     @Input()
