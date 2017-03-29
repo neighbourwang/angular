@@ -9,9 +9,11 @@ import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
 
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
+import { orderVmPageModel, imageModel } from "../model/cloud-vm.model";
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
+import { AliCloudVmService } from "../service/cloud-vm.service";
 
 
 @Component({
@@ -24,7 +26,8 @@ export class AliCloudVmOrderComponent implements OnInit {
     constructor(
         private layoutService: LayoutService,
         private router: Router,
-        private service: AliCloudDiskService,
+        private commonService: AliCloudDiskService,
+        private service: AliCloudVmService,
         private activatedRouter : ActivatedRoute,
 
     ) {
@@ -39,9 +42,6 @@ export class AliCloudVmOrderComponent implements OnInit {
     @ViewChild("confirm")
     confirm: ConfirmComponent;
 
-    @ViewChild("deletemsgbox")
-    deletemsgbox: PopupComponent;
-
     noticeTitle = "";
     noticeMsg = "";
 
@@ -49,13 +49,12 @@ export class AliCloudVmOrderComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
-    keysecret: keysecretModel = new keysecretModel();
-
     regions: Array<RegionModel> = [];
 
-    defaultRegion: RegionModel = new RegionModel();
+    defaultOrderVmPage: orderVmPageModel = new orderVmPageModel();
+    selectedOrderVmPage: orderVmPageModel = this.defaultOrderVmPage;
 
-    selectedRegion: RegionModel = this.defaultRegion;
+    images: Array<imageModel> = [];
 
     private okCallback: Function = null;
     okClicked() {
@@ -81,13 +80,14 @@ export class AliCloudVmOrderComponent implements OnInit {
     } 
     getKeySecret(): void {
         this.layoutService.show();
-        this.service.getKeySecret()
+        this.commonService.getKeySecret()
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.service.keysecret = response.resultContent;
-                    console.log(this.service.keysecret, "this.keysecret!");
+                    this.commonService.keysecret = response.resultContent;
+                    this.service.keysecret2 = response.resultContent;
+                    console.log(this.service.keysecret2, "this.keysecret2!");
                     this.getAllRegions();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -102,15 +102,15 @@ export class AliCloudVmOrderComponent implements OnInit {
     getAllRegions(): void {
 
         this.layoutService.show();
-        this.service.getAllRegions()
+        this.commonService.getAllRegions()
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "response!");
                 if (response && 100 == response["resultCode"]) {
                     let result;
                     try {
                         result = JSON.parse(response.resultContent);
+                        console.log(result, "result!");
                     } catch (ex) {
                         console.log(ex);
                     }
@@ -126,6 +126,129 @@ export class AliCloudVmOrderComponent implements OnInit {
             });
     }
 
+
+    selectRegion(region: RegionModel) {
+        this.regions.map((item) => {
+            item.selected = false;
+            item.selectedArea = new AreaModel();
+            item.selectedArea.LocalName = "";
+        });
+        region.selected = true;
+        if (region.areas == null || region.areas.length == 0) {
+            this.getArea(region);
+            this.getImages(region);
+        } else {
+            console.log(region, "the region which is selected and don't do getArea()!");
+
+            this.resetSelectedRegion();
+            this.selectedOrderVmPage.areas = region.areas;
+            this.selectedOrderVmPage.selected = region.selected;
+            this.selectedOrderVmPage.RegionId = region.RegionId;
+            this.selectedOrderVmPage.LocalName = region.LocalName;
+            //this.selectedOrderVmPage.selectedArea = new AreaModel();
+            this.selectedOrderVmPage.selectedArea = region.areas[0];
+            this.selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories = [].concat(region.areas[0].AvailableDiskCategories.DiskCategories);
+            {
+                region.selectedArea = new AreaModel();
+                region.selectedArea.LocalName = this.selectedOrderVmPage.selectedArea.LocalName;
+                region.selectedArea.ZoneId = this.selectedOrderVmPage.selectedArea.ZoneId;
+                region.selectedArea.AvailableDiskCategories.DiskCategories = this.selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories;
+            }
+            console.log(this.selectedOrderVmPage, "this.selectedOrderVmPage!");
+        }
+    }
+    //根据regionId获取可用区列表
+    getArea(region: RegionModel) {
+        this.layoutService.show();
+        this.commonService.getArea(region.RegionId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    region.areas = result.Zones.Zone;
+                    console.log(region, "the region which is selected!");
+                    this.resetSelectedRegion();
+
+                    this.selectedOrderVmPage.areas = region.areas;
+                    this.selectedOrderVmPage.selected = region.selected;
+                    this.selectedOrderVmPage.RegionId = region.RegionId;
+                    this.selectedOrderVmPage.LocalName = region.LocalName;
+                    //this.selectedOrderVmPage.selectedArea = new AreaModel();
+                    this.selectedOrderVmPage.selectedArea = region.areas[0];
+                    this.selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories = [].concat(region.areas[0].AvailableDiskCategories.DiskCategories);
+                    {
+                        region.selectedArea = new AreaModel();
+                        region.selectedArea.LocalName = this.selectedOrderVmPage.selectedArea.LocalName;
+                        region.selectedArea.ZoneId = this.selectedOrderVmPage.selectedArea.ZoneId;
+                        region.selectedArea.AvailableDiskCategories.DiskCategories = this.selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories;
+                    }
+                    console.log(this.selectedOrderVmPage, "this.selectedOrderVmPage!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+    }
+
+    resetSelectedRegion() {
+        //this.ViewChild = new RegionModel();
+        this.defaultOrderVmPage.areas = [];
+        //this.defaultOrderVmPage.count = 1;
+        //this.defaultOrderVmPage.diskCount = "20";
+        this.defaultOrderVmPage.LocalName = "";
+        this.defaultOrderVmPage.RegionId = "";
+        this.defaultOrderVmPage.selected = false;
+        //this.defaultOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories = [];
+        this.defaultOrderVmPage.price = "";
+        this.selectedOrderVmPage = this.defaultOrderVmPage;
+    }
+
+    AreaChanged(region: RegionModel) {
+        window.setTimeout(() => {
+            console.log(region, "region in AreaChanged()!");
+            region.selectedArea = new AreaModel();
+            region.selectedArea.LocalName = this.selectedOrderVmPage.selectedArea.LocalName;
+            region.selectedArea.ZoneId = this.selectedOrderVmPage.selectedArea.ZoneId;
+            region.selectedArea.AvailableDiskCategories = this.selectedOrderVmPage.selectedArea.AvailableDiskCategories;
+            console.log(region, this.selectedOrderVmPage, "region, this.selectedOrderVmPage in AreaChanged()!");
+        }, 50); //window内的代码要延后50ms执行
+    }
+
+    getImages(region: RegionModel) {
+        this.layoutService.show();
+        this.service.getVmImage(region.RegionId)
+            .then(
+            response => {
+                console.log(response, "images response!");
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }                    
+                    this.images = result.Images.Image;
+                    console.log(this.images, "this.images!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+
+    }
 
 
     onRejected(reason: any) {

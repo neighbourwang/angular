@@ -782,8 +782,7 @@ export let RestApis: RestApiModel[] = [
         "id": "al-cloud.cloud-disk.price.get",
         "method": "POST",
         "url": "alicloud/authsec/alicloud/price/disk"
-    },
-    
+    },    
     { //订购阿里云硬盘
         "desc": "create alicloud disk",
         "id": "al-cloud.cloud-disk.diskorder.post",
@@ -801,6 +800,25 @@ export let RestApis: RestApiModel[] = [
         "id": "al-cloud.cloud-disk.diskorder.delete",
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/deletedisk/diskid/{diskid}"
+    },
+
+    { //获取阿里云镜像
+        "desc": "Get alicloud images",
+        "id": "al-cloud.cloud-vm.image.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeimages/regionid/{regionid}"
+    },
+    { //获取阿里云实例类型family
+        "desc": "Get alicloud instance tyep families",
+        "id": "al-cloud.cloud-vm.instance.type.family.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeinstancetypefamilies/regionid/{regionid}"
+    },
+    { //获取阿里云实例类型
+        "desc": "Get alicloud instance types",
+        "id": "al-cloud.cloud-vm.instance.type.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeinstancetypes"
     },
 
 

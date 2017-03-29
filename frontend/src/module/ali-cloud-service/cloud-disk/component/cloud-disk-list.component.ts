@@ -49,7 +49,7 @@ export class AliCloudDiskListComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
-    keysecret: keysecretModel = new keysecretModel();
+    //keysecret: keysecretModel = new keysecretModel();
 
     regions: Array<RegionModel> = [];
 

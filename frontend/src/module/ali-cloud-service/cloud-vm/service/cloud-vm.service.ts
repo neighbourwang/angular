@@ -4,27 +4,21 @@ import { RestApiCfg, RestApi } from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
-import { RegionModel, keysecretModel, diskOrderModel } from '../model/cloud-disk.model';
+import { RegionModel, keysecretModel } from '../../cloud-disk/model/cloud-disk.model';
 
 @Injectable()
-export class AliCloudDiskService {
+export class AliCloudVmService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
         private restApi: RestApi
     ) { }
 
-    //keysecret: keysecretModel;
-    keysecret: keysecretModel = new keysecretModel();
+    keysecret2: keysecretModel = new keysecretModel();
 
-    getKeySecret(): Promise<any> {
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.key-secret.get");
-        return this.restApi.request(api.method, api.url, null, null, null);
-    }
-
-    getAllRegions(): Promise<any> {
-        /*
+    getVmImage(regionid: string): Promise<any> {
         const pathParams = [
+            /*
             {
                 key: "page",
                 value: pageIndex
@@ -33,37 +27,23 @@ export class AliCloudDiskService {
                 key: "size",
                 value: pageSize
             },
-            {
-                key: "status",
-                value: status
-            }
-        ];
-        */
-        const body = {
-            "accessId": this.keysecret.accessId,
-            "accessSecret": this.keysecret.accessSecret
-        }
-        console.log(body, "body")
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.regions.get");
-        return this.restApi.request(api.method, api.url, null, null, body);
-    }
-
-    getArea(id: string): Promise<any> {
-        const pathParams = [
+            */
             {
                 key: "regionid",
-                value: id
+                value: regionid
             }
         ];
         const body = {
-            "accessId": this.keysecret.accessId,
-            "accessSecret": this.keysecret.accessSecret
+            "accessId": this.keysecret2.accessId,
+            "accessSecret": this.keysecret2.accessSecret
         }
         console.log(body, "body");
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.regionZone.get");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.image.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
+
+/*
     calculatePrice(selectedRegion: RegionModel): Promise<any> {
         const body = [
             {
@@ -142,5 +122,6 @@ export class AliCloudDiskService {
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.disklist.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
+    */
 
 }

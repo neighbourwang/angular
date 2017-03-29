@@ -4,20 +4,23 @@
         <h1 class="page-content-header" (click)="payLoadFormat()">阿里云主机实例订购</h1>
         <ul class="page-box" style="padding-left: 0;">
             <!-- 计费方式 -->
+
             <li>
                 <div class="col-md-1 li-title">
                     <p><span class="icon-configure"></span>计费方式：</p>
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
-                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;" style="display: inline">包年包月</button>
-                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;" style="display: inline">按量付费</button>
+                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="0"}' (click)='selectedOrderVmPage.selectedChargeType="0";' style="display: inline">包年包月<sup style="width: 20px; height: 20px; color: orange;">惠</sup></button>
+                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="1"}' (click)='selectedOrderVmPage.selectedChargeType="1";' style="display: inline">按量付费</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                 </div>
             </li>
 
+
             <!-- 地域 -->
+
             <li>
                 <div class="col-md-1 li-title">
                     <p><span class="icon-location"></span>地域：</p>
@@ -29,8 +32,7 @@
                             <div class="regionArea">
                                 <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
                                 <span class="caret"></span>
-                                <!-- <select [(ngModel)] ="region.selectedArea" (change)="selectedRegion=region; selectedRegion.selectedArea=region.selectedArea;"> -->
-                                <select [(ngModel)]="selectedRegion.selectedArea" (change)="AreaChanged(region);">
+                                <select [(ngModel)]="selectedOrderVmPage.selectedArea" (change)="AreaChanged(region);">
                                    <option *ngFor="let item of region.areas" [ngValue]="item">
 							           {{item.LocalName}}
                                    </option>
@@ -46,6 +48,7 @@
             </li>
 
             <!-- 网络 -->
+            <!--
             <li>
                 <div class="col-md-1 li-title">
                     <p><span class="icon-configure"></span>网络</p>
@@ -53,15 +56,15 @@
                 <div class="col-md-12 li-content">
 
                     <div class="col-md-12 mgb20">
-                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;" style="display: inline">经典网络</button>
-                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">专有网络</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;" style="display: inline">经典网络</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">专有网络</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                     <div class="col-md-12 text-tip">
                         <span> 购买后不能更换网络类型 </span>
                     </div>
                     <div class="col-md-12 mgb20">
-                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;" style="display: inline">选择安全组</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;" style="display: inline">选择安全组</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                     <div class="col-md-12 text-tip">
@@ -70,6 +73,7 @@
 
                 </div>
             </li>
+            -->
 
             <!-- 实例 -->
             <li class="li_line_backgroud">
@@ -106,8 +110,8 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
-                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">按固定带宽</button>
-                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">按使用流量</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">按固定带宽</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">按使用流量</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                     <div class="col-md-12">
@@ -137,9 +141,9 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 mgb20">
-                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">公共镜像</button>
-                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">自定义镜像</button>
-                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">共享镜像</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">公共镜像</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">自定义镜像</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">共享镜像</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                         <select>
                             <option>请选择操作系统类别</option>
@@ -170,7 +174,7 @@
                         </div>
                         <div>
                             数据盘：
-                            <count-bar [step]=1 [max]=2000 [min]=1 [stepCheck]=true [value]="selectedRegion.count" (output)="outputValue($event);">
+                            <count-bar [step]=1 [max]=2000 [min]=1 [stepCheck]=true [value]="selectedOrderVmPage.count" (output)="outputValue($event);">
                             </count-bar>增加数据盘
                             <div>
                                 您还可选配4块；
@@ -202,7 +206,7 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 mgb20">
-                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true;">设置密码
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">设置密码
                         </button> 请牢记您所设置的密码，如遗忘可登陆ECS控制台重置密码
                         <div>
                             <div>
@@ -233,15 +237,15 @@
                     <div class="col-md-12">
                         <div class="col-md-4">
                             <span>地域：</span>
-                            <span>{{selectedRegionLocalName || ""}} ({{selectedRegionselectedAreaLocalName || ""}})</span>
+                            <span>{{selectedOrderVmPageLocalName || ""}} ({{selectedOrderVmPageselectedAreaLocalName || ""}})</span>
                         </div>
                         <div class="col-md-4">
                             <span>云盘：</span>
-                            <span>{{selectedRegiondiskCount || ""}}G {{selectedRegionselectedDisk || ""}}</span>
+                            <span>{{selectedOrderVmPagediskCount || ""}}G {{selectedOrderVmPageselectedDisk || ""}}</span>
                         </div>
                         <div class="col-md-4">
                             <span>数量：</span>
-                            <span>{{selectedRegioncount || ""}}</span>
+                            <span>{{selectedOrderVmPagecount || ""}}</span>
                         </div>
                     </div>
                 </div>
@@ -257,7 +261,7 @@
                         <span>￥0.225/时</span>
                     </div>
                     <div class="float-right">
-                        <button class="btn-selected-green" [ngClass]='{"selected":selectedRegion.selected}' (click)="selectedRegion.selected=true; addCart()" class="btn button-orange-light">立即购买</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true; addCart()" class="btn button-orange-light">立即购买</button>
                     </div>
                 </div>
             </li>
