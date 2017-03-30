@@ -8,10 +8,10 @@ import * as _ from 'underscore';
 	<ul>
 		
 		<li>区域: {{_obj.instanceName}}</li>
-		<li>可用区: {{_obj.zone}}</li>
+		<li>{{ 'COMMON.AVAILABLE_ZONE' | translate }}: {{_obj.zone}}</li>
 		<li>实例规格: CPU:{{_obj.cpu}}/内存：{{_obj.mem}}/启动盘：{{_obj.bootstorage}}</li>
 		<li>密码: {{_obj.password}}</li>
-		<li>实例名称： {{_obj.instanceName}}</li>
+		<li>{{ 'CHECK_CENTER.INSTANCE_NAME' | translate }}: {{_obj.instanceName}}</li>
 	</ul>
 	`
 })
@@ -42,12 +42,12 @@ export class VmViewComponent implements OnInit{
 			,password:getProperty(this.values.find(n=>n.attrCode == 'PASSWORD'))
 			,instanceName: getProperty(this.values.find(n=>n.attrCode == "INSTANCENAME"))
 		};
-
 		if(this._obj.password&&this._obj.password!=null){
 			this._obj.password='已设置';
 		}else{
 			this._obj.password='未设置';
 		}
+
 		console.log('vm-view init', this.values);//.instanceName = 
 	}
 }
