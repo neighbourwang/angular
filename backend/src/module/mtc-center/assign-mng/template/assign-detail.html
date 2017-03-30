@@ -34,31 +34,31 @@
         </table>
     </div>
 
-    <div class="row mgt10" >
+    <div class="row mgt15" >
         <div class="col-md-2">
-            <select class="form-control">
-            <option value="1">最近24小时</option>
-            <option value="1">最近7天</option>
-            <option value="1">最近30天</option>
-            <option value="1">最近90天</option>
-            <option value="1">最近180天</option>
-            <option value="1">最近360天</option>
+            <select class="form-control" [(ngModel)]="Period">
+            <option [value]="1">最近24小时</option>
+            <option [value]="7">最近7天</option>
+            <option [value]="30">最近30天</option>
+            <option [value]="90">最近90天</option>
+            <option [value]="180">最近180天</option>
+            <option [value]="360">最近360天</option>
         </select>
         </div>
         <div class="col-md-2">
             <button class="fox-cloud-button fox-cloud-button-white" (click)="refresh()">刷新</button>
         </div>       
     </div>
-    <div class="mgt15">
-        <div class="row row-line-height" style="background: #eff4f8;margin:0;">
-            <div class="col-md-2">CPU平均使用率：{{hyperInfo.cpuAverage}}</div>
-            <div class="col-md-2">CPU峰值使用率：{{hyperInfo.cpuPeak}}</div>
-            <div class="col-md-4">CPU峰值记录时间：{{hyperInfo.cpuPeakTime}}</div>
+    <div class="mgt10" style="font-size:18px;">
+        <div class="row row-line-height" style="margin:0;">
+            <div class="col-md-3">CPU平均使用率：{{hyperInfo.cpuAverage}}</div>
+            <div class="col-md-3">CPU峰值使用率：{{hyperInfo.cpuPeak}}</div>
+            <div class="col-md-6">CPU峰值记录时间：{{hyperInfo.cpuPeakTime}}</div>
         </div>
-        <div class="row row-line-height" style="background: #eff4f8;margin:0;">
-            <div class="col-md-2">内存平均使用率： {{hyperInfo.memoryAverage}}</div>
-            <div class="col-md-2">内存峰值使用率： {{hyperInfo.memoryPeak}}</div>
-            <div class="col-md-4">内存峰值记录时间： {{hyperInfo.memoryPeakTime}}</div>
+        <div class="row row-line-height" style="margin:0;">
+            <div class="col-md-3">内存平均使用率： {{hyperInfo.memoryAverage}}</div>
+            <div class="col-md-3">内存峰值使用率： {{hyperInfo.memoryPeak}}</div>
+            <div class="col-md-6">内存峰值记录时间： {{hyperInfo.memoryPeakTime}}</div>
         </div>
     </div>
     <div class="row mgt15">

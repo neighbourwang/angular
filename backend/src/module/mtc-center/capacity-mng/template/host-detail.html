@@ -53,9 +53,9 @@
         </table>
     </div>
 
-    <div class="row mgt10" >
+    <div class="row mgt15" >
         <div class="col-md-2">
-            <select class="form-control" [ngModel]="Period">
+            <select class="form-control" [(ngModel)]="Period">
                 <option [value]="1">{{'CAPACITY_MNG.LAST_24_HOURS'|translate}}</option><!--最近24小时-->
                 <option [value]="7">{{'CAPACITY_MNG.LAST_7_DAYS'|translate}}</option><!--最近7天-->
                 <option [value]="30">{{'CAPACITY_MNG.LAST_30_DAYS'|translate}}</option><!--最近30天-->
@@ -66,9 +66,10 @@
         </div>
         <div class="col-md-2">
             <button class="fox-cloud-button fox-cloud-button-white" (click)="refresh()">{{'CAPACITY_MNG.REFRESH'|translate}}</button><!--刷新-->
-        </div>       
+        </div> 
+           
     </div>
-    <div class="mgt15" style="font-size:18px;">
+    <div class="mgt10" style="font-size:18px;">
         <div class="row row-line-height" style="margin:0;">
             <div class="col-md-3">{{'CAPACITY_MNG.CPU_AVERAGE_UTILIZATION'|translate}}：{{hostInfo.cpuAverage}}%</div><!--CPU平均使用率-->
             <div class="col-md-3">{{'CAPACITY_MNG.CPU_PEAK_VALUE_UTILIZATION'|translate}}：{{hostInfo.cpuPeak}}%</div><!--CPU峰值使用率-->
