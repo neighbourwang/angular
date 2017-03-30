@@ -58,7 +58,6 @@ export class cloudHostListComponent implements OnInit {
 		this.handleData = new HandleVm();
 
 		this.service.computeStatus.then(res => {
-			console.log(res,  2222)
 		})
 	}
 	ngOnInit() {

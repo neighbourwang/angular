@@ -18,9 +18,29 @@ export class AliCloudDiskDictService{
         this.restApiCfg.loadCfgData();
     }
     
-    diskDict = this.dict.get({
+    diskCategoryDict = this.dict.get({
         owner: "ALICLOUD",
         field: "CLOUD_DISK"
+    });
+
+    diskStatusDict = this.dict.get({
+        owner: "ALICLOUD",
+        field: "CLOUD_DISK_STATUS"
+    });
+
+    diskChargeTypeDict = this.dict.get({
+        owner: "ALICLOUD",
+        field: "CLOUD_DISK_CHARGE_TYPE"
+    });
+
+    diskTypeDict = this.dict.get({
+        owner: "ALICLOUD",
+        field: "CLOUD_DISK_TYPE"
+    });
+
+    diskBoolDict = this.dict.get({
+        owner: "ALICLOUD",
+        field: "CLOUD_DISK_BOOL"
     });
 
     /*

@@ -14,7 +14,8 @@ export class AliCloudDiskService {
         private restApi: RestApi
     ) { }
 
-    keysecret: keysecretModel;
+    //keysecret: keysecretModel;
+    keysecret: keysecretModel = new keysecretModel();
 
     getKeySecret(): Promise<any> {
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.key-secret.get");
@@ -117,14 +118,6 @@ export class AliCloudDiskService {
     getDiskList(pageIndex: number, pageSize: number, regionid: string): Promise<any> {
         const pathParams = [
             {
-                key: "page",
-                value: pageIndex
-            },
-            {
-                key: "size",
-                value: pageSize
-            },
-            {
                 key: "regionid",
                 value: regionid
             }
@@ -135,6 +128,8 @@ export class AliCloudDiskService {
                 "accessSecret": this.keysecret.accessSecret
             },
             "conditionModel": {
+                "pageNumber": pageIndex,
+                "pageSize": pageSize,
             }
         }
         console.log(body, "body");

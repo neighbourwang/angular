@@ -7,15 +7,15 @@
 
 export const PhyPoolRouting= RouterModule.forChild([
     {
-        path: "phy-mng/phy-pool/phy-pool-mng",
+        path: "phy-pool/phy-pool-mng",
         component: PhyPoolMngComponent
     },
     {
-        path: "phy-mng/phy-pool/phy-creat",
+        path: "phy-pool/phy-creat",
         component: PhyCreatComponent
     },
     {
-        path: "phy-mng/phy-pool/phy-unit-mng",
+        path: "phy-pool/phy-unit-mng",
         component: PhyUnitMngComponent
     }
 ]);

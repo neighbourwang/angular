@@ -198,14 +198,14 @@ export class PhyImgListComponent implements OnInit{
 
     //查看镜像
     showImgDetail(id:string){
-        this.router.navigate(['phy-img-mng/imglist/showimg', {"imageId": id,"pmImagePoolId":this.sourceId, "sourceName":this.sourceName}]);
+        this.router.navigate(['phy-mng/phy-img-mng/imglist/showimg', {"imageId": id,"pmImagePoolId":this.sourceId, "sourceName":this.sourceName}]);
     }
     backToSource(){
         this.router.navigateByUrl('phy-mng/phy-img/phy-img-mng');
     }
     //同步镜像
     syncImg(){
-        this.router.navigate(['phy-img-mng/imglist/sync', {"pmImagePoolId":this.sourceId, "sourceName":this.sourceName}]);
+        this.router.navigate(['phy-mng/phy-img-mng/imglist/sync', {"pmImagePoolId":this.sourceId, "sourceName":this.sourceName}]);
 
     }
 
@@ -213,7 +213,7 @@ export class PhyImgListComponent implements OnInit{
     allocateEnt(){
         if(this.selectedPhyImage){
             if(this.selectedPhyImage.imageTypeId != 0){//如果是私有镜像类型才能点分配企业按钮（注：0是公共镜像）
-                this.router.navigate(['phy-img-mng/imglist/setent', {"imgId":this.selectedPhyImage.id, "pmImagePoolId":this.sourceId, "sourceName":this.sourceName}]);
+                this.router.navigate(['phy-mng/phy-img-mng/imglist/setent', {"imgId":this.selectedPhyImage.id, "pmImagePoolId":this.sourceId, "sourceName":this.sourceName}]);
             }else{
                 this.showAlert("PHY_IMG_MNG.JUST_NONE_PUBLIC");
             }

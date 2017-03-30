@@ -6,7 +6,7 @@ import { AccountMngListComponent } from './component/account-mng-list.component'
 
 export const AccountMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path : 'user-center/account-mng/account-mng-list',
+        path : 'account-mng/account-mng-list',
         component : AccountMngListComponent
     }
 

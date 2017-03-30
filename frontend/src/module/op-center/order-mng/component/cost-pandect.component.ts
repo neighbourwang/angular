@@ -3,13 +3,14 @@ import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import {CostManageItem,TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { OrderMngService } from '../service/order-mng.service';
 import * as _ from 'underscore';
 
 @Component({
 	selector: 'cost-pandect',
 	templateUrl: '../template/cost-pandect.component.html',
 	styleUrls: ['../style/cost-pandect.less'],
-	providers: []
+	providers: [OrderMngService]
 })
 export class CostPandectComponent implements OnInit{
 	//企业消费概览
@@ -64,7 +65,8 @@ private downLoadHandler:ItemLoader<CostManageItem> = null;//下载账单表格�
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
-		private restApi:RestApi){
+		private restApi:RestApi,
+        private service:OrderMngService){
 
         this.currentYear = this.timeCaculater.getCurrentYear();
         this.currentMonth = this.timeCaculater.getCurrentMonth();
@@ -226,14 +228,14 @@ showDetail(orderItemId:string){
 loadTopChart(){
     
     let month:string;
-    let enterprises : Array<{key:string;}>=[];
+   let enterprises : Array<{key:string;value:string;}>=[];
     month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
     let param ={
             endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
             startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
             ids:[]
         };
-    enterprises.push({key:this.userTypeLoader.FirstItem.enterpriseId});     
+    enterprises.push({key:this.userTypeLoader.FirstItem.enterpriseId,value:this.userTypeLoader.FirstItem.enterpriseName});     
 
     
 
@@ -290,21 +292,27 @@ totalconsumeLoad(){
 
     this.totalConsumeLoader.Go(null,null,param)
      .then(success=>{
-        this.increseConsumeLoader.Go(null,null,param)
+        this.increaseConsumeLoad(param);
     })
-    .then(success=>{
-        this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);
-        this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);
+   .catch(err=>{
+        this.layoutService.hide();
+        this.showMsg(err);
+    })
+}
+increaseConsumeLoad(param:any){
+    this.increseConsumeLoader.Go(null,null,param)
+     .then(success=>{
+        this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);   
+        this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);   
         this.ent_bar[0].data =  this.b_chart.datas;
         this.ent_bar[1].data =  this.b_chart.datas2;
-       this.layoutService.hide();
+        this.layoutService.hide();
     })
     .catch(err=>{
         this.layoutService.hide();
         this.showMsg(err);
     })
 }
-
 topConsumeLoad(param:any){
     this.layoutService.show();
     // if(this.isNullEnterprise()){
@@ -370,10 +378,14 @@ toSumDatas(source:any,target:Chart){
             datas.push(source.dbOrderPriceSum);
             datas.push(source.diskOrderPriceSum);
             datas.push(source.vmOrderPriceSum);  
-            labels.push('物理机：'+source.physicalMachineOrderPriceSum);
-            labels.push('数据库：'+source.dbOrderPriceSum);
-            labels.push('云硬盘：'+source.diskOrderPriceSum);
-            labels.push('云主机：'+source.vmOrderPriceSum); 
+            // labels.push('物理机：'+source.physicalMachineOrderPriceSum);
+            // labels.push('数据库：'+source.dbOrderPriceSum);
+            // labels.push('云硬盘：'+source.diskOrderPriceSum);
+            // labels.push('云主机：'+source.vmOrderPriceSum); 
+            labels.push('物理机');
+            labels.push('数据库');
+            labels.push('云硬盘');
+            labels.push('云主机'); 
     }
     target.datas.splice(0,target.datas.length);
     target.labels.splice(0,target.labels.length);
@@ -684,6 +696,7 @@ showMsg(msg: string)
     download(){
          this._param.year = this.currentYear.toString(); 
          this.loadYears();
+         this.showDownLoad();
         $('#downloadDialog').modal('show');
 
 //         {
@@ -721,6 +734,7 @@ showMsg(msg: string)
 }
 
 acceptDownload(item:CostManageItem){
+    let filename = 'testassbj';
 	let endTime = this._param.year+'-12-31'+' 23:59:59';
 	let startTime = this._param.year+'-01-01'+' 00:00:00';
     let param = {
@@ -732,9 +746,9 @@ acceptDownload(item:CostManageItem){
                 "id": item.id
             }
     this.layoutService.show();
-    this.downLoadHandler.Go(null,null,param)
+    this.service.download(filename,param)
     .then(success=>{
-            alert("success");
+            // alert("success");
 			this.layoutService.hide();
 		})
 	.catch(err=>{
@@ -742,4 +756,5 @@ acceptDownload(item:CostManageItem){
 		this.showMsg(err);
 	})
 }
+
 }

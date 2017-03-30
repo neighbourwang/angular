@@ -1,20 +1,19 @@
 	
 import { Input,Component, OnInit, ViewChild, EventEmitter,Output} from '@angular/core';
 import { Router } from '@angular/router';
-import { NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import {ProductBillingItem,OrderDetailItem, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp} from '../model'
-import {DictService} from '../../../../architecture/core/service/dict-service';
+import { NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../../architecture';
+import {ProductBillingItem,OrderDetailItem, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp} from '../../../order-mng/model'
+
+import { OrderCancelService } from '../service/order-cancel.service';
 
 @Component({
 	selector: 'order-mng-cancel',
 	templateUrl: '../template/order-mng-cancel.component.html',
-	styleUrls: ['../style/order-mng-renew.less'],
+	styleUrls: ['../../../order-mng/style/order-mng-renew.less'],
 	providers: []}
 	)
 export class OrderMngCancelComponent implements OnInit{
 
-	@Input()
-	private orderItem : SubInstanceResp = new SubInstanceResp();
 	@Input()
 	private detail : OrderDetailItem = new OrderDetailItem();
 
@@ -27,11 +26,10 @@ export class OrderMngCancelComponent implements OnInit{
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
-		private restApi:RestApi,
-		private _dictServ:DictService){
+		private service:OrderCancelService,
+		private restApi:RestApi,){
 	}
 	ngOnInit(){
-		
 	}
 
 
@@ -45,7 +43,7 @@ export class OrderMngCancelComponent implements OnInit{
 	}
 	cancel() {
 		// alert("cancel页面");
-		this.complete.emit([this.orderItem,this.detail]);
+		this.complete.emit([this.detail.itemList,this.detail]);
 	}
   
     getBillingMode(){

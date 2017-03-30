@@ -3,7 +3,8 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 
 import {EntModel, DeptModel} from"../model/ent.model";
-import {PlfModel,RegionModel,ZoneModel} from"../model/plf.model";
+import {PlfModel, RegionModel, ZoneModel} from"../model/plf.model";
+import {UsageState, ItemModel, PowerStatModel, FlavorModel,DoughnutChart}from "../model/usage-state.model";
 import {Hyper} from "../model/hyper.model";
 //service
 import { AssignMngService } from "../service/assign-mng.service";
@@ -33,8 +34,6 @@ export class AssignMngComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
-    
-
     defaultEnt:EntModel = new EntModel();
     selectedEnt: EntModel = this.defaultEnt;
     defaultDept: DeptModel = new DeptModel();
@@ -49,14 +48,23 @@ export class AssignMngComponent implements OnInit {
 
     entList: Array<EntModel>;
     plfList: Array<PlfModel>;
+    
+    cpuInfo: ItemModel = new ItemModel();
+    memInfo: ItemModel = new ItemModel();
+    powerStat: PowerStatModel = new PowerStatModel();
+    flavor:FlavorModel = new FlavorModel();
+    cpuChart: DoughnutChart = new DoughnutChart(); //cpu环形图
+    memChart: DoughnutChart = new DoughnutChart(); //mem环形图
     hyperList: Array<Hyper>;
 
     ngOnInit() {
         this.getEntList();
         this.getPlfList();
+        this.getUsageState();
         this.getHyperList();
     }
 
+    //获取企业联动列表
     getEntList() {
         this.layoutService.show();
         this.service.getEntList()  
@@ -74,6 +82,7 @@ export class AssignMngComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    //获取平台联动列表
     getPlfList() {
         this.layoutService.show();
         this.service.getPlfList()  
@@ -90,6 +99,42 @@ export class AssignMngComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
     }
+
+    //获取环形图
+    getUsageState() {
+        this.layoutService.show();
+        this.service.getUsageState()  //post 待完善
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.cpuInfo = response["resultContent"].cpu;
+                    this.memInfo = response["resultContent"].mem;
+                    this.powerStat = response["resultContent"].powerStat;
+                    this.flavor = response["resultContent"].flavor;
+
+                    //数据处理
+                    this.getGraphData(this.cpuChart, this.cpuInfo);
+                    this.getGraphData(this.memChart, this.memInfo);
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    getGraphData(chart:DoughnutChart,source:ItemModel) {
+        chart.DataSets = [{ data: [source.level1, source.level2, source.level3] }];
+        chart.Colors = [{ backgroundColor: ["#2bd2c8","#05ab83","#c9cacc"] }];
+        chart.ChartType = "doughnut";
+        chart.Options = {
+            cutoutPercentage: 70,
+            rotation: -1.2* Math.PI,
+        }
+    }
+
+    //获取Hyper列表
     getHyperList() {
         this.layoutService.show();
         this.service.getHyperList()  //post 待完善

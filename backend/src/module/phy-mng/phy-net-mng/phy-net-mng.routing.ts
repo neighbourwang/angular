@@ -9,19 +9,19 @@ import { PhyNetDetailsComponent  } from './component/phy-net-details.component';
 
 export const PhyNetRouting= RouterModule.forChild([
     {
-        path: "phy-mng/phy-net/phy-net-mng",
+        path: "phy-net/phy-net-mng",
         component: PhyNetMngComponent
     },
     {
-        path: "phy-mng/phy-net/phy-net-mng-ip-addr",
+        path: "phy-net/phy-net-mng-ip-addr",
         component: PhyNetMngIpAddrComponent
     },
     {
-        path: "phy-mng/phy-net/phy-net-setup-resource",
+        path: "phy-net/phy-net-setup-resource",
         component: PhyNetSetupResourceComponent
     },
     {
-        path: "phy-mng/phy-net/phy-net-details",
+        path: "phy-net/phy-net-details",
         component: PhyNetDetailsComponent
     },
 ]);

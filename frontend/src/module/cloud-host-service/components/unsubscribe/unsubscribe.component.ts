@@ -5,13 +5,15 @@ import { UnsubscribeService } from './unsubscribe.service';
 
 @Component({
 	selector: 'unsubscribe',
-	templateUrl: './unsubscribe.component.html'
+	templateUrl: './unsubscribe.component.html',
+    styleUrls: ['./unsubscribe.less']
 })
 export class UnsubscribeComponent implements OnInit {
 
     @Output() onClick = new EventEmitter<any>();
     @Input() id: string = "";
     @Input() name: string = "";
+    @Input() item: Object = {};
 
     @ViewChild('notice')
     private noticeDialog: NoticeComponent;
@@ -24,6 +26,8 @@ export class UnsubscribeComponent implements OnInit {
     modalMessage: string = '';
     modalOKTitle: string = '';
 
+    detail:any;
+
     constructor(
         private layoutService: LayoutService,
         private service : UnsubscribeService
@@ -31,6 +35,19 @@ export class UnsubscribeComponent implements OnInit {
 
     ngOnInit() {
        
+    }
+
+    open() {
+        $('#unsubscribe').modal('show');
+        this.layoutService.show();
+        this.service.getOrderDetail(this.id).then(detial => {
+            console.log(detial)
+            this.detail = detial;
+            this.layoutService.hide();
+        }).catch(e => {
+            this.layoutService.hide();
+        })
+
     }
 
 	delectVm() {  //退订云主机

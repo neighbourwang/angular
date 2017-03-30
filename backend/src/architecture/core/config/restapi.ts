@@ -926,6 +926,11 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.cost-manage.cost-update.put",
         "method": "PUT",
         "url": "adminui/authsec/enterrpise/subinstance/bill/report"
+    },{
+        "desc": "消费管理-下载",
+        "id": "op-center.order-mng.cost-pandect.bill-download.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterpirse/bill/download"
     },
 
     //<!--后台-运营中心-订单管理-->
@@ -1059,8 +1064,14 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "编辑某个DISK产品目录详细信息带未选平台",
-        "id": "prod-mng.prod-dir-disk.detail",
+        "id": "prod-mng.prod-dir-edit.get",
         "method": "GET",
+        "url": "adminui/authsec/services/Disk/{id}"
+    },
+     {
+        "desc": "编辑某个DISK产品目录详细信息带未选平台",
+        "id": "prod-mng.prod-dir-edit.put",
+        "method": "PUT",
         "url": "adminui/authsec/services/Disk/{id}"
     },
     //for产品编辑
@@ -2458,6 +2469,12 @@ export let RestApis: RestApiModel[] = [
         "url":"maintenance/trend/query/platform"
      },
      {
+        "desc": "超分管理首页--获取环形图数据",
+        "id":"assign-mng.usagestate.info",
+        "method":"POST",
+        "url":"maintenance/hyper/general"
+     },
+     {
         "desc": "获取hyper列表",
         "id":"assign-mng.hyper.list",
         "method":"POST",
@@ -2468,6 +2485,13 @@ export let RestApis: RestApiModel[] = [
         "id":"assign-detail.hyper.info",
         "method":"GET",
         "url":"maintenance/hyper/{vmid}/info/{period}"
-     }
+     },
+     //趋势管理
+     {
+        "desc": "计算资源-基本信息",
+        "id":"compute-trend.basic.info",
+        "method":"POST",
+        "url":"maintenance/trend/general"
+     },
 ]
 

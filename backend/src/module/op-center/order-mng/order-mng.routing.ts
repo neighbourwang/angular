@@ -4,23 +4,23 @@ import { OrderMngDetailComponent, OrderMngComponent,OrderMngSearchComponent,Orde
 
 export const OrderMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'op-center/order-mng/order-mng',
+        path: 'order-mng',
         component: OrderMngComponent
     }
     ,{
-        path: 'op-center/order-mng/order-mng-detail/:orderId',
+        path: 'order-mng-detail/:orderId',
         component: OrderMngDetailComponent
     },{
-        path: 'op-center/order-mng/order-mng-search',
+        path: 'order-mng-search',
         component: OrderMngSearchComponent
     },{
-        path: 'op-center/order-mng/order-mng-searchDetail',
+        path: 'order-mng-searchDetail',
         component: OrderMngSearchDetailComponent
     },{
-        path: 'op-center/order-mng/cost-pandect',
+        path: 'cost-pandect',
         component: CostPandectComponent
     },{
-        path: 'op-center/order-mng/cost-manage',
+        path: 'cost-manage',
         component: CostManageComponent
     }   
 ]);

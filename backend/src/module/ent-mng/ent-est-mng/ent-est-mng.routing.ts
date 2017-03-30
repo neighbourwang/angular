@@ -10,20 +10,20 @@ import { EntEstMngComponent,  EntEstCreComponent,EntEstSetProdComponent,EntEstCh
 
 export const EntEstMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'ent-mng/ent-est-mng/ent-est-mng',
+        path: 'ent-est-mng/ent-est-mng',
         component: EntEstMngComponent
     }
     ,{
-    	path: 'ent-mng/ent-est-mng/ent-est-cre'
+    	path: 'ent-est-mng/ent-est-cre'
     	,component: EntEstCreComponent
     },{
-    	path: 'ent-mng/ent-est-mng/ent-est-setProd/:entId/:entName'
+    	path: 'ent-est-mng/ent-est-setProd/:entId/:entName'
     	,component: EntEstSetProdComponent
     },{
-    	path: 'ent-mng/ent-est-mng/ent-est-check/:entId'
+    	path: 'ent-est-mng/ent-est-check/:entId'
     	,component: EntEstCheckComponent
     },{
-    	path: 'ent-mng/ent-est-mng/ent-est-managePlatform/:entId'
+    	path: 'ent-est-mng/ent-est-managePlatform/:entId'
     	,component: EntEstManagePlatformComponent
     }
 ]);

@@ -6,11 +6,11 @@ import { IpUsageMngListComponent } from './component/ipusage-mng-list.component'
 
 export const IpMngRouting = RouterModule.forChild([
     {
-        path: 'net-mng/vm-mng/ip-mng-list',
+        path: 'vm-mng/ip-mng-list',
         component: IpMngListComponent
     },
     {
-        path : 'net-mng/vm-mng/ipusage-mng-list',
+        path : 'vm-mng/ipusage-mng-list',
         component : IpUsageMngListComponent
     }
 ]);

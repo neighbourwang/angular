@@ -191,7 +191,7 @@ export class PhyPoolMngComponent implements OnInit{
     }
 
     gotoPhyList(item){
-        this.router.navigate([`physical-mng/physical-mng/physical-list`,
+        this.router.navigate([`phy-mng/physical-mng/physical-list`,
             {   "pmpoolId": item.pmPoolId
             }
         ]);
@@ -205,7 +205,7 @@ export class PhyPoolMngComponent implements OnInit{
             this.showAlert("PHY_MNG_POOL.PLEASE_CHOOSE_POOL");
         }else{
             let type= "create";
-            this.router.navigate([`physical-mng/physical-mng/physical-edit`,{pmPoolId: selectedphy.pmPoolId, type: type }]);
+            this.router.navigate([`phy-mng/physical-mng/physical-edit`,{pmPoolId: selectedphy.pmPoolId, type: type }]);
         }
     }
 

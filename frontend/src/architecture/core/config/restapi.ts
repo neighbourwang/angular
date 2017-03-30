@@ -224,6 +224,12 @@ export let RestApis: RestApiModel[] = [
     },
     //镜像管理部分
     {
+        "desc": "创建镜像",
+        "method": "POST",
+        "id": "creat.custom.image",
+        "url": "marketplace/authsec/service/instance/vm/image/{imageName}"
+    },
+    {
         "desc": "获取镜像列表",
         "method": "POST",
         "id": "image.mng.list",
@@ -233,19 +239,25 @@ export let RestApis: RestApiModel[] = [
         "desc": "更新镜像信息",
         "method": "PUT",
         "id": "image.mng.update",
-        "url": "/marketplaceboe/authsec/image"
+        "url": "marketplaceboe/authsec/image"
     },
     {
         "desc": "删除镜像信息",
         "method": "DELETE",
         "id": "image.mng.delete",
-        "url": "/marketplaceboe/authsec/image/{id}"
+        "url": "marketplaceboe/authsec/image/{id}"
     },
     {
         "desc": "获取区域列表",
         "method": "GET",
         "id": "image.mng.area.list",
         "url": "marketplace/authsec/platforms/status/activation"
+    },
+    {
+        "desc": "启用/禁用",
+        "method": "PUT",
+        "id": "image.mng.endisable",
+        "url": "marketplaceboe/authsec/image/{id}/{status}"
     }
     // 管理控制台
     , {
@@ -425,7 +437,7 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.cost-pandect-department.increase-service.post",
         "method": "POST",
         "url": "adminui/authsec/department/subinstance/increase/bill"
-    }, {
+    },{
         "desc": "企业消防总览-下载账单",
         "id": "op-center.order-mng.cost-pandect.bill-download.post",
         "method": "POST",
@@ -782,8 +794,7 @@ export let RestApis: RestApiModel[] = [
         "id": "al-cloud.cloud-disk.price.get",
         "method": "POST",
         "url": "alicloud/authsec/alicloud/price/disk"
-    },
-    
+    },    
     { //订购阿里云硬盘
         "desc": "create alicloud disk",
         "id": "al-cloud.cloud-disk.diskorder.post",
@@ -801,6 +812,55 @@ export let RestApis: RestApiModel[] = [
         "id": "al-cloud.cloud-disk.diskorder.delete",
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/deletedisk/diskid/{diskid}"
+    },
+    { //挂载阿里云硬盘
+        "desc": "attach alicloud disk",
+        "id": "al-cloud.cloud-disk.disk.attach",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/attachdisk"
+    },
+    { //卸载阿里云硬盘
+        "desc": "detach alicloud disk",
+        "id": "al-cloud.cloud-disk.disk.detach",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/detach"
+    },
+
+    { //创建/订购阿里云主机
+        "desc": "create alicloud instance",
+        "id": "al-cloud.cloud-vm.instance.create",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/createinstance/regionid/{regionid}"
+    },
+    { //删除阿里云主机
+        "desc": "delete instance",
+        "id": "al-cloud.cloud-vm.instance.delete",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/deleteinstance/instanceid/{instanceid}"
+    },
+    { //获取阿里云主机列表
+        "desc": "query instance",
+        "id": "al-cloud.cloud-vm.instance.list",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeinstances/regionid/{regionid}"
+    },
+    { //获取阿里云镜像
+        "desc": "Get alicloud images",
+        "id": "al-cloud.cloud-vm.image.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeimages/regionid/{regionid}"
+    },
+    { //获取阿里云实例类型family
+        "desc": "Get alicloud instance tyep families",
+        "id": "al-cloud.cloud-vm.instance.type.family.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeinstancetypefamilies/regionid/{regionid}"
+    },
+    { //获取阿里云实例类型
+        "desc": "Get alicloud instance types",
+        "id": "al-cloud.cloud-vm.instance.type.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeinstancetypes"
     },
 
 

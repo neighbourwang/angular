@@ -8,11 +8,11 @@ import { AttestSourceCreComponent } from './component/attest-source-cre.componen
 
 export const AttestMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'user-center/attest-mng/attest-mng',
+        path: 'attest-mng/attest-mng',
         component: AttestMngComponent
     },
     {
-        path: 'user-center/attest-mng/attest-source-cre',
+        path: 'attest-mng/attest-source-cre',
         component: AttestSourceCreComponent
     },
 ]);

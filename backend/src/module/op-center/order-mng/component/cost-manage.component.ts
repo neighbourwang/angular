@@ -2,14 +2,14 @@ import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,PopupComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
 import {CostPandectParam,CostManageItem,TimeCaculater} from '../model'
-
+import { OrderMngService } from '../service/order-mng.service';
 import * as _ from 'underscore';
 
 @Component({
 	selector: 'cost-manage',
 	templateUrl: '../template/cost-manage.component.html',
 	styleUrls: ['../style/cost-manage.less'],
-	providers: []
+	providers: [OrderMngService]
 })
 export class CostManageComponent implements OnInit{
 
@@ -36,6 +36,7 @@ private costItemLoader:ItemLoader<CostManageItem> = null;
 
 private showLoader:ItemLoader<CostManageItem> = null;
 private saveLoader:ItemLoader<CostManageItem> = null;
+private downLoadHandler:ItemLoader<CostManageItem> = null;//下载账单表格数据
 
 //状态
 private _statusTypeDic:DicLoader = null;
@@ -45,7 +46,8 @@ private selectedItem :CostManageItem = new CostManageItem();
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
-		private restApi:RestApi){
+		private restApi:RestApi,
+		private service:OrderMngService){
 		this.currentYear = this.timeCaculater.getCurrentYear();
 
 		this._enterpriseLoader = new ItemLoader<{id:string; name:string}>(false, 'COMMON.ENTPRISE_OPTIONS_DATA_ERROR', "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
@@ -68,7 +70,7 @@ private selectedItem :CostManageItem = new CostManageItem();
 				obj.status = item.status;
 			}
 		}
-
+		this.downLoadHandler = new ItemLoader<CostManageItem> (false,'下载出错','op-center.order-mng.cost-pandect.bill-download.post',this.restApiCfg,this.restApi);
 		this.saveLoader = new ItemLoader<CostManageItem>(false,'金额调整失败','op-center.order-mng.cost-manage.cost-update.put',restApiCfg,restApi); 
 
 }
@@ -163,5 +165,77 @@ private selectedItem :CostManageItem = new CostManageItem();
 			this._notice.open("COMMON.SYSTEM_PROMPT", msg);
 		}
 
-	
+	acceptDownload(item:CostManageItem){
+		let filename = 'testassbj';
+		let endTime = this._param.year+'-12-31'+' 23:59:59';
+		let startTime = this._param.year+'-01-01'+' 00:00:00';
+		let ids =[];
+		if(this.isNullEnterprise()){    
+                for(let item of this._enterpriseLoader.Items){
+                    ids.push(item.id);
+                }       
+        }
+        else{
+                    ids.push(this._param.enterpriseId);
+        }
+		let param = {
+					"enterpiseSubinstanceSearchCondition": {
+						"endTime": endTime,
+						"idList": ids,
+						"startTime": startTime
+					},
+					"id": item.id
+				}
+		this.layoutService.show();
+		this.service.download(filename,param)
+		.then(success=>{
+				// alert("success");
+				this.layoutService.hide();
+			})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
+	}
+	// acceptDownload2(){
+	// 	let filename = 'testassbj';
+	// 	let endTime = this._param.year+'-12-31'+' 23:59:59';
+	// 	let startTime = this._param.year+'-01-01'+' 00:00:00';
+	// 	let ids =[];
+	// 	if(this.isNullEnterprise()){    
+    //             for(let item of this._enterpriseLoader.Items){
+    //                 ids.push(item.id);
+    //             }       
+    //     }
+    //     else{
+    //                 ids.push(this._param.enterpriseId);
+    //     }
+	// 	let param = {
+	// 				"enterpiseSubinstanceSearchCondition": {
+	// 					"endTime": endTime,
+	// 					"idList": ids,
+	// 					"startTime": startTime
+	// 				},
+	// 				"id": '5590336e-df0a-4dc3-82f3-4aed45e2b0a3'
+	// 			}
+	// 	this.layoutService.show();
+	// 	this.service.download(filename,param)
+	// 	.then(success=>{
+	// 			// alert("success");
+	// 			this.layoutService.hide();
+	// 		})
+	// 	.catch(err=>{
+	// 		this.layoutService.hide();
+	// 		this.showMsg(err);
+	// 	})
+	// }
+
+	 //选择所有企业
+    isNullEnterprise(){
+        if(this._param.enterpriseId==null||this._param.enterpriseId=='null')
+            return true;
+        return false;
+        
+    }
+
 }
