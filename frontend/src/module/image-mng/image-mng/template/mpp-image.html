@@ -35,15 +35,17 @@
         </ul>
 
         <div class="pull-left row" style="margin-bottom:20px;">
-            <div class="col-md-1 text-right pdt10">
+            <!--<div class="col-md-1 text-right pdt10">
                 <span>{{'IMAGE.IMAGE_NAME' | translate}} :</span>
             </div>
             <div class="input-group col-md-2 float-left">
                 <input class="form-control" placeholder="{{'IMAGE.ENETR_IMAGE_NAME_TO_SEARCH' | translate}}" [(ngModel)]="queryOpt.imageName">
-                <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-search"(click)="search()"></span>
+                
+                <div class="input-group-addon"(click)="search()">
+                    <span class="glyphicon glyphicon-search"></span>
                 </div>
             </div>
+
             <div class="col-md-1  text-right pdt10">
                 <span >{{'IMAGE.OPERATING_SYSTEM' | translate}} :</span>
             </div>
@@ -52,6 +54,28 @@
                     <option [value]="" value="">{{'COMMON.ALL' | translate}}</option>
                     <option *ngFor="let os of this.service.osDic | async;" [value]="os.value">{{os.displayValue}}</option>
                 </select>
+            </div>-->
+
+            <div class="col-md-2">
+                <select class="form-control" [(ngModel)]="searchWay">
+                    <option [value]=0><span>{{'IMAGE.IMAGE_NAME' | translate}}</span></option>
+                    <option [value]=1><span >{{'IMAGE.OPERATING_SYSTEM' | translate}} </span></option>
+                </select>
+            </div>
+            
+            <div class="input-group col-md-2 float-left">
+                <div *ngIf="searchWay==0">
+                    <input class="form-control" placeholder="{{'IMAGE.ENETR_IMAGE_NAME_TO_SEARCH' | translate}}" [(ngModel)]="queryOpt.imageName">
+                </div>
+                <div *ngIf="searchWay==1">
+                    <select class="form-control" [(ngModel)]="queryOpt.os">
+                        <option [value]="" value="">{{'COMMON.ALL' | translate}}</option>
+                        <option *ngFor="let os of this.service.osDic | async;" [value]="os.value">{{os.displayValue}}</option>
+                    </select>
+                </div>
+                <div class="input-group-addon"(click)="search()">
+                    <span class="glyphicon glyphicon-search"></span>
+                </div>
             </div>
                 <!--<span class="float-left" style="margin-left:10px;margin-top:6px;">状态 :</span>
                 <div class="col-md-2 float-left">
