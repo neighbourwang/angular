@@ -46,13 +46,16 @@ export class CustomOsComponent implements OnInit {
     checkForm(key?:string) {
         let regs:ValidationRegs = {  //regs是定义规则的对象
             name: [this.name, [this.v.isUnBlank, this.v.isBase, this.v.isInstanceName], "自定义镜像名称格式不正确"], 
-            description: [this.description, [this.v.isBase, this.v.lengthRange(2, 256), this.v.notStartAtValue("http://"), this.v.notStartAtValue("https://")], "不能包含特殊字符"],
+            description: [this.description, [this.v.isBase, this.v.lengthRange(2, 256), this.v.notStartAtValue("http://"), this.v.notStartAtValue("https://")], "自定义镜像描述不正确"],
         }
 
         return this.v.check(key, regs);
     }
 
     confirm(){
+       let errorMessage = this.checkForm();
+       if(errorMessage) return this.showNotice("提示框", errorMessage);
+
        this.layoutService.show();
        this.service.creatImage(this.name, this.uuid, this.platformid)
            .then(res => {
