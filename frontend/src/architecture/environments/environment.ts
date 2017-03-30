@@ -7,10 +7,10 @@
 // const userName = "otheradmin@hpe.com",
 
 //       password = "12345"
-const promise = new Promise((resolve,reject) => {
-     const token =  window.sessionStorage["token"];
-     token ?　resolve(token) : reject("获取token失败！");
- });
+// const promise = new Promise((resolve,reject) => {
+//      const token =  window.sessionStorage["token"];
+//      token ?　resolve(token) : reject("获取token失败！");
+//  });
 
 const isTest = window.localStorage["environment"] === "test" ;
 const baseIp = isTest ? "15.114.102.32" : "15.114.100.31";
@@ -20,7 +20,7 @@ export const environment = {
     production: true ,
     baseIp : baseIp,  
     basePort : basePort,
-    jwt : promise
+    jwt : window.sessionStorage["token"]
 };
 
 

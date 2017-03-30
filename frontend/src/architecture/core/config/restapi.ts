@@ -801,7 +801,37 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/deletedisk/diskid/{diskid}"
     },
+    { //挂载阿里云硬盘
+        "desc": "attach alicloud disk",
+        "id": "al-cloud.cloud-disk.disk.attach",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/attachdisk"
+    },
+    { //卸载阿里云硬盘
+        "desc": "detach alicloud disk",
+        "id": "al-cloud.cloud-disk.disk.detach",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/detach"
+    },
 
+    { //创建/订购阿里云主机
+        "desc": "create alicloud instance",
+        "id": "al-cloud.cloud-vm.instance.create",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/createinstance/regionid/{regionid}"
+    },
+    { //删除阿里云主机
+        "desc": "delete instance",
+        "id": "al-cloud.cloud-vm.instance.delete",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/deleteinstance/instanceid/{instanceid}"
+    },
+    { //获取阿里云主机列表
+        "desc": "query instance",
+        "id": "al-cloud.cloud-vm.instance.list",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeinstances/regionid/{regionid}"
+    },
     { //获取阿里云镜像
         "desc": "Get alicloud images",
         "id": "al-cloud.cloud-vm.image.get",

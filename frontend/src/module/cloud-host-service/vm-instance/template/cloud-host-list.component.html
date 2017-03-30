@@ -93,7 +93,7 @@
 	<div class="col-md-12 no-padding mgb20">
 		<button class="btn float-left mgr5 btn-primary" (click)="goTo('cloud-host-service/cloud-host-order')"><i class="glyphicon glyphicon-plus"></i> {{'VM_INSTANCE.CREATE_CLOUD_HOST' | translate}}</button>
 		<!-- <button class="btn float-left mgr5 btn-success"><i class="glyphicon glyphicon-edit"></i> 编辑云主机</button> -->
-		<unsubscribe #unsubscribeVm [name]="radioSelected?.instanceName" [id]="radioSelected?.subInstanceId"></unsubscribe>
+		<unsubscribe #unsubscribeVm [item]="radioSelected" [name]="radioSelected?.instanceName" [id]="radioSelected?.subInstanceId"></unsubscribe>
 		<button (click)="unsubscribeVm.delectVm()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST' | translate}}</button>
 
 		<!--<div class="dropdown float-left  mgr5">

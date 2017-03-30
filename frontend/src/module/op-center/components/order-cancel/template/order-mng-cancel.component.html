@@ -1,0 +1,92 @@
+<fc-notice #notice ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
+<!--订单退订-->
+<div class="OrderRenew"> 
+	<div class="page-content">
+		<div class="table-container mgb20">
+			<table class="table">
+				<thead>	
+					<tr>
+						<th>选择</th>
+						<th class="order-title">{{ 'SHOPPING_CART.PRODUCT_INFORMATION' | translate}}</th>
+						<th>{{ 'SHOPPING_CART.PRODUCT_TYPE' | translate}}</th>
+						<th>{{ 'ORDER_MNG.CHARGING_MODE' | translate}}</th>
+						<th>{{ 'ORDER_MNG.PURCHASE_CYCLE' | translate}}</th>
+						<th>{{ 'COMMON.QUANTITY' | translate}}</th>
+						<th>费用</th>
+						<th>{{ 'COMMON.STATUS' | translate}}</th>
+						<th>{{ 'COMMON.CREATED_TIME' | translate}}</th>
+						<th>{{ 'COMMON.EXPIRE_DATE' | translate}}</th>
+					</tr>			
+				</thead>
+				<tbody>
+					<tr *ngFor="let prodItem of orderItem.itemList">
+						<td><input type="checkbox" class="fox-cloud-checkbox" (click)='selectedSubItem(prodItem)' [(ngModel)]="prodItem.isChecked"></td>
+						<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
+							<ul *ngIf="prodItem.serviceType>1">
+								<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
+							</ul>
+							<vm-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==0"></vm-view>
+									<!-- 显示云主机 -->
+							<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view>
+						</td>
+						<td>{{prodItem.serviceType | dict:service.serviceType |async}}</td>
+						<td>{{prodItem.billingMode | dict:service.billingModeType |async}}</td>
+						<td>{{prodItem.period}}{{prodItem.periodType | dict:service.packgeBilling | async}}</td>
+						<td>{{prodItem.quantity}}台</td>
+						<td style="width: 100px;">
+							{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}<br/>
+							<span>费用:￥{{prodItem.price}}/</span><span *ngIf="prodItem.serviceType==1">GB</span><span>{{prodItem.periodType | dict:service.packgeBilling | async}}</span>
+						</td>
+						<td class="font-green">{{prodItem.status | dict:service.subinstance |async}}</td>
+						<td>{{prodItem.createDate}}</td>
+						<td>{{prodItem.expireDate}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="font-red">请选择是否退订下列关联的已购服务（如果选择，表示一起退订）</div>
+		<div class="table-container mgb20">
+			<table class="table">
+				<thead>	
+					<tr>
+						<th>选择</th>
+						<th class="order-title">{{ 'SHOPPING_CART.PRODUCT_INFORMATION' | translate}}</th>
+						<th>{{ 'SHOPPING_CART.PRODUCT_TYPE' | translate}}</th>
+						<th>{{ 'ORDER_MNG.CHARGING_MODE' | translate}}</th>
+						<th>{{ 'ORDER_MNG.PURCHASE_CYCLE' | translate}}</th>
+						<th>{{ 'COMMON.QUANTITY' | translate}}</th>
+						<th>费用</th>
+						<th>{{ 'COMMON.STATUS' | translate}}</th>
+						<th>{{ 'COMMON.CREATED_TIME' | translate}}</th>
+						<th>{{ 'COMMON.EXPIRE_DATE' | translate}}</th>
+					</tr>			
+				</thead>
+				<tbody>
+					<tr *ngFor="let relatedItem of detail.relatedSubInstanceList">
+						<td><input type="checkbox" class="fox-cloud-checkbox" (click)='selectedCancelItem(relatedItem)' [(ngModel)]="relatedItem.isChecked"></td>
+						<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
+							<ul>
+								<li *ngFor="let detailItem of relatedItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
+							</ul>
+						</td>
+						<td>{{relatedItem.productType|dict:service.serviceType |async}}</td>
+						<td>{{getBillingMode()}}</td>
+						<td>{{relatedItem.period}}{{relatedItem.periodType | dict:service.packgeBilling | async}}</td>
+						<td>{{relatedItem.quantity}}台</td>
+						<td style="width: 100px;">
+							{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{getOneTimePrice()}}<br/>
+						<span>费用:￥{{getPrice()}}/{{getPeriodType()}}</span><!--<span>{{relatedItem.periodType | dict:service.packgeBilling | async}}</span>--></td>
+						<td class="font-green">{{relatedItem.status}}</td>
+						<td>{{relatedItem.createDate}}</td>
+						<td>{{relatedItem.expireDate}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>				
+ </div>
+ <!-- 退订 -->
+			<div *ngIf="!_isCanceled" class="modal-footer" style="text-align: center;">
+				<button type="button" class="btn button-confirm button-size-big" (click)="cancel()">{{ 'COMMON.CONFIRM' | translate }}</button>
+				<button type="button" class="btn  button-size-big button-white" data-dismiss="modal">{{ 'COMMON.CANCEL' | translate }}</button>
+			</div>
