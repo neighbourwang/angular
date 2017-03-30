@@ -10,6 +10,7 @@ import { orderCompleteComponent } from '../components/order-complete/order-compl
 import { cartCompleteComponent } from '../components/cart-complete/cart-complete.component';
 import { UnsubscribeComponent } from '../components/unsubscribe/unsubscribe.component';
 import { OpenConsoleComponent } from '../components/open-console/open-console.component';
+import { CustomOsComponent } from '../components/custom-os/custom-os.component';
 
 import { PlatformZoneServiceList } from '../components/platform-zone/platform-zone.service'; 
 import { HostReconfigService } from '../components/host-reconfig/host-reconfig.service'; 
@@ -18,16 +19,19 @@ import { orderCompleteService } from '../components/order-complete/order-complet
 import { cartCompleteService } from '../components/cart-complete/cart-complete.service'; 
 import { UnsubscribeService } from '../components/unsubscribe/unsubscribe.service'; 
 import { OpenConsoleService } from '../components/open-console/open-console.service'; 
+import { CustomOsService } from '../components/custom-os/custom-os.service'; 
 
 import { formatInfo } from '../components/order-complete/formatInfo'; 
 
-import { OrderMngCancelComponent, VmViewComponent, DiskViewComponent } from '../../op-center/order-mng/component/';
+// import { OrderMngCancelComponent, VmViewComponent, DiskViewComponent } from '../../op-center/order-mng/component/';
+import { OrderCancleModule } from '../../op-center/components/order-cancel/order-cancel.module';
 
 
 @NgModule({
     imports: [
         CommonComponentModule,
-        PipeModule
+        PipeModule,
+        OrderCancleModule
     ],
     declarations: [
         CartButtonComponent,
@@ -38,10 +42,11 @@ import { OrderMngCancelComponent, VmViewComponent, DiskViewComponent } from '../
         cartCompleteComponent,
         UnsubscribeComponent,
         OpenConsoleComponent,
-        VmViewComponent,
-        DiskViewComponent,
+        // VmViewComponent,
+        // DiskViewComponent,
         formatInfo,
-        OrderMngCancelComponent
+        CustomOsComponent
+        // OrderMngCancelComponent
     ],
     exports: [
         CartButtonComponent,
@@ -51,7 +56,8 @@ import { OrderMngCancelComponent, VmViewComponent, DiskViewComponent } from '../
         orderCompleteComponent,
         cartCompleteComponent,
         OpenConsoleComponent,
-        UnsubscribeComponent
+        UnsubscribeComponent,
+        CustomOsComponent
     ],
     providers: [
         PlatformZoneServiceList,
@@ -60,7 +66,8 @@ import { OrderMngCancelComponent, VmViewComponent, DiskViewComponent } from '../
         orderCompleteService,
         cartCompleteService,
         UnsubscribeService,
-        OpenConsoleService
+        OpenConsoleService,
+        CustomOsService
     ]
 
 })

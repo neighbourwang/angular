@@ -775,12 +775,13 @@ export class OrderMngComponent implements OnInit {
 
 	//退订
 	acceptCancel(data) {
+		let [itemList, detail] = data;
 		// this.layoutService.show();
 		let param=[];
-		if(data[0].itemList[0].isChecked){
+		if(itemList[0].isChecked){
 			param.push(this.selectedOrderItem.orderId);
 		}
-		for(let item of data[1].relatedSubInstanceList){
+		for(let item of detail.relatedSubInstanceList){
 			if(item.isChecked){
 				param.push(item.instanceId);
 			}

@@ -94,7 +94,7 @@
 		<button class="btn float-left mgr5 btn-primary" (click)="goTo('cloud-host-service/cloud-host-order')"><i class="glyphicon glyphicon-plus"></i> {{'VM_INSTANCE.CREATE_CLOUD_HOST' | translate}}</button>
 		<!-- <button class="btn float-left mgr5 btn-success"><i class="glyphicon glyphicon-edit"></i> 编辑云主机</button> -->
 		<unsubscribe #unsubscribeVm [name]="radioSelected?.instanceName" [id]="radioSelected?.subInstanceId"></unsubscribe>
-		<button (click)="unsubscribeVm.delectVm()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST' | translate}}</button>
+		<button (click)="unsubscribeVm.open()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'VM_INSTANCE.UNSUBSCRIBE_CLOUD_HOST' | translate}}</button>
 
 		<!--<div class="dropdown float-left  mgr5">
 			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -149,7 +149,7 @@
 			<!-- <td class="text-center">生产</td> -->
 			<!-- <td class="text-center">关键</td> -->
 			<td class="text-center">
-				<div class="dropdown">
+				<div *ngIf="['0','7','14', '16'].indexOf(vm.vmState) > -1" class="dropdown">
 					<button class="btn btn-default dropdown-toggle" type="button" [attr.id]="'dropdownMenu'+(index+3)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					{{'COMMON.MORE_ACTIONS'| translate}}
 					<span class="caret"></span>
@@ -171,8 +171,9 @@
 							<a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1" (click)="console.open()" href="javascript:">{{'VM_INSTANCE.VIEW_CONSOLE'| translate}}</a>
 						</li>
 						<li role="separator" class="divider"></li>
-						<li><a (click)="hostReconfig.open(vm)" href="javascript:">配置变更</a></li>
-						<!-- <li><a (click)="openConsole(vm)" href="javascript:">创建自定义镜像</a></li> -->
+						<li><a *ngIf="['0','7','14'].indexOf(vm.vmState) > -1" (click)="hostReconfig.open(vm)" href="javascript:">配置变更</a></li>
+						<custom-os [uuid]="vm.uuid" [platformid]="vm.platformId" #customos></custom-os>
+						<li><a *ngIf="['0','7','14','16'].indexOf(vm.vmState) > -1" (click)="customos.open()" href="javascript:">创建自定义镜像</a></li>
 					</ul>
 				</div>
 			</td> 
@@ -184,3 +185,145 @@
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
 
 <host-reconfig #hostReconfig></host-reconfig>
+
+
+  <!-- {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "ACTIVE",
+      "value": "0",
+      "displayValue": "ACTIVE"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "BUILD",
+      "value": "1",
+      "displayValue": "BUILD"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "DELETED",
+      "value": "2",
+      "displayValue": "DELETED"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "ERROR",
+      "value": "3",
+      "displayValue": "ERROR"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "HARD_REBOOT",
+      "value": "4",
+      "displayValue": "HARD_REBOOT"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "MIGRATING",
+      "value": "5",
+      "displayValue": "MIGRATING"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "PASSWORD",
+      "value": "6",
+      "displayValue": "PASSWORD"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "PAUSED",
+      "value": "7",
+      "displayValue": "PAUSED"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "REBOOT",
+      "value": "8",
+      "displayValue": "REBOOT"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "REBUILD",
+      "value": "9",
+      "displayValue": "REBUILD"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "RESIZE",
+      "value": "10",
+      "displayValue": "RESIZE"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "REVERT_RESIZE",
+      "value": "11",
+      "displayValue": "REVERT_RESIZE"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "SHELVED",
+      "value": "12",
+      "displayValue": "SHELVED"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "SHELVED_OFFLOADED",
+      "value": "13",
+      "displayValue": "SHELVED_OFFLOADED"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "SHUTOFF",
+      "value": "14",
+      "displayValue": "SHUTOFF"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "STOPPED",
+      "value": "15",
+      "displayValue": "STOPPED"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "SUSPENDED",
+      "value": "16",
+      "displayValue": "SUSPENDED"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "UNKNOWN",
+      "value": "17",
+      "displayValue": "UNKNOWN"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "UNRECOGNIZED",
+      "value": "18",
+      "displayValue": "UNRECOGNIZED"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "VERIFY_RESIZE",
+      "value": "19",
+      "displayValue": "VERIFY_RESIZE"
+    }, -->
