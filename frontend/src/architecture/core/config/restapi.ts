@@ -233,19 +233,25 @@ export let RestApis: RestApiModel[] = [
         "desc": "更新镜像信息",
         "method": "PUT",
         "id": "image.mng.update",
-        "url": "/marketplaceboe/authsec/image"
+        "url": "marketplaceboe/authsec/image"
     },
     {
         "desc": "删除镜像信息",
         "method": "DELETE",
         "id": "image.mng.delete",
-        "url": "/marketplaceboe/authsec/image/{id}"
+        "url": "marketplaceboe/authsec/image/{id}"
     },
     {
         "desc": "获取区域列表",
         "method": "GET",
         "id": "image.mng.area.list",
         "url": "marketplace/authsec/platforms/status/activation"
+    },
+    {
+        "desc": "启用/禁用",
+        "method": "PUT",
+        "id": "image.mng.endisable",
+        "url": "marketplaceboe/authsec/image/{id}/{status}"
     }
     // 管理控制台
     , {

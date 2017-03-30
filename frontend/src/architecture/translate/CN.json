@@ -541,12 +541,18 @@
     "FOUNDER": "创建人",
     "CREATED_DEPARTMENT": "创建部门",
     "PROGRESS_RATE": "进度",
+    "STATUS":"状态",
     "CUSTOM_IMAGE_NAME": "自定义镜像名",
     "CUSTOM_IMAGE_APPLICATION_RANGE": "自定义镜像应用范围",
     "CUSTOM_IMAGE_DESCRIPTION": "自定义镜像描述",
-    "CONFIRM_DELETE_VALUE": "确认删除{{value_1}}?",
+    "CONFIRM_DELETE_VALUE": "确认删除{{value_1}} ?;如果确认,此镜像数据将不能恢复",
     "IMAGE_NAME_CAN_NOT_BE_BLANK": "镜像名称不能为空",
-    "EDIT_IMAGE": "编辑镜像"
+    "CONFIRM_ENABLE":"确认启用{{value_1}} ?;如果确认，此镜像将显示在云主机订购界面",
+    "CONFIRM_DISENABLE":"确认禁用{{value_1}} ?;如果确认，此镜像将不能显示在云主机订购界面",
+    "EDIT_IMAGE": "编辑镜像",
+    "ENABLE_SUCCESS":"启用成功",
+    "DISENABLE_SUCCESS":"禁用成功",
+    "DELETE_SUCCESS":"删除成功"
   },
   "CLOUD_HOST": {
     "CLOUD_HOST_LIST": "云主机列表",
