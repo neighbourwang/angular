@@ -27,8 +27,8 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
-                        <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);">
-                            <div class="regionName">{{region.LocalName}}</div>
+                        <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}'>
+                            <div class="regionName" (click)="selectRegion(region);">{{region.LocalName}}</div>
                             <div class="regionArea">
                                 <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
                                 <span class="caret"></span>
@@ -157,10 +157,11 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 mgb20 form-group">
                         <span>系统盘：</span>
-                        <select class="form-control select_style">
-                                <option>高效云盘</option>
-                            </select>
-                        <input class="form-control input_style" /> 1240 IOPS 系统盘设备名：/dev/xvda
+                        <select class="form-control select_style" [(ngModel)]="selectedOrderVmPage.selectedDisk" (change)="DiskChanged();">
+							<option value="">请选择云盘</option>
+                            <option *ngFor="let disktype of selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories" [value]="disktype">{{displayDiskType(disktype)}}</option>
+						</select>
+                        <input class="form-control input_style" [(ngModel)]="selectedOrderVmPage.diskCount" (change)="calculatePrice();" />G 1240 IOPS 系统盘设备名：/dev/xvda
                         <br />
                         <span class="text-tip">如何选择SSD云盘/ 高效云盘/ 普通云盘，请看 <a href="javascript: void(0);">详细说明</a></span>
                     </div>

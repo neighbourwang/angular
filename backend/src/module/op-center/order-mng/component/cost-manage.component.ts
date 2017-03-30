@@ -169,10 +169,19 @@ private selectedItem :CostManageItem = new CostManageItem();
 		let filename = 'testassbj';
 		let endTime = this._param.year+'-12-31'+' 23:59:59';
 		let startTime = this._param.year+'-01-01'+' 00:00:00';
+		let ids =[];
+		if(this.isNullEnterprise()){    
+                for(let item of this._enterpriseLoader.Items){
+                    ids.push(item.id);
+                }       
+        }
+        else{
+                    ids.push(this._param.enterpriseId);
+        }
 		let param = {
 					"enterpiseSubinstanceSearchCondition": {
 						"endTime": endTime,
-						"idList": [],
+						"idList": ids,
 						"startTime": startTime
 					},
 					"id": item.id
@@ -188,4 +197,45 @@ private selectedItem :CostManageItem = new CostManageItem();
 			this.showMsg(err);
 		})
 	}
+	// acceptDownload2(){
+	// 	let filename = 'testassbj';
+	// 	let endTime = this._param.year+'-12-31'+' 23:59:59';
+	// 	let startTime = this._param.year+'-01-01'+' 00:00:00';
+	// 	let ids =[];
+	// 	if(this.isNullEnterprise()){    
+    //             for(let item of this._enterpriseLoader.Items){
+    //                 ids.push(item.id);
+    //             }       
+    //     }
+    //     else{
+    //                 ids.push(this._param.enterpriseId);
+    //     }
+	// 	let param = {
+	// 				"enterpiseSubinstanceSearchCondition": {
+	// 					"endTime": endTime,
+	// 					"idList": ids,
+	// 					"startTime": startTime
+	// 				},
+	// 				"id": '5590336e-df0a-4dc3-82f3-4aed45e2b0a3'
+	// 			}
+	// 	this.layoutService.show();
+	// 	this.service.download(filename,param)
+	// 	.then(success=>{
+	// 			// alert("success");
+	// 			this.layoutService.hide();
+	// 		})
+	// 	.catch(err=>{
+	// 		this.layoutService.hide();
+	// 		this.showMsg(err);
+	// 	})
+	// }
+
+	 //选择所有企业
+    isNullEnterprise(){
+        if(this._param.enterpriseId==null||this._param.enterpriseId=='null')
+            return true;
+        return false;
+        
+    }
+
 }
