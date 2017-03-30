@@ -57,6 +57,8 @@ export class ImgMngComponent implements OnInit {
     realQueryOpt: CriteriaQuery;
     temp2:Image = new Image();//用于修改镜像名称
 
+    searchWay:number = 0;
+
     ngOnInit() {
         this.getAreaList();
         this.getImageList();
@@ -252,7 +254,7 @@ export class ImgMngComponent implements OnInit {
                         }else if(status == '2') {
                             this.showAlert("IMAGE.DISENABLE_SUCCESS");
                         }
-                        
+
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
