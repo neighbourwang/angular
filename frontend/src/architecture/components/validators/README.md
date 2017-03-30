@@ -34,7 +34,8 @@
 | equalToArr        | (arr:any[])                           | 在某个数组里含有                     |
 | notEqualTo        | (target:any)                           | 不等于某个数                     |
 | notEqualToArr        | (arr:any[])                           | 不在某个数组里含有                     |
-
+| startAtValue        | (value:string)                           | 开头必须包含某个值                     |
+| notStartAtValue        | (value:string)                           | 开头不能包含某个值                     |
 
 
 ##用法：
