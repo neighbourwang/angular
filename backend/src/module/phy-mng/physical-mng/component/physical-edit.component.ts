@@ -313,10 +313,16 @@ export class PhysicalEditComponent implements OnInit {
          this.isEdit=false;
         this.addParts.open("新建部件");
     }
-    //确认新增部件
-    addPartConfirm(partList:PartList){
-        partList.partsName=this.selectedPart.partsName;
-        this.partsList.push(partList);
+    //确认部件
+    addPartConfirm(){
+        if(this.isEdit){
+
+        }
+        else{
+            this.partList.partsName=this.selectedPart.partsName;
+            this.partsList.push(this.partList);
+        }
+        
 
     }
 
@@ -356,7 +362,7 @@ export class PhysicalEditComponent implements OnInit {
     }
 
     //选择物理机部件
-     getSelectPart(part: PartList,index:string) {
+     getSelectPart(part: PartList) {
         this.partsList.forEach((part) => {
             part.isSelect = false;
         });

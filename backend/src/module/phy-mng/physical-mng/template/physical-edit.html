@@ -114,7 +114,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">维保起始日期:</div>
                     <div class="col-md-4">
-                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="startTimeChange($event)" ></date-picker>
+                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="startTimeChange($event)" [disabled]="eidtMode =='view'||editMode=='editParts'" ></date-picker>
                     </div>
                 </div>
             </div>
@@ -122,7 +122,7 @@
                 <div class="form-group">   <!--[disabled]="eidtMode =='view'||editMode=='editParts'" 日期组件没有diasbled属性-->
                     <div class="col-sm-4 form-control-title">维保结束日期:</div>
                     <div class="col-md-4">
-                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="endTimeChange($event)" ></date-picker>
+                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="endTimeChange($event)" [disabled]="eidtMode =='view'||editMode=='editParts'" ></date-picker>
                     </div>
                 </div>
             </div>
@@ -198,7 +198,7 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of partsList; let idex=index;">
-                                        <td><input type="radio" class="fox-cloud-radio" name="part" (change)="getSelectPart(item,idex);"[checked]="item.isSelect"></td>
+                                        <td><input type="radio" class="fox-cloud-radio" name="part" (change)="getSelectPart(item);"[checked]="item.isSelect"></td>
                                         <td>{{item.partsName}}</td>
                                         <td>{{item.specName}}</td>
                                         <td>{{item.specValue}}</td>
@@ -357,7 +357,7 @@
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice>
  <!--{{ physical.toString() }}-->
 
- <fc-popup #addParts title="{{title}}" ot="{{isEdit== false? '添加': '保存'}}"  ct="取消" of="addPartConfirm(partList)" >
+ <fc-popup #addParts title="{{title}}" ot="{{isEdit== false? '添加': '保存'}}"  ct="取消" of="addPartConfirm()" >
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">部件名称:</div>
