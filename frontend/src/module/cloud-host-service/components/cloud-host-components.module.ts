@@ -10,6 +10,7 @@ import { orderCompleteComponent } from '../components/order-complete/order-compl
 import { cartCompleteComponent } from '../components/cart-complete/cart-complete.component';
 import { UnsubscribeComponent } from '../components/unsubscribe/unsubscribe.component';
 import { OpenConsoleComponent } from '../components/open-console/open-console.component';
+import { CustomOsComponent } from '../components/custom-os/custom-os.component';
 
 import { PlatformZoneServiceList } from '../components/platform-zone/platform-zone.service'; 
 import { HostReconfigService } from '../components/host-reconfig/host-reconfig.service'; 
@@ -18,6 +19,7 @@ import { orderCompleteService } from '../components/order-complete/order-complet
 import { cartCompleteService } from '../components/cart-complete/cart-complete.service'; 
 import { UnsubscribeService } from '../components/unsubscribe/unsubscribe.service'; 
 import { OpenConsoleService } from '../components/open-console/open-console.service'; 
+import { CustomOsService } from '../components/custom-os/custom-os.service'; 
 
 import { formatInfo } from '../components/order-complete/formatInfo'; 
 
@@ -43,6 +45,7 @@ import { OrderCancleModule } from '../../op-center/components/order-cancel/order
         // VmViewComponent,
         // DiskViewComponent,
         formatInfo,
+        CustomOsComponent
         // OrderMngCancelComponent
     ],
     exports: [
@@ -53,7 +56,8 @@ import { OrderCancleModule } from '../../op-center/components/order-cancel/order
         orderCompleteComponent,
         cartCompleteComponent,
         OpenConsoleComponent,
-        UnsubscribeComponent
+        UnsubscribeComponent,
+        CustomOsComponent
     ],
     providers: [
         PlatformZoneServiceList,
@@ -62,7 +66,8 @@ import { OrderCancleModule } from '../../op-center/components/order-cancel/order
         orderCompleteService,
         cartCompleteService,
         UnsubscribeService,
-        OpenConsoleService
+        OpenConsoleService,
+        CustomOsService
     ]
 
 })

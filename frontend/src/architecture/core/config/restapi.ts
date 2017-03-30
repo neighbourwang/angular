@@ -224,6 +224,12 @@ export let RestApis: RestApiModel[] = [
     },
     //镜像管理部分
     {
+        "desc": "创建镜像",
+        "method": "POST",
+        "id": "creat.custom.image",
+        "url": "marketplace/authsec/service/instance/vm/image/{imageName}"
+    },
+    {
         "desc": "获取镜像列表",
         "method": "POST",
         "id": "image.mng.list",
