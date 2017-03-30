@@ -317,117 +317,117 @@ export let RestApis: RestApiModel[] = [
     //     "desc": "取得云平台规格列表",
     //     "id": "platform-mng.flavorList.get",
     //     "method": "GET",
-    //     "url": "adminui/authsec/sync/platform/{id}/flavor"        
+    //     "url": "adminui/authsec/sync/platform/{id}/flavor"
     // },
     {
         "desc": "新建Vmware主机规格",
         "id": "platform-mng.vmflavorList.post",
-        "method": "POST",    
-        "url": "adminui/authsec/sync/platform/flavor/add"        
+        "method": "POST",
+        "url": "adminui/authsec/sync/platform/flavor/add"
     },
      {
         "desc": "同步更新云主机规格",
         "id": "platform-mng.flavorList.post",
         "method": "POST",
-        "url": "adminui/authsec/sync/platform/{id}/flavor"        
+        "url": "adminui/authsec/sync/platform/{id}/flavor"
     },
     {
         "desc": "启用主机规格",
         "id": "platform-mng.flavor.enable",
-        "method": "PUT",    
-        "url": "adminui/authsec/platform/flavor/{id}/enable"        
+        "method": "PUT",
+        "url": "adminui/authsec/platform/flavor/{id}/enable"
     },
     {
         "desc": "删除主机规格",
         "id": "platform-mng.flavor.delete",
-        "method": "DELETE",    
-        "url": "adminui/authsec/platform/flavor/{id}"        
+        "method": "DELETE",
+        "url": "adminui/authsec/platform/flavor/{id}"
     },
     //启动盘管理
     {
         "desc": "取得启动盘列表",
         "id": "platform-mng.bootDiskList.get",
         "method": "GET",
-        "url": "adminui/authsec/platforms/{id}/bootstorage"        
+        "url": "adminui/authsec/platforms/{id}/bootstorage"
     },
     {
         "desc": "启用启动盘",
         "id": "platform-mng.bootDisk.enable",
-        "method": "GET",    
-        "url": "adminui/authsec/platform/bootstorage/{id}/enable"        
+        "method": "GET",
+        "url": "adminui/authsec/platform/bootstorage/{id}/enable"
     },
     {
         "desc": "禁用启动盘",
         "id": "platform-mng.bootDisk.suspend",
-        "method": "GET",    
-        "url": "adminui/authsec/platform/bootstorage/{id}/suspend"        
+        "method": "GET",
+        "url": "adminui/authsec/platform/bootstorage/{id}/suspend"
     },
     {
         "desc": "删除启动盘",
         "id": "platform-mng.bootDisk.delete",
-        "method": "DELETE",    
-        "url": "adminui/authsec/platform/bootstorage/{id}"        
+        "method": "DELETE",
+        "url": "adminui/authsec/platform/bootstorage/{id}"
     },
     {
         "desc": "取得可用区列表",
         "id": "platform-mng.validZoneList.get",
         "method": "GET",
-        "url": "adminui/authsec/platform/{id}/validzones"        
+        "url": "adminui/authsec/platform/{id}/validzones"
     },
     {
         "desc": "取得可用区下可用存储区列表",
         "id": "platform-mng.validStorageList.get",
         "method": "GET",
-        "url": "adminui/authsec/platforms/zone/{id}/storage"        
-    },    
+        "url": "adminui/authsec/platforms/zone/{id}/storage"
+    },
     {
         "desc": "新建启动盘",
         "id": "platform-mng.bootDisk.post",
-        "method": "POST",    
-        "url": "adminui/authsec/sync/platform/bootstorage"        
+        "method": "POST",
+        "url": "adminui/authsec/sync/platform/bootstorage"
     },
     {
         "desc": "同步更新启动盘",
         "id": "platform-mng.bootDisk.put",
-        "method": "PUT",    
-        "url": "adminui/authsec/sync/platform/bootstorage"        
+        "method": "PUT",
+        "url": "adminui/authsec/sync/platform/bootstorage"
     },
     //volumetype信息
     {
         "desc": "获取volumeType列表",
         "id": "platform-mng.volumeTypeList.get",
         "method": "GET",
-        "url": "adminui/authsec/platforms/{id}/volumetype"        
+        "url": "adminui/authsec/platforms/{id}/volumetype"
     },
     {
         "desc": "更新volumeType列表",
         "id": "platform-mng.volumeTypeList.put",
         "method": "PUT",
-        "url": "adminui/authsec/platforms/{id}/volumetype"        
+        "url": "adminui/authsec/platforms/{id}/volumetype"
     },
     {
         "desc": "启用volumeType",
         "id": "platform-mng.volumeType.enable",
         "method": "GET",
-        "url": "adminui/authsec/platform/volumeType/{id}/enable"        
+        "url": "adminui/authsec/platform/volumeType/{id}/enable"
     },
     {
         "desc": "禁用volumeType",
         "id": "platform-mng.volumeTypeList.suspend",
         "method": "GET",
-        "url": "adminui/authsec/platform/volumeType/{id}/suspend"        
+        "url": "adminui/authsec/platform/volumeType/{id}/suspend"
     },
     {
         "desc": "获取新增volumeType列表",
         "id": "platform-mng.addVolumeTypeList.get",
         "method": "GET",
-        "url": "adminui/authsec/sync/platform/{id}/volumetypes"        
+        "url": "adminui/authsec/sync/platform/{id}/volumetypes"
     },
     {
         "desc": "添加新增volumeType列表",
         "id": "platform-mng.addVolumeTypeList.post",
         "method": "POST",
-        "url": "adminui/authsec/sync/platform/volumetypes"        
+        "url": "adminui/authsec/sync/platform/volumetypes"
     },
     // 企业资源配额管理
     {
@@ -790,8 +790,8 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminui/authsec/enterprise/query"
     },
-    
-    
+
+
     // 企业管理 -->
     //<!--后台-运营中心-订单管理
     {
@@ -964,7 +964,7 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/user/currentuser"
     },
-    
+
 
     //费用设置-ending
     //
@@ -1036,7 +1036,7 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "adminui/authsec/services/vm/{id}",
     },
-    
+
     //for产品编辑
      {
         "desc": "获取某个VM产品目录详细信息",
@@ -1987,7 +1987,7 @@ export let RestApis: RestApiModel[] = [
         "id": "net-mng.vm-mng-nsx.dlr.ent-save",
         "method": "POST",
         "url": "adminboe/authsec/platform/{platform_id}/vmware/network/nsx/portres/{id}/save/ent"
-        
+
     },
     {
        "desc": "NSX云网络DLR资源分配dlr设置企业",
@@ -2046,6 +2046,36 @@ export let RestApis: RestApiModel[] = [
         "id": "phy-mng.phy-pool.phylist.view",
         "method": "GET",
         "url": "pmresourcemgmt/noauth/pmpool/view/{pmpool_id}"
+    },
+    {
+        "desc": "分页获取物理机部件列表",
+        "id": "phy-mng.phy-pool.parts.data",
+        "method": "POST",
+        "url": "pmresourcemgmt/noauth/pm/parts/page/{page}/size/{size}"
+    },
+    {
+        "desc": "物理机联动列表",
+        "id": "phy-mng.phy-pool.parts.speclist",
+        "method": "GET",
+        "url": "pmresourcemgmt/noauth/pm/parts/partsList"
+    },
+    {
+        "desc": "添加物理机部件",
+        "id": "phy-mng.phy-pool.parts.create",
+        "method": "POST",
+        "url": "pmresourcemgmt/noauth/pm/parts"
+    },
+    {
+        "desc": "删除物理机部件",
+        "id": "phy-mng.phy-pool.parts.delete",
+        "method": "DELETE",
+        "url": "pmresourcemgmt/noauth/pm/parts/delete/{pmparts_id}"
+    },
+    {
+        "desc": "编辑物理机部件",
+        "id": "phy-mng.phy-pool.parts.edit",
+        "method": "PUT",
+        "url": "pmresourcemgmt/noauth/pm/parts/edit"
     },
 
 	//物理机资源池---物理机
@@ -2155,7 +2185,7 @@ export let RestApis: RestApiModel[] = [
         "method": "PUT",
         "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/pm"
     },
-    
+
     {
         "desc": "设置IP范围：保存划分的IP信息",
         "id": "phy-mng.phy-net-mng.network.iprange.set",
@@ -2179,7 +2209,7 @@ export let RestApis: RestApiModel[] = [
         "id": "phy-mng.phy-net-mng.network.ips.status.set",
         "method": "PUT",
         "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/ipmgmt/changestatus/{pmNetworkIPId}/{status}"
-    },    
+    },
 
     //工单管理
     {
