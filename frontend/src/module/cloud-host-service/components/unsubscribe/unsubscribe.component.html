@@ -1,4 +1,3 @@
-<!-- <order-mng-cancel (complete)="acceptCancel($event)" [orderItem]="" [detail]="detail" ></order-mng-cancel> -->
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
 <fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
     <div style="text-align: center;"><input [(ngModel)]="forceDelect" type="checkbox" name=""> {{'VM_INSTANCE.UNSUBSRIBE_ALL_DISK'| translate}} "{{name}}"</div>

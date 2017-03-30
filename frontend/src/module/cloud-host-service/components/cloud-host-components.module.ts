@@ -38,10 +38,10 @@ import { OrderMngCancelComponent, VmViewComponent, DiskViewComponent } from '../
         cartCompleteComponent,
         UnsubscribeComponent,
         OpenConsoleComponent,
-        VmViewComponent,
-        DiskViewComponent,
+        // VmViewComponent,
+        // DiskViewComponent,
         formatInfo,
-        OrderMngCancelComponent
+        // OrderMngCancelComponent
     ],
     exports: [
         CartButtonComponent,
