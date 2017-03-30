@@ -9,6 +9,8 @@ import {DiskViewComponent} from './component/disk-view.component';
 import {OrderMngCancelComponent} from './component/order-mng-cancel.component';
 import {VmViewComponent} from './component/vm-view.component';
 
+import { OrderCancelService } from './service/order-cancel.service';
+
 @NgModule({
     imports: [
         CommonComponentModule,
@@ -24,7 +26,9 @@ import {VmViewComponent} from './component/vm-view.component';
         VmViewComponent,
         DiskViewComponent
     ],
-    providers: []
+    providers: [
+        OrderCancelService
+    ]
 
 })
 export class OrderCancleModule { }

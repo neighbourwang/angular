@@ -21,13 +21,15 @@ import { OpenConsoleService } from '../components/open-console/open-console.serv
 
 import { formatInfo } from '../components/order-complete/formatInfo'; 
 
-import { OrderMngCancelComponent, VmViewComponent, DiskViewComponent } from '../../op-center/order-mng/component/';
+// import { OrderMngCancelComponent, VmViewComponent, DiskViewComponent } from '../../op-center/order-mng/component/';
+import { OrderCancleModule } from '../../op-center/components/order-cancel/order-cancel.module';
 
 
 @NgModule({
     imports: [
         CommonComponentModule,
-        PipeModule
+        PipeModule,
+        OrderCancleModule
     ],
     declarations: [
         CartButtonComponent,

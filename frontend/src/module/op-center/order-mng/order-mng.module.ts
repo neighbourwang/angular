@@ -11,11 +11,8 @@ import { OrderMngRouting } from './order-mng.routing';
 
 //component
 import {OrderMngDetailComponent, OrderMngComponent,OrderMngRenewComponent
-        ,OrderMngCancelComponent
         ,OrderMngSearchComponent
         ,OrderMngSearchDetailComponent
-        ,VmViewComponent
-        ,DiskViewComponent
         ,CostPandectComponent,CostPandectDepartmentComponent
         ,OrderRenewCompleteComponent} from './component';
 
@@ -23,18 +20,15 @@ import {OrderMngDetailComponent, OrderMngComponent,OrderMngRenewComponent
     imports: [
         CommonComponentModule,
         OrderMngRouting,
-        // OrderCancleModule,
+        OrderCancleModule,
         PipeModule
     ],
     declarations: [
         OrderMngDetailComponent,
         OrderMngComponent,
         OrderMngRenewComponent,
-        OrderMngCancelComponent,
         OrderMngSearchComponent,
         OrderMngSearchDetailComponent
-        ,VmViewComponent
-        ,DiskViewComponent
         ,CostPandectComponent
         ,CostPandectDepartmentComponent
         ,OrderRenewCompleteComponent

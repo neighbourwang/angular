@@ -12,7 +12,7 @@ export class UnsubscribeComponent implements OnInit {
     @Output() onClick = new EventEmitter<any>();
     @Input() id: string = "";
     @Input() name: string = "";
-    @Input() Item: Object = {};
+    @Input() item: Object = {};
 
     @ViewChild('notice')
     private noticeDialog: NoticeComponent;

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../../architecture';
 import {ProductBillingItem,OrderDetailItem, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,SubInstanceResp} from '../../../order-mng/model'
 
+import { OrderCancelService } from '../service/order-cancel.service';
+
 @Component({
 	selector: 'order-mng-cancel',
 	templateUrl: '../template/order-mng-cancel.component.html',
@@ -26,6 +28,7 @@ export class OrderMngCancelComponent implements OnInit{
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
+		private service:OrderCancelService,
 		private restApi:RestApi,){
 	}
 	ngOnInit(){
