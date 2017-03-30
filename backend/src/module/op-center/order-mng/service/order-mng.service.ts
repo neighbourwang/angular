@@ -16,8 +16,17 @@ export class OrderMngService {
 
   download(filename:string,param:any){
 	  	let api = this.restApiCfg.getRestApi("op-center.order-mng.cost-pandect.bill-download.post");
-		return this.restApi.downloadFile( api.method, api.url, filename,undefined,param);
+		return this.restApi.downloadFile( api.method, api.url, filename,undefined,undefined,param);
   }
 
 
+  download2(filename:string,param:any){
+	  	let api = this.restApiCfg.getRestApi("op-center.order-mng.cost-pandect.bill-download.get");
+		return this.restApi.downloadFile( api.method, api.url, filename,undefined,undefined,undefined);
+  }
+  
+  download3(filename:string){
+	  	let api = this.restApiCfg.getRestApi("op-center.order-mng.cost-pandect.bill-download.get");
+		return this.restApi.downloadFile( api.method, api.url, filename,undefined,undefined,undefined);
+  }
 }

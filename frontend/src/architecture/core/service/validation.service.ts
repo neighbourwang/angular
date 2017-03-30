@@ -2,6 +2,10 @@
 
 @Injectable()
 export class ValidationService {
+    isBase(val:any) : boolean {
+        const reg=/(^[a-zA-Z\u4e00-\u9fa5-_\d]*$)/;
+        return reg.test(val);
+    }
     // 非空验证
     isBlank(val: any): boolean {
         return val === undefined || val === '' || val === null;

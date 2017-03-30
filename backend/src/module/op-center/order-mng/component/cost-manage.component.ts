@@ -188,4 +188,42 @@ private selectedItem :CostManageItem = new CostManageItem();
 			this.showMsg(err);
 		})
 	}
+	
+	acceptDownload2(item:CostManageItem){
+		let filename = 'testassbj';
+		let endTime = this._param.year+'-12-31'+' 23:59:59';
+		let startTime = this._param.year+'-01-01'+' 00:00:00';
+		let param = {
+					"enterpiseSubinstanceSearchCondition": {
+						"endTime": endTime,
+						"idList": [],
+						"startTime": startTime
+					},
+					"id": item.id
+				}
+		this.layoutService.show();
+		this.service.download2(filename,param)
+		.then(success=>{
+				// alert("success");
+				this.layoutService.hide();
+			})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
+	}
+		acceptDownload3(){
+		let filename = 'testassbj';
+	
+		this.layoutService.show();
+		this.service.download3(filename)
+		.then(success=>{
+				// alert("success");
+				this.layoutService.hide();
+			})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
+	}
 }

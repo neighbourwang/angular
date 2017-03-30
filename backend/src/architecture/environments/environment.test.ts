@@ -4,10 +4,10 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 
- const promise = new Promise((resolve,reject) => {
-     const token = window.sessionStorage["token"];
-     token ?　resolve(token) : reject("获取token失败！");
- })
+ // const promise = new Promise((resolve,reject) => {
+ //     const token = window.sessionStorage["token"];
+ //     token ?　resolve(token) : reject("获取token失败！");
+ // })
  
 export const environment = {
 	production: true ,
@@ -15,5 +15,5 @@ export const environment = {
 	// basePort : '31077',
     baseIp : '15.114.102.32',  
     basePort : '31072',
-	jwt : promise
+	jwt : window.sessionStorage["token"]
 };

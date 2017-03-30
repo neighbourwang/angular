@@ -5,7 +5,7 @@ import { RestApiCfg, RestApi } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
 import { RegionModel, keysecretModel } from '../../cloud-disk/model/cloud-disk.model';
-import { QuantityModel } from "../model/cloud-vm.model";
+import { orderVmPageModel, QuantityModel } from "../model/cloud-vm.model";
 
 @Injectable()
 export class AliCloudVmService {
@@ -15,7 +15,7 @@ export class AliCloudVmService {
         private restApi: RestApi
     ) { }
 
-    keysecret2: keysecretModel = new keysecretModel();
+    keysecret: keysecretModel = new keysecretModel();
     quantity: Array<QuantityModel> = [
         {
             displayValue: "1",
@@ -85,8 +85,8 @@ export class AliCloudVmService {
             }
         ];
         const body = {
-            "accessId": this.keysecret2.accessId,
-            "accessSecret": this.keysecret2.accessSecret
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.image.get");
@@ -115,16 +115,13 @@ export class AliCloudVmService {
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.price.get");
         return this.restApi.request(api.method, api.url, null, null, body);
     }
+    */
 
-    createDiskOrder(regionid:string, zoneid:string, diskorder: diskOrderModel ): Promise<any> {
+    createInstanceOrder(regionid:string, orderVmPage: orderVmPageModel): Promise<any> {
         const pathParams = [
             {
                 key: "regionid",
                 value: regionid
-            },
-            {
-                key: "zoneid",
-                value: zoneid
             }
         ];
         const body = {
@@ -132,30 +129,17 @@ export class AliCloudVmService {
                 "accessId": this.keysecret.accessId,
                 "accessSecret": this.keysecret.accessSecret
             },
-            "diskModel": {
-                "clientToken": diskorder.clientToken,
-                "description": diskorder.description,
-                "diskCategory": diskorder.diskCategory,
-                "diskName": diskorder.diskName,
-                "size": diskorder.size,
-                "snapshotId": diskorder.snapshotId
-            }
+            "instanceType": "ecs.n1.tiny",
+            "imageId": "",// orderVmPage.imageId
+
         }
         console.log(body, "body")
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.diskorder.post");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.create");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
-    getDiskList(pageIndex: number, pageSize: number, regionid: string): Promise<any> {
+    getInstanceList(pageIndex: number, pageSize: number, regionid: string): Promise<any> {
         const pathParams = [
-            {
-                key: "page",
-                value: pageIndex
-            },
-            {
-                key: "size",
-                value: pageSize
-            },
             {
                 key: "regionid",
                 value: regionid
@@ -166,14 +150,13 @@ export class AliCloudVmService {
                 "accessId": this.keysecret.accessId,
                 "accessSecret": this.keysecret.accessSecret
             },
-            "conditionModel": {
-            }
+            "pageNumber": pageIndex,
+            "pageSize": pageSize
         }
         console.log(body, "body");
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.disklist.get");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.list");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
-    */
 
 
 
