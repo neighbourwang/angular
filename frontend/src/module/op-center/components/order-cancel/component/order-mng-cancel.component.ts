@@ -15,8 +15,6 @@ import { OrderCancelService } from '../service/order-cancel.service';
 export class OrderMngCancelComponent implements OnInit{
 
 	@Input()
-	private orderItem : SubInstanceResp = new SubInstanceResp();
-	@Input()
 	private detail : OrderDetailItem = new OrderDetailItem();
 
 	 @Output()  complete=new EventEmitter(); 
@@ -32,7 +30,6 @@ export class OrderMngCancelComponent implements OnInit{
 		private restApi:RestApi,){
 	}
 	ngOnInit(){
-		
 	}
 
 
@@ -46,7 +43,7 @@ export class OrderMngCancelComponent implements OnInit{
 	}
 	cancel() {
 		// alert("cancel页面");
-		this.complete.emit([this.orderItem,this.detail]);
+		this.complete.emit([this.detail.itemList,this.detail]);
 	}
   
     getBillingMode(){
