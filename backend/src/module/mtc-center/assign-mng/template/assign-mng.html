@@ -30,7 +30,7 @@
         </div>
         <div class="col-md-2 form-control-title" >Region/DC：</div>
         <div class="col-md-2">
-            <select class="form-control" [(ngModel)]="selectedRegion" (click)="selectedZone=defaultZone">
+            <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedZone=defaultZone">
                 <option [ngValue]="defaultRegion">所有Region/DC</option>
                 <option *ngFor="let reg of selectedPlf.region" [ngValue]="reg">{{reg.region}}</option>
             </select>
@@ -239,7 +239,7 @@
                     <td><a (click)="gotoAssignDetail(hyper.id)">{{hyper.name}}</a></td>
                     <td>{{hyper.platform}}</td>
                     <td>{{hyper.region}}</td>
-                    <td></td>
+                    <td>{{hyper.zone}}</td>
                     <td>{{hyper.enterprise}}</td>
                     <td>{{hyper.orgnization}}</td>
                     <td>{{hyper.cpu}}</td>

@@ -12,6 +12,7 @@ export class UnsubscribeComponent implements OnInit {
     @Output() onClick = new EventEmitter<any>();
     @Input() id: string = "";
     @Input() name: string = "";
+    @Input() Item: Object = {};
 
     @ViewChild('notice')
     private noticeDialog: NoticeComponent;
@@ -24,6 +25,8 @@ export class UnsubscribeComponent implements OnInit {
     modalMessage: string = '';
     modalOKTitle: string = '';
 
+    detail = {};
+
     constructor(
         private layoutService: LayoutService,
         private service : UnsubscribeService
@@ -31,6 +34,12 @@ export class UnsubscribeComponent implements OnInit {
 
     ngOnInit() {
        
+    }
+
+    open() {
+        $('#unsubscribe').modal('show');
+        
+
     }
 
 	delectVm() {  //退订云主机

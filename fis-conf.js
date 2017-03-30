@@ -1,4 +1,4 @@
-fis.set('project.ignore', ['*/node_modules/**','node_modules/**','fis-conf.js', '**/README.md', '*/e2e/**', '*/src/module/**', '*/src/architecture/components/**', '*/foxcloud-dist/**']);
+fis.set('project.ignore', ['*/node_modules/**','node_modules/**','fis-conf.js', '**/README.md', '*/e2e/**', '*/src/module/**', '*/src/architecture/components/**', '*/src/architecture/assets/**', '*/src/architecture/core/**', '*/src/architecture/pipe/**', '*/src/architecture/environments/**', '*/foxcloud-dist/**']);
 
 const RegBackend = /(?:backend\/dist\/(.*)\.*)|(?:backend-portal\/dist\/(.*)\.*)|(?:backend-portal(\/public\/.*)?\.*)|(?:backend\/src(\/architecture\/translate\/.*)?\.*)/i;
 const RegFrontend = /(?:frontend\/dist\/(.*)\.*)|(?:frontend-portal\/dist\/(.*)\.*)|(?:frontend-portal(\/public\/.*)?\.*)|(?:frontend\/src(\/architecture\/translate\/.*)?\.*)/i;

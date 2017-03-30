@@ -4,11 +4,14 @@
 import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
 
+import { OrderCancleModule } from '../components/order-cancel/order-cancel.module';
+
 // Routing
 import { OrderMngRouting } from './order-mng.routing';
 
 //component
-import {OrderMngDetailComponent, OrderMngComponent,OrderMngRenewComponent,OrderMngCancelComponent
+import {OrderMngDetailComponent, OrderMngComponent,OrderMngRenewComponent
+        ,OrderMngCancelComponent
         ,OrderMngSearchComponent
         ,OrderMngSearchDetailComponent
         ,VmViewComponent
@@ -20,6 +23,7 @@ import {OrderMngDetailComponent, OrderMngComponent,OrderMngRenewComponent,OrderM
     imports: [
         CommonComponentModule,
         OrderMngRouting,
+        // OrderCancleModule,
         PipeModule
     ],
     declarations: [

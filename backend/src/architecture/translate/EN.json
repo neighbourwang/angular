@@ -1176,7 +1176,7 @@
     "SELECT_PLATFORM": "Select available platform",
     "SELECT_PRODUCT_CAT": "Please select product catalog",
     "SELECT_PRODUCT_CAT_CLASS": "Select product catalog category",
-    "SELECT_STORAGE_DEVICE": "Select a storage device",
+    "SELECT_STORAGE_BACKEND": "Select a storage backend",
     "STANDARD_SMALL_CLOUD_HOST": "Standard small cloud server",
     "STORAGE_BACKEND": "Storage back-end",
     "UNIT_PRICE": "Unit price",

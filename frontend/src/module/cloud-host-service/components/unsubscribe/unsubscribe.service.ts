@@ -37,4 +37,24 @@ export class UnsubscribeService {
         return request;
     }
 
+    getOrderDetail(subId): Promise<any> {
+        
+        const api = this.restApiCfg.getRestApi("op-center.order-mng.order-detail.get");
+
+        let pathParams = [
+            {
+                key: 'subinstanceCode',
+                value: subId
+            }
+        ];
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+        return request;
+    }
+
 }

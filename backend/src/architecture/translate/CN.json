@@ -1455,7 +1455,7 @@
     "SELECT_PLATFORM": "请选择可用平台",
     "SELECT_PRODUCT_CAT": "请选择产品目录",
     "SELECT_PRODUCT_CAT_CLASS": "选择产品目录类别",
-    "SELECT_STORAGE_DEVICE": "选择存储设备",
+    "SELECT_STORAGE_BACKEND": "选择存储后端",
     "STANDARD_SMALL_CLOUD_HOST": "标准小型云主机",
     "STORAGE_BACKEND": "存储后端",
     "UNIT_PRICE": "单位价格",
