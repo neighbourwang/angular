@@ -66,13 +66,24 @@ export class ProdDirCreComponent implements OnInit {
                         for (let plate of this._platformlist) {
                             if (!plate.zoneList) continue;
                             for (let zone of plate.zoneList) {
-                                for (let storage of zone.storageList) {
-                                    storage.selected = false;
-                                }
+                                // for (let storage of zone.storageList) {
+                                //     storage.selected = false;
+                                // }
                                 if (zone.storageList[0]) {
                                     zone.storageId = zone.storageList[0].storageId;
                                     zone.serviceSKUId = zone.storageList[0].serviceSKUId;
                                     zone.storageList[0].selected = true;
+                                    zone.disable=false;
+                                }else{
+                                    // zone.storageList[0].storageName='未设置启动盘'
+                                    zone.storageList.unshift({
+                                        displayName:"",
+                                        selected:false,
+                                        serviceSKUId:'',
+                                        storageId:"",
+                                        storageName:"未设置启动盘"
+                                    })
+                                    zone.disable=true;
                                 }
                                 zone.selected = false;
                             }
@@ -91,6 +102,7 @@ export class ProdDirCreComponent implements OnInit {
     }
     //获取目录详情
     getProdDirDetail(id) {
+        this.LayoutService.show();
         this.ProdDirDetailService.getVmProdDirDetail(id).then(
             response => {
                 console.log(response);
@@ -98,10 +110,21 @@ export class ProdDirCreComponent implements OnInit {
                     console.log('vmdetail', response);
                     let resultContent = response.resultContent;
                     this.prodDir = response.resultContent;
-                    this._platformlist = this.prodDir.platformInfo;
+                    this._platformlist = JSON.parse(JSON.stringify(this.prodDir.platformInfo)); 
+                    for(let platform of this._platformlist){
+                        for(let zone of platform.zoneList){
+                            if(zone.selected==true){
+                                platform.selected=true;
+                                break;
+                            }else{
+                                platform.selected=false;
+                            }
+                        }
+                    }
                 } else {
 
                 }
+                console.log('filterPlatform',this._platformlist)
                 this.LayoutService.hide();
             }
         ).catch(err => {
@@ -136,17 +159,17 @@ export class ProdDirCreComponent implements OnInit {
         })
     }
     //选择平台启动盘,this 
-    selectStorage(id, idx, idxxx) {
-        console.log(id);
-        console.log(idx);
-        for (let storage of this._platformlist[idx].zoneList[idxxx].storageList) {
-            if (storage.storageId == id) {
-                storage.selected = true;
-            } else {
-                storage.selected = false;
-            }
-        }
-    }
+    // selectStorage(id, idx, idxxx) {
+    //     console.log(id);
+    //     console.log(idx);
+    //     for (let storage of this._platformlist[idx].zoneList[idxxx].storageList) {
+    //         if (storage.storageId == id) {
+    //             storage.selected = true;
+    //         } else {
+    //             storage.selected = false;
+    //         }
+    //     }
+    // }
     //选择平台可用区
     selectZone(idx, idxx) {
         console.log('121212121', idx, idxx);
@@ -200,6 +223,7 @@ export class ProdDirCreComponent implements OnInit {
         this.prodDir.platformList = this._platformlist.filter(function (ele) {
             for (let zone of ele.zoneList) {
                 if (zone.selected == true) {
+                    ele.selected=true;
                     return ele;
                 }
             }
@@ -221,8 +245,16 @@ export class ProdDirCreComponent implements OnInit {
                 this.LayoutService.hide();
             })
         } else {
-            this.prodDir.platformList=this.prodDir.platformInfo;
-            console.log(this.prodDir);
+            // this.prodDir.platformList=JSON.parse(JSON.stringify(this.prodDir.platformInfo));
+            this.prodDir.platformInfo=[];
+            //去掉未选中平台；
+            for(let i=0;i<this.prodDir.platformList.length;i++){
+                if(!this.prodDir.platformList[i].selected){
+                    this.prodDir.platformList.splice(i,1);
+                }
+            }
+            console.log('splice',this.prodDir);
+            this.LayoutService.show();
             this.CreateProdDirService.editVmProdDir(this.serviceId,this.prodDir).then(response => {
                 console.log(response);
                 this.LayoutService.hide();
