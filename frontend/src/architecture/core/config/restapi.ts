@@ -862,6 +862,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/describeinstancetypes"
     },
+    { //获取阿里云VPC
+        "desc": "Get VPC network list",
+        "id": "al-cloud.cloud-vm.instance.vpc.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describevpcs/regionid/{regionid}"
+    },
 
 
 ]

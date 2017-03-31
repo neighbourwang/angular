@@ -1,100 +1,122 @@
 <div class="page-content cloud_host_list">
-	<h1 class="page-content-header">阿里云主机实例列表</h1>
+    <h1 class="page-content-header">阿里云主机实例列表</h1>
 
     <div class="row mgb20">
-        <div class="col-md-3">区域列表</div>
-        <div class="col-md-9">
-            <div class="region" *ngFor="let region of this.regions;">
+        <div class="col-md-2">区域列表</div>
+        <div class="col-md-10">
+            <div class="region-btn" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
                 <div class="regionName">{{region.LocalName}}</div>
-                <div class="regionArea">
-                    <select>
-                        <option value="">随机分配</option>
-                        <!--<option *ngFor="let item of region.Area" value="item.id">
-                            {{item.text}}
-                        </option>-->
-                    </select>
+                <!--
+                <div class="regionArea">                    
+                    <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
+                    
                     <span class="caret"></span>
+                    <select [(ngModel)]="region.selectedArea">
+                        <option *ngFor="let item of region.areas" [ngValue]="item">
+                            {{item.LocalName}}
+                        </option>
+                    </select>
                 </div>
+                -->
             </div>
         </div>
     </div>
 
-	<div class="col-md-12 no-padding mgb20">
-		<div class="dropdown float-left mgr10">
-			<select [(ngModel)]="listqueryField" class="form-control">
+    <div class="col-md-12 no-padding mgb20">
+        <div class="dropdown float-left mgr10">
+            <select [(ngModel)]="listqueryField" class="form-control">
 				<option>实例名称</option>
 				<option>即将到期</option>
 			</select>
-		</div>
+        </div>
 
-		<div class="input-group col-md-2 float-left mgr10">
-			<input type="text" class="form-control" [(ngModel)]="phynet_create" style="display: inline" />
-			<div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>		
-		</div>
+        <div class="input-group col-md-2 float-left mgr10">
+            <input type="text" class="form-control" [(ngModel)]="phynet_create" style="display: inline" />
+            <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
+        </div>
 
-		<div class="input-group float-left">
+        <div class="input-group float-left">
             <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
-        </div>			
-		
-		<div class="dropdown float-right  mgr5">
-			<button class="btn float-left mgr5 btn-success" (click)="goTo('cloud-host-service/cloud-host-order')"><i class="glyphicon glyphicon-plus"></i>创建云主机</button>
-			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </div>
+
+        <div class="dropdown float-right  mgr5">
+            <button class="btn float-left mgr5 btn-success" (click)="goToInstanceOrder();"><i class="glyphicon glyphicon-plus"></i>创建云主机</button>
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			更多操作
 			<span class="caret"></span>
 			</button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-				<li><a href="javascript:">启动</a></li>
-				<li><a href="javascript:">停止</a></li>
-				<li><a href="javascript:">重启</a></li>
-				<li><a href="javascript:">绑定弹性IP</a></li>
-				<li><a href="javascript:">远程连接</a></li>
-				<li><a href="javascript:">释放实例</a></li>
-			</ul>
-		</div>
-	</div>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><a href="javascript:">启动</a></li>
+                <li><a href="javascript:">停止</a></li>
+                <li><a href="javascript:">重启</a></li>
+                <li><a href="javascript:">绑定弹性IP</a></li>
+                <li><a href="javascript:">远程连接</a></li>
+                <li><a href="javascript:" (click)="deleteInstance();">释放实例</a></li>
+            </ul>
+        </div>
+    </div>
 
-	<table class="table table-hover">
-		<tr>
-			<th class="text-center">选择</th>
-			<th class="text-center">实例ID/名称</th>
-			<th class="text-center">可用区</th>
-			<th class="text-center">IP地址</th> 
-			<th class="text-center">网络类型</th>
-			<th class="text-center">状态</th>
-			<th class="text-center">配置</th>
-			<th class="text-center">付费方式</th>
-		</tr>
-		<tr style="line-height: 65px;">
-			<td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;"  name="host-list"></td>
-			<td class="text-center active" style="position: relative;width: 220px;">adfadfadfadfadfasfdafaMyCentOS-VM-001
-				<!--<table-edit-name 
+    <table class="table table-hover">
+        <tr>
+            <th class="text-center">选择</th>
+            <th class="text-center">实例ID/名称</th>
+            <th class="text-center">可用区</th>
+            <th class="text-center">IP地址</th>
+            <th class="text-center">网络类型</th>
+            <th class="text-center">状态</th>
+            <th class="text-center">配置</th>
+            <th class="text-center">付费方式</th>
+        </tr>
+        <tr style="line-height: 65px;" *ngFor="let instance of instances; let i=index;">
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list"></td>
+            <td class="text-center active" style="position: relative;width: 220px;"> {{instance.InstanceId}}
+                <!--<table-edit-name 
 					(nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])" 
 					[value]="vm.instanceName" 
 					(onChange)="changeName($event, vm)">
                 </table-edit-name>
                 -->
-			</td>
+            </td>
+            <td class="text-center">{{instance.ZoneId}}</td>
+            <td class="text-center">内网IP：{{instance.InnerIpAddress.IpAddress[0]}}<br />外网IP：{{instance.PublicIpAddress.IpAddress[0]}}</td>
+            <td class="text-center">{{instance.InstanceNetworkType}}</td>
+            <td class="text-center">{{instance.Status}}</td>
+            <td class="text-center">CPU: {{instance.Cpu}}核 内存：{{instance.Memory}} MB (I/O优化)</td>
+            <td class="text-center">{{instance.InstanceChargeType}}<br /> {{instance.ExpiredTime}}</td>
+        </tr>
+        <!--
+        <tr style="line-height: 65px;" >
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
+            <td class="text-center active" style="position: relative;width: 220px;">adfadfadfadfadfasfdafaMyCentOS-VM-001
+                <!<table-edit-name 
+					(nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])" 
+					[value]="vm.instanceName" 
+					(onChange)="changeName($event, vm)">
+                </table-edit-name>
+                >
+            </td>
             <td class="text-center">华东1 可用区E</td>
-			<td class="text-center">内网IP：10.1.1.10<br />外网IP：131.2.10.10</td>
-			<td class="text-center">经典网络</td> 
-			<td class="text-center">运行中</td>
-			<td class="text-center">CPU: 1核 内存：1024 MB (I/O优化)</td>
-			<td class="text-center">包年包月<br /> 18-03-19 21:10到期</td> 
-		</tr>
+            <td class="text-center">内网IP：10.1.1.10<br />外网IP：131.2.10.10</td>
+            <td class="text-center">经典网络</td>
+            <td class="text-center">运行中</td>
+            <td class="text-center">CPU: 1核 内存：1024 MB (I/O优化)</td>
+            <td class="text-center">包年包月<br /> 18-03-19 21:10到期</td>
+        </tr>        
         <tr style="line-height: 65px;">
-			<td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;"  name="host-list"></td>
-			<td class="text-center active" style="position: relative;width: 220px;">adfadfadfadfadfasfdafaMyCentOS-VM-002
-			</td>
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
+            <td class="text-center active" style="position: relative;width: 220px;">adfadfadfadfadfasfdafaMyCentOS-VM-002
+            </td>
             <td class="text-center">华东1 可用区E</td>
-			<td class="text-center">内网IP：10.1.1.10<br />外网IP：131.2.10.10</td>
-			<td class="text-center">专有网络</td> 
-			<td class="text-center">运行中</td>
-			<td class="text-center">CPU: 1核 内存：1024 MB (I/O优化)</td>
-			<td class="text-center">按量<br />17-03-19 21:10 创建</td> 
-		</tr>
-	</table>
+            <td class="text-center">内网IP：10.1.1.10<br />外网IP：131.2.10.10</td>
+            <td class="text-center">专有网络</td>
+            <td class="text-center">运行中</td>
+            <td class="text-center">CPU: 1核 内存：1024 MB (I/O优化)</td>
+            <td class="text-center">按量<br />17-03-19 21:10 创建</td>
+        </tr>
+        -->
+    </table>
     <fc-pagination tp={{totalPage}} (pf)="changePage($event)"></fc-pagination>
-	<!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
+    <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
 </div>
-<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
+<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{modalOKTitle}}" (of)="okClicked(0)"></fc-notice>
