@@ -10,7 +10,8 @@ export const Phyparts_mock= {
             "specName": "SAS",
             "specValue": null,
             "referencePrice": 100,
-            "index": 1
+            "index": 1,
+            "usedPMCount": 0
         },
         {
             "id": null,
@@ -20,7 +21,8 @@ export const Phyparts_mock= {
             "specName": "千兆",
             "specValue": "32",
             "referencePrice": 200,
-            "index": 2
+            "index": 2,
+            "usedPMCount": 1
         }
     ],
     "pageInfo": {

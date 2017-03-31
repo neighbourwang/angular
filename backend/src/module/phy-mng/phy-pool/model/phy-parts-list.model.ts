@@ -7,6 +7,7 @@ export class PhyPartsList{
     specValue: string;
     referencePrice: string;
     index: string;
+    usedPMCount: number;
 
     selected: boolean;
 }
