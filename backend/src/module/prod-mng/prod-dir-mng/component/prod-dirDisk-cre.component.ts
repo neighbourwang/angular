@@ -68,12 +68,12 @@ export class ProdDirDiskCreComponent implements OnInit {
                         if (!plate.platformInfo) continue;
                         for (let zone of plate.platformInfo) {
                             zone.selected = false;
-                            zone.storageId = zone.storageItem[0].storageId;
+                            // zone.storageId = zone.storageItem[0].storageId;
                             for (let storage of zone.storageItem) {
                                 storage.selected = false;
                             }
                             // console.log(zone.storageList);
-                            zone.storageItem[0].selected = true;
+                            // zone.storageItem[0].selected = true;
                         }
                     }
                 } else {
@@ -88,15 +88,16 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
 
     //获取启动盘信息
-    selectStorage(id, idx, idxxx) {
-        console.log(id, idx, idxxx)
-        for (let storage of this._platformlist[idx].platformInfo[idxxx].storageItem) {
-            if (storage.storageId == id) {
-                storage.selected = true;
-            } else {
-                storage.selected = false;
-            }
-        }
+    selectStorage(idx, idxx,idxxx) {
+        console.log(idx, idxx,idxxx)
+        // this._platformlist[idx].platformInfo[idxx].storageItem[idxxx].selected=!this._platformlist[idx].platformInfo[idxx].storageItem[idxxx].selected
+        // for (let storage of this._platformlist[idx].platformInfo[idxxx].storageItem) {
+        //     if (storage.storageId == id) {
+        //         storage.selected = true;
+        //     } else {
+        //         storage.selected = false;
+        //     }
+        // }
     }
     getProdDirDetail(id) {
         this.ProdDirDetailService.getDiskProdDirDetail(id).then(
@@ -134,58 +135,58 @@ export class ProdDirDiskCreComponent implements OnInit {
         }
     }
     //选择全部可用区
-    selectAllZone: boolean = false;
-    selectAllZones() {
-        this.selectAllZone = !this.selectAllZone;
-        console.log(this.selectAllZone);
-        for (let plate of this._platformlist) {
-            if (!plate.platformInfo) continue;
-            for (let zone of plate.platformInfo) {
-                zone.selected = this.selectAllZone;
-                // console.log(zone.storageList);
-            }
-        }
-        this.prodDir.platformList = this._platformlist.filter(function (ele) {
-            if (ele.platformInfo) {
-                for (let zone of ele.platformInfo) {
-                    if (zone.selected == true) {
-                        return ele;
-                    }
-                }
-            }
+    // selectAllZone: boolean = false;
+    // selectAllZones() {
+    //     this.selectAllZone = !this.selectAllZone;
+    //     console.log(this.selectAllZone);
+    //     for (let plate of this._platformlist) {
+    //         if (!plate.platformInfo) continue;
+    //         for (let zone of plate.platformInfo) {
+    //             zone.selected = this.selectAllZone;
+    //             // console.log(zone.storageList);
+    //         }
+    //     }
+    //     this.prodDir.platformList = this._platformlist.filter(function (ele) {
+    //         if (ele.platformInfo) {
+    //             for (let zone of ele.platformInfo) {
+    //                 if (zone.selected == true) {
+    //                     return ele;
+    //                 }
+    //             }
+    //         }
 
-        })
-    }
+    //     })
+    // }
     //选择平台可用区
-    selectZone(idx, idxx) {
-        console.log(idx)
-        console.log(idxx)
-        this._platformlist[idx].platformInfo[idxx].selected = !this._platformlist[idx].platformInfo[idxx].selected;
-        console.log(this._platformlist[idx]);
-        this.prodDir.platformList = this._platformlist.filter(function (ele) {
-            if (ele.platformInfo) {
-                for (let zone of ele.platformInfo) {
-                    if (zone.selected == true) {
-                        return ele;
-                    }
-                }
-            }
+    // selectZone(idx, idxx) {
+    //     console.log(idx)
+    //     console.log(idxx)
+    //     this._platformlist[idx].platformInfo[idxx].selected = !this._platformlist[idx].platformInfo[idxx].selected;
+    //     console.log(this._platformlist[idx]);
+    //     this.prodDir.platformList = this._platformlist.filter(function (ele) {
+    //         if (ele.platformInfo) {
+    //             for (let zone of ele.platformInfo) {
+    //                 if (zone.selected == true) {
+    //                     return ele;
+    //                 }
+    //             }
+    //         }
 
-        })
-        console.log(this.prodDir.platformList);
-        if (this.prodDir.platformList.length != this._platformlist.length) {
-            this.selectAllZone = false;
-            return;
-        }
-        this.selectAllZone = true;
-        for (let platform of this._platformlist) {
-            for (let zone of platform.platformInfo) {
-                if (zone.selected == false) {
-                    return this.selectAllZone = false;
-                }
-            }
-        }
-    }
+    //     })
+    //     console.log(this.prodDir.platformList);
+    //     if (this.prodDir.platformList.length != this._platformlist.length) {
+    //         this.selectAllZone = false;
+    //         return;
+    //     }
+    //     this.selectAllZone = true;
+    //     for (let platform of this._platformlist) {
+    //         for (let zone of platform.platformInfo) {
+    //             if (zone.selected == false) {
+    //                 return this.selectAllZone = false;
+    //             }
+    //         }
+    //     }
+    // }
     //表单验证
     checkForm(key?: string) {
 
@@ -214,8 +215,12 @@ export class ProdDirDiskCreComponent implements OnInit {
         this.prodDir.platformList = this._platformlist.filter(function (ele) {
             if (ele.platformInfo) {
                 for (let zone of ele.platformInfo) {
-                    if (zone.selected == true) {
-                        return ele;
+                    for(let storage of zone.storageItem){
+                        if(storage.selected==true){
+                            zone.selected=true;
+                            ele.selected=true;
+                            return ele;
+                        }
                     }
                 }
             }
@@ -236,6 +241,15 @@ export class ProdDirDiskCreComponent implements OnInit {
             })
         } else {
             console.log(this.prodDir);
+            this.LayoutService.show();            
+            this.CreateProdDirService.editDiskProdDir(this.serviceId,this.prodDir).then(response => {
+                console.log(response);
+                this.LayoutService.hide();
+                this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+            }).catch(err => {
+                console.error(err);
+                this.LayoutService.hide();
+            })
         }
 
     }

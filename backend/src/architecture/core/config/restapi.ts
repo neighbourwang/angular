@@ -1072,7 +1072,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "编辑某个DISK产品目录详细信息带未选平台",
         "id": "prod-mng.prod-dir-edit.put",
         "method": "PUT",
-        "url": "adminui/authsec/services/Disk/{id}"
+        "url": "adminui/authsec/services/disk/{id}"
     },
     //for产品编辑
     {
