@@ -124,7 +124,7 @@ export class PhyUnitMngComponent implements OnInit{
         });
         if(!selectedP){
             this.showAlert("请选择部件")
-        }else{
+        }else if(selectedP.usedPMCount == 0){
             this.isEdit= true;
             let editParts= new PhyPartsList();
             editParts.partsId= selectedP.partsId;
@@ -148,6 +148,8 @@ export class PhyUnitMngComponent implements OnInit{
                 this.selectedSpec= this.defaultSpec;
             }
             this.creUnit.open("编辑部件");
+        }else{
+            this.showAlert("被物理机引用的部件不能编辑");
         }
     }
 
@@ -223,7 +225,7 @@ export class PhyUnitMngComponent implements OnInit{
         });
         if(!selectedP){
             this.showAlert("请选择部件")
-        }else{
+        }else if(selectedP.usedPMCount == 0){
             this.confirm.open("删除","nin");
             this.confirm.cof =() =>{
                 this.layoutService.show();
@@ -242,6 +244,8 @@ export class PhyUnitMngComponent implements OnInit{
                     )
                     .catch((e) => this.onRejected(e));
             }
+        }else{
+            this.showAlert("被物理机引用的部件不能删除");
         }
     }
 
