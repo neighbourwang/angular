@@ -1,0 +1,22 @@
+<fc-popup #dialogPopup ot="{{'DIALOG.COMMIT' | translate}}" ct="{{'DIALOG.CANCEL' | translate}}" title="创建镜像" (of)="confirm()" (cf)="cancel();">
+    <div style="margin: 0 50px">
+        <div class="col-md-12">
+        	<div class="col-md-3 left-name no-padding"><font>*</font>自定义镜像名称: </div>
+            <div class="col-md-9 no-padding form-group has-feedback" [ngClass]="{'has-error':v.result.name}">
+                <input type="text" [(ngModel)]="name" (ngModelChange)="checkForm('name')" placeholder="镜像名称" class="form-control">
+                 <span *ngIf="v.result.name" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                <div class="tip-text" role="alert">2-68个字符，以大小写字母或者中文开头，可包含数字， "-", "_"</div>
+            </div>
+        </div>
+        <div class="col-md-12" style="margin-bottom: 20px;">
+        	<div class="col-md-3 left-name no-padding">自定义镜像描述: </div>
+            <div class="col-md-9 no-padding form-group has-feedback" [ngClass]="{'has-error':v.result.description}">
+                <textarea class="form-control" [(ngModel)]="description" (ngModelChange)="checkForm('description')" placeholder="" rows="3"></textarea>
+                <span *ngIf="v.result.description" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                <div class="tip-text" role="alert">长度为2-256个字符，不能以http://或https://开头。</div>
+            </div>
+        </div>
+    </div>
+</fc-popup>
+
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>

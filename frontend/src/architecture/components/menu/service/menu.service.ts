@@ -43,12 +43,12 @@ export class MenuService {
 							"isShow": true,
 							"routing": "cloud-host-service/cloud-drive-list"
 						},
-						// {
-						// 	"label": "MENU.MIRROR",
-						// 	"isOpen": true,
-						// 	"isShow": true,
-						// 	"routing": "image-mng/image-mng"
-						// }
+						{
+							"label": "MENU.MIRROR",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "image-mng/image-mng"
+						}
 					]
 				},
 				// {

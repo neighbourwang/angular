@@ -11,7 +11,7 @@ import { Validation, ValidationRegs } from '../../../../architecture';
 
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
-import { orderVmPageModel, imageModel, QuantityModel } from "../model/cloud-vm.model";
+import { orderVmPageModel, imageModel, QuantityModel, InstanceTypeModel, InstanceTypeFamilyModel } from "../model/cloud-vm.model";
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
@@ -61,6 +61,8 @@ export class AliCloudVmOrderComponent implements OnInit {
     selectedOrderVmPage: orderVmPageModel = this.defaultOrderVmPage;
 
     images: Array<imageModel> = [];
+    instancetypelist: Array<InstanceTypeModel> = [];
+    instancetypefamilylist: Array<InstanceTypeFamilyModel> = [];
 
     diskCategoryDictArray: Array<SystemDictionary> = [];
 
@@ -102,7 +104,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.commonService.keysecret = response.resultContent;
                     this.service.keysecret = response.resultContent;
-                    console.log(this.service.keysecret, "this.keysecret!");
+                    //console.log(this.service.keysecret, "this.keysecret!");
                     this.getAllRegions();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -125,7 +127,6 @@ export class AliCloudVmOrderComponent implements OnInit {
                     let result;
                     try {
                         result = JSON.parse(response.resultContent);
-                        console.log(result, "result!");
                     } catch (ex) {
                         console.log(ex);
                     }
@@ -151,7 +152,9 @@ export class AliCloudVmOrderComponent implements OnInit {
         region.selected = true;
         if (region.areas == null || region.areas.length == 0) {
             this.getArea(region);
-            //this.getImages(region);
+            this.getImages(region);
+            this.getInstanceTypeFamily(region);
+            this.getInstanceType(region);
         } else {
             console.log(region, "the region which is selected and don't do getArea()!");
 
@@ -160,7 +163,6 @@ export class AliCloudVmOrderComponent implements OnInit {
             this.selectedOrderVmPage.selected = region.selected;
             this.selectedOrderVmPage.RegionId = region.RegionId;
             this.selectedOrderVmPage.LocalName = region.LocalName;
-            //this.selectedOrderVmPage.selectedArea = new AreaModel();
             this.selectedOrderVmPage.selectedArea = region.areas[0];
             this.selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories = [].concat(region.areas[0].AvailableDiskCategories.DiskCategories);
             {
@@ -187,7 +189,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                         console.log(ex);
                     }
                     region.areas = result.Zones.Zone;
-                    console.log(region, "the region which is selected!");
+                    console.log(region, "Areas in the region which is selected!");
                     this.resetSelectedRegion();
 
                     this.selectedOrderVmPage.areas = region.areas;
@@ -229,7 +231,6 @@ export class AliCloudVmOrderComponent implements OnInit {
 
     AreaChanged(region: RegionModel) {
         window.setTimeout(() => {
-            console.log(region, this.selectedOrderVmPage, "Before AreaChanged()!");
             region.selectedArea = new AreaModel();
             region.selectedArea.LocalName = this.selectedOrderVmPage.selectedArea.LocalName;
             region.selectedArea.ZoneId = this.selectedOrderVmPage.selectedArea.ZoneId;
@@ -238,12 +239,28 @@ export class AliCloudVmOrderComponent implements OnInit {
         }, 50); //window内的代码要延后50ms执行
     }
 
+    DiskChanged() {
+        window.setTimeout(() => {
+            this.calculatePrice();
+        }, 50); //window内的代码要延后50ms执行
+    }
+
+    displayDiskType(disktype: string):string {
+        let diskDict:Array<SystemDictionary> = this.diskCategoryDictArray.filter((item) => {
+            return item.value == disktype;
+        });
+        if (diskDict.length != 0) {
+            return diskDict[0].displayValue;
+        } else {
+            return disktype;
+        }
+    }
+
     getImages(region: RegionModel) {
         this.layoutService.show();
-        this.service.getVmImage(region.RegionId)
+        this.service.getImages(region.RegionId)
             .then(
             response => {
-                console.log(response, "images response!");
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     let result;
@@ -265,22 +282,58 @@ export class AliCloudVmOrderComponent implements OnInit {
 
     }
 
-    DiskChanged() {
-        window.setTimeout(() => {
-            this.calculatePrice();
-        }, 50); //window内的代码要延后50ms执行
+    getInstanceTypeFamily(region: RegionModel) {
+        this.layoutService.show();
+        this.service.getInstanceTypeFamily(region.RegionId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }                    
+                    this.instancetypefamilylist = result.InstanceTypeFamilies.InstanceTypeFamily;
+                    console.log(this.instancetypefamilylist, "this.instancetypefamilylist!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+
     }
 
-    displayDiskType(disktype: string):string {
-        let diskDict:Array<SystemDictionary> = this.diskCategoryDictArray.filter((item) => {
-            return item.value == disktype;
-        });
-        if (diskDict.length != 0) {
-            return diskDict[0].displayValue;
-        } else {
-            return disktype;
-        }
+    getInstanceType(region: RegionModel) {
+        this.layoutService.show();
+        this.service.getInstanceType(region.RegionId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }                    
+                    this.instancetypelist = result.InstanceTypes.InstanceType;
+                    console.log(this.instancetypelist, "this.instancetypelist!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+
     }
+
 
     calculatePrice() {
         /*
@@ -320,6 +373,36 @@ export class AliCloudVmOrderComponent implements OnInit {
         */
     }
 
+    buyNow() {
+        this.layoutService.show();
+        this.service.createInstanceOrder(this.selectedOrderVmPage)
+            .then(
+            response => {
+                this.layoutService.hide();
+                console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                        console.log(result, "result!");
+                    } catch (ex) {
+                        console.log(ex);
+                    };
+                    //console.log(result.DiskId, "result.DiskId was ordered!");
+                    this.showAlert("云硬盘订购成功！", () => {
+                        this.router.navigate([`ali-cloud-service/cloud-vm/cloud-vm-list`]);
+                        }
+                    );
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+    }
+
 
     onRejected(reason: any) {
         this.layoutService.hide();
@@ -327,12 +410,13 @@ export class AliCloudVmOrderComponent implements OnInit {
         this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 
-    showAlert(msg: string): void {
+    showAlert(msg: string, of?:any): void {
         console.log(msg, "showAlert");
         this.layoutService.hide();
         this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
+        this.notice.nof = of;
     }
 
     

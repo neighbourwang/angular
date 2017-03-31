@@ -8,23 +8,27 @@ import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
-//import { MsgAlertModel, MsgModel } from "../model/msg-alert.model";
+import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
+import { instanceListModel } from "../model/cloud-vm.model";
 
 //Service
-//import { MsgMngService } from "../service/msg-mng.service";
+import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
+import { AliCloudDiskDictService } from "../../cloud-disk/service/cloud-disk-dict.service";
+import { AliCloudVmService } from "../service/cloud-vm.service";
 
 
 @Component({
     selector: "alics_vmlist",
     templateUrl: "../template/cloud-vm-list.html",
-    styleUrls: [],
+    styleUrls: ["../../cloud-disk/style/cloud-disk.less"],
     providers: []
 })
 export class AliCloudVmListComponent implements OnInit {
     constructor(
         private layoutService: LayoutService,
         private router: Router,
-        //private service: MsgMngService,
+        private service: AliCloudVmService,
+        private commonService: AliCloudDiskService,
         private activatedRouter : ActivatedRoute,
 
     ) {
@@ -39,15 +43,21 @@ export class AliCloudVmListComponent implements OnInit {
     @ViewChild("confirm")
     confirm: ConfirmComponent;
 
-    @ViewChild("deletemsgbox")
-    deletemsgbox: PopupComponent;
-
     noticeTitle = "";
     noticeMsg = "";
+
+    confirmTitle = "";
+    confirmMsg = "";
 
     pageIndex = 1;
     pageSize = 10;
     totalPage = 1;
+
+    regions: Array<RegionModel> = [];
+    choosenRegion: RegionModel = new RegionModel();
+
+    instances: Array<instanceListModel> = []; 
+    selectedInstance: instanceListModel = new instanceListModel();
 
     private okCallback: Function = null;
     okClicked() {
@@ -69,33 +79,23 @@ export class AliCloudVmListComponent implements OnInit {
 
     ngOnInit(): void {
 
-        //this.getMsgList(this.paginationFlag);
+        this.getKeySecret();
 
     }
-    /*
-
-    getMsgList(status:string, pageIndex?): void {
-        this.paginationFlag = status;
-        this.pageIndex = 1; 
-        this.allSelected = false;
-
+   
+    getKeySecret(): void {
         this.layoutService.show();
-        this.service.getMsgListStatus(this.pageIndex, this.pageSize, this.paginationFlag)
+        this.commonService.getKeySecret()
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "msgList response!");
                 if (response && 100 == response["resultCode"]) {
-                    this.msgAlert.edge = response.pageInfo.totalRecords;
-                    this.msgAlert.list = response.resultContent;
-                    this.totalPage = response.pageInfo.totalPage;
-                    this.pager.render(1);
-                    if(this.paginationFlag == "0") {
-                        this.unreadnumber.num = this.msgAlert.edge;
-                    }
+                    this.commonService.keysecret = response.resultContent;
+                    this.service.keysecret = response.resultContent;
+                    //console.log(this.service.keysecret, "this.keysecret!");
+                    this.getAllRegions();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
-                    this.msgAlert.edge = 0;
                     return;
                 }
             })
@@ -104,6 +104,110 @@ export class AliCloudVmListComponent implements OnInit {
             });
     }
 
+    getAllRegions(): void {
+
+        this.layoutService.show();
+        this.commonService.getAllRegions()
+            .then(
+            response => {
+                this.layoutService.hide();
+                //console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.regions = result.Regions.Region;
+                    console.log(this.regions, "this.regions!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+    }
+
+    selectRegion(region: RegionModel) {
+        this.regions.map((item) => {
+            item.selected = false;
+        });
+        region.selected = true;
+        this.getInstanceList(region); // 列出对应region的instance list
+        /*
+        if (region.areas == null || region.areas.length == 0) {
+            this.getArea(region);
+        }
+        */
+    }
+
+    getInstanceList(region: RegionModel) {
+        this.layoutService.show();
+        this.service.getInstanceList(this.pageIndex, this.pageSize, region.RegionId)
+        .then(
+            response => {
+                this.layoutService.hide();
+                console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                        console.log(result, "result!");
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.instances = result.Instances.Instance;
+                    this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
+                    console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
+                    for(let i=0; i<this.instances.length; i++) {
+                        console.log(this.instances[i].InstanceId, " == ");
+                    }
+                    console.log(this.instances, "this.instances!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+        })
+        .catch((e) => {
+                this.onRejected(e);
+            });
+
+    }
+
+    goToInstanceOrder() {
+        this.router.navigate([`ali-cloud-service/cloud-vm/cloud-vm-order`]);
+    }
+
+    deleteInstance() {
+        this.selectedInstance = this.getSelected();
+        if (this.selectedInstance) {
+            this.confirmTitle = "释放实例";
+            this.confirmMsg = "释放实例：" + this.selectedInstance.InstanceId;
+            this.confirm.cof = () => { };
+            this.confirm.ccf = () => {
+                this.layoutService.show();
+                this.service.deleteInstance(this.selectedInstance)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("释放实例成功！");
+                        this.selectRegion(this.choosenRegion);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                })
+                .catch((e) => this.onRejected(e));
+            }
+            this.confirm.open();
+        } else {
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return;
+        }
+    }
 
 
     onRejected(reason: any) {
@@ -130,40 +234,28 @@ export class AliCloudVmListComponent implements OnInit {
         this.notice.open(msg.title, msg.desc);
     }
 
-
     //选择行
     selectItem(index:number): void {
-        this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;
-        console.log(this.msgAlert.list, "=== Please see which ones are selected ===");
-        let selectedml = this.msgAlert.list.filter(n=> { return (n.checked == true);});
-        if(selectedml.length == this.pageSize) {
-            console.log("The latest one was selected, so all selected!");
-            this.allSelected = true;
-        } else {
-            this.allSelected = false;
-        }
+        this.instances.map(n=> {n.checked = false;});
+        this.instances[index].checked = true;
+        this.selectedInstance = this.instances[index];
+        console.log(this.selectedInstance, "this.selectedInstance");
     }
 
-    selectOrUnSAllItems(): void {
-        if (this.allSelected) {
-            console.log("All checked before, so set them all unselected");
-            this.allSelected = false;
-            this.msgAlert.list.map(n=> { n.checked = false;});
-        } else {
-            console.log("All unchecked before, so set them all selected");
-            this.allSelected = true;
-            this.msgAlert.list.map(n=> { n.checked = true;});
-        }
+    UnselectItem(): void {
+        this.instances.map(n=> {n.checked = false;});
+        if(this.selectedInstance) this.selectedInstance.checked = false;
     }
 
-    getSelectedItems() {
-        this.selectedmsglist = this.msgAlert.list.filter(n=> { return (n.checked == true);});
-        if (this.selectedmsglist.length != 0){
-            return this.selectedmsglist;
-        } else {
-            return [];
+    getSelected() {
+        let item = this.instances.find((n) => n.checked) as instanceListModel;
+        if (item){
+            return item;
+        }            
+        else {
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return null;
         }
     }
-    */
 
 }

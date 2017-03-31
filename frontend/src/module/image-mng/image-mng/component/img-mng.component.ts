@@ -52,15 +52,20 @@ export class ImgMngComponent implements OnInit {
     statusDic: Array<SystemDictionary>;
     bitDic: Array<SystemDictionary>;
     queryOpt: CriteriaQuery = new CriteriaQuery();
-    editImage: Image = new Image();
+    editImage: Image = new Image();//用于编辑镜像
     areaList: Array<Area>;
     realQueryOpt: CriteriaQuery;
+    temp2:Image = new Image();//用于修改镜像名称
+
+    searchWay:number = 0;
+
     ngOnInit() {
         this.getAreaList();
         this.getImageList();
     }
 
     search() {
+        console.log(">>>search");
         this.realQueryOpt = $.extend({}, this.queryOpt);
         this.pager.render(1);
         this.getImageList();
@@ -133,7 +138,7 @@ export class ImgMngComponent implements OnInit {
         //    return;
         //}
 
-        this.noticeMsg = `IMAGE.CONFIRM_DELETE_VALUE^^^${image.name}`;
+        this.noticeMsg = `IMAGE.CONFIRM_DELETE_VALUE^^^${image.name}IMAGE.CONFIRM_DELETE_VALUE2`;
 
         this.confirm.cof = () => {
             this.layoutService.show();
@@ -163,9 +168,8 @@ export class ImgMngComponent implements OnInit {
     }
 
     openEidtPanel(image): void {
-
+        this.closeEditPanel();
         let cimage = new Image();
-        cimage.id = image.id;
         cimage.id = image.id;
         cimage.name = image.name;
         cimage.type = image.type;
@@ -180,6 +184,88 @@ export class ImgMngComponent implements OnInit {
         this.editPopup.open("IMAGE.EDIT_IMAGE");
     }
 
+//修改显示名称的弹出框
+    openEidtDisplayName(image:Image){
+        this.closeEditPanel();
+        let cimage = new Image();
+        cimage.id = image.id;
+        cimage.name = image.name;
+        cimage.type = image.type;
+        cimage.os = image.os;
+        cimage.bits = image.bits;
+        cimage.createTime = image.createTime;
+        cimage.status = image.status;
+        cimage.progress = image.progress;
+        cimage.description = image.description;
+        cimage.imageOwner = image.imageOwner;
+
+        cimage.nameEditing = image.nameEditing;
+        cimage.selected = image.selected;
+        this.temp2 = cimage;
+        
+    }
+    //只更新镜像名称
+    updateImageName() {
+        this.layoutService.show();
+        if (this.validationService.isBlank(this.temp2.name)) {
+            this.showAlert("IMAGE.IMAGE_NAME_CAN_NOT_BE_BLANK");
+            return;
+        }
+        this.service.updateImage(this.temp2)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.getImageList();
+                    
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+    //启用/禁用
+    endisable(img:Image, status:string){
+        if(status == img.status){
+            this.editPopup.close();
+            return;
+        }
+
+        if(status == '1'){
+            this.noticeMsg = `IMAGE.CONFIRM_ENABLE^^^${img.name}`;
+        }else if(status == '2'){
+            this.noticeMsg = `IMAGE.CONFIRM_DISENABLE^^^${img.name}`;
+        }
+        
+        this.confirm.cof = () => {
+            this.layoutService.show();
+            this.service.endisableImage(img.id, status)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.editPopup.close();
+                        this.getImageList();
+
+                        if(status == '1'){
+                            this.showAlert("IMAGE.ENABLE_SUCCESS");
+                        }else if(status == '2') {
+                            this.showAlert("IMAGE.DISENABLE_SUCCESS");
+                        }
+
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+                )
+                .catch((e) => this.onRejected(e));
+        };
+        this.confirm.open();
+            
+    }
+
     resetQueryOpt() {
         this.queryOpt = new CriteriaQuery();
     }
@@ -187,7 +273,7 @@ export class ImgMngComponent implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "IMAGE.PROMPT";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }

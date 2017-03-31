@@ -8,8 +8,8 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
-                        <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);">
-                            <div class="regionName">{{region.LocalName}}</div>
+                        <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}'>
+                            <div class="regionName" (click)="selectRegion(region);">{{region.LocalName}}</div>
                             <div class="regionArea">
                                 <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
                                 <span class="caret"></span>

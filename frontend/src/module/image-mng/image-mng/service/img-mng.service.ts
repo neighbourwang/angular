@@ -22,31 +22,31 @@ export class ImgMngService {
         this.restApiCfg.loadCfgData();
     }
 
-    //Êý¾Ý×Öµä
+    //æ•°æ®å­—å…¸
     statusDic = this.dict.get({
         owner: "IMAGES",
         field: "STATUS"
     });
 
-    //Êý¾Ý×Öµä
-    typeDic = this.dict.get({
-        owner: "IMAGES",
-        field: "TYPE"
-    });
+    //æ•°æ®å­—å…¸
+    // typeDic = this.dict.get({
+    //     owner: "IMAGES",
+    //     field: "TYPE"
+    // });
 
-    //Êý¾Ý×Öµä
+    //æ•°æ®å­—å…¸
     bitDic = this.dict.get({
         owner: "IMAGES",
         field: "BITS_TYPE"
     });
 
-    //Êý¾Ý×Öµä
+    //æ•°æ®å­—å…¸
     ownerDic = this.dict.get({
         owner: "IMAGES",
         field: "OWNER"
     });
 
-    //Êý¾Ý×Öµä
+    //æ•°æ®å­—å…¸
     osDic = this.dict.get({
         owner: "IMAGES",
         field: "OS"
@@ -100,6 +100,22 @@ export class ImgMngService {
         const api = this.restApiCfg.getRestApi("image.mng.area.list");
         return this.restApi.request(api.method, api.url, null, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => { return AreaList_mock });
+    }
+
+    endisableImage(id:String, status:string){
+        const pathParams = [
+            {
+                key: "id",
+                value: id
+            },
+            {
+                key: "status",
+                value: status
+            }
+            
+        ];
+        const api = this.restApiCfg.getRestApi("image.mng.endisable");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
     }
 }
 

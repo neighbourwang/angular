@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </li>
-            <li>
+            <!--<li>
                 <div class="col-md-2 li-title">
                     <p><br>{{'IMAGE.IMAGE_ATTRIBUTION' | translate}}</p>
                 </div>
@@ -31,19 +31,21 @@
                         </label>
                     </div>
                 </div>
-            </li>
+            </li>-->
         </ul>
 
         <div class="pull-left row" style="margin-bottom:20px;">
-            <div class="col-md-1 text-right pdt10">
+            <!--<div class="col-md-1 text-right pdt10">
                 <span>{{'IMAGE.IMAGE_NAME' | translate}} :</span>
             </div>
             <div class="input-group col-md-2 float-left">
                 <input class="form-control" placeholder="{{'IMAGE.ENETR_IMAGE_NAME_TO_SEARCH' | translate}}" [(ngModel)]="queryOpt.imageName">
-                <div class="input-group-addon">
+                
+                <div class="input-group-addon"(click)="search()">
                     <span class="glyphicon glyphicon-search"></span>
                 </div>
             </div>
+
             <div class="col-md-1  text-right pdt10">
                 <span >{{'IMAGE.OPERATING_SYSTEM' | translate}} :</span>
             </div>
@@ -52,6 +54,28 @@
                     <option [value]="" value="">{{'COMMON.ALL' | translate}}</option>
                     <option *ngFor="let os of this.service.osDic | async;" [value]="os.value">{{os.displayValue}}</option>
                 </select>
+            </div>-->
+
+            <div class="col-md-2">
+                <select class="form-control" [(ngModel)]="searchWay">
+                    <option [value]=0><span>{{'IMAGE.IMAGE_NAME' | translate}}</span></option>
+                    <option [value]=1><span >{{'IMAGE.OPERATING_SYSTEM' | translate}} </span></option>
+                </select>
+            </div>
+            
+            <div class="input-group col-md-2 float-left">
+                <div *ngIf="searchWay==0">
+                    <input class="form-control" placeholder="{{'IMAGE.ENETR_IMAGE_NAME_TO_SEARCH' | translate}}" [(ngModel)]="queryOpt.imageName">
+                </div>
+                <div *ngIf="searchWay==1">
+                    <select class="form-control" [(ngModel)]="queryOpt.os">
+                        <option [value]="" value="">{{'COMMON.ALL' | translate}}</option>
+                        <option *ngFor="let os of this.service.osDic | async;" [value]="os.value">{{os.displayValue}}</option>
+                    </select>
+                </div>
+                <div class="input-group-addon"(click)="search()">
+                    <span class="glyphicon glyphicon-search"></span>
+                </div>
             </div>
                 <!--<span class="float-left" style="margin-left:10px;margin-top:6px;">状态 :</span>
                 <div class="col-md-2 float-left">
@@ -60,7 +84,7 @@
                         <option *ngFor="let stauts of this.service.statusDic | async" [value]="stauts.value">{{stauts.displayValue}}</option>
                     </select>
                 </div>-->
-            <div class="col-md-1  text-right pdt10">
+            <!--<div class="col-md-1  text-right pdt10">
                 <span>{{'IMAGE.IMAGE_TYPE' | translate}} :</span>
             </div>
                 <div class="col-md-2">
@@ -75,22 +99,23 @@
                 <!--<button class="btn button-gray-gradient pull-right" style="margin-right:15px;">
                     <span class="icon icon-link"></span> 相关实例
                 </button>
-                -->
-            </div>
-        <table class="table table-hover mgb20" style="table-layout:fixed">
+                
+            -->
+        </div>
+        <table class="table table-hover mgb20">
             <thead>
                 <tr>
                     <th class="text-center" style="width:47px">{{'IMAGE.CHOOSE' | translate}}</th>
                     <th class="text-center">{{'IMAGE.IMAGE_NAME' | translate}}</th>
-                    <th class="text-center">{{'IMAGE.IMAGE_TYPE' | translate}}</th>
+                    <!--<th class="text-center">{{'IMAGE.IMAGE_TYPE' | translate}}</th>-->
                     <th class="text-center">{{'IMAGE.OPERATING_SYSTEM' | translate}}</th>
                     <th class="text-center">{{'IMAGE.SYSTEM_BITS' | translate}}</th>
                     <th class="text-center">{{'IMAGE.IMAGE_CAPACITY'| translate}}</th>  <!--新增镜像容量，删除状态列-->
                     <th class="text-center">{{'IMAGE.FOUNDER'| translate}}</th>
                     <th class="text-center">{{'IMAGE.CREATED_DEPARTMENT'| translate}}</th>
                     <th class="text-center">{{'COMMON.CREATED_TIME'| translate}}</th>
-                    <th class="text-center">{{'IMAGE.PROGRESS_RATE'| translate}}</th>
-                    <th class="text-center">{{'COMMON.DESCRIPTION'| translate}}</th>
+                    <th class="text-center">{{'IMAGE.STATUS'| translate}}</th>
+                    <th class="text-center"style="width:150px">{{'COMMON.DESCRIPTION'| translate}}</th>
                     <th class="text-center">{{'COMMON.OPERATION'| translate}}</th>
                 </tr>
             </thead>
@@ -99,10 +124,33 @@
                     <td class="text-center">
                         <input type="radio" class="fox-cloud-radio" name="group-image" [checked]="image.selected" (change)="image.selected = $event.target.checked" />
                     </td>
-                    <td class="text-center" style="word-wrap:break-word">{{image.name}}  </td>
-                    <td class="text-center">
-                        {{image.type | dict:this.service.typeDic | async}}
+                    <!--<td class="text-center" style="word-wrap:break-word">{{image.name}} -->
+                    <td class="text-center" style="position:relative">{{image.name}} 
+                        <span class="pull-right icon-edit2" style="padding: 10px 10px" (click)="openEidtDisplayName(image);image.nameEditing=true;"></span>
+                        <div *ngIf="image.nameEditing"class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; left:10px; width:400px; max-width:1100px; display: block;z-index:50">
+                                <div class="arrow" style="left: 40%;"></div>
+                                <div class="popover-content">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label"style="font-weight:700">{{'IMAGE.IMAGE_NAME' | translate}}:</label>
+                                            <div class="col-sm-8 float-left">
+                                                <input type="text"  class="form-control"[(ngModel)]="temp2.name" name ="name">
+                                                <div>长度为2-68个字符,以大小写字母或中文开头,可包含数字,".","-","_"</div>
+                                            </div>
+                                            
+                                        </div>
+                                    </form>
+                                <div class="pull-right" style="margin-bottom:10px;">
+                                    <button class="fox-cloud-button fox-cloud-button-white"(click)="image.nameEditing=false;">{{'DIALOG.CLOSE'|translate}}</button>
+                                    <button class=" fox-cloud-button fox-cloud-button-white"(click)="updateImageName()">{{'DIALOG.SAVE'|translate}}</button>
+                                
+                                </div>
+                                </div>
+                        </div>
                     </td>
+                    <!--<td class="text-center">
+                        {{image.type | dict:this.service.typeDic | async}}
+                    </td>-->
                     <td class="text-center">{{image.os | dict:this.service.osDic | async}}</td>
                     <td class="text-center">
                         {{image.bits | dict:this.service.bitDic | async}}
@@ -111,14 +159,18 @@
                     <td class="text-center" style="word-wrap:break-word">{{image.creatorName}}</td>
                     <td class="text-center" style="word-wrap:break-word">{{image.orgName}}</td>
                     <td class="text-center">{{image.createTime}} </td>
-                    <td class="text-center">{{image.progress}}%</td>
+                    <!--<td class="text-center">{{image.progress}}%</td>-->
+                    <td class="text-center" [ngClass]="{'font-green':image.status=='0','font-green':image.status=='1','font-orange':image.status=='2'}">
+                        {{image.status | dict:this.service.statusDic | async}} 
+                    </td>
                     <td class="text-center " style="word-wrap:break-word">{{image.description}}</td>
                     <td class="text-center">
-                        <div *ngIf="image.type !=0">
+                        <!--<div *ngIf="image.type !=0">-->
                             <span class="icon icon-edit2 pointer" (click)="openEidtPanel(image);" style="padding: 1px 10px"></span>
-                            <span class="icon icon-link pointer" style="padding: 1px 12px"></span>
+                            <span class="icon icon-enable pointer" (click)="endisable(image,'1');"style="padding: 1px 10px"></span>
+                            <span class="icon icon-disable pointer" (click)="endisable(image,'2');"style="padding: 1px 10px"></span>
                             <span class="icon icon-delete3 pointer" (click)="deleteImage(image);" style="padding: 1px 10px"></span>
-                        </div>
+                        <!--</div>-->
                     </td>
                 </tr>
             </tbody>
@@ -142,7 +194,7 @@
             </div>
         </div>
     </div>
-    <div class="row row-line-height">
+    <!--<div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'IMAGE.CUSTOM_IMAGE_APPLICATION_RANGE'| translate}}:</div>
             <div class="col-sm-7 " style="line-height:34px">
@@ -151,6 +203,22 @@
                 </label>
             </div>
 
+        </div>
+    </div>-->
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">{{'IMAGE.OPERATING_SYSTEM' | translate}}:</div>
+            <div class="col-sm-7">
+                <div>{{(editImage.os | dict:this.service.osDic | async )||"未知"}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">{{'IMAGE.SYSTEM_BITS' | translate}}:</div>
+            <div class="col-sm-7">
+                <div>{{(editImage.bits | dict:this.service.bitDic | async)||"未知"}}</div>
+            </div>
         </div>
     </div>
     <div class="row row-line-height">

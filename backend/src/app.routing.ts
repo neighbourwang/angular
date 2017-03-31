@@ -33,6 +33,8 @@ export const routes: Routes = [
     { path: 'mtc-center', loadChildren: 'module/mtc-center/mtc-center.module#MtcCenterModule' },
     // sys-setup
     { path: 'sys-setup', loadChildren: 'module/sys-setup/sys-setup.module#SysSetupModule' },
+    //ali-cloud
+    { path: 'ali-cloud', loadChildren: 'module/ali-cloud/ali-cloud.module#AliCloudModule' },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

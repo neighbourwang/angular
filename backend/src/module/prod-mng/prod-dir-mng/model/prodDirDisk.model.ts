@@ -21,6 +21,7 @@ class platform {
     "storageId": [string];
     "zoneId": string;
     "zoneName": string;
+    selected:boolean;
 }
 class specification {
     "initialSize": number = 0;

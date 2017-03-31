@@ -1,5 +1,41 @@
-<order-mng-cancel (complete)="acceptCancel($event)" [orderItem]="Item" [detail]="detail" ></order-mng-cancel>
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
-<fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
+<!-- <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice> -->
+<!-- <fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
     <div style="text-align: center;"><input [(ngModel)]="forceDelect" type="checkbox" name=""> {{'VM_INSTANCE.UNSUBSRIBE_ALL_DISK'| translate}} "{{name}}"</div>
-</fc-popup>
+</fc-popup> -->
+<!--详情-->
+<div class="modal fade" id="unsubscribe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <!-- 配置变更 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">退订</h4>
+            </div>
+            <div *ngIf="detail" class="modal-body">
+
+                <product-info-table 
+                    [hasSelect]="true" 
+                    [disabled]="true"
+                    (onSelect)="itemSelectChange($event)"
+                    [itemList]="detail.itemList"></product-info-table>
+
+                <div *ngIf="releatedList.length" style="padding: 30px 0 20px">请选择是否退订下列关联的已购服务（如果选择，表示一起退订）：</div>
+
+                <ng-container *ngIf="releatedList.length">
+                <product-info-table 
+                    [hasSelect]=true 
+                    (onSelect)="releatedSelectChange($event)"
+                    [itemList]="releatedList | releatedToItem"></product-info-table>
+                </ng-container>
+
+                <div style="color: #f09279">您的已购服务一旦退订， 所有相关的资源和数据都会被删除，无法恢复！ 请谨慎选择退订服务。</div>
+            </div>
+            <div class="modal-footer">
+                <button (click)="startUnsubscribe()" class="btn button-confirm button-size-big">{{ot || 'DIALOG.CONFIRM' | translate }}</button>
+                <!-- 确认 -->
+                <button class="btn btn-default button-size-big" data-dismiss="modal">{{ct || 'DIALOG.CANCEL' | translate }}</button>
+                <!-- 取消 -->
+            </div>
+        </div>
+    </div>
+</div>
