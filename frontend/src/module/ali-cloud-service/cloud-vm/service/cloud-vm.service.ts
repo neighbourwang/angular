@@ -211,6 +211,50 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
+    startInstance(instance: instanceListModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "instanceid",
+                value: instance.InstanceId
+            }
+        ];
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "action": "",   //???????????????????
+            "instanceid": "",
+            "operationLocks": "",
+            "status": ""
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.delete");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    stopInstance(instance: instanceListModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "instanceid",
+                value: instance.InstanceId
+            }
+        ];
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "action": "",  //???????????????????
+            "instanceid": "",
+            "operationLocks": "",
+            "status": ""
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.delete");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
 
 
 }

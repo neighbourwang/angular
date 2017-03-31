@@ -46,7 +46,7 @@ export class AliCloudMianAccountList implements OnInit {
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "ÊèêÁ§∫";
+        this.noticeTitle = "Ã· æ";
         this.noticeMsg = msg;
         this.notice.open();
     }

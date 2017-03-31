@@ -838,6 +838,18 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/deleteinstance/instanceid/{instanceid}"
     },
+    { //启动阿里云主机
+        "desc": "Start alicloud Instance",
+        "id": "al-cloud.cloud-vm.instance.start",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/startinstance/instanceid/{instanceid}"
+    },
+    { //停止阿里云主机
+        "desc": "Stop alicloud Instance",
+        "id": "al-cloud.cloud-vm.instance.stop",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/stopinstance/instanceid/{instanceid}"
+    },
     { //获取阿里云主机列表
         "desc": "query instance",
         "id": "al-cloud.cloud-vm.instance.list",
