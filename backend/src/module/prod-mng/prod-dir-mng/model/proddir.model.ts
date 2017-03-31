@@ -15,12 +15,16 @@ class zone {
     storageName:string;
     storageList:Array<storage>;
     selected:boolean;
+    disable:boolean;
 }
 class platform {
     "flavorId": "string";
     "platformId": "string";
     "zoneList": Array<zone>;
     "selected":boolean;
+    constructor(){
+        this.selected=false;
+    }
 }
 class specification {
     "mem": number = 0;

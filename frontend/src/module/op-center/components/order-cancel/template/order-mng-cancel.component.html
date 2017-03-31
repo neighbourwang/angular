@@ -19,7 +19,7 @@
 					</tr>			
 				</thead>
 				<tbody>
-					<tr *ngFor="let prodItem of orderItem.itemList">
+					<tr *ngFor="let prodItem of detail.itemList">
 						<td><input type="checkbox" class="fox-cloud-checkbox" (click)='selectedSubItem(prodItem)' [(ngModel)]="prodItem.isChecked"></td>
 						<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; ">
 							<ul *ngIf="prodItem.serviceType>1">
@@ -89,4 +89,5 @@
 			<div *ngIf="!_isCanceled" class="modal-footer" style="text-align: center;">
 				<button type="button" class="btn button-confirm button-size-big" (click)="cancel()">{{ 'COMMON.CONFIRM' | translate }}</button>
 				<button type="button" class="btn  button-size-big button-white" data-dismiss="modal">{{ 'COMMON.CANCEL' | translate }}</button>
+				
 			</div>
