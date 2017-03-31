@@ -114,7 +114,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">维保起始日期:</div>
                     <div class="col-md-4">
-                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="startTimeChange($event)" [disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
+                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="startTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
                     </div>
                 </div>
             </div>
@@ -163,10 +163,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>3</td>
+                                        <tr *ngFor="let item of physical.partsList">
+                                            <td>{{item.specName}}</td>
+                                            <td>{{item.specValue}}</td>
+                                            <td>{{item.count}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -197,15 +197,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of partsList; let idex=index;">
+                                    <tr *ngFor="let item of partsEntityList; let idex=index;">
                                         <td *ngIf="eidtMode =='create'||eidtMode =='editParts'">
                                             <input type="radio" class="fox-cloud-radio" name="part" (change)="getSelectPart(item);"[checked]="item.isSelect">
                                         </td>
                                         <td>{{item.partsName}}</td>
                                         <td>{{item.specName}}</td>
                                         <td>{{item.specValue}}</td>
-                                        <td>{{item.partsNum}}</td>
-                                        <td>{{item.partsCap||item.specValue*item.partsNum}}</td>
+                                        <td>{{item.number}}</td>
+                                        <td>{{item.partsName == "磁盘"|| item.partsName =="内存"? item.specValue*item.partsNum :""}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -214,7 +214,7 @@
                 </div>
             </div>
 
-            <div *ngIf="read || eidtMode =='view'||eidtMode =='edit'||eidtMode =='editParts'">
+            <!--<div *ngIf="read || eidtMode =='view'||eidtMode =='edit'||eidtMode =='editParts'">
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.HARDWARE_INFO'|translate}}:</div>
@@ -263,7 +263,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div *ngIf="eidtMode =='view'||eidtMode =='edit'" style="display:none;">
                 <div class="row row-line-height">
                     <div class="form-group">
@@ -364,7 +364,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">部件名称:</div>
             <div class="col-sm-4">
-                <select class="form-control" [(ngModel)]="selectedPart" (change)="partList.specName=''">
+                <select class="form-control" [(ngModel)]="selectedPart" (change)="partsEntity.specName=''">
                     <option [ngValue]="defaultPart">请选择</option>
                     <option *ngFor="let item of parts" [ngValue]="item">{{item.partsName}}</option>
                 </select>
@@ -375,7 +375,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">规格:</div>
             <div class="col-sm-4">
-                <select class="form-control" [(ngModel)]="partList.specName">
+                <select class="form-control" [(ngModel)]="partsEntity.specName">
                       <option value="">请选择</option>
                      <option *ngFor="let item of selectedPart.specList" [value]="item.specName">{{item.specName}}</option>
                 </select>
@@ -387,7 +387,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">规格值:</div>
             <div class="col-sm-4">
-                <input type="text" class="form-control" [(ngModel)]="partList.specValue">
+                <input type="text" class="form-control" [(ngModel)]="partsEntity.specValue">
             </div>
              <div class="col-sm-2" style="line-height:34px;padding-left:0px" *ngIf="selectedPart.partsName=='内存' || selectedPart.partsName=='磁盘'">GB</div>
         </div>
@@ -396,7 +396,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">数量:</div>
             <div class="col-sm-4">
-                <input type="text" class="form-control" [(ngModel)]="partList.partsNum">
+                <input type="text" class="form-control" [(ngModel)]="partsEntity.number">
             </div>
         </div>
     </div>
