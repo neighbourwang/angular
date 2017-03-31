@@ -36,28 +36,75 @@ export class PhysicalModel {
     priIPAddr: string;
     pubIPAddr: string;
     image: string;
+    mainEndDate:string;  //维保结束时间
+    mainStartDate:string;  //维保开始时间
 
-    pmHardwareCPU:CPU; //硬件信息
-    pmHardwareMemory:Memory;
-    pmHardwareDiskList:Array<Disk>;
-      toString() {
-        return JSON.stringify(this);
+    // pmHardwareCPU:CPU; 
+    // pmHardwareMemory:Memory;
+    // pmHardwareDiskList:Array<Disk>;
+    //   toString() {
+    //     return JSON.stringify(this);
+    // }
+    //读取的硬件信息 
+   partsList:Array<PartHardwareInfo>;
+
+   //部件列表
+   partsEntitys:Array<PartsEntitys>;
+ }
+
+ export class PartHardwareInfo{
+      count: string;
+      specName: string;
+      specValue: string;
     }
-
-}
  
-export class CPU {
-    version: string;
-    value: number;
+ export class PartsEntitys{
+    id: string;
+    number: string="0";
+    partsId: string;
+    partsName: string;
+    specId: string="";
+    specName: string="";
+    specValue:string;
+    isSelect=false;
+
+ }
+
+ export class Part{
+   // id: string;
+  partsId: string;
+  partsName: string;
+  specList: Array<Space>=[];
 }
-export class Memory {
-    version: string;
-    value: number;
+export class Space{
+    specId: string;
+    specName: string;
+    specValues:Array<String>;
+}
+export class PartList{
+    partsId: string;
+    partsName: string;
+    specId: string="";
+    specName: string="";
+    specValue:string;
+    partsNum:number;
+    partsCap:string="";
+    isSelect=false;
 }
 
-export class Disk {
-    version: string;
-    value: number;
-}
 
+
+// export class CPU {
+//     version: string;
+//     value: number;
+// }
+// export class Memory {
+//     version: string;
+//     value: number;
+// }
+
+// export class Disk {
+//     version: string;
+//     value: number;
+// }
 

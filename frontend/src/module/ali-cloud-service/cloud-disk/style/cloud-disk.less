@@ -211,6 +211,31 @@
     }
 }
 
+.region-btn {
+    width: 180px;
+    height: 40px;
+    float: left;
+    //margin: 5px 10px;
+    border: 1px solid @ddd-color;
+
+    .regionName {
+        text-align: center;
+        height: 40px;
+        line-height: 38px;
+        overflow: none;
+        border-bottom: 1px solid @ddd-color;
+    }
+}
+.region-btn.selected {
+    border: 1px solid #2bd2ca;
+
+    .regionName {
+        border-bottom: 1px solid #2bd2ca;
+        background-color: #2bd2ca;
+        color: white;
+    }
+}
+
 .btn-selected-green.selected {
     border: 1px solid #2bd2ca;
     background: #2bd2ca !important;

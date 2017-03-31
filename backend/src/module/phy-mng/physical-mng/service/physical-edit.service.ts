@@ -4,7 +4,7 @@ import { RestApiCfg, RestApi ,SystemDictionaryService} from "../../../../archite
 
  import { PhysicalModel } from "../model/physical.model";
 // import { IpmiInfo } from "../model/physical-ipmi.model"
- import { serverTypeListAndbrandList_mock, physicalMachine_mock,Hardware_mock } from "../model/mock";
+ import { serverTypeListAndbrandList_mock, physicalMachine_mock,PortsList_mock,PortList_mock } from "../model/mock";
 import "rxjs/add/operator/toPromise";
 
 @Injectable()
@@ -64,9 +64,10 @@ export class PhysicalEditService {
             "model": physical.model,
             "modleId": physical.modleId,
             "modleName": physical.modleName,
-            "pmHardwareCPU":physical.pmHardwareCPU ,
-            "pmHardwareDiskList":physical.pmHardwareDiskList,             
-            "pmHardwareMemory":physical.pmHardwareMemory ,
+            "mainEndDate":physical.mainEndDate ,
+            "mainStartDate":physical.mainStartDate,             
+            "partsList":physical.partsList ,
+            "partsEntitys":physical.partsEntitys,
             "pmName": physical.pmName,
             "pmPoolId": physical.pmPoolId,
             "sererTypeId": physical.sererTypeId,
@@ -129,6 +130,20 @@ export class PhysicalEditService {
         }        
        );
     }
+
+    //获取物理机部件清单
+    getPartList():Promise<any>{
+        const api = this.restApiCfg.getRestApi("physical-mng.physical.partList.get");
+        return this.restApi.request(api.method, api.url, null, null,  null  );
+    }
+  
+//   //获取物理机部件列表
+//    getPartsList():Promise<any>{
+//         const api = this.restApiCfg.getRestApi("physical-mng.physical.partList.get");
+//         return this.restApi.request(api.method, api.url, null, null,  null  );
+//     //    return new Promise(resovle => setTimeout(resovle, 200)).then(() => PortsList_mock);
+//     }
+  
 
 
 }

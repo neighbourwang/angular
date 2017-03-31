@@ -269,7 +269,7 @@
                         <span>￥0.225/时</span>
                     </div>
                     <div class="float-right">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true; addCart()" class="btn button-orange-light">立即购买</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true; buyNow();" class="btn button-orange-light">立即购买</button>
                     </div>
                 </div>
             </li>
@@ -279,4 +279,4 @@
 
 </div>
 
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="okClicked()"></fc-notice>

@@ -6,7 +6,7 @@ export const UsageState_mock = {
             "number": "292",
             "level1": "282",
             "level2": "8",
-            "level3": "3"
+            "level3": "3"          
         },
         "mem": {
             "number": "292",

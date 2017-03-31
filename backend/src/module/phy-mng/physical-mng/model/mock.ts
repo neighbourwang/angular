@@ -169,32 +169,61 @@ export const PhysicalList_mock = {
   }  
 }
 
-export const Hardware_mock = {
-    "resultCode":"100",
+export const PortsList_mock = {
+"resultCode": "100",
   "detailDescription": null,
-  "resultContent": {
-    "model": "DL380 G9",
-    "sn": "ABC124ABC",
-    "pmHardwareCPU": {
-      "version": "Xeon E5 2560",
-      "value": 8
+  "resultContent": [
+    {
+      "id": null,
+       "partsId": "157876b7-8529-4fb9-ae6e-f0c257e4f026",
+      "partsName": "磁盘",
+      "specId": "a2e9c59b-f86d-47f9-ab7a-89e9070e6cc9",
+      "specName": "SSD",
+      "specValue": "32",
+      "partsNum": 100,
+      "partsCap":100,
+      "index": 1
     },
-    "pmHardwareMemory": {
-      "version": "32GB X4 PC3L-10600",
-      "value": 128
-    },
-    "pmHardwareDiskList": [
-      {
-        "version": "4*SSD",
-        "value": null
-      },
-      {
-        "version": "4*SAS",
-        "value": null
-      }
-    ]
+    {
+      "id": null,
+      "partsId": "7197caed-1ad9-4ece-9cd4-d96e526f48af",
+      "partsName": "CPU",
+      "specId": "27156ed8-f1e3-460a-927d-e0471fe4ab4e",
+      "specName": "Inter",
+      "specValue": 1,
+      "partsNum": 200,
+      "partsCap":100,
+      "index": 2
+    }
+  ],
   }
-}
+  export const PortList_mock={
+      "resultCode": "100",
+  "detailDescription": null,
+  "resultContent": [
+    {
+      "partsId": "157876b7-8529-4fb9-ae6e-f0c257e4f026",
+      "partsName": "磁盘",
+      "specList": [
+        {
+           "specId": "a2e9c59b-f86d-47f9-ab7a-89e9070e6cc9",
+          "specName": "SSD"
+        },
+      ]
+    },
+    {
+      "partsId": "7197caed-1ad9-4ece-9cd4-d96e526f48af",
+      "partsName": "CPU",
+      "specList": [
+        {
+          "specId": "27156ed8-f1e3-460a-927d-e0471fe4ab4e",
+          "specName": "Inter"
+        }
+      ]
+    }
+  ]
+  }
+
 
 
   

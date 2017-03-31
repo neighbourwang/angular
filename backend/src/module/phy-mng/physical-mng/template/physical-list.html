@@ -17,7 +17,8 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a (click)="editPhysical();" > {{'PHYSICAL_MNG.EDIT'|translate}}</a></li>            
+                    <li><a (click)="editPhysical();" > {{'PHYSICAL_MNG.EDIT'|translate}}</a></li>      
+                    <li><a (click)="editPhysicalParts();">编辑物理机部件</a></li>      
                     <li><a (click)="changeIpmiInfo();">{{'PHYSICAL_MNG.EDIT_IPMI'|translate}}</a></li>
                     <li><a (click)="changePhysicalStatusAndDelete('1');">{{'PHYSICAL_MNG.ENABLE'|translate}}</a></li>
                     <li><a (click)="changePhysicalStatusAndDelete('0');">{{'PHYSICAL_MNG.DISABLE'|translate}}</a></li>
@@ -58,7 +59,7 @@
                                 <th style="width:100px">{{'PHYSICAL_MNG.IPMI_ADDRESS'|translate}}</th> 
                                 <th >{{'PHYSICAL_MNG.LOCATION'|translate}}</th> 
                                 <th style="width:50px">{{'PHYSICAL_MNG.POWER_STATUS'|translate}}</th> 
-                                <th  style="width:50px">{{'PHYSICAL_MNG.USEAGE_STATUS'|translate}}</th>  
+                                <th  style="width:60px">{{'PHYSICAL_MNG.USEAGE_STATUS'|translate}}</th>  
                                 <th  style="width:50px">{{'PHYSICAL_MNG.MAINTAIN_STATUS'|translate}}</th> 
                                 <th  style="width:60px">{{'PHYSICAL_MNG.HEALTH_STATUS'|translate}}</th> 
                             </tr>
@@ -80,9 +81,9 @@
                                 <td>{{physical.pmILOAddr}}</td>
                                 <td>{{physical.pmLocation}}</td>
                                 <td  [ngClass]="{'font-orange': physical.pmPowerStatus=='0','font-green': physical.pmPowerStatus=='1'}">{{physical.pmPowerStatus| dict:service.dicPower | async}}</td>
-                                <td [ngClass]="{'font-orange': physical.pmUseageStatus=='0','font-green': physical.pmUseageStatus=='1'}">{{physical.pmUseageStatus| dict:service.dictUseage | async}}</td>
+                                <td [ngClass]="{'font-orange': physical.pmUseageStatus=='0','font-green': physical.pmUseageStatus=='1'}">{{physical.pmUseageStatus| dict:service.dicUseage | async}}</td>
                                 <td [ngClass]="{'font-orange': physical.pmMainStatus=='0','font-green': physical.pmMainStatus=='1'}">{{physical.pmMainStatus| dict:service.dicMain | async}}</td>
-                                <td [ngClass]="{'font-orange': physical.pmHealthExam=='0','font-green': physical.pmHealthExam=='1'}">{{physical.pmHealthExam | dict:service.dictHealth | async}}</td>														
+                                <td [ngClass]="{'font-orange': physical.pmHealthExam=='0','font-green': physical.pmHealthExam=='1'}">{{physical.pmHealthExam | dict:service.dicHealth | async}}</td>														
                             </tr>                                                             
                         </tbody>
                 </table>             

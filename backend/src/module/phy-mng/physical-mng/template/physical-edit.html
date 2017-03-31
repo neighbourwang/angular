@@ -5,11 +5,17 @@
 <div class="page-content">
     <div class="row" style="margin-top:30px;">
         <div class="col-md-12">
+             <div class="row row-line-height" *ngIf="eidtMode !='create'">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">基本信息</div>
+                    <div class="col-md-4">  </div>
+                </div>
+            </div>
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title"><span *ngIf="eidtMode=='create'" class="asterisk">*</span>{{'PHYSICAL_MNG.PHYSICAL_NAME'|translate}}:</div>
+                    <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.PHYSICAL_NAME'|translate}}:</div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" [(ngModel)]="physical.pmName"  [disabled]="eidtMode=='view'">
+                        <input type="text" class="form-control" [(ngModel)]="physical.pmName"  [disabled]="eidtMode !='create'">
                     </div>
                 </div>
             </div>
@@ -92,7 +98,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.LOCATION'|translate}}:</div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" [(ngModel)]="physical.locale" [disabled]="eidtMode =='view'">
+                        <input type="text" class="form-control" [(ngModel)]="physical.locale" [disabled]="eidtMode =='view' || editMode =='editParts'">
                     </div>
                 </div>
             </div>
@@ -100,11 +106,115 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.DESCRIPTION'|translate}}:</div>
                     <div class="col-md-4">
-                        <textarea class="form-control" rows="3" [(ngModel)]="physical.description" [disabled]="eidtMode =='view'"></textarea>
+                        <textarea class="form-control" rows="3" [(ngModel)]="physical.description" [disabled]="eidtMode =='view' ||editMode =='editParts'"></textarea>
                     </div>
                 </div>
             </div>
-            <div *ngIf="read || eidtMode =='view'||eidtMode =='edit'">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">维保起始日期:</div>
+                    <div class="col-md-4">
+                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="startTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">   <!--[disabled]="eidtMode =='view'||editMode=='editParts'" 日期组件没有diasbled属性-->
+                    <div class="col-sm-4 form-control-title">维保结束日期:</div>
+                    <div class="col-md-4">
+                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="endTimeChange($event)" [disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="read|| eidtMode =='view' ||eidtMode =='edit' ||eidtMode =='editParts'">
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">硬件信息</div>
+                        <div class="col-md-4">    </div>
+                    </div>
+                </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">物理机型号:</div>
+                        <div class="col-md-4"> 
+                            <input type="text" class="form-control"  [(ngModel)]="physical.model" [disabled]="eidtMode !='create'">
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">序列号:</div>
+                        <div class="col-md-4"> 
+                            <input type="text" class="form-control"  [(ngModel)]="physical.sn"[disabled]="eidtMode !='create'" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">部件同步结果:</div>
+                        <div class="col-md-4"> 
+                            <div class="table-container">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>部件</th>
+                                            <th>规格值</th>
+                                            <th>数量</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of physical.partsList">
+                                            <td>{{item.specName}}</td>
+                                            <td>{{item.specValue}}</td>
+                                            <td>{{item.count}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <div class="row row-line-height"  >   <!-- *ngIf="editMode=='editParts' || editMode=='create'"-->
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">设置服务器部件:</div>
+                    <div class="col-md-4"> 
+                        <div class="mgt5"  *ngIf="eidtMode =='create'||eidtMode =='editParts'">
+                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="addPart();">新增</button>
+                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editPart();">编辑</button>
+                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="deletePart();">删除</button>
+                        </div>
+                         <div class="table-container mgt10">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th *ngIf="eidtMode =='create'||eidtMode =='editParts'">选择</th>
+                                        <th>部件名称</th>
+                                        <th>规格</th>
+                                        <th>规格值</th>
+                                        <th>数量</th>   
+                                        <th>总容量</th>                                   
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of partsEntityList; let idex=index;">
+                                        <td *ngIf="eidtMode =='create'||eidtMode =='editParts'">
+                                            <input type="radio" class="fox-cloud-radio" name="part" (change)="getSelectPart(item);"[checked]="item.isSelect">
+                                        </td>
+                                        <td>{{item.partsName}}</td>
+                                        <td>{{item.specName}}</td>
+                                        <td>{{item.specValue}}</td>
+                                        <td>{{item.number}}</td>
+                                        <td>{{item.partsName == "磁盘"|| item.partsName =="内存"? item.specValue*item.partsNum :""}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+
+            <!--<div *ngIf="read || eidtMode =='view'||eidtMode =='edit'||eidtMode =='editParts'">
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.HARDWARE_INFO'|translate}}:</div>
@@ -153,7 +263,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div *ngIf="eidtMode =='view'||eidtMode =='edit'" style="display:none;">
                 <div class="row row-line-height">
                     <div class="form-group">
@@ -231,20 +341,63 @@
 </div>
 
 
-<div class="text-center" style="margin-top:20px">
-    <button *ngIf="eidtMode =='create'" class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();">
-        <span class="icon-button-label">{{'PHYSICAL_MNG.CANCEL'|translate}}</span>
+<div class="text-center" style="margin-top:20px"> 
+    <button  class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">{{'PHYSICAL_MNG.CLOSE'|translate}}</span>
     </button>
     <button *ngIf="eidtMode =='edit'" class="fox-cloud-button-lg fox-cloud-button-white" (click)="editPhysical();">
         <span class="icon-button-label">{{'PHYSICAL_MNG.SAVE'|translate}}</span>
     </button>
     <button *ngIf="eidtMode =='create'" class="fox-cloud-button-lg fox-cloud-button-white" (click)="createPhysical();">
         <span class="icon-button-label">{{'PHYSICAL_MNG.SAVE'|translate}}</span>
-    </button>
-    <button *ngIf="eidtMode =='view'" class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">{{'PHYSICAL_MNG.CLOSE'|translate}}</span>
+    </button>  
+    <button *ngIf="eidtMode =='editParts'" class="fox-cloud-button-lg fox-cloud-button-white mgr20" >
+        <span class="icon-button-label">{{'PHYSICAL_MNG.SAVE'|translate}}</span>
     </button>
 </div>
 <div style="height:50px"></div>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice>
  <!--{{ physical.toString() }}-->
+
+ <fc-popup #addParts title="{{poptitle}}" ot="{{isEdit== false? '添加': '保存'}}"  ct="取消" (of)="addPartConfirm()" >
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">部件名称:</div>
+            <div class="col-sm-4">
+                <select class="form-control" [(ngModel)]="selectedPart" (change)="partsEntity.specName=''">
+                    <option [ngValue]="defaultPart">请选择</option>
+                    <option *ngFor="let item of parts" [ngValue]="item">{{item.partsName}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">规格:</div>
+            <div class="col-sm-4">
+                <select class="form-control" [(ngModel)]="partsEntity.specName">
+                      <option value="">请选择</option>
+                     <option *ngFor="let item of selectedPart.specList" [value]="item.specName">{{item.specName}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">规格值:</div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" [(ngModel)]="partsEntity.specValue">
+            </div>
+             <div class="col-sm-2" style="line-height:34px;padding-left:0px" *ngIf="selectedPart.partsName=='内存' || selectedPart.partsName=='磁盘'">GB</div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">数量:</div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" [(ngModel)]="partsEntity.number">
+            </div>
+        </div>
+    </div>
+</fc-popup>
