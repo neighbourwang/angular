@@ -7,12 +7,13 @@
             <div class="col-md-10" >
                 <div class="col-md-2 form-control-title">分析类型：</div>
                 <div class="col-md-2">
-                    <select class="form-control">
-                        <option>按内存分析</option>
-                        <option>按CPU分析</option>
-                        <option>按云主机规格分析</option>
+                    <select class="form-control" [(ngModel)]="analysisType">                      
+                        <option [value]="1">按CPU分析</option>
+                        <option [value]="2">按云主机规格分析</option>
+                        <option [value]="3">按内存分析</option>
                     </select>
                 </div>
+                <div class="col-md-2">{{analysisType}}</div>
             </div>
         </div>
         <div class="row row-line-height">
@@ -41,7 +42,7 @@
             </div>
             <div class="col-md-2" >
                 <div style="font-size:18px;line-height:34px;letter-spacing:2px;">
-                    <input class="fox-cloud-checkbox" type="checkbox" />&nbsp;按可用区显示
+                    <input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected" />&nbsp;按可用区显示
                 </div>
             </div>
         </div>
@@ -86,8 +87,8 @@
     <div>
         <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15">导出所有数据</button>
         <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15">导出当前数据</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">重置</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">确认</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">重置</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">确认</button>
     </div>
     <div class="clear"></div>
     <div class="mgt15" style="width:100%;border-bottom:solid 1px #00a982;"></div>

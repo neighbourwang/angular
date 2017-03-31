@@ -29,6 +29,34 @@
                     ]
                 }
             ]
+        },
+        {
+            "platformName": "openstack_gcy",
+            "platformId": "klkkllklsl-uiio",
+            "region": [
+                {
+                    "region": "region1",
+                    "zone": [
+                        {
+                            "zoneName": "ti",
+                            "zoneId": "014b5066-f9d1-49c7-9456-23208eeeedee"
+                        }
+                    ]
+                },
+                {
+                    "region": "vmware_region",
+                    "zone": [
+                        {
+                            "zoneName": "beijing",
+                            "zoneId": "0c75d155-609a-4f16-91ff-f0b9ce52c8ui"
+                        },
+                        {
+                            "zoneName": "wuhan",
+                            "zoneId": "1090ad17-0371-48d4-9731-7f9a80480966"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
