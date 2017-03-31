@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 
 export const AliCloudRouting: ModuleWithProviders = RouterModule.forChild([
     {
-        path: 'ali-cloud_mainAccount-list',
+        path: 'ali-cloud-mainAccount-list',
         component: AliCloudMianAccountList
     },
     // {
