@@ -106,9 +106,9 @@ export class ProdDirDiskCreComponent implements OnInit {
                     console.log('diskdetail', response);
                     if (response.resultContent) {
                         this.prodDir = response.resultContent;
-                        this._platformlist = this.prodDir.platformList;
-                        this.prodDir.description =
-                            this.prodDir.description == 'null' ? this.prodDir.description : '';
+                        this._platformlist = JSON.parse(JSON.stringify(this.prodDir.platformList)); 
+                        // this.prodDir.description =
+                            // this.prodDir.description == 'null' ? this.prodDir.description : '';
                     }
                 }
                 this.LayoutService.hide();

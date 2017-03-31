@@ -166,6 +166,8 @@ export class PhyPoolMngComponent implements OnInit{
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                             console.log(response,"======");
+                            this.pageIndex= 1;
+                            this.pager.render(1);
                             this.getData();
                             //this.showAlert("PHY_MNG_POOL.DELETE_SUCCESS");
                         } else {

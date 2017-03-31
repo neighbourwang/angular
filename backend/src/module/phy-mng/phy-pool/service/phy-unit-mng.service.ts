@@ -3,7 +3,8 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
 //model
-import {Criteria} from "../model/criteria.model";
+import { PhyPartsList } from '../model/phy-parts-list.model';
+import { Phyparts_mock } from '../model/phy-parts.mock.model';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -26,7 +27,7 @@ export class PhyUnitMngService {
         field: "STATUS"
     });
 
-    getData(criteria: Criteria, pageIndex: number, pageSize: number): Promise<any>{
+    getData(pageIndex: number, pageSize: number): Promise<any>{
         const pathParams=[
             {
                 key:"page",
@@ -37,14 +38,54 @@ export class PhyUnitMngService {
                 value: pageSize
             }
         ];
-        const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.phylist.data");
-        return this.restApi.request(api.method, api.url, pathParams, null,
-            {
-                "poolName": criteria.poolName,
-                "region": criteria.region,
-                "dataCenter": criteria.dataCenter
-            });
-        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => Phylist_mock);
+        const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.parts.data");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => Phyparts_mock);
     }
-    
+
+    getPartsList(): Promise<any>{
+        const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.parts.speclist");
+        return this.restApi.request(api.method, api.url, null, null, null);
+    }
+
+    create(criteria: PhyPartsList){
+        const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.parts.create");
+        return this.restApi.request(api.method, api.url, null, null,
+            {
+                "id": criteria.id,
+                "partsId": criteria.partsId,
+                "partsName": criteria.partsName,
+                "referencePrice": criteria.referencePrice,
+                "specId": criteria.specId,
+                "specName": criteria.specName,
+                "specValue": criteria.specValue
+            });
+    }
+
+    edit(criteria: PhyPartsList){
+        const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.parts.edit");
+        return this.restApi.request(api.method, api.url, null, null,
+            {
+                "id": criteria.id,
+                "partsId": criteria.partsId,
+                "partsName": criteria.partsName,
+                "referencePrice": criteria.referencePrice,
+                "specId": criteria.specId,
+                "specName": criteria.specName,
+                "specValue": criteria.specValue
+            });
+    }
+
+    delete(pmpartsId: string){
+        const pathParams=[
+            {
+                key:"pmparts_id",
+                value: pmpartsId
+            }
+        ];
+        const api= this.restApiCfg.getRestApi("phy-mng.phy-pool.parts.delete");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+    }
+
+
 }

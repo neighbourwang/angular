@@ -5,14 +5,15 @@ import { UnsubscribeService } from './unsubscribe.service';
 
 @Component({
 	selector: 'unsubscribe',
-	templateUrl: './unsubscribe.component.html'
+	templateUrl: './unsubscribe.component.html',
+    styleUrls: ['./unsubscribe.less']
 })
 export class UnsubscribeComponent implements OnInit {
 
     @Output() onClick = new EventEmitter<any>();
     @Input() id: string = "";
     @Input() name: string = "";
-    @Input() Item: Object = {};
+    @Input() item: Object = {};
 
     @ViewChild('notice')
     private noticeDialog: NoticeComponent;
@@ -25,7 +26,7 @@ export class UnsubscribeComponent implements OnInit {
     modalMessage: string = '';
     modalOKTitle: string = '';
 
-    detail = {};
+    detail:any;
 
     constructor(
         private layoutService: LayoutService,
@@ -38,7 +39,14 @@ export class UnsubscribeComponent implements OnInit {
 
     open() {
         $('#unsubscribe').modal('show');
-        
+        this.layoutService.show();
+        this.service.getOrderDetail(this.id).then(detial => {
+            console.log(detial)
+            this.detail = detial;
+            this.layoutService.hide();
+        }).catch(e => {
+            this.layoutService.hide();
+        })
 
     }
 

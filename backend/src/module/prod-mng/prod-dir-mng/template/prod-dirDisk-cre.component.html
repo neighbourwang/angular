@@ -11,7 +11,7 @@
 						<input type="text" class="form-control" [(ngModel)]="prodDir.serviceName" placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}(必须)">
 					</div>-->
 					<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.serviceName}">
-					<input type="text" [(ngModel)]="prodDir.serviceName" (ngModelChange)="checkForm('serviceName')" name="serviceName" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}"
+					<input type="text" [(ngModel)]="prodDir.serviceName" (ngModelChange)="checkForm('serviceName')" name="serviceName" placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}"
 					 class="form-control">
 					<span *ngIf="v.result.serviceName" class="glyphicon glyphicon-remove form-control-feedback"></span>
 					<div *ngIf="v.result.serviceName" class="alert alert-danger" role="alert">{{v.result.serviceName}}</div>
@@ -85,16 +85,14 @@
 				<div class="col-sm-6 border selectPlateForm">
 					<div class="row  tabHeader row-line-height">
 						<div class="col-sm-4">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div><!--平台名称-->
-
 						<div class="col-sm-2 secondDiv">
 							{{'COMMON.AVAILABLE_ZONE' | translate}}<!--可用区-->
-
-						</div>
-						<div class="col-sm-2" style="text-align: left">
-							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()" [(ngModel)]="selectAllZone">
-						</div>
+						</div>						
 						<div class="col-sm-4">
 							{{'PROD_MNG.SELECT_STORAGE_BACKEND' | translate}}<!--选择存储设备-->
+						</div>
+						<div class="col-sm-2" style="text-align: left">
+							<!--<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()" [(ngModel)]="selectAllZone">-->
 						</div>
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index">
@@ -105,17 +103,22 @@
 							<div class="row wyLine-height"  *ngFor='let zone of plateform.platformInfo'>
 								<div class="col-sm-12">{{zone.zoneName}}</div>
 							</div>
+						</div>						
+						<div class="col-sm-4">
+							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.platformInfo let idxxx=index'>
+								<!--<select class="form-control" [(ngModel)]="zone.storageId" (ngModelChange)="selectStorage($event,idx,idxxx)">
+                                    <option *ngFor="let storage of zone.storageItem" [value]="storage.storageId">{{storage.displayName}}</option>
+                                </select>-->
+								<div class="col-md-12" *ngFor="let storage of zone.storageItem">
+										{{storage.storageName}}
+								</div>
+							</div>
 						</div>
 						<div class="col-sm-2 thirdChild"  >
 							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.platformInfo;  let idxx=index;'>
-								<div class="col-sm-12"><input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="zone.selected" name="zoneSelected" (change)=selectZone(idx,idxx)></div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="row row-line-height inputLeft" *ngFor='let zone of plateform.platformInfo let idxxx=index'>
-								<select class="form-control" [(ngModel)]="zone.storageId" (ngModelChange)="selectStorage($event,idx,idxxx)">
-                                    <option *ngFor="let storage of zone.storageItem" [value]="storage.storageId">{{storage.displayName}}</option>
-                                </select>
+								<div class="col-sm-12" *ngFor="let storage of zone.storageItem">
+									<input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="storage.selected" name="storageSelected" (change)=selectStorage(idx,idxx)>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -127,16 +130,14 @@
 				<div class="col-sm-6 border selectPlateForm">
 					<div class="row  tabHeader row-line-height">
 						<div class="col-sm-4">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div><!--平台名称-->
-
 						<div class="col-sm-2 secondDiv">
 							{{'COMMON.AVAILABLE_ZONE' | translate}}<!--可用区-->
-
+						</div>						
+						<div class="col-sm-4">
+							{{'PROD_MNG.SELECT_STORAGE_BACKEND' | translate}}<!--选择存储后端-->
 						</div>
 						<div class="col-sm-2" style="text-align: left">
 							<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()" [(ngModel)]="selectAllZone">
-						</div>
-						<div class="col-sm-4">
-							{{'PROD_MNG.SELECT_STORAGE_BACKEND' | translate}}<!--选择存储设备-->
 						</div>
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index">
@@ -158,7 +159,7 @@
 								<!--<select class="form-control" [(ngModel)]="zone.storageId" (ngModelChange)="selectStorage($event,idx,idxxx)">
                                     <option *ngFor="let storage of zone.storageItem" [value]="storage.storageId">{{storage.displayName}}</option>
                                 </select>-->
-								<p *ngFor="let backend of zone.storageList">{{backend.storageName}}</p>
+								<p *ngFor="let backend of zone.storageItem">{{backend.storageName}}</p>
 							</div>
 						</div>
 					</div>

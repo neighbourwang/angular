@@ -1,3 +1,4 @@
+import {SubInstanceItemResp} from "./";
 
 
 //订单详情
@@ -17,6 +18,7 @@ export class OrderDetailItem {
   expireDate:string = null;//完成时间
   platform:string = null;//平台
   zone:string = null;//可用区
+  itemList:SubInstanceItemResp[] = [];
   specification:string = null;//配置
   instanceName:string = null;//实例名称
   description:string;//说明
@@ -68,8 +70,8 @@ export class OrderDetailItem {
     {
       if(this.productBillingItem.billingMode == 0)//包年包月
       {
-        return this.productBillingItem.cyclePrice;//周期费用
-        // return this.productBillingItem.basicPrice + this.productBillingItem.cyclePrice;//增量费用+周期费用
+        return this.productBillingItem.basicPrice;//周期费用
+        // return this.productBillingItem.basicPrice + this.productBillingItem.cyclePrice;//周期费用+增量费用
       }
       else if(this.productBillingItem.billingMode == 1)//一次性费用
       {
