@@ -49,8 +49,9 @@ export class PhysicalEditComponent implements OnInit {
     diskValue:boolean;
     parts:Array<Part>= new Array<Part>();
     part:Part;
-    selectedPart:Part=this.defaultPart;
     defaultPart = new Part(); //
+    selectedPart:Part=this.defaultPart;
+   
     partsList:Array<PartList>=new Array<PartList>();
     partList:PartList=new PartList();
     isEdit: boolean;
@@ -90,8 +91,8 @@ export class PhysicalEditComponent implements OnInit {
                     this.physical=new PhysicalModel();
                 }
             });
-        this.getPartList();
-        this.getPartsList();
+        this.getPartList();   //获取部件清单
+        this.getPartsList();  //获取物理机部件列表
     }
 
     //获取物理机信息
@@ -310,40 +311,48 @@ export class PhysicalEditComponent implements OnInit {
 
     //新增物理机部件
      addPart() {
+
          this.isEdit=false;
+         this.partList=new PartList();
+         this.selectedPart=this.defaultPart;
         this.addParts.open("新建部件");
     }
     //确认部件
     addPartConfirm(){
-        if(this.isEdit){
-
+        if(this.isEdit){//编辑
+             const partSelect = this.partsList.find((e) => { return e.isSelect });
+             for (var i = this.partsList.length - 1; i >= 0; i--) {
+                if (this.partsList[i].isSelect) {
+                    this.partList.partsName=this.selectedPart.partsName;
+                    this.partsList[i]=this.partList;
+                }
+             }  
+              this.addParts.close();          
         }
-        else{
+        else{//添加
             this.partList.partsName=this.selectedPart.partsName;
+            this.partList.partsId=this.selectedPart.partsId;
             this.partsList.push(this.partList);
+            this.addParts.close();
         }
         
-
     }
 
     //编辑物理机部件
     editPart(){
         this.isEdit=true;
-        const part = this.partsList.find((e) => { return e.isSelect });
-         this.selectedPart.partsId=part.partsId;
-         this.selectedPart.partsName=part.partsName;
-        if(!part){
+        const partSelect = this.partsList.find((e) => { return e.isSelect });
+        console.log("选中的需要编辑的物理机部件",partSelect);
+         if(!partSelect){
             this.showAlert("请选择需要编辑的物理机部件！");
             return;
         }
+        this.selectedPart = this.parts.find((part) => { return  part.partsName== partSelect.partsName });
+        
         let editPart= new PartList();
-            editPart.partsName=part.partsName;
-            editPart.partsNum=part.partsNum;
-            editPart.specName=part.specName;
-            editPart.specId=part.specId;
-            editPart.specValue=part.specValue;
-            this.partList= editPart;  
-                 
+            editPart= partSelect;
+            this.partList= editPart; 
+            this.partList.specName=partSelect.specName;                 
             this.addParts.open("编辑部件");
     }
 

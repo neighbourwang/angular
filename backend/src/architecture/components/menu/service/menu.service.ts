@@ -283,6 +283,21 @@ export class MenuService {
 					]
 				},
 				{
+					"label": "公有云管理",
+					"isOpen": false,
+					"isShow": !isRoot,
+					"icon": "icon-product-and-service",
+					"top2_menu": [
+						{
+							"label": "阿里云",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": "ali-cloud/ali-cloud-mainAccount-list"
+						}
+					]
+				},
+				{
 					"label": "USER_CENTER.OP_CENTER",
 					"isOpen": false,
 					"isShow": !isRoot,

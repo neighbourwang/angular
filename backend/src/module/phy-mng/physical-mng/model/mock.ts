@@ -175,22 +175,22 @@ export const PortsList_mock = {
   "resultContent": [
     {
       "id": null,
-      "partsId": "part00001",
-      "partsName": "CPU",
-      "specId": "spec00001",
-      "specName": "Xeon E5 2560",
-      "specValue": null,
+       "partsId": "157876b7-8529-4fb9-ae6e-f0c257e4f026",
+      "partsName": "磁盘",
+      "specId": "a2e9c59b-f86d-47f9-ab7a-89e9070e6cc9",
+      "specName": "SSD",
+      "specValue": "32",
       "partsNum": 100,
       "partsCap":100,
       "index": 1
     },
     {
       "id": null,
-      "partsId": "part00002",
-      "partsName": "内存",
-      "specId": "spec00002",
-      "specName": "PC3L-10600",
-      "specValue": "32",
+      "partsId": "7197caed-1ad9-4ece-9cd4-d96e526f48af",
+      "partsName": "CPU",
+      "specId": "27156ed8-f1e3-460a-927d-e0471fe4ab4e",
+      "specName": "Inter",
+      "specValue": 1,
       "partsNum": 200,
       "partsCap":100,
       "index": 2
@@ -202,34 +202,22 @@ export const PortsList_mock = {
   "detailDescription": null,
   "resultContent": [
     {
-      "partsId": "part0001",
+      "partsId": "157876b7-8529-4fb9-ae6e-f0c257e4f026",
       "partsName": "磁盘",
       "specList": [
         {
-          "specId": "spec0001",
-          "specName": "SAS"
-        },
-        {
-          "specId": "spec0002",
-          "specName": "SATA"
-        },
-        {
-          "specId": "spec0003",
+           "specId": "a2e9c59b-f86d-47f9-ab7a-89e9070e6cc9",
           "specName": "SSD"
-        }
+        },
       ]
     },
     {
-      "partsId": "part0002",
-      "partsName": "网卡",
+      "partsId": "7197caed-1ad9-4ece-9cd4-d96e526f48af",
+      "partsName": "CPU",
       "specList": [
         {
-          "specId": "spec0004",
-          "specName": "千兆"
-        },
-        {
-          "specId": "spec0005",
-          "specName": "万兆"
+          "specId": "27156ed8-f1e3-460a-927d-e0471fe4ab4e",
+          "specName": "Inter"
         }
       ]
     }

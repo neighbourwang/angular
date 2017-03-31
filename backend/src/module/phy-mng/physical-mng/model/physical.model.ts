@@ -73,11 +73,11 @@ export class Space{
 export class PartList{
     partsId: string;
     partsName: string;
-    specId: string;
-    specName: string;
+    specId: string="";
+    specName: string="";
     specValue:string;
-    partsNum:string;
-    partsCap:string;
+    partsNum:number;
+    partsCap:string="";
     isSelect=false;
 }
 

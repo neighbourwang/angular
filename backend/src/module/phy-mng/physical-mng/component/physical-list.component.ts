@@ -281,7 +281,7 @@ export class PhysicalListComponent implements OnInit {
             this.showAlert("物理机为启用状态，不能编辑物理机部件，请先禁用该物理机！");
             return;
         }
-        this.route.navigate(['physical-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,pmPoolId:this.pmPoolId}])
+         this.route.navigate(['phy-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,pmPoolId:this.pmPoolId}])
         //this.route.navigate(['physical-mng/physical-mng/physical-edit/${physical.pmId}',{type:this.type,poolId:this.pmPoolId}])
 
 
