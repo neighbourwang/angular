@@ -4,18 +4,20 @@
     <div class="row mgb20">
         <div class="col-md-2">区域列表</div>
         <div class="col-md-10">
-            <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);">
+            <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
                 <div class="regionName">{{region.LocalName}}</div>
-                <div class="regionArea">
+                <!--
+                <div class="regionArea">                    
                     <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
+                    
                     <span class="caret"></span>
                     <select [(ngModel)]="region.selectedArea">
                         <option *ngFor="let item of region.areas" [ngValue]="item">
                             {{item.LocalName}}
                         </option>
                     </select>
-
                 </div>
+                -->
             </div>
         </div>
     </div>
@@ -44,9 +46,9 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="javascript:">挂载</a></li>
-                <li><a href="javascript:">卸载</a></li>
-                <li><a href="javascript:">备份</a></li>
+                <li><a href="javascript:" (click)="attachDisk();">挂载</a></li>
+                <li><a href="javascript:" (click)="detachDisk();">卸载</a></li>
+                <li><a href="javascript:" (click)="deleteDisk();">删除</a></li>
             </ul>
         </div>
     </div>
@@ -63,7 +65,7 @@
             <th class="text-center">属性</th>
         </tr>
         <tr style="line-height: 65px;" *ngFor="let disk of disks; let i=index;">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list"></td>
             <td class="text-center active" style="position: relative;width: 220px;">
                 {{disk.DiskId}}
                 <!--<table-edit-name
@@ -110,5 +112,5 @@
     <fc-pagination tp={{totalPage}} (pf)="changePage($event)"></fc-pagination>
     <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
 </div>
-<fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
+<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{confirmOKTitle}}" ct="{{confirmCancelTitle}}"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{noticeOKTitle}}" (of)="okClicked()"></fc-notice>

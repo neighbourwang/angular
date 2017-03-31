@@ -106,6 +106,8 @@ export class diskListModel {
     OperationLocks: OperationLockModel = new OperationLockModel();
     ExpiredTime: string = "";
     DiskId: string = "";
+
+    checked: boolean = false;
 }
 
 export class TagModel {

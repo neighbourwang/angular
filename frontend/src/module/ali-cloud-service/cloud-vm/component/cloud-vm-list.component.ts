@@ -69,18 +69,18 @@ export class AliCloudVmListComponent implements OnInit {
 
     ngOnInit(): void {
 
-        //this.getMsgList(this.paginationFlag);
+        //this.getInstanceList();
 
     }
-    /*
-
+   
+/*
     getMsgList(status:string, pageIndex?): void {
         this.paginationFlag = status;
         this.pageIndex = 1; 
         this.allSelected = false;
 
         this.layoutService.show();
-        this.service.getMsgListStatus(this.pageIndex, this.pageSize, this.paginationFlag)
+        this.service.getInstanceList(this.pageIndex, this.pageSize, this.paginationFlag)
             .then(
             response => {
                 this.layoutService.hide();
@@ -103,9 +103,9 @@ export class AliCloudVmListComponent implements OnInit {
                 this.onRejected(e);
             });
     }
+*/
 
-
-
+/*
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason, "onRejected");
