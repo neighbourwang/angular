@@ -60,4 +60,24 @@ export class Disk {
     value: number;
 }
 
+export class Part{
+   // id: string;
+  partsId: string;
+  partsName: string;
+  specList: Array<Space>=[];
+}
+export class Space{
+    specId: string;
+    specName: string;
+}
+export class PartList{
+    partsId: string;
+    partsName: string;
+    specId: string="";
+    specName: string="";
+    specValue:string;
+    partsNum:number;
+    partsCap:string="";
+    isSelect=false;
+}
 

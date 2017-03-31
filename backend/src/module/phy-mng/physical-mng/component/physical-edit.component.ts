@@ -1,11 +1,11 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, ValidationService, NoticeComponent,dictPipe} from "../../../../architecture";
+import { LayoutService, ValidationService, NoticeComponent,dictPipe,PopupComponent} from "../../../../architecture";
 
 import { PhysicalEditService } from "../service/physical-edit.service";
 
-import { PhysicalModel,CPU,Memory,Disk } from "../model/physical.model";
+import { PhysicalModel,CPU,Memory,Disk,Part,Space,PartList } from "../model/physical.model";
 import { ServerType } from "../model/serverType.model";
 import { Brand, Model } from "../model/brand.model";
 //import { IpmiInfo } from "../model/physical-ipmi.model";
@@ -32,6 +32,9 @@ export class PhysicalEditComponent implements OnInit {
 
     @ViewChild("notice")
     notice: NoticeComponent;
+    @ViewChild("addParts")
+    addParts: PopupComponent;
+
 
     physical: PhysicalModel = new PhysicalModel(); //物理机实力
  
@@ -44,6 +47,14 @@ export class PhysicalEditComponent implements OnInit {
     selectedBrand: Brand = this.defaultBrand;
     poolId:string;
     diskValue:boolean;
+    parts:Array<Part>= new Array<Part>();
+    part:Part;
+    defaultPart = new Part(); //
+    selectedPart:Part=this.defaultPart;
+   
+    partsList:Array<PartList>=new Array<PartList>();
+    partList:PartList=new PartList();
+    isEdit: boolean;
   
     ngOnInit() {
         this.activeRoute.params.forEach((params: Params) => {
@@ -67,6 +78,8 @@ export class PhysicalEditComponent implements OnInit {
                 case "create":
                     this.title = "PHYSICAL_MNG.CREATE_PHYSICAL";
                     break;
+                case "editParts":
+                    this.title="编辑物理机部件";
             }
 
         });
@@ -78,6 +91,8 @@ export class PhysicalEditComponent implements OnInit {
                     this.physical=new PhysicalModel();
                 }
             });
+        this.getPartList();   //获取部件清单
+        this.getPartsList();  //获取物理机部件列表
     }
 
     //获取物理机信息
@@ -118,6 +133,45 @@ export class PhysicalEditComponent implements OnInit {
             );
     }
 
+    //获取物理机部件清单
+    getPartList(){
+        this.layoutService.show();
+        this.service.getPartList()
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.parts= response["resultContent"];
+                    console.log("部件清单",this.parts)
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+
+    }
+
+    //获取物理机部件列表
+    getPartsList(){
+        this.layoutService.show();
+        this.service.getPartsList()
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.partsList= response["resultContent"];
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+    
+
     //编辑物理机
     editPhysical() {
         this.layoutService.show();
@@ -137,10 +191,6 @@ export class PhysicalEditComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    // isNumber(event:any){
-    //      event.target.value= event.target.value.replace(/[^(\d|.)]/g,"");
-
-    // }
     //判断磁盘规格值是否为空
     notNull(disk:Disk) {
        if(!disk.value){
@@ -256,10 +306,78 @@ export class PhysicalEditComponent implements OnInit {
        }
        else{
            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_ILO_INFO");
-       }
-       
+       }      
     }
 
+    //新增物理机部件
+     addPart() {
+
+         this.isEdit=false;
+         this.partList=new PartList();
+         this.selectedPart=this.defaultPart;
+        this.addParts.open("新建部件");
+    }
+    //确认部件
+    addPartConfirm(){
+        if(this.isEdit){//编辑
+             const partSelect = this.partsList.find((e) => { return e.isSelect });
+             for (var i = this.partsList.length - 1; i >= 0; i--) {
+                if (this.partsList[i].isSelect) {
+                    this.partList.partsName=this.selectedPart.partsName;
+                    this.partsList[i]=this.partList;
+                }
+             }  
+              this.addParts.close();          
+        }
+        else{//添加
+            this.partList.partsName=this.selectedPart.partsName;
+            this.partList.partsId=this.selectedPart.partsId;
+            this.partsList.push(this.partList);
+            this.addParts.close();
+        }
+        
+    }
+
+    //编辑物理机部件
+    editPart(){
+        this.isEdit=true;
+        const partSelect = this.partsList.find((e) => { return e.isSelect });
+        console.log("选中的需要编辑的物理机部件",partSelect);
+         if(!partSelect){
+            this.showAlert("请选择需要编辑的物理机部件！");
+            return;
+        }
+        this.selectedPart = this.parts.find((part) => { return  part.partsName== partSelect.partsName });
+        
+        let editPart= new PartList();
+            editPart= partSelect;
+            this.partList= editPart; 
+            this.partList.specName=partSelect.specName;                 
+            this.addParts.open("编辑部件");
+    }
+
+    //删除物理机部件
+    deletePart(){       
+        const part = this.partsList.find((e) => { return e.isSelect });
+          if(!part){
+            this.showAlert("请选择需要删除的物理机部件！");
+            return;
+        }
+         for (var i = this.partsList.length - 1; i >= 0; i--) {
+            if (this.partsList[i].isSelect) {
+                 this.partsList.splice(i, 1);
+            }
+        }
+    }
+
+    //选择物理机部件
+     getSelectPart(part: PartList) {
+        this.partsList.forEach((part) => {
+            part.isSelect = false;
+        });
+        part.isSelect= true;
+    }
+  
     cancel() {
         this.gotoList();
     }
@@ -269,6 +387,27 @@ export class PhysicalEditComponent implements OnInit {
 
     }
 
+    myDatePickerOptions = {   //如果自定义的话传入下方表格相应的属性   这个是可选的
+        todayBtnTxt: 'Today',
+        dateFormat: 'yyyy-mm-dd',
+        firstDayOfWeek: 'mo',
+        sunHighlight: true,
+        height: '34px',
+        width: '404px',
+        inline: false,
+        disableUntil: {year: 2016, month: 8, day: 10},
+        selectionTxtFontSize: '16px'
+    };
+    
+    //维保起始时间
+     startTimeChange($event){
+		//this._param.createDate = $event.formatted;
+	}
+    
+    //维保结束时间
+	endTimeChange($event){
+		//this._param.expireDate = $event.formatted;
+	}
     showAlert(msg: string): void {
         this.layoutService.hide();
 
