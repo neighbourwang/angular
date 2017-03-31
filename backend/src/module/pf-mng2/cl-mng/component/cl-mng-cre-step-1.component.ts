@@ -28,26 +28,26 @@ import { ClMngIdService } from '../service/cl-mng-id.service';
         }`
     ],
     animations: [
-        // trigger('heroState', [
-        //     state('inactive', style({
-        //         transform: 'rotateX(0);opacity: 1'
-        //     })),
-        //     state('active', style({
-        //         transform: 'rotateX(180deg);opacity: 0'
-        //     })),
-        //     transition('inactive => active', animate('500ms ease-in')),
-        //     transition('active => inactive', animate('500ms ease-out'))
-        // ])
-        trigger('flyInOut', [
-            state('in', style({ transform: 'rotateX(0)' })),
-            transition('void => *', [
-                style({ transform: 'rotateX(180deg)' }),
-                animate(100)
-            ]),
-            transition('* => void', [
-                animate(100, style({ transform: 'rotateX(180deg)' }))
-            ])
+        trigger('heroState', [
+            state('inactive', style({
+                transform: 'rotateX(0);opacity: 1'
+            })),
+            state('active', style({
+                transform: 'rotateX(180deg);opacity: 0'
+            })),
+            transition('inactive => active', animate('500ms ease-in')),
+            transition('active => inactive', animate('500ms ease-out'))
         ])
+        // trigger('flyInOut', [
+        //     state('in', style({ transform: 'rotateX(0)' })),
+        //     transition('void => *', [
+        //         style({ transform: 'rotateX(180deg)' }),
+        //         animate(100)
+        //     ]),
+        //     transition('* => void', [
+        //         animate(100, style({ transform: 'rotateX(180deg)' }))
+        //     ])
+        // ])
     ],
     providers: []
 })
