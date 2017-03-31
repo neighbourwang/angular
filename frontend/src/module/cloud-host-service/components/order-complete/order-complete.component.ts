@@ -15,10 +15,10 @@ import { TotalPrice } from '../../shoping-cart/model/cart-total-price.model';
 })
 export class orderCompleteComponent implements OnInit {
 
-	orderList : any[];
 	totalPrice : TotalPrice = new TotalPrice();
 
 	@Input("orderId") orderId:string = "";
+	@Input("orderList") orderList : any[];     //orderList和orderId 设置一个
 
 	constructor(
 		private layoutService: LayoutService,
@@ -29,7 +29,9 @@ export class orderCompleteComponent implements OnInit {
 
 	ngOnInit() {
 		this.layoutService.show();
-		this.setList(this.orderId);
+		if(this.orderId) {
+			this.setList(this.orderId);
+		}
 	}
 
 	private setTotalPrice(orderList:any[]) {   //设置价格总价

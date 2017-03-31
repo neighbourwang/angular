@@ -31,18 +31,18 @@ export class AliCloudMianAccountList implements OnInit {
 
     noticeTitle = "";
     noticeMsg = "";
-   
+
     @ViewChild("notice")
     notice: NoticeComponent;
 
-   
+
     ngOnInit() {
-       
-           
-        
+
+
+
     }
 
-  
+
     showAlert(msg: string): void {
         this.layoutService.hide();
 

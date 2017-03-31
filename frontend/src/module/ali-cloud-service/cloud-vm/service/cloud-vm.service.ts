@@ -5,7 +5,7 @@ import { RestApiCfg, RestApi } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
 import { RegionModel, keysecretModel } from '../../cloud-disk/model/cloud-disk.model';
-import { orderVmPageModel, QuantityModel } from "../model/cloud-vm.model";
+import { orderVmPageModel, QuantityModel, instanceListModel } from "../model/cloud-vm.model";
 
 @Injectable()
 export class AliCloudVmService {
@@ -67,18 +67,8 @@ export class AliCloudVmService {
         },
     ];
 
-    getVmImage(regionid: string): Promise<any> {
+    getImages(regionid: string): Promise<any> {
         const pathParams = [
-            /*
-            {
-                key: "page",
-                value: pageIndex
-            },
-            {
-                key: "size",
-                value: pageSize
-            },
-            */
             {
                 key: "regionid",
                 value: regionid
@@ -90,6 +80,54 @@ export class AliCloudVmService {
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.image.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    getInstanceTypeFamily(regionid: string): Promise<any> {
+        const pathParams = [
+            {
+                key: "regionid",
+                value: regionid
+            }
+        ];
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.type.family.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    getInstanceType(regionid: string): Promise<any> {
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.type.get");
+        return this.restApi.request(api.method, api.url, null, null, body);
+    }
+
+    getVPCs() : Promise<any> {
+        const pathParams = [
+            {
+                key: "regionid",
+                value: ""   //////////////?????????????
+            }
+        ];
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "isDefault": "",
+            "pageNumber": "",
+            "pageSize": "",
+            "vpcId": ""
+            }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.vpc.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
@@ -117,11 +155,11 @@ export class AliCloudVmService {
     }
     */
 
-    createInstanceOrder(regionid:string, orderVmPage: orderVmPageModel): Promise<any> {
+    createInstanceOrder(orderVmPage: orderVmPageModel): Promise<any> {
         const pathParams = [
             {
                 key: "regionid",
-                value: regionid
+                value: orderVmPage.RegionId
             }
         ];
         const body = {
@@ -130,8 +168,7 @@ export class AliCloudVmService {
                 "accessSecret": this.keysecret.accessSecret
             },
             "instanceType": "ecs.n1.tiny",
-            "imageId": "",// orderVmPage.imageId
-
+            "imageId": "ubuntu_14_0405_64_40G_base_20170222.vhd",// orderVmPage.imageId
         }
         console.log(body, "body")
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.create");
@@ -158,6 +195,65 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
+    deleteInstance(instance: instanceListModel) : Promise<any> {
+        const pathParams = [
+            {
+                key: "instanceid",
+                value: instance.InstanceId
+            }
+        ];
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.delete");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    startInstance(instance: instanceListModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "instanceid",
+                value: instance.InstanceId
+            }
+        ];
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "action": "",   //???????????????????
+            "instanceid": "",
+            "operationLocks": "",
+            "status": ""
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.delete");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    stopInstance(instance: instanceListModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "instanceid",
+                value: instance.InstanceId
+            }
+        ];
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "action": "",  //???????????????????
+            "instanceid": "",
+            "operationLocks": "",
+            "status": ""
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.delete");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
 
 
 

@@ -4,7 +4,7 @@ import { RestApiCfg, RestApi } from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
-import { RegionModel, keysecretModel, diskOrderModel } from '../model/cloud-disk.model';
+import { RegionModel, keysecretModel, diskOrderModel, diskListModel } from '../model/cloud-disk.model';
 
 @Injectable()
 export class AliCloudDiskService {
@@ -134,6 +134,50 @@ export class AliCloudDiskService {
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.disklist.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    attachDisk(diskItem: diskListModel): Promise<any> {
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "diskId": diskItem.DiskId,
+            "instanceId": ""//????????????????????
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.disk.attach");
+        return this.restApi.request(api.method, api.url, null, null, body);
+    }
+
+    detachDisk(diskItem: diskListModel): Promise<any> {
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "diskId": diskItem.DiskId,
+            "instanceId": ""//????????????????????
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.disk.detach");
+        return this.restApi.request(api.method, api.url, null, null, body);
+    }
+
+    deleteDisk(diskItem: diskListModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "diskid",
+                value: diskItem.DiskId
+            }
+        ];
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.diskorder.delete");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 

@@ -1,0 +1,19 @@
+<table *ngIf="itemList.length" class="table table-all-boder mgb20">
+    <tr>
+        <th class="text-center">选择</th>
+        <th class="text-center">{{'SHOPPING_CART.PRODUCT_INFORMATION' | translate}}</th>
+        <th class="text-center">{{'SHOPPING_CART.PRODUCT_TYPE' | translate}}</th>
+        <th class="text-center">{{'COMMON.BILLING_MODE'| translate}}</th>
+        <th class="text-center">{{'SHOPPING_CART.PURCHASE_CYCLE' | translate}}</th> 
+        <th class="text-center">{{'COMMON.EXPENSE' | translate}}</th>
+        <th class="text-center">{{'COMMON.STATUS' | translate}}</th>
+        <th class="text-center">{{'COMMON.CREATED_TIME' | translate}}</th>
+        <th class="text-center">{{'COMMON.EXPIRE_DATE' | translate}}</th>
+        <th class="text-center">{{'SHOPPING_CART.QUANTITY' | translate}}</th>
+    </tr>
+    <tbody product-info-tr 
+        [hasSelect]="hasSelect"
+        [disabled]="disabled"
+        (onSelect)="selectChange($event)"
+        [itemList]="itemList"></tbody>
+</table>

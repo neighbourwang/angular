@@ -45,6 +45,9 @@ export class AliCloudDiskListComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
+    confirmTitle = "";
+    confirmMsg = "";
+
     pageIndex = 1;
     pageSize = 10;
     totalPage = 1;
@@ -52,8 +55,10 @@ export class AliCloudDiskListComponent implements OnInit {
     //keysecret: keysecretModel = new keysecretModel();
 
     regions: Array<RegionModel> = [];
+    choosenRegion: RegionModel = new RegionModel();
 
     disks: Array<diskListModel> = []; //订购body模型
+    selectedDiskItem: diskListModel = new diskListModel();
 
     diskCategoryDictArray: Array<SystemDictionary> = [];
     diskStatusDictArray: Array<SystemDictionary> = [];
@@ -243,6 +248,91 @@ export class AliCloudDiskListComponent implements OnInit {
         }
     }
 
+    attachDisk() {
+        this.selectedDiskItem = this.getSelected();
+        if (this.selectedDiskItem) {
+            this.confirmTitle = "挂载硬盘";
+            this.confirmMsg = "挂载硬盘" + this.selectedDiskItem.DiskId;
+            this.confirm.cof = () => { };
+            this.confirm.ccf = () => {
+                this.layoutService.show();
+                this.service.attachDisk(this.selectedDiskItem)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("NET_MNG_VM_IP_MNG.DISABLE_NET_SUCCESS");
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                })
+                .catch((e) => this.onRejected(e));
+            }
+            this.confirm.open();
+        } else {
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return;
+        }
+    }
+
+    detachDisk() {
+        this.selectedDiskItem = this.getSelected();
+        if (this.selectedDiskItem) {
+            this.confirmTitle = "卸载硬盘";
+            this.confirmMsg = "卸载硬盘" + this.selectedDiskItem.DiskId;
+            this.confirm.cof = () => { };
+            this.confirm.ccf = () => {
+                this.layoutService.show();
+                this.service.detachDisk(this.selectedDiskItem)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("NET_MNG_VM_IP_MNG.DISABLE_NET_SUCCESS");
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                })
+                .catch((e) => this.onRejected(e));
+            }
+            this.confirm.open();
+        } else {
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return;
+        }
+
+    }
+
+    deleteDisk() {
+        this.selectedDiskItem = this.getSelected();
+        console.log(this.selectedDiskItem, "this.selectedDiskItem!");
+        if (this.selectedDiskItem && this.choosenRegion) {
+            this.confirmTitle = "删除硬盘";
+            this.confirmMsg = "删除硬盘" + this.selectedDiskItem.DiskId;
+            this.confirm.cof = () => { };
+            this.confirm.ccf = () => {
+                this.layoutService.show();
+                this.service.deleteDisk(this.selectedDiskItem)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("删除硬盘成功");
+                        this.selectRegion(this.choosenRegion);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                })
+                .catch((e) => this.onRejected(e));
+            }
+            this.confirm.open();
+        } else {
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return;
+        }
+
+    }
+
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason, "onRejected");
@@ -267,40 +357,28 @@ export class AliCloudDiskListComponent implements OnInit {
         this.notice.open(msg.title, msg.desc);
     }
 
-    /*
-        //选择行
-        selectItem(index:number): void {
-            this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;
-            console.log(this.msgAlert.list, "=== Please see which ones are selected ===");
-            let selectedml = this.msgAlert.list.filter(n=> { return (n.checked == true);});
-            if(selectedml.length == this.pageSize) {
-                console.log("The latest one was selected, so all selected!");
-                this.allSelected = true;
-            } else {
-                this.allSelected = false;
-            }
+    //选择行
+    selectItem(index:number): void {
+        this.disks.map(n=> {n.checked = false;});
+        this.disks[index].checked = true;
+        this.selectedDiskItem = this.disks[index];
+        console.log(this.selectedDiskItem, "this.selectedDiskItem");
+    }
+
+    UnselectItem(): void {
+        this.disks.map(n=> {n.checked = false;});
+        if(this.selectedDiskItem) this.selectedDiskItem.checked = false;
+    }
+
+    getSelected() {
+        let item = this.disks.find((n) => n.checked) as diskListModel;
+        if (item){
+            return item;
+        }            
+        else {
+            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return null;
         }
-    
-        selectOrUnSAllItems(): void {
-            if (this.allSelected) {
-                console.log("All checked before, so set them all unselected");
-                this.allSelected = false;
-                this.msgAlert.list.map(n=> { n.checked = false;});
-            } else {
-                console.log("All unchecked before, so set them all selected");
-                this.allSelected = true;
-                this.msgAlert.list.map(n=> { n.checked = true;});
-            }
-        }
-    
-        getSelectedItems() {
-            this.selectedmsglist = this.msgAlert.list.filter(n=> { return (n.checked == true);});
-            if (this.selectedmsglist.length != 0){
-                return this.selectedmsglist;
-            } else {
-                return [];
-            }
-        }
-        */
+    }
 
 }

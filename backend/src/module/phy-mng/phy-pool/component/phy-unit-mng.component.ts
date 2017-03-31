@@ -62,8 +62,6 @@ export class PhyUnitMngComponent implements OnInit{
         console.log('init');
         //this.layoutService.show();
         this.getData();
-        this.getPartsList();
-
     }
 
     getData(pageIndex?): void {
@@ -124,7 +122,7 @@ export class PhyUnitMngComponent implements OnInit{
         });
         if(!selectedP){
             this.showAlert("请选择部件")
-        }else{
+        }else if(selectedP.usedPMCount == 0){
             this.isEdit= true;
             let editParts= new PhyPartsList();
             editParts.partsId= selectedP.partsId;
@@ -148,6 +146,8 @@ export class PhyUnitMngComponent implements OnInit{
                 this.selectedSpec= this.defaultSpec;
             }
             this.creUnit.open("编辑部件");
+        }else{
+            this.showAlert("被物理机引用的部件不能编辑");
         }
     }
 
@@ -222,9 +222,9 @@ export class PhyUnitMngComponent implements OnInit{
             return p.selected;
         });
         if(!selectedP){
-            this.showAlert("请选择部件")
-        }else{
-            this.confirm.open("删除","nin");
+            this.showAlert("PHY_MNG_DEPART.PLEASE_CHOOSE_DEPART")
+        }else if(selectedP.usedPMCount == 0){
+            this.confirm.open("PHY_MNG_DEPART.DELETE_DEPART","PHY_MNG_DEPART.DELETE_DEPART_WARNING^^^"+selectedP.partsName);
             this.confirm.cof =() =>{
                 this.layoutService.show();
                 this.service.delete(selectedP.id)
@@ -242,6 +242,8 @@ export class PhyUnitMngComponent implements OnInit{
                     )
                     .catch((e) => this.onRejected(e));
             }
+        }else{
+            this.showAlert("被物理机引用的部件不能删除");
         }
     }
 
