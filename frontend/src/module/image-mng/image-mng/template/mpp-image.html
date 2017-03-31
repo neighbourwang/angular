@@ -132,7 +132,7 @@
                                 <div class="popover-content">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label">镜像名称:</label>
+                                            <label class="col-sm-3 control-label"style="font-weight:700">{{'IMAGE.IMAGE_NAME' | translate}}:</label>
                                             <div class="col-sm-8 float-left">
                                                 <input type="text"  class="form-control"[(ngModel)]="temp2.name" name ="name">
                                                 <div>长度为2-68个字符,以大小写字母或中文开头,可包含数字,".","-","_"</div>
@@ -141,8 +141,9 @@
                                         </div>
                                     </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class=" fox-cloud-button fox-cloud-button-white"(click)="updateImageName()">{{'DIALOG.SAVE'|translate}}</button>
                                     <button class="fox-cloud-button fox-cloud-button-white"(click)="image.nameEditing=false;">{{'DIALOG.CLOSE'|translate}}</button>
+                                    <button class=" fox-cloud-button fox-cloud-button-white"(click)="updateImageName()">{{'DIALOG.SAVE'|translate}}</button>
+                                
                                 </div>
                                 </div>
                         </div>
@@ -166,8 +167,8 @@
                     <td class="text-center">
                         <!--<div *ngIf="image.type !=0">-->
                             <span class="icon icon-edit2 pointer" (click)="openEidtPanel(image);" style="padding: 1px 10px"></span>
-                            <span class="icon icon-disk pointer" (click)="endisable(image,'1');"style="padding: 1px 10px"></span>
-                            <span class="icon icon-host pointer" (click)="endisable(image,'2');"style="padding: 1px 10px"></span>
+                            <span class="icon icon-enable pointer" (click)="endisable(image,'1');"style="padding: 1px 10px"></span>
+                            <span class="icon icon-disable pointer" (click)="endisable(image,'2');"style="padding: 1px 10px"></span>
                             <span class="icon icon-delete3 pointer" (click)="deleteImage(image);" style="padding: 1px 10px"></span>
                         <!--</div>-->
                     </td>
@@ -206,7 +207,7 @@
     </div>-->
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title">操作系统:</div>
+            <div class="col-sm-4 form-control-title">{{'IMAGE.OPERATING_SYSTEM' | translate}}:</div>
             <div class="col-sm-7">
                 <div>{{(editImage.os | dict:this.service.osDic | async )||"未知"}}</div>
             </div>
@@ -214,7 +215,7 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title">系统位数:</div>
+            <div class="col-sm-4 form-control-title">{{'IMAGE.SYSTEM_BITS' | translate}}:</div>
             <div class="col-sm-7">
                 <div>{{(editImage.bits | dict:this.service.bitDic | async)||"未知"}}</div>
             </div>
