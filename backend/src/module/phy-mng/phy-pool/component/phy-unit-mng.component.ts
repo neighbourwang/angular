@@ -62,8 +62,6 @@ export class PhyUnitMngComponent implements OnInit{
         console.log('init');
         //this.layoutService.show();
         this.getData();
-        this.getPartsList();
-
     }
 
     getData(pageIndex?): void {
@@ -224,9 +222,9 @@ export class PhyUnitMngComponent implements OnInit{
             return p.selected;
         });
         if(!selectedP){
-            this.showAlert("请选择部件")
+            this.showAlert("PHY_MNG_DEPART.PLEASE_CHOOSE_DEPART")
         }else if(selectedP.usedPMCount == 0){
-            this.confirm.open("删除","nin");
+            this.confirm.open("PHY_MNG_DEPART.DELETE_DEPART","PHY_MNG_DEPART.DELETE_DEPART_WARNING^^^"+selectedP.partsName);
             this.confirm.cof =() =>{
                 this.layoutService.show();
                 this.service.delete(selectedP.id)
