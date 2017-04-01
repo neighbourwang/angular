@@ -176,7 +176,7 @@ export class PhyUnitMngComponent implements OnInit{
                     return r.specName== this.criteria.specName;
                 });
                 if(this.respecName){
-                    return true;
+                    return true;  
                 }else{
                     return false;
                 }
