@@ -181,6 +181,74 @@ export class AliCloudVmListComponent implements OnInit {
         this.router.navigate([`ali-cloud-service/cloud-vm/cloud-vm-order`]);
     }
 
+    startInstance() {
+        this.selectedInstance = this.getSelected();
+        if (this.selectedInstance) {
+            this.confirmTitle = "启动实例";
+            this.confirmMsg = "启动实例：" + this.selectedInstance.InstanceId;
+            this.confirm.cof = () => { };
+            this.confirm.ccf = () => {
+                this.layoutService.show();
+                this.service.startInstance(this.selectedInstance)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("启动实例成功！");
+                        this.selectRegion(this.choosenRegion);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                })
+                .catch((e) => this.onRejected(e));
+            }
+            this.confirm.open();
+        } else {
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return;
+        }
+    }
+
+    stopInstance() {
+        this.selectedInstance = this.getSelected();
+        if (this.selectedInstance) {
+            this.confirmTitle = "停止实例";
+            this.confirmMsg = "停止实例：" + this.selectedInstance.InstanceId;
+            this.confirm.cof = () => { };
+            this.confirm.ccf = () => {
+                this.layoutService.show();
+                this.service.stopInstance(this.selectedInstance)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("停止实例成功！");
+                        this.selectRegion(this.choosenRegion);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                })
+                .catch((e) => this.onRejected(e));
+            }
+            this.confirm.open();
+        } else {
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return;
+        }
+    }
+
+    reStartInstance() {
+
+    }
+
+    attachIPToInstance() {
+
+    }
+    
+    remoteToInstance() {
+
+    }
+
     deleteInstance() {
         this.selectedInstance = this.getSelected();
         if (this.selectedInstance) {

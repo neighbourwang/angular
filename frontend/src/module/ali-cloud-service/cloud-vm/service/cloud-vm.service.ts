@@ -168,9 +168,9 @@ export class AliCloudVmService {
                 "accessSecret": this.keysecret.accessSecret
             },
             "instanceType": "ecs.n1.tiny",
-            "imageId": "ubuntu_14_0405_64_40G_base_20170222.vhd",// orderVmPage.imageId
+            "imageId": orderVmPage.selectedImage,// orderVmPage.imageId
         }
-        console.log(body, "body")
+        console.log(body, "order vm body")
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.create");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
@@ -219,17 +219,11 @@ export class AliCloudVmService {
             }
         ];
         const body = {
-            "accessinfo": {
-                "accessId": this.keysecret.accessId,
-                "accessSecret": this.keysecret.accessSecret
-            },
-            "action": "",   //???????????????????
-            "instanceid": "",
-            "operationLocks": "",
-            "status": ""
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
         }
         console.log(body, "body");
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.delete");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.start");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
@@ -241,17 +235,11 @@ export class AliCloudVmService {
             }
         ];
         const body = {
-            "accessinfo": {
-                "accessId": this.keysecret.accessId,
-                "accessSecret": this.keysecret.accessSecret
-            },
-            "action": "",  //???????????????????
-            "instanceid": "",
-            "operationLocks": "",
-            "status": ""
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
         }
         console.log(body, "body");
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.delete");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.stop");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
