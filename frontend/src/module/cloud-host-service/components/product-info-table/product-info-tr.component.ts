@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService } from '../../../../architecture';
@@ -13,7 +13,7 @@ import { TotalPrice } from '../../shoping-cart/model/cart-total-price.model';
 	templateUrl: './product-info-tr.component.html',
 	styleUrls: ['./product-info-table.less']
 })
-export class ProductInfoTrComponent implements OnInit {
+export class ProductInfoTrComponent implements OnInit,OnChanges {
 
 	totalPrice : TotalPrice = new TotalPrice();
 
@@ -22,6 +22,7 @@ export class ProductInfoTrComponent implements OnInit {
 	@Input("disabled") disabled : boolean = false;
 
 	@Output("onSelect") onSelect = new EventEmitter;
+	@Output("countPrice") countPrice = new EventEmitter;
 
 	constructor(
 		private layoutService: LayoutService,
@@ -33,6 +34,12 @@ export class ProductInfoTrComponent implements OnInit {
 	ngOnInit() {
 		// this.layoutService.show();
 		this.selectedSubItem();
+		this.setTotalPrice(this.itemList);
+	}
+	
+	ngOnChanges(value) {
+		// this.itemList = value.itemList.currentValue;
+		// console.log(value.itemList.currentValue, value.itemList.previousValue, 232323)
 	}
 
 	selectedSubItem() {
@@ -42,25 +49,26 @@ export class ProductInfoTrComponent implements OnInit {
 	}
 
 	private setTotalPrice(itemList:any[]) {   //设置价格总价
-		// let billingArr = {},
-		// 	unitArr = {},
-		// 	oncePrice:number = 0;
+		let billingArr = {},
+			unitArr = {},
+			oncePrice:number = 0;
 
-		// 	this.itemList.forEach(item => {
-		// 		oncePrice += item.billingInfo.basePrice;
-		// 		if(item.billingInfo.basicPrice) {   //主机价格计算
-		// 			if(!billingArr[item.billingInfo.periodType]) billingArr[item.billingInfo.periodType] = 0;  //计算周期价格
-		// 			billingArr[item.billingInfo.periodType] += item.billingInfo.basicPrice * item.quantity * item.billingPeriod; 
-		// 		}
-		// 		if(item.billingInfo.unitPrice){
-		// 			if(!unitArr[item.billingInfo.periodType]) unitArr[item.billingInfo.periodType] = 0;  //计算周期价格
-		// 			unitArr[item.billingInfo.periodType] += item.billingInfo.unitPrice; 
-		// 		}
-		// 	})
-		// this.totalPrice.oncePrice = oncePrice;
-		// this.totalPrice.billingArr = billingArr;
-		// this.totalPrice.unitArr = unitArr;
-		console.log(this.totalPrice)
+			this.itemList.forEach(item => {
+				oncePrice += item.billingInfo.basePrice;
+				if(item.billingInfo.basicPrice) {   //主机价格计算
+					if(!billingArr[item.billingInfo.periodType]) billingArr[item.billingInfo.periodType] = 0;  //计算周期价格
+					billingArr[item.billingInfo.periodType] += item.billingInfo.basicPrice * item.quantity * item.billingPeriod; 
+				}
+				if(item.billingInfo.unitPrice){
+					if(!unitArr[item.billingInfo.periodType]) unitArr[item.billingInfo.periodType] = 0;  //计算周期价格
+					unitArr[item.billingInfo.periodType] += item.billingInfo.unitPrice; 
+				}
+			})
+		this.totalPrice.oncePrice = oncePrice;
+		this.totalPrice.billingArr = billingArr;
+		this.totalPrice.unitArr = unitArr;
+		
+		this.countPrice.emit(this.totalPrice);
 	}
 
 

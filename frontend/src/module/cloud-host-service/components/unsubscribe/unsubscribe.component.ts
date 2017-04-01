@@ -2,6 +2,8 @@ import { Component, OnInit, Input , Output, EventEmitter,ViewChild } from '@angu
 import { LayoutService, NoticeComponent, PopupComponent} from '../../../../architecture';
 import { UnsubscribeService } from './unsubscribe.service';
 
+import { Router } from '@angular/router';
+
 
 @Component({
 	selector: 'unsubscribe',
@@ -12,7 +14,6 @@ export class UnsubscribeComponent implements OnInit {
 
     @Input() subid: string = "";
     @Input() title: string = "退订";
-    @Input() name: string = "退订";
 
     @Output() onerror = new EventEmitter();
 
@@ -30,25 +31,40 @@ export class UnsubscribeComponent implements OnInit {
     selectItemList:any = [];
     selectReleatedList:any = [];
 
-    detail:any;
+    detail:any = {};
+    orderList:any[] = [];
+
+    state:"proceed"|"done" = "proceed";
 
     constructor(
         private layoutService: LayoutService,
-        private service : UnsubscribeService
+        private service : UnsubscribeService,
+        private router : Router
     ) { }
 
     ngOnInit() {
        
     }
 
+    resetData() {
+        this.state = "proceed";
+        this.selectItemList = [];
+        this.selectReleatedList = [];
+        this.orderList = [];
+        this.detail = {};
+    }
+
     open() {
         if(!this.subid) return this.onerror.emit("sbuid is null");
-
+        
+        this.resetData();
         this.layoutService.show();
         this.service.getOrderDetail(this.subid).then(detial => {
-            $('#unsubscribe').modal('show');
-            console.log(detial)
+            // $('#unsubscribe').modal('show');
+            this.popup.open(this.title);
+
             this.detail = detial;
+
             this.detail.itemList[0].instanceId = detial.instanceId;
             this.detail.itemList[0].selected = true;
             this.layoutService.hide();
@@ -74,29 +90,43 @@ export class UnsubscribeComponent implements OnInit {
     }
 
     itemSelectChange(selectList) {
-        console.log(selectList)
         this.selectItemList = selectList;
     }
     releatedSelectChange(selectList) {
-         console.log(selectList)
         this.selectReleatedList = selectList;
     }
 
 	
     startUnsubscribe(){
-        console.log(this.selectItemList, this.selectReleatedList)
+        if(this.state === "done") return this.popup.close();
+
         let selectList = [...this.selectItemList, ...this.selectReleatedList];
         let instanceList = selectList.map(select => select.instanceId);
 
+        if(!selectList.length) return; 
         this.layoutService.show();
         this.service.orderUnsubscribe(instanceList)
             .then(res => {
                 this.layoutService.hide();
-                console.log(res)
+                this.getOrderList(res);
             })
             .catch(e => {
                 this.layoutService.hide();
                 this.showNotice("错误提示", "退订失败!")
+            })
+    }
+
+    getOrderList(orderList) {
+        this.layoutService.show();
+        this.service.getOrderList(orderList)
+            .then(res => {
+                this.layoutService.hide();
+                this.state = "done";
+
+                this.orderList = res.map(r => r.itemList[0]);
+            })
+            .catch(e => {
+                this.layoutService.hide();
             })
     }
     // popupOf(){
@@ -120,4 +150,5 @@ export class UnsubscribeComponent implements OnInit {
 
         this.noticeDialog.open();
     }
+
 }

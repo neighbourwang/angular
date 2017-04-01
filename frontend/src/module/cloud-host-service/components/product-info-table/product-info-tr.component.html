@@ -1,5 +1,5 @@
-<tr *ngFor="let items of itemList;">
-    <td style="text-align: center;vertical-align: middle;">
+<ng-container *ngFor="let items of itemList;">
+    <td  *ngIf="hasSelect" style="text-align: center;vertical-align: middle;">
         <input type="checkbox" [disabled]="disabled" class="fox-cloud-checkbox" (click)='items.selected = !items.selected;selectedSubItem()' [(ngModel)]="items.selected">
     </td>
     <td style="width: 330px">
@@ -55,4 +55,4 @@
     <td style="max-width: 100px" class="text-center table-text-middle">{{items.createDate}}</td>
     <td style="max-width: 100px" class="text-center table-text-middle">{{items.expireDate}}</td>
     <td class="text-center table-text-middle">{{items.quantity}}{{'SHOPPING_CART.SET' | translate}}</td>
-</tr>
+</ng-container>
