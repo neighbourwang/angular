@@ -15,7 +15,7 @@ import { ProdMngCreStep1Component} from './component/prod-mng-cre-step-1.compone
 import { ProdMngCreStep2Component} from './component/prod-mng-cre-step-2.component';
 import { ProdMngCreStep3Component} from './component/prod-mng-cre-step-3.component';
 import { ProdMngCreStep4Component} from './component/prod-mng-cre-step-4.component';
-
+import { ProductMngComponents } from '../components/product-mng.components.module';
 
 // Routing
 import { ProdMngRouting } from './prod-mng.routing';
@@ -32,7 +32,8 @@ import { ProductEditService } from './service/product.edit.service';
     imports: [
         CommonComponentModule,
         PipeModule,
-        ProdMngRouting
+        ProdMngRouting,
+        ProductMngComponents
     ],
     declarations: [
         ProdMngComponent,
@@ -41,7 +42,7 @@ import { ProductEditService } from './service/product.edit.service';
         ProdMngCreStep1Component,
         ProdMngCreStep2Component,
         ProdMngCreStep3Component,
-        ProdMngCreStep4Component
+        ProdMngCreStep4Component,
     ],
     exports: [
     ],

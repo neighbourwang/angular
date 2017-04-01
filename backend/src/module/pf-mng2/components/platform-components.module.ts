@@ -24,9 +24,7 @@ import { VtSyncService } from '../components/volumeType-sync/vt-sync.service';
         HostSyncComponent,
         StorageSyncComponent,
         MemSyncComponent,
-        VtSyncComponent,
-
-        
+        VtSyncComponent,        
     ],
     exports: [
         ZoneSyncComponent,
