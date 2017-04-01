@@ -8,7 +8,7 @@ import {BarItem} from"../model/bar-item.model";
 //service
 import { ComputeTrendService } from "../service/compute-trend.service";
 const echarts = require('echarts');
-
+//git commit test
 @Component({
     selector: "compute-trend",
     templateUrl: "../template/compute-trend.html",
