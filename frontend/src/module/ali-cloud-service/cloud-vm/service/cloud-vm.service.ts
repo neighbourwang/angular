@@ -109,11 +109,11 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, null, null, body);
     }
 
-    getVPCs() : Promise<any> {
+    getVPCs(regionid: string) : Promise<any> {
         const pathParams = [
             {
                 key: "regionid",
-                value: ""   //////////////?????????????
+                value: regionid
             }
         ];
         const body = {
@@ -121,16 +121,31 @@ export class AliCloudVmService {
                 "accessId": this.keysecret.accessId,
                 "accessSecret": this.keysecret.accessSecret
             },
-            "isDefault": "",
-            "pageNumber": "",
-            "pageSize": "",
+            //"isDefault": "",
+            "pageNumber": "1",
+            "pageSize": "50",
             "vpcId": ""
             }
         console.log(body, "body");
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.vpc.get");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.vpc.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
+    getVSwitches(vpcid: string) : Promise<any> {
+        const pathParams = [
+            {
+                key: "vpcid",
+                value: vpcid
+            }
+        ];
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.vswitch.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
 
 /*
     calculatePrice(selectedRegion: RegionModel): Promise<any> {
@@ -168,7 +183,58 @@ export class AliCloudVmService {
                 "accessSecret": this.keysecret.accessSecret
             },
             "instanceType": "ecs.n1.tiny",
-            "imageId": orderVmPage.selectedImage,// orderVmPage.imageId
+            "imageId": orderVmPage.selectedImage,
+            /*
+  "autoRenew": "string",
+  "autoRenewPeriod": "string",
+  "clientToken": "string",
+  "dataDisk1Category": "string",
+  "dataDisk1Description": "string",
+  "dataDisk1Device": "string",
+  "dataDisk1DiskName": "string",
+  "dataDisk1Size": "string",
+  "dataDisk1SnapshotId": "string",
+  "dataDisk2Category": "string",
+  "dataDisk2Description": "string",
+  "dataDisk2Device": "string",
+  "dataDisk2DiskName": "string",
+  "dataDisk2Size": "string",
+  "dataDisk2SnapshotId": "string",
+  "dataDisk3Category": "string",
+  "dataDisk3Description": "string",
+  "dataDisk3Device": "string",
+  "dataDisk3DiskName": "string",
+  "dataDisk3Size": "string",
+  "dataDisk3SnapshotId": "string",
+  "dataDisk4Category": "string",
+  "dataDisk4Description": "string",
+  "dataDisk4Device": "string",
+  "dataDisk4DiskName": "string",
+  "dataDisk4Size": "string",
+  "dataDisk4SnapshotId": "string",
+  "description": "string",
+  "hostName": "string",
+  "imageId": "string",
+  "instanceChargeType": "string",
+  "instanceName": "string",
+  "instanceType": "string",
+  "internetChargeType": "string",
+  "internetMaxBandwidthIn": "string",
+  "internetMaxBandwidthOut": "string",
+  "ioOptimized": "string",
+  "nodeControllerId": "string",
+  "password": "string",
+  "period": "string",
+  "privateIpAddress": "string",
+  "securityGroupId": "string",
+  "systemDiskCategory": "string",
+  "systemDiskDescription": "string",
+  "systemDiskDiskName": "string",
+  "systemDiskSize": "string",
+  "userData": "string",
+  "vswitchId": "string",
+  "zoneId": "string"
+            */
         }
         console.log(body, "order vm body")
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.create");

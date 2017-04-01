@@ -11,7 +11,7 @@ import { Validation, ValidationRegs } from '../../../../architecture';
 
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
-import { orderVmPageModel, imageModel, imageItemModel, QuantityModel, InstanceTypeModel, InstanceTypeFamilyModel } from "../model/cloud-vm.model";
+import { orderVmPageModel, imageModel, imageItemModel, VSwitchModel, VPCModel, QuantityModel, InstanceTypeModel, InstanceTypeFamilyModel } from "../model/cloud-vm.model";
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
@@ -60,14 +60,24 @@ export class AliCloudVmOrderComponent implements OnInit {
     defaultOrderVmPage: orderVmPageModel = new orderVmPageModel();
     selectedOrderVmPage: orderVmPageModel = this.defaultOrderVmPage;
 
+    //镜像
     images: Array<imageModel> = [];
     defaultImageFlatform: imageModel = new imageModel();
     selectedImageFlatform: imageModel = this.defaultImageFlatform;
     defaultImageItem: imageItemModel = new imageItemModel();
     selectedImageItem: imageItemModel = this.defaultImageItem
 
+    //实例族
     instancetypelist: Array<InstanceTypeModel> = [];
     instancetypefamilylist: Array<InstanceTypeFamilyModel> = [];
+    
+    //网络
+    vpclist: Array<VPCModel> = [];
+    vswitchlist: Array<VSwitchModel> = [];
+    defaultVPC: VPCModel = new VPCModel();
+    selectedVPC: VPCModel = this.defaultVPC;
+    defaultVSwitch: VSwitchModel = new VSwitchModel();
+    selectedVSwitch: VSwitchModel = this.defaultVSwitch;
 
     diskCategoryDictArray: Array<SystemDictionary> = [];
 
@@ -157,11 +167,8 @@ export class AliCloudVmOrderComponent implements OnInit {
         region.selected = true;
         if (region.areas == null || region.areas.length == 0) {
             this.getArea(region);
-            this.getImages(region);
-            this.getInstanceTypeFamily(region);
-            this.getInstanceType(region);
         } else {
-            console.log(region, "the region which is selected and don't do getArea()!");
+            console.log(region, "Region, areas, selected_area and don't do getArea()!");
 
             this.resetSelectedRegion();
             this.selectedOrderVmPage.areas = region.areas;
@@ -178,7 +185,12 @@ export class AliCloudVmOrderComponent implements OnInit {
             }
             console.log(this.selectedOrderVmPage, "this.selectedOrderVmPage!");
         }
+        //this.getImages(region);
+        this.getInstanceTypeFamily(region);
+        this.getInstanceType(region);
+        this.getVPCs(region);
     }
+
     //根据regionId获取可用区列表
     getArea(region: RegionModel) {
         this.layoutService.show();
@@ -194,7 +206,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                         console.log(ex);
                     }
                     region.areas = result.Zones.Zone;
-                    console.log(region, "Areas in the region which is selected!");
+                    console.log(region, "Region, areas, default_area after running getArea()!");
                     this.resetSelectedRegion();
 
                     this.selectedOrderVmPage.areas = region.areas;
@@ -345,8 +357,87 @@ export class AliCloudVmOrderComponent implements OnInit {
             })
             .catch((e) => {
                 this.onRejected(e);
+            });            
+
+    }
+
+    getVPCs(region: RegionModel) {
+        this.layoutService.show();
+        this.service.getVPCs(region.RegionId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                        console.log(result, "vpc!");
+                    } catch (ex) {
+                        console.log(ex);
+                    }                    
+                    this.vpclist = result.Vpcs.Vpc;
+                    console.log(this.vpclist, "this.vpclist!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
             });
 
+    }
+
+    getVSwitches() {
+        window.setTimeout(() => {        
+        let vpc: VPCModel = this.selectedVPC;
+        if (vpc != this.defaultVPC) {
+            this.layoutService.show();
+            console.log(vpc.VpcName, "=============");
+            this.service.getVSwitches(vpc.VpcId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }                    
+                    this.vswitchlist = result.VSwitches.VSwitch;
+                    console.log(this.vswitchlist, "this.vswitchlist!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+        } else {
+            this.selectedVSwitch = this.defaultVSwitch;
+            this.vswitchlist = [];
+        }
+        
+    }, 50); //window内的代码要延后50ms执行        
+
+    }
+
+    VSwitchChanged() {
+        window.setTimeout(() => {
+            this.selectedOrderVmPage.selectedNetworkId = this.selectedVSwitch.VSwitchId;
+            console.log(this.selectedOrderVmPage.selectedNetworkId, "selected VSwitchId!");
+        }, 50); //window内的代码要延后50ms执行 
+    }
+
+    reNew() {
+        if(this.selectedOrderVmPage.renew == "0") {
+            this.selectedOrderVmPage.renew = "1";
+        } else {
+            this.selectedOrderVmPage.renew = "0";
+        }
+        console.log(this.selectedOrderVmPage.renew, "renew!");
     }
 
 
@@ -444,41 +535,6 @@ export class AliCloudVmOrderComponent implements OnInit {
         this.notice.open(msg.title, msg.desc);
     }
 
-/*
-    //选择行
-    selectItem(index:number): void {
-        this.msgAlert.list[index].checked = !this.msgAlert.list[index].checked;
-        console.log(this.msgAlert.list, "=== Please see which ones are selected ===");
-        let selectedml = this.msgAlert.list.filter(n=> { return (n.checked == true);});
-        if(selectedml.length == this.pageSize) {
-            console.log("The latest one was selected, so all selected!");
-            this.allSelected = true;
-        } else {
-            this.allSelected = false;
-        }
-    }
-
-    selectOrUnSAllItems(): void {
-        if (this.allSelected) {
-            console.log("All checked before, so set them all unselected");
-            this.allSelected = false;
-            this.msgAlert.list.map(n=> { n.checked = false;});
-        } else {
-            console.log("All unchecked before, so set them all selected");
-            this.allSelected = true;
-            this.msgAlert.list.map(n=> { n.checked = true;});
-        }
-    }
-
-    getSelectedItems() {
-        this.selectedmsglist = this.msgAlert.list.filter(n=> { return (n.checked == true);});
-        if (this.selectedmsglist.length != 0){
-            return this.selectedmsglist;
-        } else {
-            return [];
-        }
-    }
-    */
 
     show(mnum:QuantityModel) {
         console.log(mnum, "month button");
