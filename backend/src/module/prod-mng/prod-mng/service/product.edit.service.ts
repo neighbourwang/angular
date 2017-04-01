@@ -29,4 +29,10 @@ export class ProductEditService {
         let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.editBasic");
         return this.restApi.request(api.method, api.url,[], undefined,data);
     }
+    //编辑产品平台信息
+    editProductPlatform(data:any){
+        let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.editPlatform");
+        return this.restApi.request(api.method, api.url,[], undefined,data);
+    }
+    
 }

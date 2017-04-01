@@ -9,6 +9,7 @@ class zone{
   "zoneId": string;
   "zoneName": string;
   "selected": boolean;
+  "disable":boolean;
   "displayName":string;
 }
 class platform {

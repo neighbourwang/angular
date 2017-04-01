@@ -10,34 +10,21 @@ class zone {
   "zoneId": string;
   "zoneName": string;
   "selected": boolean;
-  "displayName":string;  
+  "displayName":string;
+  disable:boolean;  
 }
-class vmPlatform {
+class Platform {
   "flavorId": string;
   "platformId": string;
   "platformName": string;
   "platformType": string;
   "zoneList": Array<zone>;
 }
-//for DISK plateform details 
-// class storages {
-//   "displayName": string;
-//   "selected": boolean;
-//   "serviceSKUId": string;
-//   "storageId": string;
-//   "storageName": string;
-// }
-class diskPlatform {
-  "platformId": string;
-  "platformName": string;
-  "zoneList": Array<zone>;
-  "zoneId": "all";
-  "zoneName": string;
-}
+
 class ProductDir {
   "description": string;
-  platformInfo: Array<vmPlatform>;
-  platformList: Array<diskPlatform>;
+  platformInfo: Array<Platform>;
+  platformList: Array<Platform>;
   "serviceId": string;
   "serviceName": string;
   "specification" = new specification();
@@ -50,6 +37,5 @@ class ProductDir {
 } 
 export {
   ProductDir,
-  vmPlatform,
-  diskPlatform
+  Platform,
 }
