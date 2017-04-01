@@ -237,6 +237,18 @@ export class AliCloudVmListComponent implements OnInit {
         }
     }
 
+    reStartInstance() {
+
+    }
+
+    attachIPToInstance() {
+
+    }
+    
+    remoteToInstance() {
+
+    }
+
     deleteInstance() {
         this.selectedInstance = this.getSelected();
         if (this.selectedInstance) {

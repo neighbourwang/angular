@@ -81,17 +81,17 @@
             <td class="text-center">CPU: {{instance.Cpu}}核 内存：{{instance.Memory}} MB (I/O优化)</td>
             <td class="text-center">{{instance.InstanceChargeType}}<br /> {{instance.ExpiredTime}}</td>
             <td class="text-center">
-                <button (click)="selectItem(i); attachDisk();" style="display: inline;" class="btn button-gray-gradient">启动
+                <button (click)="selectItem(i); startInstance();" style="display: inline;" class="btn button-gray-gradient">启动
                 </button>
-                <button (click)="selectItem(i); detachDisk();" style="display: inline;" class="btn button-gray-gradient">停止
+                <button (click)="selectItem(i); stopInstance();" style="display: inline;" class="btn button-gray-gradient">停止
                 </button>
-                <button (click)="selectItem(i); attachDisk();" style="display: inline;" class="btn button-gray-gradient">重启
+                <button (click)="selectItem(i); reStartInstance();" style="display: inline;" class="btn button-gray-gradient">重启
                 </button>
-                <button (click)="selectItem(i); detachDisk();" style="display: inline;" class="btn button-gray-gradient">绑定弹性IP
+                <button (click)="selectItem(i); attachIPToInstance();" style="display: inline;" class="btn button-gray-gradient">绑定弹性IP
                 </button>
-                <button (click)="selectItem(i); attachDisk();" style="display: inline;" class="btn button-gray-gradient">远程连接
+                <button (click)="selectItem(i); remoteToInstance();" style="display: inline;" class="btn button-gray-gradient">远程连接
                 </button>
-                <button (click)="selectItem(i); attachDisk();" style="display: inline;" class="btn button-gray-gradient">删除
+                <button (click)="selectItem(i); deleteInstance();" style="display: inline;" class="btn button-gray-gradient">删除
                 </button>
             </td>
         </tr>

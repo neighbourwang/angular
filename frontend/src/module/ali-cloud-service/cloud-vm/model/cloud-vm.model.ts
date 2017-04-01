@@ -27,6 +27,7 @@ export class orderVmPageModel {
 
 
 export class imageModel {
+/*
     ImageId: string = "";
     Description: string = "";
     ProductCode: string = "";
@@ -58,6 +59,24 @@ export class TagModel {
 export class DiskDeviceMappingModel {
         DiskDeviceMapping: Array<string> = []; 
 }
+*/
+    platformName: string = "";
+    images: Array<imageItemModel> = [];
+}
+
+export class imageItemModel {
+    osname: string = "";
+    ostype: string = "";
+    ImageId: string = "";
+    OSType: string = "";
+    Architecture: string = "";
+    OSName: string = "";
+    ImageOwnerAlias: string = "";
+    Status: string = "";
+    Platform: string = "";
+}
+
+
 
 export class QuantityModel {
     displayValue: string = "";

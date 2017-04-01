@@ -168,9 +168,9 @@ export class AliCloudVmService {
                 "accessSecret": this.keysecret.accessSecret
             },
             "instanceType": "ecs.n1.tiny",
-            "imageId": "ubuntu_14_0405_64_40G_base_20170222.vhd",// orderVmPage.imageId
+            "imageId": orderVmPage.selectedImage,// orderVmPage.imageId
         }
-        console.log(body, "body")
+        console.log(body, "order vm body")
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.create");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
