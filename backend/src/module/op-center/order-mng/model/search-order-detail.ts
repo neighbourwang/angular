@@ -76,7 +76,7 @@ export class SubInstanceItemResp1{
     {
       if(this.billingInfo.billingMode == 0)//包年包月
       {
-        return this.billingInfo.basicPrice + this.billingInfo.cyclePrice;
+        return this.billingInfo.basicPrice;
       }
       else if(this.billingInfo.billingMode == 1)//一次性费用
       {

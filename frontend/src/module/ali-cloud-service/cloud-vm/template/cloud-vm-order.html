@@ -136,11 +136,13 @@
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                     <div class="col-md-12 mgb20 form-group">
-                        <select class="form-control select_style">
-                            <option>请选择操作系统类别</option>
+                        <select class="form-control select_style" [(ngModel)]="selectedImageFlatform" (change)="selectedImageItem=defaultImageItem">
+                            <option [ngValue]="defaultImageFlatform">请选择操作系统类别</option>
+                            <option *ngFor="let imageplatform of images" [ngValue]="imageplatform">{{imageplatform.platformName}}</option>
                         </select>
-                        <select class="form-control select_style">
-                            <option>请选择版本</option>
+                        <select class="form-control select_style" [(ngModel)]="selectedImageItem" (change)="ImageChanged();">
+                            <option [ngValue]="defaultImageItem">请选择版本</option>
+                            <option *ngFor="let imageitem of selectedImageFlatform.images" [ngValue]="imageitem">{{imageitem.osname}}</option>
                         </select>
                         <a href="javascript:void(0);">
                         较我选择>>
@@ -279,4 +281,4 @@
 
 </div>
 
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="okClicked()"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{modalOKTitle}}" (of)="okClicked()"></fc-notice>

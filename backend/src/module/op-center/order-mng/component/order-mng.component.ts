@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { SubInstanceAttrPair, ProductBillingItem, SubInstanceResp, SubInstanceItemResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,RenewSetting} from '../model'
 import * as _ from 'underscore';
-
+import {DictService} from '../../../../architecture/core/service/dict-service';
 @Component({
 	selector: 'order-mng',
 	templateUrl: '../template/order-mng.component.html',
@@ -47,7 +47,8 @@ export class OrderMngComponent implements OnInit{
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
-		private restApi:RestApi){
+		private restApi:RestApi,
+		private _dictServ:DictService){
 
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 

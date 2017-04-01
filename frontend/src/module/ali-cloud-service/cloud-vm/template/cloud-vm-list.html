@@ -1,26 +1,22 @@
-<div class="page-content cloud_host_list">
+<div class="page-content  cloud_host_order cloud_drive_order">
     <h1 class="page-content-header">阿里云主机实例列表</h1>
 
-    <div class="row mgb20">
-        <div class="col-md-2">区域列表</div>
-        <div class="col-md-10">
-            <div class="region-btn" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
-                <div class="regionName">{{region.LocalName}}</div>
-                <!--
-                <div class="regionArea">                    
-                    <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
-                    
-                    <span class="caret"></span>
-                    <select [(ngModel)]="region.selectedArea">
-                        <option *ngFor="let item of region.areas" [ngValue]="item">
-                            {{item.LocalName}}
-                        </option>
-                    </select>
-                </div>
-                -->
+    <ul class="page-box" style="margin: 20px 0px;">
+        <li>
+            <div class="col-md-1 li-title" style="background: #f7f7f7; border-right: 1px solid #ddd; height: 100%">
+                <p>区域列表</p>
             </div>
-        </div>
-    </div>
+            <div class="col-md-12 li-content" style="padding: 20px 0px 20px !important;">
+                <div class="col-md-12">
+                    <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
+                        <div class="regionName">{{region.LocalName}}</div>
+
+                    </div>
+                </div>
+            </div>
+
+        </li>
+    </ul>
 
     <div class="col-md-12 no-padding mgb20">
         <div class="dropdown float-left mgr10">
@@ -36,18 +32,18 @@
         </div>
 
         <div class="input-group float-left">
-            <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
+            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
         </div>
 
-        <div class="dropdown float-right  mgr5">
-            <button class="btn float-left mgr5 btn-success" (click)="goToInstanceOrder();"><i class="glyphicon glyphicon-plus"></i>创建云主机</button>
+        <div class="dropdown float-right">
+            <button class="btn float-left btn-success" (click)="goToInstanceOrder();"><i class="glyphicon glyphicon-plus"></i>创建云主机</button>
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			更多操作
 			<span class="caret"></span>
 			</button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="javascript:">启动</a></li>
-                <li><a href="javascript:">停止</a></li>
+                <li><a href="javascript:" (click)="startInstance();">启动</a></li>
+                <li><a href="javascript:" (click)="stopInstance();">停止</a></li>
                 <li><a href="javascript:">重启</a></li>
                 <li><a href="javascript:">绑定弹性IP</a></li>
                 <li><a href="javascript:">远程连接</a></li>
@@ -66,6 +62,7 @@
             <th class="text-center">状态</th>
             <th class="text-center">配置</th>
             <th class="text-center">付费方式</th>
+            <th class="text-center">操作</th>
         </tr>
         <tr style="line-height: 65px;" *ngFor="let instance of instances; let i=index;">
             <td class="text-center"> <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list"></td>
@@ -83,6 +80,20 @@
             <td class="text-center">{{instance.Status}}</td>
             <td class="text-center">CPU: {{instance.Cpu}}核 内存：{{instance.Memory}} MB (I/O优化)</td>
             <td class="text-center">{{instance.InstanceChargeType}}<br /> {{instance.ExpiredTime}}</td>
+            <td class="text-center">
+                <button (click)="selectItem(i); startInstance();" style="display: inline;" class="btn button-gray-gradient">启动
+                </button>
+                <button (click)="selectItem(i); stopInstance();" style="display: inline;" class="btn button-gray-gradient">停止
+                </button>
+                <button (click)="selectItem(i); reStartInstance();" style="display: inline;" class="btn button-gray-gradient">重启
+                </button>
+                <button (click)="selectItem(i); attachIPToInstance();" style="display: inline;" class="btn button-gray-gradient">绑定弹性IP
+                </button>
+                <button (click)="selectItem(i); remoteToInstance();" style="display: inline;" class="btn button-gray-gradient">远程连接
+                </button>
+                <button (click)="selectItem(i); deleteInstance();" style="display: inline;" class="btn button-gray-gradient">删除
+                </button>
+            </td>
         </tr>
         <!--
         <tr style="line-height: 65px;" >
