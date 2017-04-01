@@ -56,7 +56,8 @@ export class ProductBillingItem {
   get price():number{
     if(this.billingMode == 0)//包年包月
     {
-      return this.basicPrice + this.cyclePrice;
+      return this.basicPrice;
+      // return this.basicPrice + this.cyclePrice;
     }
     else if(this.billingMode == 1)//按量计费
     {
