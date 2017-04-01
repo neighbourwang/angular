@@ -333,6 +333,17 @@ export class AliCloudDiskListComponent implements OnInit {
 
     }
 
+    onSelect(disk: diskListModel) {
+
+    }
+
+    onSave(disk: diskListModel) {
+
+    }
+
+    onCancel(disk: diskListModel) {
+        disk.EnableEdit = false;
+    }
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason, "onRejected");

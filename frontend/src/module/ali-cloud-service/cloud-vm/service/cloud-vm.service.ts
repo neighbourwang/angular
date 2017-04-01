@@ -219,17 +219,11 @@ export class AliCloudVmService {
             }
         ];
         const body = {
-            "accessinfo": {
-                "accessId": this.keysecret.accessId,
-                "accessSecret": this.keysecret.accessSecret
-            },
-            "action": "",   //???????????????????
-            "instanceid": "",
-            "operationLocks": "",
-            "status": ""
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
         }
         console.log(body, "body");
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.delete");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.start");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
@@ -241,17 +235,11 @@ export class AliCloudVmService {
             }
         ];
         const body = {
-            "accessinfo": {
-                "accessId": this.keysecret.accessId,
-                "accessSecret": this.keysecret.accessSecret
-            },
-            "action": "",  //???????????????????
-            "instanceid": "",
-            "operationLocks": "",
-            "status": ""
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
         }
         console.log(body, "body");
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.delete");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.stop");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
