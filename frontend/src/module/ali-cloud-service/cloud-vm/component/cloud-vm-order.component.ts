@@ -152,7 +152,7 @@ export class AliCloudVmOrderComponent implements OnInit {
         region.selected = true;
         if (region.areas == null || region.areas.length == 0) {
             this.getArea(region);
-            this.getImages(region);
+            //this.getImages(region);
             this.getInstanceTypeFamily(region);
             this.getInstanceType(region);
         } else {
