@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LayoutService, ItemLoader,RestApi, RestApiCfg,NoticeComponent, PopupComponent,SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { ExtendDetailItem,CertMethod, EntProdItem, EntEstItem, EntEst,EntEstCreResourceQuota} from '../model';
 import { EntEstCreService, Paging } from '../service/ent-est-cre.service';
-
+import {DictService} from '../../../../architecture/core/service/dict-service';
 @Component({
   // moduleId: module.id,
   selector: 'ent-est-mng',
@@ -50,7 +50,8 @@ export class EntEstCheckComponent implements OnInit {
     private sysDicService: SystemDictionaryService,
     private activatedRouter: ActivatedRoute,
     private restApiCfg:RestApiCfg,
-    private restApi:RestApi
+    private restApi:RestApi,
+    private _dictServ:DictService
   ) { 
 
 

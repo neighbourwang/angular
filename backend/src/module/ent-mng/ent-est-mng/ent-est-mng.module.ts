@@ -9,10 +9,12 @@ import { EntEstMngComponent,  EntEstCreComponent,EntEstManagePlatformComponent} 
 import { EntEstMngRouting } from './ent-est-mng.routing';
 import { EntEstSetProdComponent } from './component/ent-est-setProd.component';
 import { EntEstCheckComponent } from './component/ent-est-check.component';
+import { PipeModule } from '../../../architecture';
 @NgModule({
     imports: [
         CommonComponentModule,
-        EntEstMngRouting
+        EntEstMngRouting,
+        PipeModule
     ],
     declarations: [
         EntEstMngComponent
