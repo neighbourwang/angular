@@ -57,6 +57,7 @@ export class PhyUnitMngComponent implements OnInit{
     partslist: Array<PartsModel>;
     isEdit: boolean;
     noReapeat: boolean;
+    respecName: Spec= new Spec();
 
     ngOnInit (){
         console.log('init');
@@ -167,10 +168,20 @@ export class PhyUnitMngComponent implements OnInit{
                 this.noReapeat= true;
             }
         }else if(!this.selectedSpec.specName && this.selectedParts.partsName){
-            let respecName= this.selectedParts.specList.find((p)=>{
+/*            let respecName= this.selectedParts.specList.find((p)=>{
                 return p.specName== this.criteria.specName;
+            });*/
+            this.partslist.find((p)=>{
+                this.respecName = p.specList.find((r)=>{
+                    return r.specName== this.criteria.specName;
+                });
+                if(this.respecName){
+                    return true;
+                }else{
+                    return false;
+                }
             });
-            if(respecName) {
+            if(this.respecName) {
                 this.noReapeat= false;
             }else {
                 this.noReapeat= true;
