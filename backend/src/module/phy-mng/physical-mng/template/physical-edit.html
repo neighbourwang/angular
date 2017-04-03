@@ -110,19 +110,20 @@
                     </div>
                 </div>
             </div>
+
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">维保起始日期:</div>
-                    <div class="col-md-4">
-                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="startTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
+                    <div class="col-md-4" *ngIf="physical.mainStartDate">
+                       <date-picker  [options]="myDatePickerOptions"  [initDate]= "physical.mainStartDate" (dateChanged)="startTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">   <!--[disabled]="eidtMode =='view'||editMode=='editParts'" 日期组件没有diasbled属性-->
                     <div class="col-sm-4 form-control-title">维保结束日期:</div>
-                    <div class="col-md-4">
-                       <date-picker  [options]="myDatePickerOptions" (dateChanged)="endTimeChange($event)" [disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
+                    <div class="col-md-4" *ngIf="physical.mainEndDate">
+                       <date-picker  [options]="myDatePickerOptions" [initDate]= "physical.mainEndDate" (dateChanged)="endTimeChange($event)" [disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
                     </div>
                 </div>
             </div>
@@ -197,7 +198,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of partsEntityList; let idex=index;">
+                                    <tr *ngFor="let item of physical.partsEntitys; let idex=index;">
                                         <td *ngIf="eidtMode =='create'||eidtMode =='editParts'">
                                             <input type="radio" class="fox-cloud-radio" name="part" (change)="getSelectPart(item);"[checked]="item.isSelect">
                                         </td>
@@ -205,7 +206,7 @@
                                         <td>{{item.specName}}</td>
                                         <td>{{item.specValue}}</td>
                                         <td>{{item.number}}</td>
-                                        <td>{{item.partsName == "磁盘"|| item.partsName =="内存"? item.specValue*item.partsNum :""}}</td>
+                                        <td >{{ item.partsName == '磁盘' ||item.partsName =='内存'?item.specValue*item.number :""}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -364,7 +365,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">部件名称:</div>
             <div class="col-sm-4">
-                <select class="form-control" [(ngModel)]="selectedPart" (change)="partsEntity.specName=''">
+                <select class="form-control" [(ngModel)]="selectedPart" (change)="selectedSpace=defaultSpace">
                     <option [ngValue]="defaultPart">请选择</option>
                     <option *ngFor="let item of parts" [ngValue]="item">{{item.partsName}}</option>
                 </select>
@@ -375,19 +376,21 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">规格:</div>
             <div class="col-sm-4">
-                <select class="form-control" [(ngModel)]="partsEntity.specName">
-                      <option value="">请选择</option>
-                     <option *ngFor="let item of selectedPart.specList" [value]="item.specName">{{item.specName}}</option>
+                <select class="form-control" [(ngModel)]="selectedSpace" (change)="partsEntity.specValue=''">
+                      <option [ngValue]="defaultSpace">请选择</option>
+                     <option *ngFor="let item of selectedPart.specList" [ngValue]="item">{{item.specName}}</option>
                 </select>
             </div>
         </div>
     </div>
-    
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">规格值:</div>
             <div class="col-sm-4">
-                <input type="text" class="form-control" [(ngModel)]="partsEntity.specValue">
+                 <select class="form-control" [(ngModel)]="partsEntity.specValue" >
+                      <option value="">请选择</option>
+                     <option *ngFor="let item of selectedSpace.specValues" [value]="item">{{item}}</option>
+                </select>
             </div>
              <div class="col-sm-2" style="line-height:34px;padding-left:0px" *ngIf="selectedPart.partsName=='内存' || selectedPart.partsName=='磁盘'">GB</div>
         </div>

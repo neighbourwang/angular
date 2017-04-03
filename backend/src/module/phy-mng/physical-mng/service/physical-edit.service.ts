@@ -131,18 +131,34 @@ export class PhysicalEditService {
        );
     }
 
-    //获取物理机部件清单
+    //查询物理机已有的部件和规格清单
     getPartList():Promise<any>{
         const api = this.restApiCfg.getRestApi("physical-mng.physical.partList.get");
         return this.restApi.request(api.method, api.url, null, null,  null  );
     }
   
-//   //获取物理机部件列表
-//    getPartsList():Promise<any>{
-//         const api = this.restApiCfg.getRestApi("physical-mng.physical.partList.get");
-//         return this.restApi.request(api.method, api.url, null, null,  null  );
-//     //    return new Promise(resovle => setTimeout(resovle, 200)).then(() => PortsList_mock);
-//     }
+//   //编辑物理机部件
+   editPhysicalParts(physical:PhysicalModel,id:string):Promise<any>{
+        const pathParams = [
+            {
+                key: "pm_id",
+                value: id
+            }
+
+        ];
+        const api = this.restApiCfg.getRestApi("physical-mng.physical.partList.edit");
+    //     return this.restApi.request(api.method, api.url, pathParams, null,  
+    //      {
+    //         "id": "string",
+    //         "number": 0,
+    //         "partsId": "string",
+    //         "partsName": "string",
+    //         "specId": "string",
+    //         "specName": "string",
+    //         "specValue": "string"
+    //     } );
+     return new Promise(resovle => setTimeout(resovle, 200)).then(() => PortsList_mock);
+    }
   
 
 
