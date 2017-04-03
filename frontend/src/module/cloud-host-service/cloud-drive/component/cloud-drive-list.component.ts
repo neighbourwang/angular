@@ -29,9 +29,6 @@ export class cloudDriveListComponent implements OnInit {
 
 	@ViewChild('diskReconfig') diskReconfig;
 	
-	@ViewChild('popup')
-	private popup: PopupComponent;
-
 	@Input() options:ListOptions;
 
 	list : QuiryDistList = new QuiryDistList();
@@ -93,21 +90,6 @@ export class cloudDriveListComponent implements OnInit {
 		this.saveList.platformId = data.area.id;
 		this.saveList.zoneId =  data.zone.zoneId;
 		this.setDistList();
-	}
-
-	delectDisk() {  //退订云硬盘
-		if( !this.radioSelected.subInstanceId )  return this.showNotice("CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK", "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK");
-
-		this.popup.open("CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK");
-	}
-	popupCf(){}
-	popupOf(){
-		this.service.deleteDisk(this.radioSelected.subInstanceId).then(res => {
-			this.showNotice("CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK", "CLOUD_DRIVE_LIST.UNSUBSCRIBE_PROCESS");
-		}).catch(e => {
-			this.showNotice("CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK", "COMMON.FAILED");
-		})
-		this.popup.close();
 	}
 
 	//云硬盘的操作相关

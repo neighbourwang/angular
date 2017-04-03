@@ -22,25 +22,25 @@ http://localhost:4001/(前台首页登陆页)
 
 # 项目发布
 
-[点击进入项目发布页面](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/dist.md)
+[点击进入项目发布页面](https://github.houston.entsvcs.net/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/dist.md)
 
 # 项目公共组件
 
 |    组件名称     |  类型  |      负责人      | 开发进度 |                   用法链接                   |
 | :---------: | :--: | :-----------: | :--: | :--------------------------------------: |
-|    分页组件     |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/pagination/README.md) |
-|    确认框组件    |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/components/dialog#确认框组件) |
-|    警告框组件    |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/components/dialog#警告框组件) |
-| 整屏loading组件 |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/spinner/README.md) |
+|    分页组件     |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.houston.entsvcs.net/FoxCloud/frontend/blob/master/frontend/src/architecture/components/pagination/README.md) |
+|    确认框组件    |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.houston.entsvcs.net/FoxCloud/frontend/tree/master/frontend/src/architecture/components/dialog#确认框组件) |
+|    警告框组件    |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.houston.entsvcs.net/FoxCloud/frontend/tree/master/frontend/src/architecture/components/dialog#警告框组件) |
+| 整屏loading组件 |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.houston.entsvcs.net/FoxCloud/frontend/blob/master/frontend/src/architecture/components/spinner/README.md) |
 |   上传文件组件    |  组件  | cao.zong-ying | 准备开发 |                    暂无                    |
-|  加减控制数字组件   |  组件  | wang.yao-yao  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/backend/src/architecture/components/countBar/README.md) |
-|   日期选择组件    |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/date-picker/README.md) |
-|   表单验证组件    |  组件  |  zi.qing-ren  | 完成 |                    [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/validators/README.md)                    |
-|  popover组件  |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/components/popover) |
-|    图表组件     |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/chart.md) |
-| 点击元素以外触发事件  |  指令  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/clickoutside.md) |
-| 鼠标滑过显示详细文字  |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/staticTooltip/README.mdown) |
-| 标签表单组件  |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.hpe.com/FoxCloud/frontend/blob/master/frontend/src/architecture/components/tagInput/README.md) |
+|  加减控制数字组件   |  组件  | wang.yao-yao  |  完成  | [点击](https://github.houston.entsvcs.net/FoxCloud/frontend/blob/master/backend/src/architecture/components/countBar/README.md) |
+|   日期选择组件    |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.houston.entsvcs.net/FoxCloud/frontend/blob/master/frontend/src/architecture/components/date-picker/README.md) |
+|   表单验证组件    |  组件  |  zi.qing-ren  | 完成 |                    [点击](https://github.houston.entsvcs.net/FoxCloud/frontend/blob/master/frontend/src/architecture/components/validators/README.md)                    |
+|  popover组件  |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.houston.entsvcs.net/FoxCloud/frontend/tree/master/frontend/src/architecture/components/popover) |
+|    图表组件     |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.houston.entsvcs.net/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/chart.md) |
+| 点击元素以外触发事件  |  指令  |  zi.qing-ren  |  完成  | [点击](https://github.houston.entsvcs.net/FoxCloud/frontend/tree/master/frontend/src/architecture/assets/README/clickoutside.md) |
+| 鼠标滑过显示详细文字  |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.houston.entsvcs.net/FoxCloud/frontend/blob/master/frontend/src/architecture/components/staticTooltip/README.mdown) |
+| 标签表单组件  |  组件  |  zi.qing-ren  |  完成  | [点击](https://github.houston.entsvcs.net/FoxCloud/frontend/blob/master/frontend/src/architecture/components/tagInput/README.md) |
 
 
 

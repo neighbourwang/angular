@@ -6,11 +6,12 @@
 import {Component, Input, Output,EventEmitter,OnChanges,SimpleChange,OnInit} from '@angular/core';
 @Component({
     selector: 'count-bar',
-    template: `<div class="countBar " [ngClass]="{valueError:valueError}">
-               <span class="glyphicon glyphicon-minus font-gray" [ngClass]="{gray:disabled || value == min}" (click)="subtract()"></span>
-               <input type="text" class="font-gray "  [(ngModel)]="value" name="editValue" #box (change)="valueChange($event)" [disabled]="disabled">
-               <span class="glyphicon glyphicon-plus font-gray" (click)="add()" [ngClass]="{gray:disabled || value == max}"></span>
-               </div>
+    template: `
+               <div class="btn-group input-step-compontent" style="width: 130px;">  
+                    <button type="button" class="btn btn-default col-md-3" [ngClass]="{'clickable':value != min}" (click)="subtract()" [disabled]="disabled || value == min"><span class="glyphicon glyphicon-minus"></span></button>
+                    <input type="text" class="form-control" (change)="valueChange($event)" [(ngModel)]="value" name="editValue" #box [disabled]="disabled">
+                    <button type="button" class="btn btn-default" (click)="add()" [ngClass]="{'clickable':value != max}" [disabled]="disabled || value == max"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
                `,
     // inputs: ["title", "msg", "ot", "ct"]
 })

@@ -108,6 +108,7 @@ export class diskListModel {
     DiskId: string = "";
 
     checked: boolean = false;
+    EnableEdit: boolean = false;
 }
 
 export class TagModel {

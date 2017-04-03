@@ -8,10 +8,10 @@ import { PlatformEditService } from './platform-edit/platform-edit.service';
 @NgModule({
     imports: [
         CommonComponentModule,
-        PipeModule
+        PipeModule,
     ],
     declarations: [
-        PlatformEditComponent        
+        PlatformEditComponent,        
     ],
     exports: [
         PlatformEditComponent

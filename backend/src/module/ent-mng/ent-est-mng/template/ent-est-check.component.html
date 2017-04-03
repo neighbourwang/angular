@@ -334,7 +334,7 @@
 			    <td>{{ 'COMMON.NUMBER' | translate }}</td>
 				<td>{{ 'PROD_MNG.PROD_NAME' | translate }}</td>
 				<td>{{ 'PROD_MNG.PRODUCT_CAT' | translate }}</td>
-				<td>{{ 'PROD_MNG.PRODUCT_TYPE' | translate }}</td>
+				<td>产品类别</td>
 				<td>{{ 'PROD_MNG.PRODUCT_SPEC' | translate }}</td>                     
 				<td>{{ 'COMMON.COUNT_CYCLE' | translate }}</td>
 				<td>{{ 'COMMON.CYCLE_COST' | translate }}</td>
@@ -348,9 +348,9 @@
 					<td>{{i + 1}}</td>
 				<td>{{item.name}}</td>
 				<td>{{item.category}}</td>
-				<td>{{item.type}}</td>
+				<td>{{item.type| dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 				<td>{{item.spec}}</td>
-				<td>{{item.countCycle}}</td>
+				<td>{{item.countCycle| dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</td>
 				<td>{{item.cyclePrice}}</td>
 				<td>{{item.oneTimePrice}}</td>
 				<td  [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.statusName}}</td>

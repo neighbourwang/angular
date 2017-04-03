@@ -199,7 +199,10 @@
 					<td colspan="6">	
 						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType > 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">取消自动续订</button>
 						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType == 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">自动续订</button>
-						<button  *ngIf="orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="cancelSelect(orderItem)">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
+
+						<unsubscribe #unsubscribeVm title="{{ 'ORDER_MNG.ORDERS_UNSUBSCRIBE' | translate }}" [subid]="orderItem?.orderId"></unsubscribe>
+						<button class="mgr2 pull-right button-gray-gradient" (click)="unsubscribeVm.open()">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
+
 						<button *ngIf="orderItem.canRenew" class="pull-right button-gray-gradient" (click)="renewSelect(orderItem)">{{ 'COMMON.RENEW' | translate }}</button>
 						
 						<button class="mgr2 pull-right button-gray-gradient" (click)="showDetail(orderItem)">{{ 'COMMON.DETAILS' | translate }}</button>
@@ -343,6 +346,7 @@
 
 
 <!--退订-->
+
 
 <div #cancelDialog class="modal fade" id="cancelOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document" style="width:80%!important;">

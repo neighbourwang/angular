@@ -54,20 +54,27 @@
                 </div>
                 <div class="col-md-12 li-content">
 
-                    <div class="col-md-12 mgb20">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;" style="display: inline">经典网络</button>
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">专有网络</button>
+                    <div class="col-md-12 mgb10">
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="0"}' (click)="selectedOrderVmPage.selectedNetworkType='0';" style="display: inline">经典网络</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="1"}' (click)="selectedOrderVmPage.selectedNetworkType='1';">专有网络</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
-                    <div class="col-md-12 text-tip">
-                        <span> 购买后不能更换网络类型 </span>
+                    <div class="col-md-12 text-tip mgb20">
+                        <span>购买后不能更换网络类型 </span>
                     </div>
-                    <div class="col-md-12 mgb20">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;" style="display: inline">选择安全组</button>
-                        <span class="glyphicon glyphicon-question-sign"></span>
-                    </div>
-                    <div class="col-md-12 text-tip">
-                        <span> 安全组类似防火墙功能，用于设置网络访问控制，您也可以到管理控制台 <a href="javascript:void(0);">新建安全组>></a> <a href="javascript:void(0);">教我选择>></a> </span>
+
+                    <div class="col-md-12 mgb20 form-group" *ngIf="selectedOrderVmPage.selectedNetworkType=='1'">
+                        <select class="form-control select_style" [(ngModel)]="selectedVPC" (change)="getVSwitches();">
+                            <option [ngValue]="defaultVPC">请选择专有网络</option>
+                            <option *ngFor="let vpc of vpclist" [ngValue]="vpc">{{vpc.VpcName}}</option>
+                        </select>
+                        <select class="form-control select_style mgb10" [(ngModel)]="selectedVSwitch" (change)="VSwitchChanged();">
+                            <option [ngValue]="defaultVSwitch">请选择虚拟交换机</option>
+                            <option *ngFor="let vswitch of vswitchlist" [ngValue]="vswitch">{{vswitch.VSwitchName}}</option>
+                        </select>
+                        <div class="col-md-12 text-tip">
+                            <span>安全组类似防火墙功能，用于设置网络访问控制，您也可以到管理控制台 <a href="javascript:void(0);">新建安全组>></a> <a href="javascript:void(0);">教我选择>></a> </span>
+                        </div>
                     </div>
 
                 </div>
@@ -124,6 +131,7 @@
             </li>
 
             <!-- 镜像 -->
+            <!--
             <li>
                 <div class="col-md-1 li-title">
                     <p><span class="icon-amount"></span>镜像：</p>
@@ -136,11 +144,13 @@
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                     <div class="col-md-12 mgb20 form-group">
-                        <select class="form-control select_style">
-                            <option>请选择操作系统类别</option>
+                        <select class="form-control select_style" [(ngModel)]="selectedImageFlatform" (change)="selectedImageItem=defaultImageItem">
+                            <option [ngValue]="defaultImageFlatform">请选择操作系统类别</option>
+                            <option *ngFor="let imageplatform of images" [ngValue]="imageplatform">{{imageplatform.platformName}}</option>
                         </select>
-                        <select class="form-control select_style">
-                            <option>请选择版本</option>
+                        <select class="form-control select_style" [(ngModel)]="selectedImageItem" (change)="ImageChanged();">
+                            <option [ngValue]="defaultImageItem">请选择版本</option>
+                            <option *ngFor="let imageitem of selectedImageFlatform.images" [ngValue]="imageitem">{{imageitem.osname}}</option>
                         </select>
                         <a href="javascript:void(0);">
                         较我选择>>
@@ -148,6 +158,7 @@
                     </div>
                 </div>
             </li>
+            -->
 
             <!-- 存储 -->
             <li>
@@ -196,7 +207,7 @@
                             </span>
                             </div>
                         </div>
-                        <input type="checkbox" class="mgl10" />自动续费<span class="glyphicon glyphicon-question-sign"></span>
+                        <input type="checkbox" class="fox-cloud-checkbox mgl10" (click)="reNew();" />自动续费<span class="glyphicon glyphicon-question-sign"></span>
 
                     </div>
                 </div>
@@ -279,4 +290,4 @@
 
 </div>
 
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="okClicked()"></fc-notice>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{modalOKTitle}}" (of)="okClicked()"></fc-notice>

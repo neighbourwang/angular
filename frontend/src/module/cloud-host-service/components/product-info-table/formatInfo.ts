@@ -12,8 +12,8 @@ export class formatInfo implements PipeTransform {
     	let arr = [],
     		info:Info = new Info;
     	lists.forEach(list => info[list.attrCode] = list);
-
-		if(serviceType === 0) {   //云主机
+console.log(lists, 435345345)
+		if(serviceType == 0) {   //云主机
 			arr = [
 				{
 					attrDisplayName : "区域",
@@ -46,7 +46,7 @@ export class formatInfo implements PipeTransform {
 					attrDisplayValue : info.INSTANCENAME.attrDisplayValue
 				}
 			]
-		}else if (serviceType === 1){ //云硬盘
+		}else if (serviceType == 1){ //云硬盘
 			arr = [
 				{
 					attrDisplayName : "区域",
@@ -72,7 +72,7 @@ export class formatInfo implements PipeTransform {
 
 			]
 		}
-        
+        console.log(arr, 435345345)
         return arr;
     }
 }

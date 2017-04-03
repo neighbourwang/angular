@@ -1,34 +1,31 @@
-<div class="page-content cloud_host_list">
+<div class="page-content cloud_host_order cloud_drive_order">
     <h1 class="page-content-header">云硬盘</h1>
-
-    <div class="row mgb20">
-        <div class="col-md-2">区域列表</div>
-        <div class="col-md-10">
-            <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
-                <div class="regionName">{{region.LocalName}}</div>
-                <!--
-                <div class="regionArea">                    
-                    <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
-                    
-                    <span class="caret"></span>
-                    <select [(ngModel)]="region.selectedArea">
-                        <option *ngFor="let item of region.areas" [ngValue]="item">
-                            {{item.LocalName}}
-                        </option>
-                    </select>
-                </div>
-                -->
+    <ul class="page-box" style="margin: 20px 0px;">
+        <li>
+            <div class="col-md-1 li-title" style="background: #f7f7f7; border-right: 1px solid #ddd; height: 100%">
+                <p>区域列表</p>
             </div>
-        </div>
-    </div>
+            <div class="col-md-12 li-content" style="padding: 20px 0px 20px !important;">
+                <div class="col-md-12">
+                    <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
+                        <div class="regionName">{{region.LocalName}}</div>
+
+                    </div>
+                </div>
+            </div>
+
+        </li>
+    </ul>
 
     <div class="col-md-12 no-padding mgb20">
+        <!--
         <div class="dropdown float-left mgr10">
             <select [(ngModel)]="listqueryField" class="form-control">
                 <option>云硬盘名称</option>
                 <option>其他</option>
             </select>
         </div>
+        -->
 
         <div class="input-group col-md-2 float-left mgr10">
             <input type="text" class="form-control" [(ngModel)]="phynet_create" style="display: inline" />
@@ -36,26 +33,30 @@
         </div>
 
         <div class="input-group float-left">
-            <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
+            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
         </div>
 
-        <div class="dropdown float-right  mgr5">
-            <button class="btn float-left mgr5 btn-success" (click)="goToDiskOrder();"><i class="glyphicon glyphicon-plus"></i>创建云硬盘</button>
+        <div class="dropdown float-right ">
+            <button class="btn float-left btn-success" (click)="goToDiskOrder();"><i class="glyphicon glyphicon-plus"></i>创建云硬盘</button>
+
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 更多操作
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <!--
                 <li><a href="javascript:" (click)="attachDisk();">挂载</a></li>
                 <li><a href="javascript:" (click)="detachDisk();">卸载</a></li>
+                -->
                 <li><a href="javascript:" (click)="deleteDisk();">删除</a></li>
             </ul>
+
         </div>
     </div>
 
     <table class="table table-hover">
         <tr>
-            <th class="text-center">选择</th>
+            <th class="text-center">编号</th>
             <th class="text-center">实例ID/名称</th>
             <th class="text-center">云硬盘种类</th>
             <th class="text-center">状态</th>
@@ -63,17 +64,36 @@
             <th class="text-center">可卸载</th>
             <th class="text-center">可用区</th>
             <th class="text-center">属性</th>
+            <th class="text-center">操作</th>
         </tr>
         <tr style="line-height: 65px;" *ngFor="let disk of disks; let i=index;">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list"></td>
-            <td class="text-center active" style="position: relative;width: 220px;">
-                {{disk.DiskId}}
-                <!--<table-edit-name
-                    (nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])"
-                    [value]="vm.instanceName"
-                    (onChange)="changeName($event, vm)">
-                </table-edit-name>
+            <td class="text-center">
+                {{i+1}}
+                <!-- 
+                <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list">
                 -->
+            </td>
+            <td class="text-center active" style="position: relative;width: 260px;">
+                {{disk.DiskId}}
+                <span class="pull-right icon-edit2" (click)="disk.EnableEdit=true; onSelect(disk);" style="width: 30px; height: 30px; line-height: 30px;"></span>
+                <div *ngIf="disk.EnableEdit" class="popover fade bottom in" role="tooltip" id="popover316538" style="top:25px; left:150px; width:370px; max-width:1100px; display: block; z-index: 50;">
+                    <div class="arrow" style="left: 30%;"></div>
+                    <div class="popover-content">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">实例ID/名称:</label>
+                                <div class="col-sm-8 float-left">
+                                    <input type="text" class="form-control" [(ngModel)]="selecteddisk.DiskId" name="name">
+                                </div>
+                            </div>
+                        </form>
+                        <div class="pull-right" style="margin-bottom:10px;">
+                            <button class="btn button-gray-gradient" (click)="onSave(disk)">保存</button>
+                            <button class="btn button-gray-gradient" (click)="onCancel(); disk.EnableEdit=false;">取消</button>
+                        </div>
+                    </div>
+
+                </div>
             </td>
             <td class="text-center">{{disk.Category | dict:this.dictService.diskCategoryDict | async}}</td>
             <td class="text-center">{{disk.Status | dict:this.dictService.diskStatusDict | async}}</td>
@@ -81,6 +101,12 @@
             <td class="text-center">{{disk.Portable.toString() | dict:this.dictService.diskBoolDict | async}}</td>
             <td class="text-center">{{disk.RegionId}} {{disk.ZoneId}}</td>
             <td class="text-center">{{disk.Type | dict:this.dictService.diskTypeDict | async}}</td>
+            <td class="text-center">
+                <button (click)="selectItem(i); attachDisk();" style="display: inline;" class="btn button-gray-gradient">挂载
+                </button>
+                <button (click)="selectItem(i); detachDisk();" class="btn button-gray-gradient">释放
+                </button>
+            </td>
         </tr>
         <!--
         <tr style="line-height: 65px;" >

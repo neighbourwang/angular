@@ -356,8 +356,19 @@
 		</div>
 	</div>
 </div>
-
 <div *ngIf="Tabels[3].active">
+	<platform-edit [type]="productType" [servicePlatformList]="servicePlatformList" [productPlatformList]="product.productPlatformReqs" (complete)="editPlatform($event)"></platform-edit>
+	<div class="text-center">
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
+    </button>
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="ccEditPlatform()" style="margin-left:40px;">
+        <span class="icon-button-label">{{'HOST_VMWARE_MNG.EDIT' | translate}}</span>
+    </button>
+	</div>
+	
+</div>
+<div *ngIf="Tabels[4].active">
 	<div class="page-content fix-page-content">
 		<div class="row" style="padding-top: 30px;">
 			<div class="col-md-1"></div>
@@ -460,6 +471,6 @@
 
 
 
-<!--<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>-->
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>
 
 <!--<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="cof()" ct="HOST_OPENSTACK_MNG.CANCEL"></fc-confirm>-->

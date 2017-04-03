@@ -16,6 +16,7 @@ import { TotalPrice } from '../../shoping-cart/model/cart-total-price.model';
 export class orderCompleteComponent implements OnInit {
 
 	totalPrice : TotalPrice = new TotalPrice();
+	itemsPrice : TotalPrice[] = [];
 
 	@Input("orderId") orderId:string = "";
 	@Input("orderList") orderList : any[];     //orderList和orderId 设置一个

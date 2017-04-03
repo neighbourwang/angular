@@ -11,7 +11,7 @@ import { CreateProdStepService } from '../service/createProdStep.service';
 
 //model
 import { Product } from '../model/product.model';
-import { ProductDir, vmPlatform, diskPlatform } from '../model/prodDir.model';
+import { ProductDir, Platform } from '../model/prodDir.model';
 
 @Component({
     templateUrl: '../template/prod-mng-cre-step-03.component.html',
@@ -33,8 +33,8 @@ export class ProdMngCreStep3Component implements OnInit {
     prodDirType: string;
     selectAllZone: boolean = true;
     selectAllStorage: boolean = true;
-    tempVmProdDirPlatformList: Array<vmPlatform>;
-    tempDiskProdDirPlatformList: Array<diskPlatform>;
+    tempVmProdDirPlatformList: Array<Platform>;
+    tempDiskProdDirPlatformList: Array<Platform>;
     //判断平台是否发生改变，进而是否请求过滤企业；
     isPlatformChange:boolean;
     ngOnInit() {

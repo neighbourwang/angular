@@ -6,7 +6,6 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LayoutService, ValidationService, NoticeComponent, CountBarComponent } from '../../../../architecture';
 import { Validation, ValidationRegs } from '../../../../architecture';
-
 //service
 import { ProdDirDetailService } from '../service/prod-dir-detail.service';
 import { CreateProdDirService } from '../service/prod-dir-new.service';

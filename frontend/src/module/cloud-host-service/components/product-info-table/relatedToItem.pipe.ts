@@ -9,9 +9,9 @@ export class releatedToItem implements PipeTransform {
 
     transform(lists: RelatedList[]): Array<any> {
     	return lists.map(related => {
-    		related["billingInfo"] = related.productBillingItem;
-    		related["serviceType"] = related.type;
-    		related["departmentName"] = related.department;
+    		related["billingInfo"] = related["billingInfo"] || related.productBillingItem;
+    		related["departmentName"] = related["departmentName"] || related.department;
+    		related["serviceType"] = related["serviceType"] || related.productType;
 
     		return related;
     	});
