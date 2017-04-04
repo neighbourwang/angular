@@ -11,7 +11,9 @@ import { Validation, ValidationRegs } from '../../../../architecture';
 
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
-import { orderVmPageModel, imageModel, imageItemModel, VSwitchModel, VPCModel, QuantityModel, InstanceTypeModel, InstanceTypeFamilyModel } from "../model/cloud-vm.model";
+import { orderVmPageModel, imageModel, imageItemModel, VSwitchModel, VPCModel, QuantityModel, 
+    InstanceTypeModel, InstanceTypeFamilyModel, 
+    instanceFamilyTreeGenerationModel, instanceFamilyTreeIdModel, instanceFamilyTreeTypeIdModel } from "../model/cloud-vm.model";
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
@@ -51,6 +53,12 @@ export class AliCloudVmOrderComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
+    confirmTitle = "";
+    confirmMsg = "";
+
+    confirmOKTitle = "确认";
+    confirmCancelTitle = "取消";
+
     pageIndex = 1;
     pageSize = 10;
     totalPage = 1;
@@ -70,7 +78,12 @@ export class AliCloudVmOrderComponent implements OnInit {
     //实例族
     instancetypelist: Array<InstanceTypeModel> = [];
     instancetypefamilylist: Array<InstanceTypeFamilyModel> = [];
-    
+
+    //实例tree
+    instancegenerations: Array<instanceFamilyTreeGenerationModel> = [];
+    instancetypefamilies: Array<instanceFamilyTreeIdModel> = [];
+    instancetypes: Array<instanceFamilyTreeTypeIdModel> = [];
+
     //网络
     vpclist: Array<VPCModel> = [];
     vswitchlist: Array<VSwitchModel> = [];
@@ -185,10 +198,11 @@ export class AliCloudVmOrderComponent implements OnInit {
             }
             console.log(this.selectedOrderVmPage, "this.selectedOrderVmPage!");
         }
-        //this.getImages(region);
+        this.getImages(region);
         this.getInstanceTypeFamily(region);
         this.getInstanceType(region);
         this.getVPCs(region);
+        this.getInstanceFamilyTree(region);
     }
 
     //根据regionId获取可用区列表
@@ -361,6 +375,42 @@ export class AliCloudVmOrderComponent implements OnInit {
 
     }
 
+    getInstanceFamilyTree(region: RegionModel) {
+        this.layoutService.show();
+        this.service.getInstanceFamilyTree(region.RegionId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    /*
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }                    
+                    this.instancetypelist = result.InstanceTypes.InstanceType;
+                    console.log(this.instancetypelist, "this.instancetypelist!");
+                    */
+                    this.instancegenerations = response.resultContent;
+                    console.log(this.instancegenerations, "this.instancegenerations!");
+                    {
+                    this.selectedOrderVmPage.selectedGeneration = this.instancegenerations[0].generation;
+                    this.instancetypefamilies = this.instancegenerations[0].instancefamilyid;
+                    this.instancetypes = this.instancetypefamilies[0].instanceTypeIDModelList;
+                    this.selectedOrderVmPage.selectedInstanceFamily = this.instancetypefamilies[0].instancefamilyid;
+                    this.selectedOrderVmPage.selectedInstanceType = this.instancetypes[0].InstanceTypeId;
+                    }
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            }); 
+    }
+
     getVPCs(region: RegionModel) {
         this.layoutService.show();
         this.service.getVPCs(region.RegionId)
@@ -480,6 +530,7 @@ export class AliCloudVmOrderComponent implements OnInit {
     }
 
     buyNow() {
+        console.log(this.selectedOrderVmPage, "selectedOrderVmPage Finally!!!");
         this.layoutService.show();
         this.service.createInstanceOrder(this.selectedOrderVmPage)
             .then(
@@ -495,7 +546,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                         console.log(ex);
                     };
                     //console.log(result.DiskId, "result.DiskId was ordered!");
-                    this.showAlert("云主机订购成功！", () => {
+                    this.confirmAlert("云主机订购成功！", () => {
                         this.router.navigate([`ali-cloud-service/cloud-vm/cloud-vm-list`]);
                         }
                     );
@@ -525,6 +576,20 @@ export class AliCloudVmOrderComponent implements OnInit {
         this.notice.nof = of;
     }
 
+    confirmAlert(msg: string, of?:any): void {
+        console.log(msg, "showAlert");
+        this.layoutService.hide();
+        this.confirmTitle = "COMMON.PROMPT";
+        this.confirmMsg = msg;
+        this.confirm.open();
+        this.confirm.ccf = of;
+        this.confirm.cof = () => {
+            this.confirmOKTitle = "确认";
+            this.confirmCancelTitle = "取消";
+         };
+        this.confirmOKTitle = "返回到主机列表页";
+        this.confirmCancelTitle = "留在主机定购页";
+    }
     
     showMsg(msg: string) {
         console.log(msg, "showMsg");
@@ -561,6 +626,7 @@ export class AliCloudVmOrderComponent implements OnInit {
 			numberRange: [this.numberRange, [this.v.range(10, 80)], "数字范围不对"],
   			//数字范围10-80
               */
+            numberRange: [this.selectedOrderVmPage.diskCount, [this.v.range(40, 500)], "数字范围不对，必须40~500G"],
             
 		}
 

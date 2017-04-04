@@ -11,8 +11,8 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
-                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="0"}' (click)='selectedOrderVmPage.selectedChargeType="0";' style="display: inline">包年包月<sup style="width: 20px; height: 20px; color: orange;">惠</sup></button>
-                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="1"}' (click)='selectedOrderVmPage.selectedChargeType="1";' style="display: inline">按量付费</button>
+                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PrePaid"}' (click)='selectedOrderVmPage.selectedChargeType="PrePaid";' style="display: inline">包年包月<sup style="width: 20px; height: 20px; color: orange;">惠</sup></button>
+                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PostPaid"}' (click)='selectedOrderVmPage.selectedChargeType="PostPaid";' style="display: inline">按量付费</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                 </div>
@@ -81,33 +81,54 @@
             </li>
 
             <!-- 实例 -->
-            <li class="li_line_backgroud">
+            <li>
                 <div class="col-md-1 li-title">
                     <p><span></span>实例：</p>
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 mgb20">
+                        <div *ngFor="let gene of instancegenerations;" style="display: inline">
+                            <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedGeneration==gene.generation}' (click)="selectedOrderVmPage.selectedGeneration=gene.generation;
+                                     instancetypefamilies=gene.instancefamilyid;
+                                     instancetypes=instancetypefamilies[0].instanceTypeIDModelList;
+                                     selectedOrderVmPage.selectedInstanceFamily=instancetypefamilies[0].instancefamilyid;
+                                     selectedOrderVmPage.selectedInstanceType=instancetypes[0].InstanceTypeId;" style="display: inline">{{gene.generation}}</button>
+                            <!-- 
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;" style="display: inline">系列 I</button>
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">系列 II</button>
-                        <span class="glyphicon glyphicon-question-sign"></span>
-                        <span class="mgl20">I/O实例优化</span>
-                        <span class="glyphicon glyphicon-question-sign"></span>
-                        <div class="text-tip">系列之间不能互相升降配</div>
-                        <div>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">系列 II</button> -->
                         </div>
+                    </div>
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <span class="mgl20">I/O实例优化</span>
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <div class="text-tip">系列之间不能互相升降配</div>
+
+                    <div class="col-md-12 mgb20">
+                        <div *ngFor="let family of instancetypefamilies;" style="display: inline">
+                            <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceFamily==family.instancefamilyid}' (click)="selectedOrderVmPage.selectedInstanceFamily=family.instancefamilyid;
+                                     instancetypes=family.instanceTypeIDModelList;
+                                     selectedOrderVmPage.selectedInstanceType=instancetypes[0].InstanceTypeId;" style="display: inline">{{family.instancefamilyid}}</button>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-12 mgb20">
+                        <div *ngFor="let type of instancetypes;" style="display: inline">
+                            <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceType==type.InstanceTypeId}' (click)="selectedOrderVmPage.selectedInstanceType=type.InstanceTypeId;" style="display: inline">{{type.InstanceTypeId}}</button>
+                        </div>
+
                     </div>
                 </div>
             </li>
 
             <!-- 带宽 -->
-            <li class="li_line_backgroud">
+            <li>
                 <div class="col-md-1 li-title">
                     <p><span></span>带宽：</p>
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">按固定带宽</button>
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">按使用流量</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByBandwidth"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByBandwidth';">按固定带宽</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByTraffic"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByTraffic';">按使用流量</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                     <div class="col-md-12">
@@ -131,7 +152,7 @@
             </li>
 
             <!-- 镜像 -->
-            <!--
+
             <li>
                 <div class="col-md-1 li-title">
                     <p><span class="icon-amount"></span>镜像：</p>
@@ -158,7 +179,6 @@
                     </div>
                 </div>
             </li>
-            -->
 
             <!-- 存储 -->
             <li>
@@ -168,11 +188,13 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 mgb20 form-group">
                         <span>系统盘：</span>
-                        <select class="form-control select_style" [(ngModel)]="selectedOrderVmPage.selectedDisk" (change)="DiskChanged();">
+                        <select class="form-control select_style" [(ngModel)]="selectedOrderVmPage.selectedDisk" (change)="DiskChanged();" style="display: inline;">
 							<option value="">请选择云盘</option>
                             <option *ngFor="let disktype of selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories" [value]="disktype">{{displayDiskType(disktype)}}</option>
 						</select>
-                        <input class="form-control input_style" [(ngModel)]="selectedOrderVmPage.diskCount" (change)="calculatePrice();" />G 1240 IOPS 系统盘设备名：/dev/xvda
+                        <div class="form-group has-feedback" [ngClass]="{'has-error':v.result.numberRange}">
+                            <input class="form-control input_style" [(ngModel)]="selectedOrderVmPage.diskCount" (ngModelChange)="checkForm('numberRange');" />G 1240 IOPS 系统盘设备名：/dev/xvda
+                        </div>
                         <br />
                         <span class="text-tip">如何选择SSD云盘/ 高效云盘/ 普通云盘，请看 <a href="javascript: void(0);">详细说明</a></span>
                     </div>
@@ -289,5 +311,5 @@
 
 
 </div>
-
+<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{confirmCancelTitle}}" ct="{{confirmOKTitle}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{modalOKTitle}}" (of)="okClicked()"></fc-notice>
