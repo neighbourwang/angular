@@ -114,16 +114,22 @@
             <div class="row row-line-height">
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">维保起始日期:</div>
-                    <div class="col-md-4" *ngIf="physical.mainStartDate">
+                    <div class="col-md-4" *ngIf="physical.mainStartDate && eidtMode !='create'">
                        <date-picker  [options]="myDatePickerOptions"  [initDate]= "physical.mainStartDate" (dateChanged)="startTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
+                    </div>
+                    <div class="col-md-4" *ngIf="eidtMode =='create'">
+                       <date-picker  [options]="myDatePickerOptions"  (dateChanged)="startTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">   <!--[disabled]="eidtMode =='view'||editMode=='editParts'" 日期组件没有diasbled属性-->
                     <div class="col-sm-4 form-control-title">维保结束日期:</div>
-                    <div class="col-md-4" *ngIf="physical.mainEndDate">
+                    <div class="col-md-4" *ngIf="physical.mainEndDate && eidtMode !='create'">
                        <date-picker  [options]="myDatePickerOptions" [initDate]= "physical.mainEndDate" (dateChanged)="endTimeChange($event)" [disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
+                    </div>
+                     <div class="col-md-4" *ngIf="eidtMode =='create'">
+                       <date-picker  [options]="myDatePickerOptions"  (dateChanged)="endTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
                     </div>
                 </div>
             </div>
