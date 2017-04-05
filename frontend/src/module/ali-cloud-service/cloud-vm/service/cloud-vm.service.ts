@@ -75,8 +75,12 @@ export class AliCloudVmService {
             }
         ];
         const body = {
+             "accessinfo": {
             "accessId": this.keysecret.accessId,
             "accessSecret": this.keysecret.accessSecret
+             },
+             "pageNumber": 1,
+             "pageSize": 100
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.image.get");
@@ -109,11 +113,27 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, null, null, body);
     }
 
-    getVPCs() : Promise<any> {
+    getInstanceFamilyTree(regionid: string): Promise<any> {
         const pathParams = [
             {
                 key: "regionid",
-                value: ""   //////////////?????????????
+                value: regionid
+            }
+        ];
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.family.tree.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    getVPCs(regionid: string) : Promise<any> {
+        const pathParams = [
+            {
+                key: "regionid",
+                value: regionid
             }
         ];
         const body = {
@@ -121,39 +141,97 @@ export class AliCloudVmService {
                 "accessId": this.keysecret.accessId,
                 "accessSecret": this.keysecret.accessSecret
             },
-            "isDefault": "",
-            "pageNumber": "",
-            "pageSize": "",
+            //"isDefault": "",
+            "pageNumber": "1",
+            "pageSize": "50",
             "vpcId": ""
             }
         console.log(body, "body");
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.vpc.get");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.vpc.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
-
-/*
-    calculatePrice(selectedRegion: RegionModel): Promise<any> {
-        const body = [
+    getVSwitches(vpcid: string) : Promise<any> {
+        const pathParams = [
             {
-                "orderType": "disk-buy",
-                "regionId": selectedRegion.RegionId,
-                "commodity": {
-                    "zoneId": selectedRegion.selectedArea.ZoneId,
-                    "dataDisk": {
-                        "category": selectedRegion.selectedDisk,
-                        "size": selectedRegion.diskCount,
-                        "snapshotId": null
-                    },
-                    "amount": selectedRegion.count
-                }
+                key: "vpcid",
+                value: vpcid
             }
-        ]
+        ];
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.vswitch.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    calculatePrice(selectedOrderVmPage: orderVmPageModel): Promise<any> {
+        let body;
+        if (selectedOrderVmPage.selectedChargeType == "PostPaid") { //按量计费，多传一个traffic-bandwidth
+            body = [
+                {
+                    "orderType": "traffic-bandwidth",
+                    "regionId": selectedOrderVmPage.RegionId
+                },
+                {
+                    "orderType": "instance-buy",
+                    "regionId": selectedOrderVmPage.RegionId,
+                    "commodity": {
+                        "amount": 1,
+                        "autoRenew": selectedOrderVmPage.renew,
+
+                        "instanceType": selectedOrderVmPage.selectedChargeType,
+                        "internetChargeType": selectedOrderVmPage.selectedInternetChargeType,
+                        "internetMaxBandwidthOut": selectedOrderVmPage.selectedInternetMaxBandwidthOut,
+                        "ioOptimized": selectedOrderVmPage.ioOptimized,
+                        "maxAmount": 1,
+                        "networkType": selectedOrderVmPage.selectedInternetChargeType,
+                        "period": selectedOrderVmPage.period,
+                        "periodType": selectedOrderVmPage.periodType,
+                        "priceUnit": selectedOrderVmPage.priceUnit,
+                        "securityGroupId": null,
+                        "systemDisk": {
+                            "category": selectedOrderVmPage.selectedDisk,
+                            "size": selectedOrderVmPage.diskCount
+                        },
+                        "zoneId": selectedOrderVmPage.selectedArea.ZoneId
+                    },
+                }
+            ];
+        } else if (selectedOrderVmPage.selectedChargeType == "PrePaid") { //包年包月，只传一个instance-buy
+            body = [
+                {
+                    "orderType": "disk-buy",
+                    "regionId": selectedOrderVmPage.RegionId,
+                    "commodity": {
+                        "amount": 1,
+                        "autoRenew": selectedOrderVmPage.renew,
+
+                        "instanceType": selectedOrderVmPage.selectedChargeType,
+                        "internetChargeType": selectedOrderVmPage.selectedInternetChargeType,
+                        "internetMaxBandwidthOut": selectedOrderVmPage.selectedInternetMaxBandwidthOut,
+                        "ioOptimized": selectedOrderVmPage.ioOptimized,
+                        "maxAmount": 1,
+                        "networkType": selectedOrderVmPage.selectedInternetChargeType,
+                        "period": selectedOrderVmPage.period,
+                        "periodType": selectedOrderVmPage.periodType,
+                        "priceUnit": selectedOrderVmPage.priceUnit,
+                        "securityGroupId": null,
+                        "systemDisk": {
+                            "category": selectedOrderVmPage.selectedDisk,
+                            "size": selectedOrderVmPage.diskCount
+                        },
+                        "zoneId": selectedOrderVmPage.selectedArea.ZoneId
+                    },
+                }
+            ];            
+        }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.price.get");
         return this.restApi.request(api.method, api.url, null, null, body);
     }
-    */
 
     createInstanceOrder(orderVmPage: orderVmPageModel): Promise<any> {
         const pathParams = [
@@ -167,8 +245,57 @@ export class AliCloudVmService {
                 "accessId": this.keysecret.accessId,
                 "accessSecret": this.keysecret.accessSecret
             },
-            "instanceType": "ecs.n1.tiny",
-            "imageId": orderVmPage.selectedImage,// orderVmPage.imageId
+            "instanceType": orderVmPage.selectedInstanceType,
+            "imageId": orderVmPage.selectedImage,
+            
+  //"autoRenew": "",
+  //"autoRenewPeriod": "",
+  //"clientToken": "",
+  "dataDisk1Category": "",
+  "dataDisk1Description": "",
+  "dataDisk1Device": "",
+  "dataDisk1DiskName": "",
+  "dataDisk1Size": "",
+  "dataDisk1SnapshotId": "",
+  "dataDisk2Category": "",
+  "dataDisk2Description": "",
+  "dataDisk2Device": "",
+  "dataDisk2DiskName": "",
+  "dataDisk2Size": "",
+  "dataDisk2SnapshotId": "",
+  "dataDisk3Category": "",
+  "dataDisk3Description": "",
+  "dataDisk3Device": "",
+  "dataDisk3DiskName": "",
+  "dataDisk3Size": "",
+  "dataDisk3SnapshotId": "",
+  "dataDisk4Category": "",
+  "dataDisk4Description": "",
+  "dataDisk4Device": "",
+  "dataDisk4DiskName": "",
+  "dataDisk4Size": "",
+  "dataDisk4SnapshotId": "",
+  "description": "",
+  "hostName": "",
+  "instanceChargeType": orderVmPage.selectedChargeType,
+  "instanceName": orderVmPage.InstanceName,
+  "internetChargeType": orderVmPage.selectedInternetChargeType,
+  "internetMaxBandwidthIn": orderVmPage.selectedInternetMaxBandwidthIn,
+  "internetMaxBandwidthOut": orderVmPage.selectedInternetMaxBandwidthOut,
+  "ioOptimized": "",
+  "nodeControllerId": "",
+  "password": orderVmPage.Password,
+  "period": "",
+  "privateIpAddress": "",
+  "securityGroupId": "",
+  "systemDiskCategory": orderVmPage.selectedDisk,
+  "systemDiskDescription": "",
+  "systemDiskDiskName": "",
+  "systemDiskSize": orderVmPage.diskCount,
+  "userData": "",
+  "vswitchId": orderVmPage.selectedNetworkId,
+  "zoneId": orderVmPage.selectedArea.ZoneId
+
         }
         console.log(body, "order vm body")
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.create");

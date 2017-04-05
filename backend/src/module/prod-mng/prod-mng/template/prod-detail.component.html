@@ -1,14 +1,14 @@
 <!--<div class="page-content-header icon-create-product">{{'PROD_MNG.VIEW_PRODUCT' | translate}}</div>查看产品-->
 
 <div class="page-content-header icon-create-product" style="padding-bottom:10px;height:45px;">
-	{{'PROD_MNG.VIEW_PRODUCT' | translate}}
+	{{'PROD_MNG.EDIT_PRODUCT' | translate}}
 	<button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
         <span class="icon-button-label" (click)='cancel()'>{{'PROD_MNG.RETURN_PRODUCT_LIST' | translate}}</span>
     </button>
 </div>
 <div class="mgt20" style="border-bottom:1px solid #ddd;padding-bottom:5px">
 	<button type="button" class="btn btn-default grayTab noBorder" *ngFor="let item of Tabels;let idx = index" (click)="changeTab(item,idx)"
-		[ngClass]="{'btn-active': item.active}" style="margin-right:2px;">{{item.name | translate}}</button>
+	 [ngClass]="{'btn-active': item.active}" style="margin-right:2px;">{{item.name | translate}}</button>
 </div>
 <div *ngIf="Tabels[0].active">
 	<div class="page-content fix-page-content">
@@ -106,7 +106,7 @@
 						<div class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>
 						<div class="col-sm-4">
 							<textarea class="form-control font-gray" rows="4" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}" [(ngModel)]="tempProductDesc"
-								[disabled]="!editBasicInfo"></textarea>
+							 [disabled]="!editBasicInfo"></textarea>
 						</div>
 					</div>
 				</div>
@@ -199,7 +199,7 @@
 							<div class="col-sm-4 form-control-title">{{'PROD_MNG.BASIC_CYCLE_PRICE' | translate}}：</div>
 							<!--基础周期价格-->
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
-								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempBasicCyclePrice" >
+								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempBasicCyclePrice">
 							</div>
 							<!--<div class="col-sm-6">
 								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempbBasicCyclePrice||0" #basicCyclePrice
@@ -211,7 +211,7 @@
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title">{{'PROD_MNG.INCREMENT_CYCLE_PRICE' | translate}}：</div>
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
-								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempExtendCyclePrice" >
+								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempExtendCyclePrice">
 							</div>
 							<!--<div class="col-sm-6">
 								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempExtendCyclePrice||0" #extendCyclePrice
@@ -226,7 +226,7 @@
 								<!--一次性价格-->
 							</div>
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
-								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempOneTimePrice" >
+								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempOneTimePrice">
 							</div>
 							<!--<div class="col-sm-6">
 								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempOneTimePrice||0" #oneTimePrice
@@ -243,7 +243,7 @@
 								<!--一次性价格-->
 							</div>
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
-								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempOneTimePrice" >
+								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempOneTimePrice">
 							</div>
 							<!--<div class="col-sm-6">
 								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempOneTimePrice||0" #oneTimePrice
@@ -257,7 +257,7 @@
 								<!--单位价格-->
 							</div>
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
-								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempUnitPrice" >
+								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempUnitPrice">
 							</div>
 							<!--<div class="col-sm-6">
 								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempUnitPrice||0" #unitPrice (output)="outputValue($event,'tempUnitPrice')"></count-bar>
@@ -286,78 +286,69 @@
 	</div>
 </div>
 <div *ngIf="Tabels[2].active">
+	<platform-edit [type]="productType" [servicePlatformList]="servicePlatformList" [productPlatformList]="product.productPlatformReqs"
+	 (complete)="editPlatform($event)"></platform-edit>
+	<div class="text-center mgt20">
+		<button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancel();">
+        <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
+    </button>
+		<button class="fox-cloud-button-lg fox-cloud-button-white btn" [disabled]="!isAddPlat" (click)="ccEditPlatform()" style="margin-left:40px;">
+        <span class="icon-button-label">{{'PROD_MNG.ADD' | translate}}</span>
+    </button>
+	</div>
+
+</div>
+<div *ngIf="Tabels[3].active">
 	<div class="page-content fix-page-content">
-		<div class="row" style="padding-top: 30px;">
-			<div class="col-md-12">
-				<div class="row row-line-height">
-					<div class="col-sm-3"></div>
-					<div class="col-sm-6 selectEnt">
-						<div class="row row-line-height entup">
-							<div class="col-sm-5 entHeader">
-								<div class="">
-									<div class="col-sm-6">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div>
-									<!--平台名称-->
-
-									<div class="col-sm-6">{{'COMMON.AVAILABLE_ZONE' | translate}}</div>
-									<!--可用区-->
-
-								</div>
-							</div>
-							<div class="col-sm-2"></div>
-							<div class="col-sm-5 entHeader">
-								{{'NET_MNG_VM_NSX_DLR.ENTERPRISE_LIST' | translate}}
-								<!--企业列表-->
-
-							</div>
-						</div>
-						<div class="row row-line-height entdown" style="">
-							<div class="col-sm-5 entBody">
-								<div class="tabBody" *ngFor="let plateform of product.productPlatformReqs; let idx=index" style="text-align:center;">
-									<div class="col-sm-6 oneChild">
-										{{plateform.platformName}}
-									</div>
-									<div class="col-sm-6 secondChild wyLine-height">
-										<div class="row" *ngFor="let zone of plateform.zoneList">
-											<div class="col-sm-12">
-												{{zone.zoneName}}
-											</div>
-										</div>
-									</div>
-									<!--<div class="col-sm-4 thirdChild">
-							<div class="row row-line-height inputLeft" *ngFor="let zone of plateform.zoneList; let idxx=index">
-								<div class="col-sm-12">
-									<input type="checkbox" class="fox-cloud-checkbox" selected="zone.selected" 
-									checked=true disabled (click)="selectZone(idx,idxx)">
-								</div>
-							</div>
-						</div>-->
-						<div style="clear: both"></div>
-								</div>
-							</div>
-
-							<div class="col-sm-2"></div>
-							<div class="col-sm-5 entBody">
-								<div *ngFor="let ent of product.productEnterpiseReqs;let ii=index">
-									<span class="span2">{{ent.name}}</span>
-								</div>
-							</div>
-						</div>
+		<div class="row row-line-height">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6 selectEnt">
+				<div class="row row-line-height entup">
+					<div class="col-sm-5 entHeader">
+						{{'PROD_MNG.ALL_ENTERPRISE' | translate}}
+						<!--全部企业-->
 					</div>
-					<div class="col-sm-3"></div>
+					<div class="col-sm-2"></div>
+					<div class="col-sm-5 entHeader">
+						{{'PROD_MNG.SELECTED_ENTERPRISE' | translate}}
+						<!--选中的企业-->
+					</div>
 				</div>
-				<div class="row row-line-height">
-					<div class="col-sm-3"></div>
-					<div class="col-sm-6">
-
+				<div class="row row-line-height entdown">
+					<div class="col-sm-5 entBody">
+						<div style="position: relative;height:40px;" *ngFor="let ent1 of entList; let i=index">
+							<span class="span2" (click)="selectEnterprise(ent1,i)" style="width:80%">{{ent1.name}}</span>
+							<span class="icon-tick" style="margin-top:5px;left:80%" *ngIf="ent1.selected"></span>
+							<!--<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" ">-->
+							<div class="clear:both"></div>
+						</div>
+						<!--<div *ngFor="let ent1 of enterpriseList; let i=index">
+								<span class="span1">{{ent1.name}}</span>
+								<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" (click)="selectEnterprise(ent1,i)">
+							</div>-->
 					</div>
-					<div class="col-sm-3"></div>
+					<div class="col-sm-2"></div>
+					<div class="col-sm-5 entBody">
+						<div *ngFor="let ent2 of updateEntObj.productEnterpiseReqs;let ii=index">
+							<span class="span2" (click)='unSelected(ent2,ii)'>{{ent2.name}}</span>
+						</div>
+					</div>
 				</div>
 			</div>
+			<div class="col-sm-3"></div>
+		</div>
+		<div class="text-center mgt20">
+			<button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancel();">
+        <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
+    </button>
+			<button class="fox-cloud-button-lg fox-cloud-button-white btn" [disabled]="!isAddEnter" (click)="ccAddEnt()" style="margin-left:40px;">
+        <span class="icon-button-label">{{'PROD_MNG.ADD' | translate}}</span>
+    </button>
 		</div>
 	</div>
 </div>
 
-<div *ngIf="Tabels[3].active">
+<div *ngIf="Tabels[4].active">
 	<div class="page-content fix-page-content">
 		<div class="row" style="padding-top: 30px;">
 			<div class="col-md-1"></div>
@@ -404,7 +395,7 @@
 								<td>{{price.extendCyclePrice}}</td>
 								<td>{{price.oneTimePrice}}</td>
 								<!--<td>{{price.unitPrice}}</td>-->
-							<tr>	
+								<tr>
 						</tbody>
 					</table>
 					<table class="table table-hover" *ngIf="!vmProdDir">
@@ -448,7 +439,7 @@
 								<!--<td>{{price.extendCyclePrice}}</td>-->
 								<td>{{price.oneTimePrice}}</td>
 								<td>{{price.unitPrice}}</td>
-							<tr>	
+								<tr>
 						</tbody>
 					</table>
 				</div>
@@ -460,6 +451,6 @@
 
 
 
-<!--<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>-->
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>
 
 <!--<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="cof()" ct="HOST_OPENSTACK_MNG.CANCEL"></fc-confirm>-->

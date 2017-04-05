@@ -6,7 +6,6 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LayoutService, ValidationService, NoticeComponent, CountBarComponent } from '../../../../architecture';
 import { Validation, ValidationRegs } from '../../../../architecture';
-
 //service
 import { ProdDirDetailService } from '../service/prod-dir-detail.service';
 import { CreateProdDirService } from '../service/prod-dir-new.service';
@@ -114,11 +113,14 @@ export class ProdDirCreComponent implements OnInit {
                     for(let platform of this._platformlist){
                         for(let zone of platform.zoneList){
                             if(zone.selected==true){
+                                zone.disable=true;
                                 platform.selected=true;
-                                break;
-                            }else{
-                                platform.selected=false;
+                                // break;
                             }
+                            if(!zone.storageId){
+                                zone.storageName='未设置启动盘';
+                                zone.disable=true;
+                            }                            
                         }
                     }
                 } else {

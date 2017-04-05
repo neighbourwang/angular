@@ -13,7 +13,7 @@
 //  });
 
 const isTest = window.localStorage["environment"] === "test" ;
-const baseIp = isTest ? "15.114.102.32" : "15.114.100.31";
+const baseIp = isTest ? "15.114.102.62" : "15.114.100.31";
 const basePort = isTest ? "31072" : "30072";
  
 export const environment = {

@@ -370,6 +370,7 @@ export class OrderMngComponent implements OnInit{
 		this._orderLoader.TotalPages = 1;//清空页码
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
+			// alert(this._orderLoader.FirstItem.itemList[0].price);
 			this.layoutService.hide();
 
 			//翻译状态
