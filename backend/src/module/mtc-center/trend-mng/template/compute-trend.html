@@ -175,12 +175,36 @@
         </table>
     </div>
     
-    <div class="panel panel-default" style="margin-top:15px;">
-        <div class="panel-heading">
-            <h3 class="panel-title">可用区1</h3><!--CPU使用率-->
+    <div *ngIf="showType==1">
+        <div *ngFor="let zone of cpuData.zone let i=index" class="panel panel-default" style="margin-top:15px;">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{zone.name}}</h3><!--CPU使用率-->
+            </div>
+            <div class="panel-body">
+                <div style="height:400px" id="{{'cpuchart'+i}}"></div>
+            </div>
         </div>
-        <div class="panel-body">
-            <div style="height:400px" id="mychart"></div>
+    </div>
+
+    <div *ngIf="showType==2">
+        <div *ngFor="let zone of vmData.zone let i=index" class="panel panel-default" style="margin-top:15px;">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{zone.name}}</h3><!--CPU使用率-->
+            </div>
+            <div class="panel-body">
+                <div style="height:400px" id="{{'vmchart'+i}}"></div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showType==3">
+        <div *ngFor="let zone of memData.zone let i=index" class="panel panel-default" style="margin-top:15px;">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{zone.name}}</h3><!--CPU使用率-->
+            </div>
+            <div class="panel-body">
+                <div style="height:400px" id="{{'memchart'+i}}"></div>
+            </div>
         </div>
     </div>
 
