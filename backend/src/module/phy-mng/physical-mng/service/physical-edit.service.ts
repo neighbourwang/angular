@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import { RestApiCfg, RestApi ,SystemDictionaryService} from "../../../../architecture";
 
- import { PhysicalModel } from "../model/physical.model";
+ import { PhysicalModel ,PartsEntitys} from "../model/physical.model";
 // import { IpmiInfo } from "../model/physical-ipmi.model"
  import { serverTypeListAndbrandList_mock, physicalMachine_mock,PortsList_mock,PortList_mock } from "../model/mock";
 import "rxjs/add/operator/toPromise";
@@ -138,7 +138,7 @@ export class PhysicalEditService {
     }
   
 //   //编辑物理机部件
-   editPhysicalParts(physical:PhysicalModel,id:string):Promise<any>{
+   editPhysicalParts(partsEntitys:Array<PartsEntitys>,id:string):Promise<any>{
         const pathParams = [
             {
                 key: "pm_id",
@@ -147,17 +147,8 @@ export class PhysicalEditService {
 
         ];
         const api = this.restApiCfg.getRestApi("physical-mng.physical.partList.edit");
-    //     return this.restApi.request(api.method, api.url, pathParams, null,  
-    //      {
-    //         "id": "string",
-    //         "number": 0,
-    //         "partsId": "string",
-    //         "partsName": "string",
-    //         "specId": "string",
-    //         "specName": "string",
-    //         "specValue": "string"
-    //     } );
-     return new Promise(resovle => setTimeout(resovle, 200)).then(() => PortsList_mock);
+        return this.restApi.request(api.method, api.url, pathParams, null,partsEntitys);
+     //return new Promise(resovle => setTimeout(resovle, 200)).then(() => PortsList_mock);
     }
   
 

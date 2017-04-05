@@ -7,7 +7,7 @@ import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class AliMajorMngService {
+export class AliCloudSubAccountMngService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,

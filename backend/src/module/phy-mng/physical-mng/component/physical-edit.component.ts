@@ -179,7 +179,7 @@ export class PhysicalEditComponent implements OnInit {
     //编辑物理机部件
     editPhysicalPart(){  
         this.layoutService.show();
-        this.service.editPhysicalParts(this.physical,this.physical.pmId)
+        this.service.editPhysicalParts(this.physical.partsEntitys,this.physical.pmId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -323,6 +323,7 @@ export class PhysicalEditComponent implements OnInit {
                 if (this.physical.partsEntitys[i].isSelect) {
                     this.partsEntity.partsName=this.selectedPart.partsName;
                      this.partsEntity.specName=this.selectedSpace.specName;
+                     this.partsEntity.specId=this.selectedSpace.specId;
                     this.physical.partsEntitys[i]=this.partsEntity;
                 }
              }  
@@ -332,7 +333,7 @@ export class PhysicalEditComponent implements OnInit {
             this.partsEntity.partsName=this.selectedPart.partsName;
             this.partsEntity.specName=this.selectedSpace.specName;
             this.partsEntity.partsId=this.selectedPart.partsId;
-
+            this.partsEntity.specId=this.selectedSpace.specId;
             this.physical.partsEntitys.push(this.partsEntity);
             this.addParts.close();
         }
@@ -349,11 +350,11 @@ export class PhysicalEditComponent implements OnInit {
             return;
         }
         this.selectedPart = this.parts.find((part) => { return  part.partsName== partSelect.partsName });
-        
+        this.selectedSpace = this.selectedPart.specList.find((e)=>{return e.specId==partSelect.specId}) ;
+        this.partsEntity.specName=partSelect.specName; 
         let editPart= new PartsEntitys();
             editPart= partSelect;
-            this.partsEntity= editPart; 
-            this.partsEntity.specName=partSelect.specName;                 
+            this.partsEntity= editPart;                            
             this.addParts.open("编辑部件");
     }
 

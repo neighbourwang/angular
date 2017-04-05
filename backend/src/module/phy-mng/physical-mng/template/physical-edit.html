@@ -358,7 +358,7 @@
     <button *ngIf="eidtMode =='create'" class="fox-cloud-button-lg fox-cloud-button-white" (click)="createPhysical();">
         <span class="icon-button-label">{{'PHYSICAL_MNG.SAVE'|translate}}</span>
     </button>  
-    <button *ngIf="eidtMode =='editParts'" class="fox-cloud-button-lg fox-cloud-button-white mgr20" >
+    <button *ngIf="eidtMode =='editParts'" class="fox-cloud-button-lg fox-cloud-button-white mgr20"  (click)="editPhysicalPart();">
         <span class="icon-button-label">{{'PHYSICAL_MNG.SAVE'|translate}}</span>
     </button>
 </div>
