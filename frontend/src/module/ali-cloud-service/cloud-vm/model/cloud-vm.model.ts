@@ -7,7 +7,7 @@ export class orderVmPageModel {
     selected: boolean = false;
     areas: Array<AreaModel> = [];
     selectedArea: AreaModel = new AreaModel();
-    selectedChargeType: string = "";//收费方式
+    selectedChargeType: string = "PostPaid";//收费方式
     selectedImage: string = "";　//启动ｖｍ时用的imageId,可能还需要镜像类型
     selectedQuantity: number = 0; //购买量月份
     renew: string = "0";  //"0"表示不自动续费，"1"表示自动续费
@@ -15,8 +15,17 @@ export class orderVmPageModel {
     selectedNetworkType: string = "0"; //'0' 表示经典网络，'1'表示专有网络
     selectedNetworkId: string = "";
 
+    selectedInternetChargeType: string = ""; //网络收费方式
+
     selectedDisk: string = "";//云硬盘类型
-    diskCount: string = "";//云硬盘G数
+    diskCount: number = 0;//云硬盘G数
+
+    selectedGeneration: string = ""; //实例族
+    selectedInstanceFamily: string = "";
+    selectedInstanceType: string = "";
+
+    selectedInternetMaxBandwidthIn = 100;
+    selectedInternetMaxBandwidthOut = 50;
 
     Password: string = "";
     passwordCheck: string = "";
@@ -202,6 +211,32 @@ export class VpcAttributesModel {
     PrivateIpAddress: IpAddressModel = new IpAddressModel();
     VSwitchId: string  = "";
     VpcId: string  = "";
+}
+//<<<
+
+//>>> FamilyTree
+export class instanceFamilyTreeTypeIdModel {
+    LocalStorageAmount:number = 0;
+    LocalStorageCapacity:number = 0;
+    instanceShowName: string = "";
+    CpuCoreCount:string = "";
+    InstanceTypeFamily:string = "";
+    InstanceTypeId:string = "";
+    GPUSpec:string = "";
+    MemorySize:string = "";
+    GPUAmount:string = "";
+}
+
+export class instanceFamilyTreeIdModel {
+    instancefamilyid: string = "";
+    instancefamilyShowName: string = "";
+    instanceTypeIDModelList: Array<instanceFamilyTreeTypeIdModel> = [];
+}
+
+export class instanceFamilyTreeGenerationModel {
+    generation: string = "";
+    generationShowName: string = "";
+    instancefamilyid: Array<instanceFamilyTreeIdModel> = [];
 }
 //<<<
 

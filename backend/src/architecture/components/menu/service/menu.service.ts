@@ -112,7 +112,7 @@ export class MenuService {
 						 	"label": "容量管理",
 						 	"isOpen": false,
 						 	"isActive": false,
-						 	"isShow": !isRoot,							
+						 	"isShow": !isRoot,
 						 	"routing": "mtc-center/capacity-mng/capacity-mng"
 						 }, {
 						 	"label": "超分管理",
@@ -293,7 +293,7 @@ export class MenuService {
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
-							"routing": "ali-cloud/ali-cloud-mainAccount-list"
+							"routing": "ali-cloud/ali-cloud-major/ali-major-mng"
 						}
 					]
 				},
