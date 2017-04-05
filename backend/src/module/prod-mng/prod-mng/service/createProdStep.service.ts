@@ -22,6 +22,7 @@ export class CreateProdStepService{
 
     product:Product=new Product();;
     productDir:ProductDir=new ProductDir();
+    comparePlatIdList =new Array();//对比平台列表是否发生改变;
 
     // 取得VM产品目录详情
     getVmProdDirDetail(id:string) {

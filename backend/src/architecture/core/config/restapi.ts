@@ -1143,6 +1143,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminui/authsec/enterprises/product/update/platform"
     },
+    {
+        "desc": "编辑产品企业信息",
+        "id": "prod-mng.prod-mng.editEnterprise",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/product/update/enterprise"
+    },
     
     //用户中心
     {
