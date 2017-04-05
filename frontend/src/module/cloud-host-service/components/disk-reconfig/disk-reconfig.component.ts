@@ -32,7 +32,8 @@ export class DiskReconfigComponent implements OnInit {
 
 	constructor(
 		private layoutService: LayoutService,
-		private service : HostReconfigService
+		private service : HostReconfigService,
+		private router: Router
 	) { }
 
 	ngOnInit() {

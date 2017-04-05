@@ -1,28 +1,18 @@
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 
-// Common Componets
-import { CommonComponentModule } from '../../architecture';
-import { PipeModule } from '../../architecture';
-
-// Routing
-import { AliCloudRouting } from './ali-cloud.routing';
-
-//component
-import { AliCloudMianAccountList } from './component/ali-cloud-mainAccount-list.component';
-
+import { AliCloudMainAccountModule } from './ali-cloud-mainAccount/ali-cloud-mainAccount.module';
+import { AliCloudSubAccountModule } from './ali-cloud-subAccount/ali-cloud-subAccount.module';
 @NgModule({
     imports: [
-        CommonComponentModule,
-        PipeModule,
-        AliCloudRouting
+        AliCloudMainAccountModule,
+        AliCloudSubAccountModule
     ],
-    declarations: [
-       AliCloudMianAccountList,
-    
-        
+    declarations: [],
+    exports: [
+        AliCloudMainAccountModule,
+        AliCloudSubAccountModule
     ],
-    exports: [],
     providers: []
-
 })
-export class AliCloudModule { }
+
+export class AliCloudModule{ }

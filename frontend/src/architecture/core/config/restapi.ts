@@ -874,11 +874,23 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/describeinstancetypes"
     },
+    { //获取阿里云实例类型联动数据
+        "desc": "Get alicloud instance tree families",
+        "id": "al-cloud.cloud-vm.instance.family.tree.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/getfamilytree/regionid/{regionid}"
+    },
     { //获取阿里云VPC
         "desc": "Get VPC network list",
-        "id": "al-cloud.cloud-vm.instance.vpc.get",
+        "id": "al-cloud.cloud-vm.network.vpc.get",
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/describevpcs/regionid/{regionid}"
+    },
+    { //获取阿里云vSwitch
+        "desc": "Query VSwitches",
+        "id": "al-cloud.cloud-vm.network.vswitch.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describevswitches/vpcid/{vpcid}"
     },
 
 

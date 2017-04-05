@@ -33,7 +33,10 @@ export class OrderDetailItem {
     else
       return null;
   }
-
+  get periodType():number{//单位
+    return this.productBillingItem ? this.productBillingItem.periodType : null;
+  }
+  
   productBillingItem:{
     billingId:string;
     billingMode:number;

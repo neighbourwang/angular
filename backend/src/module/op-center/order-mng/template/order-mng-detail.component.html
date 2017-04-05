@@ -3,7 +3,7 @@
 <div class="OrderDetail"> 
 	<div class="page-content-header float-left" style="width:1300px;padding-left: 0;">  
 	<span>{{ 'ORDER_MNG.ORDER_NUM' | translate}}: {{_detailLoader.FirstItem.instanceCode}}</span>
-	<button class="fox-cloud-button fox-cloud-button-green pull-right" style="margin-top:-10px;" (click)="back()"><span>{{ 'ORDER_MNG.RETURN_ORDER_MANAGEMENT' | translate}}</span></button>
+	<button class="fox-cloud-button fox-cloud-button-green pull-right" style="margin-top:-10px;" (click)="back()"><span>返回已购服务管理</span></button>
 	</div>
 	<div class="page-content">
 		<div class="noborder form-control-title float-left mgb10">{{ 'COMMON.BASIC_INFO' | translate}}</div>
@@ -20,7 +20,7 @@
 						<td>{{ 'PROD_MNG.PRODUCT_TYPE' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>	
 						<td>{{ 'CHECK_CENTER.ZONE_AND_AVAILABLE_ZONE' | translate}}</td>
-						<td>{{_detailLoader.FirstItem.zone}}</td>
+						<td>{{_detailLoader.FirstItem.platform}}&nbsp;&nbsp;&nbsp;{{_detailLoader.FirstItem.zone}}</td>
 					</tr>
 					<tr>
 						<td>{{ 'ORDER_MNG.CURRENT_CONFIGURATION' | translate}}</td>
@@ -36,13 +36,13 @@
 					</tr>
 					<tr>
 						<td>{{ 'COMMON.ONE_TIME_COSTS' | translate}}</td>
-						<td>{{_detailLoader.FirstItem.oneTimePrice}}</td>	
+						<td>￥{{_detailLoader.FirstItem.oneTimePrice}}</td>	
 						<td>{{ 'COMMON.PURCHASER' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.buyer}}</td>
 					</tr>
 					<tr>
 						<td>{{ 'COMMON.COST' | translate}}</td>	
-						<td>{{_detailLoader.FirstItem.price}}</td>
+						<td>￥{{_detailLoader.FirstItem.price}}/<span *ngIf="_detailLoader.FirstItem.productType==1">GB</span><span>{{_detailLoader.FirstItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
 						<td>{{ 'COMMON.DEPARTMENT' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.department}}</td>
 					</tr>

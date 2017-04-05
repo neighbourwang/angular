@@ -163,23 +163,34 @@ export class PhysicalListComponent implements OnInit {
         }
         if(status=="0"){
             if(physical.pmUseageStatus=="1"){
-                          this.showAlert("已分配的物理机不能禁用,请选择未分配的物理机！")
-                       return;
-                    }
+                this.showAlert("已分配的物理机不能禁用,请选择未分配的物理机！")
+                return;
+            }
              else{
                 this.noticeMsg ="PHYSICAL_MNG.DISABLE_PHYSICAL_MSG^^^" + physical.pmName;
-                   this.noticeTitle="PHYSICAL_MNG.DISABLE_PHYSICAL_TITLE";
-             }                   
+                this.noticeTitle="PHYSICAL_MNG.DISABLE_PHYSICAL_TITLE";
+            }                   
         }
         else if(status=="1"){
-            this.noticeMsg = "PHYSICAL_MNG.ENABLE_PHYSICAL_MSG^^^" + physical.pmName;
-            this.noticeTitle="PHYSICAL_MNG.ENABLE_PHYSICAL_TITLE";
+            if(physical.partsNumber =="0"){
+                this.showAlert("该物理机没有进行物理机部件设置,无法启用,请先进行物理机部件设置！");
+                return;
+            }          
+           else{
+                this.noticeMsg = "PHYSICAL_MNG.ENABLE_PHYSICAL_MSG^^^" + physical.pmName;
+                this.noticeTitle="PHYSICAL_MNG.ENABLE_PHYSICAL_TITLE";
+           }
         }
         else {
-            if(physical.pmUseageStatus=="0"&&physical.pmMainStatus=="0"){
-                     this.noticeMsg = "PHYSICAL_MNG.DELETE_PHYSICAL_MSG^^^" + physical.pmName;
-                     this.noticeTitle="PHYSICAL_MNG.DELETE_PHYSICAL_TITLE";
+            if(physical.pmUseageStatus =="0" && physical.pmMainStatus =="0"){
+                this.noticeMsg = "PHYSICAL_MNG.DELETE_PHYSICAL_MSG^^^" + physical.pmName;
+                this.noticeTitle="PHYSICAL_MNG.DELETE_PHYSICAL_TITLE";
         }
+        else{
+            this.showAlert("物理机使用状态为'未分配'且运维状态为'禁用'时才能删除物理机,该物理机不符合删除要求!");
+            return;
+        }
+
         
         // switch (status) {
         //         case "0":

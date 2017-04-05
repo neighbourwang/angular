@@ -57,7 +57,8 @@
     <div class="col-md-12 no-padding mgb20">
         <div class="float-left">
             <button class="btn float-left mgr5 btn-success" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i> {{'CLOUD_DRIVE_LIST.CREATE_CLOUD_HRAD_DISK' | translate}}</button>
-            <button (click)="delectDisk()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK' | translate}}</button>
+            <unsubscribe #unsubscribeVm title="云硬盘退订" [subid]="radioSelected?.subInstanceId"></unsubscribe>
+            <button (click)="unsubscribeVm.open()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK' | translate}}</button>
 
 
             <!--<div class="dropdown float-left  mgr5">
@@ -137,8 +138,6 @@
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}"
     (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
-<fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
-    <div style="text-align: center;">{{radioSelected.relyId ? "VM_INSTANCE.FORCE_DELETE_CLOUD" : "VM_INSTANCE.SURE_DELETE_CLOUD"  | translate}}</div>
-</fc-popup>
+
 <disk-reconfig #diskReconfig></disk-reconfig>
 

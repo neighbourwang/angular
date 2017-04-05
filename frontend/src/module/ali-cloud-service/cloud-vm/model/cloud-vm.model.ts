@@ -7,25 +7,49 @@ export class orderVmPageModel {
     selected: boolean = false;
     areas: Array<AreaModel> = [];
     selectedArea: AreaModel = new AreaModel();
-    selectedChargeType: string = "";
-    selectedImage: string = "";
-    selectedQuantity: number = 0;
 
-    selectedDisk: string = "";
-    diskCount: string = "";
+    selectedChargeType: string = "PostPaid";//收费方式
+
+    selectedNetworkType: string = "classic"; //'classic' 表示经典网络，'vpc'表示专有网络
+    selectedNetworkId: string = "";
+
+    selectedGeneration: string = ""; //实例族
+    selectedInstanceFamily: string = "";
+    selectedInstanceType: string = "";
+    ioOptimized: boolean = false;
+
+    selectedImage: string = "";　//启动ｖｍ时用的imageId,可能还需要镜像类型
+
+    selectedDisk: string = "";//云硬盘类型
+    diskCount: number = 40;//云硬盘G数
+
+
+    selectedQuantity: number = 0; //购买量月份
+    period: number = 0;
+    periodType: string = "";
+    priceUnit: string = "";
+    renew: boolean = false;  //"0"表示不自动续费，"1"表示自动续费
+
+    
+
+    selectedInternetChargeType: string = ""; //带宽收费方式    
+    selectedInternetMaxBandwidthIn = 100;
+    selectedInternetMaxBandwidthOut = 50;
 
     Password: string = "";
     passwordCheck: string = "";
-    InstanceName: string = "";
+    InstanceName: string = ""; //vm的名称
 
-    price: string = "  ";
+    price: string = "  "; //vm的价格
+    price_instance: string = "";
+    price_traffic: string = "";
 
     toString() {
         return JSON.stringify(this);
     }
 }
 
-
+//>>>
 export class imageModel {
 /*
     ImageId: string = "";
@@ -75,6 +99,7 @@ export class imageItemModel {
     Status: string = "";
     Platform: string = "";
 }
+//<<<
 
 
 
@@ -101,9 +126,45 @@ export class InstanceTypeFamilyModel {
     Generation: string = "";
 }
 
+//>>>
+export class VPCModel {
+    CreationTime: string = "";
+    CidrBlock: string = "";
+    VpcName: string = "";
+    Status: string = "";
+    Description: string = "";
+    VSwitchIds: VSwitchIdModel = new VSwitchIdModel();
+    IsDefault: boolean = false;
+    UserCidrs: UserCidrModel = new UserCidrModel();
+    RegionId: string = "";
+    VRouterId: string = "";
+    VpcId: string = "";
+}
+export class VSwitchIdModel {
+    VSwitchId: Array<string> = [];
+}
+export class UserCidrModel {
+    UserCidr: Array<string> = [];
+}
+//<<<
+
+
+export class VSwitchModel {
+    CreationTime: string = "";
+    CidrBlock: string = "";
+    Status: string = "";
+    Description: string = "";
+    IsDefault: boolean = false;
+    AvailableIpAddressCount: number = 0;
+    VSwitchName: string = "";
+    ZoneId: string = "";
+    VSwitchId: string = "";
+    VpcId: string = "";
+}
 
 
 
+//>>>
 export class instanceListModel {
     AutoReleaseTime: string = "";
     ClusterId: string = "";
@@ -142,32 +203,53 @@ export class instanceListModel {
 
     checked: boolean = false;
 }
-
-
 export class EipAddressModel {
     AllocationId: string  = "";
     InternetChargeType: string  = "";
     IpAddress: string  = "";
 }
-
 export class IpAddressModel {
     IpAddress: Array<string> = [];
 }
-
 export class OperationLocksModel {
     LockReason: Array<string> = [];
 }
-
 export class SecurityGroupIdsModel {
     SecurityGroupId: Array<string> = [];
 }
-
 export class VpcAttributesModel {
     NatIpAddress: string  = "";
     PrivateIpAddress: IpAddressModel = new IpAddressModel();
     VSwitchId: string  = "";
     VpcId: string  = "";
 }
+//<<<
+
+//>>> FamilyTree
+export class instanceFamilyTreeTypeIdModel {
+    LocalStorageAmount:number = 0;
+    LocalStorageCapacity:number = 0;
+    instanceShowName: string = "";
+    CpuCoreCount:string = "";
+    InstanceTypeFamily:string = "";
+    InstanceTypeId:string = "";
+    GPUSpec:string = "";
+    MemorySize:string = "";
+    GPUAmount:string = "";
+}
+
+export class instanceFamilyTreeIdModel {
+    instancefamilyid: string = "";
+    instancefamilyShowName: string = "";
+    instanceTypeIDModelList: Array<instanceFamilyTreeTypeIdModel> = [];
+}
+
+export class instanceFamilyTreeGenerationModel {
+    generation: string = "";
+    generationShowName: string = "";
+    instancefamilyid: Array<instanceFamilyTreeIdModel> = [];
+}
+//<<<
 
 
 

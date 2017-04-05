@@ -1,41 +1,37 @@
 <!-- <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice> -->
-<!-- <fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
-    <div style="text-align: center;"><input [(ngModel)]="forceDelect" type="checkbox" name=""> {{'VM_INSTANCE.UNSUBSRIBE_ALL_DISK'| translate}} "{{name}}"</div>
-</fc-popup> -->
-<!--详情-->
-<div class="modal fade" id="unsubscribe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <!-- 配置变更 -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">退订</h4>
-            </div>
-            <div *ngIf="detail" class="modal-body">
+<fc-popup #popup (cf)="modalAction()" sizeClass="big-dialog" (of)="startUnsubscribe()">
 
-                <product-info-table 
-                    [hasSelect]="true" 
-                    [disabled]="true"
-                    (onSelect)="itemSelectChange($event)"
-                    [itemList]="detail.itemList"></product-info-table>
+        <div *ngIf="detail.itemList && state!=='done'" class="">
 
-                <div *ngIf="releatedList.length" style="padding: 30px 0 20px">请选择是否退订下列关联的已购服务（如果选择，表示一起退订）：</div>
+            <product-info-table 
+                [hasSelect]="true" 
+                [disabled]="true"
+                (onSelect)="itemSelectChange($event)"
+                [itemList]="detail.itemList"></product-info-table>
 
-                <ng-container *ngIf="releatedList.length">
-                <product-info-table 
-                    [hasSelect]=true 
-                    (onSelect)="releatedSelectChange($event)"
-                    [itemList]="releatedList | releatedToItem"></product-info-table>
-                </ng-container>
+            <div *ngIf="releatedList.length" style="padding: 30px 0 20px">请选择是否退订下列关联的已购服务（如果选择，表示一起退订）：</div>
 
-                <div style="color: #f09279">您的已购服务一旦退订， 所有相关的资源和数据都会被删除，无法恢复！ 请谨慎选择退订服务。</div>
-            </div>
-            <div class="modal-footer">
-                <button (click)="startUnsubscribe()" class="btn button-confirm button-size-big">{{ot || 'DIALOG.CONFIRM' | translate }}</button>
-                <!-- 确认 -->
-                <button class="btn btn-default button-size-big" data-dismiss="modal">{{ct || 'DIALOG.CANCEL' | translate }}</button>
-                <!-- 取消 -->
+            <ng-container *ngIf="releatedList.length">
+            <product-info-table 
+                [hasSelect]=true 
+                (onSelect)="releatedSelectChange($event)"
+                [itemList]="releatedList | releatedToItem"></product-info-table>
+            </ng-container>
+
+            <div style="color: #f09279">您的已购服务一旦退订， 所有相关的资源和数据都会被删除，无法恢复！ 请谨慎选择退订服务。</div>
+        </div>
+
+        <div *ngIf="state==='done'" class="">
+            <product-info-table [itemList]="orderList"> </product-info-table>
+
+            <div class="done-bottom">
+                <div class="left-text float-left">
+                    <p>您的已购服务已申请退订，资源将会被立刻删除！</p>
+                    <p>如需审批，则要等待退订审批通过后，系统才会开始删除资源。</p>
+                    <p>您可以登陆管理控制台，查看退订状态。</p>
+                </div>
+                <button (click)="router.navigateByUrl('mng-console')" class="btn button-confirm button-size-big float-right">管理控制台</button>
             </div>
         </div>
-    </div>
-</div>
+</fc-popup>
+<!--详情-->

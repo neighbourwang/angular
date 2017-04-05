@@ -38,7 +38,8 @@ export class HostReconfigComponent implements OnInit {
 	constructor(
 		private chRef: ChangeDetectorRef,
 		private layoutService: LayoutService,
-		private service : HostReconfigService
+		private service : HostReconfigService,
+		private router: Router
 	) { }
 
 	ngOnInit() {
