@@ -162,6 +162,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                     }
                     this.regions = result.Regions.Region;
                     console.log(this.regions, "this.regions!");
+                    this.selectRegion(this.regions[0]);
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -201,8 +202,8 @@ export class AliCloudVmOrderComponent implements OnInit {
             console.log(this.selectedOrderVmPage, "this.selectedOrderVmPage!");
         }
         this.getImages(region);
-        this.getInstanceTypeFamily(region);
-        this.getInstanceType(region);
+        //this.getInstanceTypeFamily(region);
+        //this.getInstanceType(region);
         this.getVPCs(region);
         this.getInstanceFamilyTree(region);
     }
@@ -275,7 +276,7 @@ export class AliCloudVmOrderComponent implements OnInit {
     DiskChanged() {
         window.setTimeout(() => {
             if( this.selectedOrderVmPage.selectedDisk != "") {
-                this.calculatePrice();
+                //this.calculatePrice();
             }
         }, 50); //window内的代码要延后50ms执行
     }
@@ -400,16 +401,6 @@ export class AliCloudVmOrderComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    /*
-                    let result;
-                    try {
-                        result = JSON.parse(response.resultContent);
-                    } catch (ex) {
-                        console.log(ex);
-                    }                    
-                    this.instancetypelist = result.InstanceTypes.InstanceType;
-                    console.log(this.instancetypelist, "this.instancetypelist!");
-                    */
                     this.instancegenerations = response.resultContent;
                     console.log(this.instancegenerations, "this.instancegenerations!");
                     {
@@ -419,6 +410,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                     this.selectedOrderVmPage.selectedInstanceFamily = this.instancetypefamilies[0].instancefamilyid;
                     this.selectedOrderVmPage.selectedInstanceType = this.instancetypes[0].InstanceTypeId;
                     }
+                    this.setAndShowIO();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -495,7 +487,7 @@ export class AliCloudVmOrderComponent implements OnInit {
     VSwitchChanged() {
         window.setTimeout(() => {
             this.selectedOrderVmPage.selectedNetworkId = this.selectedVSwitch.VSwitchId;
-            console.log(this.selectedOrderVmPage.selectedNetworkId, "selected VSwitchId!");
+            console.log(this.selectedOrderVmPage.selectedNetworkId, this.selectedOrderVmPage.selectedNetworkType, "selected NetworkType and VSwitchId!");
         }, 50); //window内的代码要延后50ms执行 
     }
 
@@ -573,6 +565,7 @@ export class AliCloudVmOrderComponent implements OnInit {
 
     buyNow() {
         console.log(this.selectedOrderVmPage, "selectedOrderVmPage Finally!!!");
+        this.calculatePrice();
         this.layoutService.show();
         this.service.createInstanceOrder(this.selectedOrderVmPage)
             .then(
@@ -642,9 +635,29 @@ export class AliCloudVmOrderComponent implements OnInit {
         this.notice.open(msg.title, msg.desc);
     }
 
+    outputValue() {
+        console.log(this.selectedOrderVmPage.selectedInternetMaxBandwidthOut);
+    }
 
     show(mnum:QuantityModel) {
         console.log(mnum, "month button");
+    }
+
+    showInstanceChargeType() {
+        console.log(this.selectedOrderVmPage.selectedChargeType, "selected instance charge type!");
+    }
+
+    showInstanceType() {
+        console.log(this.selectedOrderVmPage.selectedInstanceType, "selected instance family type!");
+    }
+
+    setAndShowIO() {
+        if(this.selectedOrderVmPage.selectedGeneration == "ecs-1") {
+            this.selectedOrderVmPage.ioOptimized = true;
+        } else {
+            this.selectedOrderVmPage.ioOptimized = false;
+        }
+        console.log(this.selectedOrderVmPage.ioOptimized, "selected ioOptimized!");
     }
 
     checkForm(key?:string) {

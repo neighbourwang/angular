@@ -10,12 +10,13 @@ export class orderVmPageModel {
 
     selectedChargeType: string = "PostPaid";//收费方式
 
-    selectedNetworkType: string = "0"; //'0' 表示经典网络，'1'表示专有网络
+    selectedNetworkType: string = "classic"; //'classic' 表示经典网络，'vpc'表示专有网络
     selectedNetworkId: string = "";
 
     selectedGeneration: string = ""; //实例族
     selectedInstanceFamily: string = "";
     selectedInstanceType: string = "";
+    ioOptimized: boolean = false;
 
     selectedImage: string = "";　//启动ｖｍ时用的imageId,可能还需要镜像类型
 
@@ -31,7 +32,7 @@ export class orderVmPageModel {
 
     
 
-    selectedInternetChargeType: string = ""; //网络收费方式    
+    selectedInternetChargeType: string = ""; //带宽收费方式    
     selectedInternetMaxBandwidthIn = 100;
     selectedInternetMaxBandwidthOut = 50;
 
