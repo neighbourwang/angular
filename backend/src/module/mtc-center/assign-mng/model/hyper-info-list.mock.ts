@@ -11,6 +11,12 @@
         "departmentName": "管理部门",
         "createId": "sdfasdfa",
         "createName": "wei-qi.huang@hpe.com",
-        "createDate": "2017-01-02 12:30:00"
-    }  
+        "createDate": "2017-01-02 12:30:00",
+        "cpu": 50,
+        "mem": 60,
+        "cpuPeak": 90,
+        "memPeak": 100,
+        "cpuTime": "2017年1月18日    18：00：53",
+        "memTime": "2017年1月18日    18：00：53"
+    } 
 }

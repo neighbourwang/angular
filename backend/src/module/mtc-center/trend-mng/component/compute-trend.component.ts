@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 import {PlfModel, RegionModel, ZoneModel} from"../model/plf.model";
 import {BasicModel, Percent}from "../model/basic.model";
-import {BarItem} from"../model/bar-item.model";
+import {Bar,ZoneBar, Item} from"../model/bar.model";
 //service
 import { ComputeTrendService } from "../service/compute-trend.service";
 const echarts = require('echarts');
@@ -32,6 +32,7 @@ export class ComputeTrendComponent implements OnInit {
     noticeMsg = "";
 
     analysisType = "1";
+    showType = 1;
     isSelected: boolean;
     //平台联动列表
     defaultPlf: PlfModel = new PlfModel();
@@ -43,16 +44,18 @@ export class ComputeTrendComponent implements OnInit {
 
     plfList: Array<PlfModel>;
     basicList: Array<BasicModel>;
-    legendList: Array<string>;
-    cpuData: Array<BarItem>;
-    legendLen: number;
-    cpuLen: number;
-
+    
+    cpuData: Bar=new Bar();
+    vmData:Bar=new Bar();
+    memData: Bar = new Bar();
+    
     ngOnInit() {
         this.getPlfList();
-        this.getBasicList();
-        this.getLegend();
+        this.getBasicList();       
         this.getCpuData();
+        this.getVmData();
+        this.getMemData();
+      
     }
 
     //获取平台联动列表
@@ -92,24 +95,6 @@ export class ComputeTrendComponent implements OnInit {
     }
     
 
-    getLegend() {
-        this.layoutService.show();
-        this.service.getLegend()  
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && "100" == response["resultCode"]) {
-                    this.legendList = response["resultContent"];
-                    console.log("legend", this.legendList);
-                    this.legendLen = this.legendList.length;
-                } else {
-                    this.showAlert("COMMON.OPERATION_ERROR");
-                }
-            }
-            )
-            .catch((e) => this.onRejected(e));
-    }
-
     getCpuData() {
         this.layoutService.show();
         this.service.getCpuData()  
@@ -119,7 +104,7 @@ export class ComputeTrendComponent implements OnInit {
                 if (response && "100" == response["resultCode"]) {
                     this.cpuData = response["resultContent"];
                     console.log("cpuData", this.cpuData);
-                    this.cpuLen = this.cpuData.length;
+                    //this.showChart(this.cpuData, 1);
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -128,41 +113,79 @@ export class ComputeTrendComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    showChart() {
-        let ar = [[1, 23], [3, 4]];
+    getVmData() {
+        this.layoutService.show();
+        this.service.getVmData()  
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.vmData = response["resultContent"];
+                    console.log("vmData", this.vmData);
+                    //this.showChart(this.vmData, 2);
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    getMemData() {
+        this.layoutService.show();
+        this.service.getMemData()  
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.memData = response["resultContent"];
+                    console.log("memData", this.memData);
+                    //this.showChart(this.memData, 3);
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    showChart(chartData:Bar,showType:number) {       
+        let thx = chartData.thx;
+        let zonesData = chartData.zone;
+        let sum = new Array<number>();
         
-        let cpuSeries= new Array<any>();
-        let finalData = new Array<any>();
-        
-        let cpuTemp = this.cpuData;
-        let final1 = new Array<any>();
-        let final2 = new Array<any>();
-        let final3 = new Array<any>();
-        let final4 = new Array<any>();
-        let final5 = new Array<any>();
-        let final6 = new Array<any>();
-        for (let i = 0; i < this.cpuLen; i++) {
-           
-            final1.push(cpuTemp[i]._2Core);
-            final2.push(cpuTemp[i]._4Core);           
-            final3.push(cpuTemp[i]._8Core);
-            final4.push(cpuTemp[i]._16Core);
-            final5.push(cpuTemp[i]._32Core);
-            final6.push(cpuTemp[i].Total);
-        }
-        finalData[0] = final1;
-        finalData[1] = final2;
-        finalData[2]=final3;
-        finalData[3]=final4;
-        finalData[4] = final5;
-        finalData[5]=final6;
-        let j = 0;
-        for (; j < this.legendLen; j++) {
-            cpuSeries.push({
-                name: this.legendList[j],
+        for (let m = 0; m < zonesData.length; m++) {
+            let TempSeries = new Array<any>();
+            let TempLegend = new Array<string>();
+            let chartId = '';
+            if (showType == 1) {
+                chartId = 'cpuchart' + m;
+            } else if (showType == 2) {
+                chartId = 'vmchart' + m;
+            } else if (showType == 3) {
+                chartId = 'memchart' + m;
+            }
+
+                
+            //获取第m个可用区的series
+            let zoneSeries = zonesData[m].series;
+            let dataLength = zoneSeries[0].data.length;
+            //获取‘总计’数据
+            for (let i = 0; i < dataLength; i++) {
+                sum[i] = 0;
+                for (let j = 0; j < zoneSeries.length; j++) {
+                    sum[i] += zoneSeries[j].data[i];
+                }
+            }
+            console.log("total", sum);
+
+            for (let k = 0; k < zoneSeries.length; k++) {
+            TempLegend.push(zoneSeries[k].name);
+            TempSeries.push({
+                name: zoneSeries[k].name,
                 type: 'bar',
                 stack: '广告',
-                data: finalData[j],
+                data: zoneSeries[k].data,
                 label: {
                     normal: {
                         show: true,
@@ -172,13 +195,13 @@ export class ComputeTrendComponent implements OnInit {
                     }
                 }
             });
-   
-        }
-        cpuSeries.push({
+            }
+
+            TempSeries.push({
                 name: '总计',
                 type: 'line',
                 
-                data: finalData[j],
+                data: sum,
                 label: {
                     normal: {
                         show: true,
@@ -195,16 +218,16 @@ export class ComputeTrendComponent implements OnInit {
                             color: "transparent"
                         }
                 }
-        });
+            });
 
-        var myChart = echarts.init(document.getElementById('mychart'));
-        var option = {
+            var myChart = echarts.init(document.getElementById(chartId));
+            var option = {
             tooltip: {
                 show: false,
 
             },
             legend: {
-                data: ['2Core', '4Core', '8Core','16Core','32Core']
+                data: TempLegend
             },
             grid: {
                 left: '3%',
@@ -215,7 +238,7 @@ export class ComputeTrendComponent implements OnInit {
             xAxis: [
                 {
                     type: 'category',
-                    data: ['2017-01', '2017-02', '2017-03', '2017-04']
+                    data: thx
                 }
             ],
             yAxis: [
@@ -229,18 +252,26 @@ export class ComputeTrendComponent implements OnInit {
                     }
                 }
             ],
-            series:cpuSeries           
-        };
+            series:TempSeries           
+            };
+             myChart.setOption(option);
 
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+       }
+        
+      
     } //函数结尾
 
     confirm() {
-        if (this.analysisType == "2") {
+        if (this.analysisType == "1") {
+            this.showType = 1;
+            this.showChart(this.cpuData, 1);
+        } else if (this.analysisType == "2") {
+            this.showType = 2;
+            this.showChart(this.vmData, 2);
+        }else if (this.analysisType == "3") {
+            this.showType = 3;
+            this.showChart(this.memData, 3);
         
-        this.showChart();
         }
     }
     onRejected(reason: any) {
