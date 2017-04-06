@@ -5,7 +5,7 @@ import { RestApiCfg, RestApi } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
 import { RegionModel, keysecretModel } from '../../cloud-disk/model/cloud-disk.model';
-import { orderVmPageModel, QuantityModel, instanceListModel } from "../model/cloud-vm.model";
+import { orderVmPageModel, QuantityModel, instanceListModel, priceSubmitModel, priceCommodityModel } from "../model/cloud-vm.model";
 
 @Injectable()
 export class AliCloudVmService {
@@ -168,68 +168,42 @@ export class AliCloudVmService {
     }
 
     calculatePrice(selectedOrderVmPage: orderVmPageModel): Promise<any> {
+        let body1 = {
+            "orderType": "traffic-bandwidth",
+            "regionId": selectedOrderVmPage.RegionId
+        };
+        let body2: priceSubmitModel = new priceSubmitModel();
         let body;
-        if (selectedOrderVmPage.selectedChargeType == "PostPaid") { //按量计费，多传一个traffic-bandwidth
-            body = [
-                {
-                    "orderType": "traffic-bandwidth",
-                    "regionId": selectedOrderVmPage.RegionId
-                },
-                {
-                    "orderType": "instance-buy",
-                    "regionId": selectedOrderVmPage.RegionId,
-                    "commodity": {
-                        "amount": 1,
-                        "autoRenew": selectedOrderVmPage.renew,
+        body2.orderType = "instance-buy";
+        body2.regionId = selectedOrderVmPage.RegionId;
+        body2.zoneId = selectedOrderVmPage.selectedArea.ZoneId;
 
-                        "instanceType": selectedOrderVmPage.selectedChargeType,
-                        "internetChargeType": selectedOrderVmPage.selectedInternetChargeType,
-                        "internetMaxBandwidthOut": selectedOrderVmPage.selectedInternetMaxBandwidthOut,
-                        "ioOptimized": selectedOrderVmPage.ioOptimized,
-                        "maxAmount": 1,
-                        "networkType": selectedOrderVmPage.selectedInternetChargeType,
-                        "period": selectedOrderVmPage.period,
-                        "periodType": selectedOrderVmPage.periodType,
-                        "priceUnit": selectedOrderVmPage.priceUnit,
-                        "securityGroupId": null,
-                        "systemDisk": {
-                            "category": selectedOrderVmPage.selectedDisk,
-                            "size": selectedOrderVmPage.diskCount
-                        },
-                        "zoneId": selectedOrderVmPage.selectedArea.ZoneId
-                    },
-                }
-            ];
+        body2.commodity.instanceType = selectedOrderVmPage.selectedChargeType;
+
+        body2.commodity.amount = 1;
+        body2.commodity.maxAmount = 1;
+
+        body2.commodity.autoRenew = selectedOrderVmPage.renew;
+        body2.commodity.ioOptimized = selectedOrderVmPage.ioOptimized;        
+
+        body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
+        body2.commodity.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut;
+        
+        body2.commodity.networkType = selectedOrderVmPage.selectedInternetChargeType;
+
+        body2.commodity.period = selectedOrderVmPage.period;
+        body2.commodity.periodType = selectedOrderVmPage.periodType;
+        body2.commodity.priceUnit = selectedOrderVmPage.priceUnit;
+
+        body2.commodity.systemDisk.category = selectedOrderVmPage.selectedDisk;
+        body2.commodity.systemDisk.size = selectedOrderVmPage.diskCount;
+        if (selectedOrderVmPage.selectedChargeType == "PostPaid") { //按量计费，多传一个traffic-bandwidth            
+            body = [body1, body2];
         } else if (selectedOrderVmPage.selectedChargeType == "PrePaid") { //包年包月，只传一个instance-buy
-            body = [
-                {
-                    "orderType": "disk-buy",
-                    "regionId": selectedOrderVmPage.RegionId,
-                    "commodity": {
-                        "amount": 1,
-                        "autoRenew": selectedOrderVmPage.renew,
-
-                        "instanceType": selectedOrderVmPage.selectedChargeType,
-                        "internetChargeType": selectedOrderVmPage.selectedInternetChargeType,
-                        "internetMaxBandwidthOut": selectedOrderVmPage.selectedInternetMaxBandwidthOut,
-                        "ioOptimized": selectedOrderVmPage.ioOptimized,
-                        "maxAmount": 1,
-                        "networkType": selectedOrderVmPage.selectedInternetChargeType,
-                        "period": selectedOrderVmPage.period,
-                        "periodType": selectedOrderVmPage.periodType,
-                        "priceUnit": selectedOrderVmPage.priceUnit,
-                        "securityGroupId": null,
-                        "systemDisk": {
-                            "category": selectedOrderVmPage.selectedDisk,
-                            "size": selectedOrderVmPage.diskCount
-                        },
-                        "zoneId": selectedOrderVmPage.selectedArea.ZoneId
-                    },
-                }
-            ];            
+            body = [body2];
         }
         console.log(body, "body");
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.price.get");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.price.get");
         return this.restApi.request(api.method, api.url, null, null, body);
     }
 
