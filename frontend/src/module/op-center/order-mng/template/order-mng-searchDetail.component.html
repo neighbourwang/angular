@@ -56,7 +56,7 @@
 								<ul *ngIf="item.serviceType>1">
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}：&nbsp;&nbsp;{{spec.attrDisplayValue}}</li>
 								</ul>
-								<vm-view [values]="item.specList" *ngIf="item.serviceType==0"></vm-view>
+								<vm-view [values]="item" *ngIf="item.serviceType==0"></vm-view>
 								<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view>
 							</td>
 							<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}<br><span *ngIf="item.showInstance">{{ 'VM_INSTANCE.INSTANCE_NAME' | translate }}: {{item.instanceName}}</span></td>
