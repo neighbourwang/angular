@@ -98,7 +98,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.LOCATION'|translate}}:</div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" [(ngModel)]="physical.locale" [disabled]="eidtMode =='view' || editMode =='editParts'">
+                        <input type="text" class="form-control" [(ngModel)]="physical.locale" [disabled]="eidtMode =='view'||eidtMode =='editParts'">
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.DESCRIPTION'|translate}}:</div>
                     <div class="col-md-4">
-                        <textarea class="form-control" rows="3" [(ngModel)]="physical.description" [disabled]="eidtMode =='view' ||editMode =='editParts'"></textarea>
+                        <textarea class="form-control" rows="3" [(ngModel)]="physical.description" [disabled]="eidtMode =='view'||eidtMode =='editParts'"></textarea>
                     </div>
                 </div>
             </div>
@@ -393,7 +393,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">规格值:</div>
             <div class="col-sm-4">
-                 <select class="form-control" [(ngModel)]="partsEntity.specValue" >
+                 <select class="form-control" [(ngModel)]="popSpecValue" >
                       <option value="">请选择</option>
                      <option *ngFor="let item of selectedSpace.specValues" [value]="item">{{item}}</option>
                 </select>
@@ -405,7 +405,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">数量:</div>
             <div class="col-sm-4">
-                <input type="text" class="form-control" [(ngModel)]="partsEntity.number">
+                <input type="text" class="form-control" [(ngModel)]="popNumber">
             </div>
         </div>
     </div>

@@ -8,6 +8,7 @@
     "start": "node_modules/.bin/webpack-dev-server --progress --port 4001 --hot --inline --colors --host 0.0.0.0",
     "build": "webpack -p --define process.env.NODE_ENV='\"dev\"' --config webpack.config.dev.js",
     "build:test": "webpack -p --define process.env.NODE_ENV='\"qa\"' --config webpack.config.dev.js",
+    "build:oldtest": "webpack -p --define process.env.NODE_ENV='\"oldtest\"' --config webpack.config.dev.js",
     "build:boeprod": "webpack -p --define process.env.NODE_ENV='\"boeprod\"' --config webpack.config.dev.js",
     "build:boe": "webpack -p --define process.env.NODE_ENV='\"boe\"' --config webpack.config.dev.js"
   },

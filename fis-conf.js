@@ -28,10 +28,10 @@ releaseServer("frontendDev", "/root/nginx/foxcloud/mpp", RegFrontend, "15.114.10
 // releaseServer("frontendDev", "/etc/nginx/foxcloud/mpp", RegFrontend, "16.187.145.52:8999");
 // 后台发布到测试环境
 releaseServer("backendTest", "/root/nginx/foxcloud/backend", RegBackend, "15.114.100.65:8999");
-// releaseServer("backendTest", "/etc/nginx/foxcloud/backend", RegBackend, "16.187.145.52:8999");
+releaseServer("backendOldTest", "/etc/nginx/foxcloud/backend", RegBackend, "16.187.145.145:8999");
 //前台发布到测试环境
 releaseServer("frontendTest", "/root/nginx/foxcloud/frontend", RegFrontend, "15.114.100.65:8999");
-// releaseServer("frontendTest", "/etc/nginx/foxcloud/frontend", RegFrontend, "16.187.145.52:8999");
+releaseServer("frontendOldTest", "/etc/nginx/foxcloud/frontend", RegFrontend, "16.187.145.145:8999");
 
 
 //boe开发环境发布到本地
