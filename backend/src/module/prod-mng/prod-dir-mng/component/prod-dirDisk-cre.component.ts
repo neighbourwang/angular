@@ -88,8 +88,8 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
 
     //获取启动盘信息
-    selectStorage(idx, idxx,idxxx) {
-        console.log(idx, idxx,idxxx)
+    selectStorage(idx, idxx, idxxx) {
+        console.log(idx, idxx, idxxx)
         // this._platformlist[idx].platformInfo[idxx].storageItem[idxxx].selected=!this._platformlist[idx].platformInfo[idxx].storageItem[idxxx].selected
         // for (let storage of this._platformlist[idx].platformInfo[idxxx].storageItem) {
         //     if (storage.storageId == id) {
@@ -107,9 +107,18 @@ export class ProdDirDiskCreComponent implements OnInit {
                     console.log('diskdetail', response);
                     if (response.resultContent) {
                         this.prodDir = response.resultContent;
-                        this._platformlist = JSON.parse(JSON.stringify(this.prodDir.platformList)); 
-                        // this.prodDir.description =
-                            // this.prodDir.description == 'null' ? this.prodDir.description : '';
+                        this._platformlist = JSON.parse(JSON.stringify(this.prodDir.platformList));
+                        for (let platform of this._platformlist) {
+                            for (let zone of platform.platformInfo) {
+                                for (let storage of zone.storageItem) {
+                                    if (storage.selected) {
+                                        storage.disable = storage.selected;
+                                    } else {
+                                        storage.selected = false;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 this.LayoutService.hide();
@@ -215,10 +224,10 @@ export class ProdDirDiskCreComponent implements OnInit {
         this.prodDir.platformList = this._platformlist.filter(function (ele) {
             if (ele.platformInfo) {
                 for (let zone of ele.platformInfo) {
-                    for(let storage of zone.storageItem){
-                        if(storage.selected==true){
-                            zone.selected=true;
-                            ele.selected=true;
+                    for (let storage of zone.storageItem) {
+                        if (storage.selected == true) {
+                            zone.selected = true;
+                            ele.selected = true;
                             return ele;
                         }
                     }
@@ -241,8 +250,8 @@ export class ProdDirDiskCreComponent implements OnInit {
             })
         } else {
             console.log(this.prodDir);
-            this.LayoutService.show();            
-            this.CreateProdDirService.editDiskProdDir(this.serviceId,this.prodDir).then(response => {
+            this.LayoutService.show();
+            this.CreateProdDirService.editDiskProdDir(this.serviceId, this.prodDir).then(response => {
                 console.log(response);
                 this.LayoutService.hide();
                 this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })

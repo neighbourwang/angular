@@ -36,9 +36,7 @@ export class ProdMngCreStep3Component implements OnInit {
     tempVmProdDirPlatformList: Array<Platform>;
     tempDiskProdDirPlatformList: Array<Platform>;
     //判断平台是否发生改变，进而是否请求过滤企业；
-    isPlatformChange:boolean;
     ngOnInit() {
-        this.isPlatformChange=false;
         //获取平台类型
         console.log(this.service.product);
         this.prodDirType = this.service.productDir.serviceType;
@@ -57,9 +55,9 @@ export class ProdMngCreStep3Component implements OnInit {
             this.tempDiskProdDirPlatformList = this.service.productDir.platformList;
             for (let plate of this.tempDiskProdDirPlatformList) {
                 if (!plate) { continue }
-                for (let storage of plate.zoneList) {
-                    if (storage.selected == false) {
-                        this.selectAllStorage = false;
+                for (let zone of plate.zoneList) {
+                    if (zone.selected == false) {
+                        this.selectAllZone = false;
                         return;
                     }
                 }
@@ -69,18 +67,67 @@ export class ProdMngCreStep3Component implements OnInit {
     }
     //云主机
     //可用区全选 
-    selectAllZones() {
-        this.isPlatformChange=true;
+    // selectAllZones() {
+    //     this.isPlatformChange=true;
+    //     this.service.product.productPlatformReqs=[];
+    //     this.selectAllZone = !this.selectAllZone;
+    //     for (let plate of this.tempVmProdDirPlatformList) {
+    //         if (!plate) { continue }
+    //         for (let zone of plate.zoneList) {
+    //             zone.selected = this.selectAllZone;
+    //             // console.log(zone.storageList);
+    //         }
+    //     }
+    //     this.service.product.productPlatformReqs = this.tempVmProdDirPlatformList.filter(function (ele) {
+    //         for (let zone of ele.zoneList) {
+    //             if (zone.selected == true) {
+    //                 return ele;
+    //             }
+    //         }
+    //     })
+    //     console.log(this.service.product.productPlatformReqs);
+    // }
+    // //选择平台可用区
+    // selectZone(idx, idxx,list) {
+    //     this.isPlatformChange=true;//点击即视为平台更改；        
+    //     this.service.product.productPlatformReqs=[];
+    //     console.log(idx, idxx);
+    //     this.tempVmProdDirPlatformList[idx].zoneList[idxx].selected = !this.tempVmProdDirPlatformList[idx].zoneList[idxx].selected;
+    //     this.service.product.productPlatformReqs = this.tempVmProdDirPlatformList.filter(function (ele) {
+    //         for (let zone of ele.zoneList) {
+    //             if (zone.selected == true) {
+    //                 return ele;
+    //             }
+    //         }
+    //     })
+    //     //判断是for可用区全选
+    //     if(this.service.product.productPlatformReqs.length != this.tempVmProdDirPlatformList.length){
+    //         this.selectAllZone=false;
+    //         return;
+    //     }
+    //     this.selectAllZone=true;
+    //     for(let platform of this.tempVmProdDirPlatformList){
+    //         for(let zone of platform.zoneList){
+    //             if(zone.selected==false){
+    //                return this.selectAllZone=false;                           
+    //             }
+    //         }                
+    //     }
+    //     console.log(this.service.product.productPlatformReqs);
+    // }
+
+    selectAllZones(list) {
+        console.log(list);        
         this.service.product.productPlatformReqs=[];
         this.selectAllZone = !this.selectAllZone;
-        for (let plate of this.tempVmProdDirPlatformList) {
+        for (let plate of list) {
             if (!plate) { continue }
             for (let zone of plate.zoneList) {
                 zone.selected = this.selectAllZone;
                 // console.log(zone.storageList);
             }
         }
-        this.service.product.productPlatformReqs = this.tempVmProdDirPlatformList.filter(function (ele) {
+        this.service.product.productPlatformReqs = list.filter(function (ele) {
             for (let zone of ele.zoneList) {
                 if (zone.selected == true) {
                     return ele;
@@ -90,12 +137,12 @@ export class ProdMngCreStep3Component implements OnInit {
         console.log(this.service.product.productPlatformReqs);
     }
     //选择平台可用区
-    selectZone(idx, idxx) {
-        this.isPlatformChange=true;//点击即视为平台更改；        
+    selectZone(idx, idxx,list) {
+        console.log(list);
         this.service.product.productPlatformReqs=[];
         console.log(idx, idxx);
-        this.tempVmProdDirPlatformList[idx].zoneList[idxx].selected = !this.tempVmProdDirPlatformList[idx].zoneList[idxx].selected;
-        this.service.product.productPlatformReqs = this.tempVmProdDirPlatformList.filter(function (ele) {
+        list[idx].zoneList[idxx].selected = !list[idx].zoneList[idxx].selected;
+        this.service.product.productPlatformReqs = list.filter(function (ele) {
             for (let zone of ele.zoneList) {
                 if (zone.selected == true) {
                     return ele;
@@ -103,12 +150,12 @@ export class ProdMngCreStep3Component implements OnInit {
             }
         })
         //判断是for可用区全选
-        if(this.service.product.productPlatformReqs.length != this.tempVmProdDirPlatformList.length){
+        if(this.service.product.productPlatformReqs.length != list.length){
             this.selectAllZone=false;
             return;
         }
         this.selectAllZone=true;
-        for(let platform of this.tempVmProdDirPlatformList){
+        for(let platform of list){
             for(let zone of platform.zoneList){
                 if(zone.selected==false){
                    return this.selectAllZone=false;                           
@@ -117,63 +164,62 @@ export class ProdMngCreStep3Component implements OnInit {
         }
         console.log(this.service.product.productPlatformReqs);
     }
+
     //云硬盘
     //云硬盘产品平台
     //选择全部存储后端    
-    selectAllStorages() {
-        this.isPlatformChange=true;//点击即视为平台更改；
-        this.service.product.productPlatformReqs=[];
-        this.selectAllStorage = !this.selectAllStorage;
-        for (let plate of this.tempDiskProdDirPlatformList) {
-            for (let storage of plate.zoneList) {
-                storage.selected = this.selectAllStorage;
-                // console.log(zone.storageList);
-            }
-        }
-        this.service.product.productPlatformReqs = this.tempDiskProdDirPlatformList.filter(function (ele) {
-            for (let zone of ele.zoneList) {
-                if (zone.selected == true) {
-                    return ele;
-                }
-            }
-        })
-        console.log(this.service.product.productPlatformReqs);
-    }
-    //选择存储后端
-    selectStorage(idx, idxx) {
-        this.isPlatformChange=true;//点击即视为平台更改；
-        this.service.product.productPlatformReqs=[];
-        console.log(idx, idxx);
-        this.tempDiskProdDirPlatformList[idx].zoneList[idxx].selected = !this.tempDiskProdDirPlatformList[idx].zoneList[idxx].selected;
-        console.log(this.tempDiskProdDirPlatformList[idx].zoneList[idxx].selected);
-        this.service.product.productPlatformReqs = this.tempDiskProdDirPlatformList.filter(function (ele) {
-            for (let zone of ele.zoneList) {
-                if (zone.selected == true) {
-                    return ele;
-                }
-            }
-        })
-        if(this.service.product.productPlatformReqs.length != this.tempDiskProdDirPlatformList.length){
-            this.selectAllStorage=false;
-            return;
-        }
-        this.selectAllStorage=true;
-        for(let platform of this.tempDiskProdDirPlatformList){
-            for(let zone of platform.zoneList){
-                if(zone.selected==false){
-                   return this.selectAllStorage=false;                           
-                }
-            }                
-        }
-        console.log(this.service.product.productPlatformReqs);
-    }
+    // selectAllStorages() {
+    //     this.service.product.productPlatformReqs=[];
+    //     this.selectAllStorage = !this.selectAllStorage;
+    //     for (let plate of this.tempDiskProdDirPlatformList) {
+    //         for (let storage of plate.zoneList) {
+    //             storage.selected = this.selectAllStorage;
+    //             // console.log(zone.storageList);
+    //         }
+    //     }
+    //     this.service.product.productPlatformReqs = this.tempDiskProdDirPlatformList.filter(function (ele) {
+    //         for (let zone of ele.zoneList) {
+    //             if (zone.selected == true) {
+    //                 return ele;
+    //             }
+    //         }
+    //     })
+    //     console.log(this.service.product.productPlatformReqs);
+    // }
+    // //选择存储后端
+    // selectStorage(idx, idxx) {
+    //     this.service.product.productPlatformReqs=[];
+    //     console.log(idx, idxx);
+    //     this.tempDiskProdDirPlatformList[idx].zoneList[idxx].selected = !this.tempDiskProdDirPlatformList[idx].zoneList[idxx].selected;
+    //     console.log(this.tempDiskProdDirPlatformList[idx].zoneList[idxx].selected);
+    //     this.service.product.productPlatformReqs = this.tempDiskProdDirPlatformList.filter(function (ele) {
+    //         for (let zone of ele.zoneList) {
+    //             if (zone.selected == true) {
+    //                 return ele;
+    //             }
+    //         }
+    //     })
+    //     if(this.service.product.productPlatformReqs.length != this.tempDiskProdDirPlatformList.length){
+    //         this.selectAllStorage=false;
+    //         return;
+    //     }
+    //     this.selectAllStorage=true;
+    //     for(let platform of this.tempDiskProdDirPlatformList){
+    //         for(let zone of platform.zoneList){
+    //             if(zone.selected==false){
+    //                return this.selectAllStorage=false;                           
+    //             }
+    //         }                
+    //     }
+    //     console.log(this.service.product.productPlatformReqs);
+    // }
 
     next() { 
         if(this.service.product.productPlatformReqs.length==0){
-             this.notice.open('COMMON.OPERATION_ERROR','PROD_MNG.PLATFORM_LIST_IS_EMPTY'); 
-             return; 
+            this.notice.open('COMMON.OPERATION_ERROR','PROD_MNG.PLATFORM_LIST_IS_EMPTY'); 
+            return; 
         }       
-        this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-4",{'isPlatformChange':this.isPlatformChange}]);
+        this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-4"]);
     }
 
     previous() {

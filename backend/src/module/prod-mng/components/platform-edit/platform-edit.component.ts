@@ -115,12 +115,6 @@ export class PlatformEditComponent implements OnInit {
     }
     //云硬盘
     //云硬盘产品平台
-    //选择全部存储后端 
-    selectAllStorage:boolean   
+    //选择全部存储后端
     
-
-    display(){
-        console.log(this.productPlatformList);
-        console.log(this.servicePlatformList);
-    }
 }
