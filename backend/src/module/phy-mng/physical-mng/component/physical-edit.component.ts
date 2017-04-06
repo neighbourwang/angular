@@ -83,7 +83,7 @@ export class PhysicalEditComponent implements OnInit {
                     this.title = "PHYSICAL_MNG.CREATE_PHYSICAL";
                     break;
                 case "editParts":
-                    this.title="编辑物理机部件";
+                    this.title="PHYSICAL_MNG.EDIT_PHYSICAL_PART";
             }
 
         });
@@ -162,7 +162,7 @@ export class PhysicalEditComponent implements OnInit {
 
     //编辑物理机
     editPhysical() {
-        this.layoutService.show();
+       if(this.mainDateCompare() ) { this.layoutService.show();
         this.service.editPhysical(this.physical)
             .then(
             response => {
@@ -177,9 +177,15 @@ export class PhysicalEditComponent implements OnInit {
             }
             )
             .catch((e) => this.onRejected(e));
+       }
+       else{
+           this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");//结束时间大于开始时间
+           return;
+       }
+       
     }
     //编辑物理机部件
-    editPhysicalPart(){  
+    editPhysicalPart(){       
         this.layoutService.show();
         this.service.editPhysicalParts(this.physical.partsEntitys,this.physical.pmId)
             .then(
@@ -194,7 +200,7 @@ export class PhysicalEditComponent implements OnInit {
                 }
             }
             )
-            .catch((e) => this.onRejected(e));
+            .catch((e) => this.onRejected(e));    
     }
     // //判断磁盘规格值是否为空
     // notNull(disk:Disk) {
@@ -215,12 +221,10 @@ export class PhysicalEditComponent implements OnInit {
             //this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_PHYSICAL_NAME");
             //return false;
         }
-
         if (!this.physical.iloIPAddress) {
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_IPMI_IP");
             return false;
         }
-
         if (!this.physical.iloUserName) {
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_IPMI_USERNAME");
             return false;
@@ -236,9 +240,7 @@ export class PhysicalEditComponent implements OnInit {
         if (!this.physical.sererTypeId) {
             this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_SERVER_TYPE");
             return false;
-        }
-       
-              
+        }            
         this.physical.brandId = this.selectedBrand.id;
         this.physical.pmPoolId=this.poolId;
         if (!this.physical.brandId) {
@@ -262,8 +264,9 @@ export class PhysicalEditComponent implements OnInit {
             ) 
             .then(
                 ()=>{
-                    this.layoutService.show();
-                    this.service.createPhysical(this.physical)
+                   if(this.mainDateCompare()){
+                       this.layoutService.show();
+                       this.service.createPhysical(this.physical)
                         .then(
                         response => {
                             this.layoutService.hide();
@@ -279,7 +282,12 @@ export class PhysicalEditComponent implements OnInit {
                         )
                         .catch((e) => this.onRejected(e));
                             }
-                        );        
+                            else{
+                                this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME")
+                                return;
+                            }
+                    }                     
+                    );        
     }
 
     //读取物理机硬件信息
@@ -300,8 +308,7 @@ export class PhysicalEditComponent implements OnInit {
                 } else {
                      this.read = false;
                 }
-            }
-            )
+            })
        }
        else{
            this.showAlert("PHYSICAL_MNG.PLEASE_INPUT_ILO_INFO");
@@ -317,7 +324,7 @@ export class PhysicalEditComponent implements OnInit {
          this.selectedSpace=this.defaultSpace;
          this.popNumber="0";
          this.popSpecValue="";
-        this.addParts.open("新建部件");
+        this.addParts.open("PHYSICAL_MNG.CREATE_PART");
     }
     //确认部件
     addPartConfirm(){
@@ -354,7 +361,7 @@ export class PhysicalEditComponent implements OnInit {
         const partSelect = this.physical.partsEntitys.find((e) => { return e.isSelect });
         console.log("选中的需要编辑的物理机部件",partSelect);
          if(!partSelect){
-            this.showAlert("请选择需要编辑的物理机部件！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_SELECT_EDIT_PART");//请选择需要编辑的物理机部件！
             return;
         }
         this.selectedPart = this.parts.find((part) => { return  part.partsName== partSelect.partsName });
@@ -364,20 +371,14 @@ export class PhysicalEditComponent implements OnInit {
         let editPart= new PartsEntitys();
             editPart= partSelect
             this.partsEntity= editPart;                            
-            this.addParts.open("编辑部件");
+            this.addParts.open("PHYSICAL_MNG.EDIT_PART");
     }
-
-   // 取消编辑部件
-   cancelEditPart(){
-       
-   }
-
 
     //删除物理机部件
     deletePart(){       
         const part = this.physical.partsEntitys.find((e) => { return e.isSelect });
           if(!part){
-            this.showAlert("请选择需要删除的物理机部件！");
+            this.showAlert("PHYSICAL_MNG.PLEASE_SELECT_DELETE_PART");//请选择需要删除的物理机部件！
             return;
         }
          for (var i = this.physical.partsEntitys.length - 1; i >= 0; i--) {
@@ -419,15 +420,37 @@ export class PhysicalEditComponent implements OnInit {
     //维保起始时间
      startTimeChange($event){
 		this.physical.mainStartDate = $event.formatted;
+         if(this.physical.mainEndDate){
+             let e=this.mainDateCompare();
+             if(!e){
+                 this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");
+                 return;
+             }
+        }    
 	}
     
     //维保结束时间
 	endTimeChange($event){
 		this.physical.mainEndDate = $event.formatted;
+        if(this.physical.mainStartDate){
+          let e=this.mainDateCompare();
+             if(!e){
+                 this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");
+                 return;
+             }
+        }     
 	}
+
+    mainDateCompare():boolean{
+        let startDate= this.physical.mainStartDate.replace(/-/g,"/");
+        let endDate=this.physical.mainEndDate.replace(/-/g,"/");
+        if(startDate>=endDate) {          
+              return false;
+        }
+        else return true;
+    }
     showAlert(msg: string): void {
         this.layoutService.hide();
-
         this.noticeTitle = "PHYSICAL_MNG.NOTICE";
         this.noticeMsg = msg;
         this.notice.open();

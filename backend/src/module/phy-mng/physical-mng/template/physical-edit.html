@@ -7,7 +7,7 @@
         <div class="col-md-12">
              <div class="row row-line-height" *ngIf="eidtMode !='create'">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">基本信息</div>
+                    <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.BASE_INFO'|translate}}</div>
                     <div class="col-md-4">  </div>
                 </div>
             </div>
@@ -113,36 +113,36 @@
 
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">维保起始日期:</div>
+                    <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.MAIN_START_TIME'|translate}}:</div>
                     <div class="col-md-4" *ngIf="physical.mainStartDate && eidtMode !='create'">
                        <date-picker  [options]="myDatePickerOptions"  [initDate]= "physical.mainStartDate" (dateChanged)="startTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
                     </div>
-                    <div class="col-md-4" *ngIf="eidtMode =='create'">
-                       <date-picker  [options]="myDatePickerOptions"  (dateChanged)="startTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
+                    <div class="col-md-4" *ngIf="eidtMode =='create' || physical.mainStartDate ==null">
+                       <date-picker  [options]="myDatePickerOptions"  (dateChanged)="startTimeChange($event)" [disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
                     </div>
                 </div>
             </div>
             <div class="row row-line-height">
                 <div class="form-group">   <!--[disabled]="eidtMode =='view'||editMode=='editParts'" 日期组件没有diasbled属性-->
-                    <div class="col-sm-4 form-control-title">维保结束日期:</div>
+                    <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.MAIN_END_TIME'|translate}}:</div>
                     <div class="col-md-4" *ngIf="physical.mainEndDate && eidtMode !='create'">
                        <date-picker  [options]="myDatePickerOptions" [initDate]= "physical.mainEndDate" (dateChanged)="endTimeChange($event)" [disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
                     </div>
-                     <div class="col-md-4" *ngIf="eidtMode =='create'">
-                       <date-picker  [options]="myDatePickerOptions"  (dateChanged)="endTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
+                     <div class="col-md-4" *ngIf="eidtMode =='create' || physical.mainEndDate ==null">
+                       <date-picker  [options]="myDatePickerOptions"  (dateChanged)="endTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'"  ></date-picker>
                     </div>
                 </div>
             </div>
             <div *ngIf="read|| eidtMode =='view' ||eidtMode =='edit' ||eidtMode =='editParts'">
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">硬件信息</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.HARDWARE_INFO'|translate}}</div>
                         <div class="col-md-4">    </div>
                     </div>
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">物理机型号:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.PHYSICAL_MODEL'|translate}}:</div>
                         <div class="col-md-4"> 
                             <input type="text" class="form-control"  [(ngModel)]="physical.model" [disabled]="eidtMode !='create'">
                         </div>
@@ -150,7 +150,7 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">序列号:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.SN'|translate}}:</div>
                         <div class="col-md-4"> 
                             <input type="text" class="form-control"  [(ngModel)]="physical.sn"[disabled]="eidtMode !='create'" >
                         </div>
@@ -158,15 +158,15 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">部件同步结果:</div>
+                        <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.PART_SYN_RESULT'|translate}}:</div>
                         <div class="col-md-4"> 
                             <div class="table-container">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>部件</th>
-                                            <th>规格值</th>
-                                            <th>数量</th>
+                                            <th>{{'PHYSICAL_MNG.PART'|translate}}</th>
+                                            <th>{{'PHYSICAL_MNG.SPEC_VALUE'|translate}}</th>
+                                            <th>{{'PHYSICAL_MNG.PART_COUNT'|translate}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -184,23 +184,23 @@
             </div>
            <div class="row row-line-height"  >   <!-- *ngIf="editMode=='editParts' || editMode=='create'"-->
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">设置服务器部件:</div>
+                    <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.SET_PART'|translate}}:</div>
                     <div class="col-md-4"> 
                         <div class="mgt5"  *ngIf="eidtMode =='create'||eidtMode =='editParts'">
-                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="addPart();">新增</button>
-                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editPart();">编辑</button>
-                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="deletePart();">删除</button>
+                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="addPart();">{{'PHYSICAL_MNG.ADD_PART'|translate}}</button>
+                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="editPart();">{{'PHYSICAL_MNG.EDIT'|translate}}</button>
+                            <button  class="fox-cloud-button-md fox-cloud-button-white" (click)="deletePart();">{{'PHYSICAL_MNG.DELETE'|translate}}</button>
                         </div>
                          <div class="table-container mgt10">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th *ngIf="eidtMode =='create'||eidtMode =='editParts'">选择</th>
-                                        <th>部件名称</th>
-                                        <th>规格</th>
-                                        <th>规格值</th>
-                                        <th>数量</th>   
-                                        <th>总容量</th>                                   
+                                        <th *ngIf="eidtMode =='create'||eidtMode =='editParts'">{{'PHYSICAL_MNG.SELECT'|translate}}</th>
+                                        <th>{{'PHYSICAL_MNG.PART_NAME'|translate}}</th>
+                                        <th>{{'PHYSICAL_MNG.SPEC'|translate}}</th>
+                                        <th>{{'PHYSICAL_MNG.SPEC_VALUE'|translate}}</th>
+                                        <th>{{'PHYSICAL_MNG.PART_COUNT'|translate}}</th>   
+                                        <th>{{'PHYSICAL_MNG.CAPACITY'|translate}}</th>                                   
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -366,13 +366,13 @@
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice>
  <!--{{ physical.toString() }}-->
 
- <fc-popup #addParts title="{{poptitle}}" ot="{{isEdit== false? '添加': '保存'}}"  ct="取消" (of)="addPartConfirm()" >
+ <fc-popup #addParts title="{{poptitle}}" ot="{{isEdit== false? 'PHYSICAL_MNG.ADD': 'PHYSICAL_MNG.SAVE' | translate }}"  ct="{{'PHYSICAL_MNG.CANCEL'|translate}}" (of)="addPartConfirm()" >
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title">部件名称:</div>
+            <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.PART_NAME'|translate}}:</div>
             <div class="col-sm-4">
                 <select class="form-control" [(ngModel)]="selectedPart" (change)="selectedSpace=defaultSpace">
-                    <option [ngValue]="defaultPart">请选择</option>
+                    <option [ngValue]="defaultPart">{{'PHYSICAL_MNG.PLEASE_CHOOSE'|translate}}</option>
                     <option *ngFor="let item of parts" [ngValue]="item">{{item.partsName}}</option>
                 </select>
             </div>
@@ -380,10 +380,10 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title">规格:</div>
+            <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.SPEC'|translate}}:</div>
             <div class="col-sm-4">
                 <select class="form-control" [(ngModel)]="selectedSpace" (change)="popSpecValue=''">
-                      <option [ngValue]="defaultSpace">请选择</option>
+                      <option [ngValue]="defaultSpace">{{'PHYSICAL_MNG.PLEASE_CHOOSE'|translate}}</option>
                      <option *ngFor="let item of selectedPart.specList" [ngValue]="item">{{item.specName}}</option>
                 </select>
             </div>
@@ -391,10 +391,10 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title">规格值:</div>
+            <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.SPEC_VALUE'|translate}}:</div>
             <div class="col-sm-4">
                  <select class="form-control" [(ngModel)]="popSpecValue" >
-                      <option value="">请选择</option>
+                      <option value="">{{'PHYSICAL_MNG.PLEASE_CHOOSE'|translate}}</option>
                      <option *ngFor="let item of selectedSpace.specValues" [value]="item">{{item}}</option>
                 </select>
             </div>
@@ -403,7 +403,7 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title">数量:</div>
+            <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.PART_COUNT'|translate}}:</div>
             <div class="col-sm-4">
                 <input type="text" class="form-control" [(ngModel)]="popNumber">
             </div>
