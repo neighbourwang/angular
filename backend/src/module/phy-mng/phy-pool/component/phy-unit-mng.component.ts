@@ -114,7 +114,7 @@ export class PhyUnitMngComponent implements OnInit{
         this.selectedParts= this.defaultParts;
         this.selectedSpec= this.defaultSpec;
         this.getPartsList();
-        this.creUnit.open("新建部件");
+        this.creUnit.open("PHY_MNG_DEPART.CREATE_DEPART");
     }
 
     editPage(){
@@ -122,7 +122,7 @@ export class PhyUnitMngComponent implements OnInit{
             return p.selected;
         });
         if(!selectedP){
-            this.showAlert("请选择部件")
+            this.showAlert("PHY_MNG_DEPART.PLEASE_CHOOSE_DEPART")
         }else if(selectedP.usedPMCount == 0){
             this.isEdit= true;
             let editParts= new PhyPartsList();
@@ -146,9 +146,9 @@ export class PhyUnitMngComponent implements OnInit{
             if(!this.selectedSpec){
                 this.selectedSpec= this.defaultSpec;
             }
-            this.creUnit.open("编辑部件");
+            this.creUnit.open("PHY_MNG_DEPART.EDIT_DEPART");
         }else{
-            this.showAlert("被物理机引用的部件不能编辑");
+            this.showAlert("PHY_MNG_DEPART.USED_CANNOT_EDIT");
         }
     }
 
@@ -224,7 +224,7 @@ export class PhyUnitMngComponent implements OnInit{
                 .catch((e) => this.onRejected(e));
         }else{
             this.creUnit.close();
-            this.showAlert("部件名称或规格已存在");
+            this.showAlert("PHY_MNG_DEPART.ALREADY_EXIST");
         }
     }
 
@@ -254,7 +254,7 @@ export class PhyUnitMngComponent implements OnInit{
                     .catch((e) => this.onRejected(e));
             }
         }else{
-            this.showAlert("被物理机引用的部件不能删除");
+            this.showAlert("PHY_MNG_DEPART.USED_CANNOT_DELETE");
         }
     }
 

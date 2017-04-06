@@ -2,7 +2,7 @@
     阿里云账号管理
 </div>
 <div class="mgb20" style="height:30px;">
-    <button class="btn button-confirm  pull-right">
+    <button class="btn button-confirm  pull-right" (click)="gotoSubMng();">
         <span class="glyphicon glyphicon-cog mgr5"></span>管理子账号
     </button>
 </div>
@@ -66,7 +66,7 @@
         <div *ngIf="type== 'edit'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">
             <div class="col-md-4"></div>
             <div class="col-md-2 no-padding form-group ">
-                <button class="btn btn-default button-gray-gradient">&nbsp;&nbsp;测试&nbsp;&nbsp;</button>
+                <button class="btn btn-default button-gray-gradient">  测试  </button>
             </div>
             <div class="col-md-4 no-padding">
                 <span class="font-green" style="line-height: 34px;">提示:测试成功</span>
@@ -91,7 +91,7 @@
     <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
         <div class="col-md-1"></div>
         <div class="col-md-10">
-            <table class="table table-hover table-all-boder" style="table-layout:fixed">
+            <table class="table table-hover table-all-boder">
                 <tbody>
                 <tr>
                     <th class="text-center">选择 </th>

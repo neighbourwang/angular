@@ -55,6 +55,11 @@ export class AliMajorListComponent implements OnInit{
         this.distriDepart.open("分配部门")
     }
 
+    gotoSubMng(){
+        this.router.navigate([`user-center/ali-cloud/ali-sub-list`]);
+    }
+
+
     showAlert(msg: string): void {
         this.layoutService.hide();
 

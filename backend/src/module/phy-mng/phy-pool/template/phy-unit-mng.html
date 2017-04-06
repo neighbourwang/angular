@@ -1,9 +1,9 @@
-﻿<div class="page-content-header icon-content-header-physical-mng" > 物理机部件管理 </div>
+﻿<div class="page-content-header icon-content-header-physical-mng" > {{PHY_MNG_DEPART.PHY_DEPART_MNG | translate}}</div>
 <div class="page-content">
     <div style="margin-bottom:10px">
         <button class="fox-cloud-button fox-cloud-button-green" (click)="crePage();isEdit= false;">
             <span class="glyphicon glyphicon-plus"></span>
-            <span class="icon-button-label icon-left-button-label">新建物理机部件</span>
+            <span class="icon-button-label icon-left-button-label"> {{PHY_MNG_DEPART.CREATE_PHY_DEPART | translate}}</span>
         </button>
         <div class="dropdown pull-right" style="margin-left:10px;">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -23,10 +23,10 @@
             <tr>
                 <th>{{'PHY_MNG_POOL.SELECT' | translate}}</th>
                 <th>{{'PHY_MNG_POOL.NUMBER' | translate}}</th>
-                <th>部件名称</th>
-                <th>规格</th>
-                <th>规格值</th>
-                <th>参考价值</th>
+                <th>{{PHY_MNG_DEPART.PARTS_NAME | translate}}</th>
+                <th>{{PHY_MNG_DEPART.SPEC_NAME | translate}}</th>
+                <th>{{PHY_MNG_DEPART.SPEC_VALUE | translate}}</th>
+                <th>{{PHY_MNG_DEPART.REFERENCE | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -52,11 +52,11 @@
 <fc-popup #creUnit title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'COMMON.SAVE' | translate }}"  ct="{{ 'COMMON.CANCEL' | translate }}" (of)="creOredit()">
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-3 form-control-title">部件名称:</div>
+            <div class="col-sm-3 form-control-title">{{PHY_MNG_DEPART.USED_CANNOT_EDIT | translate}}{{PHY_MNG_DEPART.PARTS_NAME | translate}}:</div>
             <div class="col-sm-4">
                 <select class="form-control" [(ngModel)]="selectedParts" (change)="selectedSpec=defaultSpec;">
                     <option *ngFor="let v of partslist" [ngValue]="v">{{v.partsName}}</option>
-                    <option [ngValue]="defaultParts">其它</option>
+                    <option [ngValue]="defaultParts">{{PHY_MNG_DEPART.OTHERS | translate}}</option>
                 </select>
             </div>
             <div class="col-sm-4" *ngIf="!selectedParts.partsId">
@@ -66,11 +66,11 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-3 form-control-title">规格:</div>
+            <div class="col-sm-3 form-control-title">{{PHY_MNG_DEPART.USED_CANNOT_EDIT | translate}}{{PHY_MNG_DEPART.SPEC_NAME | translate}}:</div>
             <div class="col-sm-4">
                 <select class="form-control" [(ngModel)]="selectedSpec">
                     <option *ngFor="let spec of selectedParts.specList" [ngValue]="spec">{{spec.specName}}</option>
-                    <option [ngValue]="defaultSpec">其它</option>
+                    <option [ngValue]="defaultSpec">{{PHY_MNG_DEPART.USED_CANNOT_EDIT | translate}}{{PHY_MNG_DEPART.OTHERS | translate}}</option>
                 </select>
             </div>
             <div class="col-sm-4" *ngIf="!selectedSpec.specId">
@@ -80,7 +80,7 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-3 form-control-title">规格值:</div>
+            <div class="col-sm-3 form-control-title">{{PHY_MNG_DEPART.USED_CANNOT_EDIT | translate}}{{PHY_MNG_DEPART.SPEC_VALUE | translate}}:</div>
             <div class="col-sm-6">
                 <input type="text" class="form-control" [(ngModel)]="criteria.specValue">
             </div>
@@ -89,7 +89,7 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-3 form-control-title">参考价值:</div>
+            <div class="col-sm-3 form-control-title">{{PHY_MNG_DEPART.USED_CANNOT_EDIT | translate}}{{PHY_MNG_DEPART.REFERENCE | translate}}:</div>
             <div class="col-sm-6">
                 <input type="text" class="form-control" [(ngModel)]="criteria.referencePrice">
             </div>
