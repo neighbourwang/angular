@@ -1305,7 +1305,23 @@
     "PHY_MNG_DEPART": {
         "DELETE_DEPART": "删除部件",
         "DELETE_DEPART_WARNING": "您选择删除{{value_1}}部件，请确认；如果确认，此部件的信息将不能恢复。",
-        "PLEASE_CHOOSE_DEPART": "请选择部件"
+        "PLEASE_CHOOSE_DEPART": "请选择部件",
+        "CREATE_DEPART": "新建部件",
+        "EDIT_DEPART": "编辑部件",
+        "USED_CANNOT_EDIT": "被物理机引用的部件不能编辑！",
+        "ALREADY_EXIST": "部件名称或规格已存在！",
+        "USED_CANNOT_DELETE": "被物理机引用的部件不能删除！",
+        "PHY_DEPART": "物理机部件管理",
+        "CREATE_PHY_DEPART": "新建物理机部件",
+        "PARTS_NAME": "部件名称",
+        "SPEC_NAME": "规格",
+        "SPEC_VALUE": "规格值",
+        "REFERENCE": "参考价值",
+        "OTHERS": "其它",
+        "DEPART_NAME_CANNOT_NULL": "部件名称不能为空",
+        "SPEC_NAME_CANNOT_NULL": "规格不能为空",
+        "SPEC_VALUE_CANNOT_NULL": "规格值不能为空",
+        "REFERENCE_CANNOT_NULL": "参考价值不能为空"
     },
   "PHYSICAL_MNG": {
     "CONFIRM": "确认",

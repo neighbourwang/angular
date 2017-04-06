@@ -1,170 +1,56 @@
-<div class="page-content-header mgb20 ">
-    {{ 'MENU.CASE_MNY' | translate}}
+<div class="page-content-header mgb20">
+    阿里云子账号管理
+    <span class="icon-back" style="font-size:14px"></span>
+    <span style="font-size:14px;padding:2px 0px">返回阿里云账号管理</span>
 </div>
-<div class="mgb20 row">
-    <div class="col-md-4 btn-group" data-toggle="buttons">
-        <button class="btn btn-default" (click)="myCase();">
-            <input type="radio"> {{ 'USER_CENTER.MY_CASE' | translate}}
-        </button>
-        <button class="btn btn-default active">
-            <input type="radio"> {{ 'USER_CENTER.DEPART_CASE' | translate}}
-        </button>
-    </div>
-</div>
-
 <div class="mgb20" style="height:30px;">
-    <div class="input-group col-md-2 float-left">
-        <input [(ngModel)]="search" class="form-control" placeholder="{{ 'USER_CENTER.QUICKSEARCH_BYCASE' | translate}}" type="text">
-        <div (click)="getData()" class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-    </div>
-    <div class="float-left mgl20">
-        <span>{{ 'USER_CENTER.TYPE' | translate}}：</span>
-        <select [(ngModel)]="selectedType" (ngModelChange)="getData()" class="form-control fix-width-120">
-            <option [value]="defaultType">{{ 'USER_CENTER.TYPE_ALL' | translate}}</option>
-            <option [value]="v.value" *ngFor="let v of service.typeDic | async">{{v.displayValue}}</option>
-        </select>
-    </div>
-    <div class="float-left mgl20">
-        <span>{{ 'COMMON.STATUS' | translate }}：</span>
-        <select [(ngModel)]="selectedStatus" (ngModelChange)="getData()" class="form-control fix-width-120">
-            <option [value]="defaultStatus">{{ 'USER_CENTER.STATUS_ALL' | translate}}</option>
-            <option [value]="v.value" *ngFor="let v of service.statusDic | async">{{v.displayValue}}</option>
-        </select>
-    </div>
-    <div class="float-left mgl20">
-        <span>{{ 'USER_CENTER.EMERGENCY' | translate}}：</span>
-        <select [(ngModel)]="selectedEmergency" (ngModelChange)="getData()" class="form-control fix-width-120">
-            <option [value]="defaultEmergency">{{ 'USER_CENTER.ALL' | translate}}</option>
-            <option [value]="v.value" *ngFor="let v of service.emergencyDic | async">{{v.displayValue}}</option>
-        </select>
-    </div>
-    <div class="float-left mgl20">
-        <span>{{ 'USER_CENTER.SUBMITOR' | translate}}：</span>
-        <select [(ngModel)]="creatorId" (ngModelChange)="getData()" class="form-control fix-width-120">
-            <option [value]="defaultUser">{{ 'USER_CENTER.ALL' | translate}}</option>
-            <option [value]="v.id" *ngFor="let v of userList">{{v.userName}}</option>
-        </select>
-    </div>
+<!--    <button class="btn button-confirm  pull-right" (click)="gotoSubMng();">
+        <span class="glyphicon glyphicon-cog mgr5"></span>管理子账号
+    </button>-->
+    <button class="btn button-confirm  pull-right">
+        <span class="glyphicon glyphicon-edit" style="top:2px"></span>
+        <span>创建子账号</span>
+    </button>
 </div>
-<table class="table table-hover"  style="table-layout:fixed">
+<div style="clear:both"></div>
+<table class="table table-hover mgt20" >
+    <thead>
+    <tr>
+        <th class="text-center">编号 </th>
+        <th class="text-center">子账号登录名</th>
+        <th class="text-center">所属部门 </th>
+        <th class="text-center">状态</th>
+        <th class="text-center">最后更新时间</th>
+        <th class="text-center">操作人 </th>
+        <th class="text-center">操作 </th>
+    </tr>
+    </thead>
     <tbody>
-        <tr>
-            <th class="text-center">{{ 'USER_CENTER.CASE_ID' | translate}}</th>
-            <th class="text-center">{{ 'USER_CENTER.SUBJECT' | translate}} </th>
-            <th class="text-center">{{ 'USER_CENTER.TYPE' | translate}} </th>
-            <th class="text-center">{{ 'COMMON.STATUS' | translate }} </th>
-            <th class="text-center">{{ 'USER_CENTER.EMERGENCY' | translate}} </th>
-            <th class="text-center">{{ 'USER_CENTER.CONTACTOR' | translate}}</th>
-            <th class="text-center">{{ 'USER_CENTER.CONTACNO' | translate}} </th>
-            <th class="text-center">{{ 'USER_CENTER.SUBMITOR' | translate}}</th>
-            <th class="text-center" style="width:155px">{{ 'USER_CENTER.SUBMIT_TIME' | translate}}</th>
-            <th class="text-center" style="width:155px">{{ 'USER_CENTER.UPDATE_TIME' | translate}}</th>
-        </tr>
-        <tr *ngFor="let item of data">
-            <td class="text-center">{{item.id}}</td>
-            <td style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100px;">
-                <static-tooltip [title]="item.subject"><a href="javascript:void(0);" (click)="getDetail(item)">{{item.subject | slice:0:8}}</a></static-tooltip>
-            </td>
-            <td class="text-center">{{item.typeName}}</td>
-            <td class="text-center">{{item.statusName}}</td>
-            <td class="text-center">{{item.emergencyName}}</td>
-            <td class="text-center">{{item.contact}}</td>
-            <td class="text-center">{{item.contactNo}}</td>
-            <td class="text-center">{{item.creatorName}}</td>
-            <td class="text-center">{{item.createDate}}</td>
-            <td class="text-center">{{item.updateDate}}</td>
-        </tr>
+    <tr>
+        <td class="text-center"><input class="fox-cloud-radio" type="radio" ></td>
+        <td class="text-center">管华</td>
+        <td class="text-center">1</td>
+        <td class="text-center">2</td>
+        <td class="text-center">销售部</td>
+        <td class="text-center">部门负责人</td>
+        <td class="text-center">
+            <span class="glyphicon glyphicon-edit font-green" style="margin-right : 10px ;cursor:pointer"></span>
+            <span class="glyphicon glyphicon-user glyphicon font-green" style="margin-right : 10px ;cursor:pointer"></span>
+            <span class="glyphicon glyphicon-ok-circle font-green" style="margin-right : 10px ;cursor:pointer"></span>
+            <span class="glyphicon glyphicon-ban-circle font-orange" style="margin-right : 10px ;cursor:pointer"></span>
+            <span class="glyphicon glyphicon-trash font-orange" style="margin-right : 10px ;cursor:pointer"></span>
+        </td>
+    </tr>
     </tbody>
 </table>
-
-<fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
-
-<fc-popup #caseDetail title="{{ title }}" ot="" ct="">
-        <div class="mgb10">{{ 'USER_CENTER.BASIC_INFO' | translate}}</div>
-        <table class="cm-table-left table table-all-boder">
-            <tbody>
-            <tr>
-                <th class="col-md-2 text-center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:150px;">{{ 'USER_CENTER.SUBJECT' | translate}}</th>
-                <td colspan="3">{{basicInfo.subject}}</td>
-            </tr>
-            <tr>
-                <th class="col-md-2 text-center">{{ 'COMMON.STATUS' | translate }}</th>
-                <td>{{basicInfo.statusName}}</td>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.TYPE' | translate}}</th>
-                <td>{{basicInfo.typeName}}</td>
-            </tr>
-            <tr>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.CONTACTOR' | translate}}</th>
-                <td>{{basicInfo.contact}}</td>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.CONTACNO' | translate}}</th>
-                <td>{{basicInfo.contactNo}}</td>
-            </tr>
-            <tr>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBMITOR' | translate}}</th>
-                <td>{{basicInfo.creatorName}}</td>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.SUBMIT_TIME' | translate}}</th>
-                <td>{{basicInfo.updateDate}}</td>
-            </tr>
-            <tr>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.DEPARTMENT_OWNED' | translate}}</th>
-                <td>{{basicInfo.creatorOrganization}}</td>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.ENTERPRISE_OWNED' | translate}}</th>
-                <td>{{basicInfo.creatorTenant}}</td>
-            </tr>
-            <tr>
-                <th class="col-md-2 text-center table-text-middle" height="80px">{{ 'USER_CENTER.DESCRIPTION' | translate}}</th>
-                <td colspan="3" height="80px">{{basicInfo.details}}</td>
-            </tr>
-            </tbody>
-        </table>
-
-    <div *ngIf="handledInfo != ''" class="mgb10 mgt10">{{ 'USER_CENTER.HANDLED_INFO' | translate}}</div>
-    <table class="cm-table-left table table-all-boder">
-        <tbody *ngFor="let v of handledInfo" style="border-top:0px;">
-        <tr>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.EMERGENCY' | translate}}</th>
-            <td >{{v.emergency}}
-                <span *ngIf=" v.emergencyChange != '不变'" class="font-orange" >({{v.emergencyChange}})</span>
-            </td>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.HANDLER_NAME' | translate}}</th>
-            <td>{{v.handlerName}}</td>
-            <th class="col-md-2 text-center">{{ 'USER_CENTER.HANDLER_TIME' | translate}}</th>
-            <td>{{v.handleDate}}</td>
-        </tr>
-        <tr>
-            <th class="col-md-2 text-center table-text-middle" height="80px">{{ 'USER_CENTER.HANDLER_PROCESS' | translate}}</th>
-            <td colspan="5" height="80px">{{v.handleInfo}}</td>
-        </tr>
-        </tbody>
-    </table>
-
-
-    <div *ngIf="basicInfo.status == 2">
-        <div class="mgb10 mgt10">{{ 'USER_CENTER.CLOSED_INFO' | translate}}</div>
-        <table class="cm-table-left table table-all-boder">
-            <tbody>
-            <tr>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.CLOSED_TYPE' | translate}}</th>
-                <td>{{closedInfo.closeType}}</td>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.CLOSED_NAME' | translate}}</th>
-                <td>{{closedInfo.closerName}}</td>
-                <th class="col-md-2 text-center">{{ 'USER_CENTER.CLOSED_TIME' | translate}}</th>
-                <td>{{closedInfo.closeDate}}</td>
-            </tr>
-            <tr>
-                <th class="col-md-2 text-center table-text-middle" height="80px">{{ 'USER_CENTER.DESCRIPTION' | translate}}</th>
-                <td colspan="5" height="80px">{{closedInfo.closeInfo}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-</fc-popup>
-
-<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}"></fc-confirm>
-<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
-
-
-
-
-
+<div class="fox-cloud-pagination-container">
+    <ul class="fox-cloud-pagination">
+        <span class="pagination-disabled">上一页</span>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <span>下一页</span>
+    </ul>
+</div>

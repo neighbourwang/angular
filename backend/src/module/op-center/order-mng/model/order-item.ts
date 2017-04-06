@@ -21,8 +21,11 @@ export class SubInstanceItemResp {
   specList: Array<SubInstanceAttrPair> = null;//[SubInstanceAttrPair], optional): 产品规格 ,
   status: string = null;//, optional): UI订单状态，需要查询数据字典
   buyer: string = null;//订购人
-  departmentName: string = null;//所属部门
-
+  departmentName: string = null;//所属部门platform:string;
+platform:string;
+privateIp:string;
+publicIp:string;
+osType:string;
   get billingMode():number{//包装计费模式
     return this.billingInfo ? this.billingInfo.billingMode : null;
   }

@@ -53,6 +53,8 @@ export class PhysicalEditComponent implements OnInit {
     selectedPart:Part=this.defaultPart;
     defaultSpace= new Space();
     selectedSpace:Space=this.defaultSpace;
+    popSpecValue:string="";
+    popNumber:string="0";
    
     partsEntityList:Array<PartsEntitys>=new Array<PartsEntitys>();
    
@@ -313,6 +315,8 @@ export class PhysicalEditComponent implements OnInit {
          this.partsEntity=new PartsEntitys();
          this.selectedPart=this.defaultPart;
          this.selectedSpace=this.defaultSpace;
+         this.popNumber="0";
+         this.popSpecValue="";
         this.addParts.open("新建部件");
     }
     //确认部件
@@ -324,6 +328,8 @@ export class PhysicalEditComponent implements OnInit {
                     this.partsEntity.partsName=this.selectedPart.partsName;
                      this.partsEntity.specName=this.selectedSpace.specName;
                      this.partsEntity.specId=this.selectedSpace.specId;
+                     this.partsEntity.specValue=this.popSpecValue;
+                     this.partsEntity.number=this.popNumber;
                     this.physical.partsEntitys[i]=this.partsEntity;
                 }
              }  
@@ -334,6 +340,8 @@ export class PhysicalEditComponent implements OnInit {
             this.partsEntity.specName=this.selectedSpace.specName;
             this.partsEntity.partsId=this.selectedPart.partsId;
             this.partsEntity.specId=this.selectedSpace.specId;
+            this.partsEntity.specValue=this.popSpecValue;
+            this.partsEntity.number=this.popNumber;
             this.physical.partsEntitys.push(this.partsEntity);
             this.addParts.close();
         }
@@ -351,12 +359,19 @@ export class PhysicalEditComponent implements OnInit {
         }
         this.selectedPart = this.parts.find((part) => { return  part.partsName== partSelect.partsName });
         this.selectedSpace = this.selectedPart.specList.find((e)=>{return e.specId==partSelect.specId}) ;
-        this.partsEntity.specName=partSelect.specName; 
+        this.popSpecValue=this.selectedSpace.specValues.find((e)=>{return e==partSelect.specValue});
+        this.popNumber=partSelect.number;
         let editPart= new PartsEntitys();
-            editPart= partSelect;
+            editPart= partSelect
             this.partsEntity= editPart;                            
             this.addParts.open("编辑部件");
     }
+
+   // 取消编辑部件
+   cancelEditPart(){
+       
+   }
+
 
     //删除物理机部件
     deletePart(){       
