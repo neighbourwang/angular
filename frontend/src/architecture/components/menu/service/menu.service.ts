@@ -201,6 +201,12 @@ export class MenuService {
 							"routing": "user-center/person-acc-mng/person-acc-mng"
 						},
                         {
+                            "label": "阿里云账号管理",
+                            "isOpen": false,
+                            "isShow": isOrgin,
+                            "routing": "user-center/ali-cloud/ali-major-list"
+                        },
+                        {
                             "label": "MENU.CASE_MNY",
                             "isOpen": false,
                             "isShow": isOrgin,

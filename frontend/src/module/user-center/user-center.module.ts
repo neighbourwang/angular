@@ -6,6 +6,7 @@ import { PersonAccMngModule } from './person-acc-mng/person-acc-mng.module';
 import { OrgMngModule } from './org-mng/org-mng.module';
 import { CaseMngModule } from './case-mng/case-mng.module';
 import { MsgMngModule } from './msg-mng/msg-mng.module';
+import { AliMngModule } from './ali-cloud/ali-mng.module';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import { MsgMngModule } from './msg-mng/msg-mng.module';
         OrgMngModule,
         CommonComponentModule,
         CaseMngModule,
-        MsgMngModule
+        MsgMngModule,
+        AliMngModule
     ],
     declarations: [],
     exports: [
@@ -22,7 +24,8 @@ import { MsgMngModule } from './msg-mng/msg-mng.module';
         PersonAccMngModule,
         OrgMngModule,
         CaseMngModule,
-        MsgMngModule
+        MsgMngModule,
+        AliMngModule
     ],
     providers: []
 })
