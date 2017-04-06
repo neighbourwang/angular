@@ -28,7 +28,8 @@
         "dev": "./architecture/environments/environment.dev.ts",
         "boe": "./architecture/environments/environment.boe.ts",
         "boeprod": "./architecture/environments/environment.boeprod.ts",
-        "test": "./architecture/environments/environment.test.ts"
+        "test": "./architecture/environments/environment.test.ts",
+        "oldtest": "./architecture/environments/environment.oldtest.ts"
       }
     }
   ],

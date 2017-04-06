@@ -295,7 +295,7 @@
     "ADD_HEAD": "一共可以增加",
     "ADD_MIDDLE": "块，还可以增加",
     "ADD_TAIL": "块",
-    "PHYSICAL_MACHINE_ORDER": "物理机订购",
+    "PHYSICAL_MACHINE_ORDER": "创建物理机",
     "SELECT_PHYSICAL_RES": "选择物理资源",
     "SELECT_FROM_POOL": "从物理资源池中选取",
     "SYSTEM_AUTO_IN": "如不填写，则系统自动生成",
