@@ -59,6 +59,7 @@ export class PhyUnitMngComponent implements OnInit{
     isEdit: boolean;
     noReapeat: boolean;
     respecName: Spec= new Spec();
+    respecof: Spec= new Spec();
 
     ngOnInit (){
         console.log('init');
@@ -115,7 +116,7 @@ export class PhyUnitMngComponent implements OnInit{
         this.criteria= new PhyPartsList();
         this.selectedParts= this.defaultParts;
         this.selectedSpec= this.defaultSpec;
-        this.getPartsList();
+        //this.getPartsList();
         this.creUnit.open("PHY_MNG_DEPART.CREATE_DEPART");
     }
 
@@ -177,30 +178,33 @@ export class PhyUnitMngComponent implements OnInit{
             return;
         }
 
-        if(!this.selectedParts.partsName ){
-            let repartsName= this.partslist.find((p)=>{
-                return p.partsName== this.criteria.partsName
+        let repartsName= this.partslist.find((p)=>{
+            return p.partsName== this.criteria.partsName
+        });
+        let respartsof= this.partslist.find((p)=>{
+            return p.partsName== this.criteria.specName
+        });
+        this.partslist.find((p)=>{
+            this.respecName = p.specList.find((r)=>{
+                return r.specName== this.criteria.specName;
             });
-            if(repartsName){
+            this.respecof = p.specList.find((r)=>{
+                return r.specName== this.criteria.partsName;
+            });
+            if(this.respecName || this.respecof){
+                return true;
+            }else{
+                return false;
+            }
+        });
+        if(!this.selectedParts.partsName ){
+            if(repartsName || this.respecName || respartsof || this.respecof){
                 this.noReapeat= false;
             }else {
                 this.noReapeat= true;
             }
         }else if(!this.selectedSpec.specName && this.selectedParts.partsName){
-/*            let respecName= this.selectedParts.specList.find((p)=>{
-                return p.specName== this.criteria.specName;
-            });*/
-            this.partslist.find((p)=>{
-                this.respecName = p.specList.find((r)=>{
-                    return r.specName== this.criteria.specName;
-                });
-                if(this.respecName){
-                    return true;
-                }else{
-                    return false;
-                }
-            });
-            if(this.respecName) {
+            if(this.respecName || respartsof) {
                 this.noReapeat= false;
             }else {
                 this.noReapeat= true;
@@ -217,6 +221,7 @@ export class PhyUnitMngComponent implements OnInit{
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                             this.getData();
+                            this.getPartsList();
                             this.creUnit.close();
                             console.log(response.resultContent, "create");
                         } else {
@@ -233,6 +238,7 @@ export class PhyUnitMngComponent implements OnInit{
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                             this.getData();
+                            this.getPartsList();
                             this.creUnit.close();
                             console.log(response.resultContent, "edit");
                         } else {
