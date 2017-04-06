@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, PaginationComponent, SystemDictionary  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, PaginationComponent, SystemDictionary, ValidationService  } from '../../../../architecture';
 
 //model
 import { PhyPartsList } from '../model/phy-parts-list.model';
@@ -25,7 +25,8 @@ export class PhyUnitMngComponent implements OnInit{
     constructor(
         private router : Router,
         private service : PhyUnitMngService,
-        private layoutService : LayoutService
+        private layoutService : LayoutService,
+        private validationService: ValidationService
     ) {
 
     }
@@ -158,6 +159,23 @@ export class PhyUnitMngComponent implements OnInit{
         this.criteria.specId= this.selectedSpec.specId;
         this.criteria.partsName= this.selectedParts.partsName || this.criteria.partsName;
         this.criteria.specName= this.selectedSpec.specName || this.criteria.specName;
+
+        if (this.validationService.isBlank(this.criteria.partsName)) {
+            this.showAlert("PHY_MNG_DEPART.DEPART_NAME_CANNOT_NULL");
+            return;
+        }
+        if (this.validationService.isBlank(this.criteria.specName)) {
+            this.showAlert("PHY_MNG_DEPART.SPEC_NAME_CANNOT_NULL");
+            return;
+        }
+        if (this.validationService.isBlank(this.criteria.specValue)) {
+            this.showAlert("PHY_MNG_DEPART.SPEC_VALUE_CANNOT_NULL");
+            return;
+        }
+        if (this.validationService.isBlank(this.criteria.referencePrice)) {
+            this.showAlert("PHY_MNG_DEPART.REFERENCE_CANNOT_NULL");
+            return;
+        }
 
         if(!this.selectedParts.partsName ){
             let repartsName= this.partslist.find((p)=>{
