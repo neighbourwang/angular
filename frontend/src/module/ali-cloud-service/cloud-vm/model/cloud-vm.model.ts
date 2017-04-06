@@ -7,23 +7,32 @@ export class orderVmPageModel {
     selected: boolean = false;
     areas: Array<AreaModel> = [];
     selectedArea: AreaModel = new AreaModel();
+
     selectedChargeType: string = "PostPaid";//收费方式
-    selectedImage: string = "";　//启动ｖｍ时用的imageId,可能还需要镜像类型
-    selectedQuantity: number = 0; //购买量月份
-    renew: string = "0";  //"0"表示不自动续费，"1"表示自动续费
 
-    selectedNetworkType: string = "0"; //'0' 表示经典网络，'1'表示专有网络
+    selectedNetworkType: string = "classic"; //'classic' 表示经典网络，'vpc'表示专有网络
     selectedNetworkId: string = "";
-
-    selectedInternetChargeType: string = ""; //网络收费方式
-
-    selectedDisk: string = "";//云硬盘类型
-    diskCount: number = 0;//云硬盘G数
 
     selectedGeneration: string = ""; //实例族
     selectedInstanceFamily: string = "";
     selectedInstanceType: string = "";
+    ioOptimized: boolean = false;
 
+    selectedImage: string = "";　//启动ｖｍ时用的imageId,可能还需要镜像类型
+
+    selectedDisk: string = "";//云硬盘类型
+    diskCount: number = 40;//云硬盘G数
+
+
+    selectedQuantity: number = 0; //购买量月份
+    period: number = 0;
+    periodType: string = "";
+    priceUnit: string = "";
+    renew: boolean = false;  //"0"表示不自动续费，"1"表示自动续费
+
+    
+
+    selectedInternetChargeType: string = ""; //带宽收费方式    
     selectedInternetMaxBandwidthIn = 100;
     selectedInternetMaxBandwidthOut = 50;
 
@@ -32,6 +41,8 @@ export class orderVmPageModel {
     InstanceName: string = ""; //vm的名称
 
     price: string = "  "; //vm的价格
+    price_instance: string = "";
+    price_traffic: string = "";
 
     toString() {
         return JSON.stringify(this);

@@ -293,7 +293,7 @@ export class MenuService {
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
-							"routing": "ali-cloud/ali-cloud-major/ali-major-mng"
+							"routing": "ali-cloud/ali-cloud-mainAccount/ali-cloud-mainAccount-list"
 						}
 					]
 				},

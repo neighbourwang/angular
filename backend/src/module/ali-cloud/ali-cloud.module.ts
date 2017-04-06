@@ -1,14 +1,16 @@
 ﻿import { NgModule } from '@angular/core';
 
-import { AliCloudMajorModule } from './ali-cloud-major/ali-cloud-major.module';
-
+import { AliCloudMainAccountModule } from './ali-cloud-mainAccount/ali-cloud-mainAccount.module';
+import { AliCloudSubAccountModule } from './ali-cloud-subAccount/ali-cloud-subAccount.module';
 @NgModule({
     imports: [
-        AliCloudMajorModule
+        AliCloudMainAccountModule,
+        AliCloudSubAccountModule
     ],
     declarations: [],
     exports: [
-        AliCloudMajorModule
+        AliCloudMainAccountModule,
+        AliCloudSubAccountModule
     ],
     providers: []
 })

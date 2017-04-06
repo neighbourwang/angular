@@ -63,6 +63,8 @@ export class AliCloudVmOrderComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
+    calculatetimer: any = null;
+
     regions: Array<RegionModel> = [];
 
     defaultOrderVmPage: orderVmPageModel = new orderVmPageModel();
@@ -160,6 +162,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                     }
                     this.regions = result.Regions.Region;
                     console.log(this.regions, "this.regions!");
+                    this.selectRegion(this.regions[0]);
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -199,8 +202,8 @@ export class AliCloudVmOrderComponent implements OnInit {
             console.log(this.selectedOrderVmPage, "this.selectedOrderVmPage!");
         }
         this.getImages(region);
-        this.getInstanceTypeFamily(region);
-        this.getInstanceType(region);
+        //this.getInstanceTypeFamily(region);
+        //this.getInstanceType(region);
         this.getVPCs(region);
         this.getInstanceFamilyTree(region);
     }
@@ -272,7 +275,9 @@ export class AliCloudVmOrderComponent implements OnInit {
 
     DiskChanged() {
         window.setTimeout(() => {
-            this.calculatePrice();
+            if( this.selectedOrderVmPage.selectedDisk != "") {
+                //this.calculatePrice();
+            }
         }, 50); //window内的代码要延后50ms执行
     }
 
@@ -321,6 +326,20 @@ export class AliCloudVmOrderComponent implements OnInit {
             this.selectedOrderVmPage.selectedImage = this.selectedImageItem.ImageId;
             console.log(this.selectedOrderVmPage.selectedImage, "selected imageId!");
         }, 50); //window内的代码要延后50ms执行        
+    }
+
+    FormChanged() {
+        window.setTimeout(() => {
+            if ( this.selectedImageFlatform == this.defaultImageFlatform ) {
+                this.selectedImageItem = this.defaultImageItem;
+                this.selectedOrderVmPage.selectedImage = "";
+            } else {
+                this.selectedImageItem = this.selectedImageFlatform.images[0];
+                this.selectedOrderVmPage.selectedImage = this.selectedImageItem.ImageId;
+            }
+            
+            console.log( this.selectedImageItem, this.selectedOrderVmPage.selectedImage, " this.selectedImageItem and selected imageId!");
+        }, 50); //window内的代码要延后50ms执行   
     }
 
     getInstanceTypeFamily(region: RegionModel) {
@@ -382,16 +401,6 @@ export class AliCloudVmOrderComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    /*
-                    let result;
-                    try {
-                        result = JSON.parse(response.resultContent);
-                    } catch (ex) {
-                        console.log(ex);
-                    }                    
-                    this.instancetypelist = result.InstanceTypes.InstanceType;
-                    console.log(this.instancetypelist, "this.instancetypelist!");
-                    */
                     this.instancegenerations = response.resultContent;
                     console.log(this.instancegenerations, "this.instancegenerations!");
                     {
@@ -401,6 +410,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                     this.selectedOrderVmPage.selectedInstanceFamily = this.instancetypefamilies[0].instancefamilyid;
                     this.selectedOrderVmPage.selectedInstanceType = this.instancetypes[0].InstanceTypeId;
                     }
+                    this.setAndShowIO();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -477,29 +487,45 @@ export class AliCloudVmOrderComponent implements OnInit {
     VSwitchChanged() {
         window.setTimeout(() => {
             this.selectedOrderVmPage.selectedNetworkId = this.selectedVSwitch.VSwitchId;
-            console.log(this.selectedOrderVmPage.selectedNetworkId, "selected VSwitchId!");
+            console.log(this.selectedOrderVmPage.selectedNetworkId, this.selectedOrderVmPage.selectedNetworkType, "selected NetworkType and VSwitchId!");
         }, 50); //window内的代码要延后50ms执行 
     }
 
     reNew() {
-        if(this.selectedOrderVmPage.renew == "0") {
-            this.selectedOrderVmPage.renew = "1";
-        } else {
-            this.selectedOrderVmPage.renew = "0";
-        }
+        this.selectedOrderVmPage.renew = !this.selectedOrderVmPage.renew;
         console.log(this.selectedOrderVmPage.renew, "renew!");
+    }
+
+    validate(): boolean {
+        if (this.selectedOrderVmPage.selectedChargeType != "" &&
+            this.selectedOrderVmPage.selectedImage != "" &&
+            this.selectedOrderVmPage.selectedQuantity != 0 &&
+            this.selectedOrderVmPage.selectedNetworkType != "" &&
+            this.selectedOrderVmPage.selectedNetworkId != "" &&
+            this.selectedOrderVmPage.selectedInternetChargeType != "" &&
+            this.selectedOrderVmPage.selectedDisk != "" &&
+            this.selectedOrderVmPage.selectedGeneration != "" &&
+            this.selectedOrderVmPage.selectedInstanceFamily != "" &&
+            this.selectedOrderVmPage.selectedInstanceType != "" &&
+
+            this.selectedOrderVmPage.selectedInternetMaxBandwidthIn != 0 &&
+            this.selectedOrderVmPage.selectedInternetMaxBandwidthOut != 0
+             ) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
 
     calculatePrice() {
-        /*
-        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "") {
-            this.selectedRegion.price = "计算中...";
+        if ( this.validate() ) {
+            this.selectedOrderVmPage.price = "计算中...";
             this.calculatetimer  && window.clearTimeout(this.calculatetimer);
             this.calculatetimer = window.setTimeout(() => {
-
                 this.layoutService.show();
-                this.service.calculatePrice(this.selectedRegion)
+                this.service.calculatePrice(this.selectedOrderVmPage)
                     .then(
                     response => {
                         this.layoutService.hide();
@@ -510,8 +536,17 @@ export class AliCloudVmOrderComponent implements OnInit {
                             } catch (ex) {
                                 console.log(ex);
                             }
-                            this.selectedRegion.price = "￥ " + result + " /时";
-                            console.log(this.selectedRegion.price, "this.selectedRegion.price!");
+                            if (this.selectedOrderVmPage.selectedChargeType == "PostPaid") { //按量计费，多传一个traffic-bandwidth
+                                let price_ins = result.filter((n)=>{n.orderType=="instance-buy"});
+                                this.selectedOrderVmPage.price_instance = "￥ " + price_ins.tradeAmount + " /时";
+                                
+                                let price_traf = result.filter((n)=>{n.orderType=="traffic-bandwidth"});
+                                this.selectedOrderVmPage.price_traffic = "￥ " + price_traf.tradeAmount + " /时";
+                            } else if (this.selectedOrderVmPage.selectedChargeType == "PrePaid") { //包年包月，只传一个instance-buy
+                                let price_ins = result.filter((n)=>{n.orderType=="instance-buy"});
+                                this.selectedOrderVmPage.price_instance = "￥ " + price_ins.tradeAmount + " /时";
+                            }
+                            console.log(this.selectedOrderVmPage.price, "this.selectedOrderVmPage.price!");
                         } else {
                             this.showMsg("COMMON.GETTING_DATA_FAILED");
                             return;
@@ -524,13 +559,13 @@ export class AliCloudVmOrderComponent implements OnInit {
             }, 300);
 
         } else {
-            this.selectedRegion.price = "  ";
+            this.selectedOrderVmPage.price = "  ";
         }
-        */
     }
 
     buyNow() {
         console.log(this.selectedOrderVmPage, "selectedOrderVmPage Finally!!!");
+        this.calculatePrice();
         this.layoutService.show();
         this.service.createInstanceOrder(this.selectedOrderVmPage)
             .then(
@@ -600,9 +635,29 @@ export class AliCloudVmOrderComponent implements OnInit {
         this.notice.open(msg.title, msg.desc);
     }
 
+    outputValue() {
+        console.log(this.selectedOrderVmPage.selectedInternetMaxBandwidthOut);
+    }
 
     show(mnum:QuantityModel) {
         console.log(mnum, "month button");
+    }
+
+    showInstanceChargeType() {
+        console.log(this.selectedOrderVmPage.selectedChargeType, "selected instance charge type!");
+    }
+
+    showInstanceType() {
+        console.log(this.selectedOrderVmPage.selectedInstanceType, "selected instance family type!");
+    }
+
+    setAndShowIO() {
+        if(this.selectedOrderVmPage.selectedGeneration == "ecs-1") {
+            this.selectedOrderVmPage.ioOptimized = true;
+        } else {
+            this.selectedOrderVmPage.ioOptimized = false;
+        }
+        console.log(this.selectedOrderVmPage.ioOptimized, "selected ioOptimized!");
     }
 
     checkForm(key?:string) {
@@ -619,7 +674,7 @@ export class AliCloudVmOrderComponent implements OnInit {
   			//两次验证[密码验证，8-16个字]
 			passwordCheck: [this.selectedOrderVmPage.passwordCheck, [this.v.equalTo(this.selectedOrderVmPage.Password)], "两次密码输入不一致"],
   			//再次输入密码验证
-            alicloud_instance: [this.selectedOrderVmPage.InstanceName, [this.v.isInstanceName], "阿里云实例名称不对"],
+            alicloud_instance: [this.selectedOrderVmPage.InstanceName, [this.v.isAliCloudInstanceName], "阿里云实例名称不对"],
             /*
 			username: [this.username, [this.v.isInstanceName, this.v.isBase], "用户名输入格式不正确"],
   			//云主机名称验证

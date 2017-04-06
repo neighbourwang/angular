@@ -36,19 +36,35 @@ export class ProdMngCreStep4Component implements OnInit {
     confirm:ConfirmComponent;
 
     platformIdList = new Array();
-    isPlatformChange: boolean;
-    ngOnInit() {
-        //获取平台列表是否发生改变
-        this.router.params.forEach((params: Params) => {
-            this.isPlatformChange = 
-                params['isPlatformChange']=='false'?false:true;
-        })
-        console.log('isPlatformChange', this.isPlatformChange)
-        //获取企业列表        
+    //平台列表是否发生改变
+    isPlatformChange: boolean=false;
+    ngOnInit() {        
+        //获取企业列表
         this.service.product.productPlatformReqs.forEach(ele => {
             this.platformIdList.push(ele.platformId)
         });
-        if (this.isPlatformChange || ((!this.service.product.enterpriseListForSelect)&&(!this.service.product.productEnterpiseReqs))) {
+        console.log('compare',this.service.comparePlatIdList);
+        //获取平台列表是否发生改变        
+        if(this.service.comparePlatIdList.length==0||this.service.comparePlatIdList.length!=this.platformIdList.length){
+            this.isPlatformChange=true;
+        }else{
+            this.platformIdList.sort();
+            this.service.comparePlatIdList.sort();
+            for(let i=0;i<this.service.comparePlatIdList.length;i++){
+                for(let j=0;j<this.platformIdList.length;i++){
+                    if(this.service.comparePlatIdList[i]!=this.platformIdList[j]){
+                        this.isPlatformChange=true;
+                        return;
+                    }
+                }
+                if(i=this.service.comparePlatIdList.length){
+                    return this.isPlatformChange=false;
+                }
+            }
+        }
+        //请求企业列表
+        console.log(this.isPlatformChange);
+        if (this.isPlatformChange) {
             this.service.product.productEnterpiseReqs = [];
             this.service.product.enterpriseListForSelect=[];
             this.layoutService.show();
@@ -59,7 +75,12 @@ export class ProdMngCreStep4Component implements OnInit {
                     this.notice.open('提示', '根据所选平台列表暂时没有对应的可供发布企业');
                 }else{
                     // if (response && 100 == response.resultCode) {
-                this.service.product.enterpriseListForSelect = response.resultContent;
+                //比对ID列表更新为上次请求的ID的列表；
+                this.service.comparePlatIdList=JSON.parse(JSON.stringify(this.platformIdList));
+                this.service.product.enterpriseListForSelect = response.resultContent
+                this.service.product.enterpriseListForSelect.forEach(ele=>{
+                    ele.selected=false;
+                });
                 // } else {
 
                 // }
@@ -73,20 +94,28 @@ export class ProdMngCreStep4Component implements OnInit {
 
     //选择企业
     selectEnterprise(ent, index) {
-        // ent.selected = !ent.selected;
-        // this.product.productEnterpiseReqs = this.enterpriseList.filter((ele) => {
-        //     if (ele.selected == true) {
-        //         return ele;
-        //     }
-        // });
-        this.service.product.productEnterpiseReqs.push(ent);
-        this.service.product.enterpriseListForSelect.splice(index, 1);
-        console.log(this.service.product.productEnterpiseReqs)
+        ent.selected=!ent.selected;
+        console.log(ent);        
+        this.service.product.productEnterpiseReqs = this.service.product.enterpriseListForSelect.filter((ele) => {
+            if (ele.selected == true) {
+                return ele;
+            }
+        });
+        // console.log(ent,index)
+        // this.service.product.productEnterpiseReqs.push(ent);
+        // this.service.product.enterpriseListForSelect.splice(index, 1);
+        // console.log(this.service.product.productEnterpiseReqs)
     }
     //
-    unSelected(ent, index) {
-        this.service.product.enterpriseListForSelect.push(ent);
-        this.service.product.productEnterpiseReqs.splice(index, 1);
+    unSelected(e, index) {
+        // this.service.product.enterpriseListForSelect.push(ent);
+        // this.service.product.productEnterpiseReqs.splice(index, 1);
+        this.service.product.enterpriseListForSelect.map(ele=>{
+           if(ele.id==e.id){
+               ele.selected=false;
+           } 
+        })
+        this.service.product.productEnterpiseReqs.splice(index,1);
     }
 
 

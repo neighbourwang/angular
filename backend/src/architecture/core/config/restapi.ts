@@ -1143,6 +1143,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminui/authsec/enterprises/product/update/platform"
     },
+    {
+        "desc": "编辑产品企业信息",
+        "id": "prod-mng.prod-mng.editEnterprise",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/product/update/enterprise"
+    },
     
     //用户中心
     {
@@ -2157,6 +2163,12 @@ export let RestApis: RestApiModel[] = [
         "id": "physical-mng.physical.partList.get",
         "method": "GET",
         "url": "pmresourcemgmt/noauth/pm/parts/specvaluelist"  
+    },
+    {
+        "desc": "编辑物理机部件",
+        "id": "physical-mng.physical.partList.edit",
+        "method": "POST",
+        "url": "pmresourcemgmt/noauth/pmpool/pm/{pm_id}/pmparts" 
     },
 
     //物理机网络管理

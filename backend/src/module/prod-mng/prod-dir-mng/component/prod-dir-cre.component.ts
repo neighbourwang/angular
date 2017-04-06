@@ -113,11 +113,14 @@ export class ProdDirCreComponent implements OnInit {
                     for(let platform of this._platformlist){
                         for(let zone of platform.zoneList){
                             if(zone.selected==true){
+                                zone.disable=true;
                                 platform.selected=true;
-                                break;
-                            }else{
-                                platform.selected=false;
+                                // break;
                             }
+                            if(!zone.storageId){
+                                zone.storageName='未设置启动盘';
+                                zone.disable=true;
+                            }                            
                         }
                     }
                 } else {

@@ -15,6 +15,7 @@ export class PhysicalListModel{
     pmUseageStatus: string;   //使用状态
     pmMainStatus: string;   //运维状态
     pmHealthExam: string;   //健康检查
+    partsNumber:string;
     isSelect=false;
 
 }
