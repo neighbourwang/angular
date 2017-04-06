@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import {SubInstanceAttrPair,SubInstanceItemResp } from '../../../order-mng/model';
+import {SubInstanceAttrPair,SubInstanceItemResp } from '../model'
 import * as _ from 'underscore';
 
 @Component({
