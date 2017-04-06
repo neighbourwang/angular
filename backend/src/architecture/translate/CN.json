@@ -1317,7 +1317,11 @@
         "SPEC_NAME": "规格",
         "SPEC_VALUE": "规格值",
         "REFERENCE": "参考价值",
-        "OTHERS": "其它"
+        "OTHERS": "其它",
+        "DEPART_NAME_CANNOT_NULL": "部件名称不能为空",
+        "SPEC_NAME_CANNOT_NULL": "规格不能为空",
+        "SPEC_VALUE_CANNOT_NULL": "规格值不能为空",
+        "REFERENCE_CANNOT_NULL": "参考价值不能为空"
     },
   "PHYSICAL_MNG": {
     "CONFIRM": "确认",

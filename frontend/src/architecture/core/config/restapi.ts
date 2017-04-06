@@ -892,6 +892,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/describevswitches/vpcid/{vpcid}"
     },
+    { //计算阿里云主机价格
+        "desc": "Get instance price",
+        "id": "al-cloud.cloud-vm.price.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/price"
+    },
 
 
 ]

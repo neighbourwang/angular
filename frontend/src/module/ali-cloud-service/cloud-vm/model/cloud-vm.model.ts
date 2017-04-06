@@ -32,9 +32,9 @@ export class orderVmPageModel {
 
     
 
-    selectedInternetChargeType: string = ""; //带宽收费方式    
-    selectedInternetMaxBandwidthIn = 100;
-    selectedInternetMaxBandwidthOut = 50;
+    selectedInternetChargeType: string = "PayByTraffic"; //带宽收费方式    
+    selectedInternetMaxBandwidthIn = 1;
+    selectedInternetMaxBandwidthOut = 1;
 
     Password: string = "";
     passwordCheck: string = "";
@@ -250,6 +250,36 @@ export class instanceFamilyTreeGenerationModel {
     instancefamilyid: Array<instanceFamilyTreeIdModel> = [];
 }
 //<<<
+
+
+
+export class priceSubmitModel {
+    orderType: string = "instance-buy";
+    regionId: string = "";
+    commodity: priceCommodityModel = new priceCommodityModel();
+    zoneId: string = "";
+
+}
+
+export class priceCommodityModel {
+    amount: number = 1;
+    autoRenew: boolean = false;
+    instanceType: string = "";
+    internetChargeType: string = "";
+    internetMaxBandwidthOut: number = 1;
+    ioOptimized: boolean = false;
+    maxAmount: number = 1;
+    networkType: string = "";
+    period: number = 0;
+    periodType: string = "";
+    priceUnit: string = "";
+    systemDisk: systemDiskModel = new systemDiskModel();
+}
+
+export class systemDiskModel {
+    category: string = "";
+    size: number = 1;
+}
 
 
 
