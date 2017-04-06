@@ -54,7 +54,7 @@ export class PhysicalEditComponent implements OnInit {
     defaultSpace= new Space();
     selectedSpace:Space=this.defaultSpace;
     popSpecValue:string="";
-    popNumber:string;
+    popNumber:string="0";
    
     partsEntityList:Array<PartsEntitys>=new Array<PartsEntitys>();
    
@@ -315,6 +315,8 @@ export class PhysicalEditComponent implements OnInit {
          this.partsEntity=new PartsEntitys();
          this.selectedPart=this.defaultPart;
          this.selectedSpace=this.defaultSpace;
+         this.popNumber="0";
+         this.popSpecValue="";
         this.addParts.open("新建部件");
     }
     //确认部件
@@ -359,7 +361,6 @@ export class PhysicalEditComponent implements OnInit {
         this.selectedSpace = this.selectedPart.specList.find((e)=>{return e.specId==partSelect.specId}) ;
         this.popSpecValue=this.selectedSpace.specValues.find((e)=>{return e==partSelect.specValue});
         this.popNumber=partSelect.number;
-        this.partsEntity.specName=partSelect.specName; 
         let editPart= new PartsEntitys();
             editPart= partSelect
             this.partsEntity= editPart;                            

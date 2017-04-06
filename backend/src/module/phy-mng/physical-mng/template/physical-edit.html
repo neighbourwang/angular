@@ -382,7 +382,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">规格:</div>
             <div class="col-sm-4">
-                <select class="form-control" [(ngModel)]="selectedSpace" (change)="partsEntity.specValue=''">
+                <select class="form-control" [(ngModel)]="selectedSpace" (change)="popSpecValue=''">
                       <option [ngValue]="defaultSpace">请选择</option>
                      <option *ngFor="let item of selectedPart.specList" [ngValue]="item">{{item.specName}}</option>
                 </select>
