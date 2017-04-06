@@ -1311,7 +1311,7 @@
         "USED_CANNOT_EDIT": "被物理机引用的部件不能编辑！",
         "ALREADY_EXIST": "部件名称或规格已存在！",
         "USED_CANNOT_DELETE": "被物理机引用的部件不能删除！",
-        "PHY_DEPART_MNG": "物理机部件管理",
+        "PHY_DEPART": "物理机部件管理",
         "CREATE_PHY_DEPART": "新建物理机部件",
         "PARTS_NAME": "部件名称",
         "SPEC_NAME": "规格",
