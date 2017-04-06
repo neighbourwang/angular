@@ -182,7 +182,11 @@ export class AliCloudVmOrderComponent implements OnInit {
         });
         region.selected = true;
         if (region.areas == null || region.areas.length == 0) {
-            this.getArea(region);
+            //this.getArea(region);
+            Promise.all([this.getArea(region), this.getImages(region), this.getVPCs(region), this.getInstanceFamilyTree(region)]).then( () => {
+            console.log(this.selectedOrderVmPage, "========================");
+            //this.calculatePrice();
+            });
         } else {
             console.log(region, "Region, areas, selected_area and don't do getArea()!");
 
@@ -200,13 +204,30 @@ export class AliCloudVmOrderComponent implements OnInit {
                 region.selectedArea.AvailableDiskCategories.DiskCategories = this.selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories;
             }
             console.log(this.selectedOrderVmPage, "this.selectedOrderVmPage!");
+
+            this.selectedOrderVmPage.selectedDisk = this.selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories[0];
+            console.log(this.selectedOrderVmPage.selectedDisk, "selected selectedDisk!");
+
+            Promise.all([this.getImages(region), this.getVPCs(region), this.getInstanceFamilyTree(region)]).then( () => {
+            console.log(this.selectedOrderVmPage, "========================");
+            //this.calculatePrice();
+            });
         }
-        this.getImages(region);
+        //this.getImages(region);
         //this.getInstanceTypeFamily(region);
         //this.getInstanceType(region);
-        this.getVPCs(region);
-        this.getInstanceFamilyTree(region);
+        //this.getVPCs(region);
+        //this.getInstanceFamilyTree(region);
+        /*
+        Promise.all([this.getImages(region), this.getVPCs(region), this.getInstanceFamilyTree(region)]).then( () => {
+            console.log(this.selectedOrderVmPage, "========================");
+            //this.calculatePrice();
+        });
+        */
+
     }
+
+    
 
     //根据regionId获取可用区列表
     getArea(region: RegionModel) {
@@ -230,7 +251,6 @@ export class AliCloudVmOrderComponent implements OnInit {
                     this.selectedOrderVmPage.selected = region.selected;
                     this.selectedOrderVmPage.RegionId = region.RegionId;
                     this.selectedOrderVmPage.LocalName = region.LocalName;
-                    //this.selectedOrderVmPage.selectedArea = new AreaModel();
                     this.selectedOrderVmPage.selectedArea = region.areas[0];
                     this.selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories = [].concat(region.areas[0].AvailableDiskCategories.DiskCategories);
                     {
@@ -240,6 +260,9 @@ export class AliCloudVmOrderComponent implements OnInit {
                         region.selectedArea.AvailableDiskCategories.DiskCategories = this.selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories;
                     }
                     console.log(this.selectedOrderVmPage, "this.selectedOrderVmPage!");
+
+                    this.selectedOrderVmPage.selectedDisk = this.selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories[0];
+                    console.log(this.selectedOrderVmPage.selectedDisk, "selected selectedDisk!");
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -275,6 +298,7 @@ export class AliCloudVmOrderComponent implements OnInit {
 
     DiskChanged() {
         window.setTimeout(() => {
+            console.log(this.selectedOrderVmPage.selectedDisk, "selected selectedDisk!");
             if( this.selectedOrderVmPage.selectedDisk != "") {
                 //this.calculatePrice();
             }
@@ -299,17 +323,12 @@ export class AliCloudVmOrderComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    /*
-                    let result;
-                    try {
-                        result = JSON.parse(response.resultContent);
-                    } catch (ex) {
-                        console.log(ex);
-                    }                 
-                    this.images = result.Images.Image;
-                    */
                     this.images = response.resultContent;
-                    console.log(this.images, "this.images!");                    
+                    console.log(this.images, "this.images!");
+                    this.selectedImageFlatform = this.images[0];
+                    this.selectedImageItem = this.selectedImageFlatform.images[0];
+                    this.selectedOrderVmPage.selectedImage = this.selectedImageItem.ImageId;
+                    console.log(this.selectedOrderVmPage.selectedImage, "selected imageId!");
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -496,7 +515,7 @@ export class AliCloudVmOrderComponent implements OnInit {
         console.log(this.selectedOrderVmPage.renew, "renew!");
     }
 
-    validate(): boolean {
+    validatePriceParam(): boolean {
         if (this.selectedOrderVmPage.selectedChargeType != "" &&
             this.selectedOrderVmPage.selectedImage != "" &&
             this.selectedOrderVmPage.selectedQuantity != 0 &&
@@ -520,7 +539,7 @@ export class AliCloudVmOrderComponent implements OnInit {
 
 
     calculatePrice() {
-        if ( this.validate() ) {
+        if ( this.validatePriceParam() ) {
             this.selectedOrderVmPage.price = "计算中...";
             this.calculatetimer  && window.clearTimeout(this.calculatetimer);
             this.calculatetimer = window.setTimeout(() => {
@@ -637,6 +656,10 @@ export class AliCloudVmOrderComponent implements OnInit {
 
     outputValue() {
         console.log(this.selectedOrderVmPage.selectedInternetMaxBandwidthOut);
+    }
+
+    slide(e:number) {
+        console.log(e);
     }
 
     show(mnum:QuantityModel) {

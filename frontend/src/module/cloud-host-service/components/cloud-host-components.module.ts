@@ -5,14 +5,14 @@ import { CommonComponentModule, PipeModule } from '../../../architecture';
 import { CartButtonComponent } from '../components/cart-button/cart-button.component';
 import { HostReconfigComponent } from '../components/host-reconfig/host-reconfig.component';
 import { DiskReconfigComponent } from '../components/disk-reconfig/disk-reconfig.component';
-import { PlatformZoneComponent } from '../components/platform-zone/platform-zone.component';
+// import { PlatformZoneComponent } from '../components/platform-zone/platform-zone.component';
 // import { orderCompleteComponent } from '../components/order-complete/order-complete.component';
 import { cartCompleteComponent } from '../components/cart-complete/cart-complete.component';
 // import { UnsubscribeComponent } from '../components/unsubscribe/unsubscribe.component';
 import { OpenConsoleComponent } from '../components/open-console/open-console.component';
 import { CustomOsComponent } from '../components/custom-os/custom-os.component';
 
-import { PlatformZoneServiceList } from '../components/platform-zone/platform-zone.service'; 
+// import { PlatformZoneServiceList } from '../components/platform-zone/platform-zone.service'; 
 import { HostReconfigService } from '../components/host-reconfig/host-reconfig.service'; 
 import { DiskReconfigService } from '../components/disk-reconfig/disk-reconfig.service'; 
 // import { orderCompleteService } from '../components/order-complete/order-complete.service'; 
@@ -27,6 +27,7 @@ import { CustomOsService } from '../components/custom-os/custom-os.service';
 import { OrderCancleModule } from '../../op-center/components/order-cancel/order-cancel.module';
 import { OrderCompleteModule } from './order-complete/order-complete.module';
 import { UnsubscribeModule } from './unsubscribe/unsubscribe.module';
+import { PlatformZoneModule } from './platform-zone/platform-zone.module';
 
 
 
@@ -41,7 +42,7 @@ import { UnsubscribeModule } from './unsubscribe/unsubscribe.module';
         CartButtonComponent,
         HostReconfigComponent,
         DiskReconfigComponent,
-        PlatformZoneComponent,
+        // PlatformZoneComponent,
         // orderCompleteComponent,
         cartCompleteComponent,
         // UnsubscribeComponent,
@@ -56,17 +57,18 @@ import { UnsubscribeModule } from './unsubscribe/unsubscribe.module';
         CartButtonComponent,
         HostReconfigComponent,
         DiskReconfigComponent,
-        PlatformZoneComponent,
+        // PlatformZoneComponent,
         // orderCompleteComponent,
         cartCompleteComponent,
         OpenConsoleComponent,
         // UnsubscribeComponent,
         CustomOsComponent,
         UnsubscribeModule,
-        OrderCompleteModule
+        OrderCompleteModule,
+        PlatformZoneModule
     ],
     providers: [
-        PlatformZoneServiceList,
+        // PlatformZoneServiceList,
         HostReconfigService,
         DiskReconfigService,
         // orderCompleteService,
