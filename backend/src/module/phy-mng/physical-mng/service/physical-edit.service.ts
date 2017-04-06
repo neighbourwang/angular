@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import { RestApiCfg, RestApi ,SystemDictionaryService} from "../../../../architecture";
 
- import { PhysicalModel } from "../model/physical.model";
+ import { PhysicalModel ,PartsEntitys} from "../model/physical.model";
 // import { IpmiInfo } from "../model/physical-ipmi.model"
  import { serverTypeListAndbrandList_mock, physicalMachine_mock,PortsList_mock,PortList_mock } from "../model/mock";
 import "rxjs/add/operator/toPromise";
@@ -131,18 +131,25 @@ export class PhysicalEditService {
        );
     }
 
-    //获取物理机部件清单
+    //查询物理机已有的部件和规格清单
     getPartList():Promise<any>{
         const api = this.restApiCfg.getRestApi("physical-mng.physical.partList.get");
         return this.restApi.request(api.method, api.url, null, null,  null  );
     }
   
-//   //获取物理机部件列表
-//    getPartsList():Promise<any>{
-//         const api = this.restApiCfg.getRestApi("physical-mng.physical.partList.get");
-//         return this.restApi.request(api.method, api.url, null, null,  null  );
-//     //    return new Promise(resovle => setTimeout(resovle, 200)).then(() => PortsList_mock);
-//     }
+//   //编辑物理机部件
+   editPhysicalParts(partsEntitys:Array<PartsEntitys>,id:string):Promise<any>{
+        const pathParams = [
+            {
+                key: "pm_id",
+                value: id
+            }
+
+        ];
+        const api = this.restApiCfg.getRestApi("physical-mng.physical.partList.edit");
+        return this.restApi.request(api.method, api.url, pathParams, null,partsEntitys);
+     //return new Promise(resovle => setTimeout(resovle, 200)).then(() => PortsList_mock);
+    }
   
 
 

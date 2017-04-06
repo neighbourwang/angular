@@ -33,7 +33,7 @@ export class CreatChartService{
                     }];
         let colors = [
             {
-                backgroundColor:["#08C895","#82B6B2","#6F7DC8","#2BD2C8"]
+                backgroundColor:["rgba(255,206,86,0.3)","rgba(255,99,132,0.3)","rgba(54,162,235,0.3)","rgba(43,210,200,0.3)"]
             }
         ];
 
@@ -47,40 +47,40 @@ export class CreatChartService{
         let colors = [
                         {
                             backgroundColor: [
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
                             ],
                             borderColor: [
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8',
-                                '#2BD2C8'
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
                             ]
                         },{
 
-                            backgroundColor: "rgba(75,192,192,0.4)",
-                            borderColor: "rgba(255, 99, 132, 1)",
-                            pointBorderColor: "rgba(255, 99, 132, 1)",
+                            backgroundColor: "rgba(255,99,132, 0.3)",//标题框背景
+                            borderColor: "rgba(255,99,132, 1)",//标题框边框
+                            pointBorderColor: "rgba(255,99,132, 1)",
                             pointBackgroundColor: "#fff",
-                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                            pointHoverBackgroundColor: "rgba(255,99,132, 1)",
                             pointHoverBorderColor: "rgba(220,220,220,1)",
                         }
                     ];
@@ -135,16 +135,16 @@ export class CreatChartService{
         let colors  = [
                     {
                         backgroundColor: [
-                            '#2BD2C8',
-                            '#2BD2C8',
-                            '#2BD2C8',
-                            '#2BD2C8'
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)'
                         ],
                         borderColor: [
-                            '#2BD2C8',
-                            '#2BD2C8',
-                            '#2BD2C8',
-                            '#2BD2C8'
+                           'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)'
                         ]
                     }
                 ];
@@ -172,17 +172,17 @@ export class CreatChartService{
         }];
         let colors  = [
                     {
-                        backgroundColor: [
-                            '#2BD2C8',
-                            '#2BD2C8',
-                            '#2BD2C8',
-                            '#2BD2C8'
+                       backgroundColor: [
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)'
                         ],
                         borderColor: [
-                            '#2BD2C8',
-                            '#2BD2C8',
-                            '#2BD2C8',
-                            '#2BD2C8'
+                           'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)'
                         ]
                     }
                 ];

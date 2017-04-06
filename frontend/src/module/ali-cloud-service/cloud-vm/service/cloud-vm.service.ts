@@ -167,28 +167,71 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
-/*
-    calculatePrice(selectedRegion: RegionModel): Promise<any> {
-        const body = [
-            {
-                "orderType": "disk-buy",
-                "regionId": selectedRegion.RegionId,
-                "commodity": {
-                    "zoneId": selectedRegion.selectedArea.ZoneId,
-                    "dataDisk": {
-                        "category": selectedRegion.selectedDisk,
-                        "size": selectedRegion.diskCount,
-                        "snapshotId": null
+    calculatePrice(selectedOrderVmPage: orderVmPageModel): Promise<any> {
+        let body;
+        if (selectedOrderVmPage.selectedChargeType == "PostPaid") { //按量计费，多传一个traffic-bandwidth
+            body = [
+                {
+                    "orderType": "traffic-bandwidth",
+                    "regionId": selectedOrderVmPage.RegionId
+                },
+                {
+                    "orderType": "instance-buy",
+                    "regionId": selectedOrderVmPage.RegionId,
+                    "commodity": {
+                        "amount": 1,
+                        "autoRenew": selectedOrderVmPage.renew,
+
+                        "instanceType": selectedOrderVmPage.selectedChargeType,
+                        "internetChargeType": selectedOrderVmPage.selectedInternetChargeType,
+                        "internetMaxBandwidthOut": selectedOrderVmPage.selectedInternetMaxBandwidthOut,
+                        "ioOptimized": selectedOrderVmPage.ioOptimized,
+                        "maxAmount": 1,
+                        "networkType": selectedOrderVmPage.selectedInternetChargeType,
+                        "period": selectedOrderVmPage.period,
+                        "periodType": selectedOrderVmPage.periodType,
+                        "priceUnit": selectedOrderVmPage.priceUnit,
+                        "securityGroupId": null,
+                        "systemDisk": {
+                            "category": selectedOrderVmPage.selectedDisk,
+                            "size": selectedOrderVmPage.diskCount
+                        },
+                        "zoneId": selectedOrderVmPage.selectedArea.ZoneId
                     },
-                    "amount": selectedRegion.count
                 }
-            }
-        ]
+            ];
+        } else if (selectedOrderVmPage.selectedChargeType == "PrePaid") { //包年包月，只传一个instance-buy
+            body = [
+                {
+                    "orderType": "disk-buy",
+                    "regionId": selectedOrderVmPage.RegionId,
+                    "commodity": {
+                        "amount": 1,
+                        "autoRenew": selectedOrderVmPage.renew,
+
+                        "instanceType": selectedOrderVmPage.selectedChargeType,
+                        "internetChargeType": selectedOrderVmPage.selectedInternetChargeType,
+                        "internetMaxBandwidthOut": selectedOrderVmPage.selectedInternetMaxBandwidthOut,
+                        "ioOptimized": selectedOrderVmPage.ioOptimized,
+                        "maxAmount": 1,
+                        "networkType": selectedOrderVmPage.selectedInternetChargeType,
+                        "period": selectedOrderVmPage.period,
+                        "periodType": selectedOrderVmPage.periodType,
+                        "priceUnit": selectedOrderVmPage.priceUnit,
+                        "securityGroupId": null,
+                        "systemDisk": {
+                            "category": selectedOrderVmPage.selectedDisk,
+                            "size": selectedOrderVmPage.diskCount
+                        },
+                        "zoneId": selectedOrderVmPage.selectedArea.ZoneId
+                    },
+                }
+            ];            
+        }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.price.get");
         return this.restApi.request(api.method, api.url, null, null, body);
     }
-    */
 
     createInstanceOrder(orderVmPage: orderVmPageModel): Promise<any> {
         const pathParams = [

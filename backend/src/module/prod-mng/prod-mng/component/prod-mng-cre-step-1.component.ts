@@ -48,9 +48,11 @@ export class ProdMngCreStep1Component implements OnInit {
         if (this.prodDirId) {
             if (this.prodDirType == '0') {
                 this.service.getVmProdDirDetail(this.prodDirId);
+                this.service.comparePlatIdList=[];                
             } else if (this.prodDirType == '1') {
                 // this.getVmProdDirDetail(this.prodDirId);
                 this.service.getDiskProdDirDetail(this.prodDirId);
+                this.service.comparePlatIdList=[];                
             }
         }
     }

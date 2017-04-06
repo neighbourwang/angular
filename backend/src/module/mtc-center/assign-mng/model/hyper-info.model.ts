@@ -10,4 +10,10 @@ export class HyperInfo {
     createId: string;
     createName: string;
     createDate: string;
+    cpu: number;
+    mem: number;
+    cpuPeak: number;
+    memPeak: number;
+    cpuTime: number;
+    memTime: number;
 }

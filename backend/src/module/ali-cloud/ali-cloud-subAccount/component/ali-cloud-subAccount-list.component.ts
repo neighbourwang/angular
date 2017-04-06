@@ -7,20 +7,20 @@ import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../
 //model
 
 //service
-import { AliMajorMngService} from '../service/ali-major-mng.service'
+import { AliCloudSubAccountMngService} from '../service/ali-cloud-subAccount-mng.service'
 
 @Component({
-    selector: 'ali-major-mng',
-    templateUrl: '../template/ali-cloud.html',
+    selector: 'ali-cloud-subAccount-list',
+    templateUrl: '../template/ali-cloud-subAccount-list.html',
     styleUrls: [],
     providers: []
 })
 
-export class AliMajorMngComponent implements OnInit{
+export class AliCloudSubAccountListComponent implements OnInit{
 
     constructor(
         private router : Router,
-        private service : AliMajorMngService,
+        private service : AliCloudSubAccountMngService,
         private layoutService : LayoutService
     ) {
 
@@ -34,7 +34,7 @@ export class AliMajorMngComponent implements OnInit{
 
     ngOnInit (){
         console.log('init');
-        //this.layoutService.show();
+        
 
 
     }

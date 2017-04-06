@@ -110,7 +110,7 @@
 									<div class="row" *ngFor="let storage of zone.storageItem" style="line-height: 34px">
 										<div class="col-md-8">{{storage.storageName}}</div>
 										<div class="col-md-4">
-											<input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="storage.selected" name="storageSelected" (change)="storage.selected=!storage.selected">											
+											<input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="storage.selected" [disabled]="storage.disable" name="storageSelected" (change)="storage.selected=!storage.selected">											
 										</div>
 									</div>										
 								</div>
