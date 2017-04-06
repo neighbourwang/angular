@@ -1,6 +1,6 @@
 <div class="page-content cloud_host_order cloud_drive_order">
 
-    <div class="col-md-12">
+    <div class="col-md-9">
         <h1 class="page-content-header" (click)="payLoadFormat()">阿里云主机实例订购</h1>
         <ul class="page-box" style="padding-left: 0;">
             <!-- 计费方式 -->
@@ -61,7 +61,7 @@
                         <span>购买后不能更换网络类型 </span>
                     </div>
 
-                    <div class="col-md-12 mgb20 form-group" *ngIf="selectedOrderVmPage.selectedNetworkType=='1'">
+                    <div class="col-md-12 mgb20 form-group" *ngIf="selectedOrderVmPage.selectedNetworkType=='vpc'">
                         <select class="form-control select_style" [(ngModel)]="selectedVPC" (change)="getVSwitches();">
                             <option [ngValue]="defaultVPC">请选择专有网络</option>
                             <option *ngFor="let vpc of vpclist" [ngValue]="vpc">{{vpc.VpcName}}</option>
@@ -134,12 +134,11 @@
                         预付费模式，带宽费用合并在ECS实例中收取
                     </div>
                     <div class="col-md-12">
-
                         <div style="display: inline">
+                            <input type="range" min="1" max="200" (change)="slide($event)" style="width:200px;display: inline;" />
                             <count-bar [step]="1" [max]="200" [min]="0" [stepCheck]=true [value]="selectedOrderVmPage.selectedInternetMaxBandwidthOut" (output)="outputValue($event)">
                             </count-bar>Mbps
                         </div>
-
                     </div>
                     <div class="col-md-12">
                         系统会分配公网IP(不能解绑),若不需要分配公网IP,请选择带宽值0M。
@@ -216,7 +215,7 @@
             </li>
 
             <!-- 购买量 -->
-            <li>
+            <li *ngIf="selectedOrderVmPage.selectedChargeType=='PrePaid'">
                 <div class="col-md-1 li-title">
                     <p><span class="icon-amount"></span>购买量：</p>
                 </div>
@@ -286,82 +285,81 @@
                     </div>
                 </div>
             </li>
-
-            <li class="li_line_backgroud">
-                <div class="col-md-1 li-title">
-                    <p><span></span>当前配置：</p>
-                </div>
-                <div class="col-md-12 li-content">
-                    <div class="col-md-12">
-                        <div class=" float-right">
-                            <a href="javascript: void(0);">购买须知>></a>
-                        </div>
+        </ul>
+    </div>
+    <div class="col-md-3 right-box" style="min-height: 1900px;">
+        <ul>
+            <li style="border-top: none">
+                <p><span></span>当前配置</p>
+            </li>
+            <li>
+                <div class="li-content">
+                    <div class="mgb20">
+                        <table>
+                            <tr>
+                                <span>计费模式：</span>
+                                <span>{{selectedOrderVmPage.selectedChargeType || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>地域：</span>
+                                <span>{{selectedOrderVmPage.selectedArea.LocalName || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>实例规格：</span>
+                                <span>{{selectedOrderVmPage.selectedInstanceType || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>I/O优化：</span>
+                                <span></span>
+                            </tr>
+                            <tr>
+                                <span>网络：</span>
+                                <span>{{selectedOrderVmPage.selectedNetworkType || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>安全组：</span>
+                                <span></span>
+                            </tr>
+                            <tr>
+                                <span>镜像：</span>
+                                <span>{{selectedOrderVmPage.selectedImage || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>系统盘：</span>
+                                <span>{{selectedOrderVmPage.selectedDisk || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>购买量：</span>
+                                <span>{{selectedOrderVmPage.selectedQuantity || ""}}</span>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="col-md-12 mgb20">
-                        <div class="col-md-4">
-                            <span>计费模式：</span>
-                            <span>{{selectedOrderVmPage.selectedChargeType || ""}}</span>
-                        </div>
-                        <div class="col-md-4">
-                            <span>地域：</span>
-                            <span>{{selectedOrderVmPage.selectedArea.LocalName || ""}}</span>
-                        </div>
-                        <div class="col-md-4">
-                            <span>实例规格：</span>
-                            <span>{{selectedOrderVmPage.selectedInstanceType || ""}}</span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 mgb20">
-                        <div class="col-md-4">
-                            <span>I/O优化：</span>
-                            <span></span>
-                        </div>
-                        <div class="col-md-4">
-                            <span>网络：</span>
-                            <span>{{selectedOrderVmPage.selectedNetworkType || ""}}</span>
-                        </div>
-                        <div class="col-md-4">
-                            <span>安全组：</span>
-                            <span></span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 mgb20">
-                        <div class="col-md-4">
-                            <span>镜像：</span>
-                            <span>{{selectedOrderVmPage.selectedImage || ""}}</span>
-                        </div>
-                        <div class="col-md-4">
-                            <span>系统盘：</span>
-                            <span>{{selectedOrderVmPage.selectedDisk || ""}}</span>
-                        </div>
-                        <div class="col-md-4">
-                            <span>购买量：</span>
-                            <span>{{selectedOrderVmPage.selectedQuantity || ""}}</span>
-                        </div>
-                    </div>
-
                 </div>
             </li>
 
-        </ul>
-
-        <ul class="col-md-12 no-padding bottom-box">
             <li>
-                <div class="col-md-12" style="padding: 35px 20px 25px 40px;">
-                    <div class="float-left">
-                        <span>配置费用：</span>
-                        <span>￥0.225/时</span>
+                <div>
+                    <div class="mgb20">
+                        <table>
+                            <tr>
+                                <span>一次性费用：</span>
+                            </tr>
+                            <tr>
+                                <span>费用：</span>
+                            </tr>
+                            <tr>
+                                <span>费用总计：</span>
+                                <span>￥0.225/时</span>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="float-right">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true; buyNow();" class="btn button-orange-light">立即购买</button>
+                    <div>
+                        <button style="width: 100%" class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true; buyNow();" class="btn button-orange-light">立即购买</button>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
-
 
 </div>
 <fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{confirmCancelTitle}}" ct="{{confirmOKTitle}}"></fc-confirm>
