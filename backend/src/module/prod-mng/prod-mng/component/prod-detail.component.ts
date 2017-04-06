@@ -108,6 +108,8 @@ export class ProdDetailComponent implements OnInit {
                         ele.active = false;
                     })
                     this.Tabels[0].active = true;
+                    let list = this.product.productPlatformReqs.map(ele => ele.platformId);
+                    this.getEntListForAdd(list);
                 }
                 this.layoutService.hide();
             }
@@ -167,8 +169,8 @@ export class ProdDetailComponent implements OnInit {
             console.log('ent', res);
             if (res.resultCode == 100 && res.resultContent) {
                 this.entList = res.resultContent;
-                for (let ent of this.entList) {
                     for (let entProd of this.updateEntObj.productEnterpiseReqs) {
+                        for (let ent of this.entList) {                        
                         if (ent.id == entProd.id) {
                             ent.selected = true;
                             ent.disable = true;
@@ -273,42 +275,42 @@ export class ProdDetailComponent implements OnInit {
         this.updateProdPlatform.productPlatformReqs.forEach((ele) => {
             list.push(ele.platformId);
         });
-        // this.entListService.getEnterpriseList(list).then(res => {
-        //     console.log('企业',res);
-        //     if(!res.resultContent||res.resultContent.length==0){
-        //         this.notice.open('添加平台错误',"所选平台不是当前产品发布企业 '"+this.product.productEnterpiseReqs[0].name+"' 的可操作平台，请进入企业管理为 '"+this.product.productEnterpiseReqs[0].name+"' 企业添加相应平台后重新操作'");
-        //     }else{
-        //         let newEntList=res.resultContent;
-        //         let beyondEnt:any;
-        //         beyondEnt=this.product.productEnterpiseReqs.filter((ele)=>{
-        //             newEntList.map(ent=>ent.id).indexOf(ele.id)>-1;
-        //         })
-        //         console.log('newnew',beyondEnt);
-        //         // for(let ent of this.product.productEnterpiseReqs){
-        //         //     for(let getEnt of res.resultContent){
+        this.entListService.getEnterpriseList(list).then(res => {
+            console.log('企业',res);
+            if(!res.resultContent||res.resultContent.length==0){
+                this.notice.open('添加平台错误',"所选平台不是当前产品发布企业 '"+this.product.productEnterpiseReqs[0].name+"' 的可操作平台，请进入企业管理为 '"+this.product.productEnterpiseReqs[0].name+"' 企业添加相应平台后重新操作'");
+            }else{
+                let newEntList=res.resultContent;
+                let beyondEnt:any;
+                beyondEnt=this.product.productEnterpiseReqs.filter((ele)=>{
+                    newEntList.map(ent=>ent.id).indexOf(ele.id)>-1;
+                })
+                console.log('newnew',beyondEnt);
+                // for(let ent of this.product.productEnterpiseReqs){
+                //     for(let getEnt of res.resultContent){
 
-        //         //     }
-        //         // }
-        //     }
-        //     // this.getProductDetail(this.productId)
-        //     this.layoutService.hide();
-        // }).catch(err => {
-        //     console.log(err);
-        //     this.layoutService.hide();
-        // })
-        console.log(list);
-        this.layoutService.show();
-        this.service.editProductPlatform(this.updateProdPlatform).then(res => {
-            console.log(res);
-            this.getProductDetail(this.productId)
+                //     }
+                // }
+            }
+            // this.getProductDetail(this.productId)
             this.layoutService.hide();
         }).catch(err => {
             console.log(err);
             this.layoutService.hide();
         })
+        console.log(list);
+        // this.layoutService.show();
+        // this.service.editProductPlatform(this.updateProdPlatform).then(res => {
+        //     console.log(res);
+        //     this.getProductDetail(this.productId)
+        //     this.layoutService.hide();
+        // }).catch(err => {
+        //     console.log(err);
+        //     this.layoutService.hide();
+        // })
     }
 
-    //编辑企业y
+    //编辑企业
     //选择企业
     selectEnterprise(ent, index) {
         if (!ent.disable) {
@@ -356,7 +358,7 @@ export class ProdDetailComponent implements OnInit {
     }
     ccAddEnt() { 
         this.updateEntObj.productId=this.product.productId;
-        this.updateEntObj.serviceId=this.productId;
+        this.updateEntObj.serviceId=this.product.serviceId;
         console.log(this.updateEntObj.productEnterpiseReqs);
         this.layoutService.show();        
         this.service.editProductEnterPrise(this.updateEntObj).then(res => {

@@ -63,6 +63,7 @@ export class PhyUnitMngComponent implements OnInit{
         console.log('init');
         //this.layoutService.show();
         this.getData();
+        this.getPartsList();
     }
 
     getData(pageIndex?): void {
@@ -176,7 +177,7 @@ export class PhyUnitMngComponent implements OnInit{
                     return r.specName== this.criteria.specName;
                 });
                 if(this.respecName){
-                    return true;  
+                    return true;
                 }else{
                     return false;
                 }
