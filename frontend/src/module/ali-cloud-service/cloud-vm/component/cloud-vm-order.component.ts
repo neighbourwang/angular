@@ -654,12 +654,13 @@ export class AliCloudVmOrderComponent implements OnInit {
         this.notice.open(msg.title, msg.desc);
     }
 
-    outputValue() {
+    outputValue(e:number) {
+        this.selectedOrderVmPage.selectedInternetMaxBandwidthOut = e;
         console.log(this.selectedOrderVmPage.selectedInternetMaxBandwidthOut);
     }
 
     slide(e:number) {
-        console.log(e);
+        console.log(e.target.value);
     }
 
     show(mnum:QuantityModel) {

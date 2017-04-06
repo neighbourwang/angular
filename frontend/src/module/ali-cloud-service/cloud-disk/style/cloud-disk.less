@@ -291,3 +291,59 @@
     display: inline !important;
     width: 200px !important;
 }
+
+.table_progress {
+    width:100%;
+    font-size: 14px;
+
+    tr:first-child {
+        td {
+            position:relative;
+            height: 20px;
+            input {
+                position: absolute;
+                width: 100%;
+                bottom: -10px;
+                background-color: #2bd2ca;
+                -webkit-appearance: none; 
+            }
+            input[type=range]::-webkit-slider-thumb {
+                background-color: #2bd2ca; 
+                -webkit-appearance: none;
+                cursor: pointer; 
+            }
+            
+        }
+    }
+
+    tr:last-child{
+        height: 14px;
+
+        td {
+            border-right: 3px solid #2bd2ca;
+            position: relative;
+            text-align: right;
+            span {
+                top: 14px;
+                width:100%;
+                position: absolute;
+                left: 50%;
+                text-align: center;
+            }
+        }
+
+        td:first-child{
+            border-left: 3px solid #2bd2ca;
+            position: relative;
+        }
+
+        td:first-child::before{
+            top: 14px;
+            content: "0";
+            position: absolute;
+            text-align: left;
+            left: -8px;
+        }
+
+    }
+}

@@ -135,9 +135,29 @@
                     </div>
                     <div class="col-md-12">
                         <div class="col-md-6 no-padding">
-                            <input type="range" min="1" max="200" (change)="slide($event)" style="width: 100%;display: inline;" />
+
                             <div class="col-md-12 no-padding">
-                                <table>
+                                <table style="width: 100%" class="table_progress">
+                                    <tr>
+                                        <td colspan="4">
+                                            <input type="range" min="1" max="200" [(ngModel)]="selectedOrderVmPage.selectedInternetMaxBandwidthOut" (input)="slide($event)" style="width: 100%;display: inline;" />
+                                        </td>
+                                    </tr>
+                                    <tr style="text-align: right;">
+                                        <td>
+                                            <span>50</span>
+                                        </td>
+                                        <td>
+                                            <span>100</span>
+                                        </td>
+                                        <td>
+                                            <span>150</span>
+                                        </td>
+                                        <td>
+                                            <span>200</span>
+                                        </td>
+                                    </tr>
+
 
                                 </table>
                             </div>
