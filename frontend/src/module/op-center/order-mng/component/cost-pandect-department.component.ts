@@ -415,15 +415,7 @@ showMsg(msg: string)
     this.layoutService.show();
     let ids:Array<string>=[];
     let month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
-
-        if(this.isNullEnterprise()){    
-                for(let item of this.enterpriseLoader.Items){
-                    ids.push(item.id);
-                }       
-        }
-        else{
-                    ids.push(this._param.enterpriseId);
-        }
+    ids.push(this.userTypeLoader.FirstItem.enterpriseId);
 
         let param =     {
         "endTime": this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',

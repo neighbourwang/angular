@@ -107,21 +107,21 @@ private downLoadHandler:ItemLoader<CostManageItem> = null;//下载账单表格�
         this.allServiceLoader = new ItemLoader<CostPandectItem> (false,'消费总览所有服务列表加载错误','op-center.order-mng.cost-pandect.all-service.post',this.restApiCfg,this.restApi);
         this.increaseServiceLoader = new ItemLoader<CostPandectItem> (false,'消费总览新增服务列表加载错误','op-center.order-mng.cost-pandect.increase-service.post',this.restApiCfg,this.restApi);
 
-        this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
-			for(let item of source)
-			{
-				let obj=new CostPandectItem();
-				target.push(obj);
+        // this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
+		// 	for(let item of source)
+		// 	{
+		// 		let obj=new CostPandectItem();
+		// 		target.push(obj);
 
-                obj.subinstanceCode = item.subinstanceCode;
-                if(item.priceDetails){
-                    for(let priceItem of item.priceDetails){
-                        obj.priceDetails.push(item);
-                    } 
-                }
+        //         obj.subinstanceCode = item.subinstanceCode;
+        //         if(item.priceDetails){
+        //             for(let priceItem of item.priceDetails){
+        //                 obj.priceDetails.push(item);
+        //             } 
+        //         }
 
-			}
-		}
+		// 	}
+		// }
 
 
 
@@ -648,15 +648,9 @@ showMsg(msg: string)
     this.layoutService.show();
     let ids:Array<string>=[];
     let month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
-
-        if(this.isNullEnterprise()){    
-                for(let item of this.enterpriseLoader.Items){
-                    ids.push(item.id);
-                }       
-        }
-        else{
-                    ids.push(this._param.enterpriseId);
-        }
+  
+    ids.push(this.userTypeLoader.FirstItem.enterpriseId);
+   
 
         let param =     {
         "endTime": this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
