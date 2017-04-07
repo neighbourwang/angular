@@ -393,6 +393,7 @@ export class PfDetailComponent implements OnInit {
             this.layoutService.hide();
         }).catch(err => {
             console.error('禁用存储区失败', err);
+            this.layoutService.hide();            
         })
     }
     //更多操作
