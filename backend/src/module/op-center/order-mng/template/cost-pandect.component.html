@@ -137,14 +137,14 @@
                         <tr class="text-center" *ngFor="let item of allServiceLoader.Items;">
 							<td colspan="5">
 								<table class="cart-info">
-									<tr *ngFor="let priceItem of item.priceDetails">
+									<tr  *ngFor="let priceItem of item.priceDetails">
 										<td class="vertical-center"><a (click)='showDetail(item)'>{{item.subinstanceCode}}</a></td>
                             			<td class="vertical-center">{{item.productName}}</td>
                             			<td class="vertical-center">{{item.num}}</td>
 										<td>
 											{{priceItem.billName}}
 										</td>
-										<td class="vertical-center">&nbsp;&nbsp;￥{{priceItem.amount}}</td>
+										<td class="vertical-center"><span *ngIf="!priceItem.isShow" >&nbsp;&nbsp;￥{{priceItem.amount}}</span><span *ngIf="priceItem.isShow">&nbsp;&nbsp;￥{{item.total_amount}}</span></td>
 									</tr>
 									 
 								</table>
