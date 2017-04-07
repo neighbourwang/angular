@@ -215,25 +215,29 @@ export class ProdDirDiskCreComponent implements OnInit {
         //重新刷新选择平台
         let message = this.checkForm();
         if (message) return;
-        console.log(this.prodDir);
         if (this.prodDir.specification.maxSize == 0 || this.prodDir.specification.stepSize == 0) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_SPEC_ERROR'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_SPEC_ERROR=>产品规格数据设置错误 
             return;
         }
         this.prodDir.platformList = [];
-        this.prodDir.platformList = this._platformlist.filter(function (ele) {
+        this._platformlist.forEach(function (ele) {
             if (ele.platformInfo) {
                 for (let zone of ele.platformInfo) {
                     for (let storage of zone.storageItem) {
                         if (storage.selected == true) {
                             zone.selected = true;
                             ele.selected = true;
-                            return ele;
                         }
                     }
                 }
             }
         })
+        this.prodDir.platformList =this._platformlist.filter(ele=>{
+            if(ele.selected==true){
+                return ele;
+            }
+        });
+        console.log('产品目录',this.prodDir);        
         if (this.prodDir.platformList.length == 0) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PLATFORM'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PLATFORM=>请选择可用平台 
             return;

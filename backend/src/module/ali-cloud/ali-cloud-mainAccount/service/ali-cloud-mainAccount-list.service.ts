@@ -18,4 +18,11 @@ export class AliCloudMainAccountMngService {
         this.restApiCfg.loadCfgData();
     }
 
+    //获取主账号列表
+    getMainAccounts():Promise<any>{
+        
+        return
+
+    }
+
 }

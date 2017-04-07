@@ -35,6 +35,65 @@
 					<p><span class="icon-specifications"></span><br>{{'VM_INSTANCE.INSTANCE_CONFIGURATION'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
+					<div class="col-md-2 content-title">CPU数量</div>
+					<div class="col-md-10 btn-group">
+						<button 
+							*ngFor="let cpu of cpuList;" 
+							(click)="queryList.cpuList = cpu.value;" 
+							class="btn btn-default" 
+							[ngClass]="{'active': queryList.cpuList === cpu.value}">
+							{{ cpu.displayName }}
+						</button>
+					</div>
+
+					<div class="col-md-2 content-title">内存容量</div>
+					<div class="col-md-10 btn-group">
+						<button 
+							style="padding: 5px 20px" 
+							*ngFor="let mem of memList;" 
+							(click)="queryList.memList = mem.value;" 
+							class="btn btn-default mgb10" 
+							[ngClass]="{'active': queryList.memList === mem.value}">
+							{{ mem.displayName }}
+						</button>
+					</div>
+
+					<div class="col-md-2 content-title">磁盘需求</div>
+					<div class="col-md-4 btn-group  no-padding mgb15">
+						<label *ngFor="let items of diskRequirements" class="mgr20">
+							<input type="radio" name="diskRequirements" class="fox-cloud-checkbox fox-cloud-checkbox-white" 
+								[value]="items.value" 
+								[(ngModel)]="queryList.diskRequirements"> {{items.displayName}}
+						</label>
+					</div>
+
+					<div class="col-md-2 content-title">类型</div>
+					<div class="col-md-4 btn-group no-padding mgb15">
+						<label *ngFor="let items of diskType" class="mgr20">
+							<input type="radio" class="fox-cloud-checkbox fox-cloud-checkbox-white" name="diskType" 
+								[value]="items.value" 
+								[(ngModel)]="queryList.diskType"> {{items.displayName}}
+						</label>
+					</div>
+
+					<div class="col-md-2 content-title">网卡需求</div>
+					<div class="col-md-4 btn-group  no-padding mgb15">
+						<label *ngFor="let items of networkRequirements" class="mgr20">
+							<input type="radio" class="fox-cloud-checkbox fox-cloud-checkbox-white" name="networkRequirements" 
+								[value]="items.value" 
+								[(ngModel)]="queryList.networkRequirements"> {{items.displayName}}
+						</label>
+					</div>
+
+					<div class="col-md-2 content-title">是否需要HBA卡</div>
+					<div class="col-md-4 btn-group no-padding mgb15">
+						<label *ngFor="let items of needHBA" class="mgr20">
+							<input type="radio" class="fox-cloud-checkbox fox-cloud-checkbox-white" name="needHBA" 
+								[value]="items.value" 
+								[(ngModel)]="queryList.needHBA"> {{items.displayName}}
+						</label>
+					</div>
+
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.SELECT_PHYSICAL_RES'| translate}}</div>
 					<div class="col-md-10" data-toggle="buttons">
 						<select [(ngModel)]="sendModule.networktype" class="form-control float-left mgr10">

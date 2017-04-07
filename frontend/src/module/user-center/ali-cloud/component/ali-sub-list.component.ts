@@ -13,7 +13,7 @@ import { AliSubService } from '../service/ali-sub-list.service';
 @Component({
     selector: 'ali-sub-list',
     templateUrl: '../template/ali-sub-list.html',
-    styleUrls: [],
+    styleUrls: ['../style/ali-sub-list.less'],
     providers: []
 })
 
@@ -31,14 +31,49 @@ export class AliSubListComponent implements OnInit{
     pager: PaginationComponent;
     @ViewChild("notice")
     notice: NoticeComponent;
+    @ViewChild("subMng")
+    subMng: PopupComponent;
+    @ViewChild("distriDepart")
+    distriDepart: PopupComponent;
 
     noticeTitle = "";
     noticeMsg = "";
+
+    type: string;
 
     ngOnInit (){
         console.log('init');
     }
 
+    gotoMajorMng(){
+        this.router.navigate([`user-center/ali-cloud/ali-major-list`]);
+    }
+
+    editPage(item){
+        this.type= "edit";
+        this.subMng.open("编辑子账号");
+    }
+    crePage(){
+        this.type= "create";
+        this.subMng.open("创建子账号");
+    }
+    getDetail(item){
+        this.type= "info";
+        this.subMng.open("子账号详情");
+    }
+    distriPage(item){
+        this.distriDepart.open("分配部门")
+    }
+
+    creOredit(){
+        if(this.type== "info"){
+            this.subMng.close();
+        }else if(this.type== "create"){
+
+        }else{
+
+        }
+    }
 
     showAlert(msg: string): void {
         this.layoutService.hide();

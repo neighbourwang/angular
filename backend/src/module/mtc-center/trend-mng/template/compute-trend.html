@@ -7,7 +7,7 @@
             <div class="col-md-10" >
                 <div class="col-md-2 form-control-title">分析类型：</div>
                 <div class="col-md-2">
-                    <select class="form-control" [(ngModel)]="analysisType">                      
+                    <select class="form-control" [(ngModel)]="queryOpt.queryType">                      
                         <option [value]="1">按CPU分析</option>
                         <option [value]="2">按云主机规格分析</option>
                         <option [value]="3">按内存分析</option>
@@ -50,7 +50,7 @@
             <div class="col-md-10" >
                 <div class="col-md-2 form-control-title">云主机状态：</div>
                 <div class="col-md-2">
-                    <select class="form-control">
+                    <select class="form-control" [(ngModel)]="queryOpt.powerStatus">
                         <option>所有</option>
                         <option>运行</option>
                         <option>关闭</option>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-md-2 form-control-title" >时间范围：</div>
                 <div class="col-md-2">
-                    <select class="form-control">
+                    <select class="form-control" [(ngModel)]="queryOpt.period">
                         <option>最近3个月</option>
                         <option>最近6个月</option>
                         <option>最近12个月</option>
@@ -72,13 +72,11 @@
             <div class="col-md-10" >
                  <div class="col-md-2 form-control-title">主机规格选择：</div>
                  <div class="col-md-2">
-                     <select class="form-control">
+                     <select class="form-control" [(ngModel)]="queryOpt.flaovarId">
                         <option>所有规格</option>                     
                     </select>
                  </div>
-                <div class="col-md-2 form-control-title">
-                    <input class="fox-cloud-checkbox" type="checkbox" />&nbsp;所有规格&nbsp;&nbsp;
-                </div>
+                
             </div>
         </div>
     </div>
