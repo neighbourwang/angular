@@ -38,16 +38,19 @@ export class AliMajorListComponent implements OnInit{
     noticeTitle = "";
     noticeMsg = "";
 
+    type: string;
 
     ngOnInit (){
         console.log('init');
     }
 
     editPage(item){
+        this.type= "edit";
         this.majorMng.open("编辑登录信息");
     }
 
     getDetail(item){
+        this.type= "info";
         this.majorMng.open("主账号详情");
     }
 
@@ -57,6 +60,14 @@ export class AliMajorListComponent implements OnInit{
 
     gotoSubMng(){
         this.router.navigate([`user-center/ali-cloud/ali-sub-list`]);
+    } 
+
+    creOredit(){
+        if(this.type== "info"){
+            this.majorMng.close();
+        }else{
+
+        }
     }
 
 

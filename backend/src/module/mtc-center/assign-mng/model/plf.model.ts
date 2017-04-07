@@ -7,6 +7,7 @@ export class PlfModel {
 
 export class RegionModel {
     region: string;
+    regionId: string;
     zone: Array<ZoneModel>;
 }
 

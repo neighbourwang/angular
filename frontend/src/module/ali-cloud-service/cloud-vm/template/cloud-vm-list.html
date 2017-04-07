@@ -36,7 +36,7 @@
         </div>
 
         <div class="dropdown float-right">
-            <button class="btn float-left btn-success" (click)="goToInstanceOrder();"><i class="glyphicon glyphicon-plus"></i>创建云主机</button>
+            <button class="btn float-left btn-success" (click)="goToInstanceOrder();"><!--<i class="glyphicon glyphicon-plus"></i>--><span class="icon_style icon-ali-create"></span>创建云主机</button>
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			更多操作
 			<span class="caret"></span>
@@ -75,12 +75,20 @@
                 -->
             </td>
             <td class="text-center">{{instance.ZoneId}}</td>
-            <td class="text-center">内网IP：{{instance.InnerIpAddress.IpAddress[0]}}<br />外网IP：{{instance.PublicIpAddress.IpAddress[0]}}</td>
+            <td class="text-left"><span style="display: block">内网IP：{{instance.InnerIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.PublicIpAddress.IpAddress[0]}}</span></td>
             <td class="text-center">{{instance.InstanceNetworkType}}</td>
             <td class="text-center">{{instance.Status}}</td>
-            <td class="text-center">CPU: {{instance.Cpu}}核 内存：{{instance.Memory}} MB (I/O优化)</td>
+            <td class="text-left"><span style="display: block">CPU: {{instance.Cpu}}核</span><span>内存：{{instance.Memory}} MB (I/O优化)</span></td>
             <td class="text-center">{{instance.InstanceChargeType}}<br /> {{instance.ExpiredTime}}</td>
             <td class="text-center">
+                <span *ngIf="instance.Status=='Stopped'" class="icon_style icon-start" (click)="selectItem(i); startInstance();" name="startvm"></span>
+                <span *ngIf="instance.Status!='Stopped'" class="icon_style icon-stop" (click)="selectItem(i); stopInstance();" name="stopvm"></span>
+                <span class="icon_style icon-reboot" (click)="selectItem(i); reStartInstance();" name="restartvm"></span>
+                <span *ngIf="true" class="icon_style icon-IPlock" (click)="selectItem(i); attachIPToInstance();" name="attachIP"></span>
+                <span *ngIf="false" class="icon_style icon-IPrelease" (click)="selectItem(i); detachIPToInstance();" name="detachIP"></span>
+                <span class="icon_style icon-remotelink" (click)="selectItem(i); remoteToInstance();" name="remotevm"></span>
+                <span class="icon_style icon-ali-delete3" (click)="selectItem(i); deleteInstance();" name="deletevm"></span>
+                <!--
                 <button (click)="selectItem(i); startInstance();" style="display: inline;" class="btn button-gray-gradient">启动
                 </button>
                 <button (click)="selectItem(i); stopInstance();" style="display: inline;" class="btn button-gray-gradient">停止
@@ -93,6 +101,7 @@
                 </button>
                 <button (click)="selectItem(i); deleteInstance();" style="display: inline;" class="btn button-gray-gradient">删除
                 </button>
+                -->
             </td>
         </tr>
         <!--
