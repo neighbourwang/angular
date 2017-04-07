@@ -23,7 +23,7 @@ export class ComputeTrendService {
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => PlfList_mock );
     }
 
-    //post ´ýÍêÉÆ
+    
     getBasicList(query: ComputeQuery): Promise<any> {
         //const api = this.restApiCfg.getRestApi("compute-trend.basic.info");
         //return this.restApi.request(api.method, api.url, null, null, query);
@@ -48,5 +48,17 @@ export class ComputeTrendService {
         //const api = this.restApiCfg.getRestApi("compute-trend.basic.info");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
         return new Promise(resovle => setTimeout(resovle, 10)).then(() => MemData_mock);
-    }
+     }
+
+    exportCurrent(query:ComputeQuery): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("compute-trend.export.current");
+        //return this.restApi.request(api.method, api.url, null, null, query);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => BasicList_mock );
+     }
+
+    exportAll(): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("compute-trend.export.all");
+        //return this.restApi.request(api.method, api.url, null, null, query);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => BasicList_mock );
+     }
 }
