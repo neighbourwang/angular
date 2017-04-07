@@ -467,7 +467,7 @@ export class PfDetailComponent implements OnInit {
                 this.layoutService.hide();
                 this.updateStorageList = res.resultContent;
                 if (this.updateStorageList.length == 0) {
-                    this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_ZONES')  //暂时没有可同步可用区信息
+                    this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_STORAGES')  //暂时没有可同步可用区信息
                 } else {
                     this.updateStorageList.forEach(ele => {
                         ele.quota =
@@ -480,7 +480,7 @@ export class PfDetailComponent implements OnInit {
             }
         ).catch(err => {
             this.layoutService.hide();
-            console.error('获取更新可用区列表出错', err)
+            console.error('获取更新存储后端出错', err)
         })
     }
     //同步存储空间get
@@ -497,7 +497,7 @@ export class PfDetailComponent implements OnInit {
                         this.updateStorageMem = res.resultContent;
                         this.memSync.open();
                     } else {
-                        this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
+                        this.notice.open('COMMON.PROMPT', '暂时没有可同步存储空间信息')
                     }
 
                 }
