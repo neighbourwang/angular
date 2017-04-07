@@ -201,7 +201,7 @@
 						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType == 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">自动续订</button>
 
 						<unsubscribe #unsubscribeVm title="{{ 'ORDER_MNG.ORDERS_UNSUBSCRIBE' | translate }}" [subid]="orderItem?.orderId"></unsubscribe>
-						<button class="mgr2 pull-right button-gray-gradient" (click)="unsubscribeVm.open()">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
+						<button *ngIf="orderItem.canCancel" class="mgr2 pull-right button-gray-gradient" (click)="unsubscribeVm.open()">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
 
 						<button *ngIf="orderItem.canRenew" class="pull-right button-gray-gradient" (click)="renewSelect(orderItem)">{{ 'COMMON.RENEW' | translate }}</button>
 						
@@ -225,7 +225,7 @@
 					<td>{{prodItem.quantity}}台</td>
 					<td style="width: 100px;">
 						{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}<br/>
-						<span>费用:￥{{prodItem.price}}/</span><span *ngIf="prodItem.serviceType==1">GB</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
+						<span>费用:￥{{prodItem.price}}/</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
 					</td>
 					<td class="font-green">{{prodItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') |async}}</td>
 					<td>{{prodItem.createDate}}</td>

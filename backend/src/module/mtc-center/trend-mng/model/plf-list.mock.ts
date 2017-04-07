@@ -4,7 +4,7 @@
     resultContent: [
         {
             "platformName": "vmware_weiqi",
-            "platformId": "sdfasdfsaf-sfasfsdf",
+            "platformId": "weiqi",
             "region": [
                 {
                     "region": "region1",
@@ -34,7 +34,7 @@
         },
         {
             "platformName": "openstack_gcy",
-            "platformId": "klkkllklsl-uiio",
+            "platformId": "gcy",
             "region": [
                 {
                     "region": "region1",

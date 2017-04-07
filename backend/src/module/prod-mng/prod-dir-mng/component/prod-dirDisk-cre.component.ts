@@ -58,6 +58,7 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
     //获取平台列表;
     getPlateForm() {
+        this.LayoutService.show();
         this.CreateProdDirService.getDiskPlateForms().then(
             response => {
                 console.log('PINGTAI', response);
@@ -100,6 +101,7 @@ export class ProdDirDiskCreComponent implements OnInit {
         // }
     }
     getProdDirDetail(id) {
+        this.LayoutService.show();
         this.ProdDirDetailService.getDiskProdDirDetail(id).then(
             response => {
                 console.log(response);
@@ -125,6 +127,7 @@ export class ProdDirDiskCreComponent implements OnInit {
             }
         ).catch(err => {
             console.error(err);
+            this.LayoutService.hide();            
         })
         console.log(this.prodDir);
     }
@@ -198,7 +201,6 @@ export class ProdDirDiskCreComponent implements OnInit {
     // }
     //表单验证
     checkForm(key?: string) {
-
         let regs: ValidationRegs = {  //regs是定义规则的对象
             serviceName: [this.prodDir.serviceName, [this.v.isInstanceName, this.v.isBase, this.v.isUnBlank], "产品目录名称格式不正确"],
 

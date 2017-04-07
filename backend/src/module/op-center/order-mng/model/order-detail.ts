@@ -79,5 +79,5 @@ export class OrderDetailItem {
 
   relatedSubInstanceList:Array<OrderDetailItem> = [];//关联订单
 
-  relatedOrderList:Array<OrderDetailItem> = [];
+  hisOrderList:Array<OrderDetailItem> = [];
 }

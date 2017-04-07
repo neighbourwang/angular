@@ -823,7 +823,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "detach alicloud disk",
         "id": "al-cloud.cloud-disk.disk.detach",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/ecs/action/detach"
+        "url": "alicloud/authsec/alicloud/ecs/action/detachdisk"
     },
 
     { //创建/订购阿里云主机

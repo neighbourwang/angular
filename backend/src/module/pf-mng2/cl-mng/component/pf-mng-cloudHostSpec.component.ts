@@ -117,9 +117,15 @@ export class CloudHostSpecComponent implements OnInit {
         this.layoutService.show();
         this.service.vmFlavorNew(this.flavorObj).then(res=>{
             console.log(res);
-            this.getFlavorList(this.platformId);
-            this.createSepc.close()
-            this.layoutService.hide();                        
+            if (res.resultCode == '10006001') {
+                this.layoutService.hide(); 
+                this.notice.open('COMMON.ERROR', "PF_MNG2.SPEC_NAME_EXISTS");
+                return;
+            }else{
+                this.getFlavorList(this.platformId);
+                this.createSepc.close()
+                this.layoutService.hide();  
+            }                                  
         }).catch(err=>{
             console.log(err);
             this.layoutService.hide();

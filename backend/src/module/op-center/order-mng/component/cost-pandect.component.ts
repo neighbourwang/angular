@@ -50,6 +50,8 @@ private topConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消费总�
 
 private topIncreseConsumeLoader:ItemLoader<BillInfo> = null;//TOP5消费增长总额
 private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消费增长总额-某个企业
+
+
 	
 	constructor(
 		private layoutService: LayoutService,
@@ -73,6 +75,19 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
         this.allServiceLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.cost-pandect.all-service.post',this.restApiCfg,this.restApi);
         this.increaseServiceLoader = new ItemLoader<CostPandectItem> (false,'ORDER_MNG.ERROR_LOADING_CONSUMPTION_LIST','op-center.order-mng.cost-pandect.increase-service.post',this.restApiCfg,this.restApi);
 
+        this.allServiceLoader.Trait = (target:Array<CostPandectItem>)=>{
+            for(let item of target){
+                if(item.priceDetails){
+                    for(let priceDetailItem of item.priceDetails){
+                        if(priceDetailItem.billName=='一次性费用'){
+                            priceDetailItem.isShow = false;
+                        }else{
+                            priceDetailItem.isShow = true;
+                        }
+                    }
+                }
+            } 
+        }
         //   this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
 		// 	for(let item of source)
 		// 	{

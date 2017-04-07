@@ -134,9 +134,16 @@ export class ClMngCreStep1Component implements OnInit {
         this.layoutService.show();
         this.service.crPlatForm(this.creStep1Model).then(
             res => {
-                this.idService.setPlatformId(res.resultContent);
-                this.layoutService.hide();
-                this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
+                if (res.resultCode == '10006001') {
+                    this.layoutService.hide();
+                    // this.notice.open('COMMON.ERROR',"PF_MNG2.PLATFORM NAME"+" '"+this.creStep1Model.name+"' "+"PF_MNG2.EXISTS");
+                    this.notice.open('COMMON.ERROR', "PF_MNG2.PLATFORM_NAME_EXISTS");
+                    return;
+                } else {
+                    this.idService.setPlatformId(res.resultContent);
+                    this.layoutService.hide();
+                    this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
+                }
             }
         ).catch(
             err => {
@@ -172,9 +179,15 @@ export class ClMngCreStep1Component implements OnInit {
             this.layoutService.show();
             this.service.crPlatForm(this.creStep1Model).then(
                 res => {
-                    this.idService.setPlatformId(res.resultContent);
-                    this.layoutService.hide();
-                    this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
+                    if (res.resultCode == '10006001') {
+                        this.layoutService.hide();
+                        // this.notice.open('COMMON.ERROR',"PF_MNG2.PLATFORM NAME"+" '"+this.creStep1Model.name+"' "+"PF_MNG2.EXISTS");
+                        this.notice.open('COMMON.ERROR', "PF_MNG2.PLATFORM_NAME_EXISTS");
+                        return;
+                    } else {
+                        this.idService.setPlatformId(res.resultContent);
+                        this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
+                    }
                 }
             ).catch(
                 err => {

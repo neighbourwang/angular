@@ -40,10 +40,13 @@
 							<option value="">请选择云盘</option>
                             <option *ngFor="let disktype of selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories" [value]="disktype">{{displayDiskType(disktype)}}</option>
 						</select>
-                        <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (change)="calculatePrice();" /> G
-                        <span class="text-tip">
-							用快照创建磁盘
-						</span>
+                        <div class="mgb20 has-feedback" [ngClass]="{'has-error':v.result.numberRange}" style="display: inline;">
+                            <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (ngModelChange)="checkForm('numberRange')" (change)="calculatePrice();" /> G
+                            <span class="text-tip">用快照创建磁盘</span>
+                            <div *ngIf="v.result.numberRange" style="display: inline;">
+                                <span class="alert alert-danger input_style" role="alert">{{v.result.numberRange}}</span>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -75,7 +78,10 @@
                     <table>
                         <tr>
                             <span>地域：</span>
-                            <span>{{selectedRegion.LocalName || ""}} ({{selectedRegion.selectedArea.LocalName || ""}})</span>
+                            <span>{{selectedRegion.LocalName || ""}} 
+                                <span *ngIf="selectedRegion.selectedArea.LocalName!=''">(</span> {{(selectedRegion.selectedArea.LocalName) || ""}}
+                            <span *ngIf="selectedRegion.selectedArea.LocalName!=''">)</span>
+                            </span>
                         </tr>
                         <tr>
                             <span>云盘：</span>
@@ -92,13 +98,20 @@
             <li>
                 <div class="mgb20">
                     <table>
+                        <!--
                         <tr>
                             <span>配置费用：</span>
-                            <span>{{selectedRegion.price}}</span>
+                            <span>
+                                <span *ngIf="selectedRegion.price!=''">￥　</span> {{(selectedRegion.price) || ""}}
+                            <span *ngIf="selectedRegion.price!=''">　时</span>
+                            </span>
                         </tr>
+                        -->
                         <tr>
                             <span>费用总计：</span>
-                            <span>{{selectedRegion.price}}</span>
+                            <span>
+                                <span *ngIf="selectedRegion.price!=''">￥</span> {{(selectedRegion.price) || ""}}
+                            </span>
                         </tr>
                     </table>
                 </div>

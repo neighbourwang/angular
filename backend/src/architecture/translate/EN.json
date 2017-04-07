@@ -997,6 +997,10 @@
     "PF_DESCRIPTION": "Platform description"
   },
   "PF_MNG2": {
+    "NAME":"name",
+    "EXISTS":"exists",
+    "PLATFORM_NAME_EXISTS":"platform name exists",
+    "SPEC_NAME_EXISTS":"flavour name exists",
     "ADDRESS_REQUIRED": "Please input address",
     "BASIC_INFO": "Basic information",
     "CREATE_PLATFORM": "Create platform",

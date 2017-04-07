@@ -88,54 +88,10 @@
                 <span *ngIf="false" class="icon_style icon-IPrelease" (click)="selectItem(i); detachIPToInstance();" name="detachIP"></span>
                 <span class="icon_style icon-remotelink" (click)="selectItem(i); remoteToInstance();" name="remotevm"></span>
                 <span class="icon_style icon-ali-delete3" (click)="selectItem(i); deleteInstance();" name="deletevm"></span>
-                <!--
-                <button (click)="selectItem(i); startInstance();" style="display: inline;" class="btn button-gray-gradient">启动
-                </button>
-                <button (click)="selectItem(i); stopInstance();" style="display: inline;" class="btn button-gray-gradient">停止
-                </button>
-                <button (click)="selectItem(i); reStartInstance();" style="display: inline;" class="btn button-gray-gradient">重启
-                </button>
-                <button (click)="selectItem(i); attachIPToInstance();" style="display: inline;" class="btn button-gray-gradient">绑定弹性IP
-                </button>
-                <button (click)="selectItem(i); remoteToInstance();" style="display: inline;" class="btn button-gray-gradient">远程连接
-                </button>
-                <button (click)="selectItem(i); deleteInstance();" style="display: inline;" class="btn button-gray-gradient">删除
-                </button>
-                -->
             </td>
         </tr>
-        <!--
-        <tr style="line-height: 65px;" >
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
-            <td class="text-center active" style="position: relative;width: 220px;">adfadfadfadfadfasfdafaMyCentOS-VM-001
-                <!<table-edit-name 
-					(nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])" 
-					[value]="vm.instanceName" 
-					(onChange)="changeName($event, vm)">
-                </table-edit-name>
-                >
-            </td>
-            <td class="text-center">华东1 可用区E</td>
-            <td class="text-center">内网IP：10.1.1.10<br />外网IP：131.2.10.10</td>
-            <td class="text-center">经典网络</td>
-            <td class="text-center">运行中</td>
-            <td class="text-center">CPU: 1核 内存：1024 MB (I/O优化)</td>
-            <td class="text-center">包年包月<br /> 18-03-19 21:10到期</td>
-        </tr>        
-        <tr style="line-height: 65px;">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
-            <td class="text-center active" style="position: relative;width: 220px;">adfadfadfadfadfasfdafaMyCentOS-VM-002
-            </td>
-            <td class="text-center">华东1 可用区E</td>
-            <td class="text-center">内网IP：10.1.1.10<br />外网IP：131.2.10.10</td>
-            <td class="text-center">专有网络</td>
-            <td class="text-center">运行中</td>
-            <td class="text-center">CPU: 1核 内存：1024 MB (I/O优化)</td>
-            <td class="text-center">按量<br />17-03-19 21:10 创建</td>
-        </tr>
-        -->
     </table>
-    <fc-pagination tp={{totalPage}} (pf)="changePage($event)"></fc-pagination>
+    <fc-pagination tp={{totalPage}} (pf)="getInstanceList($event)"></fc-pagination>
     <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
 </div>
 <fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>

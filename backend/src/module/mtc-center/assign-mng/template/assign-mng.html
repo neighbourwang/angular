@@ -7,7 +7,7 @@
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title" >企业：</div>
         <div class="col-md-2">
-            <select class="form-control" [(ngModel)]="selectedEnt" (change)="selectedDept=defaultDept">
+            <select class="form-control" [(ngModel)]="selectedEnt" (change)="selectedDept=defaultDept;">
                 <option [ngValue]="defaultEnt">所有企业</option>
                 <option *ngFor="let ent of entList" [ngValue]="ent">{{ent.enterpriseName}}</option>
             </select>
@@ -94,7 +94,7 @@
     </div>
     <div>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="exportAll()">导出所有数据</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">导出当前数据</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="exportCurrent()">导出当前数据</button>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">重置</button>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">确认</button>
     </div>
@@ -278,28 +278,27 @@
 </div>
 
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
-<fc-popup #exportAllData  title="{{title}}"  ot="导出" of="acceptExport()" ct="取消" cf=""  cssClass="minWidth900">
+<fc-popup #exportAllData  title="{{title}}"  ot="导出" (of)="acceptExport();" ct="取消"   cssClass="minWidth900">
     <div class="row row-line-height" >
         
             <div class="col-md-3 form-control-title" style="line-height: 50px;">
-                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectFirst()" />&nbsp;快速选择：{{flag}}
+                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectFirst()" />&nbsp;快速选择：
             </div>
             <div class="col-md-4" style="margin-top:10px;">
-                <select class="form-control" >
+                <select class="form-control"[(ngModel)]="period" >
                     <option value="1">最近24小时</option>
-                    <option value="1">最近7天</option>
-                    <option value="1">最近30天</option>
-                    <option value="1">最近90天</option>
-                    <option value="1">最近180天</option>
-                    <option value="1">最近360天</option>
+                    <option value="2">最近7天</option>
+                    <option value="3">最近30天</option>
+                    <option value="4">最近90天</option>
+                    <option value="5">最近180天</option>
+                    <option value="6">最近360天</option>
                 </select>
             </div>
         
     </div>
-    <div class="row row-line-height">
-        
+    <div class="row row-line-height">       
             <div class="col-md-3 form-control-title" style="line-height: 50px;">
-                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectSecond()" />&nbsp;时间范围：{{flag}}
+                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectSecond()" />&nbsp;时间范围：
             </div>
             <div class="col-md-9">
                 <div class="assign-mng float-left">
@@ -310,8 +309,6 @@
                     <date-picker (dateChanged)="EndDateChange($event)"></date-picker>
                 </div>
             </div>
-            <div>{{startDate}}</div>
-            <div>{{endDate}}</div>
      
     </div>
     <div style="height:200px;">

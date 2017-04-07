@@ -1164,6 +1164,10 @@
     "ZONE_NAME": "区域名称"
   },
   "PF_MNG2": {
+    "NAME ":"名称",
+    "EXISTS":"已存在",
+    "PLATFORM_NAME_EXISTS":"平台名称已存在",
+    "SPEC_NAME_EXISTS":"规格名称已存在",
     "ACCESS_PATH": "访问地址",
     "ADDRESS_REQUIRED": "请输入地址",
     "BASIC_INFO": "基本信息",
@@ -1187,7 +1191,7 @@
     "GET_REGION_ERROR": "获取区域信息错误",
     "GET_VERSION_ERROR": "获取版本错误",
     "NO_SYNC_COMPUTING_SOURCE": "暂时没有可同步计算资源信息",
-    "NO_SYNC_ZONES": "暂时没有可同步存储信息",
+    "NO_SYNC_STORAGES": "暂时没有可同步存储信息",
     "ONLY_OPENSTACK_TYPE_AVAILABLE": "配置规格只适用openStack类型平台",
     "PASSWORD_REQUIRED": "请输入密码",
     "PLATFORM_ALEADRY_ENABLED": "云平台状态已启用",
@@ -1233,7 +1237,7 @@
     "SYNC_STATE": "同步状态",
     "HOST": "宿主机",
     "ERROR_GETTING_REGION": "获取Region信息错误",
-    "SELECT_REGION": "选取Regionn",
+    "SELECT_REGION": "选取Region",
     "AVAILABLE_ZONE_NAME": "可用区名称",
     "NUMBER_OF_HOSTS": "宿主机数量",
     "TOTAL_MEMORY": "总内存数",

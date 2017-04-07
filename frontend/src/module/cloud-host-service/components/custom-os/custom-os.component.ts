@@ -39,7 +39,6 @@ export class CustomOsComponent implements OnInit {
     }
 
 	open() {
-        console.log(6666, this.dialogPopup)
         this.dialogPopup.open();
     }
 
