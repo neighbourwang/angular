@@ -37,7 +37,7 @@
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
 
-<fc-popup #majorMng title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="creOredit()">
+<fc-popup #majorMng title="{{title}}" ot="{{type== 'info'? '关闭': 'DIALOG.SAVE' | translate }}" ct="{{ type== 'info'? '':'DIALOG.CANCEL' | translate }}" (of)="creOredit()">
     <div class="mgt10 border">
         <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
             <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>主账号登录名:</div>
@@ -99,7 +99,7 @@
                 </tr>
                 <tr class="text-center">
                     <td><input type='radio' class="fox-cloud-radio"/></td>
-                    <td class="text-center"><a href="javascript:void(0);" (click)="getDetail(item);type= 'info';">管华</a></td>
+                    <td class="text-center">管华</td>
                 </tr>
                 </tbody>
             </table>
