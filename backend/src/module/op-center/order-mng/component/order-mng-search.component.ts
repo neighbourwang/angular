@@ -147,7 +147,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 				if(item.billingInfo.billingMode == 0)//包月包年
 				{
-					obj.price = item.billingInfo.basicPrice + item.billingInfo.cyclePrice;
+					obj.price = item.billingInfo.basicPrice;
 				}	
 				else if(item.billingInfo.billingMode == 1)//按量
 				{
