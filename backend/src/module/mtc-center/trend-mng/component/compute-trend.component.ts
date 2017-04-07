@@ -54,9 +54,9 @@ export class ComputeTrendComponent implements OnInit {
 
     ngOnInit() {
         this.getPlfList();
+        this.queryOpt.queryType = "1";
+        
         this.reset();
-
-
     }
 
     //获取平台联动列表
@@ -157,29 +157,28 @@ export class ComputeTrendComponent implements OnInit {
         if (this.queryOpt.queryType == "1") {
             this.showType = 1;
             this.getBasicList();
-
             this.getCpuData();
 
-            //this.showChart(this.cpuData, 1);
         } else if (this.queryOpt.queryType == "2") {
             this.showType = 2;
             this.getVmData();
 
-            // this.showChart(this.vmData, 2);
         } else if (this.queryOpt.queryType == "3") {
             this.showType = 3;
             this.getBasicList();
             this.getMemData();
-            //this.showChart(this.memData, 3);
-
+     
         }
     }
 
     reset() {
-        this.queryOpt.queryType = "1";
-        this.queryOpt.platformId = this.defaultPlf.platformId;
-        this.queryOpt.regionId = this.defaultRegion.regionId;
-        this.queryOpt.zoneId = this.defaultZone.zoneId;
+        
+        this.selectedPlf=this.defaultPlf;
+        this.selectedRegion=this.defaultRegion;
+        this.selectedZone = this.defaultZone;
+        this.queryOpt.platformId = 'all';
+        this.queryOpt.regionId = 'all';
+        this.queryOpt.zoneId = 'all';
         this.queryOpt.powerStatus = 'start';
         this.queryOpt.flaovarId = 'all';
         this.queryOpt.period = '1';
@@ -243,7 +242,7 @@ export class ComputeTrendComponent implements OnInit {
                     normal: {
                         show: true,
                         formatter: function (value) {
-                            console.log(value);
+                            
                             return (value.data * zonesData[m].total[value.dataIndex]).toFixed(0);
                         },
                         textStyle: {
@@ -309,6 +308,37 @@ export class ComputeTrendComponent implements OnInit {
 
     } //函数结尾
 
+    exportCurrent() {
+        this.layoutService.show();
+        this.service.exportCurrent(this.queryOpt)  
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    console.log('export current');
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    exportAll() {
+        this.layoutService.show();
+        this.service.exportAll()  
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    console.log('export current');
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
 
     onRejected(reason: any) {
         this.layoutService.hide();
