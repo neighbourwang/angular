@@ -31,7 +31,7 @@
 							<td>{{prodItem.quantity}}台</td>
 							<td style="width: 100px;">
 								{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}<br/>
-							<span>费用:￥{{prodItem.price}}/</span><span *ngIf="prodItem.serviceType==1">GB</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
+							<span>费用:￥{{prodItem.price}}/</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
 							</td>
 							<td class="font-green">￥{{prodItem.renewPrice}}/{{prodItem.renewPeriodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async }}</td>
 							<td>{{prodItem.expireDate}}</td>
