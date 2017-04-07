@@ -62,8 +62,8 @@
         </tr>
         <tr *ngFor="let item of data">
             <td class="text-center">{{item.id}}</td>
-            <td style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100px;">
-                <static-tooltip [title]="item.subject"><a href="javascript:void(0);" (click)="getDetail(item)">{{item.subject | slice:0:8}}</a></static-tooltip>
+            <td class="text-center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100px;">
+                <static-tooltip [title]="item.subject"><a href="javascript:void(0);" class="a-active" (click)="getDetail(item)">{{item.subject | slice:0:8}}</a></static-tooltip>
             </td>
             <td class="text-center">{{item.typeName}}</td>
             <td class="text-center">{{item.statusName}}</td>

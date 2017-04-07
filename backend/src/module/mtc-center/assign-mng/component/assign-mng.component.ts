@@ -64,10 +64,12 @@ export class AssignMngComponent implements OnInit {
     flag: number;
     startDate: string;
     endDate: string;
+    period="1";
 
     ngOnInit() {
         this.getEntList();
         this.getPlfList();
+        
         this.reset();
         this.getUsageState();
         this.getHyperList();
@@ -174,11 +176,16 @@ export class AssignMngComponent implements OnInit {
     }
 
     reset() {
-        this.queryOpt.enterpriseID = this.defaultEnt.enterpriseId = 'all';
-        this.queryOpt.departmentId = this.defaultDept.departmentId = 'all';
-        this.queryOpt.platformId = this.defaultPlf.platformId = 'all';
-        this.queryOpt.regionId = this.defaultRegion.regionId = 'all';
-        this.queryOpt.zoneId = this.defaultZone.zoneId = 'all';
+        this.selectedEnt = this.defaultEnt;
+        this.selectedDept= this.defaultDept;
+        this.selectedPlf = this.defaultPlf;
+        this.selectedRegion= this.defaultRegion;
+        this.selectedZone = this.defaultZone;
+        this.queryOpt.enterpriseID = 'all';
+        this.queryOpt.departmentId = 'all';
+        this.queryOpt.platformId = 'all';
+        this.queryOpt.regionId = 'all';
+        this.queryOpt.zoneId = 'all';
         this.queryOpt.powerStatus = 'start';
         this.queryOpt.flaovarId = 'all';
         this.queryOpt.rate = '1';
@@ -186,10 +193,34 @@ export class AssignMngComponent implements OnInit {
         this.queryOpt.period = '1';
     }
 
+    exportCurrent() {
+        this.layoutService.show();
+        this.service.exportCurrent(this.queryOpt)  //post 待完善
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    console.log('export current');
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
     exportAll() {
         this.exportAllData.open("导出所有数据");
     }
 
+    gotoAssignDetail(HyperId:string) {
+        this.router.navigate([`mtc-center/assign-mng/assign-detail`,
+            {
+                "wm_Id":HyperId
+            }
+        ]);
+    }
+
+    //弹出框“导出所有数据”中的相关函数
     selectFirst() {
         this.flag = 1;
     }
@@ -203,13 +234,38 @@ export class AssignMngComponent implements OnInit {
     EndDateChange($event) {
         this.endDate=$event.formatted;
     }
-    gotoAssignDetail(HyperId:string) {
-        this.router.navigate([`mtc-center/assign-mng/assign-detail`,
-            {
-                "wm_Id":HyperId
+   
+    acceptExport() {
+        if (!this.flag) {
+            this.showAlert("请选择！");
+            return;
+        }
+        if (this.flag == 2) {
+            if ((!this.startDate) || (!this.endDate)) {
+                this.showAlert("请选择时间范围！");
+                return;
             }
-        ]);
+            if (this.startDate >= this.endDate) {
+                this.showAlert("开始日期必须小于结束日期！");
+                return;
+            }
+        }
+        this.layoutService.show();
+        this.service.acceptExport(this.flag,this.startDate,this.endDate,this.period)  
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    console.log('export ');
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
     }
+
+    
 
    onRejected(reason: any) {
         this.layoutService.hide();

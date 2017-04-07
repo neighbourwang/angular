@@ -46,8 +46,8 @@
                 <!--<td>{{item.leaderName}}</td>-->
                 <td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
                     <span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></template>
-                            <template [ngSwitchCase]="3">{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></template>
+                            <template [ngSwitchCase]="1">{{'COMMON.ENABLED' | translate}}<!--启用--></template>
+                            <template [ngSwitchCase]="3">{{'COMMON.UNABLED' | translate}}<!--禁用--></template>
                             <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED' | translate}}</template><!--未启用-->
 
                             <template [ngSwitchCase]="4">4</template>
