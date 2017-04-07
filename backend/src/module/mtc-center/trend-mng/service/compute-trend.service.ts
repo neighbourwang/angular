@@ -35,18 +35,18 @@ export class ComputeTrendService {
     getCpuData(): Promise<any> {
         //const api = this.restApiCfg.getRestApi("compute-trend.basic.info");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => CpuData_mock);
+        return new Promise(resovle => setTimeout(resovle, 10)).then(() => CpuData_mock);
     }
 
      getVmData(): Promise<any> {
         //const api = this.restApiCfg.getRestApi("compute-trend.basic.info");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => VmData_mock);
+        return new Promise(resovle => setTimeout(resovle, 10)).then(() => VmData_mock);
     }
 
      getMemData(): Promise<any> {
         //const api = this.restApiCfg.getRestApi("compute-trend.basic.info");
         //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => MemData_mock);
+        return new Promise(resovle => setTimeout(resovle, 10)).then(() => MemData_mock);
     }
 }

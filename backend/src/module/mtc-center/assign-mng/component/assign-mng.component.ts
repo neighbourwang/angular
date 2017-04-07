@@ -6,6 +6,7 @@ import {EntModel, DeptModel} from"../model/ent.model";
 import {PlfModel, RegionModel, ZoneModel} from"../model/plf.model";
 import {UsageState, ItemModel, PowerStatModel, FlavorModel,DoughnutChart}from "../model/usage-state.model";
 import {Hyper} from "../model/hyper.model";
+import {QueryModel} from "../model/query.model";
 //service
 import { AssignMngService } from "../service/assign-mng.service";
 
@@ -33,8 +34,10 @@ export class AssignMngComponent implements OnInit {
 
     noticeTitle = "";
     noticeMsg = "";
-    flag: boolean;
+    
 
+    queryOpt: QueryModel = new QueryModel();
+    
     defaultEnt:EntModel = new EntModel();
     selectedEnt: EntModel = this.defaultEnt;
     defaultDept: DeptModel = new DeptModel();
@@ -58,9 +61,14 @@ export class AssignMngComponent implements OnInit {
     memChart: DoughnutChart = new DoughnutChart(); //mem环形图
     hyperList: Array<Hyper>;
 
+    flag: number;
+    startDate: string;
+    endDate: string;
+
     ngOnInit() {
         this.getEntList();
         this.getPlfList();
+        this.reset();
         this.getUsageState();
         this.getHyperList();
     }
@@ -104,7 +112,7 @@ export class AssignMngComponent implements OnInit {
     //获取环形图
     getUsageState() {
         this.layoutService.show();
-        this.service.getUsageState()  //post 待完善
+        this.service.getUsageState(this.queryOpt)  //post 待完善
             .then(
             response => {
                 this.layoutService.hide();
@@ -138,7 +146,7 @@ export class AssignMngComponent implements OnInit {
     //获取Hyper列表
     getHyperList() {
         this.layoutService.show();
-        this.service.getHyperList()  //post 待完善
+        this.service.getHyperList(this.queryOpt)  //post 待完善
             .then(
             response => {
                 this.layoutService.hide();
@@ -152,9 +160,48 @@ export class AssignMngComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
     }
-    
+
+    //确认
+    confirm() {
+        this.queryOpt.enterpriseID = this.selectedEnt.enterpriseId;
+        this.queryOpt.departmentId = this.selectedDept.departmentId;
+        this.queryOpt.platformId = this.selectedPlf.platformId;
+        this.queryOpt.regionId = this.selectedRegion.region;
+        this.queryOpt.zoneId = this.selectedZone.zoneId;
+        console.log("query", this.queryOpt);
+        this.getUsageState();
+        this.getHyperList();
+    }
+
+    reset() {
+        this.queryOpt.enterpriseID = this.defaultEnt.enterpriseId = 'all';
+        this.queryOpt.departmentId = this.defaultDept.departmentId = 'all';
+        this.queryOpt.platformId = this.defaultPlf.platformId = 'all';
+        this.queryOpt.regionId = this.defaultRegion.regionId = 'all';
+        this.queryOpt.zoneId = this.defaultZone.zoneId = 'all';
+        this.queryOpt.powerStatus = 'start';
+        this.queryOpt.flaovarId = 'all';
+        this.queryOpt.rate = '1';
+        this.queryOpt.top = '1';
+        this.queryOpt.period = '1';
+    }
+
     exportAll() {
         this.exportAllData.open("导出所有数据");
+    }
+
+    selectFirst() {
+        this.flag = 1;
+    }
+    selectSecond() {
+        this.flag = 2;
+    }
+    StartDateChange($event) {
+        this.startDate=$event.formatted;
+    }
+
+    EndDateChange($event) {
+        this.endDate=$event.formatted;
     }
     gotoAssignDetail(HyperId:string) {
         this.router.navigate([`mtc-center/assign-mng/assign-detail`,
