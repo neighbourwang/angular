@@ -32,7 +32,7 @@ export class ComputeTrendComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
-    analysisType = "1";
+    
     showType = 1;
     isSelected: boolean;
 
@@ -54,10 +54,8 @@ export class ComputeTrendComponent implements OnInit {
     
     ngOnInit() {
         this.getPlfList();
-        this.getBasicList();       
-        this.getCpuData();
-        this.getVmData();
-        this.getMemData();
+         this.reset();
+        
       
     }
 
@@ -79,10 +77,10 @@ export class ComputeTrendComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    //post 待完善
+    
     getBasicList() {
         this.layoutService.show();
-        this.service.getBasicList()  
+        this.service.getBasicList(this.queryOpt)  
             .then(
             response => {
                 this.layoutService.hide();
@@ -107,7 +105,7 @@ export class ComputeTrendComponent implements OnInit {
                 if (response && "100" == response["resultCode"]) {
                     this.cpuData = response["resultContent"];
                     console.log("cpuData", this.cpuData);
-                    //this.showChart(this.cpuData, 1);
+                    this.showChart(this.cpuData, 1);
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -125,7 +123,7 @@ export class ComputeTrendComponent implements OnInit {
                 if (response && "100" == response["resultCode"]) {
                     this.vmData = response["resultContent"];
                     console.log("vmData", this.vmData);
-                    //this.showChart(this.vmData, 2);
+                    this.showChart(this.vmData, 2);
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -143,13 +141,48 @@ export class ComputeTrendComponent implements OnInit {
                 if (response && "100" == response["resultCode"]) {
                     this.memData = response["resultContent"];
                     console.log("memData", this.memData);
-                    //this.showChart(this.memData, 3);
+                    this.showChart(this.memData, 3);
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
             }
             )
             .catch((e) => this.onRejected(e));
+    }
+
+    confirm() {
+        this.queryOpt.platformId = this.selectedPlf.platformId;
+        this.queryOpt.regionId = this.selectedRegion.regionId;
+        this.queryOpt.zoneId = this.selectedZone.zoneId;
+        if (this.queryOpt.queryType == "1") {
+            this.showType = 1;
+            this.getBasicList();
+        
+            this.getCpuData();
+        
+            //this.showChart(this.cpuData, 1);
+        } else if (this.queryOpt.queryType == "2") {
+            this.showType = 2;
+            this.getVmData();
+       
+           // this.showChart(this.vmData, 2);
+        }else if (this.queryOpt.queryType == "3") {
+            this.showType = 3;
+            this.getBasicList();     
+            this.getMemData();
+            //this.showChart(this.memData, 3);
+        
+        }
+    }
+
+    reset() {
+        this.queryOpt.queryType = "1";
+        this.queryOpt.platformId = this.defaultPlf.platformId;
+        this.queryOpt.regionId = this.defaultRegion.regionId;
+        this.queryOpt.zoneId = this.defaultZone.zoneId;
+        this.queryOpt.powerStatus = 'start';
+        this.queryOpt.flaovarId = 'all';
+        this.queryOpt.period = '1';
     }
 
     showChart(chartData:Bar,showType:number) {       
@@ -265,19 +298,7 @@ export class ComputeTrendComponent implements OnInit {
       
     } //函数结尾
 
-    confirm() {
-        if (this.analysisType == "1") {
-            this.showType = 1;
-            this.showChart(this.cpuData, 1);
-        } else if (this.analysisType == "2") {
-            this.showType = 2;
-            this.showChart(this.vmData, 2);
-        }else if (this.analysisType == "3") {
-            this.showType = 3;
-            this.showChart(this.memData, 3);
-        
-        }
-    }
+    
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);

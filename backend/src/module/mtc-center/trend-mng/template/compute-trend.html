@@ -51,18 +51,18 @@
                 <div class="col-md-2 form-control-title">云主机状态：</div>
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.powerStatus">
-                        <option>所有</option>
-                        <option>运行</option>
-                        <option>关闭</option>
-                        <option>挂起</option>
+                        <option [value]="'start'">运行</option>
+                        <option [value]="'close'">关闭</option>
+                        <option [value]="'sleep'">挂起</option>
+                        <option [value]="all">所有</option>
                     </select>
                 </div>
                 <div class="col-md-2 form-control-title" >时间范围：</div>
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.period">
-                        <option>最近3个月</option>
-                        <option>最近6个月</option>
-                        <option>最近12个月</option>
+                        <option [value]="1">最近3个月</option>
+                        <option [value]="2">最近6个月</option>
+                        <option [value]="3">最近12个月</option>
                         
                     </select>
                 </div>
@@ -73,8 +73,9 @@
                  <div class="col-md-2 form-control-title">主机规格选择：</div>
                  <div class="col-md-2">
                      <select class="form-control" [(ngModel)]="queryOpt.flaovarId">
-                        <option>所有规格</option>                     
-                    </select>
+                         <option [value]="'all'">所有规格</option>
+                         <option [value]="'b'">规格b</option>
+                     </select>
                  </div>
                 
             </div>
