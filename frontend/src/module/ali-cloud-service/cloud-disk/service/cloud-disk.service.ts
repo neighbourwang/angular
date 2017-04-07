@@ -137,14 +137,15 @@ export class AliCloudDiskService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
-    attachDisk(diskItem: diskListModel): Promise<any> {
+    attachDisk(diskItem: diskListModel, instanceId: string, deletewithinstance: boolean): Promise<any> {
         const body = {
             "accessinfo": {
                 "accessId": this.keysecret.accessId,
                 "accessSecret": this.keysecret.accessSecret
             },
             "diskId": diskItem.DiskId,
-            "instanceId": ""//????????????????????
+            "instanceId": instanceId,
+            "deleteWithInstance": deletewithinstance
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.disk.attach");
@@ -158,7 +159,7 @@ export class AliCloudDiskService {
                 "accessSecret": this.keysecret.accessSecret
             },
             "diskId": diskItem.DiskId,
-            "instanceId": ""//????????????????????
+            "instanceId": diskItem.InstanceId
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.disk.detach");

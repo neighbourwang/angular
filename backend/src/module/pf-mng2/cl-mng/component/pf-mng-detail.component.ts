@@ -467,7 +467,7 @@ export class PfDetailComponent implements OnInit {
                 this.layoutService.hide();
                 this.updateStorageList = res.resultContent;
                 if (this.updateStorageList.length == 0) {
-                    this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_STORAGES')  //暂时没有可同步可用区信息
+                    this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_STORAGES')  //暂时没有可同步存储后端信息
                 } else {
                     this.updateStorageList.forEach(ele => {
                         ele.quota =

@@ -1,7 +1,7 @@
 <div class="page-content-header mgb20">
     阿里云子账号管理
     <span class="icon-back" style="font-size:14px"></span>
-    <span style="font-size:14px;"><a href="javascript:void(0);" (click)="gotoMajorMng();">返回阿里云账号管理</a></span>
+    <span style="font-size:14px;"><a href="javascript:void(0);" class="font-gray" (click)="gotoMajorMng();">返回阿里云账号管理</a></span>
 </div>
 <div class="mgb20" style="height:30px;">
     <button class="btn button-confirm  pull-right" (click)="crePage();type='create'">
@@ -24,12 +24,12 @@
     </thead>
     <tbody>
     <tr>
-        <td class="text-center"><input class="fox-cloud-radio" type="radio" ></td>
-        <td class="text-center"><a href="javascript:void(0);" (click)="getDetail(item);type= 'info';">管华</a></td>
         <td class="text-center">1</td>
-        <td class="text-center">2</td>
-        <td class="text-center">销售部</td>
-        <td class="text-center">部门负责人</td>
+        <td class="text-center"><a href="javascript:void(0);" class="a-active" (click)="getDetail(item);type= 'info';">fhd_001</a></td>
+        <td class="text-center">管理员部门</td>
+        <td class="text-center">已启用</td>
+        <td class="text-center">2017-4-6 8:00:00</td>
+        <td class="text-center">王某某</td>
         <td class="text-center">
             <span class="glyphicon glyphicon-edit font-green" style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);type='edit'"></span>
             <span class="glyphicon glyphicon-user font-green" style="margin-right : 10px ;cursor:pointer" (click)="distriPage(item);"></span>
@@ -41,7 +41,7 @@
     </tbody>
 </table>
 
-<fc-popup #subMng title="{{title}}" ot="{{type== 'info'? '关闭': 'DIALOG.SAVE' | translate }}" ct="{{ type== 'info'? '':'DIALOG.CANCEL' | translate }}" (of)="creOredit()">
+<fc-popup #subMng title="{{title}}" ot="{{type== 'info'? '关闭': 'DIALOG.SAVE' | translate }}" ct="{{ type== 'info'? '':'DIALOG.CANCEL' | translate }}" (of)="operate()">
     <div class="mgt10 border">
         <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
             <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>子账号登录名:</div>
@@ -94,7 +94,7 @@
     </div>
 </fc-popup>
 
-<fc-popup #distriDepart title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="creOredit()">
+<fc-popup #distriDepart title="{{title}}" ot="{{'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="operate()">
     <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
         <div class="col-md-4 content-title" style="text-align : right">当前所选部门：管理部</div>
         <div class="col-md-2 no-padding form-group ">

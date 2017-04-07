@@ -7,20 +7,20 @@ import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, Syst
 //model
 
 //service
-import { AliMajorService } from '../service/ali-major-list.service';
+import { AliSharedService } from '../service/ali-shared-list.service';
 
 @Component({
-    selector: 'ali-major-list',
-    templateUrl: '../template/ali-major-list.html',
+    selector: 'ali-shared-list',
+    templateUrl: '../template/ali-shared-list.html',
     styleUrls: ['../style/ali-major-list.less'],
     providers: []
 })
 
-export class AliMajorListComponent implements OnInit{
+export class AliSharedListComponent implements OnInit{
 
     constructor(
         private router : Router,
-        private service : AliMajorService,
+        private service : AliSharedService,
         private layoutService : LayoutService
     ) {
 
@@ -30,47 +30,31 @@ export class AliMajorListComponent implements OnInit{
     pager: PaginationComponent;
     @ViewChild("notice")
     notice: NoticeComponent;
-    @ViewChild("majorMng")
-    majorMng: PopupComponent;
+    @ViewChild("sharedMng")
+    sharedMng: PopupComponent;
     @ViewChild("distriDepart")
     distriDepart: PopupComponent;
 
     noticeTitle = "";
     noticeMsg = "";
 
-    type: string;
-
     ngOnInit (){
         console.log('init');
     }
 
-    editPage(item){
-        this.type= "edit";
-        this.majorMng.open("编辑登录信息");
-    }
-
     getDetail(item){
-        this.type= "info";
-        this.majorMng.open("主账号详情");
+        this.sharedMng.open("账号详情");
     }
 
     distriPage(item){
-        this.type= "distribute";
         this.distriDepart.open("分配部门")
     }
-
-    gotoSubMng(){
-        this.router.navigate([`user-center/ali-cloud/ali-sub-list`]);
+    
+    close(){
+        this.sharedMng.close();
     }
 
     operate(){
-        if(this.type== "info"){
-            this.majorMng.close();
-        }else if(this.type== "edit"){
-
-        }else{
-
-        }
     }
 
 

@@ -9,7 +9,7 @@ export class RegionModel {
     diskCount: string = "20";
     count: number = 1;
 
-    price: string = "  ";
+    price: string = "";
 
     toString() {
         return JSON.stringify(this);
