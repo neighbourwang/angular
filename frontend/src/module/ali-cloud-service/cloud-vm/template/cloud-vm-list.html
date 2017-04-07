@@ -36,7 +36,7 @@
         </div>
 
         <div class="dropdown float-right">
-            <button class="btn float-left btn-success" (click)="goToInstanceOrder();"><i class="glyphicon glyphicon-plus"></i>创建云主机</button>
+            <button class="btn float-left btn-success" (click)="goToInstanceOrder();"><!--<i class="glyphicon glyphicon-plus"></i>--><span class="icon-ali-create"></span>创建云主机</button>
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			更多操作
 			<span class="caret"></span>
@@ -81,6 +81,14 @@
             <td class="text-center">CPU: {{instance.Cpu}}核 内存：{{instance.Memory}} MB (I/O优化)</td>
             <td class="text-center">{{instance.InstanceChargeType}}<br /> {{instance.ExpiredTime}}</td>
             <td class="text-center">
+                <span class="icon-start"></span>
+                <span class="icon-stop"></span>
+                <span class="icon-reboot"></span>
+                <span class="icon-IPlock"></span>
+                <span class="icon-IPrelease"></span>
+                <span class="icon-remotelink"></span>
+                <span class="icon-ali-delete3"></span>
+                <!--
                 <button (click)="selectItem(i); startInstance();" style="display: inline;" class="btn button-gray-gradient">启动
                 </button>
                 <button (click)="selectItem(i); stopInstance();" style="display: inline;" class="btn button-gray-gradient">停止
@@ -93,6 +101,7 @@
                 </button>
                 <button (click)="selectItem(i); deleteInstance();" style="display: inline;" class="btn button-gray-gradient">删除
                 </button>
+                -->
             </td>
         </tr>
         <!--

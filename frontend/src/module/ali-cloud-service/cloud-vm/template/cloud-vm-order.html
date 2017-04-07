@@ -140,7 +140,13 @@
                                 <table style="width: 100%" class="table_progress">
                                     <tr>
                                         <td colspan="4">
-                                            <input type="range" min="1" max="200" [(ngModel)]="selectedOrderVmPage.selectedInternetMaxBandwidthOut" (input)="slide($event)" style="width: 100%;display: inline;" />
+                                            <div class="range_box">
+                                                <input type="range" min="1" max="200" [(ngModel)]="selectedOrderVmPage.selectedInternetMaxBandwidthOut" (input)="slide($event)" style="width: 100%;display: inline;" />
+                                                <!--
+                                                <div class="" [style.right]='(200-selectedOrderVmPage.selectedInternetMaxBandwidthOut)/2 + "%"' (click)="goBack($event)">
+                                                </div>
+                                                -->
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr style="text-align: right;">
@@ -163,7 +169,7 @@
                             </div>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 mgl20">
                             <count-bar [step]="1" [max]="200" [min]="0" [stepCheck]=true [value]="selectedOrderVmPage.selectedInternetMaxBandwidthOut" (output)="outputValue($event)">
                             </count-bar>Mbps
                         </div>
