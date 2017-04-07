@@ -46,34 +46,48 @@
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title" >云主机状态：</div>
         <div class="col-md-2">
-            <select class="form-control">
-                <option>运行</option>
+            <select class="form-control" [(ngModel)]="queryOpt.powerStatus">
+                <option [value]="'start'">运行</option>
+                <option [value]="'close'">关闭</option>
+                <option [value]="'sleep'">挂起</option>
+                <option [value]="all">所有</option>
             </select>
         </div>
         <div class="col-md-2 form-control-title" >云主机规格：</div>
         <div class="col-md-2">
-            <select class="form-control">
-                <option>规格1</option>
+            <select class="form-control" [(ngModel)]="queryOpt.flaovarId">
+                <option [value]="'all'">所有规格</option>
+                <option [value]="'b'">规格b</option>
             </select>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title" >利用率排序：</div>
         <div class="col-md-2">
-            <select class="form-control">
-                <option>从低到高</option>
+            <select class="form-control" [(ngModel)]="queryOpt.rate">
+                <option [value]="1">从高到低</option>
+                <option [value]="2">从低到高</option>
             </select>
         </div>
         <div class="col-md-2 form-control-title" >TOP：</div>
         <div class="col-md-2">
-            <select class="form-control">
-                <option>TOP10</option>
+            <select class="form-control" [(ngModel)]="queryOpt.top">              
+                <option [value]="1">TOP10</option>
+                <option [value]="2">TOP20</option>
+                <option [value]="3">TOP50</option>
+                <option [value]="4">TOP100</option>
+                <option [value]="all">所有</option>
             </select>
         </div>
         <div class="col-md-2 form-control-title" >时间范围：</div>
         <div class="col-md-2">
-            <select class="form-control">
-                <option>最近7天</option>
+            <select class="form-control" [(ngModel)]="queryOpt.period">
+                <option [value]="1">最近24小时</option>
+                <option [value]="2">最近7天</option>
+                <option [value]="3">最近30天</option>
+                <option [value]="4">最近90天</option>
+                <option [value]="5">最近180天</option>
+                <option [value]="6">最近360天</option>
             </select>
         </div>
     </div>
@@ -81,8 +95,8 @@
     <div>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="exportAll()">导出所有数据</button>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">导出当前数据</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">重置</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">确认</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">重置</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">确认</button>
     </div>
     <div style="clear:both;"></div>
     <div class="row mgt15">
@@ -268,7 +282,7 @@
     <div class="row row-line-height" >
         
             <div class="col-md-3 form-control-title" style="line-height: 50px;">
-                <input type="radio" name="chooseTime"  class="fox-cloud-radio" />&nbsp;快速选择：
+                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectFirst()" />&nbsp;快速选择：{{flag}}
             </div>
             <div class="col-md-4" style="margin-top:10px;">
                 <select class="form-control" >
@@ -285,17 +299,19 @@
     <div class="row row-line-height">
         
             <div class="col-md-3 form-control-title" style="line-height: 50px;">
-                <input type="radio" name="chooseTime"  class="fox-cloud-radio" />&nbsp;时间范围：
+                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectSecond()" />&nbsp;时间范围：{{flag}}
             </div>
             <div class="col-md-9">
                 <div class="assign-mng float-left">
-                    <date-picker (datechanged)="onEndDateChange($event)"></date-picker>
+                    <date-picker (dateChanged)="StartDateChange($event)" ></date-picker>
                 </div>
                 <div style="float: left; line-height: 50px; width: 40px; text-align: center;">至</div>
                 <div class="assign-mng float-left">
-                    <date-picker (datechanged)="onEndDateChange($event)"></date-picker>
+                    <date-picker (dateChanged)="EndDateChange($event)"></date-picker>
                 </div>
             </div>
+            <div>{{startDate}}</div>
+            <div>{{endDate}}</div>
      
     </div>
     <div style="height:200px;">

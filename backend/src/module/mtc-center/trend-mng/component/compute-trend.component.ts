@@ -4,7 +4,8 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 import {PlfModel, RegionModel, ZoneModel} from"../model/plf.model";
 import {BasicModel, Percent}from "../model/basic.model";
-import {Bar,ZoneBar, Item} from"../model/bar.model";
+import {Bar, ZoneBar, Item} from"../model/bar.model";
+import {ComputeQuery} from"../model/compute-query.model";
 //service
 import { ComputeTrendService } from "../service/compute-trend.service";
 const echarts = require('echarts');
@@ -34,6 +35,8 @@ export class ComputeTrendComponent implements OnInit {
     analysisType = "1";
     showType = 1;
     isSelected: boolean;
+
+    queryOpt: ComputeQuery = new ComputeQuery();
     //平台联动列表
     defaultPlf: PlfModel = new PlfModel();
     selectedPlf: PlfModel = this.defaultPlf;
@@ -177,7 +180,7 @@ export class ComputeTrendComponent implements OnInit {
                     sum[i] += zoneSeries[j].data[i];
                 }
             }
-            console.log("total", sum);
+            console.log("sum", sum);
 
             for (let k = 0; k < zoneSeries.length; k++) {
             TempLegend.push(zoneSeries[k].name);
@@ -205,8 +208,9 @@ export class ComputeTrendComponent implements OnInit {
                 label: {
                     normal: {
                         show: true,
-                        formatter: function (value) {
-                            return (value.data * 1000).toFixed(0) 
+                        formatter: function (value) {                         
+                                return (value.data * 1000).toFixed(0);
+                            
                         },
                         textStyle: {
                                 color: "#000"
