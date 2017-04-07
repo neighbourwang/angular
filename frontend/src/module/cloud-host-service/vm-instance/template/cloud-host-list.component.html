@@ -8,34 +8,6 @@
 				<platform-zone #platformZone (onClick)="platformClick($event)"></platform-zone>
 			</td>
 		</tr>
-		<!--<tr>
-			<th class="col-md-1 col-xs-3 text-center">实例归属</th>
-			<td>
-				<div class="col-md-10 btn-group" data-toggle="buttons">
-					<button (click)="list.ownerType = ''" class="btn btn-default" [ngClass]="{'active':list.ownerType === ''}">所有</button>
-
-					<button *ngFor="let v of service.ownerType | async;" 
-							(click)="list.ownerType = v.code" 
-							[ngClass]="{'active':list.ownerType === v.code}"
-							class="btn btn-default">{{ v.displayValue }}
-					</button>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<th class="col-md-1 col-xs-3 text-center">标　　签</th>
-			<td>
-				<div class="col-md-10 btn-group">
-					<button (click)="list.labelId = ''" class="btn btn-default" [ngClass]="{'active':list.labelId === ''}">所有</button>
-					
-					<button *ngFor="let value of labelItem;" 
-							(click)="list.labelId = value.labelId" 
-							[ngClass]="{'active':list.labelId === value.labelId}"
-							class="btn btn-default">{{ value.labelDisplayName }}
-					</button>
-				</div>
-			</td>
-		</tr>-->
 	</table>
 	<div class="col-md-12 no-padding mgb20">
 		<div class="dropdown float-left mgr10">

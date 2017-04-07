@@ -25,7 +25,7 @@
 						<td>{{_orderDetail.createDate}}</td>
 					</tr>
 					<tr>
-						<td>{{ 'COMMON.CREATED_TIME' | translate}}</td>
+						<td>计费模式</td>
 						<td>{{_orderDetail.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async}}</td>	
 						<td>{{ 'COMMON.EXPIRE_DATE' | translate}}</td>
 						<td>{{_orderDetail.expireDate}}</td>

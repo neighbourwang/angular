@@ -697,7 +697,7 @@ export class OrderMngComponent implements OnInit {
 				"attrDisplayName":  "时长单位",
 				"attrDisplayValue": items[0].attrDisplayValue,
 				"attrId": this.selectedOrderItem.orderId,
-				"attrValue": "6",//1,2,3,4,5
+				"attrValue": "5",//1,2,3,4,5,6
 				"attrValueCode":  items[0].attrValueCode,
 				"attrValueId": "",
 				"description":items[0].description,

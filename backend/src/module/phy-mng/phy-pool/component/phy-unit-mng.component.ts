@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, PaginationComponent, SystemDictionary  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, PaginationComponent, SystemDictionary, ValidationService  } from '../../../../architecture';
 
 //model
 import { PhyPartsList } from '../model/phy-parts-list.model';
@@ -25,7 +25,8 @@ export class PhyUnitMngComponent implements OnInit{
     constructor(
         private router : Router,
         private service : PhyUnitMngService,
-        private layoutService : LayoutService
+        private layoutService : LayoutService,
+        private validationService: ValidationService
     ) {
 
     }
@@ -63,6 +64,7 @@ export class PhyUnitMngComponent implements OnInit{
         console.log('init');
         //this.layoutService.show();
         this.getData();
+        this.getPartsList();
     }
 
     getData(pageIndex?): void {
@@ -114,7 +116,7 @@ export class PhyUnitMngComponent implements OnInit{
         this.selectedParts= this.defaultParts;
         this.selectedSpec= this.defaultSpec;
         this.getPartsList();
-        this.creUnit.open("新建部件");
+        this.creUnit.open("PHY_MNG_DEPART.CREATE_DEPART");
     }
 
     editPage(){
@@ -122,7 +124,7 @@ export class PhyUnitMngComponent implements OnInit{
             return p.selected;
         });
         if(!selectedP){
-            this.showAlert("请选择部件")
+            this.showAlert("PHY_MNG_DEPART.PLEASE_CHOOSE_DEPART")
         }else if(selectedP.usedPMCount == 0){
             this.isEdit= true;
             let editParts= new PhyPartsList();
@@ -146,9 +148,9 @@ export class PhyUnitMngComponent implements OnInit{
             if(!this.selectedSpec){
                 this.selectedSpec= this.defaultSpec;
             }
-            this.creUnit.open("编辑部件");
+            this.creUnit.open("PHY_MNG_DEPART.EDIT_DEPART");
         }else{
-            this.showAlert("被物理机引用的部件不能编辑");
+            this.showAlert("PHY_MNG_DEPART.USED_CANNOT_EDIT");
         }
     }
 
@@ -157,6 +159,23 @@ export class PhyUnitMngComponent implements OnInit{
         this.criteria.specId= this.selectedSpec.specId;
         this.criteria.partsName= this.selectedParts.partsName || this.criteria.partsName;
         this.criteria.specName= this.selectedSpec.specName || this.criteria.specName;
+
+        if (this.validationService.isBlank(this.criteria.partsName)) {
+            this.showAlert("PHY_MNG_DEPART.DEPART_NAME_CANNOT_NULL");
+            return;
+        }
+        if (this.validationService.isBlank(this.criteria.specName)) {
+            this.showAlert("PHY_MNG_DEPART.SPEC_NAME_CANNOT_NULL");
+            return;
+        }
+        if (this.validationService.isBlank(this.criteria.specValue)) {
+            this.showAlert("PHY_MNG_DEPART.SPEC_VALUE_CANNOT_NULL");
+            return;
+        }
+        if (this.validationService.isBlank(this.criteria.referencePrice)) {
+            this.showAlert("PHY_MNG_DEPART.REFERENCE_CANNOT_NULL");
+            return;
+        }
 
         if(!this.selectedParts.partsName ){
             let repartsName= this.partslist.find((p)=>{
@@ -176,7 +195,7 @@ export class PhyUnitMngComponent implements OnInit{
                     return r.specName== this.criteria.specName;
                 });
                 if(this.respecName){
-                    return true;  
+                    return true;
                 }else{
                     return false;
                 }
@@ -224,7 +243,7 @@ export class PhyUnitMngComponent implements OnInit{
                 .catch((e) => this.onRejected(e));
         }else{
             this.creUnit.close();
-            this.showAlert("部件名称或规格已存在");
+            this.showAlert("PHY_MNG_DEPART.ALREADY_EXIST");
         }
     }
 
@@ -254,7 +273,7 @@ export class PhyUnitMngComponent implements OnInit{
                     .catch((e) => this.onRejected(e));
             }
         }else{
-            this.showAlert("被物理机引用的部件不能删除");
+            this.showAlert("PHY_MNG_DEPART.USED_CANNOT_DELETE");
         }
     }
 

@@ -289,7 +289,7 @@
 	<platform-edit [type]="productType" [servicePlatformList]="servicePlatformList" [productPlatformList]="product.productPlatformReqs"
 	 (complete)="editPlatform($event)"></platform-edit>
 	<div class="text-center mgt20">
-		<button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancel();">
+		<button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancelAddPlat();">
         <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
     </button>
 		<button class="fox-cloud-button-lg fox-cloud-button-white btn" [disabled]="!isAddPlat" (click)="ccEditPlatform()" style="margin-left:40px;">

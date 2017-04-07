@@ -8,6 +8,7 @@
     "build": "ng build --prod --env=dev",
     "build:prod": "ng build --prod --env=prod",
     "build:test": "ng build --prod --env=test",
+    "build:oldtest": "ng build --prod --env=oldtest",
     "build:boeprod": "ng build --prod --env=boeprod",
     "build:boe": "ng build --prod --env=boe",
     "lint": "tslint \"src/**/*.ts\"",
