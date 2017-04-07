@@ -349,7 +349,12 @@ export class AliCloudDiskListComponent implements OnInit {
             }
             this.confirm.open();
             */
-            this.detachdisk.open();
+            if (this.selectedDiskItem.InstanceId == "") {
+                this.showAlert("该云硬盘未绑定云主机实例！");
+                return;
+            } else {
+                this.detachdisk.open();
+            }
         } else {
             this.showAlert("请选择云硬盘");
             return;
