@@ -324,8 +324,8 @@ export class ProdDetailComponent implements OnInit {
                     return ele;
                 }
             });
+        this.isAddEntConfirm();            
         }
-        this.isAddEntConfirm();
     }
     //
     unSelected(e, index) {
@@ -336,8 +336,8 @@ export class ProdDetailComponent implements OnInit {
                 }
             })
             this.updateEntObj.productEnterpiseReqs.splice(index, 1);
+        this.isAddEntConfirm();            
         }
-        this.isAddEntConfirm();
     }
     //确认添加企业
     isAddEnter: boolean = false;

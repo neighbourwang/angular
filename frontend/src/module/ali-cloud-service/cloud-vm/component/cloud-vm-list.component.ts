@@ -244,6 +244,10 @@ export class AliCloudVmListComponent implements OnInit {
     attachIPToInstance() {
 
     }
+
+    detachIPToInstance() {
+
+    }
     
     remoteToInstance() {
 
