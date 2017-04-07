@@ -133,52 +133,7 @@
 					</div>
 				</div>
 				<div class="col-sm-3"></div>
-			</div>
-			<div *ngIf="false" class="row row-line-height">
-				<div class="col-sm-3"></div>
-				<div class="col-sm-6 border selectPlateForm">
-					<div class="row  tabHeader row-line-height">
-						<div class="col-sm-4">{{'PROD_MNG.PLATFORM_NAME' | translate}}</div><!--平台名称-->
-						<div class="col-sm-2 secondDiv">
-							{{'COMMON.AVAILABLE_ZONE' | translate}}<!--可用区-->
-						</div>						
-						<div class="col-sm-4">
-							{{'PROD_MNG.SELECT_STORAGE_BACKEND' | translate}}<!--选择存储设备-->
-						</div>
-						<div class="col-sm-2" style="text-align: left">
-							<!--<input type="checkbox" class="fox-cloud-checkbox" (click)="selectAllZones()" [(ngModel)]="selectAllZone">-->
-						</div>
-					</div>
-					<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index">
-						<div class="col-sm-4 oneChild">
-							<p class="no-padding" style="line-height:34px">{{plateform.platformName}}</p>
-						</div>
-						<div class="col-sm-2 secondDiv">
-							<div class="row wyLine-height"  *ngFor='let zone of plateform.platformInfo'>
-								<div class="col-sm-12" style="line-height: 34px">{{zone.zoneName}}</div>
-							</div>
-						</div>						
-						<div class="col-sm-4">
-							<div class="row" *ngFor='let zone of plateform.platformInfo let idxxx=index'>
-								<!--<select class="form-control" [(ngModel)]="zone.storageId" (ngModelChange)="selectStorage($event,idx,idxxx)">
-                                    <option *ngFor="let storage of zone.storageItem" [value]="storage.storageId">{{storage.displayName}}</option>
-                                </select>-->
-								<div class="col-md-12" *ngFor="let storage of zone.storageItem" style="line-height: 34px">
-										{{storage.storageName}}
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-2 thirdChild"  >
-							<div class="row" *ngFor='let zone of plateform.platformInfo;  let idxx=index;'>
-								<div class="col-sm-12" *ngFor="let storage of zone.storageItem;let idxxx=index" style="line-height: 34px">
-									<input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="storage.selected" name="storageSelected" (change)="storage.selected=!storage.selected">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-3"></div>
-			</div>			
+			</div>		
 		</div>
 	</div>
 </div>
