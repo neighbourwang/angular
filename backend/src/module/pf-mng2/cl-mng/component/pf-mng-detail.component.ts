@@ -577,6 +577,7 @@ export class PfDetailComponent implements OnInit {
     //同步更新存储类型
     updateVolumeTypeList: Array<VolumeTypeModel> = new Array<VolumeTypeModel>();
     updateVolumetypeListPop() {
+        this.layoutService.show();
         this.platformDetailService.getUpdateVolumeType(this.platformId).then(res => {
             console.log('updateVolumetype', res);
             this.layoutService.hide();
@@ -590,6 +591,7 @@ export class PfDetailComponent implements OnInit {
             }
         }).catch(err => {
             console.log('更新存储类型出错',err);
+            this.layoutService.hide();            
         })
     }
     //返回
