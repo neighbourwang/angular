@@ -112,7 +112,7 @@
 							
 				</thead>
 				<tbody>
-					<tr *ngFor="let historyItem of _detailLoader.FirstItem.relatedOrderList">
+					<tr *ngFor="let historyItem of _detailLoader.FirstItem.hisOrderList">
 						<td>{{historyItem.createDate}}</td>
 						<td>{{historyItem.instanceName}}</td>
 						<td>{{historyItem.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>

@@ -7,6 +7,8 @@ import {
     PaginationComponent, PopupComponent, SystemDictionary
 } from "../../../../architecture";
 
+import { Validation, ValidationRegs } from '../../../../architecture';
+
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
@@ -30,7 +32,9 @@ export class AliCloudDiskOrderComponent implements OnInit {
         private service: AliCloudDiskService,
         private dictService: AliCloudDiskDictService,
         private activatedRouter: ActivatedRoute,
+        private v: Validation,
     ) {
+        this.v.result = {};
     }
 
     @ViewChild("pager")
@@ -101,7 +105,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.service.keysecret = response.resultContent;
-                    console.log(this.service.keysecret, "this.keysecret!");
+                    //console.log(this.service.keysecret, "this.keysecret!");
                     this.getAllRegions();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -120,7 +124,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "response!");
+                //console.log(response, "response!");
                 if (response && 100 == response["resultCode"]) {
                     let result;
                     try {
@@ -167,6 +171,10 @@ export class AliCloudDiskOrderComponent implements OnInit {
                 region.selectedArea.AvailableDiskCategories.DiskCategories = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories;
             }
             console.log(this.selectedRegion, "this.selectedRegion!");
+
+            this.selectedRegion.selectedDisk = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories[0];
+            console.log(this.selectedRegion.selectedDisk, "selected selectedDisk!");
+            this.calculatePrice();
         }
     }
     //根据regionId获取可用区列表
@@ -201,6 +209,10 @@ export class AliCloudDiskOrderComponent implements OnInit {
                         region.selectedArea.AvailableDiskCategories.DiskCategories = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories;
                     }
                     console.log(this.selectedRegion, "this.selectedRegion!");
+
+                    this.selectedRegion.selectedDisk = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories[0];
+                    console.log(this.selectedRegion.selectedDisk, "selected selectedDisk!");
+                    this.calculatePrice();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -260,7 +272,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
     }
 
     calculatePrice() {
-        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "") {
+        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "" && parseInt(this.selectedRegion.diskCount) < 2001) {
             this.selectedRegion.price = "计算中...";
             this.calculatetimer  && window.clearTimeout(this.calculatetimer);
             this.calculatetimer = window.setTimeout(() => {
@@ -271,13 +283,16 @@ export class AliCloudDiskOrderComponent implements OnInit {
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
+                            console.log(response.resultContent);
+                            /*
                             let result;
                             try {
                                 result = JSON.parse(response.resultContent);
                             } catch (ex) {
                                 console.log(ex);
                             }
-                            this.selectedRegion.price = "￥ " + result + " /时";
+                            */
+                            this.selectedRegion.price = response.resultContent[0].tradeAmount;
                             console.log(this.selectedRegion.price, "this.selectedRegion.price!");
                         } else {
                             this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -355,5 +370,19 @@ export class AliCloudDiskOrderComponent implements OnInit {
     showError(msg: any) {
         this.notice.open(msg.title, msg.desc);
     }
+
+    checkForm(key?:string) {
+		let regs:ValidationRegs = {  //regs是定义规则的对象
+            numberRange: [this.selectedRegion.diskCount, [this.v.range(1, 2000)], "数字范围不对，必须1~2000"],
+            
+		}
+		return this.v.check(key, regs);
+	}
+    
+    submitForm() {
+		var errorMessage = this.checkForm();
+		if(errorMessage) return alert(errorMessage);
+		console.log("通过！");
+	}
 
 }

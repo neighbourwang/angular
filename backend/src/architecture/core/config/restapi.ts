@@ -2506,6 +2506,18 @@ export let RestApis: RestApiModel[] = [
         "url":"maintenance/hyper/list"
      },
      {
+        "desc": "导出当前数据",
+        "id":"assign-mng.hyper.export.current",
+        "method":"POST",
+        "url":"maintenance/hyper/query/export/current"
+     },
+     {
+        "desc": "导出",
+        "id":"assign-mng.hyper.export",
+        "method":"POST",
+        "url":"maintenance/hyper/query/export/{type}"
+     },
+     {
         "desc": "获取hyper详情",
         "id":"assign-detail.hyper.info",
         "method":"GET",
@@ -2518,5 +2530,17 @@ export let RestApis: RestApiModel[] = [
         "method":"POST",
         "url":"maintenance/trend/general"
      },
+     {
+        "desc": "导出当前数据",
+        "id":"compute-trend.export.current",
+        "method":"POST",
+        "url":"maintenance/trend/query/export/current"
+     },
+     {
+        "desc": "导出所有数据",
+        "id":"compute-trend.export.all",
+        "method":"GET",
+        "url":"maintenance/trend/query/export/current"
+     }
 ]
 
