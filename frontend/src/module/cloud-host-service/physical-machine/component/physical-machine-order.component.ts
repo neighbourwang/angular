@@ -68,6 +68,22 @@ export class PhysicalMachineOrderComponent implements OnInit {
 
 	check = {};
 
+	//物理机规格值
+	cpuList = this.service.cpuList;
+	memList = this.service.memList;
+	diskRequirements = this.service.diskRequirements;
+	diskType = this.service.diskType;
+	networkRequirements = this.service.networkRequirements;
+	needHBA = this.service.needHBA;
+
+	queryList = {
+		cpuList: this.cpuList[0].value,
+		memList: this.memList[0].value,
+		diskRequirements: this.diskRequirements[0].value,
+		diskType: this.diskType[0].value,
+		networkRequirements: this.networkRequirements[0].value,
+		needHBA: this.needHBA[0].value,
+	};
 
 	@ViewChild('cartButton') cartButton;
     @ViewChild('storage') storage;

@@ -163,7 +163,7 @@ export class PhysicalListComponent implements OnInit {
         }
         if(status=="0"){
             if(physical.pmUseageStatus=="1"){
-                this.showAlert("已分配的物理机不能禁用,请选择未分配的物理机！")
+                this.showAlert("PHYSICAL_MNG.CAN_NOT_DISABLE_PHYSICAL");//已分配的物理机不能禁用,请选择未分配的物理机！
                 return;
             }
              else{
@@ -173,7 +173,7 @@ export class PhysicalListComponent implements OnInit {
         }
         else if(status=="1"){
             if(physical.partsNumber =="0"){
-                this.showAlert("该物理机没有进行物理机部件设置,无法启用,请先进行物理机部件设置！");
+                this.showAlert("PHYSICAL_MNG.CAN_NOT_ENABLE_PHYSICAL");//该物理机没有进行物理机部件设置,无法启用,请先进行物理机部件设置！
                 return;
             }          
            else{
@@ -185,13 +185,12 @@ export class PhysicalListComponent implements OnInit {
             if(physical.pmUseageStatus =="0" && physical.pmMainStatus =="0"){
                 this.noticeMsg = "PHYSICAL_MNG.DELETE_PHYSICAL_MSG^^^" + physical.pmName;
                 this.noticeTitle="PHYSICAL_MNG.DELETE_PHYSICAL_TITLE";
+                  this.pageIndex=1;
         }
         else{
-            this.showAlert("物理机使用状态为'未分配'且运维状态为'禁用'时才能删除物理机,该物理机不符合删除要求!");
+            this.showAlert("PHYSICAL_MNG.CAN_NOT_DELETE_PHYSICAL");//物理机使用状态为'未分配'且运维状态为'禁用'时才能删除物理机,该物理机不符合删除要求!
             return;
-        }
-
-        
+        }      
         // switch (status) {
         //         case "0":
         //             if(physical.pmUseageStatus=="已分配"){
@@ -211,11 +210,9 @@ export class PhysicalListComponent implements OnInit {
         //              this.noticeMsg = "PHYSICAL_MNG.DELETE_PHYSICAL_MSG^^^" + physical.pmName;
         //              this.noticeTitle="PHYSICAL_MNG.DELETE_PHYSICAL_TITLE";
         //              break;
-        //            }
-                    
+        //            }                
             }
-
-        
+      
         this.confirm.ccf = () => {
         };
         this.confirm.cof = () => {
@@ -289,7 +286,7 @@ export class PhysicalListComponent implements OnInit {
             return;
         }
         if(physical.pmMainStatus=="1"){
-            this.showAlert("物理机为启用状态，不能编辑物理机部件，请先禁用该物理机！");
+            this.showAlert("PHYSICAL_MNG.CAN_NOT_EDIT_PART");//物理机为启用状态，不能编辑物理机部件，请先禁用该物理机！
             return;
         }
          this.route.navigate(['phy-mng/physical-mng/physical-edit',{type:this.type,id:physical.pmId,pmPoolId:this.pmPoolId}])
