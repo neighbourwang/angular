@@ -1354,7 +1354,7 @@
     "DISABLE": "禁用",
     "SELECT_DISABLE_PHYSICAL": "请选择需要禁用的物理机",
     "DISABLE_PHYSICAL_MSG": "您选择禁用物理服务器 '{{value_1}}'，请确认；如果确认，用户将不能够订购此资源。",
-    "CAN_nOT_DISABLE_PHYSICAL":"已分配的物理机不能禁用,请选择未分配的物理机！",
+    "CAN_NOT_DISABLE_PHYSICAL":"已分配的物理机不能禁用,请选择未分配的物理机！",
     "DISABLE_PHYSICAL_TITLE": "禁用物理机",
     "DELETE": "删除",
     "SELECT_DELETE_PHYSICAL": "请选择需要删除的物理机",
