@@ -201,7 +201,7 @@
 						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType == 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)">自动续订</button>
 
 						<unsubscribe #unsubscribeVm title="{{ 'ORDER_MNG.ORDERS_UNSUBSCRIBE' | translate }}" [subid]="orderItem?.orderId"></unsubscribe>
-						<button class="mgr2 pull-right button-gray-gradient" (click)="unsubscribeVm.open()">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
+						<button *ngIf="orderItem.canCancel" class="mgr2 pull-right button-gray-gradient" (click)="unsubscribeVm.open()">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
 
 						<button *ngIf="orderItem.canRenew" class="pull-right button-gray-gradient" (click)="renewSelect(orderItem)">{{ 'COMMON.RENEW' | translate }}</button>
 						
