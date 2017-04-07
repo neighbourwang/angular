@@ -163,7 +163,7 @@ export class PhysicalListComponent implements OnInit {
         }
         if(status=="0"){
             if(physical.pmUseageStatus=="1"){
-                this.showAlert("PHYSICAL_MNG.CAN_NOT__DISABLE_PHYSICAL");//已分配的物理机不能禁用,请选择未分配的物理机！
+                this.showAlert("PHYSICAL_MNG.CAN_NOT_DISABLE_PHYSICAL");//已分配的物理机不能禁用,请选择未分配的物理机！
                 return;
             }
              else{

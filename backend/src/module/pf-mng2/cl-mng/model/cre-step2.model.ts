@@ -18,6 +18,7 @@ export class CreStep2Model {
     message : String; //提示字
     percentage : number; //百分比
     isNext : boolean; //是否能下一步
+    isBack :boolean;//是否可以返回
 
     constructor(message : String , percentage : number) {
         

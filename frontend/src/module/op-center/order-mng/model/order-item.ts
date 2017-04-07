@@ -6,7 +6,8 @@ export class SubInstanceResp {
   orderId: string = null;//, optional): 订单ID，不做显示，操作回传 ,
   orderNo: string = null;//, optional): 对应UI界面中的订单编号 ,
   purchaseDate: string = null;//, optional): 对应UI界面中的下单时间, 映射到后端的createDate
-  canRenew:boolean = true;
+  canRenew:boolean = true;//是否续订
+  canCancel:boolean = true;//是否退订
   canContinueRenew:boolean=true;//是否自动续订
   showInstance : boolean = true;//是否展示实例名称
   relySubinstanceId : number = null; //是否挂载了主机的标识

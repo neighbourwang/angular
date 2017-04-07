@@ -38,6 +38,7 @@ export class ClMngCreStep2Component implements OnInit {
         let platFormId: string = this.idService.getPlatformId();
         //控制下一步disabled
         this.creStep2Model.isNext = false;
+        this.creStep2Model.isBack = false;
         console.log('init');
         //获取平台类型
         this.router.params.forEach((params: Params) => {
@@ -80,7 +81,7 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.zones = 'fail';
                 this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
-                this.creStep2Model.isNext = true;
+                this.creStep2Model.isBack = true;
             }
             //     function(){
             //     this.creStep2Model.synchronize = 'fail';
@@ -121,7 +122,7 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.storages = 'fail';
                 this.creStep2Model.message = 'PF_MNG2.SYNC_STORAGE_FAILED';
-                this.creStep2Model.isNext = true;
+                this.creStep2Model.isBack = true;
             }
             )
     }
@@ -142,7 +143,7 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.flavors = 'fail';
                 this.creStep2Model.message = 'PF_MNG2.SYNC_SPEC_FAILED';
-                this.creStep2Model.isNext = true;
+                this.creStep2Model.isBack = true;
             }
             )
     }
@@ -185,7 +186,7 @@ export class ClMngCreStep2Component implements OnInit {
                     error => {
                         this.creStep2Model.images = 'fail';
                         this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_FAILED';
-                        this.creStep2Model.isNext = true;
+                        this.creStep2Model.isBack = true;
                     }
                     )
 
@@ -194,7 +195,7 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.images = 'fail';
                 this.creStep2Model.message = 'PF_MNG2.GET_IMG_FAILED';
-                this.creStep2Model.isNext = true;
+                this.creStep2Model.isBack = true;
             }
             )
     }
@@ -210,13 +211,13 @@ export class ClMngCreStep2Component implements OnInit {
                 this.creStep2Model.message = 'PF_MNG.SYNC_COMPLETE';
                 this.creStep2Model.percentage = 100;
                 this.creStep2Model.isNext = true;
-
+                this.creStep2Model.isBack = true;                
             }
         ).catch(
             error => {
                 this.creStep2Model.hosts = 'fail';
                 this.creStep2Model.message = 'PF_MNG2.SYNC_HOST_FAILED';
-                this.creStep2Model.isNext = true;
+                this.creStep2Model.isBack = true;
             }
             )
     }
