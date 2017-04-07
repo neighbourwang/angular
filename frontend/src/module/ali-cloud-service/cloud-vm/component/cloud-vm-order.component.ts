@@ -584,7 +584,7 @@ export class AliCloudVmOrderComponent implements OnInit {
 
     buyNow() {
         console.log(this.selectedOrderVmPage, "selectedOrderVmPage Finally!!!");
-        this.calculatePrice();
+        //this.calculatePrice();
         this.layoutService.show();
         this.service.createInstanceOrder(this.selectedOrderVmPage)
             .then(
