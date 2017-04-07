@@ -97,4 +97,110 @@ export class PhysicalMachineOrderService {
         owner : "PACKAGE_BILLING",
         field : "PERIOD_TYPE"
     });
+
+    cpuList = [
+        {
+            displayName: "1",
+            value: "1"
+        },
+        {
+            displayName: "2",
+            value: "2"
+        },
+        {
+            displayName: "3",
+            value: "3"
+        },
+        {
+            displayName: "所有",
+            value: "0"
+        }
+    ];
+
+    memList = [
+        {
+            displayName: "0-16GB",
+            value: "0-16"
+        },
+        {
+            displayName: "16-32GB",
+            value: "16-32"
+        },
+        {
+            displayName: "32-64GB",
+            value: "32-64"
+        },
+        {
+            displayName: "64-128GB",
+            value: "64-128"
+        },
+        {
+            displayName: "128-256GB",
+            value: "128-256"
+        },
+        {
+            displayName: "256-512GB",
+            value: "256-512"
+        },
+        {
+            displayName: "512GB以上",
+            value: "512"
+        },
+        {
+            displayName: "所有",
+            value: "0"
+        },
+    ]
+
+    diskRequirements = [
+        {
+            displayName: "SSD",
+            value: "SSD",
+            isSelected: true
+        },
+        {
+            displayName: "SATA",
+            value: "SATA",
+            isSelected: false
+        },
+        {
+            displayName: "SAS",
+            value: "SAS",
+            isSelected: false
+        },
+    ]
+
+    diskType = [
+        {
+            displayName: "X86",
+            value: "X86",
+            isSelected: true
+        },
+    ]
+
+    networkRequirements = [
+        {
+            displayName: "千兆",
+            value: "千兆",
+            isSelected: true
+        },
+        {
+            displayName: "万兆",
+            value: "万兆",
+            isSelected: false
+        },
+    ]
+
+    needHBA = [
+        {
+            displayName: "需要",
+            value: "需要",
+            isSelected: true
+        },
+        {
+            displayName: "不需要",
+            value: "不需要",
+            isSelected: false
+        },
+    ]
 }

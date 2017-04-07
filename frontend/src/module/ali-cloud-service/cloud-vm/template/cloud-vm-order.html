@@ -84,9 +84,9 @@
                     <p><span></span>实例：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12 mgb20">
+                    <div class="col-md-12 mgb20" style="display: inline">
                         <div *ngFor="let gene of instancegenerations;" style="display: inline">
-                            <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedGeneration==gene.generation}' (click)="selectedOrderVmPage.selectedGeneration=gene.generation;
+                            <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedGeneration==gene.generation}' (click)="selectedOrderVmPage.selectedGeneration=gene.generation;
                                      instancetypefamilies=gene.instancefamilyid;
                                      instancetypes=instancetypefamilies[0].instanceTypeIDModelList;
                                      selectedOrderVmPage.selectedInstanceFamily=instancetypefamilies[0].instancefamilyid;
@@ -104,7 +104,7 @@
 
                     <div class="col-md-12 mgb20">
                         <div *ngFor="let family of instancetypefamilies;" style="display: inline">
-                            <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceFamily==family.instancefamilyid}' (click)="selectedOrderVmPage.selectedInstanceFamily=family.instancefamilyid;
+                            <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceFamily==family.instancefamilyid}' (click)="selectedOrderVmPage.selectedInstanceFamily=family.instancefamilyid;
                                      instancetypes=family.instanceTypeIDModelList;
                                      selectedOrderVmPage.selectedInstanceType=instancetypes[0].InstanceTypeId;" style="display: inline">{{family.instancefamilyid}}</button>
                         </div>
@@ -112,7 +112,7 @@
                     <br />
                     <div class="col-md-12 mgb20">
                         <div *ngFor="let type of instancetypes;" style="display: inline">
-                            <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceType==type.InstanceTypeId}' (click)="selectedOrderVmPage.selectedInstanceType=type.InstanceTypeId; showInstanceType();" style="display: inline">{{type.InstanceTypeId}}</button>
+                            <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceType==type.InstanceTypeId}' (click)="selectedOrderVmPage.selectedInstanceType=type.InstanceTypeId; showInstanceType();" style="display: inline">{{type.InstanceTypeId}}</button>
                         </div>
 
                     </div>
@@ -130,21 +130,52 @@
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByTraffic"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByTraffic';">按使用流量</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 mgt10 mgb20">
                         预付费模式，带宽费用合并在ECS实例中收取
                     </div>
                     <div class="col-md-12">
-                        <div style="display: inline">
-                            <input type="range" min="1" max="200" (change)="slide($event)" style="width:200px;display: inline;" />
+                        <div class="col-md-6 no-padding">
+
+                            <div class="col-md-12 no-padding">
+                                <table style="width: 100%" class="table_progress">
+                                    <tr>
+                                        <td colspan="4">
+                                            <div class="range_box">
+                                                <input type="range" min="1" max="200" [(ngModel)]="selectedOrderVmPage.selectedInternetMaxBandwidthOut" (input)="slide($event)" style="width: 100%;display: inline;" />
+                                                <!--
+                                                <div class="" [style.right]='(200-selectedOrderVmPage.selectedInternetMaxBandwidthOut)/2 + "%"' (click)="goBack($event)">
+                                                </div>
+                                                -->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr style="text-align: right;">
+                                        <td>
+                                            <span>50</span>
+                                        </td>
+                                        <td>
+                                            <span>100</span>
+                                        </td>
+                                        <td>
+                                            <span>150</span>
+                                        </td>
+                                        <td>
+                                            <span>200</span>
+                                        </td>
+                                    </tr>
+
+
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3 mgl20">
                             <count-bar [step]="1" [max]="200" [min]="0" [stepCheck]=true [value]="selectedOrderVmPage.selectedInternetMaxBandwidthOut" (output)="outputValue($event)">
                             </count-bar>Mbps
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        系统会分配公网IP(不能解绑),若不需要分配公网IP,请选择带宽值0M。
-                    </div>
-                    <div class="col-md-12">
-                        阿里云免费提供最高5Gbps的恶意流量攻击防护，<a href="javascript: void(0);">了解更多>></a> <a href="javascript: void(0);">提升防护能力>></a>
+                    <div class="col-md-12 no-padding mgt20">
+                        系统会分配公网IP(不能解绑),若不需要分配公网IP或单独购买弹性公网IP访问公网,请选择带宽值0M。
                     </div>
                 </div>
             </li>

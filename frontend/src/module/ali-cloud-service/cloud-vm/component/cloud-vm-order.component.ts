@@ -584,7 +584,7 @@ export class AliCloudVmOrderComponent implements OnInit {
 
     buyNow() {
         console.log(this.selectedOrderVmPage, "selectedOrderVmPage Finally!!!");
-        this.calculatePrice();
+        //this.calculatePrice();
         this.layoutService.show();
         this.service.createInstanceOrder(this.selectedOrderVmPage)
             .then(
@@ -654,11 +654,16 @@ export class AliCloudVmOrderComponent implements OnInit {
         this.notice.open(msg.title, msg.desc);
     }
 
-    outputValue() {
+    outputValue(e:number) {
+        this.selectedOrderVmPage.selectedInternetMaxBandwidthOut = e;
         console.log(this.selectedOrderVmPage.selectedInternetMaxBandwidthOut);
     }
 
-    slide(e:number) {
+    slide(e) {
+        console.log(e.target.value);
+    }
+
+    goBack(e) {
         console.log(e);
     }
 
