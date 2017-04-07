@@ -40,7 +40,7 @@
             <tbody>
                 <tr *ngFor="let bootDisk of zoneBootDiskList; let idx=index">
                     <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" (click)="selectedZone=bootDisk;"/></td>
-                    <td (click)="godetail(item)" style="cursor:pointer">{{bootDisk.zoneName}}</td>
+                    <td style="cursor:pointer">{{bootDisk.zoneName}}</td>
                     <td>{{bootDisk.bootStorageName}}</td>
                     <td>
                         <p *ngFor="let storageName of bootDisk.storageName" style="margin-bottom: 0">{{storageName}}</p>
@@ -51,7 +51,8 @@
 										<template [ngSwitchCase]="0">初始化</template>
 										<template [ngSwitchCase]="1">启用</template>
 										<template [ngSwitchCase]="2">禁用</template>
-										<template ngSwitchDefault>Unknown</template>							
+										<template [ngSwitchCase]="4">已删除</template>
+										<template ngSwitchDefault></template>							
 							</span>
                     </td>
                     <td>{{bootDisk.bootStorageDescription}}</td>
