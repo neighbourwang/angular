@@ -2,10 +2,10 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
-import {PlfModel, RegionModel, ZoneModel} from"../model/plf.model";
-import {BasicModel, Percent}from "../model/basic.model";
-import {Bar, ZoneBar, Item} from"../model/bar.model";
-import {ComputeQuery} from"../model/compute-query.model";
+import { PlfModel, RegionModel, ZoneModel } from "../model/plf.model";
+import { BasicModel, Percent } from "../model/basic.model";
+import { Bar, ZoneBar, Item } from "../model/bar.model";
+import { ComputeQuery } from "../model/compute-query.model";
 //service
 import { ComputeTrendService } from "../service/compute-trend.service";
 const echarts = require('echarts');
@@ -23,7 +23,7 @@ export class ComputeTrendComponent implements OnInit {
         private layoutService: LayoutService,
         private validationService: ValidationService
     ) {
-        
+
     }
 
     @ViewChild("notice")
@@ -32,7 +32,7 @@ export class ComputeTrendComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
-    
+
     showType = 1;
     isSelected: boolean;
 
@@ -47,28 +47,28 @@ export class ComputeTrendComponent implements OnInit {
 
     plfList: Array<PlfModel>;
     basicList: Array<BasicModel>;
-    
-    cpuData: Bar=new Bar();
-    vmData:Bar=new Bar();
+
+    cpuData: Bar = new Bar();
+    vmData: Bar = new Bar();
     memData: Bar = new Bar();
-    
+
     ngOnInit() {
         this.getPlfList();
-         this.reset();
-        
-      
+        this.reset();
+
+
     }
 
     //获取平台联动列表
     getPlfList() {
         this.layoutService.show();
-        this.service.getPlfList()  
+        this.service.getPlfList()
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && "100" == response["resultCode"]) {
                     this.plfList = response["resultContent"];
-                   
+
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -77,10 +77,10 @@ export class ComputeTrendComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    
+
     getBasicList() {
         this.layoutService.show();
-        this.service.getBasicList(this.queryOpt)  
+        this.service.getBasicList(this.queryOpt)
             .then(
             response => {
                 this.layoutService.hide();
@@ -94,11 +94,11 @@ export class ComputeTrendComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
     }
-    
+
 
     getCpuData() {
         this.layoutService.show();
-        this.service.getCpuData()  
+        this.service.getCpuData()
             .then(
             response => {
                 this.layoutService.hide();
@@ -116,7 +116,7 @@ export class ComputeTrendComponent implements OnInit {
 
     getVmData() {
         this.layoutService.show();
-        this.service.getVmData()  
+        this.service.getVmData()
             .then(
             response => {
                 this.layoutService.hide();
@@ -134,7 +134,7 @@ export class ComputeTrendComponent implements OnInit {
 
     getMemData() {
         this.layoutService.show();
-        this.service.getMemData()  
+        this.service.getMemData()
             .then(
             response => {
                 this.layoutService.hide();
@@ -157,21 +157,21 @@ export class ComputeTrendComponent implements OnInit {
         if (this.queryOpt.queryType == "1") {
             this.showType = 1;
             this.getBasicList();
-        
+
             this.getCpuData();
-        
+
             //this.showChart(this.cpuData, 1);
         } else if (this.queryOpt.queryType == "2") {
             this.showType = 2;
             this.getVmData();
-       
-           // this.showChart(this.vmData, 2);
-        }else if (this.queryOpt.queryType == "3") {
+
+            // this.showChart(this.vmData, 2);
+        } else if (this.queryOpt.queryType == "3") {
             this.showType = 3;
-            this.getBasicList();     
+            this.getBasicList();
             this.getMemData();
             //this.showChart(this.memData, 3);
-        
+
         }
     }
 
@@ -185,12 +185,13 @@ export class ComputeTrendComponent implements OnInit {
         this.queryOpt.period = '1';
     }
 
-    showChart(chartData:Bar,showType:number) {       
+    showChart(chartData: Bar, showType: number) {
         let thx = chartData.thx;
         let zonesData = chartData.zone;
-        let sum = new Array<number>();
-        
+     
+
         for (let m = 0; m < zonesData.length; m++) {
+            let sum = new Array<number>();
             let TempSeries = new Array<any>();
             let TempLegend = new Array<string>();
             let chartId = '';
@@ -202,7 +203,7 @@ export class ComputeTrendComponent implements OnInit {
                 chartId = 'memchart' + m;
             }
 
-                
+
             //获取第m个可用区的series
             let zoneSeries = zonesData[m].series;
             let dataLength = zoneSeries[0].data.length;
@@ -216,96 +217,106 @@ export class ComputeTrendComponent implements OnInit {
             console.log("sum", sum);
 
             for (let k = 0; k < zoneSeries.length; k++) {
-            TempLegend.push(zoneSeries[k].name);
-            TempSeries.push({
-                name: zoneSeries[k].name,
-                type: 'bar',
-                stack: '广告',
-                data: zoneSeries[k].data,
-                label: {
-                    normal: {
-                        show: true,
-                        formatter: function (value) {
-                            return (value.data * 100).toFixed(1) + "%"
+                TempLegend.push(zoneSeries[k].name);
+                TempSeries.push({
+                    name: zoneSeries[k].name,
+                    type: 'bar',
+                    stack: '广告',
+                    data: zoneSeries[k].data,
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: function (value) {
+                                return (value.data * 100).toFixed(1) + "%"
+                            }
                         }
                     }
-                }
-            });
+                });
             }
 
             TempSeries.push({
                 name: '总计',
                 type: 'line',
-                
+
                 data: sum,
                 label: {
                     normal: {
                         show: true,
-                        formatter: function (value) {                         
-                                return (value.data * 1000).toFixed(0);
-                            
+                        formatter: function (value) {
+                            console.log(value);
+                            return (value.data * zonesData[m].total[value.dataIndex]).toFixed(0);
                         },
                         textStyle: {
-                                color: "#000"
+                            color: "#000"
                         }
                     }
                 },
                 itemStyle: {
-                        normal: {
-                            color: "transparent"
-                        }
+                    normal: {
+                        color: "transparent"
+                    }
                 }
             });
 
-            var myChart = echarts.init(document.getElementById(chartId));
-            var option = {
-            tooltip: {
-                show: false,
 
-            },
-            legend: {
-                data: TempLegend
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: [
-                {
-                    type: 'category',
-                    data: thx
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'value',
-                    axisLabel: {
-                        formatter: function (value, index) {
 
-                            return value * 100 + "%"
+
+            let option = {
+                tooltip: {
+                    show: false,
+
+                },
+                legend: {
+                    data: TempLegend
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: thx
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: function (value, index) {
+
+                                return value * 100 + "%";
+                            }
                         }
                     }
-                }
-            ],
-            series:TempSeries           
+                ],
+                series: TempSeries
             };
-             myChart.setOption(option);
 
-       }
-        
-      
+           
+                window.setTimeout(() => {
+                    let myChart = echarts.init(document.getElementById(chartId));
+                        myChart.setOption(option);
+                    },
+                    10);
+          
+
+
+        }
+
+
     } //函数结尾
 
-    
+
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
         this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
     }
 
-     showAlert(msg: string): void {
+    showAlert(msg: string): void {
         this.layoutService.hide();
 
         this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
