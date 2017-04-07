@@ -62,13 +62,16 @@ export class AliSubListComponent implements OnInit{
         this.subMng.open("子账号详情");
     }
     distriPage(item){
+        this.type= "distribute";
         this.distriDepart.open("分配部门")
     }
 
-    creOredit(){
+    operate(){
         if(this.type== "info"){
             this.subMng.close();
         }else if(this.type== "create"){
+
+        }else if(this.type== "edit"){
 
         }else{
 
