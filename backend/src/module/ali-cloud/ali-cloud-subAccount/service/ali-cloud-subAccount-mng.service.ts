@@ -17,5 +17,9 @@ export class AliCloudSubAccountMngService {
     init(): void {
         this.restApiCfg.loadCfgData();
     }
+    //获取子账号列表
+    getSubAccounts():Promise<any>{
+        return;
+    }
 
 }
