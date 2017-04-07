@@ -217,6 +217,11 @@ export class OrderMngComponent implements OnInit {
 					return false;
 				return true;
 			};
+			let canCancel: (item: SubInstanceItemResp) => boolean = (item: SubInstanceItemResp): boolean => {
+				if (item.status != "2" )//已激活的订单可退订
+					return false;
+				return true;
+			};
 
 			//只有周期计费可以自动续订
 			let canContinueRenew: (item: SubInstanceItemResp) => boolean = (item: SubInstanceItemResp): boolean => {
@@ -249,6 +254,11 @@ export class OrderMngComponent implements OnInit {
 						orderItem.canRenew = false;
 					else
 						orderItem.canRenew = true;
+						
+					if (orderItem.itemList.find(n => !canCancel(n)) != null)
+						orderItem.canCancel = false;
+					else
+						orderItem.canCancel = true;
 
 					if (orderItem.itemList.find(n => !canContinueRenew(n) != null))
 						orderItem.canContinueRenew = false;
