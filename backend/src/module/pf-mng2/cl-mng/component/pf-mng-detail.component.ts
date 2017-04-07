@@ -393,6 +393,7 @@ export class PfDetailComponent implements OnInit {
             this.layoutService.hide();
         }).catch(err => {
             console.error('禁用存储区失败', err);
+            this.layoutService.hide();            
         })
     }
     //更多操作
@@ -466,7 +467,7 @@ export class PfDetailComponent implements OnInit {
                 this.layoutService.hide();
                 this.updateStorageList = res.resultContent;
                 if (this.updateStorageList.length == 0) {
-                    this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_ZONES')  //暂时没有可同步可用区信息
+                    this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_STORAGES')  //暂时没有可同步存储后端信息
                 } else {
                     this.updateStorageList.forEach(ele => {
                         ele.quota =
@@ -479,7 +480,7 @@ export class PfDetailComponent implements OnInit {
             }
         ).catch(err => {
             this.layoutService.hide();
-            console.error('获取更新可用区列表出错', err)
+            console.error('获取更新存储后端出错', err)
         })
     }
     //同步存储空间get
@@ -496,7 +497,7 @@ export class PfDetailComponent implements OnInit {
                         this.updateStorageMem = res.resultContent;
                         this.memSync.open();
                     } else {
-                        this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
+                        this.notice.open('COMMON.PROMPT', '暂时没有可同步存储空间信息')
                     }
 
                 }
@@ -576,6 +577,7 @@ export class PfDetailComponent implements OnInit {
     //同步更新存储类型
     updateVolumeTypeList: Array<VolumeTypeModel> = new Array<VolumeTypeModel>();
     updateVolumetypeListPop() {
+        this.layoutService.show();
         this.platformDetailService.getUpdateVolumeType(this.platformId).then(res => {
             console.log('updateVolumetype', res);
             this.layoutService.hide();
@@ -589,6 +591,7 @@ export class PfDetailComponent implements OnInit {
             }
         }).catch(err => {
             console.log('更新存储类型出错',err);
+            this.layoutService.hide();            
         })
     }
     //返回
