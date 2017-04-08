@@ -88,5 +88,5 @@ export class OrderDetailItem {
   }
   relatedSubInstanceList:Array<OrderDetailItem> = [];
 
-  relatedOrderList:Array<OrderDetailItem> = [];
+  hisOrderList:Array<OrderDetailItem> = [];
 }
