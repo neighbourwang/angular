@@ -111,7 +111,6 @@ export class ClMngCreStep1Component implements OnInit {
                 this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_INFO_ERROR');
             }
             )
-        // this.layoutService.hide();
         this.creStep1Model.supportChange = false;
     }
     // 下一步
@@ -129,21 +128,13 @@ export class ClMngCreStep1Component implements OnInit {
         console.log(data);
         return this.service.getPlatformRegionList(data)
     }
-    //
     otcreate() {
         this.layoutService.show();
         this.service.crPlatForm(this.creStep1Model).then(
             res => {
-                if (res.resultCode == '10006001') {
-                    this.layoutService.hide();
-                    // this.notice.open('COMMON.ERROR',"PF_MNG2.PLATFORM NAME"+" '"+this.creStep1Model.name+"' "+"PF_MNG2.EXISTS");
-                    this.notice.open('COMMON.ERROR', "PF_MNG2.PLATFORM_NAME_EXISTS");
-                    return;
-                } else {
-                    this.idService.setPlatformId(res.resultContent);
-                    this.layoutService.hide();
-                    this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
-                }
+                this.idService.setPlatformId(res.resultContent);
+                this.layoutService.hide();
+                this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
             }
         ).catch(
             err => {
@@ -152,50 +143,58 @@ export class ClMngCreStep1Component implements OnInit {
                 this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
             }
             )
+
     }
     next() {
         let message: String = this.checkValue();
         if (this.checkValue()) {
             this.notice.open('COMMON.ERROR', message);
-        } else if (this.creStep1Model.platformType == '0') {
-            this.layoutService.show();
-            this.getPlatformRegionList()
-                .then(
-                res => {
-                    console.log('platFormRegions', res);
-                    this.platFormRegionList = res.resultContent;
-                    this.creStep1Model.region = this.platFormRegionList[0].id;
-                    this.layoutService.hide();
-                    this.regionSelect.open('PF_MNG2.SELECT_REGION')
-                }
-                ).catch(
-                err => {
-                    console.error('err');
-                    this.layoutService.hide();
-                    this.notice.open('COMMON.ERROR', 'PF_MNG2.ERROR_GETTING_REGION');
-                }
-                )
         } else {
-            this.layoutService.show();
-            this.service.crPlatForm(this.creStep1Model).then(
-                res => {
-                    if (res.resultCode == '10006001') {
-                        this.layoutService.hide();
+        //验证平台名称唯一 
+            this.layoutService.show();                   
+            this.service.platformNameNorepeate(this.creStep1Model.name).then(res => {
+                console.log(res)
+                if (res.resultContent.length == 0 && res.resultCode == 100) {
+                        if (this.creStep1Model.platformType == '0') {
+                            this.getPlatformRegionList()
+                                .then(
+                                res => {
+                                    console.log('platFormRegions', res);
+                                    this.platFormRegionList = res.resultContent;
+                                    this.creStep1Model.region = this.platFormRegionList[0].id;
+                                    this.layoutService.hide();
+                                    this.regionSelect.open('PF_MNG2.SELECT_REGION')
+                                }
+                                ).catch(
+                                err => {
+                                    console.error('err');
+                                    this.layoutService.hide();
+                                    this.notice.open('COMMON.ERROR', 'PF_MNG2.ERROR_GETTING_REGION');
+                                }
+                                )
+                        } else {
+                            this.service.crPlatForm(this.creStep1Model).then(
+                                res => {
+                                    this.layoutService.hide();                                    
+                                    this.idService.setPlatformId(res.resultContent);
+                                    this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
+                                }
+                            ).catch(
+                                err => {
+                                    this.layoutService.hide();
+                                    console.error('error');
+                                    this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
+                                }
+                                )
+                        }
+                    } else {
+                        this.layoutService.hide();                        
                         // this.notice.open('COMMON.ERROR',"PF_MNG2.PLATFORM NAME"+" '"+this.creStep1Model.name+"' "+"PF_MNG2.EXISTS");
                         this.notice.open('COMMON.ERROR', "PF_MNG2.PLATFORM_NAME_EXISTS");
-                        return;
-                    } else {
-                        this.idService.setPlatformId(res.resultContent);
-                        this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
                     }
-                }
-            ).catch(
-                err => {
-                    this.layoutService.hide();
-                    console.error('error');
-                    this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
-                }
-                )
+            }).catch(err => {
+                console.log(err);
+            })
         }
     }
     //取消
