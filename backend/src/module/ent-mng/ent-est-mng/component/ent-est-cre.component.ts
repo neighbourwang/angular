@@ -103,7 +103,7 @@ export class EntEstCreComponent implements OnInit{
 	}
 	
 
-	//数据验证
+	//非空验证
 	validate(){
 		let checkList:Array<any> = [
 		{
@@ -151,41 +151,41 @@ export class EntEstCreComponent implements OnInit{
 		}
 
 		checkList = checkList.concat([
-		{
-			"name":""//可创建浮动IP数量
-			,"value":this.entEst.ResourceQuota.floatIpQuota
-			,"op":"*"
-		},
-		{
-			"name":""//可创建镜像数量
-			,"value":this.entEst.ResourceQuota.imageQuota
-			,"op":"*"
-		},
-		{
-			"name":""//可用内存数量
-			,"value":this.entEst.ResourceQuota.memroyQuota
-			,"op":"*"
-		},
-		{
-			"name":""//可创建物理机数量
-			,"value":this.entEst.ResourceQuota.physicalQuota
-			,"op":"*"
-		},
-		{
-			"name":""//可创建快照数量
-			,"value":this.entEst.ResourceQuota.snapShotQuota
-			,"op":"*"
-		},
-		{
-			"name":""//可用存储额度
-			,"value":this.entEst.ResourceQuota.storageQuota
-			,"op":"*"
-		},
-		{
-			"name":""//可使用vCPU数量
-			,"value":this.entEst.ResourceQuota.vcpuQuota
-			,"op":"*"
-		}]);
+			{
+				"name":""//可创建浮动IP数量
+				,"value":this.entEst.ResourceQuota.floatIpQuota
+				,"op":"*"
+			},
+			{
+				"name":""//可创建镜像数量
+				,"value":this.entEst.ResourceQuota.imageQuota
+				,"op":"*"
+			},
+			{
+				"name":""//可用内存数量
+				,"value":this.entEst.ResourceQuota.memroyQuota
+				,"op":"*"
+			},
+			{
+				"name":""//可创建物理机数量
+				,"value":this.entEst.ResourceQuota.physicalQuota
+				,"op":"*"
+			},
+			{
+				"name":""//可创建快照数量
+				,"value":this.entEst.ResourceQuota.snapShotQuota
+				,"op":"*"
+			},
+			{
+				"name":""//可用存储额度
+				,"value":this.entEst.ResourceQuota.storageQuota
+				,"op":"*"
+			},
+			{
+				"name":""//可使用vCPU数量
+				,"value":this.entEst.ResourceQuota.vcpuQuota
+				,"op":"*"
+			}]);
 
 		let notValid = checkList.find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
 
@@ -205,6 +205,65 @@ export class EntEstCreComponent implements OnInit{
 		return true;
 	}
 
+   //非负整数验证
+	validateInterger(){
+		let checkList:Array<any>=[];
+
+		checkList = checkList.concat([
+			{
+				"name":""//可创建浮动IP数量
+				,"value":this.entEst.ResourceQuota.floatIpQuota
+				,"op":"integer"
+			},
+			{
+				"name":""//可创建镜像数量
+				,"value":this.entEst.ResourceQuota.imageQuota
+				,"op":"integer"
+			},
+			{
+				"name":""//可用内存数量
+				,"value":this.entEst.ResourceQuota.memroyQuota
+				,"op":"integer"
+			},
+			{
+				"name":""//可创建物理机数量
+				,"value":this.entEst.ResourceQuota.physicalQuota
+				,"op":"integer"
+			},
+			{
+				"name":""//可创建快照数量
+				,"value":this.entEst.ResourceQuota.snapShotQuota
+				,"op":"integer"
+			},
+			{
+				"name":""//可用存储额度
+				,"value":this.entEst.ResourceQuota.storageQuota
+				,"op":"integer"
+			},
+			{
+				"name":""//可使用vCPU数量
+				,"value":this.entEst.ResourceQuota.vcpuQuota
+				,"op":"integer"
+			}]);
+
+		let notValid = checkList.find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
+
+		if(notValid !== void 0)
+		{
+			this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
+			return false;
+		}
+
+		if(_.isEmpty(this.entEst.BasicInfo.platformIds))
+		{
+			this.showMsg('ENT_MNG.SELECT_PLATFORM');
+			return false;
+		}
+
+
+		return true;
+	}
+   
 	showMsg(msg: string)
 	{
 		this.notice.open("COMMON.SYSTEM_PROMPT", msg);
@@ -218,9 +277,7 @@ export class EntEstCreComponent implements OnInit{
 		{
 			if(this.isSameName!=1){
 				this.showMsg("该用户已存在！");
-			}else if(0){
-
-			}else{
+			}else if(this.validateInterger()){
 				this.layoutService.show();
 				this.service.createEnterpise(this.entEst).then(ret=>{
 				this.layoutService.hide();
@@ -231,8 +288,7 @@ export class EntEstCreComponent implements OnInit{
 				console.log('创建企业失败', err);
 				this.notice.open("COMMON.PROMPT", "ENT_MNG.FAIL_TO_CREATE_ENTERPRISE");
 			})
-			}
-			
+			}	
 		}
 	
 	}

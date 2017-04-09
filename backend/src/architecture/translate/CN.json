@@ -160,7 +160,7 @@
     "BY_YEAR1": "按年",
     "CANCEL": "取消",
     "CANNOT_BE_EMPTY": " * 必填内容不能为空",
-    "CANNOT_BE_INTEGER": "数量或配额不能为空或负数",
+    "CANNOT_BE_INTEGER": "不能为负数！",
     "CAPACITY_GB": "容量(GB)",
     "CAPATITY": "容量",
     "CAT": "类别",

@@ -135,7 +135,7 @@ private flag :boolean = true;//true代表企业设置，false代表默认设置
 		this.layoutService.show();
 		this.costItemLoader.Go(null,null,param)
 		.then(success=>{
-			this.costItemLoader.TotalPages=5;
+			// this.costItemLoader.TotalPages=5;
 			this.payTypeDic.UpdateWithDic(success);
 			this.layoutService.hide();
 		})
