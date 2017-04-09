@@ -51,12 +51,18 @@ export let RestApis: RestApiModel[] = [
         "id": "pf.cre.step.01.paltformRegins.get",
         "method": "POST",
         "url": "adminui/authsec/regions"
-    },
+    }, 
     {
         "desc": "创建平台",
         "id": "pf.cre.step.01.paltform.post",
         "method": "POST",
         "url": "adminui/authsec/platform"
+    },   
+    {
+        "desc": "创建平台名称唯一性验证",
+        "id": "pf.cre.name.norepeat",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/name/{name}"
     },
     {
         "desc": "取得特定平台信息",
