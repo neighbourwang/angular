@@ -82,6 +82,7 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
                         if(priceDetailItem.billName=='一次性费用'){
                             priceDetailItem.isShow = false;
                         }else{
+                            item.total_amount=item.total_amount-priceDetailItem.amount;
                             priceDetailItem.isShow = true;
                         }
                     }

@@ -508,7 +508,19 @@ export class OrderMngComponent implements OnInit{
 	//计算时长
 	calRenewDate(renewMode:string, renewLen:number):string{
 		let toDate:(date:Date)=>string = function(date:Date):string{
-			return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+			let hours:String=`${date.getHours()}`;
+			let minutes:string =`${date.getMinutes()}`;
+			let seconds:String=`${date.getSeconds()}`;;
+			if(hours=='0'){
+				hours='00';
+			}
+			if(minutes=='0'){
+				minutes='00';
+			}
+			if(seconds=='0'){
+				seconds='00';
+			}
+			return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} `+hours+':'+minutes+':'+seconds;
 		};
 
 		let handlerObj = {
