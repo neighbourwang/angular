@@ -56,7 +56,7 @@ export class AssignMngComponent implements OnInit {
     cpuInfo: ItemModel = new ItemModel();
     memInfo: ItemModel = new ItemModel();
     powerStat: PowerStatModel = new PowerStatModel();
-    flavor:FlavorModel = new FlavorModel();
+    flavorList:Array<FlavorModel>;
     cpuChart: DoughnutChart = new DoughnutChart(); //cpu环形图
     memChart: DoughnutChart = new DoughnutChart(); //mem环形图
     hyperList: Array<Hyper>;
@@ -69,7 +69,7 @@ export class AssignMngComponent implements OnInit {
     ngOnInit() {
         this.getEntList();
         this.getPlfList();
-        
+        console.log('云主机状态', this.service.powerStatusDic);
         this.reset();
         this.getUsageState();
         this.getHyperList();
@@ -122,7 +122,7 @@ export class AssignMngComponent implements OnInit {
                     this.cpuInfo = response["resultContent"].cpu;
                     this.memInfo = response["resultContent"].mem;
                     this.powerStat = response["resultContent"].powerStat;
-                    this.flavor = response["resultContent"].flavor;
+                    this.flavorList = response["resultContent"].flavor;
 
                     //数据处理
                     this.getGraphData(this.cpuChart, this.cpuInfo);
@@ -186,7 +186,7 @@ export class AssignMngComponent implements OnInit {
         this.queryOpt.platformId = 'all';
         this.queryOpt.regionId = 'all';
         this.queryOpt.zoneId = 'all';
-        this.queryOpt.powerStatus = 'start';
+        this.queryOpt.powerStatus = '1';
         this.queryOpt.flaovarId = 'all';
         this.queryOpt.rate = '1';
         this.queryOpt.top = '1';

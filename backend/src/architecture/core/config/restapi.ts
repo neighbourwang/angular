@@ -2531,6 +2531,24 @@ export let RestApis: RestApiModel[] = [
         "url":"maintenance/trend/general"
      },
      {
+        "desc": "按CPU",
+        "id":"compute-trend.graph.cpu",
+        "method":"POST",
+        "url":"maintenance/trend/graph/cpu"
+     },
+     {
+        "desc": "按vm",
+        "id":"compute-trend.graph.vm",
+        "method":"POST",
+        "url":"maintenance/trend/graph/vm"
+     },
+     {
+        "desc": "按mem",
+        "id":"compute-trend.graph.mem",
+        "method":"POST",
+        "url":"maintenance/trend/graph/mem"
+     },
+     {
         "desc": "导出当前数据",
         "id":"compute-trend.export.current",
         "method":"POST",

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel,SystemDictionaryService  } from '../../../../architecture';
 
 import {QueryModel} from "../model/query.model";
 import { EntList_mock }from '../model/ent-list.mock';
@@ -13,8 +13,22 @@ export class AssignMngService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) { }
+
+    powerStatusDic = this.dict.get({
+        owner: "COMPUTE",
+        field: "STATUS"
+    });
+    rateDic = this.dict.get({
+        owner: "MAINTAIN",
+        field: "RATE"
+    });
+    peridDic = this.dict.get({
+        owner: "MAINTAIN",
+        field: "PERIOD"
+    });
 
     init(): void {
         this.restApiCfg.loadCfgData();

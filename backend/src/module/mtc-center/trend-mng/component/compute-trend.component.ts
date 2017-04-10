@@ -34,7 +34,8 @@ export class ComputeTrendComponent implements OnInit {
 
 
     showType = 1;
-    isSelected: boolean;
+    isSelected=false;
+    hostId: string;
 
     queryOpt: ComputeQuery = new ComputeQuery();
     //平台联动列表
@@ -55,7 +56,7 @@ export class ComputeTrendComponent implements OnInit {
     ngOnInit() {
         this.getPlfList();
         this.queryOpt.queryType = "1";
-        
+        console.log('Dic',this.service.queryTypeDic);
         this.reset();
     }
 
@@ -98,7 +99,7 @@ export class ComputeTrendComponent implements OnInit {
 
     getCpuData() {
         this.layoutService.show();
-        this.service.getCpuData()
+        this.service.getCpuData(this.hostId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -116,7 +117,7 @@ export class ComputeTrendComponent implements OnInit {
 
     getVmData() {
         this.layoutService.show();
-        this.service.getVmData()
+        this.service.getVmData(this.hostId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -134,7 +135,7 @@ export class ComputeTrendComponent implements OnInit {
 
     getMemData() {
         this.layoutService.show();
-        this.service.getMemData()
+        this.service.getMemData(this.hostId)
             .then(
             response => {
                 this.layoutService.hide();
@@ -154,8 +155,21 @@ export class ComputeTrendComponent implements OnInit {
         this.queryOpt.platformId = this.selectedPlf.platformId;
         this.queryOpt.regionId = this.selectedRegion.regionId;
         this.queryOpt.zoneId = this.selectedZone.zoneId;
+        if (this.selectedZone == this.defaultZone) {
+            if (this.isSelected == false) {
+                this.hostId = 'all';
+            }
+            else {
+                this.hostId = 'each';
+            }
+        } else {
+            this.hostId = this.selectedZone.zoneId;
+        }
+                    
+
         if (this.queryOpt.queryType == "1") {
             this.showType = 1;
+            this.queryOpt.flaovarId = '空';
             this.getBasicList();
             this.getCpuData();
 
@@ -165,6 +179,7 @@ export class ComputeTrendComponent implements OnInit {
 
         } else if (this.queryOpt.queryType == "3") {
             this.showType = 3;
+            this.queryOpt.flaovarId = '空';
             this.getBasicList();
             this.getMemData();
      
