@@ -1304,7 +1304,8 @@
     "SELECT": "选择",
     "SELECT_OPERATION": "选择操作",
     "STATUS": "状态",
-    "USED_PHY_AMOUNT": "已使用的物理机数量"
+    "USED_PHY_AMOUNT": "已使用的物理机数量",
+     "DISABLE_CANNOT_ADD": "禁用状态下不能添加物理机"
   },
     "PHY_MNG_DEPART": {
         "DELETE_DEPART": "删除部件",
