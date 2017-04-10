@@ -11,11 +11,11 @@ const releaseToLocal = (name, path, reg) =>    //发布到本地
 		})
 	});
 
-const releaseServer = (name, path, reg, ip) =>    //发布到服务器
+const releaseServer = (name, path, reg, ip, fileName = "receiver") =>    //发布到服务器
 	fis.media(name).match(reg, {
 		release: '/$1$2$3$4',
 		deploy: fis.plugin('http-push', {
-			receiver: 'http://'+ ip +'/receiver',
+			receiver: 'http://'+ ip +'/' + fileName,
 			to: path
 		})
 	});
@@ -28,10 +28,10 @@ releaseServer("frontendDev", "/root/nginx/foxcloud/mpp", RegFrontend, "15.114.10
 // releaseServer("frontendDev", "/etc/nginx/foxcloud/mpp", RegFrontend, "16.187.145.52:8999");
 // 后台发布到测试环境
 releaseServer("backendTest", "/root/nginx/foxcloud/backend", RegBackend, "15.114.100.65:8999");
-releaseServer("backendOldTest", "/etc/nginx/foxcloud/backend", RegBackend, "16.187.145.145:8999");
+releaseServer("backendOldTest", "/etc/nginx/foxcloud/backend", RegBackend, "16.187.145.145:8999", "");
 //前台发布到测试环境
 releaseServer("frontendTest", "/root/nginx/foxcloud/frontend", RegFrontend, "15.114.100.65:8999");
-releaseServer("frontendOldTest", "/etc/nginx/foxcloud/frontend", RegFrontend, "16.187.145.145:8999");
+releaseServer("frontendOldTest", "/etc/nginx/foxcloud/frontend", RegFrontend, "16.187.145.145:8999", "");
 
 
 //boe开发环境发布到本地
