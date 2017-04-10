@@ -25,11 +25,11 @@ export class bootDiskMngComponent implements OnInit {
     ) {
     }
 
-    @ViewChild('publishConfirm')
-    publishConfirm: ConfirmComponent;
+    @ViewChild('enableConfirm')
+    enableConfirm: ConfirmComponent;
 
-    @ViewChild('ccPublishConfirm')
-    ccPublishConfirm: ConfirmComponent;
+    @ViewChild('disbaleConfirm')
+    disbaleConfirm: ConfirmComponent;
 
     @ViewChild('deleteConfirm')
     deleteConfirm: ConfirmComponent;
@@ -68,6 +68,10 @@ export class bootDiskMngComponent implements OnInit {
         this.service.getbootDiskList(this.platformId).then(res => {
             console.log(res);
             this.zoneBootDiskList = res.resultContent;
+            this.zoneBootDiskList.forEach(zone=>{
+                zone.selected=false;
+            })
+            this.selectedZone=new BootDiskModel();
             this.layoutService.hide();
         }).catch(err => {
             this.layoutService.hide();
@@ -75,11 +79,19 @@ export class bootDiskMngComponent implements OnInit {
         })
     }
     //选择可用区
-    selectedZone: BootDiskModel;
+    selectedZone:BootDiskModel;
+    selectZone(zone){
+        console.log(zone)
+        this.zoneBootDiskList.forEach(zone=>{
+                zone.selected=false;
+            })
+            zone.selected=true;
+            this.selectedZone=zone;
+    }    
     //编辑启动盘
     editZoneBootDisk() {
-        if (this.selectedZone) {
-            console.log(this.selectedZone);
+        console.log(this.selectedZone);        
+        if (this.selectedZone.zoneId) {
             if (this.selectedZone.bootStorageId) {
                 this.service.editBootDiskData = this.selectedZone;
                 this.route.navigate(['pf-mng2/pf-mng-bootDisk-creEdit', { id: this.platformId, type: this.platformType, 'isEdit': 'edit' }])
@@ -94,14 +106,24 @@ export class bootDiskMngComponent implements OnInit {
     }
     //启用启动盘
     enableZoneBootDisk() {
-        if (this.selectedZone) {
-            console.log(this.selectedZone);
+        console.log(this.selectedZone);        
+        if (this.selectedZone.zoneId) {
             if (this.selectedZone.bootStorageId) {
                 if (this.selectedZone.bootStorageStatus == '1') {
                     this.notice.open('操作错误', '启动盘状态已启用');
                     return;
                 }
-                this.layoutService.show();
+                this.enableConfirm.open('启用启动盘',"你选择启用 '"+this.selectedZone.bootStorageName+"' 启动盘")
+            } else {
+                this.notice.open('操作错误', '可用区下没有可编辑启动盘信息');
+            }
+        } else {
+            this.notice.open('操作错误', '请选择可用区');
+        }
+    }
+    //确认启用
+    enableCof(){
+        this.layoutService.show();
                 this.service.enableBootDisk(this.selectedZone.bootStorageId).then(res => {
                     console.log(res);
                     this.getBootDiskList();
@@ -110,6 +132,22 @@ export class bootDiskMngComponent implements OnInit {
                     console.log(err);
                     this.layoutService.hide();
                 })
+    }
+    //禁用启动盘
+    suspendZoneBootDisk() {
+            console.log(this.selectedZone);        
+        if (this.selectedZone.zoneId) {
+            if (this.selectedZone.bootStorageId) {
+                if (this.selectedZone.bootStorageStatus == '2') {
+                    this.notice.open('操作错误', '启动盘状态已禁用');
+                    return;
+                }
+                if (this.selectedZone.bootStorageStatus == '0') {
+                    this.notice.open('操作错误', '不能禁用初始化状态的启动盘');
+                    return;
+                }
+                this.enableConfirm.open('禁用启动盘',"你选择禁用 '"+this.selectedZone.bootStorageName+"' 启动盘")                
+                
             } else {
                 this.notice.open('操作错误', '可用区下没有可编辑启动盘信息');
             }
@@ -117,16 +155,8 @@ export class bootDiskMngComponent implements OnInit {
             this.notice.open('操作错误', '请选择可用区');
         }
     }
-    //禁用启动盘
-    suspendZoneBootDisk() {
-        if (this.selectedZone) {
-            console.log(this.selectedZone);
-            if (this.selectedZone.bootStorageId) {
-                if (this.selectedZone.bootStorageStatus == '2') {
-                    this.notice.open('操作错误', '启动盘状态已禁用');
-                    return;
-                }
-                this.layoutService.show();
+    disableCof(){
+        this.layoutService.show();
                 this.service.suspendBootDisk(this.selectedZone.bootStorageId).then(res => {
                     if (res.resultCode == "10006003") {
                         this.notice.open('操作错误', '不能禁用已关联产品目录的启动盘');
@@ -139,23 +169,28 @@ export class bootDiskMngComponent implements OnInit {
                     console.log(err);
                     this.layoutService.hide();
                 })
-            } else {
-                this.notice.open('操作错误', '可用区下没有可编辑启动盘信息');
-            }
-        } else {
-            this.notice.open('操作错误', '请选择可用区');
-        }
     }
     //删除启动盘
     deleteZoneBootDisk() {
-        if (this.selectedZone) {
-            console.log(this.selectedZone);
+            console.log(this.selectedZone);        
+        if (this.selectedZone.zoneId) {
             if (this.selectedZone.bootStorageId) {
                 if (this.selectedZone.bootStorageStatus == '1') {
                     this.notice.open('操作错误', '不能删除启用状态下启动盘');
                     return;
                 }
-                this.layoutService.show();
+                this.enableConfirm.open('删除启动盘',"你选择删除 '"+this.selectedZone.bootStorageName+"' 启动盘")                                
+                
+            } else {
+                this.notice.open('操作错误', '可用区下没有可编辑启动盘信息');
+            }
+        } else {
+            this.notice.open('操作错误', '请选择可用区');
+            return false;
+        }
+    }
+    deleteCof(){
+        this.layoutService.show();
                 this.service.deleteBootDisk(this.selectedZone.bootStorageId).then(res => {
                     console.log(res);
                     this.layoutService.hide();
@@ -168,13 +203,6 @@ export class bootDiskMngComponent implements OnInit {
                     console.log(err);
                     this.layoutService.hide();
                 })
-            } else {
-                this.notice.open('操作错误', '可用区下没有可编辑启动盘信息');
-            }
-        } else {
-            this.notice.open('操作错误', '请选择可用区');
-            return false;
-        }
     }
     back() {
         this.location.back();
