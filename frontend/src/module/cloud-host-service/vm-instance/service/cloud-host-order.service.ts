@@ -153,15 +153,15 @@ export class cloudHostServiceOrder {
             startupResouce: startupResouce,
         }
         
-        // return this.restApi.request(api.method, api.url, undefined, undefined, pathParams)
-        //             .then(res => {
-        //                     if(res.resultCode !== "100"){
-        //                         throw "CLOUD_HOST.GET_IMAGE_FAILURE";
-        //                     }
-        //                     return res.resultContent.imageItems;
-        //                 });
+        return this.restApi.request(api.method, api.url, undefined, undefined, pathParams)
+                    .then(res => {
+                            if(res.resultCode !== "100"){
+                                throw "CLOUD_HOST.GET_IMAGE_FAILURE";
+                            }
+                            return res.resultContent.imageItems;
+                        });
 
-        return Promise.resolve({"resultCode":"100","detailDescription":null,"resultContent":{"enterpriseId":"5b2967d4-5d18-482c-95c6-b4aeab40bde9","platformId":"eb3f4908-873c-4e68-b759-8303491ea502","platformType":null,"imageItems":[{"imageId":"9f196ebc-8fbf-48ab-8b23-ec8254f95a21","imageType":0,"osType":1,"imageName":"Centos-6.5","imageCode":null,"imageDisplayName":"Centos-6.5_new","capacity":13287936},{"imageId":"3bd9ec0b-9a75-4e7b-a648-6e030f6dcbc1","imageType":0,"osType":0,"imageName":"windows-server-2008","imageCode":null,"imageDisplayName":"windows-server-2008_new","capacity":13287936},{"imageId":"c57e2eaf-bb49-4049-ac7e-787223308951","imageType":0,"osType":0,"imageName":"cirros","imageCode":null,"imageDisplayName":"cirros","capacity":13287936}]}}.resultContent.imageItems)
+        // return Promise.resolve({"resultCode":"100","detailDescription":null,"resultContent":{"enterpriseId":"5b2967d4-5d18-482c-95c6-b4aeab40bde9","platformId":"eb3f4908-873c-4e68-b759-8303491ea502","platformType":null,"imageItems":[{"imageId":"9f196ebc-8fbf-48ab-8b23-ec8254f95a21","imageType":0,"osType":1,"imageName":"Centos-6.5","imageCode":null,"imageDisplayName":"Centos-6.5_new","capacity":13287936},{"imageId":"3bd9ec0b-9a75-4e7b-a648-6e030f6dcbc1","imageType":0,"osType":0,"imageName":"windows-server-2008","imageCode":null,"imageDisplayName":"windows-server-2008_new","capacity":13287936},{"imageId":"c57e2eaf-bb49-4049-ac7e-787223308951","imageType":0,"osType":0,"imageName":"cirros","imageCode":null,"imageDisplayName":"cirros","capacity":13287936}]}}.resultContent.imageItems)
 
     }
 
