@@ -353,7 +353,7 @@ export class PfDetailComponent implements OnInit {
                 //         console.error(err);
                 //     });
                 // }
-                console.log('sorageList', this.storageList);
+                console.log('storageList', this.storageList);
                 this.layoutService.hide();
             }
         ).catch(
@@ -385,7 +385,7 @@ export class PfDetailComponent implements OnInit {
         this.selectedStorage=storage;
         this.suspendStorageConfirm.open('禁用存储区',"你选择禁用 '"+storage.name+"'存储区 ")
     }
-    suspendStorageCof(id: string) {
+    suspendStorageCof() {
         this.layoutService.show();
         this.platformDetailService.suspendStorage(this.selectedStorage.id).then(res => {
             console.log(res)

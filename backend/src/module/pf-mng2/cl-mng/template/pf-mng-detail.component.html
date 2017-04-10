@@ -405,7 +405,7 @@
                             <span [ngSwitch]="storage.status">
                                 <template [ngSwitchCase]="0">未启用</template>
                                 <template [ngSwitchCase]="1">已启用</template>
-                                <template [ngSwitchCase]="3">已禁用</template>
+                                <template [ngSwitchCase]="2">已禁用</template>
                                 <template ngSwitchDefault>Unknown</template>
                     	    </span>
                             <!--{{storage.status|dict:this.commonService.globalStatus | async}}-->
@@ -416,8 +416,8 @@
                         </td>
                         <td>
                             <div *ngIf="!storage.isEdit">
-                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage.id)">{{'COMMON.ENABLE' | translate}}</button>
-                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">{{'COMMON.DISABLE' | translate}}</button>
+                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage)">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage)">{{'COMMON.DISABLE' | translate}}</button>
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">{{'COMMON.EDIT' | translate}}</button>
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
                             </div>
