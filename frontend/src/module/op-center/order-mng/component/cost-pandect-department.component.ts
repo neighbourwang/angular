@@ -222,9 +222,9 @@ totalconsumeLoad(){
     let historyIds:Array<string>=[];
      month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
      let param={
-        endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
-        ids:[],
-        size:this.size// Number(this._param.month)
+        "endTime": this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+        "ids":[],
+        "size":this.size// Number(this._param.month)
     };
 
  

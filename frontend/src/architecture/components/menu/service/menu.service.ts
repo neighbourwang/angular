@@ -166,7 +166,7 @@ export class MenuService {
 						}, {
 							"label": "企业消费总览",
 							"isOpen": false,
-							"isShow": true,
+							"isShow": isOrgin,
 							"routing": "op-center/order-mng/cost-pandect"
 						}, {
 							"label": "部门消费总览",
