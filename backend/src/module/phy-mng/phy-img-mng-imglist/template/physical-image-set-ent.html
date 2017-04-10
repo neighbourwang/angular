@@ -5,44 +5,44 @@
     </button>
 </div>
 <div class="page-content">
-<div  style="margin-top:30px; padding-left:200px"> 
+<div  style="margin-top:30px;"> 
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.IMAGE_DISPLAY_NAME' | translate}}:</div>
-                <div class="col-md-4">
+                <div class="col-sm-6 form-control-title">{{'PHY_IMG_MNG.IMAGE_DISPLAY_NAME' | translate}}:</div>
+                <div class="col-md-6">
                     <span style="line-height:34px">{{img.destImageName}} </span>
                 </div>
             </div>
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.IMAGE_FILE_NAME' | translate}}:</div>
-                <div class="col-md-4">
+                <div class="col-sm-6 form-control-title">{{'PHY_IMG_MNG.IMAGE_FILE_NAME' | translate}}:</div>
+                <div class="col-md-6">
                     <span style="line-height:34px">{{img.origImageName}} </span>
                 </div>
             </div>
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.OS' | translate}}:</div>
-                <div class="col-md-4">
-                    <span style="line-height:34px">{{img.osTypeName}}</span>
+                <div class="col-sm-6 form-control-title">{{'PHY_IMG_MNG.OS' | translate}}:</div>
+                <div class="col-md-6">
+                    <span style="line-height:34px">{{img.osTypeId | dict: this.service.osDic | async}}</span>
                 </div>
             </div>
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.BIT' | translate}}:</div>
-                <div class="col-md-4">
-                    <span style="line-height:34px">{{img.bitName}}</span>
+                <div class="col-sm-6 form-control-title">{{'PHY_IMG_MNG.BIT' | translate}}:</div>
+                <div class="col-md-6">
+                    <span style="line-height:34px">{{img.bitId | dict: this.service.bits_typeDic | async}}</span>
                 </div>
             </div>
         </div>
         <div class="row row-line-height">
             <div class="form-group">
-                <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.IMAGE_TYPE' | translate}}:</div>
-                <div class="col-md-4">
-                    <span style="line-height:34px">{{img.imageTypeName}}</span>
+                <div class="col-sm-6 form-control-title">{{'PHY_IMG_MNG.IMAGE_TYPE' | translate}}:</div>
+                <div class="col-md-6">
+                    <span style="line-height:34px">{{img.imageTypeId | dict: this.service.typeDic | async}}</span>
                 </div>
             </div>
         </div>
