@@ -89,16 +89,16 @@ export class PersonAccMngComponent implements OnInit {
             this.active = true;
         }, 0)
         this.editPassWord.open('USER_CENTER.CHANGE_PASSWORD') //USER_CENTER.CHANGE_PASSWORD=>修改密码
-
+        this.v.result = {};
     }
     //表单验证
     checkPasswordForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象           
-            password: [this.accPwd.password, [this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
+            password: [this.accPwd.password, [this.v.isUnBlank,this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
             //两次验证[密码验证，8-16个字]
-            newPassword: [this.accPwd.newPassword, [this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
+            newPassword: [this.accPwd.newPassword, [this.v.isUnBlank,this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
             //两次验证[密码验证，8-16个字]
-            confirmPwd: [this.accPwd.confirmPwd, [this.v.equalTo(this.accPwd.newPassword)], "两次密码输入不一致"],
+            confirmPwd: [this.accPwd.confirmPwd, [this.v.isUnBlank,this.v.equalTo(this.accPwd.newPassword)], "两次密码输入不一致"],
             //再次输入密码验证
         }
         console.log(this.v.check(key, regs));

@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, ValidationService, PopupComponent, NoticeComponent } from '../../../../architecture';
+import { LayoutService, ValidationService, PopupComponent, NoticeComponent , Validation, ValidationRegs} from '../../../../architecture';
 
 //service
 import { GetPersonAccService } from '../service/person-acc-get.service';
@@ -25,8 +25,11 @@ export class PersonAccMngComponent implements OnInit {
         private putPersonAcc: PutLocalAccService,
         private putPersonAccPwd: EditPersonAccPwdService,
         private validService: ValidationService,
-        private layoutService:LayoutService
-    ) { }
+        private layoutService:LayoutService,
+                private v: Validation
+    ) { 
+        this.v.result={}
+    }
     @ViewChild('editPassWord')
     editPassWord: PopupComponent;
     @ViewChild('notice')
@@ -154,44 +157,61 @@ export class PersonAccMngComponent implements OnInit {
     active: boolean = true;
     editPwd() {
         this.accPwd = new PersonAccPwd();
-        this.active = false;
-        setTimeout(() => {
-            this.active = true;
-        }, 0)
-        this.samePassword = true;
-        this.passwordValid = true;
-        this.newPasswordValid = true;
-        this.sameNewPassword = false;
+        // this.active = false;
+        // setTimeout(() => {
+        //     this.active = true;
+        // }, 0)
+        // this.samePassword = true;
+        // this.passwordValid = true;
+        // this.newPasswordValid = true;
+        // this.sameNewPassword = false;
         this.accPwd.password = '';
         this.accPwd.newPassword = '';
         this.accPwd.confirmPwd = '';
-        this.editPassWord.open('USER_CENTER.MODIFY_PASSWORD')
+        this.editPassWord.open('USER_CENTER.MODIFY_PASSWORD');
+        this.v.result={}        
     }
-    pwdValid(val){
-        if (this.accPwd.password && this.accPwd.password.trim() != '') {
-            this.passwordValid = true;
-        } else {
-            this.passwordValid = false;
-        }    
-    }
-    newPwdValid(val){
-        if (this.accPwd.newPassword && this.accPwd.newPassword.trim() != '') {
-            this.newPasswordValid = true;
-        } else {
-            this.newPasswordValid = false;
-        }
-        if(this.accPwd.newPassword==this.accPwd.password){
-            this.sameNewPassword=true;
-        }else{
-            this.sameNewPassword=false;
-        }
-    }
+    // pwdValid(val){
+    //     if (this.accPwd.password && this.accPwd.password.trim() != '') {
+    //         this.passwordValid = true;
+    //     } else {
+    //         this.passwordValid = false;
+    //     }    
+    // }
+    // newPwdValid(val){
+    //     if (this.accPwd.newPassword && this.accPwd.newPassword.trim() != '') {
+    //         this.newPasswordValid = true;
+    //     } else {
+    //         this.newPasswordValid = false;
+    //     }
+    //     if(this.accPwd.newPassword==this.accPwd.password){
+    //         this.sameNewPassword=true;
+    //     }else{
+    //         this.sameNewPassword=false;
+    //     }
+    // }
 
+    //表单验证
+    checkPasswordForm(key?: string) {
+        let regs: ValidationRegs = {  //regs是定义规则的对象           
+            password: [this.accPwd.password, [this.v.isUnBlank,this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
+            //两次验证[密码验证，8-16个字]
+            newPassword: [this.accPwd.newPassword, [this.v.isUnBlank,this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
+            //两次验证[密码验证，8-16个字]
+            confirmPwd: [this.accPwd.confirmPwd, [this.v.isUnBlank,this.v.equalTo(this.accPwd.newPassword)], "两次密码输入不一致"],
+            //再次输入密码验证
+        }
+        console.log(this.v.check(key, regs));
+        return this.v.check(key, regs);
+    }
     otEditPwd() {
         console.log(this.accPwd);
-        if (!this.passwordValid||!this.newPasswordValid||this.sameNewPassword) 
-        {return;} 
-     if (this.accPwd.newPassword == this.accPwd.confirmPwd) {
+        let message = this.checkPasswordForm();
+        if (message) return;
+        // console.log(this.accPwd);
+        // if (!this.passwordValid||!this.newPasswordValid||this.sameNewPassword) 
+        // {return;} 
+    //  if (this.accPwd.newPassword == this.accPwd.confirmPwd) {
             this.accPwd.id = this.personAcc.userId;
             console.log(this.accPwd);
             this.putPersonAccPwd.putPersonAccPwd(this.accPwd).then(
@@ -200,14 +220,16 @@ export class PersonAccMngComponent implements OnInit {
                         console.log(response);
                         this.editPassWord.close();
                         this.notice.open('COMMON.OPERATION_SUC', 'USER_CENTER.NEW_PASSWORD_HAS_COME_INTO_EFFECT');
+                    }else if(response.resultCode=='10001001'){
+                        this.editPassWord.close();
+                        this.notice.open('COMMON.OPERATION_ERROR', 'you have input wrong password')
                     }
                 }).catch((err) => {
-                    this.editPassWord.close();
-                    this.notice.open('COMMON.OPERATION_ERROR', 'you have input wrong password')
+                    console.log(err);
                 });
-        } else {
-            this.samePassword = false;
-        }
+        // } else {
+        //     this.samePassword = false;
+        // }
     }
     ccf() {
 
