@@ -47,10 +47,7 @@
         <div class="col-md-2 form-control-title" >云主机状态：</div>
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="queryOpt.powerStatus">
-                <option [value]="'start'">运行</option>
-                <option [value]="'close'">关闭</option>
-                <option [value]="'sleep'">挂起</option>
-                <option [value]="all">所有</option>
+                <option *ngFor="let s of service.powerStatusDic | async" [value]="s.value">{{s.displayValue}}</option>
             </select>
         </div>
         <div class="col-md-2 form-control-title" >云主机规格：</div>
@@ -64,9 +61,8 @@
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title" >利用率排序：</div>
         <div class="col-md-2">
-            <select class="form-control" [(ngModel)]="queryOpt.rate">
-                <option [value]="1">从高到低</option>
-                <option [value]="2">从低到高</option>
+            <select class="form-control" [(ngModel)]="queryOpt.rate">              
+                <option *ngFor="let rate of service.rateDic | async" [value]="rate.value">{{rate.displayValue}}</option>
             </select>
         </div>
         <div class="col-md-2 form-control-title" >TOP：</div>
@@ -82,12 +78,7 @@
         <div class="col-md-2 form-control-title" >时间范围：</div>
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="queryOpt.period">
-                <option [value]="1">最近24小时</option>
-                <option [value]="2">最近7天</option>
-                <option [value]="3">最近30天</option>
-                <option [value]="4">最近90天</option>
-                <option [value]="5">最近180天</option>
-                <option [value]="6">最近360天</option>
+                <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
             </select>
         </div>
     </div>
@@ -209,21 +200,10 @@
                 <div class="panel-body" style="padding:0;">
                     <table class="table table-hover">
                         <tbody>
-                            <tr>
-                                <td>1CPU</td>
-                                <td>2G内存：</td>
-                                <td>20</td>
-                            </tr>
-                            <tr>
-                                <td>2CPU</td>
-                                <td>4G内存：</td>
-                                <td>19</td>
-                            </tr>
-                             <tr>
-                                <td>4CPU</td>
-                                <td>8G内存：</td>
-                                <td>21</td>
-                            </tr>
+                            <tr *ngFor="let flavor of flavorList">                              
+                                <td>{{flavor.name}}：</td>
+                                <td>{{flavor.value}}</td>
+                            </tr>                           
                         </tbody>
                     </table>     
                 </div>

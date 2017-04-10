@@ -126,7 +126,7 @@
 	</div>
 	<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="{{ 'COMMON.CONFIRM' | translate}}" (of)="nof()"></fc-notice>
 	<fc-popup #editPassWord title="{{title}}" ot="{{ 'COMMON.SAVE' | translate}}" (of)="otEditPwd()" ct="{{ 'COMMON.CANCEL' | translate}}" (cf)="ccf()">
-		<div class="page-content">
+		<!--<div class="page-content">
 			<div class="row" style="padding-top: 10px;">
 				<div class="col-md-12">
 					<form *ngIf="active">
@@ -186,6 +186,48 @@
 						</div>
 					</form>
 				</div>
+			</div>
+		</div>-->
+		<div class="row" style="padding-top: 10px;">
+			<div class="col-md-12">
+				<form *ngIf="active">
+					<div class="row row-line-height">
+						<div class="form-group">
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{'USER_CENTER.CURRENT_PASSWORD' | translate}}
+								<!--当前密码-->:</div>							
+							<div class="col-sm-6 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.password}">
+								<input type="password" [(ngModel)]="accPwd.password" (ngModelChange)="checkPasswordForm('password')" name="password" 
+								 class="form-control">
+								<span *ngIf="v.result.password" class="glyphicon glyphicon-remove form-control-feedback"></span>
+								<div *ngIf="v.result.password" class="alert alert-danger" role="alert">{{v.result.password| translate}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="row row-line-height">
+						<div class="form-group">
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{'USER_CENTER.NEW_PASSWORD' | translate}}
+								<!--新密码-->:</div>							
+							<div class="col-sm-6 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.newPassword}">
+								<input type="password" [(ngModel)]="accPwd.newPassword" (ngModelChange)="checkPasswordForm('newPassword')" name="newPassword" 
+								 class="form-control">
+								<span *ngIf="v.result.newPassword" class="glyphicon glyphicon-remove form-control-feedback"></span>
+								<div *ngIf="v.result.newPassword" class="alert alert-danger" role="alert">{{v.result.newPassword| translate}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="row row-line-height">
+						<div class="form-group">
+							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{'USER_CENTER.CONFIRM_NEW_PASSWORD' | translate}}
+								<!--确认新密码-->:</div>							
+							<div class="col-sm-6 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.confirmPwd}">
+								<input type="password" [(ngModel)]="accPwd.confirmPwd" (ngModelChange)="checkPasswordForm('confirmPwd')" name="confirmPwd" 
+								 class="form-control">
+								<span *ngIf="v.result.confirmPwd" class="glyphicon glyphicon-remove form-control-feedback"></span>
+								<div *ngIf="v.result.confirmPwd" class="alert alert-danger" role="alert">{{v.result.confirmPwd| translate}}</div>
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</fc-popup>

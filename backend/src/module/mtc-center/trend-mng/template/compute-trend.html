@@ -7,10 +7,8 @@
             <div class="col-md-10" >
                 <div class="col-md-2 form-control-title">分析类型：</div>
                 <div class="col-md-2">
-                    <select class="form-control" [(ngModel)]="queryOpt.queryType">                      
-                        <option [value]="1">按CPU分析</option>
-                        <option [value]="2">按云主机规格分析</option>
-                        <option [value]="3">按内存分析</option>
+                    <select class="form-control" [(ngModel)]="queryOpt.queryType">                 
+                        <option *ngFor="let type of service.queryTypeDic | async" [value]="type.value">{{type.displayValue}}</option>
                     </select>
                 </div>
                 <div class="col-md-2">{{analysisType}}</div>
@@ -20,7 +18,7 @@
             <div class="col-md-10" >
                 <div class="col-md-2 form-control-title">平台：</div>
                 <div class="col-md-2">
-                    <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion; ">
+                    <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion; selectedZone=defaultZone;">
                         <option [ngValue]="defaultPlf">所有平台</option>
                         <option *ngFor="let plf of plfList" [ngValue]="plf">{{plf.platformName}}</option>
                     </select>
@@ -60,15 +58,12 @@
                 <div class="col-md-2 form-control-title" >时间范围：</div>
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.period">
-                        <option [value]="1">最近3个月</option>
-                        <option [value]="2">最近6个月</option>
-                        <option [value]="3">最近12个月</option>
-                        
+                        <option *ngFor="let p of service.trendPeridDic | async" [value]="p.value">{{p.displayValue}}</option>
                     </select>
                 </div>
             </div>
         </div>
-        <div class="row row-line-height">
+        <div *ngIf="queryOpt.queryType=='2'" class="row row-line-height">
             <div class="col-md-10" >
                  <div class="col-md-2 form-control-title">主机规格选择：</div>
                  <div class="col-md-2">
@@ -81,8 +76,9 @@
             </div>
         </div>
     </div>
-    <div>{{queryOpt.platformId}},{{queryOpt.regionId}},{{queryOpt.zoneId}}</div>
+    <!--<div>{{queryOpt.platformId}},{{queryOpt.regionId}},{{queryOpt.zoneId}}</div>
     <div>{{queryOpt.powerStatus}},{{queryOpt.flaovarId}},{{queryOpt.period}}</div>
+    <div>{{hostId}}</div>-->
     <div>
         <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15" (click)="exportCurrent()">导出所有数据</button>
         <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15" (click)="exportAll()">导出当前数据</button>
