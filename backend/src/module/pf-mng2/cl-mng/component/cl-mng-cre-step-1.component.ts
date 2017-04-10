@@ -170,6 +170,7 @@ export class ClMngCreStep1Component implements OnInit {
                                 }
                                 )
                         } else {
+                            this.layoutService.show();
                             this.service.crPlatForm(this.creStep1Model).then(
                                 res => {
                                     this.layoutService.hide();
@@ -189,7 +190,7 @@ export class ClMngCreStep1Component implements OnInit {
                         // this.notice.open('COMMON.ERROR',"PF_MNG2.PLATFORM NAME"+" '"+this.creStep1Model.name+"' "+"PF_MNG2.EXISTS");
                         this.notice.open('COMMON.ERROR', "PF_MNG2.PLATFORM_NAME_EXISTS");
                     }
-                    this.layoutService.hide();
+                this.layoutService.hide();                    
                 }
             }).catch(err => {
                 console.log(err);
