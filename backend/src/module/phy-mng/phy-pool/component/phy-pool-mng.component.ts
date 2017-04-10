@@ -84,36 +84,6 @@ export class PhyPoolMngComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
-    phyIfEnable(status: string){
-        const selectedphy= this.data.find((p) =>{
-            return p.selected;
-        });
-        if(!selectedphy){
-            this.showAlert("PHY_MNG_POOL.PLEASE_CHOOSE_POOL");
-        }else{
-            this.selectedPhy= selectedphy;
-            console.log(this.selectedPhy,"selectedPhy");
-            if(this.selectedPhy.status == "1"){
-                if(status == "1"){
-                    this.showAlert("PHY_MNG_POOL.POOL_ALREADY_ENABLE");
-                }else if(status == "0"){
-                    this.disable(this.selectedPhy.pmPoolId);
-                }else{
-                    this.showAlert("PHY_MNG_POOL.ENABLE_CANNOT_DELETE");
-                }
-            }else{
-                if(status == "1"){
-                    this.enable(this.selectedPhy.pmPoolId);
-                }else if(status == "0"){
-                    this.showAlert("PHY_MNG_POOL.POOL_ALREADY_DISABLE");
-                }else{
-                    this.remove(this.selectedPhy.pmPoolId);
-                }
-            }
-        }
-
-    }
-
     enable(id: string){
         this.enableConfirm.open('PHY_MNG_POOL.ENABLE_POOL','PHY_MNG_POOL.ENABLE_POOL_WARNING^^^'+this.selectedPhy.pmPoolName);
         this.enableConfirm.cof =() =>{
@@ -179,6 +149,36 @@ export class PhyPoolMngComponent implements OnInit{
         }
     }
 
+    phyIfEnable(status: string){
+        const selectedphy= this.data.find((p) =>{
+            return p.selected;
+        });
+        if(!selectedphy){
+            this.showAlert("PHY_MNG_POOL.PLEASE_CHOOSE_POOL");
+        }else{
+            this.selectedPhy= selectedphy;
+            console.log(this.selectedPhy,"selectedPhy");
+            if(this.selectedPhy.status == "1"){
+                if(status == "1"){
+                    this.showAlert("PHY_MNG_POOL.POOL_ALREADY_ENABLE");
+                }else if(status == "0"){
+                    this.disable(this.selectedPhy.pmPoolId);
+                }else{
+                    this.showAlert("PHY_MNG_POOL.ENABLE_CANNOT_DELETE");
+                }
+            }else{
+                if(status == "1"){
+                    this.enable(this.selectedPhy.pmPoolId);
+                }else if(status == "0"){
+                    this.showAlert("PHY_MNG_POOL.POOL_ALREADY_DISABLE");
+                }else{
+                    this.remove(this.selectedPhy.pmPoolId);
+                }
+            }
+        }
+
+    }
+
     selected(item: PhyPoolList){
         this.data.forEach((p) =>{
             p.selected= false;
@@ -203,6 +203,8 @@ export class PhyPoolMngComponent implements OnInit{
         });
         if(!selectedphy) {
             this.showAlert("PHY_MNG_POOL.PLEASE_CHOOSE_POOL");
+        }else if(selectedphy.status == "0"){
+            this.showAlert("PHY_MNG_POOL.DISABLE_CANNOT_ADD");
         }else{
             let type= "create";
             this.router.navigate([`phy-mng/physical-mng/physical-edit`,{pmPoolId: selectedphy.pmPoolId, type: type }]);
