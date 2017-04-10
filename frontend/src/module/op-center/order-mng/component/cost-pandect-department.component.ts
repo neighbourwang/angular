@@ -65,6 +65,8 @@ private increseConsumeLoader:ItemLoader<CommonKeyValue> = null;//消费趋势-�
                 let obj = new UserInfo();
                 for(let item of source){
                 obj.enterpriseId = item.enterpriseId;
+                obj.organizationId=item.organizationId;
+                obj.organizationName = item.organizationName;
 				obj.enterpriseName = item.enterpriseName;
                 obj.roleName = item.roles[0].roleName;
                 }
@@ -134,6 +136,7 @@ private increseConsumeLoader:ItemLoader<CommonKeyValue> = null;//消费趋势-�
         this.loadLastDay();
         this.createSumBar();
         this.createHstoryBar();
+        this.search_chart();
 		this.layoutService.hide();
 	}
 
@@ -171,9 +174,8 @@ loadYears(){
         this.layoutService.show();
         this.userTypeLoader.Go()
             .then(sucess=>{
-                let item = this.userTypeLoader.FirstItem;
+                // let item = this.userTypeLoader.FirstItem;
                 this.isRootUser();
-                this.search_chart();
                 this.layoutService.hide();
             })
             .catch(err=>{
@@ -199,8 +201,10 @@ consumeLoad(){
             startTime:this._param.year+'-'+month+'-01'+' 00:00:00',
             ids:[]
         };
-   
-    sumIds = [{key:this.userTypeLoader.FirstItem.organizationId,value:this.userTypeLoader.FirstItem.organizationName}];
+   if(this.userTypeLoader.FirstItem){
+      sumIds = [{key:this.userTypeLoader.FirstItem.organizationId,value:this.userTypeLoader.FirstItem.organizationName}];
+   }
+    
     param.ids = sumIds;
 
     this.consumeLoader.Go(null,null,param)
@@ -222,13 +226,14 @@ totalconsumeLoad(){
     let historyIds:Array<string>=[];
      month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
      let param={
-        "endTime": this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
-        "ids":[],
-        "size":this.size// Number(this._param.month)
+        endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+        ids:[],
+        size:this.size// Number(this._param.month)
     };
 
- 
-    historyIds = [this.userTypeLoader.FirstItem.organizationId];
+    if(this.userTypeLoader.FirstItem){
+        historyIds = [this.userTypeLoader.FirstItem.organizationId];
+    }
 
      param.ids = historyIds;
 
@@ -432,7 +437,10 @@ showMsg(msg: string)
     this.layoutService.show();
     let ids:Array<string>=[];
     let month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
-    ids.push(this.userTypeLoader.FirstItem.organizationId);
+    if(this.userTypeLoader.FirstItem){
+        ids.push(this.userTypeLoader.FirstItem.organizationId);
+    }
+    
 
         let param =     {
         "endTime": this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
