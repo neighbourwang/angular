@@ -1,6 +1,6 @@
 <div class="page-content cloud_host_order">
 	<div class="col-md-9">
-		<h1 (click)="checkQuota()" class="page-content-header">{{options.title | translate}}</h1>
+		<h1 (click)="payLoadFormat()" class="page-content-header">{{options.title | translate}}</h1>
 		<ul class="left-box">
 			<li>
 				<div class="col-md-1 li-title">                  
@@ -104,7 +104,7 @@
 					</div>
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_LIST'| translate}}</div>
 					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.os" class="form-control">
+						<select [(ngModel)]="sendModule.os" (ngModelChange)="osChanged()" class="form-control">
 							<option
 							 *ngFor="let value of imageList"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
@@ -165,7 +165,7 @@
 
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">{{'VM_INSTANCE.USER_NAME'| translate}}</div>
-						<div class="col-md-10 user-root">root</div>
+						<div class="col-md-10 user-root">{{sendModule.username.attrValue}}</div>
 					</div>
 
 					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">

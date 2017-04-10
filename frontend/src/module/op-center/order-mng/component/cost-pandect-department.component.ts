@@ -200,7 +200,7 @@ consumeLoad(){
             ids:[]
         };
    
-    sumIds = [{key:this.userTypeLoader.FirstItem.enterpriseId,value:this.userTypeLoader.FirstItem.enterpriseName}];
+    sumIds = [{key:this.userTypeLoader.FirstItem.organizationId,value:this.userTypeLoader.FirstItem.organizationName}];
     param.ids = sumIds;
 
     this.consumeLoader.Go(null,null,param)
@@ -222,13 +222,13 @@ totalconsumeLoad(){
     let historyIds:Array<string>=[];
      month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
      let param={
-        endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
-        ids:[],
-        size:this.size// Number(this._param.month)
+        "endTime": this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+        "ids":[],
+        "size":this.size// Number(this._param.month)
     };
 
  
-    historyIds = [this.userTypeLoader.FirstItem.enterpriseId];
+    historyIds = [this.userTypeLoader.FirstItem.organizationId];
 
      param.ids = historyIds;
 
@@ -432,7 +432,7 @@ showMsg(msg: string)
     this.layoutService.show();
     let ids:Array<string>=[];
     let month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
-    ids.push(this.userTypeLoader.FirstItem.enterpriseId);
+    ids.push(this.userTypeLoader.FirstItem.organizationId);
 
         let param =     {
         "endTime": this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel,SystemDictionaryService } from '../../../../architecture';
 import { ComputeQuery} from '../model/compute-query.model';
 import { PlfList_mock }from '../model/plf-list.mock';
 import { BasicList_mock }from '../model/basic-list.mock';
@@ -10,8 +10,18 @@ export class ComputeTrendService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) { }
+
+    queryTypeDic = this.dict.get({
+        owner: "MAINTAIN",
+        field: "TRENDQUERYTYPE"
+    });
+    trendPeridDic = this.dict.get({
+        owner: "MAINTAIN",
+        field: "TRENDPERIOD"
+    });
 
     init(): void {
         this.restApiCfg.loadCfgData();
@@ -32,21 +42,21 @@ export class ComputeTrendService {
 
     
 
-    getCpuData(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("compute-trend.basic.info");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
+    getCpuData(hostId:string): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("compute-trend.graph.cpu");
+        //return this.restApi.request(api.method, api.url, pathParams, null, hostId);
         return new Promise(resovle => setTimeout(resovle, 10)).then(() => CpuData_mock);
     }
 
-     getVmData(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("compute-trend.basic.info");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
+     getVmData(hostId:string): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("compute-trend.graph.vm");
+        //return this.restApi.request(api.method, api.url, pathParams, null, hostId);
         return new Promise(resovle => setTimeout(resovle, 10)).then(() => VmData_mock);
     }
 
-     getMemData(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("compute-trend.basic.info");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
+     getMemData(hostId:string): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("compute-trend.graph.mem");
+        //return this.restApi.request(api.method, api.url, pathParams, null, hostId);
         return new Promise(resovle => setTimeout(resovle, 10)).then(() => MemData_mock);
      }
 

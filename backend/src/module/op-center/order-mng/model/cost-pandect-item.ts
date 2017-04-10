@@ -6,7 +6,7 @@ export class CostPandectItem{
     productName : string;//产品名称
     num:string;//购买数量
     priceDetails:Array<SubInstancePriceDetail>;//费用类型，可能存在多种费用类型
-    total_amount:string;//应付金额
+    total_amount:number;//应付金额
     
 }
 
