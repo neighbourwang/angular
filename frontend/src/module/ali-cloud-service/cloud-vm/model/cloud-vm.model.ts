@@ -8,10 +8,13 @@ export class orderVmPageModel {
     areas: Array<AreaModel> = [];
     selectedArea: AreaModel = new AreaModel();
 
-    selectedChargeType: string = "PostPaid";//收费方式
+    selectedChargeType: string = "PostPaid";//收费方式:PostPaid,按量付费,PrePaid,包年包月
 
     selectedNetworkType: string = "classic"; //'classic' 表示经典网络，'vpc'表示专有网络
     selectedNetworkId: string = "";
+    AllocatePublicIP: boolean = false;
+
+    SecurityGroupId: string = null;
 
     selectedGeneration: string = ""; //实例族
     selectedInstanceFamily: string = "";
@@ -252,7 +255,7 @@ export class instanceFamilyTreeGenerationModel {
 //<<<
 
 
-
+//>>>
 export class priceSubmitModel {
     orderType: string = "instance-buy";
     regionId: string = "";
@@ -260,30 +263,44 @@ export class priceSubmitModel {
     zoneId: string = "";
 
 }
-
 export class priceCommodityModel {
     amount: number = 1;
+    imageId: string = null;
+    securityGroupId: string = null;
+    securityGroupRule: string = null;
     autoRenew: boolean = false;
-    instanceType: string = "";
-    internetChargeType: string = "";
-    internetMaxBandwidthOut: number = 1;
+    instanceType: string = null;
+    internetChargeType: string = null;
+    internetMaxBandwidthOut: number = 0;
     ioOptimized: boolean = false;
     maxAmount: number = 1;
-    networkType: string = "";
+    networkType: string = null;
+    vpcId: string = null;
     period: number = 0;
-    periodType: string = "";
-    priceUnit: string = "";
+    periodType: string = null;
+    priceUnit: string = null;
     systemDisk: systemDiskModel = new systemDiskModel();
 }
-
 export class systemDiskModel {
-    category: string = "";
+    category: string = null;
     size: number = 1;
 }
+//<<<
 
 
 
-
+export class securityGroupModel {
+    CreationTime: string = "";
+    Tags: TagModel = new TagModel();
+    SecurityGroupId: string = null;
+    SecurityGroupName: string = null
+    Description: string = "";
+    AvailableInstanceAmount: number = 0;
+    VpcId: string = "";
+}
+export class TagModel {
+    Tag: Array<string> = [];
+}
 
 
 
