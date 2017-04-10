@@ -53,7 +53,6 @@ import { ClMngIdService } from '../service/cl-mng-id.service';
 })
 
 export class ClMngCreStep1Component implements OnInit {
-
     creStep1Model: CreStep1Model = new CreStep1Model();
     title: String;
     msg: String;
@@ -61,7 +60,6 @@ export class ClMngCreStep1Component implements OnInit {
     platformVersion: Array<any> = new Array<any>();
     regions: Array<any> = new Array<any>();
     platFormRegionList: Array<any> = new Array<any>();
-
     constructor(
         private router: Router,
         private service: ClMngCreStep1Service,
@@ -69,8 +67,6 @@ export class ClMngCreStep1Component implements OnInit {
         private idService: ClMngIdService,
         private commonService: ClMngCommonService
     ) { }
-
-
     @ViewChild('notice')
     notice: NoticeComponent;
 
@@ -150,11 +146,12 @@ export class ClMngCreStep1Component implements OnInit {
         if (this.checkValue()) {
             this.notice.open('COMMON.ERROR', message);
         } else {
-        //验证平台名称唯一 
-            this.layoutService.show();                   
+            //验证平台名称唯一 
+            this.layoutService.show();
             this.service.platformNameNorepeate(this.creStep1Model.name).then(res => {
-                console.log(res)
-                if (res.resultContent.length == 0 && res.resultCode == 100) {
+                if (res.resultCode == 100) {
+                    console.log(res);
+                    if (res.resultContent.length == 0) {
                         if (this.creStep1Model.platformType == '0') {
                             this.getPlatformRegionList()
                                 .then(
@@ -173,9 +170,10 @@ export class ClMngCreStep1Component implements OnInit {
                                 }
                                 )
                         } else {
+                            this.layoutService.show();
                             this.service.crPlatForm(this.creStep1Model).then(
                                 res => {
-                                    this.layoutService.hide();                                    
+                                    this.layoutService.hide();
                                     this.idService.setPlatformId(res.resultContent);
                                     this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
                                 }
@@ -188,12 +186,15 @@ export class ClMngCreStep1Component implements OnInit {
                                 )
                         }
                     } else {
-                        this.layoutService.hide();                        
+                        this.layoutService.hide();
                         // this.notice.open('COMMON.ERROR',"PF_MNG2.PLATFORM NAME"+" '"+this.creStep1Model.name+"' "+"PF_MNG2.EXISTS");
                         this.notice.open('COMMON.ERROR', "PF_MNG2.PLATFORM_NAME_EXISTS");
                     }
+                this.layoutService.hide();                    
+                }
             }).catch(err => {
                 console.log(err);
+                this.layoutService.hide();
             })
         }
     }

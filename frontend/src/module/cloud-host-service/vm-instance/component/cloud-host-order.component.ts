@@ -113,7 +113,7 @@ export class cloudHostComponentOrder implements OnInit {
 				this.setSenModule(config);
 			});
 			// this.configs["bootstorage"].mapValueList = this.configs["storage"].mapValueList;  //临时添加
-			this.sendModule.username.attrValue = "root";
+			// this.sendModule.username.attrValue = "root";
 			// console.log(this.sendModule, this.configs)
 
 			this.skuMap = configList.skuMap;
@@ -191,7 +191,7 @@ export class cloudHostComponentOrder implements OnInit {
 	 * @return {PayLoad[]} [description]
 	 */
 	private payLoadFormat(): PayLoad[] {
-console.log(this.vmProduct)
+
 		/****下面开始处云主机订单的逻辑****/
 		let payloadList = this.sendModuleToPay(),
 			itemNo = this.makeItemNum(),
@@ -236,7 +236,7 @@ console.log(this.vmProduct)
 				this.payLoadArr.push(payLoad);  //加入云硬盘
 			}
 		}
-		// console.log("发送的订单数据：" , this.payLoadArr)
+		console.log("发送的订单数据：" , this.payLoadArr)
 		return this.payLoadArr;
 	}
 
@@ -384,6 +384,7 @@ console.log(this.vmProduct)
 
 			this.networkList = list;
 			this.sendModule.networktype = list[0];
+			this.osChanged();
 		}).catch(e => {
 			this.networkList = [];
 			this.layoutService.hide();
@@ -402,7 +403,8 @@ console.log(this.vmProduct)
 					attrValueCode: r.imageId,
 					attrDisplayValue: r.imageDisplayName,
 					attrValue: r.imageCode,
-					capacity: r.capacity
+					capacity: r.capacity,
+					osType: r.osType
 				})
 			}
 
@@ -412,6 +414,10 @@ console.log(this.vmProduct)
 			this.imageList = [];
 			this.layoutService.hide()
 		})
+	}
+
+	osChanged() {
+		this.sendModule.username.attrValue = this.sendModule.os.osType == 0 ? "administrtor" : "root";
 	}
 
 	oSfilterBootsize(bootSizeList:VlueList[]):VlueList[] {  //根据os的大小过滤bootsize的大小

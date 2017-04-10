@@ -54,7 +54,7 @@
 										<tr>
 											<td class="text-r" rowspan=2>(费用合计)</td>
 											<td class="text-r">一次性费用：</td>
-											<td><font>¥{{disk.billingInfo?.basePrice}}元</font></td>
+											<td><font>¥0元</font></td>
 										</tr>
 										<tr>
 											<td class="text-r vertical-t">费用：</td>
@@ -67,19 +67,20 @@
 					</table>
 				</div>
 		      
-			  	<div class="modal-footer">
+				<div class="modal-footer">
 			        <button (click)="setConfig()" class="btn button-confirm button-size-big">{{ot || 'DIALOG.CONFIRM' | translate }}</button> <!-- 确认 -->
 			        <button class="btn btn-default button-size-big" data-dismiss="modal">{{ct || 'DIALOG.CANCEL' | translate }}</button> <!-- 取消 -->
-			  	</div>
-	  	</div>
-	  	<!-- 变更完成 -->
+				</div>
+		</div>
+		<!-- 变更完成 -->
 		<div class="modal-content" *ngIf="state === 'done'">
-		  	<div class="modal-header">
-			 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">订单完成：云硬盘扩容</h4>
-		  	</div>
-		 	<div class="modal-body"> 
-		 		<order-complete #order [orderId]="orderId"></order-complete>
+			</div>
+			<div class="modal-body"> 
+				<!-- <order-complete #order [orderId]="orderId"></order-complete> -->
+				<product-info-table [orderId]="orderId"> </product-info-table>
 
 				<div class="done-bottom">
 					<div class="left-text float-left">
@@ -90,6 +91,6 @@
 					<button (click)="router.navigateByUrl('mng-console')" class="btn button-confirm button-size-big float-right">管理控制台</button>
 				</div>
 			</div>
-	  	</div>
+		</div>
 	</div>
 </div>
