@@ -6,6 +6,7 @@ class VlueList {
     attrValue?: string = "";
     sku?:SkuMap;
     capacity?: number;
+    osType?: number;
 }
 
 class OrderService {
