@@ -137,11 +137,6 @@ export class AliCloudVmListComponent implements OnInit {
         });
         region.selected = true;
         this.getInstanceList(region); // 列出对应region的instance list
-        /*
-        if (region.areas == null || region.areas.length == 0) {
-            this.getArea(region);
-        }
-        */
     }
 
     getInstanceList(region: RegionModel) {

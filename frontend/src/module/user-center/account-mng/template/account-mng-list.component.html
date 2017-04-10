@@ -34,12 +34,12 @@
                             <template ngSwitchDefault>Unknown</template>
                     	</span>
             </td>
-            <td class="text-center">
-                <span class="glyphicon glyphicon-edit font-green" (click)="edit(account,idx)" style="margin-right : 10px ;cursor:pointer"></span>
+            <td class="text-left">
+                <span title="{{'COMMON.EDIT'|translate}}" class="glyphicon glyphicon-edit font-green" (click)="edit(account,idx)" style="margin-right : 10px ;cursor:pointer"></span>
                 <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
-                <span *ngIf="!account.isRoot" class="glyphicon glyphicon-ok-circle font-green" (click)="enable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
-                <span *ngIf="!account.isRoot" class="glyphicon glyphicon-ban-circle font-orange" (click)="disable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
-                <span *ngIf="!account.isRoot" class="glyphicon glyphicon-trash font-orange" (click)="delete(account,idx)" style="cursor:pointer"></span>
+                <span title="{{'COMMON.ENABLE'|translate}}" *ngIf="!account.isMybody" class="glyphicon glyphicon-ok-circle font-green" (click)="enable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
+                <span title="{{'COMMON.DISENABLED'|translate}}" *ngIf="!account.isMybody" class="glyphicon glyphicon-ban-circle font-orange" (click)="disable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
+                <span title="{{'COMMON.DELETE'|translate}}" *ngIf="!account.isMybody" class="glyphicon glyphicon-trash font-orange" (click)="delete(account,idx)" style="cursor:pointer"></span>
             </td>
         </tr>
     </tbody>
