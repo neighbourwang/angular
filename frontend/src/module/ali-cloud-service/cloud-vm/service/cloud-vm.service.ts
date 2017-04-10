@@ -167,6 +167,28 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
+    getSecurityGroups(regionid: string) {
+        const pathParams = [
+            {
+                key: "regionid",
+                value: regionid
+            }
+        ];
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "pageNumber": "1",
+            "pageSize": "50",
+            "vpcId": ""
+            }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.securitygroup.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+
+    }
+
     calculatePrice(selectedOrderVmPage: orderVmPageModel): Promise<any> {
         let body1 = {
             "orderType": "traffic-bandwidth",
@@ -184,25 +206,56 @@ export class AliCloudVmService {
         body2.commodity.maxAmount = 1;
 
         body2.commodity.autoRenew = selectedOrderVmPage.renew;
-        body2.commodity.ioOptimized = selectedOrderVmPage.ioOptimized;        
-
-        body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
-        body2.commodity.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut;
-        
-        body2.commodity.networkType = selectedOrderVmPage.selectedInternetChargeType;
-
-        body2.commodity.period = selectedOrderVmPage.period;
-        body2.commodity.periodType = selectedOrderVmPage.periodType;
-        body2.commodity.priceUnit = selectedOrderVmPage.priceUnit;
+        body2.commodity.ioOptimized = selectedOrderVmPage.ioOptimized;  
+        body2.commodity.imageId =  selectedOrderVmPage.selectedImage;
 
         body2.commodity.systemDisk.category = selectedOrderVmPage.selectedDisk;
         body2.commodity.systemDisk.size = selectedOrderVmPage.diskCount;
-        if (selectedOrderVmPage.selectedChargeType == "PostPaid") { //按量计费，多传一个traffic-bandwidth            
+
+        body2.commodity.securityGroupId = selectedOrderVmPage.SecurityGroupId;
+        body2.commodity.securityGroupRule = null;//selectedOrderVmPage.securityGroupRule;
+
+        
+        
+        body2.commodity.networkType = selectedOrderVmPage.selectedNetworkType;
+        if(body2.commodity.networkType == 'classic') {
+            body2.commodity.vpcId = null;
+            body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
+            body2.commodity.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut;            
+        } else if (body2.commodity.networkType == 'vpc'){
+            body2.commodity.vpcId = selectedOrderVmPage.selectedNetworkId;
+            if(selectedOrderVmPage.AllocatePublicIP == false) {
+                body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
+                body2.commodity.internetMaxBandwidthOut = 0;             
+            } else if(selectedOrderVmPage.AllocatePublicIP == true) {
+                body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
+                body2.commodity.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut; 
+            }
+        }
+
+        if(selectedOrderVmPage.selectedChargeType=='PostPaid') {
+            body2.commodity.period = 1;
+            body2.commodity.priceUnit = 'Hour';
+            body2.commodity.periodType = 'Hourly';
+
+        } else if (selectedOrderVmPage.selectedChargeType=='PrePaid') {
+            if (selectedOrderVmPage.selectedQuantity<12) {
+                body2.commodity.period = selectedOrderVmPage.selectedQuantity;
+                body2.commodity.priceUnit = 'Month';
+                body2.commodity.periodType = 'Monthly';
+            } else if (selectedOrderVmPage.selectedQuantity>=12) {
+                body2.commodity.period = selectedOrderVmPage.selectedQuantity/12;
+                body2.commodity.priceUnit = 'Year';
+                body2.commodity.periodType = 'Yearly';
+            }             
+        } 
+
+        if (selectedOrderVmPage.selectedInternetChargeType == "PayByTraffic") { //按量带宽，多传一个traffic-bandwidth            
             body = [body1, body2];
-        } else if (selectedOrderVmPage.selectedChargeType == "PrePaid") { //包年包月，只传一个instance-buy
+        } else if (selectedOrderVmPage.selectedInternetChargeType == "PayByBandwidth") { //固定带宽，只传一个instance-buy
             body = [body2];
         }
-        console.log(body, "body");
+        console.log(body, "calculatePrice body!!!!!!!!!!!");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.price.get");
         return this.restApi.request(api.method, api.url, null, null, body);
     }

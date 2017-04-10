@@ -200,7 +200,7 @@ consumeLoad(){
             ids:[]
         };
    
-    sumIds = [{key:this.userTypeLoader.FirstItem.enterpriseId,value:this.userTypeLoader.FirstItem.enterpriseName}];
+    sumIds = [{key:this.userTypeLoader.FirstItem.organizationId,value:this.userTypeLoader.FirstItem.organizationName}];
     param.ids = sumIds;
 
     this.consumeLoader.Go(null,null,param)
@@ -222,26 +222,33 @@ totalconsumeLoad(){
     let historyIds:Array<string>=[];
      month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
      let param={
-        endTime: this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
-        ids:[],
-        size:this.size// Number(this._param.month)
+        "endTime": this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
+        "ids":[],
+        "size":this.size// Number(this._param.month)
     };
 
  
-    historyIds = [this.userTypeLoader.FirstItem.enterpriseId];
+    historyIds = [this.userTypeLoader.FirstItem.organizationId];
 
      param.ids = historyIds;
 
     this.totalConsumeLoader.Go(null,null,param)
      .then(success=>{
-        this.increseConsumeLoader.Go(null,null,param)
+        this.increaseConsumeLoad(param);
     })
-    .then(success=>{
-        this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);
-        this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);
+   .catch(err=>{
+        this.layoutService.hide();
+        this.showMsg(err);
+    })
+}
+increaseConsumeLoad(param:any){
+    this.increseConsumeLoader.Go(null,null,param)
+     .then(success=>{
+        this.toIncreaseHistoryData(this.increseConsumeLoader.Items,this.b_chart);   
+        this.toHistoryData(this.totalConsumeLoader.Items,this.b_chart);   
         this.ent_bar[0].data =  this.b_chart.datas;
         this.ent_bar[1].data =  this.b_chart.datas2;
-       this.layoutService.hide();
+        this.layoutService.hide();
     })
     .catch(err=>{
         this.layoutService.hide();
@@ -317,41 +324,51 @@ createSumBar(){
                     }];
     this.d_chart.colors = [
             {
-                backgroundColor:["#08C895","#82B6B2","#6F7DC8","#2BD2C8"]
+                backgroundColor:["rgba(255,206,86,0.3)","rgba(255,99,132,0.3)","rgba(54,162,235,0.3)","rgba(43,210,200,0.3)"]
             }
         ];
 }
 
 createHstoryBar(){  
    this.b_chart.colors = [
-                {
-                    backgroundColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ],
-                    borderColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ]
-                },{
+               {
+                            backgroundColor: [
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                            ],
+                            borderColor: [
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                            ]
+                        },{
 
-                    backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "rgba(255, 99, 132, 1)",
-                    pointBorderColor: "rgba(255, 99, 132, 1)",
-                    pointBackgroundColor: "#fff",
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                }
+                            backgroundColor: "rgba(255,99,132, 0.3)",//标题框背景
+                            borderColor: "rgba(255,99,132, 1)",//标题框边框
+                            pointBorderColor: "rgba(255,99,132, 1)",
+                            pointBackgroundColor: "#fff",
+                            pointHoverBackgroundColor: "rgba(255,99,132, 1)",
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                        }
             ];
     this.b_chart.options = {
                 scales: {
@@ -415,7 +432,7 @@ showMsg(msg: string)
     this.layoutService.show();
     let ids:Array<string>=[];
     let month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
-    ids.push(this.userTypeLoader.FirstItem.enterpriseId);
+    ids.push(this.userTypeLoader.FirstItem.organizationId);
 
         let param =     {
         "endTime": this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',

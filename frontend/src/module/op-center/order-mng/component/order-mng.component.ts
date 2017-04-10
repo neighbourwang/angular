@@ -510,7 +510,7 @@ export class OrderMngComponent implements OnInit {
 			let self = this;
 			let getRenewPrice: () => number = function () {
 				let item = self._renewPriceLoader.FirstItem;
-					return item.cyclePrice;
+					return item.basicPrice;
 
 				// return item.basePrice || item.basicPrice || item.cyclePrice || item.unitPrice;
 			};
@@ -528,7 +528,7 @@ export class OrderMngComponent implements OnInit {
 						n.renewPeriodType = this._renewPriceLoader.FirstItem.periodType;
 					});
 			this._renewSetting.onetimePrice = this._renewPriceLoader.FirstItem.basePrice;
-			this._renewSetting.price = this._renewPriceLoader.FirstItem.cyclePrice;
+			this._renewSetting.price = this._renewPriceLoader.FirstItem.basicPrice;
 			this._renewSetting.periodType = this._renewPriceLoader.FirstItem.periodType;
 			
 				})
@@ -706,8 +706,8 @@ export class OrderMngComponent implements OnInit {
 				"attrCode": "TIMELINEUNIT",
 				"attrDisplayName":  "时长单位",
 				"attrDisplayValue": items[0].attrDisplayValue,
-				"attrId": this.selectedOrderItem.orderId,
-				"attrValue": "5",//1,2,3,4,5,6
+				"attrId": items[0].attrId,
+				"attrValue": items[0].attrValue,
 				"attrValueCode":  items[0].attrValueCode,
 				"attrValueId": "",
 				"description":items[0].description,
@@ -717,7 +717,7 @@ export class OrderMngComponent implements OnInit {
 				"attrCode": "TIMELINE",
 				"attrDisplayName":  "购买时长",
 				"attrDisplayValue": items[1].attrDisplayValue,
-				"attrId": this.selectedOrderItem.orderId,
+				"attrId": items[1].attrId,
 				"attrValue":this._renewSetting.value.toString(),
 				"attrValueCode":  items[1].attrValueCode,
 				"attrValueId": "",
@@ -887,8 +887,21 @@ export class OrderMngComponent implements OnInit {
 	//计算时长
 	calRenewDate(renewMode: string, renewLen: number): string {
 		let toDate: (date: Date) => string = function (date: Date): string {
-			return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-		};
+		// 	return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+		let hours:String=`${date.getHours()}`;
+			let minutes:string =`${date.getMinutes()}`;
+			let seconds:String=`${date.getSeconds()}`;;
+			if(hours=='0'){
+				hours='00';
+			}
+			if(minutes=='0'){
+				minutes='00';
+			}
+			if(seconds=='0'){
+				seconds='00';
+			}
+			return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} `+hours+':'+minutes+':'+seconds;
+	};
 
 		let handlerObj = {
 			"0": (len: number) => {

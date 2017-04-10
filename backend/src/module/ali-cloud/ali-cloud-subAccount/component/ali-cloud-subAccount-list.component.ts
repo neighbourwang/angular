@@ -1,11 +1,11 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute,Params } from '@angular/router';
 
 import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
 
 //model
-
+import{AccountListModel} from '../model/account-list.model';
 //service
 import { AliCloudSubAccountMngService} from '../service/ali-cloud-subAccount-mng.service'
 
@@ -19,7 +19,7 @@ import { AliCloudSubAccountMngService} from '../service/ali-cloud-subAccount-mng
 export class AliCloudSubAccountListComponent implements OnInit{
 
     constructor(
-        private router : Router,
+        private route : Router,
         private service : AliCloudSubAccountMngService,
         private layoutService : LayoutService
     ) {
@@ -32,11 +32,40 @@ export class AliCloudSubAccountListComponent implements OnInit{
     @ViewChild("notice")
     notice: NoticeComponent;
 
+    @ViewChild("confirm")
+    confirm: ConfirmComponent;
+
+     type: string;
+     accountList:Array<AccountListModel>;
+
     ngOnInit (){
         console.log('init');
         
 
 
+    }
+
+    //获取子账号列表
+    getAccountList(){
+        this.layoutService.hide();
+        this.service.getSubAccounts() 
+        .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.accountList=response["resultContent"];
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));      
+    }
+
+    //跳转添加子账号
+    createAccount(){
+        this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-mainAccount-edit`,{type:this.type}])
     }
 
     showAlert(msg: string): void {

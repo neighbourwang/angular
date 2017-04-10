@@ -119,6 +119,8 @@ export class cloudDriveListComponent implements OnInit {
 		this.serverId = vm.uuid;
 	};
 	confirmVm() {
+		if(!this.serverId) return this.showNotice("提示", "请选择要挂载的云主机")
+
 		this.handleDist("mount", this.mountDisk, "CLOUD_DRIVE_LIST.MOUNT_CLOUD_HOST");
 		this.vmDialog.close();
 	}
