@@ -140,7 +140,7 @@
 						<li><a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1 && !vm.publicIP && vm.platformType === '0'" (click)="handleVm('bindFloatingIp', vm, '绑定浮动IP')" href="javascript:">{{'VM_INSTANCE.BIND_FLOATING_IP'| translate}}</a></li>
 						<li>
 							<open-console #console [platformid]="vm.platformId" [uuid]="vm.uuid" [platformtype]="vm.platformType"></open-console>
-							<a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1" (click)="console.open()" href="javascript:">{{'VM_INSTANCE.VIEW_CONSOLE'| translate}}</a>
+							<a *ngIf="['0'].indexOf(vm.vmState) > -1" (click)="console.open()" href="javascript:">{{'VM_INSTANCE.VIEW_CONSOLE'| translate}}</a>
 						</li>
 						<li role="separator" class="divider"></li>
 						<li><a *ngIf="['0','7','14'].indexOf(vm.vmState) > -1" (click)="hostReconfig.open(vm)" href="javascript:">配置变更</a></li>
