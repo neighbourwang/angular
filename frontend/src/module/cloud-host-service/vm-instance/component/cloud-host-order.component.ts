@@ -73,6 +73,15 @@ export class cloudHostComponentOrder implements OnInit {
 
 	check = {};
 
+	tempImagetype = 
+      {
+        "attrValueId": "tempid",
+        "attrValueCode": null,
+        "attrDisplayValue": "私有镜像",
+        "attrValue": "1#2",
+        "status": false
+      }
+
 
 	@ViewChild('cartButton') cartButton;
     @ViewChild('storage') storage;
@@ -105,6 +114,7 @@ export class cloudHostComponentOrder implements OnInit {
 	setConfigList(): void {
 		this.layoutService.show();
 		this.service.getHostConfigList().then(configList => {
+
 			configList.attrList.forEach(config => {
 				// 设置配置列表
 				const attrName = config.attrCode.toLowerCase();
@@ -112,8 +122,8 @@ export class cloudHostComponentOrder implements OnInit {
 				this.configs[config.attrCode.toLowerCase()] = config;
 				this.setSenModule(config);
 			});
-			// this.configs["bootstorage"].mapValueList = this.configs["storage"].mapValueList;  //临时添加
-			// this.sendModule.username.attrValue = "root";
+
+			// this.sendModule.imagetype.
 			// console.log(this.sendModule, this.configs)
 
 			this.skuMap = configList.skuMap;
@@ -307,7 +317,7 @@ export class cloudHostComponentOrder implements OnInit {
 		if (!this.configs[attrName].relyAttrId) return [];
 
 		//根据他的依赖的id获取它自身的list
-		const list = (this.configs[attrName].mapValueList && this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId]) || [];
+		const list = (this.configs[attrName].mapValueList && this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId]).concat(this.tempImagetype) || [];
 
 		const attrid = this.sendModule[attrName].attrValueId;   //获取当前的sendmoudle的attrid
 		const isHas = (attrid && list && list.length && !!list.filter(l => l.attrValueId === attrid).length) || (!list.length && !attrid);   //列表里面是否有以选择的senModule
@@ -369,7 +379,7 @@ export class cloudHostComponentOrder implements OnInit {
 		this.layoutService.show();
 		this.service.getNetwork(platformId,zoneId).then(res => {
 			this.layoutService.hide();
-			if (!res.length) return;
+			if (!res.length) return this.networkList = [];
 			let list: VlueList[] = [];
 
 			for (let r of res) {
@@ -394,7 +404,7 @@ export class cloudHostComponentOrder implements OnInit {
 		this.layoutService.show();
 		this.service.getImage(platformId, imageType, startupResouce).then(res => {
 			this.layoutService.hide();
-			if (!res.length) return;
+			if (!res.length) return this.imageList = [];
 			let list: VlueList[] = [];
 
 			for (let r of res) {
