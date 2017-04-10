@@ -14,6 +14,7 @@ export class OrderMngParam{
   buyerId: string = null;//订购人
 
   reset(){
+    this.queryParam = null;
     this.createDate = null;
     this.enterpriseId = null;
     this.expireDate = null;
