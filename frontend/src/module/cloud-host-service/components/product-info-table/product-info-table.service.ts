@@ -15,6 +15,18 @@ export class ProductInfoTableService {
                 private restApi:RestApi) {
     }
 
+    getOrderList(params) : Promise<CartOrder[]>{
+        const api = this.restApiCfg.getRestApi("shopping.orders.completion");
+
+        const request = this.restApi.request(api.method, api.url,undefined,undefined, JSON.parse(params))
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+        return request;
+    }
 
     //数据字典所用到的值
     dictProductType = this.dict.get({  //获取产品type

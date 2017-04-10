@@ -105,6 +105,8 @@ export class ProductBillingItem {
 
 
 export class SubInstanceAttrPair {
+  attrId:string=null;
+  attrValue:string=null;
   attrCode: string = null;//, optional): 服务属性Code ,
   attrDisplayName: string = null;//, optional): 服务属性页面显示的名称 ,
   attrValueCode: string = null;//, optional): 服务属性值Code ,
