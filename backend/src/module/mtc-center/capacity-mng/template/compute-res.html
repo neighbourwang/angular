@@ -26,7 +26,7 @@
         <div class="col-md-10">
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default" *ngFor="let zoneInfo of zones let k=index" [ngClass]="k==0? 'active':''" (click)="getZoneId(zoneInfo.zoneId)">
-                    <input type="radio" name="zone" autocomplete="off" >{{zoneInfo.zoneName}}({{zoneInfo.zoneStatus}})
+                    <input type="radio" name="zone" autocomplete="off" >{{zoneInfo.zoneName}}<span [ngClass]="zoneInfo.zoneStatus==1?'':'font-orange'">({{zoneInfo.zoneStatus | dict:this.service.zoneStatusDic | async}})</span>
                 </label>
                 
             </div>
@@ -216,8 +216,8 @@
                             <span class="progress-value">{{host.memPercent}}%</span>
                         </div>
                     </td>
-                    <td>{{host.running}}</td>
-                    <td>{{host.status}}</td>
+                    <td [ngClass]="host.running==1?'font-green':'font-orange'">{{host.running| dict:this.service.runningDic | async}}</td>
+                    <td [ngClass]="host.status==1?'font-green':'font-orange'">{{host.status| dict:this.service.statusDic | async}}</td>
                 </tr>
             </tbody>
         </table>

@@ -10,8 +10,8 @@
             "memory": 256,//宿主机内存数量
             "cpuPercent": 83,//虚拟CPU（实际已分配）
             "memPercent": 80,//内存（实际已分配)
-            "running": "up",//数据字典
-            "status": "active",//数据字典
+            "running": "1",//数据字典
+            "status": "1",//数据字典
             "instance": 30//实例数量
         },
         {
@@ -21,8 +21,8 @@
             "memory": 512,//宿主机内存数量
             "cpuPercent": 67,//虚拟CPU（实际已分配）
             "memPercent": 56,//内存（实际已分配)
-            "running": "down",//数据字典
-            "status": "active",//数据字典
+            "running": "2",//数据字典
+            "status": "2",//数据字典
             "instance": 30//实例数量
         }
    ]
