@@ -51,7 +51,7 @@ export class VmViewComponent implements OnInit{
 			,publicIp:this.values.publicIp
 			,osType:this.values.osType
 			,password:getProperty(this.specList.find(n=>n.attrCode == 'PASSWORD'))
-			,instanceName: this.values.instanceName
+			,instanceName: getProperty(this.specList.find(n=>n.attrCode == 'INSTANCENAME'))
 			};
 		}
 		
