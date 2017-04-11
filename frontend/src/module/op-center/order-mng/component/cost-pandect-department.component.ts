@@ -154,7 +154,6 @@ private increseConsumeLoader:ItemLoader<CommonKeyValue> = null;//消费趋势-�
         this.loadLastDay();
         this.createSumBar();
         this.createHstoryBar();
-        this.search_chart();
 		this.layoutService.hide();
 	}
 
@@ -194,6 +193,7 @@ loadYears(){
             .then(sucess=>{
                 // let item = this.userTypeLoader.FirstItem;
                 this.isRootUser();
+                this.search_chart();
                 this.layoutService.hide();
             })
             .catch(err=>{
