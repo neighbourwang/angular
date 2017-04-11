@@ -87,14 +87,14 @@
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="exportAll()">{{'ASSIGN_MNG.EXPORT_ALL_DATA'|translate}}</button><!--导出所有数据-->
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="exportCurrent()">{{'ASSIGN_MNG.EXPORT_CURRENT_DATA'|translate}}</button><!--导出当前数据-->
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">{{'COMMON.RESET'|translate}}</button><!--重置-->
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">确认</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">{{'COMMON.CONFIRM'|translate}}</button><!--确认-->
     </div>
     <div style="clear:both;"></div>
     <div class="row mgt15">
         <div class="col-md-4">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">CPU使用率概览</h3>
+                    <h3 class="panel-title">{{'ASSIGN_MNG.CPU_USAGE_OVERVIEW'|translate}}</h3><!--CPU使用率概览-->
                 </div>
                 <div class="panel-body">
                      <div class="row">
@@ -134,7 +134,7 @@
         <div class="col-md-4">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">内存使用率概览</h3>
+                    <h3 class="panel-title">{{'ASSIGN_MNG.MEM_USAGE_OVERVIEW'|translate}}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -174,7 +174,7 @@
         <div class="col-md-2 ">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">云主机运行状态</h3>
+                    <h3 class="panel-title">{{'ASSIGN_MNG.CLOUD_HOST_RUNNING_STATE'|translate}}</h3><!--云主机运行状态-->
                 </div>
                 <div class="panel-body" style="padding:0;">                  
                     <table class="table table-hover">
@@ -195,7 +195,7 @@
         <div class="col-md-2">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">云主机规格信息</h3>
+                    <h3 class="panel-title">{{'ASSIGN_MNG.CLOUD_HOST_SPEC_INFO'|translate}}</h3><!--云主机规格信息-->
                 </div>
                 <div class="panel-body" style="padding:0;">
                     <table class="table table-hover">
@@ -214,17 +214,17 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>编号</th>
-                    <th>实例名称</th>
-                    <th>平台</th>
+                    <th>{{'CAPACITY_MNG.NUMBER'|translate}}</th><!--编号-->
+                    <th>{{'ASSIGN_MNG.INSTANCE_NAME'|translate}}</th><!--实例名称-->
+                    <th>{{'ASSIGN_MNG.PLATFORM'|translate}}</th><!--平台-->
                     <th>Region/DC</th>
-                    <th>可用区</th>
-                    <th>企业</th>
-                    <th>部门</th>
-                    <th>CPU平均利用率</th>
-                    <th>内存平均利用率</th>
-                    <th>CPU峰值利用率</th>
-                    <th>内存峰值利用率</th>
+                    <th>{{'ASSIGN_MNG.ZONE'|translate}}</th><!--可用区-->
+                    <th>{{'ASSIGN_MNG.ENT'|translate}}</th><!--企业-->
+                    <th>{{'ASSIGN_MNG.DEPT'|translate}}</th><!--部门-->
+                    <th>{{'ASSIGN_MNG.CPU_AVERAGE_UTILIZATION'|translate}}</th><!--CPU平均利用率-->
+                    <th>{{'ASSIGN_MNG.MEM_AVERAGE_UTILIZATION'|translate}}</th><!--内存平均利用率-->
+                    <th>{{'ASSIGN_MNG.CPU_PEAK_UTILIZATION'|translate}}</th><!--CPU峰值利用率-->
+                    <th>{{'ASSIGN_MNG.MEM_PEAK_UTILIZATION'|translate}}</th><!--内存峰值利用率-->
                 </tr>
             </thead>
             <tbody>
@@ -258,41 +258,37 @@
 </div>
 
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
-<fc-popup #exportAllData  title="{{title}}"  ot="导出" (of)="acceptExport();" ct="取消"   cssClass="minWidth900">
+<fc-popup #exportAllData  title="{{title}}"  ot="{{'ASSIGN_MNG.EXPORT'|translate}}" (of)="acceptExport();" ct="{{'COMMON.CANCEL'|translate}}"   cssClass="minWidth900">
     <div class="row row-line-height" >
         
             <div class="col-md-3 form-control-title" style="line-height: 50px;">
-                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectFirst()" />&nbsp;快速选择：
+                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectFirst()" />&nbsp;{{'ASSIGN_MNG.QUICK_SELECT'|translate}}：
             </div>
             <div class="col-md-4" style="margin-top:10px;">
                 <select class="form-control"[(ngModel)]="period" >
-                    <option value="1">最近24小时</option>
-                    <option value="2">最近7天</option>
-                    <option value="3">最近30天</option>
-                    <option value="4">最近90天</option>
-                    <option value="5">最近180天</option>
-                    <option value="6">最近360天</option>
+                    <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
                 </select>
             </div>
         
     </div>
     <div class="row row-line-height">       
             <div class="col-md-3 form-control-title" style="line-height: 50px;">
-                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectSecond()" />&nbsp;时间范围：
+                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectSecond()" />&nbsp;{{'ASSIGN_MNG.PERIOD'|translate}}：
             </div>
             <div class="col-md-9">
                 <div class="assign-mng float-left">
                     <date-picker (dateChanged)="StartDateChange($event)" ></date-picker>
                 </div>
-                <div style="float: left; line-height: 50px; width: 40px; text-align: center;">至</div>
+                <div style="float: left; line-height: 50px; width: 40px; text-align: center;">{{'ASSIGN_MNG.TO'|translate}}</div>
                 <div class="assign-mng float-left">
                     <date-picker (dateChanged)="EndDateChange($event)"></date-picker>
                 </div>
             </div>
      
     </div>
+    <!--<div>{{flag}}</div>
     <div>{{startDate}}</div>
-    <div>{{endDate}}</div>
+    <div>{{endDate}}</div>-->
     <div style="height:200px;">
        
     </div>

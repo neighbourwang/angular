@@ -113,7 +113,7 @@
 
             <div class="row row-line-height">
                 <div class="form-group">
-                    <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.MAIN_START_TIME'|translate}}:</div
+                    <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.MAIN_START_TIME'|translate}}:</div>
                     <div class="col-md-4" *ngIf="physical.mainStartDate && eidtMode !='create'">
                        <date-picker  [options]="myDatePickerOptions"  [initDate]= "physical.mainStartDate" (dateChanged)="startTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
                     </div>

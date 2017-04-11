@@ -16,24 +16,24 @@
         </div>
         <div class="row row-line-height">
             <div class="col-md-10" >
-                <div class="col-md-2 form-control-title">平台：</div>
+                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.PLATFORM'|translate}}：</div><!--平台-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion; selectedZone=defaultZone;">
-                        <option [ngValue]="defaultPlf">所有平台</option>
+                        <option [ngValue]="defaultPlf">{{'ASSIGN_MNG.ALL_PLATFORMS'|translate}}</option><!--所有平台-->
                         <option *ngFor="let plf of plfList" [ngValue]="plf">{{plf.platformName}}</option>
                     </select>
                 </div>
                 <div class="col-md-2 form-control-title">Region/DC：</div>
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedZone=defaultZone; ">
-                        <option [ngValue]="defaultRegion">所有Region/DC</option>
+                        <option [ngValue]="defaultRegion">{{'ASSIGN_MNG.ALL_REGIONS'|translate}}</option><!--所有Region/DC-->
                         <option *ngFor="let reg of selectedPlf.region" [ngValue]="reg">{{reg.region}}</option>
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title">可用区：</div>
+                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.ZONE'|translate}}：</div><!--可用区-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedZone" >
-                        <option [ngValue]="defaultZone">所有可用区</option>
+                        <option [ngValue]="defaultZone">{{'ASSIGN_MNG.ALL_ZONES'|translate}}</option><!--所有可用区-->
                         <option *ngFor="let z of selectedRegion.zone" [ngValue]="z">{{z.zoneName}}</option>
                     </select>
                 </div>     
@@ -46,7 +46,7 @@
         </div>
         <div class="row row-line-height">
             <div class="col-md-10" >
-                <div class="col-md-2 form-control-title">云主机状态：</div>
+                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.CLOUD_HOST_STATE'|translate}}：</div><!--云主机状态-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.powerStatus">
                         <option [value]="'start'">运行</option>
@@ -55,7 +55,7 @@
                         <option [value]="all">所有</option>
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title" >时间范围：</div>
+                <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.PERIOD'|translate}}：</div><!--时间范围-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.period">
                         <option *ngFor="let p of service.trendPeridDic | async" [value]="p.value">{{p.displayValue}}</option>
@@ -92,7 +92,7 @@
         <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th>可用区</th>
+                    <th>{{'ASSIGN_MNG.ZONE'|translate}}</th><!--可用区-->
                     <th>物理CPU总核数</th>
                     <th>总内存</th>
                     <th>CPU超分比</th>

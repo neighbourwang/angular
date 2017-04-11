@@ -91,8 +91,22 @@
 	"USAGE_RANK":"利用率排序",
 	"PERIOD":"时间范围",
 	"EXPORT_ALL_DATA":"导出所有数据",
-	"EXPORT_CURRENT_DATA":"导出当前数据"
-
+	"EXPORT_CURRENT_DATA":"导出当前数据",
+	"CONFIRM":"确认",
+	"CPU_USAGE_OVERVIEW":"CPU使用率概览",
+	"MEM_USAGE_OVERVIEW":"内存使用率概览",
+	"CLOUD_HOST_RUNNING_STATE":"云主机运行状态",
+	"CLOUD_HOST_SPEC_INFO":"云主机规格信息",
+	"INSTANCE_NAME":"实例名称",
+	"CPU_AVERAGE_UTILIZATION":"CPU平均利用率",
+	"MEM_AVERAGE_UTILIZATION":"内存平均利用率",
+	"CPU_PEAK_UTILIZATION":"CPU峰值利用率",
+	"MEM_PEAK_UTILIZATION":"内存峰值利用率",
+	"EXPORT":"导出",
+	"QUICK_SELECT":"快速选择",
+	"TO":"至",
+	"APPLICANT":"申请人",
+	"BACK_TO_HYPER_MNG":"返回云主机超分管理"
   },
   "CHECK_CENTER": {
     "ADVANCED_QUERY": "高级查询",
