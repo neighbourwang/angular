@@ -119,7 +119,7 @@
                     </div>
                     <div class="col-md-4" *ngIf="eidtMode =='create' || physical.mainStartDate ==null">
                        <date-picker  [options]="myDatePickerOptions"  (dateChanged)="startTimeChange($event)" [disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
-                    </div>>{{physical.mainStartDate}}
+                    </div>
                 </div>
             </div>
             <div class="row row-line-height">
@@ -130,7 +130,7 @@
                     </div>
                      <div class="col-md-4" *ngIf="eidtMode =='create' || physical.mainEndDate ==null">
                        <date-picker  [options]="myDatePickerOptions"  (dateChanged)="endTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'"  ></date-picker>
-                    </div>>{{physical.mainEndDate}}
+                    </div>
                 </div>
             </div>
             <div *ngIf="read|| eidtMode =='view' ||eidtMode =='edit' ||eidtMode =='editParts'">

@@ -5,7 +5,8 @@ import { RestApiCfg, RestApi } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 
 import { RegionModel, keysecretModel } from '../../cloud-disk/model/cloud-disk.model';
-import { orderVmPageModel, QuantityModel, instanceListModel, priceSubmitModel, priceCommodityModel } from "../model/cloud-vm.model";
+import { orderVmPageModel, QuantityModel, instanceListModel, 
+    priceSubmitModel, priceCommodityModel, orderSubmitModel } from "../model/cloud-vm.model";
 
 @Injectable()
 export class AliCloudVmService {
@@ -251,7 +252,7 @@ export class AliCloudVmService {
             "regionId": selectedOrderVmPage.RegionId
         };
         let body2: priceSubmitModel = new priceSubmitModel();
-        let body;
+        
         body2.orderType = "instance-buy";
         body2.regionId = selectedOrderVmPage.RegionId;
         body2.zoneId = selectedOrderVmPage.selectedArea.ZoneId;
@@ -260,8 +261,6 @@ export class AliCloudVmService {
 
         body2.commodity.amount = 1;
         body2.commodity.maxAmount = 1;
-
-        body2.commodity.autoRenew = selectedOrderVmPage.renew;
         
         body2.commodity.imageId =  selectedOrderVmPage.selectedImage;
 
@@ -279,8 +278,6 @@ export class AliCloudVmService {
         }
         */
         body2.commodity.ioOptimized = selectedOrderVmPage.ioOptimized;
-
-        
         
         body2.commodity.networkType = selectedOrderVmPage.selectedNetworkType;
         if(body2.commodity.networkType == 'classic') {
@@ -288,7 +285,7 @@ export class AliCloudVmService {
             body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
             body2.commodity.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut;            
         } else if (body2.commodity.networkType == 'vpc'){
-            body2.commodity.vpcId = selectedOrderVmPage.selectedNetworkId;
+            body2.commodity.vpcId = selectedOrderVmPage.selectedVpcId;
             if(selectedOrderVmPage.AllocatePublicIP == false) {
                 body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
                 body2.commodity.internetMaxBandwidthOut = 0;             
@@ -302,7 +299,7 @@ export class AliCloudVmService {
             body2.commodity.period = 1;
             body2.commodity.priceUnit = 'Hour';
             body2.commodity.periodType = 'Hourly';
-
+            body2.commodity.autoRenew = null;
         } else if (selectedOrderVmPage.selectedChargeType=='PrePaid') {
             if (selectedOrderVmPage.selectedQuantity<12) {
                 body2.commodity.period = selectedOrderVmPage.selectedQuantity;
@@ -312,9 +309,17 @@ export class AliCloudVmService {
                 body2.commodity.period = selectedOrderVmPage.selectedQuantity/12;
                 body2.commodity.priceUnit = 'Year';
                 body2.commodity.periodType = 'Yearly';
-            }             
-        } 
+            }
+            body2.commodity.autoRenew = selectedOrderVmPage.renew;
+        }
+        
+        let str1 = JSON.stringify(body1);
+        console.log(str1);
+        let str2 = JSON.stringify(body2);
+        console.log(str2);
+        
 
+        let body: any = null;
         if (selectedOrderVmPage.selectedInternetChargeType == "PayByTraffic") { //按量带宽，多传一个traffic-bandwidth            
             body = [body1, body2];
         } else if (selectedOrderVmPage.selectedInternetChargeType == "PayByBandwidth") { //固定带宽，只传一个instance-buy
@@ -325,71 +330,67 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, null, null, body);
     }
 
-    createInstanceOrder(orderVmPage: orderVmPageModel): Promise<any> {
+    createInstanceOrder(selectedOrderVmPage: orderVmPageModel): Promise<any> {
         const pathParams = [
             {
                 key: "regionid",
-                value: orderVmPage.RegionId
+                value: selectedOrderVmPage.RegionId
             }
         ];
-        const body = {
-            "accessinfo": {
-                "accessId": this.keysecret.accessId,
-                "accessSecret": this.keysecret.accessSecret
-            },
-            "instanceType": orderVmPage.selectedInstanceType,
-            "imageId": orderVmPage.selectedImage,
+        let body2:orderSubmitModel = new orderSubmitModel();
+        body2.accessinfo.accessId = this.keysecret.accessId;
+        body2.accessinfo.accessSecret = this.keysecret.accessSecret;
 
-            //"autoRenew": "",
-            //"autoRenewPeriod": "",
-            //"clientToken": "",
-            "dataDisk1Category": "",
-            "dataDisk1Description": "",
-            "dataDisk1Device": "",
-            "dataDisk1DiskName": "",
-            "dataDisk1Size": "",
-            "dataDisk1SnapshotId": "",
-            "dataDisk2Category": "",
-            "dataDisk2Description": "",
-            "dataDisk2Device": "",
-            "dataDisk2DiskName": "",
-            "dataDisk2Size": "",
-            "dataDisk2SnapshotId": "",
-            "dataDisk3Category": "",
-            "dataDisk3Description": "",
-            "dataDisk3Device": "",
-            "dataDisk3DiskName": "",
-            "dataDisk3Size": "",
-            "dataDisk3SnapshotId": "",
-            "dataDisk4Category": "",
-            "dataDisk4Description": "",
-            "dataDisk4Device": "",
-            "dataDisk4DiskName": "",
-            "dataDisk4Size": "",
-            "dataDisk4SnapshotId": "",
-            "description": "",
-            "hostName": "",
-            "instanceChargeType": orderVmPage.selectedChargeType,
-            "instanceName": orderVmPage.InstanceName,
-            "internetChargeType": orderVmPage.selectedInternetChargeType,
-            "internetMaxBandwidthIn": orderVmPage.selectedInternetMaxBandwidthIn,
-            "internetMaxBandwidthOut": orderVmPage.selectedInternetMaxBandwidthOut,
-            "ioOptimized": "",
-            "nodeControllerId": "",
-            "password": orderVmPage.Password,
-            "period": "",
-            "privateIpAddress": "",
-            "securityGroupId": "",
-            "systemDiskCategory": orderVmPage.selectedDisk,
-            "systemDiskDescription": "",
-            "systemDiskDiskName": "",
-            "systemDiskSize": orderVmPage.diskCount,
-            "userData": "",
-            "vswitchId": orderVmPage.selectedNetworkId,
-            "zoneId": orderVmPage.selectedArea.ZoneId
+        body2.imageId = selectedOrderVmPage.selectedImage;
+        body2.instanceType = selectedOrderVmPage.selectedInstanceType;
 
+        body2.clientToken = null;
+        body2.hostName = null;        
+        body2.internetMaxBandwidthIn = null;
+        body2.nodeControllerId = null;
+        body2.privateIpAddress = null;
+        body2.userData = null;
+        body2.description = null;
+        body2.systemDiskDescription = null;
+        body2.systemDiskDiskName = null;
+
+        body2.instanceChargeType = selectedOrderVmPage.selectedChargeType;
+        if(selectedOrderVmPage.selectedChargeType=='PostPaid') {
+            body2.autoRenew = null;
+            body2.autoRenewPeriod = null;
+        } else if (selectedOrderVmPage.selectedChargeType=='PrePaid') {
+            body2.autoRenew = selectedOrderVmPage.renew;
+            body2.autoRenewPeriod = "1";            
         }
-        console.log(body, "order vm body")
+
+        body2.instanceName = selectedOrderVmPage.InstanceName || null;
+        
+        body2.internetChargeType = selectedOrderVmPage.selectedInternetChargeType  || null;                
+        body2.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut || null;
+
+        if(selectedOrderVmPage.selectedGeneration == "ecs-1"){
+            body2.ioOptimized = null;
+        } else {
+            body2.ioOptimized = true;
+        }
+        
+        body2.password = selectedOrderVmPage.Password  || null;
+        body2.period = selectedOrderVmPage.selectedQuantity  || null;
+        
+        body2.securityGroupId = selectedOrderVmPage.SecurityGroupId  || null;
+        body2.systemDiskCategory = selectedOrderVmPage.selectedDisk  || null;
+        
+        body2.systemDiskSize = selectedOrderVmPage.diskCount  || null;
+        
+        body2.vswitchId = selectedOrderVmPage.selectedVswitchId  || null;
+        body2.zoneId = selectedOrderVmPage.selectedArea.ZoneId  || null;
+
+        //let bodycontent = JSON.stringify(body2);
+        
+        let body = body2
+        console.log(body, "order vm body!!!!!!!!!!");
+        let str = JSON.stringify(body);
+        console.log(str);
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.create");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }

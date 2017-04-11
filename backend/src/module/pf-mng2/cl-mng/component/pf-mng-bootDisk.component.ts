@@ -28,8 +28,8 @@ export class bootDiskMngComponent implements OnInit {
     @ViewChild('enableConfirm')
     enableConfirm: ConfirmComponent;
 
-    @ViewChild('disbaleConfirm')
-    disbaleConfirm: ConfirmComponent;
+    @ViewChild('disableConfirm')
+    disableConfirm: ConfirmComponent;
 
     @ViewChild('deleteConfirm')
     deleteConfirm: ConfirmComponent;
@@ -146,7 +146,7 @@ export class bootDiskMngComponent implements OnInit {
                     this.notice.open('操作错误', '不能禁用初始化状态的启动盘');
                     return;
                 }
-                this.enableConfirm.open('禁用启动盘',"你选择禁用 '"+this.selectedZone.bootStorageName+"' 启动盘")                
+                this.disableConfirm.open('禁用启动盘',"你选择禁用 '"+this.selectedZone.bootStorageName+"' 启动盘")                
                 
             } else {
                 this.notice.open('操作错误', '可用区下没有可编辑启动盘信息');
@@ -179,7 +179,7 @@ export class bootDiskMngComponent implements OnInit {
                     this.notice.open('操作错误', '不能删除启用状态下启动盘');
                     return;
                 }
-                this.enableConfirm.open('删除启动盘',"你选择删除 '"+this.selectedZone.bootStorageName+"' 启动盘")                                
+                this.deleteConfirm.open('删除启动盘',"你选择删除 '"+this.selectedZone.bootStorageName+"' 启动盘")                                
                 
             } else {
                 this.notice.open('操作错误', '可用区下没有可编辑启动盘信息');
