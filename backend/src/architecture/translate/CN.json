@@ -160,7 +160,7 @@
     "BY_YEAR1": "按年",
     "CANCEL": "取消",
     "CANNOT_BE_EMPTY": " * 必填内容不能为空",
-    "CANNOT_BE_INTEGER": "数量或配额不能为空或负数",
+    "CANNOT_BE_INTEGER": "不能为负数！",
     "CAPACITY_GB": "容量(GB)",
     "CAPATITY": "容量",
     "CAT": "类别",
@@ -1304,7 +1304,8 @@
     "SELECT": "选择",
     "SELECT_OPERATION": "选择操作",
     "STATUS": "状态",
-    "USED_PHY_AMOUNT": "已使用的物理机数量"
+    "USED_PHY_AMOUNT": "已使用的物理机数量",
+     "DISABLE_CANNOT_ADD": "禁用状态下不能添加物理机"
   },
     "PHY_MNG_DEPART": {
         "DELETE_DEPART": "删除部件",

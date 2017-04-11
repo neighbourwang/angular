@@ -51,12 +51,18 @@ export let RestApis: RestApiModel[] = [
         "id": "pf.cre.step.01.paltformRegins.get",
         "method": "POST",
         "url": "adminui/authsec/regions"
-    },
+    }, 
     {
         "desc": "创建平台",
         "id": "pf.cre.step.01.paltform.post",
         "method": "POST",
         "url": "adminui/authsec/platform"
+    },   
+    {
+        "desc": "创建平台名称唯一性验证",
+        "id": "pf.cre.name.norepeat",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/name/{name}"
     },
     {
         "desc": "取得特定平台信息",
@@ -2377,7 +2383,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取镜像的企业选择信息",
         "id":"phy-mng.phy-img-mng.phyimglist.getallolist",
         "method":"GET",
-        "url":"pmimagemgmt/noauth/pmimage/image/{pmImageId}/enterprise/show"
+        "url":"pmimagemgmt/authsec/pmimage/image/{pmImageId}/enterprise/show"
     },
     {
         "desc": "获取镜像的同步信息列表",
@@ -2529,6 +2535,24 @@ export let RestApis: RestApiModel[] = [
         "id":"compute-trend.basic.info",
         "method":"POST",
         "url":"maintenance/trend/general"
+     },
+     {
+        "desc": "按CPU",
+        "id":"compute-trend.graph.cpu",
+        "method":"POST",
+        "url":"maintenance/trend/graph/cpu"
+     },
+     {
+        "desc": "按vm",
+        "id":"compute-trend.graph.vm",
+        "method":"POST",
+        "url":"maintenance/trend/graph/vm"
+     },
+     {
+        "desc": "按mem",
+        "id":"compute-trend.graph.mem",
+        "method":"POST",
+        "url":"maintenance/trend/graph/mem"
      },
      {
         "desc": "导出当前数据",

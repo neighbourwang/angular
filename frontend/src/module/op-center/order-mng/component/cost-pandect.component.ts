@@ -461,51 +461,51 @@ createSumBar(){
                     }];
     this.d_chart.colors = [
             {
-                backgroundColor:["#08C895","#82B6B2","#6F7DC8","#2BD2C8"]
+                backgroundColor:["rgba(255,206,86,0.3)","rgba(255,99,132,0.3)","rgba(54,162,235,0.3)","rgba(43,210,200,0.3)"]
             }
         ];
 }
 
 createHstoryBar(){  
    this.b_chart.colors = [
-                {
-                    backgroundColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ],
-                    borderColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ]
-                },{
+               {
+                            backgroundColor: [
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                            ],
+                            borderColor: [
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                            ]
+                        },{
 
-                    backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "rgba(255, 99, 132, 1)",
-                    pointBorderColor: "rgba(255, 99, 132, 1)",
-                    pointBackgroundColor: "#fff",
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                }
+                            backgroundColor: "rgba(255,99,132, 0.3)",//标题框背景
+                            borderColor: "rgba(255,99,132, 1)",//标题框边框
+                            pointBorderColor: "rgba(255,99,132, 1)",
+                            pointBackgroundColor: "#fff",
+                            pointHoverBackgroundColor: "rgba(255,99,132, 1)",
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                        }
             ];
     this.b_chart.options = {
                 scales: {
@@ -553,21 +553,19 @@ createTopBar(){
      }];
         this.h_chart.colors  = [
                 {
-                    backgroundColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ],
-                    borderColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ]
-                }
+                        backgroundColor: [
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)'
+                        ],
+                        borderColor: [
+                           'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)'
+                        ]
+                    }
             ];
             this.h_chart.options={
                             scales: {
@@ -593,22 +591,20 @@ createTopBar2(){
      }];
 
              this.h_chart2.colors  = [
-                {
-                    backgroundColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ],
-                    borderColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ]
-                }
+                    {
+                       backgroundColor: [
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)'
+                        ],
+                        borderColor: [
+                           'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)'
+                        ]
+                    }
             ];
             this.h_chart2.options={
                             scales: {

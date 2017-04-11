@@ -21,6 +21,8 @@ import { cartCompleteService } from '../components/cart-complete/cart-complete.s
 import { OpenConsoleService } from '../components/open-console/open-console.service'; 
 import { CustomOsService } from '../components/custom-os/custom-os.service'; 
 
+import { ProductInfoTableModule } from './product-info-table/product-info-table.module';
+
 // import { formatInfo } from '../components/order-complete/formatInfo'; 
 
 // import { OrderMngCancelComponent, VmViewComponent, DiskViewComponent } from '../../op-center/order-mng/component/';
@@ -37,6 +39,7 @@ import { PlatformZoneModule } from './platform-zone/platform-zone.module';
         PipeModule,
         OrderCancleModule,
         OrderCompleteModule,
+        ProductInfoTableModule
     ],
     declarations: [
         CartButtonComponent,

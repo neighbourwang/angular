@@ -17,7 +17,8 @@ export class ProductInfoTableComponent implements OnInit,OnChanges {
 
 	totalPrice : TotalPrice = new TotalPrice();
 
-	@Input("itemList") itemList : any[];     //
+	@Input("orderId") orderId:string = "";
+	@Input("itemList") itemList : any[] = [];     //
 	@Input("hasSelect") hasSelect : boolean  = false;
 	@Input("disabled") disabled : boolean  = false;
 
@@ -33,6 +34,19 @@ export class ProductInfoTableComponent implements OnInit,OnChanges {
 
 	ngOnInit() {
 		// this.layoutService.show();
+		if(this.orderId) {
+			this.setList(this.orderId);
+		}
+	}
+
+	setList(params:string) {   //设置列表
+		this.service.getOrderList(params).then(orderList => {
+			this.layoutService.hide();
+			console.log(orderList)
+			this.itemList  = orderList.map(r => r.itemList[0]);
+		}).catch(e => {
+			this.layoutService.hide();
+		});
 	}
 
 	ngOnChanges(value) {

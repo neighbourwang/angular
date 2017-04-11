@@ -11,33 +11,31 @@
 </div>
 <div style="clear:both"></div>
 <table class="table table-hover mgt20" >
-    <thead>
-    <tr>
-        <th class="text-center">编号 </th>
-        <th class="text-center">子账号登录名</th>
-        <th class="text-center">所属部门 </th>
-        <th class="text-center">状态</th>
-        <th class="text-center">最后更新时间</th>
-        <th class="text-center">操作人 </th>
-        <th class="text-center">操作 </th>
-    </tr>
-    </thead>
     <tbody>
-    <tr>
-        <td class="text-center">1</td>
-        <td class="text-center"><a href="javascript:void(0);" class="a-active" (click)="getDetail(item);type= 'info';">fhd_001</a></td>
-        <td class="text-center">管理员部门</td>
-        <td class="text-center">已启用</td>
-        <td class="text-center">2017-4-6 8:00:00</td>
-        <td class="text-center">王某某</td>
-        <td class="text-center">
-            <span class="glyphicon glyphicon-edit font-green" style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);type='edit'"></span>
-            <span class="glyphicon glyphicon-user font-green" style="margin-right : 10px ;cursor:pointer" (click)="distriPage(item);"></span>
-            <span class="glyphicon glyphicon-ok-circle font-green" style="margin-right : 10px ;cursor:pointer"></span>
-            <span class="glyphicon glyphicon-ban-circle font-orange" style="margin-right : 10px ;cursor:pointer"></span>
-            <span class="glyphicon glyphicon-trash font-orange" style="margin-right : 10px ;cursor:pointer"></span>
-        </td>
-    </tr>
+        <tr>
+            <th class="text-center">编号 </th>
+            <th class="text-center">子账号登录名</th>
+            <th class="text-center">所属部门 </th>
+            <th class="text-center">状态</th>
+            <th class="text-center">最后更新时间</th>
+            <th class="text-center">操作人 </th>
+            <th class="text-center">操作 </th>
+        </tr>
+        <tr>
+            <td class="text-center">1</td>
+            <td class="text-center"><a href="javascript:void(0);" class="a-active" (click)="getDetail(item);type= 'info';">fhd_001</a></td>
+            <td class="text-center">管理员部门</td>
+            <td class="text-center">已启用</td>
+            <td class="text-center">2017-4-6 8:00:00</td>
+            <td class="text-center">王某某</td>
+            <td class="text-center">
+                <span class="glyphicon glyphicon-edit font-green" style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);type='edit'"></span>
+                <span class="glyphicon glyphicon-user font-green" style="margin-right : 10px ;cursor:pointer" (click)="distriPage(item);"></span>
+                <span class="glyphicon glyphicon-ok-circle font-green" style="margin-right : 10px ;cursor:pointer"></span>
+                <span class="glyphicon glyphicon-ban-circle font-orange" style="margin-right : 10px ;cursor:pointer"></span>
+                <span class="glyphicon glyphicon-trash font-orange" style="margin-right : 10px ;cursor:pointer"></span>
+            </td>
+        </tr>
     </tbody>
 </table>
 
@@ -80,7 +78,7 @@
             </div>
         </div>
         <div *ngIf="type== 'info' || type== 'create'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>所属部门:</div>
+            <div class="col-md-4 content-title" style="text-align : right">所属部门:</div>
             <div *ngIf="type== 'info'" class="col-md-8 no-padding">
                 <span style="line-height: 34px;">dsafjalsdkj;</span>
             </div>

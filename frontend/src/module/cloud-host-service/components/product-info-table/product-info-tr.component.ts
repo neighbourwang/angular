@@ -17,7 +17,7 @@ export class ProductInfoTrComponent implements OnInit,OnChanges {
 
 	totalPrice : TotalPrice = new TotalPrice();
 
-	@Input("itemList") itemList : any[];     //orderList和orderId 设置一个
+	@Input("itemList") itemList : any[] = [];    
 	@Input("hasSelect") hasSelect : boolean = false;
 	@Input("disabled") disabled : boolean = false;
 
@@ -43,6 +43,8 @@ export class ProductInfoTrComponent implements OnInit,OnChanges {
 	}
 
 	selectedSubItem() {
+		if(!this.itemList) return;
+console.log(this.itemList)
 		let selectedList = this.itemList.filter(item => item.selected);
 
 		this.onSelect.emit(selectedList);
