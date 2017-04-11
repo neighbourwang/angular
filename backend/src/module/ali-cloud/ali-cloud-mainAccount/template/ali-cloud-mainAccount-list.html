@@ -3,7 +3,7 @@
 </div>
 <div class="page-content">
     <div style="margin-bottom:10px">
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/physical_cre_res_pool.html">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="createAccount();">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">添加主账号</span>
         </button>
@@ -13,20 +13,20 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">编辑账号类型</a></li>
-                <li><a href="#">启用</a></li>
-                <li><a href="#">禁用</a></li>
-                <li><a href="#">删除</a></li>
+                <li><a href="javascript:void(0);" (click)="editAccountType();">编辑账号类型</a></li>
+                <li><a href="javascript:void(0);" (click)="changeAccountStatus();">启用</a></li>
+                <li><a href="javascript:void(0);" (click)="changeAccountStatus();">禁用</a></li>
+                <li><a href="javascript:void(0);" (click)="changeAccountStatus();">删除</a></li>
             </ul>
         </div>
         <div class="pull-right mgl10">
-            <button class="fox-cloud-button fox-cloud-button-green" key="boe/physical_cre_res_pool.html" (click)="gotoSubAccountList();">管理子账号</button>
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoSubAccountList();">管理子账号</button>
         </div>
         <div class="pull-right mgl10">
-            <button class="fox-cloud-button fox-cloud-button-green" key="boe/physical_cre_res_pool.html">分配企业</button>
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="setEntprise();">分配企业</button>
         </div>
         <div class="pull-right">
-            <button class="fox-cloud-button fox-cloud-button-green" key="boe/ali-edit-major.html">编辑</button>
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="editAccount();">编辑</button>
         </div>
     </div>
     <div class="table-container">
@@ -44,18 +44,34 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td><input type="radio" class="fox-cloud-radio"/></td>
-                <td><a href="#" key="boe/ali-major-info.html">王国庆45087461</a></td>
-                <td>独享</td>
-                <td>AB</td>
-                <td>已禁用</td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr *ngFor="let item of accountList">
+                <td>
+                    <input type="radio" name="aliAccount" class="fox-cloud-radio" (change)="getSelectAccount(item);"[checked]="item.isSelect" />
+                </td>
+                <td><a href="javascript:void(0);" (click)="viewAccount();">{{item}}</a></td>
+                <td>{{item}}</td>
+                <td>{{item}}</td>
+                <td>{{item}}</td>
+                <td>{{item}}</td>
+                <td>{{item}}</td>
+                <td>{{item}}</td>
             </tr>
             </tbody>
         </table>
     </div>
-
 </div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice> 
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}" ct="{{'PHYSICAL_MNG.CANCEL'|translate}}"  ></fc-confirm>
+ <fc-popup #editaccountType title="{{title}}" ot="保存"  ct="{{'PHYSICAL_MNG.CANCEL'|translate}}" (of)="editAccountType()" >
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>变更类型:</div>
+            <div class="col-sm-4">
+                <select class="form-control" >
+                    <option >共享账号</option>
+                    <option >独享账号</option>
+                </select>
+            </div>
+        </div>
+    </div>  
+</fc-popup>
