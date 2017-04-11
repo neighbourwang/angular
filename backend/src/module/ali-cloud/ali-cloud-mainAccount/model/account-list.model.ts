@@ -6,4 +6,5 @@ export class AccountListModel{
     updateTime:string;
     operator:string;
     description:string;
+    isSelect=false;
 }
