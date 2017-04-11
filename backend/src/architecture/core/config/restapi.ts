@@ -2383,7 +2383,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取镜像的企业选择信息",
         "id":"phy-mng.phy-img-mng.phyimglist.getallolist",
         "method":"GET",
-        "url":"pmimagemgmt/noauth/pmimage/image/{pmImageId}/enterprise/show"
+        "url":"pmimagemgmt/authsec/pmimage/image/{pmImageId}/enterprise/show"
     },
     {
         "desc": "获取镜像的同步信息列表",

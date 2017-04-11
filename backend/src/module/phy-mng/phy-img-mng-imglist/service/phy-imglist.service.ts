@@ -137,7 +137,7 @@ export class PhyImgListService {
         
         //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return ChangeStatusMock});
     }
-// GET /noauth/pmimage/image/{pmImageId}/enterprise/show 获取镜像的企业选择信息
+// GET /authsec/pmimage/image/{pmImageId}/enterprise/show 获取镜像的企业选择信息
 //根据pmImageId显示镜像提供企业选择信息
     getAllo(id:string): Promise<any>{
         const pathParams =[

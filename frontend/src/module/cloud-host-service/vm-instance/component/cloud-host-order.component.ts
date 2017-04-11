@@ -73,6 +73,15 @@ export class cloudHostComponentOrder implements OnInit {
 
 	check = {};
 
+	tempImagetype = 
+      {
+        "attrValueId": "tempid",
+        "attrValueCode": null,
+        "attrDisplayValue": "私有镜像",
+        "attrValue": "1#2",
+        "status": false
+      }
+
 
 	@ViewChild('cartButton') cartButton;
     @ViewChild('storage') storage;
@@ -105,6 +114,7 @@ export class cloudHostComponentOrder implements OnInit {
 	setConfigList(): void {
 		this.layoutService.show();
 		this.service.getHostConfigList().then(configList => {
+
 			configList.attrList.forEach(config => {
 				// 设置配置列表
 				const attrName = config.attrCode.toLowerCase();
@@ -112,8 +122,8 @@ export class cloudHostComponentOrder implements OnInit {
 				this.configs[config.attrCode.toLowerCase()] = config;
 				this.setSenModule(config);
 			});
-			// this.configs["bootstorage"].mapValueList = this.configs["storage"].mapValueList;  //临时添加
-			// this.sendModule.username.attrValue = "root";
+
+			// this.sendModule.imagetype.
 			// console.log(this.sendModule, this.configs)
 
 			this.skuMap = configList.skuMap;
@@ -369,7 +379,7 @@ export class cloudHostComponentOrder implements OnInit {
 		this.layoutService.show();
 		this.service.getNetwork(platformId,zoneId).then(res => {
 			this.layoutService.hide();
-			if (!res.length) return;
+			if (!res.length) return this.networkList = [];
 			let list: VlueList[] = [];
 
 			for (let r of res) {
@@ -394,7 +404,7 @@ export class cloudHostComponentOrder implements OnInit {
 		this.layoutService.show();
 		this.service.getImage(platformId, imageType, startupResouce).then(res => {
 			this.layoutService.hide();
-			if (!res.length) return;
+			if (!res.length) return this.imageList = [];
 			let list: VlueList[] = [];
 
 			for (let r of res) {

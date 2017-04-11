@@ -28,9 +28,9 @@ export class orderVmPageModel {
 
 
     selectedQuantity: number = 0; //购买量月份
-    period: number = 0;
-    periodType: string = "";
-    priceUnit: string = "";
+    period: number = 1;
+    periodType: string = "Hour";
+    priceUnit: string = "Hourly";
     renew: boolean = false;  //"0"表示不自动续费，"1"表示自动续费
 
     
@@ -284,6 +284,11 @@ export class priceCommodityModel {
 export class systemDiskModel {
     category: string = null;
     size: number = 1;
+}
+export class priceReturnModel {
+    orderType: string = "";
+    originalAmount: string = "";
+    tradeAmount: string = "";
 }
 //<<<
 
