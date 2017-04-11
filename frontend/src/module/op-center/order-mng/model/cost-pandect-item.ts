@@ -6,7 +6,7 @@ export class CostPandectItem{
     productName : string;//产品名称
     num:string;//购买数量
     priceDetails:Array<SubInstancePriceDetail>=[];//费用类型，可能存在多种费用类型
-    total_amount:string;//应付金额
+    total_amount:number;//应付金额
  
 }
 export class  TimeCaculater{
@@ -68,6 +68,7 @@ export class SubInstancePriceDetail {
 amount :number;//金额 
 billName:string;/// 计费名称(一次性费用/周期费用等 ,
 payUnit:string;//计费单位（次/月/年/季度)
+isShow:boolean = true;//是否显示
 }
 export class  Time{
     constructor(id:string,name:string) {

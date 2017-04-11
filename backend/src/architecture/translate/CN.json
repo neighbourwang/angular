@@ -74,6 +74,26 @@
     "MEMORY_UTILIZATION": "内存使用率",
     "PLEASE_CHOOSE_CLOUD_PLATFORM": "请选择云平台"
   },
+  "ASSIGN_MNG":{
+    "PRIVATE_HYPER_MNG":"私有云主机超分管理",
+	"FILTERS":"筛选条件",
+	"ENT":"企业",
+	"ALL_ENTS":"所有企业",
+	"DEPT":"部门",
+	"ALL_DEPTS":"所有部门",
+	"PLATFORM":"平台",
+	"ALL_PLATFORMS":"所有平台",
+	"ALL_REGIONS":"所有Region/DC",
+	"ZONE":"可用区",
+	"ALL_ZONES":"所有可用区",
+	"CLOUD_HOST_STATE":"云主机状态",
+	"CLOUD_HOST_SPEC":"云主机规格",
+	"USAGE_RANK":"利用率排序",
+	"PERIOD":"时间范围",
+	"EXPORT_ALL_DATA":"导出所有数据",
+	"EXPORT_CURRENT_DATA":"导出当前数据"
+
+  },
   "CHECK_CENTER": {
     "ADVANCED_QUERY": "高级查询",
     "APPROVAL": "审批同意",
@@ -1168,6 +1188,7 @@
     "EXISTS":"已存在",
     "PLATFORM_NAME_EXISTS":"平台名称已存在",
     "SPEC_NAME_EXISTS":"规格名称已存在",
+    "SPEC_NAME_ERROR":"规格名称错误",
     "ACCESS_PATH": "访问地址",
     "ADDRESS_REQUIRED": "请输入地址",
     "BASIC_INFO": "基本信息",
@@ -1500,7 +1521,7 @@
     "SELECT_COUNT_CYCLE": "请选择计费周期",
     "SELECT_COUNT_MODE": "请选择计费模式",
     "SELECT_PLATFORM": "请选择可用平台",
-    "SELECT_PRODUCT_CAT": "请选择产品目录",
+    "SELECT_PRODUCT": "请选择产品",
     "SELECT_PRODUCT_CAT_CLASS": "选择产品目录类别",
     "SELECT_STORAGE_BACKEND": "选择存储后端",
     "STANDARD_SMALL_CLOUD_HOST": "标准小型云主机",

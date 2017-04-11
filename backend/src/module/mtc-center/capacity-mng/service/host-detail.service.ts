@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi,SystemDictionaryService } from '../../../../architecture';
 
 import { HostInfo_mock } from '../model/host-info-list.mock';
 import {HostGraph_mock} from '../model/host-graph-list.mock';
@@ -9,9 +9,18 @@ export class HostDetailService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) { }
 
+    runningDic = this.dict.get({
+        owner: "MAINTAIN",
+        field: "RUNNING"
+    });
+    statusDic = this.dict.get({
+        owner: "MAINTAIN",
+        field: "STATUS"
+    });
      init(): void {
         this.restApiCfg.loadCfgData();
     }

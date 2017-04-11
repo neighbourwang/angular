@@ -5,24 +5,24 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
 
 //model
-//import{AccountModel} from '../model/account.model';
+import{AccountModel} from '../model/account.model';
 
 //service
-//import { AliCloudMainAccountEditService} from '../service/ali-cloud-mainAccount-edit.service'
+import { AliCloudMainAccountEditService} from '../service/ali-cloud-mainAccount-edit.service'
 
 @Component({
-    selector: 'ali-cloud-subAccount-edit',
-    templateUrl: '../template/ali-cloud-subAccount-edit.html',
+    selector: 'ali-cloud-mainAccount-edit',
+    templateUrl: '../template/ali-cloud-mainAccount-edit.html',
     styleUrls: [],
     providers: []
 })
 
-export class AliCloudSubAccountEditComponent implements OnInit{
+export class AliCloudMainAccountEditComponent implements OnInit{
 
     constructor(
         private route : Router,
         private activeRoute:ActivatedRoute,
-        //private service : AliCloudMainAccountEditService,
+        private service : AliCloudMainAccountEditService,
         private layoutService : LayoutService
     ) {
 
@@ -34,7 +34,7 @@ export class AliCloudSubAccountEditComponent implements OnInit{
     @ViewChild("notice")
     notice: NoticeComponent;
 
-    //account:AccountModel=new AccountModel();
+    account:AccountModel=new AccountModel();
 
     editMode:string;
     title:string;

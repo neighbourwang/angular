@@ -146,9 +146,8 @@ export class PhysicalEditComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.parts= response["resultContent"];
-                   
-                    console.log("部件清单",this.parts,this.parts[0].specList[0].specValues[0])
+                    this.parts= response["resultContent"];                 
+                   // console.log("部件清单",this.parts,this.parts[0].specList[0].specValues[0])
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -162,7 +161,8 @@ export class PhysicalEditComponent implements OnInit {
 
     //编辑物理机
     editPhysical() {
-       if(this.mainDateCompare() ) { this.layoutService.show();
+       if(this.physical.mainEndDate > this.physical.mainStartDate) { 
+           this.layoutService.show();
         this.service.editPhysical(this.physical)
             .then(
             response => {
@@ -264,7 +264,7 @@ export class PhysicalEditComponent implements OnInit {
             ) 
             .then(
                 ()=>{
-                   if(this.mainDateCompare()){
+                   if(this.physical.mainEndDate>this.physical.mainStartDate){
                        this.layoutService.show();
                        this.service.createPhysical(this.physical)
                         .then(
@@ -420,35 +420,35 @@ export class PhysicalEditComponent implements OnInit {
     //维保起始时间
      startTimeChange($event){
 		this.physical.mainStartDate = $event.formatted;
-         if(this.physical.mainEndDate){
-             let e=this.mainDateCompare();
-             if(!e){
-                 this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");
-                 return;
-             }
-        }    
+        //  if(this.physical.mainEndDate){
+        //      let e=this.mainDateCompare();
+        //      if(!e){
+        //          this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");
+        //          return;
+        //      }
+        // }    
 	}
     
     //维保结束时间
 	endTimeChange($event){
 		this.physical.mainEndDate = $event.formatted;
-        if(this.physical.mainStartDate){
-          let e=this.mainDateCompare();
-             if(!e){
-                 this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");
-                 return;
-             }
-        }     
+        // if(this.physical.mainStartDate){
+        //   let e=this.mainDateCompare();
+        //      if(!e){
+        //          this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");
+        //          return;
+        //      }
+        // }     
 	}
 
-    mainDateCompare():boolean{
-        let startDate= this.physical.mainStartDate.replace(/-/g,"/");
-        let endDate=this.physical.mainEndDate.replace(/-/g,"/");
-        if(startDate>=endDate) {          
-              return false;
-        }
-        else return true;
-    }
+    // mainDateCompare():boolean{
+    //     let startDate=  this.physical.mainStartDate.replace(/-/g,"/");
+    //     let endDate=this.physical.mainEndDate.replace(/-/g,"/");
+    //     if(startDate>=endDate) {          
+    //           return false;
+    //     }
+    //     else return true;
+    // }
     showAlert(msg: string): void {
         this.layoutService.hide();
         this.noticeTitle = "PHYSICAL_MNG.NOTICE";

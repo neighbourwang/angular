@@ -60,8 +60,8 @@
 								<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view>
 							</td>
 							<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
-							<td class="text-center">{{item.quantity}}</td>
-							<td class="text-center">{{item.period}}</td>
+							<td class="text-center">{{item.quantity}}台</td>
+							<td class="text-center">{{item.period}}<span>{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
 							<td style="width: 200px;" class="text-center">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}: {{ 'COMMON.$' | translate }}{{item.oneTimePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}: {{ 'COMMON.$' | translate }}{{item.price}}/
 							<span>{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
 						</tr>
