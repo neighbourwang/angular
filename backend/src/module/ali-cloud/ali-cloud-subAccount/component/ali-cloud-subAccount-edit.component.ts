@@ -17,7 +17,7 @@ import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../
     providers: []
 })
 
-export class AliCloudMainAccountEditComponent implements OnInit{
+export class AliCloudSubAccountEditComponent implements OnInit{
 
     constructor(
         private route : Router,

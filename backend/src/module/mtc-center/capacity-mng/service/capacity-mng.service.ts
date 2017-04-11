@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
 import {PlatformList_mock} from "../model/platform-list.mock";
 import {PlatformModel} from "../model/platform.model";
@@ -11,10 +11,15 @@ export class CapacityMngService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) { }
 
-   selectedPlatform:PlatformModel;
+    selectedPlatform: PlatformModel;
+    statusDic = this.dict.get({
+        owner: "MAINTAIN",
+        field: "STATUS"
+    });
     init(): void {
         this.restApiCfg.loadCfgData();
     }

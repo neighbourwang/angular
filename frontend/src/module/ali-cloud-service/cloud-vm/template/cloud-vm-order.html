@@ -64,11 +64,11 @@
                     <div class="col-md-12 mgb20 form-group" *ngIf="selectedOrderVmPage.selectedNetworkType=='vpc'">
                         <select class="form-control select_style" [(ngModel)]="selectedVPC" (change)="getVSwitches();">
                             <option [ngValue]="defaultVPC">请选择专有网络</option>
-                            <option *ngFor="let vpc of vpclist" [ngValue]="vpc">{{vpc.VpcName}}</option>
+                            <option *ngFor="let vpc of vpclist" [ngValue]="vpc">{{vpc.VpcName}}{{vpc.VpcId}}</option>
                         </select>
                         <select class="form-control select_style mgb10" [(ngModel)]="selectedVSwitch" (change)="VSwitchChanged();">
                             <option [ngValue]="defaultVSwitch">请选择虚拟交换机</option>
-                            <option *ngFor="let vswitch of vswitchlist" [ngValue]="vswitch">{{vswitch.VSwitchName}}</option>
+                            <option *ngFor="let vswitch of vswitchlist" [ngValue]="vswitch">{{vswitch.VSwitchId}}</option>
                         </select>
                         <div class="col-md-12">
                             <input type="checkbox" class="fox-cloud-checkbox mgl10" (click)="allocatePublicIPOrNot();" />是否分配公网IP地址<span class="glyphicon glyphicon-question-sign"></span>
@@ -98,7 +98,7 @@
                 <div class="col-md-1 li-title">
                     <p><span></span>实例：</p>
                 </div>
-                <div class="col-md-12 li-content">
+                <div class="col-md-12 li-content" *ngIf="displayInstanceType">
                     <div class="col-md-12 mgb20" style="display: inline">
                         <div *ngFor="let gene of instancegenerations;" style="display: inline">
                             <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedGeneration==gene.generation}' (click)="selectedOrderVmPage.selectedGeneration=gene.generation;

@@ -25,12 +25,12 @@
                      {
                          "zoneId": "101",
                          "zoneName": "朝阳区",
-                         "zoneStatus": "启用"
+                         "zoneStatus": "1"
                      },
                      {
                          "zoneId": "102",
                          "zoneName": "东城区",
-                         "zoneStatus": "禁用"
+                         "zoneStatus": "2"
                      }
                  ]
             },
@@ -41,12 +41,12 @@
                      {
                          "zoneId": "201",
                          "zoneName": "武昌区",
-                         "zoneStatus": "启用"
+                         "zoneStatus": "1"
                      },
                      {
                          "zoneId": "202",
                          "zoneName": "洪山区",
-                         "zoneStatus": "禁用"
+                         "zoneStatus": "2"
                      }
                  ]
             }
