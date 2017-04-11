@@ -945,7 +945,8 @@ export class OrderMngComponent implements OnInit {
 		}
 
 
-
+        // let date ='2017-03-15 00:00:00';
+		// return toDate(handlerObj[renewMode](renewLen)(date));
 		return toDate(handlerObj[renewMode](renewLen)(this.selectedOrderItem.itemList[0].expireDate));
 	}
 

@@ -10,8 +10,8 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
-                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PrePaid"}' (click)='selectedOrderVmPage.selectedChargeType="PrePaid"; showInstanceChargeType();' style="display: inline">包年包月<sup style="width: 20px; height: 20px; color: orange;">惠</sup></button>
-                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PostPaid"}' (click)='selectedOrderVmPage.selectedChargeType="PostPaid"; showInstanceChargeType();' style="display: inline">按量付费</button>
+                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PrePaid"}' (click)='selectedOrderVmPage.selectedChargeType="PrePaid"; showAndSetInstanceChargeType();' style="display: inline">包年包月<sup style="width: 20px; height: 20px; color: orange;">惠</sup></button>
+                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PostPaid"}' (click)='selectedOrderVmPage.selectedChargeType="PostPaid"; showAndSetInstanceChargeType();' style="display: inline">按量付费</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                 </div>
@@ -53,8 +53,8 @@
                 <div class="col-md-12 li-content">
 
                     <div class="col-md-12 mgb10">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="classic"}' (click)="selectedOrderVmPage.selectedNetworkType='classic'; selectedOrderVmPage.selectedNetworkId=''" style="display: inline">经典网络</button>
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="vpc"}' (click)="selectedOrderVmPage.selectedNetworkType='vpc';">专有网络</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="classic"}' (click)="selectedOrderVmPage.selectedNetworkType='classic'; showAndSetNetwork();" style="display: inline">经典网络</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="vpc"}' (click)="selectedOrderVmPage.selectedNetworkType='vpc'; showAndSetNetwork();">专有网络</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                     <div class="col-md-12 text-tip mgb20">
@@ -121,7 +121,7 @@
                         <div *ngFor="let family of instancetypefamilies;" style="display: inline">
                             <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceFamily==family.instancefamilyid}' (click)="selectedOrderVmPage.selectedInstanceFamily=family.instancefamilyid;
                                      instancetypes=family.instanceTypeIDModelList;
-                                     selectedOrderVmPage.selectedInstanceType=instancetypes[0].InstanceTypeId;" style="display: inline">{{family.instancefamilyid}}</button>
+                                     selectedOrderVmPage.selectedInstanceType=instancetypes[0].InstanceTypeId; showInstanceType();" style="display: inline">{{family.instancefamilyid}}</button>
                         </div>
                     </div>
                     <br />
@@ -135,14 +135,14 @@
             </li>
 
             <!-- 带宽 -->
-            <li>
+            <li *ngIf="selectedOrderVmPage.AllocatePublicIP">
                 <div class="col-md-1 li-title">
                     <p><span></span>带宽：</p>
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByBandwidth"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByBandwidth';">按固定带宽</button>
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByTraffic"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByTraffic';">按使用流量</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByBandwidth"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByBandwidth';showAndInternetCalcul();">按固定带宽</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByTraffic"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByTraffic';showAndInternetCalcul();">按使用流量</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                     <div class="col-md-12 mgt10 mgb20">
@@ -239,7 +239,7 @@
                             <option *ngFor="let disktype of selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories" [value]="disktype">{{displayDiskType(disktype)}}</option>
 						</select>
                         <div class="form-group has-feedback" [ngClass]="{'has-error':v.result.numberRange}" style="display: inline;">
-                            <input class="form-control input_style" [(ngModel)]="selectedOrderVmPage.diskCount" (ngModelChange)="checkForm('numberRange');" />G 1240 IOPS 系统盘设备名：/dev/xvda
+                            <input class="form-control input_style" [(ngModel)]="selectedOrderVmPage.diskCount" (ngModelChange)="checkForm('numberRange'); " (change)="DiskCountChanged();" />G 1240 IOPS 系统盘设备名：/dev/xvda
                             <span *ngIf="v.result.numberRange" class="alert alert-danger" role="alert">{{v.result.numberRange}}</span>
                         </div>
                         <br />

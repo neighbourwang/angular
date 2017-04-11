@@ -1,0 +1,95 @@
+<div class="page-content-header icon-content-header-ali-cloud">
+    {{title}}
+</div>
+<div class="page-content">
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>主账号登录名:</div>
+            <div class="col-sm-4" >
+                <input type="text" class="form-control" *ngIf="editMode =='create'" [(ngModel)]="account.accessId">
+                <span style="line-height:34px" *ngIf="editMode !='create'">1</span>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>阿里云访问地址:</div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" *ngIf="editMode !='view'">
+                <span style="line-height:34px" *ngIf="editMode =='view'">1</span>
+            </div>
+            <div class="col-sm-4" *ngIf="editMode !='view'">
+                <span class="font-orange" style="line-height:34px">自行修改默认设置可能会造成无法连接阿里云</span>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>Access Key ID:</div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" *ngIf="editMode !='view'">
+                <span style="line-height:34px" *ngIf="editMode =='view'">1</span>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>Access Key Secret:</div>
+            <div class="col-sm-4">
+               <input type="text" class="form-control" *ngIf="editMode !='view'">
+               <span style="line-height:34px" *ngIf="editMode =='view'">1</span>
+            </div>
+            <div class="col-sm-4" *ngIf="editMode !='view'">
+                <button class="fox-cloud-button fox-cloud-button-white " *ngIf="editMode =='edit'">
+                登录信息变更
+                </button>
+                <button class="fox-cloud-button fox-cloud-button-white ">
+                    测试<span class="glyphicon glyphicon-menu-right "></span>
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                </button>
+                <span class="font-green mgl15">测试成功<span class="glyphicon glyphicon-ok mgl10"></span></span>
+                <!--<span class="font-orange mgl15">测试失败<span class="glyphicon glyphicon-remove mgl10"></span></span>-->
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>账号类型:</div>
+            <div class="col-sm-4">
+                <select class="form-control" [disabled]="editMode !='create'">
+                    <option>独享</option>
+                    <option>共享</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height" *ngIf="editMode =='view'">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">已分配企业:</div>
+            <div class="col-sm-4"><span style="line-height:34px">1</span></div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">描述:</div>
+            <div class="col-sm-4">
+                <textarea rows="3"  class="form-control" maxlength="200" [disabled]="editMode =='view'"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-offset-4 pdl10" *ngIf="editMode !='view'">最多只能输入200个文字</div>
+</div>
+<div class="text-center ">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode !='view'" (click)="gotoAccountList();">
+        <span class="icon-button-label">取消</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='create'">
+        <span class="icon-button-label">添加</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='edit'">
+        <span class="icon-button-label">保存</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='view'" (click)="gotoAccountList();">
+        <span class="icon-button-label">关闭</span>
+    </button>
+</div>

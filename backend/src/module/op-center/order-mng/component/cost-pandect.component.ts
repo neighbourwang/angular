@@ -81,8 +81,23 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
                     for(let priceDetailItem of item.priceDetails){
                         if(priceDetailItem.billName=='一次性费用'){
                             priceDetailItem.isShow = false;
-                        }else{
                             item.total_amount=item.total_amount-priceDetailItem.amount;
+                        }else{
+                            
+                            priceDetailItem.isShow = true;
+                        }
+                    }
+                }
+            } 
+        }
+        this.increaseServiceLoader.Trait = (target:Array<CostPandectItem>)=>{
+            for(let item of target){
+                if(item.priceDetails){
+                    for(let priceDetailItem of item.priceDetails){
+                        if(priceDetailItem.billName=='一次性费用'){
+                            priceDetailItem.isShow = false;
+                            item.total_amount=item.total_amount-priceDetailItem.amount;
+                        }else{
                             priceDetailItem.isShow = true;
                         }
                     }
