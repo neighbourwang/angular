@@ -78,21 +78,38 @@ private increseConsumeLoader:ItemLoader<CommonKeyValue> = null;//消费趋势-�
         this.allServiceLoader = new ItemLoader<CostPandectItem> (false,'部门消费总览所有服务列表加载错误','op-center.order-mng.cost-pandect-department.all-service.post',this.restApiCfg,this.restApi);
         this.increaseServiceLoader = new ItemLoader<CostPandectItem> (false,'部门消费总览新增服务列表加载错误','op-center.order-mng.cost-pandect-department.increase-service.post',this.restApiCfg,this.restApi);
 
-        this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
-			for(let item of source)
-			{
-				let obj=new CostPandectItem();
-				target.push(obj);
-
-                obj.subinstanceCode = item.subinstanceCode;
+        this.allServiceLoader.Trait = (target:Array<CostPandectItem>)=>{
+            for(let item of target){
                 if(item.priceDetails){
-                    for(let priceItem of item.priceDetails){
-                        obj.priceDetails.push(item);
-                    } 
-                }
+                    for(let priceDetailItem of item.priceDetails){
+                        if(priceDetailItem.billName=='一次性费用'){
+                            priceDetailItem.isShow = false;
+                           
+                            // priceDetailItem.amount = Number(priceDetailItem.amount.toFixed(2));
+                            item.total_amount=item.total_amount-priceDetailItem.amount;
+                            item.total_amount = Number(item.total_amount.toFixed(2));
 
-			}
-		}
+                        }else{    
+                            priceDetailItem.isShow = true;
+                        }
+                    }
+                }
+            } 
+        }
+        this.increaseServiceLoader.Trait = (target:Array<CostPandectItem>)=>{
+            for(let item of target){
+                if(item.priceDetails){
+                    for(let priceDetailItem of item.priceDetails){
+                        if(priceDetailItem.billName=='一次性费用'){
+                            priceDetailItem.isShow = false;
+                            item.total_amount=item.total_amount-priceDetailItem.amount;
+                        }else{                      
+                            priceDetailItem.isShow = true;
+                        }
+                    }
+                }
+            } 
+        }
 
 
 
