@@ -103,6 +103,7 @@ private increseConsumeLoader:ItemLoader<CommonKeyValue> = null;//消费趋势-�
                         if(priceDetailItem.billName=='一次性费用'){
                             priceDetailItem.isShow = false;
                             item.total_amount=item.total_amount-priceDetailItem.amount;
+                            item.total_amount = Number(item.total_amount.toFixed(2));
                         }else{                      
                             priceDetailItem.isShow = true;
                         }
