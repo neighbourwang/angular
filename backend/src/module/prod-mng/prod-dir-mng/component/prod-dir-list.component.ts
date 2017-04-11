@@ -82,9 +82,8 @@ export class ProdDirListComponent implements OnInit {
                 })
                 this.prodDirTypeId = this.prodDirTypeList[0].id;
                 this.prodDirTypeList[0].isSelected=true;
-            } else {
-
-            }
+                console.log('Servicetypelist',this.prodDirTypeList);
+            } 
         }).catch(err => {
             console.error(err);
         })
@@ -293,7 +292,12 @@ export class ProdDirListComponent implements OnInit {
         console.log(e);
     }
     otcreate() {
-        let id = this.prodDirTypeId;
+        // let code=this.prodDirTypeList.filter(ele=>{
+        //     if(ele.id==this.prodDirTypeId){
+        //         return ele;
+        //     }
+        // }).map(ele=>ele.code)
+        // console.log(code);
         if (this.prodDirTypeId == '33f23ade-a0f8-11e6-a18b-0050568a49fd') {            
             if (this.prodDirSpec.cpu) {
                 this.prodDirSpec.bootStorageSize=
@@ -302,8 +306,12 @@ export class ProdDirListComponent implements OnInit {
             } else {
                 this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PLATFORM_PRODUCT_CAT_ERROR=>云主机产品目录规格输入错误 
             }
-        } else {
+        } else if(this.prodDirTypeId == '80026f0a-a19c-11e6-a18b-0050568a49fd'){
+            //云硬盘
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre",{type:'new'}]);
+        }else if(this.prodDirTypeId == '2adcbb9a-1d96-11e7-91af-0242ac110002'){
+            //物理机
+            this.router.navigate(["prod-mng/prod-dir-mng/prod-dirPhsical-cre",{type:'new'}]);            
         }
 
     }

@@ -74,6 +74,26 @@
     "MEMORY_UTILIZATION": "内存使用率",
     "PLEASE_CHOOSE_CLOUD_PLATFORM": "请选择云平台"
   },
+  "ASSIGN_MNG":{
+    "PRIVATE_HYPER_MNG":"私有云主机超分管理",
+	"FILTERS":"筛选条件",
+	"ENT":"企业",
+	"ALL_ENTS":"所有企业",
+	"DEPT":"部门",
+	"ALL_DEPTS":"所有部门",
+	"PLATFORM":"平台",
+	"ALL_PLATFORMS":"所有平台",
+	"ALL_REGIONS":"所有Region/DC",
+	"ZONE":"可用区",
+	"ALL_ZONES":"所有可用区",
+	"CLOUD_HOST_STATE":"云主机状态",
+	"CLOUD_HOST_SPEC":"云主机规格",
+	"USAGE_RANK":"利用率排序",
+	"PERIOD":"时间范围",
+	"EXPORT_ALL_DATA":"导出所有数据",
+	"EXPORT_CURRENT_DATA":"导出当前数据"
+
+  },
   "CHECK_CENTER": {
     "ADVANCED_QUERY": "高级查询",
     "APPROVAL": "审批同意",
@@ -245,6 +265,7 @@
     "MUST": "必须",
     "NAME": "名称",
     "NEWLY_CREATED": "新创建",
+    "NEW":"新增",
     "NEXT": "下一步",
     "NO": "否",
     "NONE": "无",

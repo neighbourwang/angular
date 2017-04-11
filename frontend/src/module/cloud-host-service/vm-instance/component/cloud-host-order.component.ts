@@ -317,7 +317,7 @@ export class cloudHostComponentOrder implements OnInit {
 		if (!this.configs[attrName].relyAttrId) return [];
 
 		//根据他的依赖的id获取它自身的list
-		const list = (this.configs[attrName].mapValueList && this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId]).concat(this.tempImagetype) || [];
+		const list = (this.configs[attrName].mapValueList && this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId]) || [];
 
 		const attrid = this.sendModule[attrName].attrValueId;   //获取当前的sendmoudle的attrid
 		const isHas = (attrid && list && list.length && !!list.filter(l => l.attrValueId === attrid).length) || (!list.length && !attrid);   //列表里面是否有以选择的senModule

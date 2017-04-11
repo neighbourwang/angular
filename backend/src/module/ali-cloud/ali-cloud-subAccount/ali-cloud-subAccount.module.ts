@@ -5,6 +5,8 @@ import { CommonComponentModule, PipeModule} from '../../../architecture';
 
 //Components
 import { AliCloudSubAccountListComponent } from './component/ali-cloud-subAccount-list.component';
+import { AliCloudSubAccountEditComponent } from './component/ali-cloud-subAccount-edit.component';
+import { AliCloudSubAccountEnterpriseComponent } from './component/ali-cloud-subAccount-enterprise.component';
 
 // Routing
 import { AliCloudSubAccountRouting } from './ali-cloud-subAccount.routing';
@@ -20,10 +22,14 @@ import { AliCloudSubAccountMngService} from './service/ali-cloud-subAccount-mng.
         PipeModule
     ],
     declarations: [
-        AliCloudSubAccountListComponent
+        AliCloudSubAccountListComponent,
+        AliCloudSubAccountEditComponent,
+        AliCloudSubAccountEnterpriseComponent
     ],
     exports: [
-        AliCloudSubAccountListComponent
+        AliCloudSubAccountListComponent,
+        AliCloudSubAccountEditComponent,
+        AliCloudSubAccountEnterpriseComponent
     ],
     providers: [
         AliCloudSubAccountMngService
