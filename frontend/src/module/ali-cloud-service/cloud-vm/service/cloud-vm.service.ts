@@ -67,6 +67,30 @@ export class AliCloudVmService {
         },
     ];
 
+    getArea(regionid: string): Promise<any> {
+        const pathParams = [
+            {
+                key: "regionid",
+                value: regionid
+            }
+        ];
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.regionZone.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body).then(
+            res =>{
+                if (res && 100 == res["resultCode"]) {
+                    return res.resultContent;
+                } else {
+                    throw "error";
+                }
+            }
+        );
+    }
+
     getImages(regionid: string): Promise<any> {
         const pathParams = [
             {
@@ -84,7 +108,15 @@ export class AliCloudVmService {
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.image.get");
-        return this.restApi.request(api.method, api.url, pathParams, null, body);
+        return this.restApi.request(api.method, api.url, pathParams, null, body).then(
+            res =>{
+                if (res && 100 == res["resultCode"]) {
+                    return res.resultContent;
+                } else {
+                    throw "error";
+                }
+            }
+        );
     }
 
     getInstanceTypeFamily(regionid: string): Promise<any> {
@@ -126,7 +158,15 @@ export class AliCloudVmService {
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.family.tree.get");
-        return this.restApi.request(api.method, api.url, pathParams, null, body);
+        return this.restApi.request(api.method, api.url, pathParams, null, body).then(
+            res =>{
+                if (res && 100 == res["resultCode"]) {
+                    return res.resultContent;
+                } else {
+                    throw "error";
+                }
+            }
+        );
     }
 
     getVPCs(regionid: string) : Promise<any> {
@@ -148,7 +188,15 @@ export class AliCloudVmService {
             }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.vpc.get");
-        return this.restApi.request(api.method, api.url, pathParams, null, body);
+        return this.restApi.request(api.method, api.url, pathParams, null, body).then(
+            res =>{
+                if (res && 100 == res["resultCode"]) {
+                    return res.resultContent;
+                } else {
+                    throw "error";
+                }
+            }
+        );
     }
 
     getVSwitches(vpcid: string) : Promise<any> {
@@ -185,7 +233,15 @@ export class AliCloudVmService {
             }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.securitygroup.get");
-        return this.restApi.request(api.method, api.url, pathParams, null, body);
+        return this.restApi.request(api.method, api.url, pathParams, null, body).then(
+            res =>{
+                if (res && 100 == res["resultCode"]) {
+                    return res.resultContent;
+                } else {
+                    throw "error";
+                }
+            }
+        );
 
     }
 
@@ -200,13 +256,13 @@ export class AliCloudVmService {
         body2.regionId = selectedOrderVmPage.RegionId;
         body2.zoneId = selectedOrderVmPage.selectedArea.ZoneId;
 
-        body2.commodity.instanceType = selectedOrderVmPage.selectedChargeType;
+        body2.commodity.instanceType = selectedOrderVmPage.selectedInstanceType;
 
         body2.commodity.amount = 1;
         body2.commodity.maxAmount = 1;
 
         body2.commodity.autoRenew = selectedOrderVmPage.renew;
-        body2.commodity.ioOptimized = selectedOrderVmPage.ioOptimized;  
+        
         body2.commodity.imageId =  selectedOrderVmPage.selectedImage;
 
         body2.commodity.systemDisk.category = selectedOrderVmPage.selectedDisk;
@@ -214,6 +270,15 @@ export class AliCloudVmService {
 
         body2.commodity.securityGroupId = selectedOrderVmPage.SecurityGroupId;
         body2.commodity.securityGroupRule = null;//selectedOrderVmPage.securityGroupRule;
+
+        /*
+        if(selectedOrderVmPage.selectedGeneration == "ecs-1"){
+            body2.commodity.ioOptimized = false;
+        } else {
+            body2.commodity.ioOptimized = true;
+        }
+        */
+        body2.commodity.ioOptimized = selectedOrderVmPage.ioOptimized;
 
         
         

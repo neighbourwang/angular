@@ -172,7 +172,7 @@ export class ProdMngComponent implements OnInit {
         this.prodList = this.getProduct();
         console.log(this.prodList);
         if (this.prodList.length < 1) {
-            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PRODUCT_CAT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PRODUCT_CAT=>请选择产品目录 
+            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PRODUCT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PRODUCT_CAT=>请选择产品 
         } else {
             let message: string = '';
             for (let dir of this.prodList) {

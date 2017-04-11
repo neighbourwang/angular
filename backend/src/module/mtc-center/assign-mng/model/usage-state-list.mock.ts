@@ -6,7 +6,7 @@ export const UsageState_mock = {
             "number": "292",
             "level1": "282",
             "level2": "8",
-            "level3": "3"          
+            "level3": "3"
         },
         "mem": {
             "number": "292",
@@ -19,10 +19,19 @@ export const UsageState_mock = {
             "shutoff": "34",
             "reboot": "12"
         },
-        "flavor": {
-            "C2G20G": "99",
-            "C4G20G": "34",
-            "C16G0G": "12"
-        }
+        "flavor": [
+            {
+                "name": "1C2G",
+                "value": "99"
+            },
+            {
+                "name": "2C4G",
+                "value": "100"
+            },
+            {
+                "name": "4C8G",
+                "value": "20"
+            }
+        ]
     }
 }

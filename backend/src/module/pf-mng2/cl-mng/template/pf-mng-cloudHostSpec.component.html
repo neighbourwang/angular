@@ -104,8 +104,11 @@
                         <span class="asterisk">*</span>
                         {{'COMMON.NAME' | translate}}: 
                     </div>
-                    <div class="col-sm-4" [ngClass]="{'has-error':!flavorObj.nameValid}">
-                        <input type="text" class="form-control" [(ngModel)]="flavorObj.name" (focus)="flavorObj.nameValid=true;" required placeholder="{{'PF_MNG2.SPEC_NAME' | translate}}" (blur)="flavorObj.nameValid=flavorObj.name?true:false;">
+                    <div class="col-sm-4 no-padding" [ngClass]="{'has-error':!flavorObj.nameValid||nameRepeat}">
+                        <input type="text" class="form-control" [(ngModel)]="flavorObj.name" (focus)="flavorObj.nameValid=true;nameRepeat=false;" required placeholder="{{'PF_MNG2.SPEC_NAME' | translate}}" (blur)="flavorObj.nameValid=flavorObj.name?true:false;">
+                        <span *ngIf="!flavorObj.nameValid||nameRepeat" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						<div *ngIf="!flavorObj.nameValid" class="alert alert-danger" role="alert" style="margin-bottom:0">{{'PF_MNG2.SPEC_NAME_ERROR' | translate}}</div>
+						<div *ngIf="nameRepeat" class="alert alert-danger" role="alert" style="margin-bottom:0">{{'PF_MNG2.SPEC_NAME_EXISTS' | translate}}</div>
                     </div>
                 </div>
             </div> 
@@ -115,7 +118,7 @@
                         <span class="asterisk">*</span>
                         CPU：
                     </div>
-                    <div class="col-sm-3" [ngClass]="{'has-error':!flavorObj.cpuValid}">
+                    <div class="col-sm-3 no-padding" [ngClass]="{'has-error':!flavorObj.cpuValid}">
                         <input type="number" class="form-control" [(ngModel)]="flavorObj.cpu"  required (focus)="flavorObj.cpuValid=true;" (blur)="flavorObj.cpuValid=flavorObj.cpu?true:false;">
                     </div>
                     <div class="col-sm-4" style="line-height:34px;">
@@ -129,7 +132,7 @@
                         <span class="asterisk">*</span>
                         {{'COMMON.RAM' | translate}}: 
                     </div>
-                    <div class="col-sm-3" [ngClass]="{'has-error':!flavorObj.memValid}">
+                    <div class="col-sm-3 no-padding" [ngClass]="{'has-error':!flavorObj.memValid}">
                         <input type="number" class="form-control" [(ngModel)]="flavorObj.mem" required (focus)="flavorObj.memValid=true;" (blur)="flavorObj.memValid=flavorObj.mem?true:false;">
                     </div>
                     <div class="col-sm-4" style="line-height:34px;">
@@ -143,7 +146,7 @@
                         <span class="asterisk">*</span>
                         {{'PROD_MNG.ROOT_DISK_SIZE' | translate}}:
                     </div>
-                    <div class="col-sm-3" [ngClass]="{'has-error':!flavorObj.diskValid}">
+                    <div class="col-sm-3 no-padding" [ngClass]="{'has-error':!flavorObj.diskValid}">
                         <input type="number" class="form-control" [(ngModel)]="flavorObj.disk" required (focus)="flavorObj.memValid=true;" (blur)="flavorObj.diskValid=flavorObj.disk?true:false;">
                     </div>
                      <div class="col-sm-4 " style="line-height:34px;">
