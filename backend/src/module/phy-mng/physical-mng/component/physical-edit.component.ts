@@ -146,9 +146,8 @@ export class PhysicalEditComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.parts= response["resultContent"];
-                   
-                    console.log("部件清单",this.parts,this.parts[0].specList[0].specValues[0])
+                    this.parts= response["resultContent"];                 
+                   // console.log("部件清单",this.parts,this.parts[0].specList[0].specValues[0])
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
