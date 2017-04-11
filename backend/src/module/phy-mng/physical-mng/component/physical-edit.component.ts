@@ -161,7 +161,7 @@ export class PhysicalEditComponent implements OnInit {
 
     //编辑物理机
     editPhysical() {
-       if(this.physical.mainEndDate > this.physical.mainStartDate) { 
+    //    if(this.physical.mainEndDate >this.physical.mainStartDate) { 
            this.layoutService.show();
         this.service.editPhysical(this.physical)
             .then(
@@ -177,11 +177,11 @@ export class PhysicalEditComponent implements OnInit {
             }
             )
             .catch((e) => this.onRejected(e));
-       }
-       else{
-           this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");//结束时间大于开始时间
-           return;
-       }
+    //    }
+    //    else{
+    //        this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");//结束时间大于开始时间
+    //        return;
+    //    }
        
     }
     //编辑物理机部件
@@ -264,7 +264,7 @@ export class PhysicalEditComponent implements OnInit {
             ) 
             .then(
                 ()=>{
-                   if(this.physical.mainEndDate>this.physical.mainStartDate){
+                //    if(this.physical.mainEndDate>this.physical.mainStartDate){
                        this.layoutService.show();
                        this.service.createPhysical(this.physical)
                         .then(
@@ -281,11 +281,11 @@ export class PhysicalEditComponent implements OnInit {
                         }
                         )
                         .catch((e) => this.onRejected(e));
-                            }
-                            else{
-                                this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME")
-                                return;
-                            }
+                            // }
+                            // else{
+                            //     this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME")
+                            //     return;
+                            // }
                     }                     
                     );        
     }
