@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, SystemDictionaryService} from '../../../../architecture';
 
 import {StoreInfoList_mock} from '../model/store-info-list.mock';
 @Injectable()
@@ -8,9 +8,19 @@ export class StoreDetailService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) { }
 
+    storageTypeDic = this.dict.get({
+        owner: "MAINTAIN",
+        field: "STORAGETYPE"
+    });
+
+     statusDic = this.dict.get({
+        owner: "MAINTAIN",
+        field: "STATUS"
+    });
     init(): void {
         this.restApiCfg.loadCfgData();
     }

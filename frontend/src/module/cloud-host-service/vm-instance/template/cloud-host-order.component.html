@@ -97,7 +97,7 @@
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_TYPE'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
-							*ngFor="let value of rely('imagetype')"
+							*ngFor="let value of rely('imagetype').concat(tempImagetype)"
 							(click)="sendModule.imagetype = value;relyChanges('imagetype')" class="btn btn-default" [ngClass]="{'active': sendModule.imagetype.attrValueId === value.attrValueId}">
 							<input type="radio" name="imagetype" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>

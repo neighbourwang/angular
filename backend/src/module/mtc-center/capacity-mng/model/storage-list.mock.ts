@@ -10,10 +10,10 @@
             "storageType": "CEPH",//数据字典
             "capacity": 12800,//总容量
             "copy": 1,//副本数
-            "peie": 85,//配额
-            "qurta": 89,//分配率
+            "quota": 85,//配额
+            "rate": 89,//分配率
             "usage": 47,//利用率
-            "status":"已启用"
+            "status":"1"
         },
         {
             "order": 2,
@@ -23,10 +23,10 @@
             "storageType": "CEPH",//数据字典
             "capacity": 12800,//总容量
             "copy": 1,//副本数
-            "peie": 85,//配额
-            "qurta": 89,//分配率
+            "quota": 85,//配额
+            "rate": 89,//分配率
             "usage": 47,//利用率
-            "status":"未启用"
+            "status":"2"
         }
     ]
        
