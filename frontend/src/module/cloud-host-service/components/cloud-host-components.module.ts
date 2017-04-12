@@ -31,6 +31,8 @@ import { OrderCompleteModule } from './order-complete/order-complete.module';
 import { UnsubscribeModule } from './unsubscribe/unsubscribe.module';
 import { PlatformZoneModule } from './platform-zone/platform-zone.module';
 
+import { filterPlatformPipe } from './pipe/filter-platform.pipe'
+
 
 
 @NgModule({
@@ -45,6 +47,7 @@ import { PlatformZoneModule } from './platform-zone/platform-zone.module';
         CartButtonComponent,
         HostReconfigComponent,
         DiskReconfigComponent,
+        filterPlatformPipe,
         // PlatformZoneComponent,
         // orderCompleteComponent,
         cartCompleteComponent,
@@ -60,6 +63,7 @@ import { PlatformZoneModule } from './platform-zone/platform-zone.module';
         CartButtonComponent,
         HostReconfigComponent,
         DiskReconfigComponent,
+        filterPlatformPipe,
         // PlatformZoneComponent,
         // orderCompleteComponent,
         cartCompleteComponent,
