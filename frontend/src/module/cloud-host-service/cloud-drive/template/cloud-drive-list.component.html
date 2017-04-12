@@ -122,8 +122,8 @@
                         <!-- <li><a (click)="handleDist('hardReboot', vm , '硬重启')" href="javascript:">硬重启</a></li> -->
                         <!-- <li><a (click)="handleDist('softReboot', vm , '软重启')" href="javascript:">软重启</a></li> -->
                         <!-- <li><a (click)="handleDist('suspend', vm)" href="javascript:">挂起</a></li> -->
-                        <li role="separator" class="divider"></li>
-                        <li><a (click)="diskReconfig.open(dist)" href="javascript:">云硬盘扩容</a></li>
+                        <li *ngIf="dist.relyId" role="separator" class="divider"></li>
+                        <li *ngIf="dist.relyId" ><a (click)="diskReconfig.open(dist)" href="javascript:">云硬盘扩容</a></li>
                     </ul>
                 </div>
             </td>
