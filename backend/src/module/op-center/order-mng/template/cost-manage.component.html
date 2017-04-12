@@ -38,8 +38,8 @@
 			                <td>{{item.sentDate}}</td>
 			                <td>{{item.statusName}}</td>
 							<td>
-								<button class="fox-cloud-button-white" (click)="updateCost(item);">金额调整</button>
-								<button class="fox-cloud-button-white" (click)="acceptDownload(item);">下载</button>
+								<button class="fox-cloud-button-white" (click)="updateCost(item);" *ngIf="item.status==2">金额调整</button>
+								<button class="fox-cloud-button-white" (click)="acceptDownload(item);"  *ngIf="item.status==1">下载</button>
 							</td>
 			            </tr>               
 			        </tbody>

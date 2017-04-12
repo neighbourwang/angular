@@ -6,7 +6,7 @@
         <span class="glyphicon glyphicon-cog mgr5"></span>管理子账号
     </button>
 </div>
-<table class="table table-hover" style="table-layout:fixed">
+<table class="table table-hover">
     <tbody>
         <tr>
             <th class="text-center">编号 </th>
@@ -17,15 +17,15 @@
             <th class="text-center">操作人 </th>
             <th class="text-center">操作 </th>
         </tr>
-        <tr>
-            <td class="text-center">1</td>
-            <td class="text-center"><a href="javascript:void(0);" class="a-active" (click)="getDetail(item);type= 'info';">fhd_001</a></td>
-            <td class="text-center">管理员部门</td>
-            <td class="text-center">6</td>
-            <td class="text-center">2017-4-6 8:00:00</td>
-            <td class="text-center">王某某</td>
+        <tr *ngFor="let item of data">
+            <td class="text-center">{{item.id}}</td>
+            <td class="text-center"><a href="javascript:void(0);" class="a-active" (click)="getDetail(item);type= 'info';">{{item.loginName}}</a></td>
+            <td class="text-center">{{item.departmentName}}</td>
+            <td class="text-center">{{item.subNumber}}</td>
+            <td class="text-center">{{item.lastUpdate}}</td>
+            <td class="text-center">{{item.operator}}</td>
             <td class="text-center">
-                <span class="glyphicon glyphicon-edit font-green" style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);type= 'edit'"></span>
+                <span class="glyphicon glyphicon-edit font-green" style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);type= 'edit';start= false"></span>
                 <span class="glyphicon glyphicon-user font-green" style="margin-right : 10px ;cursor:pointer" (click)="distriPage(item)"></span>
             </td>
         </tr>
@@ -42,40 +42,45 @@
         <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
             <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>主账号登录名:</div>
             <div class="col-md-8 no-padding">
-                <span style="line-height: 34px;">王国庆45087461</span>
+                <span style="line-height: 34px;">{{majorInfo.loginName}}</span>
             </div>
         </div>
         <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
             <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>Access Key ID:</div>
             <div *ngIf="type== 'edit'" class="col-md-6 no-padding form-group">
-                <input type="text" class="form-control" maxlength="50">
+                <input type="text" class="form-control" maxlength="50" [(ngModel)]="majorInfo.accessKey">
             </div>
             <div *ngIf="type== 'info'" class="col-md-8 no-padding">
-                <span style="line-height: 34px;">dsafjalsdkj;</span>
+                <span style="line-height: 34px;">{{majorInfo.accessKey}}</span>
             </div>
         </div>
         <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
             <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>Access Key Secret:</div>
             <div *ngIf="type== 'edit'" class="col-md-6 no-padding form-group">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" [(ngModel)]="majorInfo.accessSecret">
             </div>
             <div *ngIf="type== 'info'" class="col-md-8 no-padding">
-                <span style="line-height: 34px;">dsafjalsdkj;</span>
+                <span style="line-height: 34px;">{{majorInfo.accessSecret}}</span>
             </div>
         </div>
         <div *ngIf="type== 'edit'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">
             <div class="col-md-4"></div>
             <div class="col-md-2 no-padding form-group ">
-                <button class="btn btn-default button-gray-gradient">  测试  </button>
+                <button class="btn btn-default button-gray-gradient" (click)="testMajor();start= true;">  测试  </button>
             </div>
-            <div class="col-md-4 no-padding">
-                <span class="font-green" style="line-height: 34px;">提示:测试成功</span>
+            <div *ngIf="start">
+                <div *ngIf="testInfo== true" class="col-md-4 no-padding">
+                    <span class="font-green" style="line-height: 34px;">提示:测试成功</span>
+                </div>
+                <div *ngIf="testInfo== false" class="col-md-4 no-padding">
+                    <span class="font-orange" style="line-height: 34px;">提示:测试失败</span>
+                </div>
             </div>
         </div>
         <div *ngIf="type== 'info'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">
             <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>所属部门:</div>
             <div class="col-md-8 no-padding">
-                <span style="line-height: 34px;">dsafjalsdkj;</span>
+                <span style="line-height: 34px;">{{majorInfo.departmentName}}</span>
             </div>
         </div>
     </div>
@@ -97,9 +102,9 @@
                     <th class="text-center">选择 </th>
                     <th class="text-center">部门名称</th>
                 </tr>
-                <tr class="text-center">
+                <tr *ngFor="let item of departs" class="text-center">
                     <td><input type='radio' class="fox-cloud-radio"/></td>
-                    <td class="text-center">管华</td>
+                    <td class="text-center">{{item.departmentName}}</td>
                 </tr>
                 </tbody>
             </table>
