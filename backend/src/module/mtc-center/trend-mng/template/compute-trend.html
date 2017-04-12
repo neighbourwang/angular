@@ -1,14 +1,17 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
-    私有云平台计算资源用量分析
+    {{'TREND_MNG.COMPUTE_RES_TREND_ANALYSIS'|translate}}<!--私有云平台计算资源用量分析-->
 </div>
 <div class="page-content">
     <div>
         <div class="row row-line-height">
             <div class="col-md-10" >
-                <div class="col-md-2 form-control-title">分析类型：</div>
+                <div class="col-md-2 form-control-title">{{'TREND_MNG.ANALYSIS_TYPE'|translate}}：</div><!--分析类型-->
                 <div class="col-md-2">
-                    <select class="form-control" [(ngModel)]="queryOpt.queryType">                 
-                        <option *ngFor="let type of service.queryTypeDic | async" [value]="type.value">{{type.displayValue}}</option>
+                    <select class="form-control" [(ngModel)]="queryOpt.queryType"> 
+                        <option [value]="1">按CPU</option>  
+                        <option [value]="2">按云主机规格</option>  
+                        <option [value]="3">按内存</option>                
+                        <!--<option *ngFor="let type of service.queryTypeDic | async" [value]="type.value">{{type.displayValue}}</option>-->
                     </select>
                 </div>
                 <div class="col-md-2">{{analysisType}}</div>
@@ -40,7 +43,7 @@
             </div>
             <div class="col-md-2" *ngIf="selectedZone==defaultZone">
                 <div style="font-size:18px;line-height:34px;letter-spacing:2px;">
-                    <input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected" />&nbsp;按可用区显示
+                    <input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected" />&nbsp;{{'TREND_MNG.DISPLAY_BY_ZONE'|translate}}<!--按可用区显示-->
                 </div>
             </div>
         </div>
@@ -80,25 +83,25 @@
     <div>{{queryOpt.powerStatus}},{{queryOpt.flaovarId}},{{queryOpt.period}}</div>
     <div>{{hostId}}</div>-->
     <div>
-        <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15" (click)="exportCurrent()">导出所有数据</button>
-        <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15" (click)="exportAll()">导出当前数据</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">重置</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">确认</button>
+        <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15" (click)="exportCurrent()">{{'ASSIGN_MNG.EXPORT_ALL_DATA'|translate}}</button><!--导出所有数据-->
+        <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15" (click)="exportAll()">{{'ASSIGN_MNG.EXPORT_CURRENT_DATA'|translate}}</button><!--导出当前数据-->
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">{{'COMMON.RESET'|translate}}</button><!--重置-->
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">{{'COMMON.CONFIRM'|translate}}</button><!--确认-->
     </div>
     <div class="clear"></div>
     <div class="mgt15" style="width:100%;border-bottom:solid 1px #00a982;"></div>
-    <div class="mgt20 mgb10" style="font-size:18px;font-weight:bold;">基本信息：</div>
+    <div class="mgt20 mgb10" style="font-size:18px;font-weight:bold;">{{'TREND_MNG.BASIC_INFO'|translate}}：</div><!--基本信息-->
     <div class="table-container">
         <table class="table table-hover" >
             <thead>
                 <tr>
                     <th>{{'ASSIGN_MNG.ZONE'|translate}}</th><!--可用区-->
-                    <th>物理CPU总核数</th>
-                    <th>总内存</th>
-                    <th>CPU超分比</th>
-                    <th>可用配额</th>
-                    <th>可分配CPU</th>
-                    <th>可分配内存</th>
+                    <th>{{'CAPACITY_MNG.PHYSICAL_CPU_CORE_NUMBER'|translate}}</th><!--物理CPU总核数-->
+                    <th>{{'CAPACITY_MNG.TOTAL_MEMORY'|translate}}</th><!--总内存-->
+                    <th>{{'CAPACITY_MNG.CPU_EXCEEDING_RATIO'|translate}}</th><!--CPU超分比-->
+                    <th>{{'CAPACITY_MNG.USABLE_QUOTA'|translate}}</th><!--可用配额-->
+                    <th>{{'CAPACITY_MNG.ASSIGNABLE_CPU'|translate}}</th><!--可分配CPU-->
+                    <th>{{'CAPACITY_MNG.ASSIGNABLE_MEMORY'|translate}}</th><!--可分配内存-->
                     
                 </tr>
             </thead>

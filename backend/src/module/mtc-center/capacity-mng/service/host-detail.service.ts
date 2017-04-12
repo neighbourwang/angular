@@ -21,6 +21,11 @@ export class HostDetailService {
         owner: "MAINTAIN",
         field: "STATUS"
     });
+    peridDic = this.dict.get({
+        owner: "MAINTAIN",
+        field: "PERIOD"
+    });
+
      init(): void {
         this.restApiCfg.loadCfgData();
     }

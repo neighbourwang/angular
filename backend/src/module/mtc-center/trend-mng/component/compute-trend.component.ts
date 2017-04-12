@@ -47,6 +47,7 @@ export class ComputeTrendComponent implements OnInit {
     selectedZone: ZoneModel = this.defaultZone;
 
     plfList: Array<PlfModel>;
+    cloudHostSpecList: Array<string>;
     basicList: Array<BasicModel>;
 
     cpuData: Bar = new Bar();
@@ -78,7 +79,22 @@ export class ComputeTrendComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-
+    getCloudHostSpec() {
+        this.layoutService.show();
+        this.service.getCloudHostSpec()
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.cloudHostSpecList = response["resultContent"];                   
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+    
     getBasicList() {
         this.layoutService.show();
         this.service.getBasicList(this.queryOpt)
