@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import {CostManageItem,TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import {OrderDetailItem,CostManageItem,TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { OrderMngService } from '../service/order-mng.service';
 import * as _ from 'underscore';
@@ -9,7 +9,7 @@ import * as _ from 'underscore';
 @Component({
 	selector: 'cost-pandect',
 	templateUrl: '../template/cost-pandect.component.html',
-	styleUrls: ['../style/cost-pandect.less'],
+	styleUrls: ['../style/cost-pandect.less','../style/order-mng-detail.less'],
 	providers: [OrderMngService]
 })
 export class CostPandectComponent implements OnInit{
@@ -61,6 +61,8 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 private downLoadItemLoader:ItemLoader<CostManageItem> = null;//下载账单表格数据
 private downLoadHandler:ItemLoader<CostManageItem> = null;//下载账单表格数据
 
+	//已购服务详情加载
+	private _orderDetailLoader: ItemLoader<OrderDetailItem> = null;
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -141,9 +143,25 @@ private downLoadHandler:ItemLoader<CostManageItem> = null;//下载账单表格�
             } 
         }
 
+ //已购服务详情加载
+		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "ORDER_MNG.ORDER_DETAILS_DATA_FAILED", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
+		this._orderDetailLoader.MapFunc = (source: Array<any>, target: Array<OrderDetailItem>) => {
+			for (let item of source) {
+				let obj: OrderDetailItem = _.extendOwn(new OrderDetailItem(), item)
+				target.push(obj);
+				if(item.itemList&&item.itemList[0].specList){
+					let getProperty = _.property("attrDisplayValue");
+					 if(item.productType==0){
+						obj.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+					}else{
+						obj.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
+					}
+				}
+			}
+		};
 
+    	this._orderDetailLoader.FirstItem = new OrderDetailItem();
 
-    
        	this.consumeLoader = new ItemLoader<ConsumeSum>(false, '消费概览加载失败', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
 
         // this.consumeLoader.MapFunc = (source:Array<any>, target:Array<ConsumeSum>)=>{
@@ -239,9 +257,19 @@ isRootUser(){
      
         
     }
-showDetail(orderItemId:string){
-		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
-	}	
+    
+showDetail(item:CostPandectItem){
+     let orderItemId= item.id;
+     this._orderDetailLoader.Go(null, [{ key: "subinstanceCode", value: orderItemId }])
+			.then(success => {
+				this.layoutService.hide();
+				$('#orderDetail').modal('show');
+			})
+			.catch(err => {
+				this.layoutService.hide();
+				this.showMsg(err);
+			})
+    }		
 
 loadTopChart(){
     
