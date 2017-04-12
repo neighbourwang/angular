@@ -52,8 +52,8 @@ private selectedItem :CostManageItem = new CostManageItem();
 
 		this._enterpriseLoader = new ItemLoader<{id:string; name:string}>(false, 'COMMON.ENTPRISE_OPTIONS_DATA_ERROR', "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
 
-        this._statusTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
-		this._statusTypeDic.SourceName = "status";
+        this._statusTypeDic = new DicLoader(restApiCfg, restApi, "SUBINSTANCE", "REPORT_STATUS");
+		this._statusTypeDic.SourceName = "status";//0未出账,1已出账,2已发布
 		this._statusTypeDic.TargetName = "statusName";
 
 		this.costItemLoader = new ItemLoader<CostManageItem>(false,'账单管理列表加载失败','op-center.order-mng.cost-manage.post',restApiCfg,restApi);

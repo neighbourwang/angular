@@ -4,6 +4,7 @@ import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutServ
 import { SubInstanceAttrPair, ProductBillingItem, SubInstanceResp, SubInstanceItemResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,RenewSetting} from '../model'
 import * as _ from 'underscore';
 import {DictService} from '../../../../architecture/core/service/dict-service';
+import { MyDatePicker  } from '../../../../architecture/components/date-picker/my-date-picker.component';
 @Component({
 	selector: 'order-mng',
 	templateUrl: '../template/order-mng.component.html',
@@ -14,6 +15,11 @@ export class OrderMngComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
 
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
 	  
 	 @ViewChild("renewOrder")
      renewOrder: PopupComponent;
@@ -572,6 +578,8 @@ export class OrderMngComponent implements OnInit{
 
 	resetParam(){
 		this._param.reset();
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
 		this._departmentLoader.clear();
 		this._buyerListLoader.clear();
 		this._subregionLoader.clear();
