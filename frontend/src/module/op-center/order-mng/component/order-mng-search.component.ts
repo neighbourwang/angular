@@ -21,6 +21,12 @@ export class OrderMngSearchComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
 
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
+
 	private _param:OrderMngParam = new OrderMngParam();
 
 	private _selectedItem:SearchOrderItem = new SearchOrderItem();　
@@ -272,6 +278,8 @@ export class OrderMngSearchComponent implements OnInit{
 
 	resetParam(){
 		this._buyerLoader.clear();
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
 		this._param.reset();
 		
 	}

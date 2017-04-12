@@ -116,11 +116,11 @@
 							<div class="mgt-10">
 								<span class="mgt10 float-left">{{ 'ORDER_MNG.DUE_DATE' | translate }}：</span>
 								<div class="dropdown float-left">
-									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
+									<date-picker #createDatePicker (dateChanged)="onCreateTimeChange($event)"></date-picker>
 								</div>
 								<span class="mgt5 mgl10">—</span>
 								<div class="dropdown float-left">
-									<date-picker (dateChanged)="onExpireTimeChange($event)"></date-picker>
+									<date-picker #expireDatePicker (dateChanged)="onExpireTimeChange($event)"></date-picker>
 								</div>
 							</div>
 						</td>

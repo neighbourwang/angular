@@ -42,7 +42,7 @@ export class VmViewComponent implements OnInit{
 		if(this.values&&this.values.specList){
 			this.specList = this.values.specList;
 			this._obj = {
-			platform:this.values.platform
+			platform:getProperty(this.specList.find(n=>n.attrCode == 'PLATFORM'))//this.values.platform
 			,zone:getProperty(this.specList.find(n=>n.attrCode == 'ZONE'))
 			,cpu: getProperty(this.specList.find(n=>n.attrCode == 'CPU'))
 			,mem: getProperty(this.specList.find(n=>n.attrCode == 'MEM'))

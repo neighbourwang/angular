@@ -42,7 +42,7 @@
 					</tr>
 					<tr>
 						<td>{{ 'COMMON.COST' | translate}}</td>	
-						<td>￥{{_detailLoader.FirstItem.price}}/<span *ngIf="_detailLoader.FirstItem.productType==1">GB</span><span>{{_detailLoader.FirstItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
+						<td>￥{{_detailLoader.FirstItem.price}}/<span>{{_detailLoader.FirstItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
 						<td>{{ 'COMMON.DEPARTMENT' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.department}}</td>
 					</tr>
