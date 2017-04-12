@@ -224,13 +224,13 @@
 													<th class="text-center">操作</th>
 												</tr>
 												<tr *ngFor="let item of downLoadItemLoader.Items;let i =index;">
-													<td>{{i+1}}</td>
-													<td>{{item.startTime}}至{{item.endTime}}</td>
-													<td>{{item.money}}</td>
-													<td>{{item.endDate}}</td>
-													<td>{{item.sentDate}}</td>
-													<td>{{item.status}}</td>
-													<td class="vertical-center"><button class="btn btn-default button-gray-gradient" (click)="acceptDownload(item)">下载</button></td>
+													<td class="text-center">{{i+1}}</td>
+													<td class="text-center">{{item.startTime}}至{{item.endTime}}</td>
+													<td class="text-center" >{{item.money}}</td>
+													<td class="text-center">{{item.endDate}}</td>
+													<td class="text-center">{{item.sentDate}}</td>
+													<td class="text-center">{{item.status}}</td>
+													<td class="text-center vertical-center"><button class="btn btn-default button-gray-gradient" (click)="acceptDownload(item)" *ngIf="item.status==1">下载</button></td>
 												</tr>               
 										</table>
 									</div>

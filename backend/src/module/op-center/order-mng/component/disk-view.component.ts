@@ -10,6 +10,7 @@ import * as _ from 'underscore';
 		<li>可用区: {{_obj.zone}}</li>
 		<li>云硬盘类型: {{_obj.storage}}</li>
 		<li>云硬盘容量: {{_obj.capacity}}</li>
+		<li>实例名称: {{_obj.instanceName}}</li>
 	</ul>
 	`
 })
@@ -22,6 +23,7 @@ export class DiskViewComponent implements OnInit{
 		zone:string;//可用区
 		storage:string;//云硬盘类型
 		capacity:string;//云硬盘容量
+		instanceName:string;//实例名称
 		//vmName:string挂载云主机
 	}//PLATFORM,ZONE,STORAGE,DISKSIZE,DISKINSNAME
 
@@ -33,6 +35,7 @@ export class DiskViewComponent implements OnInit{
 			,zone:getProperty(this.values.find(n=>n.attrCode == 'ZONE'))
 			,storage:getProperty(this.values.find(n=>n.attrCode == 'STORAGE'))
 			,capacity: getProperty(this.values.find(n=>n.attrCode == 'DISKSIZE'))
+			,instanceName: getProperty(this.values.find(n=>n.attrCode == 'DISKINSNAME'))
 			// ,vmName: getProperty(this.values.find(n=>n.attrCode == 'DISKMOUNTHOSTNAME')) || 'COMMON.NONE'
 			
 		};

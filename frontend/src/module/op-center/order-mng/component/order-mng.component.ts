@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { DictService } from '../../../../architecture/core/service/dict-service';
+import { MyDatePicker  } from '../../../../architecture/components/date-picker/my-date-picker.component';
 import {
 	ListItem
 	, OrderMngParam
@@ -28,6 +29,12 @@ import * as _ from 'underscore';
 export class OrderMngComponent implements OnInit {
 	@ViewChild("notice")
 	private _notice: NoticeComponent;
+
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
 
 	@ViewChild("renewDialog")
 	private _renewDialog: ModalComponent;
@@ -111,6 +118,14 @@ export class OrderMngComponent implements OnInit {
 			for (let item of source) {
 				let obj: OrderDetailItem = _.extendOwn(new OrderDetailItem(), item)
 				target.push(obj);
+				if(item.itemList&&item.itemList[0].specList){
+					let getProperty = _.property("attrDisplayValue");
+					 if(item.productType==0){
+						obj.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+					}else{
+						obj.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
+					}
+				}
 			}
 		};
 
@@ -952,6 +967,8 @@ export class OrderMngComponent implements OnInit {
 
 	resetParam() {
 		this._buyerLoader.clear();
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
 		this._param.reset();
 	}
 

@@ -5,6 +5,7 @@ import { NoticeComponent, DicLoader,ItemLoader,RestApi, RestApiCfg, LayoutServic
 import { SearchOrderDetail,SubInstanceItemResp1,AdminListItem, DepartmentItem, Platform, ProductType,
 	 SubRegion, OrderMngParam,SubInstanceResp,SubInstanceItemResp,SearchOrderItem} from '../model';
 import {DictService} from '../../../../architecture/core/service/dict-service';
+import { MyDatePicker  } from '../../../../architecture/components/date-picker/my-date-picker.component';
 import * as _ from 'underscore';
 @Component({
 	selector: 'order-mng-search',
@@ -16,6 +17,12 @@ export class OrderMngSearchComponent implements OnInit{
 
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
+
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
 
 	private _param:OrderMngParam = new OrderMngParam();
 	private _adminLoader:ItemLoader<AdminListItem> = null;//企业
@@ -390,6 +397,8 @@ export class OrderMngSearchComponent implements OnInit{
 
 	resetParam(){
 		this._param.reset();
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
 		this._departmentLoader.clear();
 		this._buyerLoader.clear();
 		

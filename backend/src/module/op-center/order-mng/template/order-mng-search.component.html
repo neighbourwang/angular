@@ -70,12 +70,12 @@
 						<td class="none-border" colspan="4">
 							<span class="mgr10 mgt20  font-size-16 float-left">{{ 'COMMON.COMMIT_TIME' | translate}}: </span>
 							<div class="float-left">			
-								<date-picker (dateChanged)="onSubmitTimeChange($event)"></date-picker>
+								<date-picker #createDatePicker (dateChanged)="onSubmitTimeChange($event)"></date-picker>
 							</div>
 							
 							<span class="mgr10 mgt20 mgl10 float-left">—</span>
 							<div class="float-left">			
-							<date-picker (dateChanged)="onEndTimeChange($event)"></date-picker>
+							<date-picker #expireDatePicker (dateChanged)="onEndTimeChange($event)"></date-picker>
 							</div>
 						</td>
 					</tr>

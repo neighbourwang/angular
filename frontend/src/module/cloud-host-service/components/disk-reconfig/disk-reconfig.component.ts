@@ -64,7 +64,8 @@ export class DiskReconfigComponent implements OnInit {
 			});
 			this.maxStorage = +this.config.DISKMAXSIZE.valueList[0].attrValue;
 			this.step = +this.config.DISKSTEPSIZE.valueList[0].attrValue;
-			this.minStorage = this.disk.size + this.step;
+			let minStorage = this.disk.size + this.step;
+			this.minStorage = minStorage > this.maxStorage ? this.maxStorage : minStorage;
 			this.currentStorage = this.minStorage;
 
 			this.layoutService.hide();
