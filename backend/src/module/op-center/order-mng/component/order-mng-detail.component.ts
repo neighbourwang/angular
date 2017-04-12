@@ -44,6 +44,10 @@ export class OrderMngDetailComponent implements OnInit {
 			{
 				let obj:OrderDetailItem = _.extendOwn(new OrderDetailItem(), item)
 				target.push(obj);
+        if(item.itemList&&item.itemList[0].specList){
+				let getProperty = _.property("attrDisplayValue");
+				obj.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+				}
 			}
 		};
 
