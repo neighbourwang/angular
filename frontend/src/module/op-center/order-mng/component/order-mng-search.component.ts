@@ -9,6 +9,8 @@ import { SearchOrderDetail, AdminListItem, DepartmentItem
 	, SubInstanceItemResp1} from '../model'
 import {DictService} from '../../../../architecture/core/service/dict-service';
 
+import { MyDatePicker  } from '../../../../architecture/components/date-picker/my-date-picker.component';
+
 import * as _ from 'underscore';
 @Component({
 	selector: 'order-mng-search',
