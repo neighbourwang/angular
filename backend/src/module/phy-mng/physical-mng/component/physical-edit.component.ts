@@ -161,7 +161,8 @@ export class PhysicalEditComponent implements OnInit {
 
     //编辑物理机
     editPhysical() {
-       if(this.mainDateCompare() ) { this.layoutService.show();
+    //    if(this.physical.mainEndDate >this.physical.mainStartDate) { 
+           this.layoutService.show();
         this.service.editPhysical(this.physical)
             .then(
             response => {
@@ -176,11 +177,11 @@ export class PhysicalEditComponent implements OnInit {
             }
             )
             .catch((e) => this.onRejected(e));
-       }
-       else{
-           this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");//结束时间大于开始时间
-           return;
-       }
+    //    }
+    //    else{
+    //        this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");//结束时间大于开始时间
+    //        return;
+    //    }
        
     }
     //编辑物理机部件
@@ -263,7 +264,7 @@ export class PhysicalEditComponent implements OnInit {
             ) 
             .then(
                 ()=>{
-                   if(this.mainDateCompare()){
+                //    if(this.physical.mainEndDate>this.physical.mainStartDate){
                        this.layoutService.show();
                        this.service.createPhysical(this.physical)
                         .then(
@@ -280,11 +281,11 @@ export class PhysicalEditComponent implements OnInit {
                         }
                         )
                         .catch((e) => this.onRejected(e));
-                            }
-                            else{
-                                this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME")
-                                return;
-                            }
+                            // }
+                            // else{
+                            //     this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME")
+                            //     return;
+                            // }
                     }                     
                     );        
     }
@@ -419,35 +420,35 @@ export class PhysicalEditComponent implements OnInit {
     //维保起始时间
      startTimeChange($event){
 		this.physical.mainStartDate = $event.formatted;
-         if(this.physical.mainEndDate){
-             let e=this.mainDateCompare();
-             if(!e){
-                 this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");
-                 return;
-             }
-        }    
+        //  if(this.physical.mainEndDate){
+        //      let e=this.mainDateCompare();
+        //      if(!e){
+        //          this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");
+        //          return;
+        //      }
+        // }    
 	}
     
     //维保结束时间
 	endTimeChange($event){
 		this.physical.mainEndDate = $event.formatted;
-        if(this.physical.mainStartDate){
-          let e=this.mainDateCompare();
-             if(!e){
-                 this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");
-                 return;
-             }
-        }     
+        // if(this.physical.mainStartDate){
+        //   let e=this.mainDateCompare();
+        //      if(!e){
+        //          this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");
+        //          return;
+        //      }
+        // }     
 	}
 
-    mainDateCompare():boolean{
-        let startDate= this.physical.mainStartDate.replace(/-/g,"/");
-        let endDate=this.physical.mainEndDate.replace(/-/g,"/");
-        if(startDate>=endDate) {          
-              return false;
-        }
-        else return true;
-    }
+    // mainDateCompare():boolean{
+    //     let startDate=  this.physical.mainStartDate.replace(/-/g,"/");
+    //     let endDate=this.physical.mainEndDate.replace(/-/g,"/");
+    //     if(startDate>=endDate) {          
+    //           return false;
+    //     }
+    //     else return true;
+    // }
     showAlert(msg: string): void {
         this.layoutService.hide();
         this.noticeTitle = "PHYSICAL_MNG.NOTICE";

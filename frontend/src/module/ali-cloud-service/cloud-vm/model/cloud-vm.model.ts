@@ -8,44 +8,47 @@ export class orderVmPageModel {
     areas: Array<AreaModel> = [];
     selectedArea: AreaModel = new AreaModel();
 
-    selectedChargeType: string = "PostPaid";//收费方式:PostPaid,按量付费,PrePaid,包年包月
+    selectedChargeType: string = "PostPaid";//===收费方式:PostPaid,按量付费,PrePaid,包年包月
 
-    selectedNetworkType: string = "classic"; //'classic' 表示经典网络，'vpc'表示专有网络
-    selectedNetworkId: string = "";
-    AllocatePublicIP: boolean = false;
-
-    SecurityGroupId: string = null;
-
-    selectedGeneration: string = ""; //实例族
-    selectedInstanceFamily: string = "";
-    selectedInstanceType: string = "";
-    ioOptimized: boolean = false;
-
-    selectedImage: string = "";　//启动ｖｍ时用的imageId,可能还需要镜像类型
-
-    selectedDisk: string = "";//云硬盘类型
-    diskCount: number = 40;//云硬盘G数
-
-
-    selectedQuantity: number = 0; //购买量月份
-    period: number = 1;
-    periodType: string = "Hour";
-    priceUnit: string = "Hourly";
-    renew: boolean = false;  //"0"表示不自动续费，"1"表示自动续费
-
+    selectedNetworkType: string = "vpc"; //==='classic' 表示经典网络，'vpc'表示专有网络
+    AllocatePublicIP: boolean = true; //===经典网络时显示带宽供选择
+    selectedVpcId: string = null;
+    selectedVswitchId: string = null;
     
 
-    selectedInternetChargeType: string = "PayByTraffic"; //带宽收费方式    
-    selectedInternetMaxBandwidthIn = 1;
-    selectedInternetMaxBandwidthOut = 1;
+    SecurityGroupId: string = null;
+    SecurityGroupName: string = null;
 
-    Password: string = "";
-    passwordCheck: string = "";
-    InstanceName: string = ""; //vm的名称
+    selectedGeneration: string = null; //实例族
+    selectedInstanceFamily: string = null;
+    selectedInstanceType: string = null;
+    ioOptimized: boolean = null;
 
-    price: string = "  "; //vm的价格
-    price_instance: string = "";
-    price_traffic: string = "";
+    selectedImage: string = null;　//启动ｖｍ时用的imageId,可能还需要镜像类型
+
+    selectedDisk: string = null;//云硬盘类型
+    diskCount: string = "40";//===云硬盘G数
+
+
+    selectedQuantity: number = null; //购买量月份
+    vm_period: number = null;
+    price_period: number = null;
+    periodType: string = null;
+    priceUnit: string = null;
+    renew: boolean = null;  //"0"表示不自动续费，"1"表示自动续费
+    
+
+    selectedInternetChargeType: string = "PayByTraffic"; //===带宽收费方式    
+    selectedInternetMaxBandwidthIn = null;
+    selectedInternetMaxBandwidthOut = 1;//===
+
+    Password: string = null;
+    passwordCheck: string = null;
+    InstanceName: string = null; //vm的名称
+
+    price: string = null; //vm的价格
+    price_instance: string = null;
+    price_traffic: string = null;
 
     toString() {
         return JSON.stringify(this);
@@ -283,12 +286,12 @@ export class priceCommodityModel {
 }
 export class systemDiskModel {
     category: string = null;
-    size: number = 1;
+    size: string = null;
 }
 export class priceReturnModel {
-    orderType: string = "";
-    originalAmount: string = "";
-    tradeAmount: string = "";
+    orderType: string = null;
+    originalAmount: string = null;
+    tradeAmount: string = null;
 }
 //<<<
 
@@ -307,6 +310,37 @@ export class TagModel {
     Tag: Array<string> = [];
 }
 
+export class orderSubmitModel {
+  accessinfo: accessinfoModel = new accessinfoModel();
+  autoRenew: boolean = false;
+  autoRenewPeriod: string = null;
+  clientToken: string = null;  
+  description: string = null;
+  hostName: string = null;
+  imageId: string = null;
+  instanceChargeType: string = null;
+  instanceName: string = null;
+  instanceType: string = null;
+  internetChargeType: string = null;
+  internetMaxBandwidthIn: number = null;
+  internetMaxBandwidthOut: number = null;
+  ioOptimized: boolean = false;
+  nodeControllerId: string = null;
+  password: string = null;
+  period: number = null;
+  privateIpAddress: string = null;
+  securityGroupId: string = null;
+  systemDiskCategory: string = null;
+  systemDiskDescription: string = null;
+  systemDiskDiskName: string = null;
+  systemDiskSize: string = null;
+  userData: string = null;
+  vswitchId: string = null;
+  zoneId: string = null;
+}
 
-
+export class accessinfoModel {
+    accessId: string = null;
+    accessSecret: string = null;
+}
 

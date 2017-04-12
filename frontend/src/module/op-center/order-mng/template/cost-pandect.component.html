@@ -115,40 +115,45 @@
             </div>
 		</div><!--  下拉选项行 ending-->
 
-		<!--  表格行 -->
+			<!--  表格行 -->
 		<div class="thirdPanel" *ngIf="isAllService==1">
             <div class="table-container">
                 <table class="table table-hover table-all-boder">
-                        <tr>
-                            <th class="text-center">已购服务编号</th>
-                            <th class="text-center">产品名称</th>
+					<thead>
+						<tr>
+							<th class="text-center">已购服务编号</th>
+							<th class="text-center">产品名称</th>
 							<th class="text-center">购买数量</th>
 							<th class="text-center">费用类型</th>
-                            <th class="text-center">应付金额</th>
-                          
-                        </tr>
+							<th class="text-center">应付金额</th>
+										
+						</tr>
+					</thead>
+					<tbody>
                         <tr class="text-center" *ngFor="let item of allServiceLoader.Items;">
 							<td colspan="5">
 								<table class="cart-info">
-									<tr *ngFor="let priceItem of item.priceDetails">
+									<tr  *ngFor="let priceItem of item.priceDetails">
 										<td class="vertical-center"><a (click)='showDetail(item)'>{{item.subinstanceCode}}</a></td>
                             			<td class="vertical-center">{{item.productName}}</td>
                             			<td class="vertical-center">{{item.num}}</td>
 										<td>
 											{{priceItem.billName}}
 										</td>
-										<td class="vertical-center">&nbsp;&nbsp;￥{{priceItem.amount}}</td>
+										<td class="vertical-center"><span *ngIf="!priceItem.isShow" >&nbsp;&nbsp;￥{{priceItem.amount}}</span><span *ngIf="priceItem.isShow">&nbsp;&nbsp;￥{{item.total_amount}}</span></td>
 									</tr>
 									 
 								</table>
 							</td>		
                     	</tr> 
+					</tbody>                  
                 </table>
             </div>
 		</div><!--  表格<div class="row row-line-height">-->
 		<div  class="thirdPanel" *ngIf="isAllService==2">
             <div class="table-container">
                 <table class="table table-hover table-all-boder">
+                    <thead>
                         <tr>
                             <th class="text-center">已购服务编号</th>
                             <th class="text-center">产品名称</th>
@@ -157,8 +162,10 @@
                             <th class="text-center">应付金额</th>
                           
                         </tr>
-                       <tr class="text-center" *ngFor="let item of allServiceLoader.Items;">
-							<td colspan="5">
+                    </thead>
+                    <tbody>
+                        <tr class="text-center" *ngFor="let item of increaseServiceLoader.Items;">
+                            <td colspan="5">
 								<table class="cart-info">
 									<tr *ngFor="let priceItem of item.priceDetails">
 										<td class="vertical-center"><a (click)='showDetail(item)'>{{item.subinstanceCode}}</a></td>
@@ -167,12 +174,13 @@
 										<td>
 											{{priceItem.billName}}
 										</td>
-										<td class="vertical-center">&nbsp;&nbsp;￥{{priceItem.amount}}</td>
+										<td class="vertical-center"><span *ngIf="!priceItem.isShow" >&nbsp;&nbsp;￥{{priceItem.amount}}</span><span *ngIf="priceItem.isShow">&nbsp;&nbsp;￥{{item.total_amount}}</span></td>
 									</tr>
 									 
 								</table>
-							</td>		
-                    	</tr>  
+							</td>	
+                        </tr>               
+                    </tbody>
                 </table>
             </div>
 		</div><!--  表格<div class="row row-line-height">-->

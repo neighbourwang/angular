@@ -1,56 +1,56 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
-    私有云主机容量管理
+    {{'ASSIGN_MNG.PRIVATE_HYPER_MNG'|translate}}<!--私有云主机超分管理-->
 </div>
 <div class="page-content">
-    <div class="mgt5" style="font-size:18px;font-weight:bold;">筛选条件：</div>
+    <div class="mgt5" style="font-size:18px;font-weight:bold;">{{'ASSIGN_MNG.FILTERS'|translate}}：</div><!--筛选条件-->
     <div style="margin-right:30%;">
     <div class="row row-line-height">
-        <div class="col-md-2 form-control-title" >企业：</div>
+        <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.ENT'|translate}}：</div><!--企业-->
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="selectedEnt" (change)="selectedDept=defaultDept;">
-                <option [ngValue]="defaultEnt">所有企业</option>
+                <option [ngValue]="defaultEnt">{{'ASSIGN_MNG.ALL_ENTS'|translate}}</option><!--所有企业-->
                 <option *ngFor="let ent of entList" [ngValue]="ent">{{ent.enterpriseName}}</option>
             </select>
         </div>
-        <div class="col-md-2 form-control-title" >部门：</div>
+        <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.DEPT'|translate}}：</div><!--部门-->
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="selectedDept">
-                <option [ngValue]="defaultDept">所有部门</option>
+                <option [ngValue]="defaultDept">{{'ASSIGN_MNG.ALL_DEPTS'|translate}}</option><!--所有部门-->
                 <option *ngFor="let dept of selectedEnt.department" [ngValue]="dept">{{dept.departmentName}}</option>
             </select>
         </div>
     </div>
     <div class="row row-line-height">
-        <div class="col-md-2 form-control-title" >平台：</div>
+        <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.PLATFORM'|translate}}：</div><!--平台-->
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion">
-                <option [ngValue]="defaultPlf">所有平台</option>
+                <option [ngValue]="defaultPlf">{{'ASSIGN_MNG.ALL_PLATFORMS'|translate}}</option><!--所有平台-->
                 <option *ngFor="let plf of plfList" [ngValue]="plf" >{{plf.platformName}}</option>
             </select>
         </div>
         <div class="col-md-2 form-control-title" >Region/DC：</div>
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedZone=defaultZone">
-                <option [ngValue]="defaultRegion">所有Region/DC</option>
+                <option [ngValue]="defaultRegion">{{'ASSIGN_MNG.ALL_REGIONS'|translate}}</option><!--所有Region/DC-->
                 <option *ngFor="let reg of selectedPlf.region" [ngValue]="reg">{{reg.region}}</option>
             </select>
         </div>
-        <div class="col-md-2 form-control-title" >可用区：</div>
+        <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.ZONE'|translate}}：</div><!--可用区-->
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="selectedZone">
-                <option [ngValue]="defaultZone">所有可用区</option>
+                <option [ngValue]="defaultZone">{{'ASSIGN_MNG.ALL_ZONES'|translate}}</option><!--所有可用区-->
                 <option *ngFor="let z of selectedRegion.zone" [ngValue]="z">{{z.zoneName}}</option>
             </select>
         </div>
     </div>
     <div class="row row-line-height">
-        <div class="col-md-2 form-control-title" >云主机状态：</div>
+        <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.CLOUD_HOST_STATE'|translate}}：</div><!--云主机状态-->
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="queryOpt.powerStatus">
                 <option *ngFor="let s of service.powerStatusDic | async" [value]="s.value">{{s.displayValue}}</option>
             </select>
         </div>
-        <div class="col-md-2 form-control-title" >云主机规格：</div>
+        <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.CLOUD_HOST_SPEC'|translate}}：</div><!--云主机规格-->
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="queryOpt.flaovarId">
                 <option [value]="'all'">所有规格</option>
@@ -59,7 +59,7 @@
         </div>
     </div>
     <div class="row row-line-height">
-        <div class="col-md-2 form-control-title" >利用率排序：</div>
+        <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.USAGE_RANK'|translate}}：</div><!--利用率排序-->
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="queryOpt.rate">              
                 <option *ngFor="let rate of service.rateDic | async" [value]="rate.value">{{rate.displayValue}}</option>
@@ -75,7 +75,7 @@
                 <option [value]="all">所有</option>
             </select>
         </div>
-        <div class="col-md-2 form-control-title" >时间范围：</div>
+        <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.PERIOD'|translate}}：</div><!--时间范围-->
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="queryOpt.period">
                 <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
@@ -84,17 +84,17 @@
     </div>
     </div>
     <div>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="exportAll()">导出所有数据</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="exportCurrent()">导出当前数据</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">重置</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">确认</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="exportAll()">{{'ASSIGN_MNG.EXPORT_ALL_DATA'|translate}}</button><!--导出所有数据-->
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="exportCurrent()">{{'ASSIGN_MNG.EXPORT_CURRENT_DATA'|translate}}</button><!--导出当前数据-->
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">{{'COMMON.RESET'|translate}}</button><!--重置-->
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">{{'COMMON.CONFIRM'|translate}}</button><!--确认-->
     </div>
     <div style="clear:both;"></div>
     <div class="row mgt15">
         <div class="col-md-4">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">CPU使用率概览</h3>
+                    <h3 class="panel-title">{{'ASSIGN_MNG.CPU_USAGE_OVERVIEW'|translate}}</h3><!--CPU使用率概览-->
                 </div>
                 <div class="panel-body">
                      <div class="row">
@@ -134,7 +134,7 @@
         <div class="col-md-4">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">内存使用率概览</h3>
+                    <h3 class="panel-title">{{'ASSIGN_MNG.MEM_USAGE_OVERVIEW'|translate}}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -174,7 +174,7 @@
         <div class="col-md-2 ">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">云主机运行状态</h3>
+                    <h3 class="panel-title">{{'ASSIGN_MNG.CLOUD_HOST_RUNNING_STATE'|translate}}</h3><!--云主机运行状态-->
                 </div>
                 <div class="panel-body" style="padding:0;">                  
                     <table class="table table-hover">
@@ -195,7 +195,7 @@
         <div class="col-md-2">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">云主机规格信息</h3>
+                    <h3 class="panel-title">{{'ASSIGN_MNG.CLOUD_HOST_SPEC_INFO'|translate}}</h3><!--云主机规格信息-->
                 </div>
                 <div class="panel-body" style="padding:0;">
                     <table class="table table-hover">
@@ -214,17 +214,17 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>编号</th>
-                    <th>实例名称</th>
-                    <th>平台</th>
+                    <th>{{'CAPACITY_MNG.NUMBER'|translate}}</th><!--编号-->
+                    <th>{{'ASSIGN_MNG.INSTANCE_NAME'|translate}}</th><!--实例名称-->
+                    <th>{{'ASSIGN_MNG.PLATFORM'|translate}}</th><!--平台-->
                     <th>Region/DC</th>
-                    <th>可用区</th>
-                    <th>企业</th>
-                    <th>部门</th>
-                    <th>CPU平均利用率</th>
-                    <th>内存平均利用率</th>
-                    <th>CPU峰值利用率</th>
-                    <th>内存峰值利用率</th>
+                    <th>{{'ASSIGN_MNG.ZONE'|translate}}</th><!--可用区-->
+                    <th>{{'ASSIGN_MNG.ENT'|translate}}</th><!--企业-->
+                    <th>{{'ASSIGN_MNG.DEPT'|translate}}</th><!--部门-->
+                    <th>{{'ASSIGN_MNG.CPU_AVERAGE_UTILIZATION'|translate}}</th><!--CPU平均利用率-->
+                    <th>{{'ASSIGN_MNG.MEM_AVERAGE_UTILIZATION'|translate}}</th><!--内存平均利用率-->
+                    <th>{{'ASSIGN_MNG.CPU_PEAK_UTILIZATION'|translate}}</th><!--CPU峰值利用率-->
+                    <th>{{'ASSIGN_MNG.MEM_PEAK_UTILIZATION'|translate}}</th><!--内存峰值利用率-->
                 </tr>
             </thead>
             <tbody>
@@ -258,39 +258,37 @@
 </div>
 
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
-<fc-popup #exportAllData  title="{{title}}"  ot="导出" (of)="acceptExport();" ct="取消"   cssClass="minWidth900">
+<fc-popup #exportAllData  title="{{title}}"  ot="{{'ASSIGN_MNG.EXPORT'|translate}}" (of)="acceptExport();" ct="{{'COMMON.CANCEL'|translate}}"   cssClass="minWidth900">
     <div class="row row-line-height" >
         
             <div class="col-md-3 form-control-title" style="line-height: 50px;">
-                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectFirst()" />&nbsp;快速选择：
+                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectFirst()" />&nbsp;{{'ASSIGN_MNG.QUICK_SELECT'|translate}}：
             </div>
             <div class="col-md-4" style="margin-top:10px;">
                 <select class="form-control"[(ngModel)]="period" >
-                    <option value="1">最近24小时</option>
-                    <option value="2">最近7天</option>
-                    <option value="3">最近30天</option>
-                    <option value="4">最近90天</option>
-                    <option value="5">最近180天</option>
-                    <option value="6">最近360天</option>
+                    <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
                 </select>
             </div>
         
     </div>
     <div class="row row-line-height">       
             <div class="col-md-3 form-control-title" style="line-height: 50px;">
-                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectSecond()" />&nbsp;时间范围：
+                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectSecond()" />&nbsp;{{'ASSIGN_MNG.PERIOD'|translate}}：
             </div>
             <div class="col-md-9">
                 <div class="assign-mng float-left">
                     <date-picker (dateChanged)="StartDateChange($event)" ></date-picker>
                 </div>
-                <div style="float: left; line-height: 50px; width: 40px; text-align: center;">至</div>
+                <div style="float: left; line-height: 50px; width: 40px; text-align: center;">{{'ASSIGN_MNG.TO'|translate}}</div>
                 <div class="assign-mng float-left">
                     <date-picker (dateChanged)="EndDateChange($event)"></date-picker>
                 </div>
             </div>
      
     </div>
+    <!--<div>{{flag}}</div>
+    <div>{{startDate}}</div>
+    <div>{{endDate}}</div>-->
     <div style="height:200px;">
        
     </div>

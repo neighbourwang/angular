@@ -103,6 +103,7 @@ private increseConsumeLoader:ItemLoader<CommonKeyValue> = null;//消费趋势-�
                         if(priceDetailItem.billName=='一次性费用'){
                             priceDetailItem.isShow = false;
                             item.total_amount=item.total_amount-priceDetailItem.amount;
+                            item.total_amount = Number(item.total_amount.toFixed(2));
                         }else{                      
                             priceDetailItem.isShow = true;
                         }
@@ -153,7 +154,6 @@ private increseConsumeLoader:ItemLoader<CommonKeyValue> = null;//消费趋势-�
         this.loadLastDay();
         this.createSumBar();
         this.createHstoryBar();
-        this.search_chart();
 		this.layoutService.hide();
 	}
 
@@ -193,6 +193,7 @@ loadYears(){
             .then(sucess=>{
                 // let item = this.userTypeLoader.FirstItem;
                 this.isRootUser();
+                this.search_chart();
                 this.layoutService.hide();
             })
             .catch(err=>{

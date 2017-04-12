@@ -36,8 +36,8 @@ export class PhysicalModel {
     priIPAddr: string;
     pubIPAddr: string;
     image: string;
-    mainEndDate:string;  //维保结束时间
-    mainStartDate:string;  //维保开始时间
+    mainEndDate:string="";  //维保结束时间
+    mainStartDate:string="";  //维保开始时间
 
     // pmHardwareCPU:CPU; 
     // pmHardwareMemory:Memory;
