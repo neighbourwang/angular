@@ -37,12 +37,7 @@
     <div class="row mgt15" >
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="Period">
-            <option [value]="1">最近24小时</option>
-            <option [value]="7">最近7天</option>
-            <option [value]="30">最近30天</option>
-            <option [value]="90">最近90天</option>
-            <option [value]="180">最近180天</option>
-            <option [value]="360">最近360天</option>
+             <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
         </select>
         </div>
         <div class="col-md-2">

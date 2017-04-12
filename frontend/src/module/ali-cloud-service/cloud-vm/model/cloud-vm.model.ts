@@ -10,10 +10,14 @@ export class orderVmPageModel {
 
     selectedChargeType: string = "PostPaid";//===收费方式:PostPaid,按量付费,PrePaid,包年包月
 
-    selectedNetworkType: string = "vpc"; //==='classic' 表示经典网络，'vpc'表示专有网络
-    AllocatePublicIP: boolean = true; //===经典网络时显示带宽供选择
+    selectedNetworkType: string = "classic"; //==='classic' 表示经典网络，'vpc'表示专有网络
+    AllocatePublicIP: boolean = true; //===经典网络时，显示带宽供选择
     selectedVpcId: string = null;
     selectedVswitchId: string = null;
+
+    selectedInternetChargeType: string = "PayByTraffic"; //===经典网络时，带宽默认是按量方式    
+    selectedInternetMaxBandwidthIn = null;
+    selectedInternetMaxBandwidthOut = 1;//===
     
 
     SecurityGroupId: string = null;
@@ -22,7 +26,8 @@ export class orderVmPageModel {
     selectedGeneration: string = null; //实例族
     selectedInstanceFamily: string = null;
     selectedInstanceType: string = null;
-    ioOptimized: boolean = null;
+    ioOptimized_price: boolean = null;
+    ioOptimized_vm: string = null;
 
     selectedImage: string = null;　//启动ｖｍ时用的imageId,可能还需要镜像类型
 
@@ -35,12 +40,7 @@ export class orderVmPageModel {
     price_period: number = null;
     periodType: string = null;
     priceUnit: string = null;
-    renew: boolean = null;  //"0"表示不自动续费，"1"表示自动续费
-    
-
-    selectedInternetChargeType: string = "PayByTraffic"; //===带宽收费方式    
-    selectedInternetMaxBandwidthIn = null;
-    selectedInternetMaxBandwidthOut = 1;//===
+    renew: boolean = null;  //"0"表示不自动续费，"1"表示自动续费 
 
     Password: string = null;
     passwordCheck: string = null;
@@ -310,6 +310,13 @@ export class TagModel {
     Tag: Array<string> = [];
 }
 
+export class GetSecGroupSubmitModel{
+    accessinfo: accessinfoModel = new accessinfoModel();
+    pageNumber: string = "1";
+    pageSize: string = "50";
+    vpcId: string = null;
+}
+
 export class orderSubmitModel {
   accessinfo: accessinfoModel = new accessinfoModel();
   autoRenew: boolean = false;
@@ -324,7 +331,7 @@ export class orderSubmitModel {
   internetChargeType: string = null;
   internetMaxBandwidthIn: number = null;
   internetMaxBandwidthOut: number = null;
-  ioOptimized: boolean = false;
+  ioOptimized: string = null;
   nodeControllerId: string = null;
   password: string = null;
   period: number = null;

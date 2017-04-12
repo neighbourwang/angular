@@ -106,7 +106,13 @@
 	"QUICK_SELECT":"快速选择",
 	"TO":"至",
 	"APPLICANT":"申请人",
-	"BACK_TO_HYPER_MNG":"返回云主机超分管理"
+	"BACK_TO_HYPER_MNG":"返回云主机超分管理"	
+  },
+  "TREND_MNG":{
+    "COMPUTE_RES_TREND_ANALYSIS":"私有云平台计算资源用量分析",
+	"ANALYSIS_TYPE":"分析类型",
+	"DISPLAY_BY_ZONE":"按可用区显示",
+	"BASIC_INFO":"基本信息"
   },
   "CHECK_CENTER": {
     "ADVANCED_QUERY": "高级查询",
