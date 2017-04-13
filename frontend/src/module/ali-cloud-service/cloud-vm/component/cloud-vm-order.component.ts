@@ -67,6 +67,16 @@ export class AliCloudVmOrderComponent implements OnInit {
     pageIndex = 1;
     pageSize = 10;
     totalPage = 1;
+/*
+    tip_instanceChargeType="<div class='bk-asktip-title'>包年包月：</div>按月购买及续费，为预付费模式。<br />ECS若用于网站Web访问，请及时备案；<br/>若 ECS 用于 SLB，请前往 SLB 新购页面购买带宽，ECS 仅需保留少量带宽以便您管理。<div class='bk-asktip-title bk-pt2'>按量付费：</div>按实际使用时间以小时为单位进行收费，后付费模式<br />ECS不支持备案服务<br /><a href='https://help.aliyun.com/knowledge_detail/40653.html' class='bk-lnk' target='_blank'>按量付费计费说明>></a>";
+    tip_region = "<div class='bk-asktip-title'>地域：</div>地域指的是 ECS 实例所在的物理位置。<div class='bk-asktip-title'>可用区：</div>可用区是指在同一地域内，电力和网络互相独立的物理区域。在同一地域内可用区与可用区之间内网互通，可用区之间能做到故障隔离。<div class=&quot;bk-hr&quot;></div>如果您的应用需要较高的容灾能力，建议您将云服务器 ECS 实例部署在同一地域的不同可用区内。<br/>如果您的应用在实例之间需要较低的网络时延，则建议您将 ECS 实例创建在相同的可用区内";
+    tip_networkType = "<div class='bk-asktip-title'>网络类型：</div>指ECS实例的网络管理及使用模式，与运营商公网接入网络质量无关，任何网络类型的运营商接入均为 BGP 线路，请您放心使用，并根据自己需要进行选择。"
+    tip_instanceType = "系列 II 较系列 I 进行了硬件升级，采用 Haswell CPU、DDR4 内存，并默认为 I/O 优化实例，同时增加了一些新的指令集，使整数和浮点运算的性能翻倍，整体计算能力更强。<div class='bk-hr'></div>系列 III 相对系列 I 和系列 II 进行了硬件升级，采用 Intel Broadwell CPU、DDR4 内存，并默认为 I/O 优化实例，高主频和中主频两种 CPU 配合多种内存配比，可以提供给用户更好的性能以及更多的选择。<div class=&quot;bk-hr&quot;></div>系列之间不能互相升降配。"
+    tip_ioOptimized = "<div class='bk-asktip-title'>选择支持 I/O 优化的实例：</div>挂载 SSD云盘或高效云盘时能够获得云盘的全部存储性能，因为 I/O 优化为实例与云盘之间提供更好的网络能力，可保证云盘存储性能的发挥。 <div class='bk-hr'></div> <div class='bk-asktip-title'>对于不支持 I/O 优化的实例：</div>挂载 SSD云盘时，通常最高可获得 1000 左右的 IOPS 性能；挂载高效云盘时，通常最高可获得数百的 IOPS 性能";
+    tip_internetChargeType = "<div class='bk-asktip-title'>按固定带宽的方式：</div>需指定公网出方向的带宽的大小，如 10Mbps，适用于业务场景对于网络带宽要求比较稳定的客户，费用较低 <div class='bk-asktip-title bk-pt2'>按使用流量的方式：</div>是按公网出方向的实际发生的网络流量进行收费，适用于业务场景对网络带宽需求变化较大的场景，如平时带宽使用较低但间歇性的出现网络访问高峰的场景；为了防止突然爆发的流量产生较高的费用，可以指定容许的最大网络带宽进行限制。";
+    tip_image = "<div class='bk-asktip-title'>公共镜像：</div>是由阿里云官方提供公共基础镜像，仅包括初始系统环境。请根据您的实际情况自助配置应用环境或相关软件配置。</div><div ng-show='true'><div class=&quot;bk-hr&quot;></div><div class='bk-asktip-title'>自定义镜像：</div>基于用户系统快照生成，包括初始系统环境、 应用环境和相关软件配置 。选择自定义镜像创建云服务器，节省您的重复配置时间。</div><div ng-show='true'><div class=&quot;bk-hr&quot;></div><div class='bk-asktip-title'>共享镜像：</div>是其他账号的自定义镜像主动共享给您使用的镜像。阿里云不保证其他账号共享给您的镜像的完整性和安全性，使用共享镜像需要自行承担风险。<a href=&quot;http://help.aliyun.com/knowledge_detail.htm?knowledgeId=6527514&quot; target='_blank'>了解共享镜像详情&amp;gt;&amp;gt;</a></div><div ng-show='true'><div class=&quot;bk-hr&quot;></div><div class='bk-asktip-title'>镜像市场：</div>提供经严格审核的百款优质第三方镜像，预装操作系统、应用环境和各类软件，无需配置，可一键部署云服务器。满足建站/应用开发/可视化管理等个性化需求。<a href=&quot;http://market.aliyun.com/imagehelp&quot; target='_blank'>了解镜像市场服务&amp;gt;&amp;gt;</a></div>";
+    tip_renew = "<div class='bk-asktip-title'>按月购买：</div>则自动续费周期为 1 个月<div class='bk-asktip-title bk-pt2'>按年购买：</div>则自动续费周期为 1 年。";
+*/
 
     calculatetimer: any = null;
     displayInstanceType = true;
