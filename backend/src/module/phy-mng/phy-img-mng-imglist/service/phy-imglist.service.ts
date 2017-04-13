@@ -17,9 +17,9 @@ export class PhyImgListService {
 
     //镜像类型
     typeDic = this.dict.get({
-        owner: "IMAGES",
-        field: "TYPE"
-    });
+        owner: "PM_IMAGE",
+        field: "IMAGE_TYPE"
+    });//  IMAGES TYPE
     //系统位数
     bits_typeDic = this.dict.get({
         owner: "IMAGES",

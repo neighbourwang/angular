@@ -313,4 +313,9 @@ export class ProdMngComponent implements OnInit {
     otcreate(){        
          this.router.navigate(["prod-mng/prod-mng/prod-mng-cre-1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);
     }
+    //创建物理机产品
+    createPhysicalProd(){
+         this.router.navigateByUrl("prod-mng/physical-prod-mng/prod-mng-cre-step1", { skipLocationChange: true });
+    }
+
 }
