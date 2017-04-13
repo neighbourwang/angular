@@ -29,16 +29,80 @@
 						<input type="text" class="form-control" disabled [(ngModel)]="serviceName">
 					</div>
 				</div>
-			</div>
-			<div >
-				<div class="row row-line-height">
-					<div class="form-group">
-						<div class="col-sm-4 form-control-title">标准规格：</div>
-						<div class="col-sm-4 row-line-child font-gray">
-							
+			</div>			
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title">标准规格：</div>
+					<div class="col-sm-4">
+						<div style="border:1px solid #cfd8e7">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th class="check-box-col">{{'COMMON.SELECT_ALL'| translate}}</th>
+										<th>
+											{{"部件名称"}}
+										</th>
+										<th>{{'规格' | translate}}</th>
+										<th>{{'规格值' | translate}}</th>
+										<th>{{'数量' | translate}}</th>
+										<th>{{'总容量' | translate}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!--<tr *ngFor="let item of prodDirList; let idx = index;">-->
+									<tr>
+										<td>
+											<input class="fox-cloud-radio" type="radio" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"
+											/></td>
+										<td>
+											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'cpu'}}</a>
+										</td>
+										<td>{{'Xeon E5 2560'}}</td>
+										<td>{{'2.9GHZ'}}</td>
+										<td>{{'2'}}</td>										
+										<td>{{'128GB'}}</td>
+									</tr>
+									<tr>
+										<td>
+											<input class="fox-cloud-radio" type="radio" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"
+											/></td>
+										<td>
+											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'内存'}}</a>
+										</td>
+										<td>{{'Xeon E5 2560'}}</td>
+										<td>{{'2.9GHZ'}}</td>
+										<td>{{'2'}}</td>										
+										<td>{{'128GB'}}</td>
+									</tr>
+									<tr>
+										<td>
+											<input class="fox-cloud-radio" type="radio" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"
+											/></td>
+										<td>
+											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'磁盘'}}</a>
+										</td>
+										<td>{{'Xeon E5 2560'}}</td>
+										<td>{{'2.9GHZ'}}</td>
+										<td>{{'2'}}</td>										
+										<td>{{'128GB'}}</td>
+									</tr>
+									<tr>
+										<td>
+											<input class="fox-cloud-radio" type="radio" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"
+											/></td>
+										<td>
+											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'网卡'}}</a>
+										</td>
+										<td>{{'Xeon E5 2560'}}</td>
+										<td>{{'2.9GHZ'}}</td>
+										<td>{{'2'}}</td>										
+										<td>{{'128GB'}}</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-				</div>				
+				</div>
 			</div>			
 			<div class="row row-line-height">
 				<div class="form-group">

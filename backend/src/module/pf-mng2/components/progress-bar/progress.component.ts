@@ -3,8 +3,8 @@ import { Component, Input, Output, OnInit, ElementRef, ViewChild, OnChanges, tri
 
 @Component({
     selector: 'progress-bar',
-    template: `<div #el [@heroState]="state" style="position:relative;min-height:85px;">
-                    <div  [@state4]="state" style="position:absolute;top:0;width:100%;transform:rotateX(180deg)">
+    template: `<div #el [@heroState]="state" (@heroState.start)="animationStarted($event)" style="position:relative;min-height:85px;width:100%">
+                    <div  *ngIf="!display" style="transform:rotateX(180deg)">
                         <div class="row navigator-progress" >
                             <div class="col-md-3 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}</span></div>
                             <div class="col-md-3"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}</span></div>
@@ -19,8 +19,7 @@ import { Component, Input, Output, OnInit, ElementRef, ViewChild, OnChanges, tri
                             </div>
                         </div>
                     </div>
-                    <div style="position:absolute;top:0;height:85px;width:100%;z-index:0;background:#fff"></div>     
-                    <div   [@state6]="state"  style="position:absolute;top:0;width:100%;">
+                    <div *ngIf="display" >
                         <div  class="row navigator-progress">
                             <div class="col-md-2 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}<!--基本信息--></span></div>
                             <div class="col-md-2"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}<!--资源同步--></span></div>
@@ -46,26 +45,8 @@ import { Component, Input, Output, OnInit, ElementRef, ViewChild, OnChanges, tri
             state('6', style({
                 transform: 'rotateX(0)'
             })),
-            transition("*<=> *", animate('5000ms ease-out'))
-        ]),
-        trigger('state4', [
-            state('4', style({
-                zIndex:1
-            })),
-            state('6', style({
-                zIndex:-1
-            })),
-            transition("*<=> *", animate('5000ms'))
-        ]),
-        trigger('state6', [
-            state('4', style({
-                zIndex:-1
-            })),
-            state('6', style({
-                zIndex:1
-            })),
-            transition("*<=> *", animate('5000ms'))
-        ]),
+            transition("*<=> *", animate('500ms ease-out'))
+        ])       
     ],
 })
 export class ProgressBarComponent implements OnInit, OnChanges {
@@ -78,15 +59,14 @@ export class ProgressBarComponent implements OnInit, OnChanges {
     @ViewChild('el') el: ElementRef;    
     ngOnInit() { }
     display:boolean=true;
-    ngOnChanges(values) {
-        // console.log(values.state);
-        if (values.state.currentValue == '4') {
-           setTimeout(()=>this.display=false,2500)
-        } else {
-           setTimeout(()=>this.display=true,2500)
-
-        }
+    ngOnChanges(values) {       
 
     }
-
+    animationStarted(e){
+        if (this.state == '4') {
+           setTimeout(()=>this.display=false,e.totalTime/3)
+        } else {
+           setTimeout(()=>this.display=true,e.totalTime/3)
+        }
+    }
 }

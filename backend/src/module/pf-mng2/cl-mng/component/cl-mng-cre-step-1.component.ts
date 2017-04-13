@@ -1,7 +1,7 @@
 /**
  * Created by junjie on 16/10/18.
  */
-import { Component, ViewChild, OnInit, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -26,39 +26,7 @@ import { ClMngIdService } from '../service/cl-mng-id.service';
             background-color: #00a982;
             color : #fff
         }`
-    ],
-    animations: [
-        trigger('heroState', [
-            state('leave', style({
-                transform: 'rotateX(0)'
-            })),
-            state('in', style({
-                transform: 'rotateX(360deg)'
-            })),
-            transition('leave => in', animate('500ms ease-in')),
-            transition('in => leave', animate('500ms ease-out'))
-        ]),
-        trigger('flyInOut', [
-            state('leave', style({
-                transform: 'rotateX(360deg)'
-            })),
-            state('in', style({
-                transform: 'rotateX(0)'
-            })),
-            transition('leave => in', animate('500ms ease-in')),
-            transition('in => leave', animate('500ms ease-out'))
-        ])
-        // trigger('flyInOut', [
-        //     state('in', style({ transform: 'rotateX(0)' })),
-        //     transition('void => *', [
-        //         style({ transform: 'rotateX(180deg)' }),
-        //         animate(100)
-        //     ]),
-        //     transition('* => void', [
-        //         animate(100, style({ transform: 'rotateX(180deg)' }))
-        //     ])
-        // ])
-    ],
+    ],    
     providers: []
 })
 
@@ -152,6 +120,9 @@ export class ClMngCreStep1Component implements OnInit {
 
     }
     next() {
+        if(this.state=='4'){
+            return
+        }
         let message: String = this.checkValue();
         if (this.checkValue()) {
             this.notice.open('COMMON.ERROR', message);
