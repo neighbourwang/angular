@@ -9,10 +9,10 @@ import { Info } from "./formatInfo.model";
 export class formatInfo implements PipeTransform {
 
     transform(lists: Array<any>, serviceType:0|1): Array<any> {
-    	let arr = [],
-    		info:Info = new Info;
-    	lists.forEach(list => info[list.attrCode] = list);
-console.log(lists, 435345345)
+	let arr = [],
+		info:Info = new Info;
+	lists.forEach(list => info[list.attrCode] = list);
+
 		if(serviceType == 0) {   //云主机
 			arr = [
 				{

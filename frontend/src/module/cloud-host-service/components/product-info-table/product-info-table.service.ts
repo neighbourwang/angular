@@ -49,4 +49,12 @@ export class ProductInfoTableService {
         owner : "PACKAGE_BILLING",
         field : "PERIOD_TYPE"
     })
+    subinstanceStatus = this.dict.get({    //获取状态列表
+        owner : "SUBINSTANCE",
+        field : "STATUS"
+    });
+    computeStatus = this.dict.get({    //获取状态列表
+        owner: "COMPUTE",
+        field: "STATUS"
+    });
 }
