@@ -157,9 +157,18 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5æ¶ˆè
         this.loadYears();
         this.loadMonths();
         this.loadLastDay();
-        this.loadEnterprise();
-        this.search_chart();
-		this.layoutService.hide();
+        this.enterpriseLoader.Go()
+		.then(success=>{
+		    this.search_chart();
+            this.layoutService.hide();
+		})
+        .catch(err=>{
+			this.showMsg(err);
+            this.layoutService.hide();
+		})
+		
+      
+		
 	}
     loadYears(){
         this._years = this.timeCaculater.getYears();

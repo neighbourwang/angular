@@ -21,6 +21,7 @@ export class ProductInfoTableComponent implements OnInit,OnChanges {
 	@Input("itemList") itemList : any[] = [];     //
 	@Input("hasSelect") hasSelect : boolean  = false;
 	@Input("disabled") disabled : boolean  = false;
+	@Input("isorder") isorder : boolean =false;
 
 	@Output("onSelect") onSelect = new EventEmitter;
 	@Output("countPrice") countPrice = new EventEmitter;
@@ -42,8 +43,11 @@ export class ProductInfoTableComponent implements OnInit,OnChanges {
 	setList(params:string) {   //设置列表
 		this.service.getOrderList(params).then(orderList => {
 			this.layoutService.hide();
-			console.log(orderList)
-			this.itemList  = orderList.map(r => r.itemList[0]);
+			this.itemList = orderList.map(r => {
+                    let returnList = r.itemList[0];
+                    returnList.isOrder = true;
+                    return returnList;
+                });
 		}).catch(e => {
 			this.layoutService.hide();
 		});

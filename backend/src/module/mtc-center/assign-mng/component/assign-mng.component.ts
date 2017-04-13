@@ -44,6 +44,7 @@ export class AssignMngComponent implements OnInit {
     selectedDept: DeptModel = this.defaultDept;
 
     defaultPlf: PlfModel = new PlfModel();
+    
     selectedPlf: PlfModel = this.defaultPlf;
     defaultRegion: RegionModel = new RegionModel();
     selectedRegion: RegionModel = this.defaultRegion;
@@ -68,6 +69,11 @@ export class AssignMngComponent implements OnInit {
     period="1";
 
     ngOnInit() {
+        this.defaultEnt.enterpriseId = 'all';
+        this.defaultDept.departmentId = 'all';
+        this.defaultPlf.platformId = 'all';
+        this.defaultRegion.regionId = 'all';
+        this.defaultZone.zoneId = 'all';
         this.getEntList();
         this.getPlfList();
         this.getCloudHostSpec();
@@ -188,7 +194,7 @@ export class AssignMngComponent implements OnInit {
         this.queryOpt.enterpriseID = this.selectedEnt.enterpriseId;
         this.queryOpt.departmentId = this.selectedDept.departmentId;
         this.queryOpt.platformId = this.selectedPlf.platformId;
-        this.queryOpt.regionId = this.selectedRegion.region;
+        this.queryOpt.regionId = this.selectedRegion.regionId;
         this.queryOpt.zoneId = this.selectedZone.zoneId;
         console.log("query", this.queryOpt);
         this.getUsageState();
@@ -201,11 +207,7 @@ export class AssignMngComponent implements OnInit {
         this.selectedPlf = this.defaultPlf;
         this.selectedRegion= this.defaultRegion;
         this.selectedZone = this.defaultZone;
-        this.queryOpt.enterpriseID = 'all';
-        this.queryOpt.departmentId = 'all';
-        this.queryOpt.platformId = 'all';
-        this.queryOpt.regionId = 'all';
-        this.queryOpt.zoneId = 'all';
+        
         this.queryOpt.powerStatus = '0';
         this.queryOpt.flaovarId = 'all';
         this.queryOpt.rate = '1';
