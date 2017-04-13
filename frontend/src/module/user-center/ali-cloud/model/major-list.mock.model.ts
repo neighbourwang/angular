@@ -19,12 +19,6 @@ export const MajorList_mock= {
             operator: "王某某",
         }
     ],
-    "pageInfo": {
-        "currentPage": 1,
-        "totalPage": 1,
-        "pageSize": 10,
-        "totalRecords": 2
-    }
 }
 
 export const MajorInfo_mock= {
@@ -61,3 +55,4 @@ export const DepartList_mock= {
         }
     ]
 }
+

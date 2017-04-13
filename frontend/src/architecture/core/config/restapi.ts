@@ -942,4 +942,23 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "/marketplace/authsec/alicloud/mmp/main/depart/list"
     },
+    // 阿里云子账号管理
+    {
+        "desc": "子账号列表",
+        "id": "user-center.ali-cloud.sublist",
+        "method": "GET",
+        "url": "marketplace/authsec/alicloud/mmp/sub/list/{id}"
+    },
+    {
+        "desc": "子账号详细信息",
+        "id": "user-center.ali-cloud.subinfo",
+        "method": "GET",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/detail/{id}"
+    },
+    {
+        "desc": "子账号部门列表",
+        "id": "user-center.ali-cloud.departsublist",
+        "method": "GET",
+        "url": "marketplace/authsec/alicloud/mmp/sub/depart/list"
+    },
 ]

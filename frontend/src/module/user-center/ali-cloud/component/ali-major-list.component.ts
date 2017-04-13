@@ -40,10 +40,6 @@ export class AliMajorListComponent implements OnInit{
     noticeTitle = "";
     noticeMsg = "";
 
-    pageIndex= 1;
-    pageSize= 10;
-    totalPage= 1;
-
     type: string;
     data: Array<AliMajorList>;
     majorInfo: AliMajorList= new AliMajorList();
@@ -57,16 +53,14 @@ export class AliMajorListComponent implements OnInit{
         this.getData();
     }
 
-    getData(pageIndex?) {
-        this.pageIndex= pageIndex || this.pageIndex;
+    getData() {
         this.layoutService.show();
-        this.service.getData(this.pageIndex, this.pageSize)
+        this.service.getData()
             .then(
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.data = response["resultContent"];
-                        this.totalPage= response.pageInfo.totalPage;
                         console.log(this.data,"this.data");
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -152,8 +146,8 @@ export class AliMajorListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
-    gotoSubMng(){
-        this.router.navigate([`user-center/ali-cloud/ali-sub-list`]);
+    gotoSubMng(item){
+        this.router.navigate([`user-center/ali-cloud/ali-sub-list`,{"id": item.id}]);
     }
 
     operate(){
