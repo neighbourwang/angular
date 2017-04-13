@@ -980,6 +980,7 @@
     "STATUS_DESCRIPTION": "State Description",
     "INPUT_BASIC_INFO": "Fill in the basic information",
     "SYNC_PF_RESOURCE": "Sync platform resource",
+    "NO_SYNC_ZONES":"no available zones for sync ",
     "AVAILABLE_ZONE_RESOURCE_SET": "Available zone resource set",
     "STORAGE_RESOURCE_SET": "Storage resource set",
     "CLOUD_HOST_TYPE_SET": "Cloud server type set",
