@@ -14,10 +14,11 @@
                             <sup style="width: 20px; height: 20px; color: orange;">惠</sup>
                         </button>
                         <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PostPaid"}' (click)='selectedOrderVmPage.selectedChargeType="PostPaid"; showAndSetInstanceChargeType();' style="display: inline">按量付费</button>
-                        <static-tooltip [title]="<div class='bk-asktip-title'>包年包月：</div>按月购买及续费，为预付费模式。<br />ECS若用于网站Web访问，请及时备案；<br/>若 ECS 用于 SLB，请前往 SLB 新购页面购买带宽，ECS 仅需保留少量带宽以便您管理。<div class='bk-asktip-title bk-pt2'>按量付费：</div>按实际使用时间以小时为单位进行收费，后付费模式<br />ECS不支持备案服务<br /><a href='https://help.aliyun.com/knowledge_detail/40653.html' class='bk-lnk' target='_blank'>按量付费计费说明>></a>"
-                            placement="right">
+                        <!--
+                        <static-tooltip [title]="tip_instanceChargeType" placement="right">
                             <span class="glyphicon glyphicon-question-sign"></span>
                         </static-tooltip>
+                        -->
 
                     </div>
 
@@ -46,7 +47,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 text-tip">不同地域的实例之间内网互不相通；选择靠近您客户的地域，可降低网络时延、提高您客户的访问速度，<a href="javascript:void(0);">教我选择>></a><span class="glyphicon glyphicon-question-sign"></span>
+                    <div class="col-md-12 text-tip">不同地域的实例之间内网互不相通；选择靠近您客户的地域，可降低网络时延、提高您客户的访问速度，<a href="javascript:void(0);">教我选择>></a>
+                        <!--
+                        <static-tooltip [title]="tip_region" placement="left">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </static-tooltip>
+                        -->
                     </div>
 
                 </div>
@@ -62,7 +68,11 @@
                     <div class="col-md-12 mgb10">
                         <button *ngIf="showClassicNetwork" class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="classic"}' (click)="SetClassicNetwork();" style="display: inline">经典网络</button>
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="vpc"}' (click)="SetVpcNetwork();">专有网络</button>
-                        <span class="glyphicon glyphicon-question-sign"></span>
+                        <!--
+                        <static-tooltip [title]="tip_networkType" placement="right">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </static-tooltip>
+                        -->
                     </div>
                     <div class="col-md-12 text-tip mgb20">
                         <span>购买后不能更换网络类型 </span>
@@ -123,9 +133,17 @@
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">系列 II</button> -->
                         </div>
                     </div>
-                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <!--
+                    <static-tooltip [title]="tip_instanceType" placement="right">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                    </static-tooltip>
+                    -->
                     <span class="mgl20">I/O实例优化</span>
-                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <!--
+                    <static-tooltip [title]="tip_ioOptimized" placement="right">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                    </static-tooltip>
+                    -->
                     <div class="text-tip">系列之间不能互相升降配</div>
 
                     <div class="col-md-12 mgb20">
@@ -154,7 +172,11 @@
                     <div class="col-md-12">
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByBandwidth"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByBandwidth';showInternetChargeType();">按固定带宽</button>
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByTraffic"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByTraffic';showInternetChargeType();">按使用流量</button>
-                        <span class="glyphicon glyphicon-question-sign"></span>
+                        <!--
+                        <static-tooltip [title]="tip_internetChargeType" placement="right">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </static-tooltip>
+                        -->
                     </div>
                     <div class="col-md-12 mgt10 mgb20">
                         预付费模式，带宽费用合并在ECS实例中收取
@@ -219,7 +241,11 @@
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">自定义镜像</button>
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">共享镜像</button>
                         -->
-                        <span class="glyphicon glyphicon-question-sign"></span>
+                        <!--
+                        <static-tooltip [title]="tip_image" placement="right">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </static-tooltip>
+                        -->
                     </div>
                     <div class="col-md-12 mgb20 form-group">
                         <select class="form-control select_style" [(ngModel)]="selectedImageFlatform" (change)="FormChanged();">
@@ -287,7 +313,12 @@
                             </span>
                             </div>
                         </div>
-                        <input type="checkbox" class="fox-cloud-checkbox mgl10" (click)="reNew();" />自动续费<span class="glyphicon glyphicon-question-sign"></span>
+                        <input type="checkbox" class="fox-cloud-checkbox mgl10" (click)="reNew();" />自动续费
+                        <!--
+                        <static-tooltip [title]="tip_renew" placement="right">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </static-tooltip>
+                        -->
 
                     </div>
                 </div>
