@@ -1256,6 +1256,7 @@
     "SYNC_STORAGE_COMP_SYNC_SPEC": "同步存储区成功，正在同步云主机规格",
     "SYNC_STORAGE_FAILED": "同步存储失败",
     "SYNC_ZONE": "正在同步可用区",
+    "NO_SYNC_ZONES":"没有可同步的可用区信息",
     "SYNC_ZONES": "同步可用区信息",
     "SYNC_ZONE_COMP_SYNC_STORAGE": "同步可用区成功，正在同步存储区",
     "SYNC_ZONE_FAILED": "同步可用区失败",

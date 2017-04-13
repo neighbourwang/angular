@@ -68,18 +68,9 @@ export class OrderMngSearchComponent implements OnInit{
 				for(let i = 0; i < obj.subInstanceList.length; i++)
 				{
 					obj.subInstanceList[i] = _.extendOwn(new SubInstanceItemResp1(), item.subInstanceList[i]);
-					//费用总计-一次性费用：单价basePrice*数量
-					//obj.subInstanceList[i].oneTimePrice = obj.subInstanceList[i].billingInfo.basePrice*obj.subInstanceList[i].quantity;
-					
-					//费用总计-费用-云主机
-					// if(obj.subInstanceList[i].serviceType=='0'){
-					// 	obj.subInstanceList[i].price = obj.subInstanceList[i].billingInfo.basicPrice*obj.subInstanceList[i].quantity*obj.subInstanceList[i].period;
-					// }else if(obj.subInstanceList[i].serviceType=='1'){
-					// 	obj.subInstanceList[i].price = obj.subInstanceList[i].billingInfo.unitPrice*obj.subInstanceList[i].quantity;
-					// }
 				}
-			}
-		}
+		 	}
+	    }
 		this._orderDetailLoader.Trait = (items:Array<SearchOrderDetail>)=>{
 			let firstItem = this._orderDetailLoader.FirstItem;
 

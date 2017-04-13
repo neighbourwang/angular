@@ -113,7 +113,7 @@ export class OrderMngComponent implements OnInit {
 		//类型
 		this._typeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
-		//订单详情加载
+		//详情已购服务加载
 		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "ORDER_MNG.ORDER_DETAILS_DATA_FAILED", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
 		this._orderDetailLoader.MapFunc = (source: Array<any>, target: Array<OrderDetailItem>) => {
 			for (let item of source) {
@@ -298,69 +298,6 @@ export class OrderMngComponent implements OnInit {
 
 
 		};
-		/*
-				this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{
-					let obj = new SubInstanceResp();
-					target.push(obj);
-		
-					obj.orderNo = "1234";
-					obj.purchaseDate = "2016-11-11";
-					let subItem = new SubInstanceItemResp();
-					obj.itemList = [];
-					obj.itemList.push(subItem);
-		
-					subItem.quantity = 1;
-		
-					subItem.specList = [];
-					let spec = new SubInstanceAttrPair();
-					subItem.specList.push(spec);
-					spec.attrDisplayName = "区域";
-					spec.attrDisplayValue = "东1111区";
-			 
-					let spec2 = new SubInstanceAttrPair();
-					subItem.specList.push(spec2);
-					spec2.attrDisplayName = '可用区';
-					spec2.attrDisplayValue = '可用区B';
-		
-					  let spec3 = new SubInstanceAttrPair();
-					subItem.specList.push(spec3);
-					spec3.attrDisplayName = '实例规格';
-					spec3.attrDisplayValue = 'CPU 2赫/内存 4GB/启动盘 70G';
-		
-					 let spec4 = new SubInstanceAttrPair();
-					subItem.specList.push(spec4);
-					spec4.attrDisplayName = 'IP地址';
-					spec4.attrDisplayValue = '10.1.1.1(内部) 192.168.1.1(外部)';
-		
-					let spec5 = new SubInstanceAttrPair();
-					subItem.specList.push(spec5);
-					spec5.attrDisplayName = '操作系统';
-					spec5.attrDisplayValue = '******';
-		
-					let spec6 = new SubInstanceAttrPair();
-					subItem.specList.push(spec6);
-					spec6.attrDisplayName = '密码';
-					spec6.attrDisplayValue = '已设置';
-		
-					let spec7 = new SubInstanceAttrPair();
-					subItem.specList.push(spec7);
-					spec7.attrDisplayName = '实例名称';
-					spec7.attrDisplayValue = 'abcabc';
-		
-		
-					subItem.billingInfo = new ProductBillingItem();
-					subItem.billingInfo.basePrice = 5;
-					subItem.billingInfo.basicPrice = 6;
-					subItem.billingInfo.billingMode = '包年包月';
-					
-					subItem.period = 1;
-					subItem.quantity = 1;
-					subItem.serviceType = '云主机';
-					subItem.statusName = '成功';
-					subItem.createDate = '2016-11-11';
-					subItem.expireDate = '2017-11-11';
-				};
-				*/
 
 	}
 	ngOnInit() {
@@ -566,28 +503,6 @@ export class OrderMngComponent implements OnInit {
 	}
 
 	search(pageNumber: number = 1) {
-
-		/*
-		参数
-		{
-		  "createDate": "2016-12-29T02:00:32.511Z",
-		  "enterpriseId": "string",
-		  "expireDate": "2016-12-29T02:00:32.511Z",
-		  "organization": "string",
-		  "pageParameter": {
-			"currentPage": 0,
-			"offset": 0,
-			"size": 0,
-			"sort": {},
-			"totalPage": 0
-		  },
-		  "platformId": "string",
-		  "searchText": "string",
-		  "serviceType": "string",
-		  "status": "string",
-		  "zoneId": "string"
-		}
-		*/
 		let param = _.extend({}, this._param);
 
 
@@ -642,66 +557,6 @@ export class OrderMngComponent implements OnInit {
 
 	//续订
 	renew() {
-		// 		[
-		//   {
-		//     "attrCode": "string",
-		//     "attrDisplayName": "string",
-		//     "attrDisplayValue": "string",
-		//     "attrId": "string",
-		//     "attrValue": "string",
-		//     "attrValueCode": "string",
-		//     "attrValueId": "string",
-		//     "description": "string",
-		//     "valueType": "string",
-		//     "valueUnit": "string"
-		//   }
-		// ]
-		// 		console.log('renew start');
-// 		示例：
-// {
-//   "attrList": [
-//     {
-//       "attrId": "de229819-a0f7-11e6-a18b-0050568a49fd",
-//       "attrCode": "TIMELINEUNIT",
-//       "attrDisplayValue": "按年",
-//       "attrDisplayName": "时长单位",
-//       "attrValueId": "bc5d2ca5-a1bb-11e6-a18b-0050568a49fd",
-//       "attrValue": "5",
-//       "attrValueCode": "c550ef3a-a099-4bc7-b23a-36e61609e15d"
-//     },
-//     {
-//       "attrId": "de227a98-a0f7-11e6-a18b-0050568a49fd",
-//       "attrCode": "TIMELINE",
-//       "attrDisplayValue": "",
-//       "attrDisplayName": "购买时长",
-//       "attrValueId": "",
-//       "attrValue": "1",
-//       "attrValueCode": ""
-//     }
-//   ]
-// }
-
-// [
-//   {
-//     "attrCode": "TIMELINEUNIT",
-//     "attrDisplayName": "时长单位",
-//     "attrValueCode": "cac86c31-30f3-493a-872e-37d8a84b3e19",
-//     "attrDisplayValue": "按月",
-//     "valueUnit": null,
-//     "attrOrderSeq": null,
-//     "description": null
-//   },
-//   {
-//     "attrCode": "TIMELINE",
-//     "attrDisplayName": "购买时长",
-//     "attrValueCode": "",
-//     "attrDisplayValue": "1",
-//     "valueUnit": null,
-//     "attrOrderSeq": null,
-//     "description": null
-//   }
-// ]
-		// let param = {"attrList":[]};
 
 		let list = this.selectedOrderItem.itemList[0].specList;
 

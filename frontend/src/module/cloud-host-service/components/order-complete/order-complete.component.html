@@ -17,7 +17,7 @@
             <font class="font-green">{{'COMMON.ORDER_NUMBER' | translate}}：{{order.itemNo}} {{'COMMON.CREATED_TIME' | translate}}：{{order.createDate}}</font>
         </td>
     </tr>
-    <tr product-info-tr [itemList]="order.itemList"></tr>
+    <tr product-info-tr [isorder]="true" [itemList]="order.itemList"></tr>
    
     </ng-container>
 </table>

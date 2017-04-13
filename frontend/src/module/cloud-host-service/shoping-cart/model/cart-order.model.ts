@@ -28,6 +28,7 @@ class itemList {
     quantity: 0;
     serviceType: string;
     status: string;
+    isOrder?: boolean;
 }
 
 

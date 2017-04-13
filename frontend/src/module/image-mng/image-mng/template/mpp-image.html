@@ -9,7 +9,7 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 btn-group" data-toggle="buttons">
                         <label class="btn btn-default fix-width-140 mgt5" [ngClass]="{'active':queryOpt.areaList == ''}" (click)="queryOpt.areaId=''">
-                            <input type="radio" name="location" [checked]="queryOpt.areaList == ''" autocomplete="off"> 所有
+                            <input type="radio" name="location" [checked]="queryOpt.areaList == ''" autocomplete="off"> {{'COMMON.ALL' | translate}}
                         </label>
                         <label *ngFor="let area of areaList;" class="btn btn-default fix-width-140 mgt5" title="{{area.name}}" [ngClass]="{'active':queryOpt.areaId == area.id}" (click)="queryOpt.areaId = area.id;">
                             <input type="radio" name="location" autocomplete="off" [checked]="queryOpt.areaList == area.id">{{area.name}}
@@ -132,7 +132,7 @@
                                         <label class="col-sm-3 control-label"style="font-weight:700">{{'IMAGE.IMAGE_NAME' | translate}}:</label>
                                         <div class="col-sm-8 float-left">
                                             <input type="text"  class="form-control"[(ngModel)]="temp2.name" name ="name">
-                                            <div>长度为2-68个字符,以大小写字母或中文开头,可包含数字,".","-","_"</div>
+                                            <div>{{'IMAGE.NOTICE1' | translate}}</div>
                                         </div>
                                         
                                     </div>
@@ -222,7 +222,7 @@
             <div class="col-sm-4 form-control-title">{{'IMAGE.CUSTOM_IMAGE_DESCRIPTION'| translate}}:</div>
             <div class="col-sm-7">
                 <textarea class="form-control" rows="3" [(ngModel)]="editImage.description"></textarea>
-                <div>长度为2-256个字符 </div>
+                <div>{{'IMAGE.NOTICE2' | translate}}</div>
             </div>
         </div>
     </div>

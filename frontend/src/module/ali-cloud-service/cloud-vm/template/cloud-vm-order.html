@@ -10,10 +10,17 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
-                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PrePaid"}' (click)='selectedOrderVmPage.selectedChargeType="PrePaid"; showAndSetInstanceChargeType();' style="display: inline">包年包月<sup style="width: 20px; height: 20px; color: orange;">惠</sup></button>
+                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PrePaid"}' (click)='selectedOrderVmPage.selectedChargeType="PrePaid"; showAndSetInstanceChargeType();' style="display: inline">包年包月
+                            <sup style="width: 20px; height: 20px; color: orange;">惠</sup>
+                        </button>
                         <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PostPaid"}' (click)='selectedOrderVmPage.selectedChargeType="PostPaid"; showAndSetInstanceChargeType();' style="display: inline">按量付费</button>
-                        <span class="glyphicon glyphicon-question-sign"></span>
+                        <static-tooltip [title]="<div class='bk-asktip-title'>包年包月：</div>按月购买及续费，为预付费模式。<br />ECS若用于网站Web访问，请及时备案；<br/>若 ECS 用于 SLB，请前往 SLB 新购页面购买带宽，ECS 仅需保留少量带宽以便您管理。<div class='bk-asktip-title bk-pt2'>按量付费：</div>按实际使用时间以小时为单位进行收费，后付费模式<br />ECS不支持备案服务<br /><a href='https://help.aliyun.com/knowledge_detail/40653.html' class='bk-lnk' target='_blank'>按量付费计费说明>></a>"
+                            placement="right">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </static-tooltip>
+
                     </div>
+
                 </div>
             </li>
 
@@ -53,7 +60,7 @@
                 <div class="col-md-12 li-content">
 
                     <div class="col-md-12 mgb10">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="classic"}' (click)="SetClassicNetwork();" style="display: inline">经典网络</button>
+                        <button *ngIf="showClassicNetwork" class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="classic"}' (click)="SetClassicNetwork();" style="display: inline">经典网络</button>
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="vpc"}' (click)="SetVpcNetwork();">专有网络</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
@@ -84,9 +91,13 @@
                         <div class="text-tip">
                             <span>安全组类似防火墙功能，用于设置网络访问控制，您也可以到管理控制台 <a href="javascript:void(0);">新建安全组>></a> <a href="javascript:void(0);">教我选择>></a> </span>
                         </div>
-                        <select class="form-control select_style" [(ngModel)]="selectedsecgroup" (change)="SecurityGroupChanged();">
+                        <select *ngIf="(selectedOrderVmPage.selectedNetworkType=='classic')" class="form-control select_style" [(ngModel)]="selectedsecgroup" (change)="SecurityGroupChanged();">
                             <option [ngValue]="defaultsecgroup">请选择网络安全组</option>
-                            <option *ngFor="let secgroup of securitygrouplist" [ngValue]="secgroup">{{secgroup.SecurityGroupName}}</option>
+                            <option *ngFor="let secgroup of classicSecGrouplist" [ngValue]="secgroup">{{secgroup.SecurityGroupName}}</option>
+                        </select>
+                        <select *ngIf="(selectedOrderVmPage.selectedNetworkType=='vpc')" class="form-control select_style" [(ngModel)]="selectedsecgroup" (change)="SecurityGroupChanged();">
+                            <option [ngValue]="defaultsecgroup">请选择网络安全组</option>
+                            <option *ngFor="let secgroup of vpcSecGrouplist" [ngValue]="secgroup">{{secgroup.SecurityGroupName}}</option>
                         </select>
                     </div>
 
@@ -387,7 +398,7 @@
                 <div>
                     <div class="mgb20">
                         <table>
-                            <tr>
+                            <tr *ngIf="selectedOrderVmPage.price_traffic!=null">
                                 <span>公网流量费用：</span>
                                 <span *ngIf="selectedOrderVmPage.price_traffic!=''">￥</span> {{(selectedOrderVmPage.price_traffic) || ""}}
                             </tr>

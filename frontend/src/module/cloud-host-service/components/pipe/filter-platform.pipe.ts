@@ -8,6 +8,6 @@ import { Pipe, PipeTransform, Injectable } from "@angular/core";
 export class filterPlatformPipe implements PipeTransform {
 
     transform(arrs:any[], platformId : string) {
-		return arrs.filter(arr => arr.platformIds.indexOf(platformId) > -1)
+		return arrs.filter(arr => arr.platformIds && arr.platformIds.indexOf(platformId) > -1)
     }
 }

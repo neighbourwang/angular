@@ -20,6 +20,7 @@ export class ProductInfoTrComponent implements OnInit,OnChanges {
 	@Input("itemList") itemList : any[] = [];    
 	@Input("hasSelect") hasSelect : boolean = false;
 	@Input("disabled") disabled : boolean = false;
+	@Input("isorder") isorder: boolean = false;
 
 	@Output("onSelect") onSelect = new EventEmitter;
 	@Output("countPrice") countPrice = new EventEmitter;
