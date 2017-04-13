@@ -45,7 +45,7 @@ interface ItemList {
     specList: SpecList[];
     instanceName: string;
     buyer: string;
-    departmentName: string
+    departmentName: string;
 
 }
 

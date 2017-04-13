@@ -361,11 +361,11 @@ export class AliCloudVmService {
         
 
         let body: any = null;
-        if (selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybytraffic") { //按量带宽，多传一个traffic-bandwidth            
-            body = [body1, body2];
-        } else { //固定带宽，只传一个instance-buy
+        if (selectedOrderVmPage.selectedInternetChargeType == null || selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybybandwidth") { //固定带宽，只传一个instance-buy
             body = [body2];
-        }
+        } else if (selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybytraffic") { //按量带宽，多传一个traffic-bandwidth            
+            body = [body1, body2];
+        } 
         console.log(body, "calculatePrice body!!!!!!!!!!!");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.price.get");
         return this.restApi.request(api.method, api.url, null, null, body);
