@@ -64,8 +64,9 @@
 						 							<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view><!--显示云硬盘 -->
 												</td>
 												<td>{{prodItem.quantity}}台</td>
-												<td>{{prodItem.period}}<span>{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
-												<td style="width: 200px;">{{ 'COMMON.ONE_TIME_COSTS' | translate}}: {{ 'COMMON.$' | translate}}{{prodItem.oneTimePrice}}<br>{{ 'COMMON.COST' | translate}}: {{ 'COMMON.$' | translate}}{{prodItem.price}}<span *ngIf="prodItem.serviceType=='1'">/GB</span>/{{prodItem.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</td>
+												<td>{{prodItem.period}}<span>{{prodItem.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
+												<td style="width: 200px;">{{ 'COMMON.ONE_TIME_COSTS' | translate}}: {{ 'COMMON.$' | translate}}{{prodItem.oneTimePrice}}<br>
+												{{ 'COMMON.COST' | translate}}: {{ 'COMMON.$' | translate}}{{prodItem.price}}/{{prodItem.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</td>
 											</tr>
 										</tbody>
 									</table>

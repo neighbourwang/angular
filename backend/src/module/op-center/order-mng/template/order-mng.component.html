@@ -141,11 +141,11 @@
 
 						</td>
 						<td>{{prodItem.billingModeName}}</td>
-						<td>{{prodItem.period}}</td>
-						<td>{{prodItem.quantity}}</td>
+						<td>{{prodItem.period}}<span *ngIf="prodItem.period>0">{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
+						<td>{{prodItem.quantity}}<span  *ngIf="prodItem.serviceType==0">台</span><span  *ngIf="prodItem.serviceType==1">块</span></td>
 						<td style="width: 150px!important;">
 						{{ 'COMMON.ONE_TIME_COSTS' | translate}}: ￥{{prodItem.oneTimePrice}}<br/>
-						{{ 'COMMON.COST' | translate}}: ￥{{prodItem.price}}/<span *ngIf="prodItem.serviceType==1">GB</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
+						{{ 'COMMON.COST' | translate}}: ￥{{prodItem.price}}/<span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
 						</td>
 						<td >{{prodItem.serviceTypeName}}</td>
 						<td class="font-green">{{prodItem.statusName}}</td>
