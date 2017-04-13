@@ -2,10 +2,10 @@
     <!--创建平台-->
 </div>
 <div class="page-content fix-page-content">
-    <div>
+    <!--<div [@flyInOut]="state">
         <div class="row navigator-progress">
-            <div class="col-md-2 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}<!--基本信息--></span></div>
-            <div class="col-md-2"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}<!--资源同步--></span></div>
+            <div class="col-md-2 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}</span></div>
+            <div class="col-md-2"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}</span></div>
             <div class="col-md-2"><span class="mark">3</span><span>{{"PF_MNG2.AVAILABLE_ZONE_CONFIGURATION" | translate}}</span></div>
             <div class="col-md-2"><span class="mark">4</span><span>{{"PF_MNG2.STORAGE_CONFIGURATION" | translate}}</span></div>
             <div class="col-md-2"><span class="mark">5</span><span>{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</span></div>
@@ -18,23 +18,11 @@
                 </div>
             </div>
         </div>
+    </div>-->   
+    <div>
+        <progress-bar [state]="state"></progress-bar>
     </div>
-    <!--<div [@heroState]="state">
-        <div class="row navigator-progress">
-            <div class="col-md-3 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}</span></div>
-            <div class="col-md-3"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}</span></div>
-            <div class="col-md-3"><span class="mark">3</span><span>{{"PF_MNG2.AVAILABLE_ZONE_CONFIGURATION" | translate}}</span></div>
-            <div class="col-md-3"><span class="mark">4</span><span>{{"PF_MNG2.STORAGE_CONFIGURATION" | translate}}</span></div>
-        </div>
-        <div class="step-progress">
-            <div class="fox-cloud-progress-rectangle progress-striped">
-                <div class="progress-bar fox-cloud-progress-bar-rectangle" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                    style="width: 25%;">
-                </div>
-            </div>
-        </div>
-    </div>-->
-    <div class="row" style="padding-top: 30px;">
+    <div class="row">
         <div class="col-md-12">
             <div class="row row-line-height">
                 <div class="form-group">
@@ -157,7 +145,7 @@
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
         <span class="icon-button-label">{{"COMMON.CANCEL" | translate}}</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20 btn btn-default" (click)="next();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
         <span class="icon-button-label">{{"COMMON.NEXT" | translate}}</span>
     </button>
 </div>

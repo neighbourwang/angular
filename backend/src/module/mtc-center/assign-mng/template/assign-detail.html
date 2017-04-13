@@ -1,5 +1,5 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
-   云主机{{hyperInfo.name}}详情
+   <!--{{'ASSIGN_MNG.CLOUD_HOST_DETAIL^^^'+hyperInfo.name |translate}}-->云主机{{hyperInfo.name}}详情
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoAssignMng()">
         {{'ASSIGN_MNG.BACK_TO_HYPER_MNG'|translate}}<!--返回云主机超分管理-->
     </button>
@@ -37,12 +37,7 @@
     <div class="row mgt15" >
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="Period">
-            <option [value]="1">最近24小时</option>
-            <option [value]="7">最近7天</option>
-            <option [value]="30">最近30天</option>
-            <option [value]="90">最近90天</option>
-            <option [value]="180">最近180天</option>
-            <option [value]="360">最近360天</option>
+             <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
         </select>
         </div>
         <div class="col-md-2">

@@ -30,11 +30,14 @@ export class PhsicalProdDirCreComponent implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
 
-    @ViewChild('newUnit')
-    newUnit:PopupComponent
+    @ViewChild('newUnitPop')
+    newUnitPop:PopupComponent
 
     ngOnInit() {
         
+    }
+    newUnit(){
+        this.newUnitPop.open('新增部件');
     }
     
     otcreateUnit(){}
