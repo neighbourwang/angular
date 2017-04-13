@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel,SystemDictionaryService } from '../../../../architecture';
 import { ComputeQuery} from '../model/compute-query.model';
 import { PlfList_mock }from '../model/plf-list.mock';
+import { CloudHostSpec_mock }from '../model/cloud-host-spec.mock';
 import { BasicList_mock }from '../model/basic-list.mock';
 import {CpuData_mock,VmData_mock,MemData_mock} from '../model/bar-data.mock';
 @Injectable()
@@ -33,7 +34,12 @@ export class ComputeTrendService {
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => PlfList_mock );
     }
 
-    
+    getCloudHostSpec(): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("assign-mng.plf.list");
+        //return this.restApi.request(api.method, api.url, null, null, null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => CloudHostSpec_mock);
+    }
+
     getBasicList(query: ComputeQuery): Promise<any> {
         //const api = this.restApiCfg.getRestApi("compute-trend.basic.info");
         //return this.restApi.request(api.method, api.url, null, null, query);

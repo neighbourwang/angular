@@ -29,14 +29,24 @@ import { ClMngIdService } from '../service/cl-mng-id.service';
     ],
     animations: [
         trigger('heroState', [
-            state('inactive', style({
-                transform: 'rotateX(0);opacity: 1'
+            state('leave', style({
+                transform: 'rotateX(0)'
             })),
-            state('active', style({
-                transform: 'rotateX(180deg);opacity: 0'
+            state('in', style({
+                transform: 'rotateX(360deg)'
             })),
-            transition('inactive => active', animate('500ms ease-in')),
-            transition('active => inactive', animate('500ms ease-out'))
+            transition('leave => in', animate('500ms ease-in')),
+            transition('in => leave', animate('500ms ease-out'))
+        ]),
+        trigger('flyInOut', [
+            state('leave', style({
+                transform: 'rotateX(360deg)'
+            })),
+            state('in', style({
+                transform: 'rotateX(0)'
+            })),
+            transition('leave => in', animate('500ms ease-in')),
+            transition('in => leave', animate('500ms ease-out'))
         ])
         // trigger('flyInOut', [
         //     state('in', style({ transform: 'rotateX(0)' })),
@@ -203,14 +213,14 @@ export class ClMngCreStep1Component implements OnInit {
         this.router.navigateByUrl("pf-mng2/cl-mng/cl-mng");
     }
     // 选择平台类型
-    state: string = 'leave';
+    state: string = '6';
     choosePlatFormType(item, index) {
         for (let i = 0; i < this.platformTypes.length; i++) {
             this.platformTypes[i].isSelected = false;
         }
         this.platformTypes[index].isSelected = true;
         this.state =
-            index == 3 ? 'in' : 'leave';
+            index == 3 ? '4' : '6';
         this.creStep1Model.platformType = item.value;
         console.log(item);
         this.creStep1Model.version = '';

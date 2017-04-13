@@ -54,7 +54,7 @@
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="queryOpt.flaovarId">
                 <option [value]="'all'">所有规格</option>
-                <option [value]="'b'">规格b</option>
+                <option *ngFor="let spec of cloudHostSpecList" >{{spec}}</option>
             </select>
         </div>
     </div>
@@ -228,8 +228,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let hyper of hyperList">
-                    <td>1</td>
+                <tr *ngFor="let hyper of hyperList let i=index">
+                    <td>{{i+1}}</td>
                     <td><a (click)="gotoAssignDetail(hyper.id)">{{hyper.name}}</a></td>
                     <td>{{hyper.platform}}</td>
                     <td>{{hyper.region}}</td>
@@ -244,17 +244,7 @@
             </tbody>
         </table>
     </div>
-    <div class="fox-cloud-pagination-container">
-        <ul class="fox-cloud-pagination">
-            <span>&lt;</span>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <span class="pagination-disabled">&gt;&gt;</span>
-        </ul>
-    </div>
+    
 </div>
 
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
@@ -262,7 +252,7 @@
     <div class="row row-line-height" >
         
             <div class="col-md-3 form-control-title" style="line-height: 50px;">
-                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectFirst()" />&nbsp;{{'ASSIGN_MNG.QUICK_SELECT'|translate}}：
+                <input type="radio" name="chooseTime"  class="fox-cloud-radio" checked="checked" (click)="flag = 1;" />&nbsp;{{'ASSIGN_MNG.QUICK_SELECT'|translate}}：
             </div>
             <div class="col-md-4" style="margin-top:10px;">
                 <select class="form-control"[(ngModel)]="period" >
@@ -273,7 +263,7 @@
     </div>
     <div class="row row-line-height">       
             <div class="col-md-3 form-control-title" style="line-height: 50px;">
-                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="selectSecond()" />&nbsp;{{'ASSIGN_MNG.PERIOD'|translate}}：
+                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="flag=2;" />&nbsp;{{'ASSIGN_MNG.PERIOD'|translate}}：
             </div>
             <div class="col-md-9">
                 <div class="assign-mng float-left">
