@@ -794,7 +794,7 @@ export let RestApis: RestApiModel[] = [
         "id": "al-cloud.cloud-disk.price.get",
         "method": "POST",
         "url": "alicloud/authsec/alicloud/price/disk"
-    },    
+    },
     { //订购阿里云硬盘
         "desc": "create alicloud disk",
         "id": "al-cloud.cloud-disk.diskorder.post",
@@ -905,5 +905,41 @@ export let RestApis: RestApiModel[] = [
         "url": "alicloud/authsec/alicloud/price"
     },
 
-
+    // 阿里云主账号管理
+    {
+        "desc": "主账号列表",
+        "id": "user-center.ali-cloud.list",
+        "method": "GET",
+        "url": "marketplace/authsec/alicloud/mmp/main/list"
+    },
+    {
+        "desc": "主账号详细信息",
+        "id": "user-center.ali-cloud.majorinfo",
+        "method": "GET",
+        "url": "marketplace/authsec/alicloud/mmp/main/acct/{id}"
+    },
+    {
+        "desc": "测试主账号",
+        "id": "user-center.ali-cloud.majortest",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/main/testacct"
+    },
+    {
+        "desc": "更新主账号信息",
+        "id": "user-center.ali-cloud.updateInfo",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/main/update/{id}"
+    },
+    {
+        "desc": "编辑保存主账号",
+        "id": "user-center.ali-cloud.edit",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/main/depart/update/{id}"
+    },
+    {
+        "desc": "主账号部门列表",
+        "id": "user-center.ali-cloud.departmajorlist",
+        "method": "GET",
+        "url": "/marketplace/authsec/alicloud/mmp/main/depart/list"
+    },
 ]

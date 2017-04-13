@@ -5,6 +5,7 @@ import { RestApiCfg, RestApi, RestApiModel,SystemDictionaryService  } from '../.
 import {QueryModel} from "../model/query.model";
 import { EntList_mock }from '../model/ent-list.mock';
 import { PlfList_mock }from '../model/plf-list.mock';
+import { CloudHostSpec_mock }from '../model/cloud-host-spec.mock';
 import {UsageState_mock}from '../model/usage-state-list.mock';
 import { HyperList_mock} from '../model/hyper-list.mock';
 
@@ -44,6 +45,12 @@ export class AssignMngService {
         //const api = this.restApiCfg.getRestApi("assign-mng.plf.list");
         //return this.restApi.request(api.method, api.url, null, null, null);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => PlfList_mock );
+    }
+
+    getCloudHostSpec(): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("assign-mng.plf.list");
+        //return this.restApi.request(api.method, api.url, null, null, null);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => CloudHostSpec_mock);
     }
   
     getUsageState(query:QueryModel): Promise<any> {   

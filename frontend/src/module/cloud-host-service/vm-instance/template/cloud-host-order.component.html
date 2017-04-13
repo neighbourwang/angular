@@ -71,7 +71,7 @@
 					<div class="col-md-2 content-title">{{'COMMON.RAM'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
-							*ngFor="let value of rely('mem')"
+							*ngFor="let value of rely('mem') | filterPlatform: sendModule.platform.attrValueId"
 							(click)="sendModule.mem = value;relyChanges('mem')"
 							class="btn btn-default" [ngClass]="{'active': sendModule.mem.attrValueId === value.attrValueId}">
 							<input type="radio" name="mem" autocomplete="off"> {{ value.attrDisplayValue }}
@@ -135,7 +135,7 @@
 							<div class="col-md-2 no-padding">
 								<select [(ngModel)]="sendModule.bootsize" class="form-control">
 									<option
-									*ngFor="let value of oSfilterBootsize(rely('bootsize'));"
+									*ngFor="let value of oSfilterBootsize(rely('bootsize')) | filterPlatform: sendModule.platform.attrValueId;"
 									[ngValue]="value" >{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>

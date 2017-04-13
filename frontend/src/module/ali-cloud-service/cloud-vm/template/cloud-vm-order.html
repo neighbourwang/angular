@@ -53,8 +53,8 @@
                 <div class="col-md-12 li-content">
 
                     <div class="col-md-12 mgb10">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="classic"}' (click)="selectedOrderVmPage.selectedNetworkType='classic'; showAndSetNetwork();" style="display: inline">经典网络</button>
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="vpc"}' (click)="selectedOrderVmPage.selectedNetworkType='vpc'; showAndSetNetwork();">专有网络</button>
+                        <button *ngIf="showClassicNetwork" class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="classic"}' (click)="SetClassicNetwork();" style="display: inline">经典网络</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="vpc"}' (click)="SetVpcNetwork();">专有网络</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                     <div class="col-md-12 text-tip mgb20">
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="col-md-12 mgb20 form-group" *ngIf="selectedOrderVmPage.selectedNetworkType=='vpc'">
-                        <select class="form-control select_style" [(ngModel)]="selectedVPC" (change)="getVSwitches();">
+                        <select class="form-control select_style" [(ngModel)]="selectedVPC" (change)="VPCChanged();">
                             <option [ngValue]="defaultVPC">请选择专有网络</option>
                             <option *ngFor="let vpc of vpclist" [ngValue]="vpc">{{vpc.VpcName}}{{vpc.VpcId}}</option>
                         </select>
@@ -84,9 +84,13 @@
                         <div class="text-tip">
                             <span>安全组类似防火墙功能，用于设置网络访问控制，您也可以到管理控制台 <a href="javascript:void(0);">新建安全组>></a> <a href="javascript:void(0);">教我选择>></a> </span>
                         </div>
-                        <select class="form-control select_style" [(ngModel)]="selectedsecgroup" (change)="SecurityGroupChanged();">
+                        <select *ngIf="(selectedOrderVmPage.selectedNetworkType=='classic')" class="form-control select_style" [(ngModel)]="selectedsecgroup" (change)="SecurityGroupChanged();">
                             <option [ngValue]="defaultsecgroup">请选择网络安全组</option>
-                            <option *ngFor="let secgroup of securitygrouplist" [ngValue]="secgroup">{{secgroup.SecurityGroupName}}</option>
+                            <option *ngFor="let secgroup of classicSecGrouplist" [ngValue]="secgroup">{{secgroup.SecurityGroupName}}</option>
+                        </select>
+                        <select *ngIf="(selectedOrderVmPage.selectedNetworkType=='vpc')" class="form-control select_style" [(ngModel)]="selectedsecgroup" (change)="SecurityGroupChanged();">
+                            <option [ngValue]="defaultsecgroup">请选择网络安全组</option>
+                            <option *ngFor="let secgroup of vpcSecGrouplist" [ngValue]="secgroup">{{secgroup.SecurityGroupName}}</option>
                         </select>
                     </div>
 
@@ -141,8 +145,8 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByBandwidth"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByBandwidth';showAndInternetCalcul();">按固定带宽</button>
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByTraffic"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByTraffic';showAndInternetCalcul();">按使用流量</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByBandwidth"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByBandwidth';showInternetChargeType();">按固定带宽</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByTraffic"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByTraffic';showInternetChargeType();">按使用流量</button>
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </div>
                     <div class="col-md-12 mgt10 mgb20">
