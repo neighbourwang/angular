@@ -17,7 +17,11 @@ export const UsageState_mock = {
         "powerStat": {
             "active": "99",
             "shutoff": "34",
-            "reboot": "12"
+            "reboot": "12",
+            "rebuild": "34",
+            "resize": "12",
+            "stopped": "34",
+            "error": "12"
         },
         "flavor": [
             {

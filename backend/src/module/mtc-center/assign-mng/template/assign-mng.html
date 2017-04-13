@@ -54,7 +54,7 @@
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="queryOpt.flaovarId">
                 <option [value]="'all'">所有规格</option>
-                <option *ngFor="let spec of cloudHostSpecList" >{{spec}}</option>
+                <option *ngFor="let spec of cloudHostSpecList" [value]="spec" >{{spec}}</option>
             </select>
         </div>
     </div>
@@ -83,6 +83,10 @@
         </div>
     </div>
     </div>
+    <div>{{queryOpt.enterpriseID}},{{queryOpt.departmentId}}</div>
+    <div>{{queryOpt.platformId}},{{queryOpt.regionId}},{{queryOpt.zoneId}}</div>
+    <div>{{queryOpt.powerStatus}},{{queryOpt.flaovarId}}</div>
+    <div>{{queryOpt.rate}},{{queryOpt.top}},{{queryOpt.period}}</div>
     <div>
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="exportAll()">{{'ASSIGN_MNG.EXPORT_ALL_DATA'|translate}}</button><!--导出所有数据-->
         <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="exportCurrent()">{{'ASSIGN_MNG.EXPORT_CURRENT_DATA'|translate}}</button><!--导出当前数据-->
@@ -96,7 +100,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">{{'ASSIGN_MNG.CPU_USAGE_OVERVIEW'|translate}}</h3><!--CPU使用率概览-->
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="height:216px;">
                      <div class="row">
                         <div class="col-md-6">
                             <div style="position:relative;">
@@ -136,7 +140,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">{{'ASSIGN_MNG.MEM_USAGE_OVERVIEW'|translate}}</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="height:216px;">
                     <div class="row">
                         <div class="col-md-6">
                             <div style="position:relative;">
@@ -171,14 +175,38 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2 ">
+        <div class="col-md-2 " >
             <div class="panel panel-default" >
                 <div class="panel-heading">
                     <h3 class="panel-title">{{'ASSIGN_MNG.CLOUD_HOST_RUNNING_STATE'|translate}}</h3><!--云主机运行状态-->
                 </div>
-                <div class="panel-body" style="padding:0;">                  
-                    <table class="table table-hover">
+                <div class="panel-body" style="padding: 0; height: 216px; overflow-y: scroll;">                  
+                    <table class="table table-hover" >
                         <tbody>
+                            <tr>
+                                <td>运行中：</td>
+                                <td>99</td>
+                            </tr>
+                            <tr>
+                                <td>关闭：</td>
+                                <td>12</td>
+                            </tr>
+                            <tr>
+                                <td>运行中：</td>
+                                <td>99</td>
+                            </tr>
+                            <tr>
+                                <td>关闭：</td>
+                                <td>12</td>
+                            </tr>
+                            <tr>
+                                <td>运行中：</td>
+                                <td>99</td>
+                            </tr>
+                            <tr>
+                                <td>关闭：</td>
+                                <td>12</td>
+                            </tr>
                             <tr>
                                 <td>运行中：</td>
                                 <td>99</td>
@@ -197,7 +225,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">{{'ASSIGN_MNG.CLOUD_HOST_SPEC_INFO'|translate}}</h3><!--云主机规格信息-->
                 </div>
-                <div class="panel-body" style="padding:0;">
+                <div class="panel-body" style="padding: 0; height: 216px; overflow-y: scroll;">
                     <table class="table table-hover">
                         <tbody>
                             <tr *ngFor="let flavor of flavorList">                              
