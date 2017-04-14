@@ -9,7 +9,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
 
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
-import { instanceListModel, QueryObject } from "../model/cloud-vm.model";
+import { instanceListModel, VmQueryObject } from "../model/cloud-vm.model";
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
@@ -53,7 +53,7 @@ export class AliCloudVmListComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
-    queryObject: QueryObject = new QueryObject();
+    queryObject: VmQueryObject = new VmQueryObject();
 
     regions: Array<RegionModel> = [];
     defaultRegion: RegionModel = new RegionModel();

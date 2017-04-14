@@ -10,8 +10,8 @@ import {
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
-import { RegionModel, keysecretModel, AreaModel, diskOrderModel, diskListModel, QueryObject } from "../model/cloud-disk.model";
-import { instanceListModel } from "../../cloud-vm/model/cloud-vm.model";
+import { RegionModel, keysecretModel, AreaModel, diskOrderModel, diskListModel, DiskQueryObject } from "../model/cloud-disk.model";
+import { instanceListModel, VmQueryObject } from "../../cloud-vm/model/cloud-vm.model";
 
 //Service
 import { AliCloudDiskService } from "../service/cloud-disk.service";
@@ -63,7 +63,8 @@ export class AliCloudDiskListComponent implements OnInit {
 
     //keysecret: keysecretModel = new keysecretModel();
 
-    queryObject: QueryObject = new QueryObject();
+    queryObject: DiskQueryObject = new DiskQueryObject();
+    vmqueryObject: VmQueryObject = new VmQueryObject();
 
     regions: Array<RegionModel> = [];
     defaultRegion: RegionModel = new RegionModel();
@@ -285,7 +286,9 @@ export class AliCloudDiskListComponent implements OnInit {
         this.selectedDiskItem = this.getSelected();
         if (this.selectedDiskItem) {
             this.layoutService.show();
-                this.vmService.getInstanceList(1, 100, this.choosenRegion.RegionId)
+            this.vmqueryObject.criteria = "instance_name";
+            this.vmqueryObject.keyword = "";
+            this.vmService.getInstanceList(1, 100, this.choosenRegion.RegionId, this.vmqueryObject)
                 .then(
                 response => {
                 this.layoutService.hide();

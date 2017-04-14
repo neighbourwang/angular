@@ -7,7 +7,7 @@ import 'rxjs/add/operator/toPromise';
 import { RegionModel, keysecretModel } from '../../cloud-disk/model/cloud-disk.model';
 import { orderVmPageModel, QuantityModel, instanceListModel, 
     priceSubmitModel, priceCommodityModel, orderSubmitModel, GetSecGroupSubmitModel, 
-    GetInstancesSubmitModel, QueryObject } from "../model/cloud-vm.model";
+    GetInstancesSubmitModel, VmQueryObject } from "../model/cloud-vm.model";
 
 @Injectable()
 export class AliCloudVmService {
@@ -435,7 +435,7 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
-    getInstanceList(pageIndex: number, pageSize: number, regionid: string, queryObject: QueryObject): Promise<any> {
+    getInstanceList(pageIndex: number, pageSize: number, regionid: string, queryObject: VmQueryObject): Promise<any> {
         const pathParams = [
             {
                 key: "regionid",

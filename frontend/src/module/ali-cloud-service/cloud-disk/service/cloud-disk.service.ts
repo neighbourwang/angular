@@ -4,7 +4,7 @@ import { RestApiCfg, RestApi } from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
-import { RegionModel, keysecretModel, diskOrderModel, diskListModel, GetDisksSubmitModel, QueryObject } from '../model/cloud-disk.model';
+import { RegionModel, keysecretModel, diskOrderModel, diskListModel, GetDisksSubmitModel, DiskQueryObject } from '../model/cloud-disk.model';
 
 @Injectable()
 export class AliCloudDiskService {
@@ -115,7 +115,7 @@ export class AliCloudDiskService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
-    getDiskList(pageIndex: number, pageSize: number, regionid: string, queryObject:QueryObject): Promise<any> {
+    getDiskList(pageIndex: number, pageSize: number, regionid: string, queryObject: DiskQueryObject): Promise<any> {
         const pathParams = [
             {
                 key: "regionid",
@@ -142,7 +142,7 @@ export class AliCloudDiskService {
         if (queryObject.keyword != "") {
             switch (queryObject.criteria) {
                 case "disk_name":
-                    body.conditionModel.diskName = queryObject.keyword + "*";
+                    body.conditionModel.diskName = queryObject.keyword;
                     break;
                 case "disk_id":
                     body.conditionModel.diskIds = queryObject.keyword;

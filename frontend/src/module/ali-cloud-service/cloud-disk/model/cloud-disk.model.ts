@@ -156,7 +156,7 @@ export class GetDisksSubmitModel {
   conditionModel: conditionModel = new conditionModel();
 }
 
-export class QueryObject {
+export class DiskQueryObject {
     criteria: string = "disk_name";
     keyword: string = "";
 

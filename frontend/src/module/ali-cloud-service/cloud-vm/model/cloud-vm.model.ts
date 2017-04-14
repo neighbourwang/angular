@@ -352,7 +352,7 @@ export class accessinfoModel {
 }
 
 
-export class QueryObject {
+export class VmQueryObject {
     criteria: string = "instance_name";
     keyword: string = "";
 
