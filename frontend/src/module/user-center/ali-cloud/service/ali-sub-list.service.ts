@@ -4,7 +4,7 @@ import { RestApiCfg, RestApi, RestApiModel, SystemDictionaryService } from '../.
 
 //model
 import {SubList_mock, SubInfo_mock} from "../model/sub-list.mock.model";
-import {Success_mock, DepartList_mock} from "../model/major-list.mock.model";
+import {Success_mock, DepartList_mock, Test_mock} from "../model/major-list.mock.model";
 
 import 'rxjs/add/operator/toPromise';
 
@@ -51,6 +51,47 @@ export class AliSubService {
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => DepartList_mock);
     }
 
+/*    testSub(): Promise<any>{
+        /!* const api= this.restApiCfg.getRestApi("user-center.ali-cloud.subtest");
+         return this.restApi.request(api.method, api.url, null, null, null);*!/
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => Test_mock);
+    }*/
+
+    enable(id: string): Promise<any>{
+        const pathParams=[
+            {
+                key:"id",
+                value: id
+            }
+        ];
+        /* const api= this.restApiCfg.getRestApi("user-center.ali-cloud.enable");
+         return this.restApi.request(api.method, api.url, pathParams, null, null);*/
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => Success_mock);
+    }
+
+    disable(id: string): Promise<any>{
+        const pathParams=[
+            {
+                key:"id",
+                value: id
+            }
+        ];
+        /* const api= this.restApiCfg.getRestApi("user-center.ali-cloud.disable");
+         return this.restApi.request(api.method, api.url, pathParams, null, null);*/
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => Success_mock);
+    }
+
+    delete (id: string): Promise<any>{
+        const pathParams=[
+            {
+                key:"id",
+                value: id
+            }
+        ];
+        /* const api= this.restApiCfg.getRestApi("user-center.ali-cloud.delete");
+         return this.restApi.request(api.method, api.url, pathParams, null, null);*/
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => Success_mock);
+    }
 
 
 }
