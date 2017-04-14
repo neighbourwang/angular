@@ -65,7 +65,22 @@ export class AliCloudSubAccountListComponent implements OnInit{
 
     //跳转添加子账号
     createAccount(){
-        this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-mainAccount-edit`,{type:this.type}])
+         this.type="create";
+        this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-edit`,{type:this.type}])
+    }
+
+    //编辑账号
+    editAccount(){
+        this.type="edit";
+         //const account=this.accountList.find((e)=>{return e.isSelect});
+         this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-edit`,{type:this.type}])
+    }
+
+     //分配企业
+    setEntprise(){
+         //const account=this.accountList.find((e)=>{return e.isSelect});
+          this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-setEnterprise`])
+
     }
 
     showAlert(msg: string): void {
