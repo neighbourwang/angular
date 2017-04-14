@@ -138,7 +138,7 @@ export class conditionModel {
     deleteAutoSnapshot: string = null;
     deleteWithInstance: string = null;
     diskChargeType: string = null;
-    diskIds: string = null;
+    diskIds: Array<string> = null;
     diskName: string = null;
     diskType: string = null;
     enableAutoSnapshot: string = null;

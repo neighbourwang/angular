@@ -452,17 +452,29 @@ export class AliCloudVmService {
                 case "instance_name":
                     body.instanceName = queryObject.keyword;
                     break;
-                case "instance_id":
-                    body.instanceIds = queryObject.keyword;
+                case "instance_ids":
+                    let instanceIds: Array<string> = [];                    
+                    instanceIds = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(instanceIds);
+                    body.instanceIds = instanceIds;
                     break;
-                case "private_ip":
-                    body.privateIpAddresses = queryObject.keyword;
+                case "private_ips":
+                    let privateIps: Array<string> = [];
+                    privateIps = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(privateIps);
+                    body.privateIpAddresses = privateIps;
                     break;
-                case "inner_ip":
-                    body.innerIpAddresses = queryObject.keyword;
+                case "inner_ips":
+                    let innerIps: Array<string> = [];
+                    innerIps = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(innerIps);
+                    body.innerIpAddresses = innerIps;
                     break;
-                case "public_ip":
-                    body.publicIpAddresses = queryObject.keyword;
+                case "public_ips":
+                    let publicIps: Array<string> = [];
+                    publicIps = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(publicIps);
+                    body.publicIpAddresses = publicIps;
                     break;
                 case "image_id":
                     body.imageId = queryObject.keyword;

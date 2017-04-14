@@ -144,8 +144,11 @@ export class AliCloudDiskService {
                 case "disk_name":
                     body.conditionModel.diskName = queryObject.keyword;
                     break;
-                case "disk_id":
-                    body.conditionModel.diskIds = queryObject.keyword;
+                case "disk_ids":
+                    let diskIds: Array<string> = [];
+                    diskIds = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(diskIds);
+                    body.conditionModel.diskIds = diskIds;
                     break;
                 case "instance_id":
                     body.conditionModel.instanceId = queryObject.keyword;

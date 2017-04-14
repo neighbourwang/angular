@@ -373,9 +373,9 @@ export class GetInstancesSubmitModel {
   filter4Key: string = null;
   filter4Value: string = null;
   imageId: string = null;
-  innerIpAddresses: string = null;
+  innerIpAddresses: Array<string> = null;   //
   instanceChargeType: string = null;
-  instanceIds: string = null;
+  instanceIds: Array<string> = null;   //
   instanceName: string = null;
   instanceNetworkType: string = null;
   instanceType: string = null;
@@ -386,8 +386,8 @@ export class GetInstancesSubmitModel {
   ownerAccount: string = null;
   pageNumber: number = null;
   pageSize: number = null;
-  privateIpAddresses: string = null;
-  publicIpAddresses: string = null;
+  privateIpAddresses: Array<string> = null;   //
+  publicIpAddresses: Array<string> = null;   //
   securityGroupId: string = null;
   status: string = null;
   tag1Key: string = null;
