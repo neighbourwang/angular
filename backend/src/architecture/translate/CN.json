@@ -91,8 +91,29 @@
 	"USAGE_RANK":"利用率排序",
 	"PERIOD":"时间范围",
 	"EXPORT_ALL_DATA":"导出所有数据",
-	"EXPORT_CURRENT_DATA":"导出当前数据"
-
+	"EXPORT_CURRENT_DATA":"导出当前数据",
+	"CONFIRM":"确认",
+	"CPU_USAGE_OVERVIEW":"CPU使用率概览",
+	"MEM_USAGE_OVERVIEW":"内存使用率概览",
+	"CLOUD_HOST_RUNNING_STATE":"云主机运行状态",
+	"CLOUD_HOST_SPEC_INFO":"云主机规格信息",
+	"INSTANCE_NAME":"实例名称",
+	"CPU_AVERAGE_UTILIZATION":"CPU平均利用率",
+	"MEM_AVERAGE_UTILIZATION":"内存平均利用率",
+	"CPU_PEAK_UTILIZATION":"CPU峰值利用率",
+	"MEM_PEAK_UTILIZATION":"内存峰值利用率",
+	"EXPORT":"导出",
+	"QUICK_SELECT":"快速选择",
+	"TO":"至",
+	"APPLICANT":"申请人",
+	"BACK_TO_HYPER_MNG":"返回云主机超分管理",
+	"CLOUD_HOST_DETAIL":"云主机{{value_1}}详情"
+  },
+  "TREND_MNG":{
+    "COMPUTE_RES_TREND_ANALYSIS":"私有云平台计算资源用量分析",
+	"ANALYSIS_TYPE":"分析类型",
+	"DISPLAY_BY_ZONE":"按可用区显示",
+	"BASIC_INFO":"基本信息"
   },
   "CHECK_CENTER": {
     "ADVANCED_QUERY": "高级查询",
@@ -1235,6 +1256,7 @@
     "SYNC_STORAGE_COMP_SYNC_SPEC": "同步存储区成功，正在同步云主机规格",
     "SYNC_STORAGE_FAILED": "同步存储失败",
     "SYNC_ZONE": "正在同步可用区",
+    "NO_SYNC_ZONES":"没有可同步的可用区信息",
     "SYNC_ZONES": "同步可用区信息",
     "SYNC_ZONE_COMP_SYNC_STORAGE": "同步可用区成功，正在同步存储区",
     "SYNC_ZONE_FAILED": "同步可用区失败",

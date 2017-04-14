@@ -50,7 +50,9 @@
         </table>
     </td>
     <td class="text-center table-text-middle">
-        <font class="font-green">{{items.status | dict:service.orderStatus | async}}</font>
+
+        <font *ngIf="isorder" class="font-green">{{items.status | dict:service.orderStatus | async}}</font>
+        <font *ngIf="!isorder" class="font-green">{{items.status | dict:service.subinstanceStatus | async}}</font>
     </td>
     <td style="max-width: 100px" class="text-center table-text-middle">{{items.createDate}}</td>
     <td style="max-width: 100px" class="text-center table-text-middle">{{items.expireDate}}</td>

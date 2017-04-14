@@ -553,7 +553,9 @@
     "EDIT_IMAGE": "编辑镜像",
     "ENABLE_SUCCESS":"启用成功",
     "DISENABLE_SUCCESS":"禁用成功",
-    "DELETE_SUCCESS":"删除成功"
+    "DELETE_SUCCESS":"删除成功",
+    "NOTICE1":"长度为2-68个字符,以大小写字母或中文开头,可包含数字,\".\",\"-\",\"_\"",
+    "NOTICE2":"长度为2-256个字符"
   },
   "CLOUD_HOST": {
     "CLOUD_HOST_LIST": "云主机列表",

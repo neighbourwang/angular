@@ -1,14 +1,17 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
-    私有云平台计算资源用量分析
+    {{'TREND_MNG.COMPUTE_RES_TREND_ANALYSIS'|translate}}<!--私有云平台计算资源用量分析-->
 </div>
 <div class="page-content">
     <div>
         <div class="row row-line-height">
             <div class="col-md-10" >
-                <div class="col-md-2 form-control-title">分析类型：</div>
+                <div class="col-md-2 form-control-title">{{'TREND_MNG.ANALYSIS_TYPE'|translate}}：</div><!--分析类型-->
                 <div class="col-md-2">
-                    <select class="form-control" [(ngModel)]="queryOpt.queryType">                 
-                        <option *ngFor="let type of service.queryTypeDic | async" [value]="type.value">{{type.displayValue}}</option>
+                    <select class="form-control" [(ngModel)]="queryOpt.queryType"> 
+                        <option [value]="1">按CPU</option>  
+                        <option [value]="2">按云主机规格</option>  
+                        <option [value]="3">按内存</option>                
+                        <!--<option *ngFor="let type of service.queryTypeDic | async" [value]="type.value">{{type.displayValue}}</option>-->
                     </select>
                 </div>
                 <div class="col-md-2">{{analysisType}}</div>
@@ -16,46 +19,43 @@
         </div>
         <div class="row row-line-height">
             <div class="col-md-10" >
-                <div class="col-md-2 form-control-title">平台：</div>
+                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.PLATFORM'|translate}}：</div><!--平台-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion; selectedZone=defaultZone;">
-                        <option [ngValue]="defaultPlf">所有平台</option>
+                        <option [ngValue]="defaultPlf">{{'ASSIGN_MNG.ALL_PLATFORMS'|translate}}</option><!--所有平台-->
                         <option *ngFor="let plf of plfList" [ngValue]="plf">{{plf.platformName}}</option>
                     </select>
                 </div>
                 <div class="col-md-2 form-control-title">Region/DC：</div>
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedZone=defaultZone; ">
-                        <option [ngValue]="defaultRegion">所有Region/DC</option>
+                        <option [ngValue]="defaultRegion">{{'ASSIGN_MNG.ALL_REGIONS'|translate}}</option><!--所有Region/DC-->
                         <option *ngFor="let reg of selectedPlf.region" [ngValue]="reg">{{reg.region}}</option>
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title">可用区：</div>
+                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.ZONE'|translate}}：</div><!--可用区-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedZone" >
-                        <option [ngValue]="defaultZone">所有可用区</option>
+                        <option [ngValue]="defaultZone">{{'ASSIGN_MNG.ALL_ZONES'|translate}}</option><!--所有可用区-->
                         <option *ngFor="let z of selectedRegion.zone" [ngValue]="z">{{z.zoneName}}</option>
                     </select>
                 </div>     
             </div>
             <div class="col-md-2" *ngIf="selectedZone==defaultZone">
                 <div style="font-size:18px;line-height:34px;letter-spacing:2px;">
-                    <input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected" />&nbsp;按可用区显示
+                    <input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected" />&nbsp;{{'TREND_MNG.DISPLAY_BY_ZONE'|translate}}<!--按可用区显示-->
                 </div>
             </div>
         </div>
         <div class="row row-line-height">
             <div class="col-md-10" >
-                <div class="col-md-2 form-control-title">云主机状态：</div>
+                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.CLOUD_HOST_STATE'|translate}}：</div><!--云主机状态-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.powerStatus">
-                        <option [value]="'start'">运行</option>
-                        <option [value]="'close'">关闭</option>
-                        <option [value]="'sleep'">挂起</option>
-                        <option [value]="all">所有</option>
+                        <option *ngFor="let s of service.powerStatusDic | async" [value]="s.value">{{s.displayValue}}</option>
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title" >时间范围：</div>
+                <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.PERIOD'|translate}}：</div><!--时间范围-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.period">
                         <option *ngFor="let p of service.trendPeridDic | async" [value]="p.value">{{p.displayValue}}</option>
@@ -68,107 +68,57 @@
                  <div class="col-md-2 form-control-title">主机规格选择：</div>
                  <div class="col-md-2">
                      <select class="form-control" [(ngModel)]="queryOpt.flaovarId">
-                         <option [value]="'all'">所有规格</option>
-                         <option [value]="'b'">规格b</option>
+                         <option [value]="'all'">所有规格</option>                
+                         <option *ngFor="let spec of cloudHostSpecList" >{{spec}}</option>
                      </select>
                  </div>
                 
             </div>
         </div>
     </div>
-    <!--<div>{{queryOpt.platformId}},{{queryOpt.regionId}},{{queryOpt.zoneId}}</div>
+    <div>{{queryOpt.platformId}},{{queryOpt.regionId}},{{queryOpt.zoneId}},{{hostId}}</div>
     <div>{{queryOpt.powerStatus}},{{queryOpt.flaovarId}},{{queryOpt.period}}</div>
-    <div>{{hostId}}</div>-->
+    
     <div>
-        <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15" (click)="exportCurrent()">导出所有数据</button>
-        <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15" (click)="exportAll()">导出当前数据</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">重置</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">确认</button>
+        <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15" (click)="exportCurrent()">{{'ASSIGN_MNG.EXPORT_ALL_DATA'|translate}}</button><!--导出所有数据-->
+        <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15" (click)="exportAll()">{{'ASSIGN_MNG.EXPORT_CURRENT_DATA'|translate}}</button><!--导出当前数据-->
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">{{'COMMON.RESET'|translate}}</button><!--重置-->
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">{{'COMMON.CONFIRM'|translate}}</button><!--确认-->
     </div>
     <div class="clear"></div>
     <div class="mgt15" style="width:100%;border-bottom:solid 1px #00a982;"></div>
-    <div class="mgt20 mgb10" style="font-size:18px;font-weight:bold;">基本信息：</div>
-    <div class="table-container">
-        <table class="table table-hover" >
-            <thead>
-                <tr>
-                    <th>可用区</th>
-                    <th>物理CPU总核数</th>
-                    <th>总内存</th>
-                    <th>CPU超分比</th>
-                    <th>可用配额</th>
-                    <th>可分配CPU</th>
-                    <th>可分配内存</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let basic of basicList">
-                    <td>{{basic.zonename}}</td>
-                    <td>{{basic.cpus}}</td>
-                    <td>{{basic.memory}}</td>
-                    <td>{{basic.cpuOversubscription}}</td>
-                    <td>{{basic.cpuQurta}}</td>
-                    <td>{{basic.cpuCapacity}}</td>
-                    <td>{{basic.memoryCapacity}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div *ngIf="showType==1||showType==3">
+        <div class="mgt20 mgb10" style="font-size:18px;font-weight:bold;">{{'TREND_MNG.BASIC_INFO'|translate}}：</div><!--基本信息-->
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'ASSIGN_MNG.ZONE'|translate}}</th><!--可用区-->
+                        <th>{{'CAPACITY_MNG.PHYSICAL_CPU_CORE_NUMBER'|translate}}</th><!--物理CPU总核数-->
+                        <th>{{'CAPACITY_MNG.TOTAL_MEMORY'|translate}}</th><!--总内存-->
+                        <th>{{'CAPACITY_MNG.CPU_EXCEEDING_RATIO'|translate}}</th><!--CPU超分比-->
+                        <th>{{'CAPACITY_MNG.USABLE_QUOTA'|translate}}</th><!--可用配额-->
+                        <th>{{'CAPACITY_MNG.ASSIGNABLE_CPU'|translate}}</th><!--可分配CPU-->
+                        <th>{{'CAPACITY_MNG.ASSIGNABLE_MEMORY'|translate}}</th><!--可分配内存-->
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let basic of basicList">
+                        <td>{{basic.zonename}}</td>
+                        <td>{{basic.cpus}}</td>
+                        <td>{{basic.memory}}</td>
+                        <td>{{basic.cpuOversubscription}}</td>
+                        <td>{{basic.cpuQurta}}</td>
+                        <td>{{basic.cpuCapacity}}</td>
+                        <td>{{basic.memoryCapacity}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="mgt20 mgb10" style="font-size:18px;font-weight:bold;">可用区1：</div>
-    <div class="table-container">
-        <table class="table column-title-table"  >
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>2016年1月</th>
-                    <th>2016年2月</th>
-                    <th>2016年3月</th>
-                    <th>2016年4月</th>
-                    <th>2016年5月</th>
-                    <th>2016年6月</th>
-                    <th>2016年7月</th>
-                    <th>2016年8月</th>
-                    <th>2016年9月</th>
-                    <th>2016年10月</th>
-                    <th>2016年11月</th>
-                    <th>2016年12月</th>
-                </tr>
-            </thead>
-            <tbody >
-                <tr>
-                    <td>云主机总数</td>
-                    <td>93%</td>
-                    <td>93%</td>
-                    <td>130%</td>
-                    <td>130%</td>
-                    <td>130%</td>
-                    <td>150%</td>
-                    <td>150%</td>
-                    <td>150%</td>
-                    <td>175%</td>
-                    <td>175%</td>
-                    <td>256%</td>
-                    <td>256%</td>
-                </tr>
-                <tr>
-                    <td>增长率（环比）</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>40</td>
-                    <td>40</td>
-                    <td>40</td>
-                    <td>15</td>
-                    <td>15</td>
-                    <td>15</td>
-                    <td>17</td>
-                    <td>17</td>
-                    <td>46</td>
-                    <td>46</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    
+   
     
     <div *ngIf="showType==1">
         <div *ngFor="let zone of cpuData.zone let i=index" class="panel panel-default" style="margin-top:15px;">
@@ -181,13 +131,58 @@
         </div>
     </div>
 
-    <div *ngIf="showType==2">
-        <div *ngFor="let zone of vmData.zone let i=index" class="panel panel-default" style="margin-top:15px;">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{zone.name}}</h3><!--CPU使用率-->
+    <!--<div *ngIf="showType==2">
+        <div class="table-container" *ngFor=" let zoneGrowth of growthRateList">
+                <table class="table column-title-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th *ngFor="let month of zoneGrowth.data">{{month.date}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>云主机总数</td>
+                            <td *ngFor="let month of zoneGrowth.data">{{month.total}}</td>
+                        </tr>
+                        <tr>
+                            <td>增长率（环比）</td>
+                            <td *ngFor="let month of zoneGrowth.data">{{month.rate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="panel-body">
-                <div style="height:400px" id="{{'vmchart'+i}}"></div>
+    </div>-->
+    <div *ngIf="showType==2">
+        <div *ngFor="let zone of vmData.zone; let i=index" >
+            <div class="mgt20 mgb10" style="font-size:18px;font-weight:bold;">{{zone.name}}：</div>
+            <div class="table-container">
+                <table class="table column-title-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th *ngFor="let month of growthRateList[i].data">{{month.date}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>云主机总数</td>
+                            <td *ngFor="let month of growthRateList[i].data">{{month.total}}</td>
+                        </tr>
+                        <tr>
+                            <td>增长率（环比）</td>
+                            <td *ngFor="let month of growthRateList[i].data">{{month.rate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel panel-default" style="margin-top:15px;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{zone.name}}</h3><!--CPU使用率-->
+                </div>
+                <div class="panel-body">
+                    <div style="height:400px" id="{{'vmchart'+i}}"></div>
+                </div>
             </div>
         </div>
     </div>

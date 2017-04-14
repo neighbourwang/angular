@@ -70,12 +70,12 @@
 						<td class="none-border" colspan="4">
 							<span class="mgr10 mgt20  font-size-16 float-left">{{ 'COMMON.COMMIT_TIME' | translate}}: </span>
 							<div class="float-left">			
-								<date-picker (dateChanged)="onSubmitTimeChange($event)"></date-picker>
+								<date-picker #createDatePicker (dateChanged)="onSubmitTimeChange($event)"></date-picker>
 							</div>
 							
 							<span class="mgr10 mgt20 mgl10 float-left">—</span>
 							<div class="float-left">			
-							<date-picker (dateChanged)="onEndTimeChange($event)"></date-picker>
+							<date-picker #expireDatePicker (dateChanged)="onEndTimeChange($event)"></date-picker>
 							</div>
 						</td>
 					</tr>
@@ -108,7 +108,7 @@
 						<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 						<td>{{item.status| dict:_dictServ.getDic('ORDER', 'STATUS') | async}}</td>
-						<td>{{ 'COMMON.ONE_TIME_COSTS' | translate}}: {{ 'COMMON.$' | translate}}{{item.oncePrice}}<br>{{ 'COMMON.COST' | translate}}: {{ 'COMMON.$' | translate}}{{item.price}}<span *ngIf="item.serviceType==1">/GB</span>/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}
+						<td>{{ 'COMMON.ONE_TIME_COSTS' | translate}}: {{ 'COMMON.$' | translate}}{{item.oncePrice}}<br>{{ 'COMMON.COST' | translate}}: {{ 'COMMON.$' | translate}}{{item.price}}/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}
 						</td>
 						<td>{{item.submitTime}}</td>
 						<td>{{item.EndTime}}</td>

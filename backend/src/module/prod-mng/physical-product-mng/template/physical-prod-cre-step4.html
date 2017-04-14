@@ -1,0 +1,68 @@
+<div class="page-content-header icon-create-product">创建产品</div>
+<!--创建产品-->
+<div class="page-content fix-page-content">
+    <div class="row navigator-progress">
+        <div class="col-md-3 "><span class="mark">1</span><span>基本信息<!--基本信息--></span></div>
+        <div class="col-md-3"><span class="mark">2</span><span>计价方式<!--资源同步--></span></div>
+        <div class="col-md-3"><span class="mark">3</span><span>选择平台</span></div>
+        <div class="col-md-3 active"><span class="mark">4</span><span>选择企业</span></div>
+    </div>
+    <div class="step-progress">
+        <div class="fox-cloud-progress-rectangle progress-striped">
+            <div class="progress-bar fox-cloud-progress-bar-rectangle" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                style="width: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 30px;">
+        <div class="col-md-12">
+            <div class="row row-line-height">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6 selectEnt">
+					<div class="row row-line-height entup">
+						<div class="col-sm-5 entHeader">
+							{{'PROD_MNG.ALL_ENTERPRISE' | translate}}<!--全部企业-->
+						</div>
+						<div class="col-sm-2"></div>
+						<div class="col-sm-5 entHeader">
+							{{'PROD_MNG.SELECTED_ENTERPRISE' | translate}}<!--选中的企业-->
+						</div>
+					</div>
+					<div class="row row-line-height entdown">
+						<div class="col-sm-5 entBody">
+							<div style="position: relative;height:40px;">
+								<span class="span2" (click)="selectEnterprise(ent1,i)" style="width:80%">name</span>
+								<span class="icon-tick" style="margin-top:5px;left:80%" ></span>
+								<div class="clear:both"></div>
+							</div>							
+						</div>
+						<div class="col-sm-2"></div>
+						<div class="col-sm-5 entBody">
+							<div >
+								<span class="span2" (click)='unSelected(ent2,ii)'>name</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+        </div>
+    </div>
+</div>
+<div class="text-center mgt20">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">取消</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();">
+        <span class="icon-button-label">上一步</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
+        <span class="icon-button-label">发布</span>
+    </button>
+</div>
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
+
+
+<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL"
+    (cf)="ccf()"></fc-confirm>

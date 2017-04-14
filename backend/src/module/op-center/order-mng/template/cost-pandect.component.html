@@ -89,7 +89,7 @@
                 <div class="col-sm-6">
                     <div class="console-box">
                         <div class="console-title" *ngIf='!this.isNullEnterprise()'>TOP5部门新增总额排名</div>
-						<div class="console-title" *ngIf='this.isNullEnterprise()'>TOP5企业消费总额排名</div>
+						<div class="console-title" *ngIf='this.isNullEnterprise()'>TOP5企业新增消费总额排名</div>
 						  <canvas baseChart
                           width="200" *ngIf="topIncreaseChart" height="70"
                           [datasets]="topIncreaseChart.datasets"

@@ -44,6 +44,7 @@ export class AssignMngComponent implements OnInit {
     selectedDept: DeptModel = this.defaultDept;
 
     defaultPlf: PlfModel = new PlfModel();
+    
     selectedPlf: PlfModel = this.defaultPlf;
     defaultRegion: RegionModel = new RegionModel();
     selectedRegion: RegionModel = this.defaultRegion;
@@ -52,6 +53,7 @@ export class AssignMngComponent implements OnInit {
 
     entList: Array<EntModel>;
     plfList: Array<PlfModel>;
+    cloudHostSpecList: Array<string>;
     
     cpuInfo: ItemModel = new ItemModel();
     memInfo: ItemModel = new ItemModel();
@@ -61,15 +63,22 @@ export class AssignMngComponent implements OnInit {
     memChart: DoughnutChart = new DoughnutChart(); //mem环形图
     hyperList: Array<Hyper>;
 
-    flag: number;
+    flag=1;
     startDate: string;
     endDate: string;
     period="1";
 
     ngOnInit() {
+        this.defaultEnt.enterpriseId = 'all';
+        this.defaultDept.departmentId = 'all';
+        this.defaultPlf.platformId = 'all';
+        this.defaultRegion.regionId = 'all';
+        this.defaultZone.zoneId = 'all';
         this.getEntList();
         this.getPlfList();
+        this.getCloudHostSpec();
         console.log('云主机状态', this.service.powerStatusDic);
+        console.log('period', this.service.peridDic);
         this.reset();
         this.getUsageState();
         this.getHyperList();
@@ -103,6 +112,23 @@ export class AssignMngComponent implements OnInit {
                 if (response && "100" == response["resultCode"]) {
                     this.plfList = response["resultContent"];
                    
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    getCloudHostSpec() {
+        this.layoutService.show();
+        this.service.getCloudHostSpec()
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.cloudHostSpecList = response["resultContent"];
+                    console.log("云主机规格",this.cloudHostSpecList)
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -168,7 +194,7 @@ export class AssignMngComponent implements OnInit {
         this.queryOpt.enterpriseID = this.selectedEnt.enterpriseId;
         this.queryOpt.departmentId = this.selectedDept.departmentId;
         this.queryOpt.platformId = this.selectedPlf.platformId;
-        this.queryOpt.regionId = this.selectedRegion.region;
+        this.queryOpt.regionId = this.selectedRegion.regionId;
         this.queryOpt.zoneId = this.selectedZone.zoneId;
         console.log("query", this.queryOpt);
         this.getUsageState();
@@ -181,12 +207,8 @@ export class AssignMngComponent implements OnInit {
         this.selectedPlf = this.defaultPlf;
         this.selectedRegion= this.defaultRegion;
         this.selectedZone = this.defaultZone;
-        this.queryOpt.enterpriseID = 'all';
-        this.queryOpt.departmentId = 'all';
-        this.queryOpt.platformId = 'all';
-        this.queryOpt.regionId = 'all';
-        this.queryOpt.zoneId = 'all';
-        this.queryOpt.powerStatus = '1';
+        
+        this.queryOpt.powerStatus = '0';
         this.queryOpt.flaovarId = 'all';
         this.queryOpt.rate = '1';
         this.queryOpt.top = '1';
@@ -221,12 +243,7 @@ export class AssignMngComponent implements OnInit {
     }
 
     //弹出框“导出所有数据”中的相关函数
-    selectFirst() {
-        this.flag = 1;
-    }
-    selectSecond() {
-        this.flag = 2;
-    }
+    
     StartDateChange($event) {
         this.startDate=$event.formatted;
     }

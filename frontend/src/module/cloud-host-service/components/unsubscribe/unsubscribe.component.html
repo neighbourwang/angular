@@ -22,7 +22,7 @@
         </div>
 
         <div *ngIf="state==='done'" class="">
-            <product-info-table [itemList]="orderList"> </product-info-table>
+            <product-info-table [isorder]="true" [itemList]="orderList"> </product-info-table>
 
             <div class="done-bottom">
                 <div class="left-text float-left">

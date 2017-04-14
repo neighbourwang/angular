@@ -121,6 +121,7 @@ export class UnsubscribeComponent implements OnInit {
         this.service.getOrderList(orderList)
             .then(res => {
                 this.layoutService.hide();
+                this.popup.open("退订成功");
                 this.state = "done";
 
                 this.orderList = res.map(r => r.itemList[0]);

@@ -4,8 +4,10 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 import { PlfModel, RegionModel, ZoneModel } from "../model/plf.model";
 import { BasicModel, Percent } from "../model/basic.model";
+import {GrowthRate, DateRate} from "../model/growth-rate.model";
 import { Bar, ZoneBar, Item } from "../model/bar.model";
 import { ComputeQuery } from "../model/compute-query.model";
+import { GrowthRatelist_mock } from '../model/growth-rate-list.mock';
 //service
 import { ComputeTrendService } from "../service/compute-trend.service";
 const echarts = require('echarts');
@@ -33,7 +35,7 @@ export class ComputeTrendComponent implements OnInit {
     noticeMsg = "";
 
 
-    showType = 1;
+    showType:number;
     isSelected=false;
     hostId: string;
 
@@ -47,14 +49,22 @@ export class ComputeTrendComponent implements OnInit {
     selectedZone: ZoneModel = this.defaultZone;
 
     plfList: Array<PlfModel>;
+    cloudHostSpecList: Array<string>;
     basicList: Array<BasicModel>;
+    growthRateList: Array<GrowthRate>;
+    //growthRateList=GrowthRatelist_mock.resultContent;
 
     cpuData: Bar = new Bar();
     vmData: Bar = new Bar();
     memData: Bar = new Bar();
 
     ngOnInit() {
+        
+        this.defaultPlf.platformId = 'all';
+        this.defaultRegion.regionId = 'all';
+        this.defaultZone.zoneId = 'all';
         this.getPlfList();
+        this.getCloudHostSpec();
         this.queryOpt.queryType = "1";
         console.log('Dic',this.service.queryTypeDic);
         this.reset();
@@ -78,7 +88,24 @@ export class ComputeTrendComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    //获取云主机规格
+    getCloudHostSpec() {
+        this.layoutService.show();
+        this.service.getCloudHostSpec()
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.cloudHostSpecList = response["resultContent"];                   
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
 
+    //获取基本信息表格数据
     getBasicList() {
         this.layoutService.show();
         this.service.getBasicList(this.queryOpt)
@@ -96,6 +123,7 @@ export class ComputeTrendComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    
 
     getCpuData() {
         this.layoutService.show();
@@ -115,23 +143,7 @@ export class ComputeTrendComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    getVmData() {
-        this.layoutService.show();
-        this.service.getVmData(this.hostId)
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && "100" == response["resultCode"]) {
-                    this.vmData = response["resultContent"];
-                    console.log("vmData", this.vmData);
-                    this.showChart(this.vmData, 2);
-                } else {
-                    this.showAlert("COMMON.OPERATION_ERROR");
-                }
-            }
-            )
-            .catch((e) => this.onRejected(e));
-    }
+    
 
     getMemData() {
         this.layoutService.show();
@@ -169,17 +181,25 @@ export class ComputeTrendComponent implements OnInit {
 
         if (this.queryOpt.queryType == "1") {
             this.showType = 1;
-            this.queryOpt.flaovarId = '空';
+            this.queryOpt.flaovarId = '';
             this.getBasicList();
             this.getCpuData();
 
         } else if (this.queryOpt.queryType == "2") {
             this.showType = 2;
-            this.getVmData();
+            this.layoutService.show();
+            Promise.all([this.service.getGrowthRateList(this.queryOpt), this.service.getVmData(this.hostId)])
+            .then((arr) =>{
+                this.layoutService.hide();
+                this.growthRateList= arr[0];
+                this.vmData = arr[1];
+                this.showChart(this.vmData, 2);
+            }).catch((e) => this.onRejected(e));
+            
 
         } else if (this.queryOpt.queryType == "3") {
             this.showType = 3;
-            this.queryOpt.flaovarId = '空';
+            this.queryOpt.flaovarId = '';
             this.getBasicList();
             this.getMemData();
      
@@ -191,10 +211,8 @@ export class ComputeTrendComponent implements OnInit {
         this.selectedPlf=this.defaultPlf;
         this.selectedRegion=this.defaultRegion;
         this.selectedZone = this.defaultZone;
-        this.queryOpt.platformId = 'all';
-        this.queryOpt.regionId = 'all';
-        this.queryOpt.zoneId = 'all';
-        this.queryOpt.powerStatus = 'start';
+        
+        this.queryOpt.powerStatus = '0';
         this.queryOpt.flaovarId = 'all';
         this.queryOpt.period = '1';
     }
@@ -325,34 +343,34 @@ export class ComputeTrendComponent implements OnInit {
 
     exportCurrent() {
         this.layoutService.show();
-        this.service.exportCurrent(this.queryOpt)  
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    console.log('export current');
-                } else {
-                    this.showAlert("COMMON.OPERATION_ERROR");
-                }
-            }
-            )
-            .catch((e) => this.onRejected(e));
+        this.service.exportCurrent(this.queryOpt);  
+            //.then(
+            //response => {
+            //    this.layoutService.hide();
+            //    if (response && 100 == response["resultCode"]) {
+            //        console.log('export current');
+            //    } else {
+            //        this.showAlert("COMMON.OPERATION_ERROR");
+            //    }
+            //}
+            //)
+            //.catch((e) => this.onRejected(e));
     }
 
     exportAll() {
         this.layoutService.show();
-        this.service.exportAll()  
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    console.log('export current');
-                } else {
-                    this.showAlert("COMMON.OPERATION_ERROR");
-                }
-            }
-            )
-            .catch((e) => this.onRejected(e));
+        this.service.exportAll();  
+            //.then(
+            //response => {
+            //    this.layoutService.hide();
+            //    if (response && 100 == response["resultCode"]) {
+            //        console.log('export current');
+            //    } else {
+            //        this.showAlert("COMMON.OPERATION_ERROR");
+            //    }
+            //}
+            //)
+            //.catch((e) => this.onRejected(e));
     }
 
     onRejected(reason: any) {

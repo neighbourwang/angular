@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { RegionModel, keysecretModel } from '../../cloud-disk/model/cloud-disk.model';
 import { orderVmPageModel, QuantityModel, instanceListModel, 
-    priceSubmitModel, priceCommodityModel, orderSubmitModel } from "../model/cloud-vm.model";
+    priceSubmitModel, priceCommodityModel, orderSubmitModel, GetSecGroupSubmitModel } from "../model/cloud-vm.model";
 
 @Injectable()
 export class AliCloudVmService {
@@ -79,7 +79,7 @@ export class AliCloudVmService {
             "accessId": this.keysecret.accessId,
             "accessSecret": this.keysecret.accessSecret
         }
-        console.log(body, "body");
+        //console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.regionZone.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body).then(
             res =>{
@@ -107,7 +107,7 @@ export class AliCloudVmService {
              "pageNumber": 1,
              "pageSize": 100
         }
-        console.log(body, "body");
+        //console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.image.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body).then(
             res =>{
@@ -118,32 +118,6 @@ export class AliCloudVmService {
                 }
             }
         );
-    }
-
-    getInstanceTypeFamily(regionid: string): Promise<any> {
-        const pathParams = [
-            {
-                key: "regionid",
-                value: regionid
-            }
-        ];
-        const body = {
-            "accessId": this.keysecret.accessId,
-            "accessSecret": this.keysecret.accessSecret
-        }
-        console.log(body, "body");
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.type.family.get");
-        return this.restApi.request(api.method, api.url, pathParams, null, body);
-    }
-
-    getInstanceType(regionid: string): Promise<any> {
-        const body = {
-            "accessId": this.keysecret.accessId,
-            "accessSecret": this.keysecret.accessSecret
-        }
-        console.log(body, "body");
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.type.get");
-        return this.restApi.request(api.method, api.url, null, null, body);
     }
 
     getInstanceFamilyTree(regionid: string): Promise<any> {
@@ -157,7 +131,7 @@ export class AliCloudVmService {
             "accessId": this.keysecret.accessId,
             "accessSecret": this.keysecret.accessSecret
         }
-        console.log(body, "body");
+        //console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.family.tree.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body).then(
             res =>{
@@ -183,11 +157,12 @@ export class AliCloudVmService {
                 "accessSecret": this.keysecret.accessSecret
             },
             //"isDefault": "",
+            //"vpcId": "",
             "pageNumber": "1",
-            "pageSize": "50",
-            "vpcId": ""
+            "pageSize": "50"
+            
             }
-        console.log(body, "body");
+        console.log(body, "getVPCs body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.vpc.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body).then(
             res =>{
@@ -200,29 +175,14 @@ export class AliCloudVmService {
         );
     }
 
-    getVSwitches(vpcid: string) : Promise<any> {
+    getVSwitches(selectedOrderVmPage: orderVmPageModel): Promise<any> {
         const pathParams = [
             {
                 key: "vpcid",
-                value: vpcid
+                value: selectedOrderVmPage.selectedVpcId
             }
         ];
-        const body = {
-            "accessId": this.keysecret.accessId,
-            "accessSecret": this.keysecret.accessSecret
-        }
-        console.log(body, "body");
-        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.vswitch.get");
-        return this.restApi.request(api.method, api.url, pathParams, null, body);
-    }
 
-    getSecurityGroups(regionid: string) {
-        const pathParams = [
-            {
-                key: "regionid",
-                value: regionid
-            }
-        ];
         const body = {
             "accessinfo": {
                 "accessId": this.keysecret.accessId,
@@ -230,9 +190,91 @@ export class AliCloudVmService {
             },
             "pageNumber": "1",
             "pageSize": "50",
-            "vpcId": ""
+            "zoneId": selectedOrderVmPage.selectedArea.ZoneId
+        }
+
+        console.log(body, "getVSwitches body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.vswitch.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    serviceGetVSwitches(selectedOrderVmPage: orderVmPageModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "vpcid",
+                value: selectedOrderVmPage.selectedVpcId
             }
-        console.log(body, "body");
+        ];
+
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "pageNumber": "1",
+            "pageSize": "50",
+            "zoneId": selectedOrderVmPage.selectedArea.ZoneId
+        }
+
+        console.log(body, "serviceGetVSwitches body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.vswitch.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body)
+            .then(
+            res => {
+                if (res && 100 == res["resultCode"]) {
+                    return res.resultContent;
+                } else {
+                    throw "error";
+                }
+            }
+            );
+    }
+
+    getSecurityGroups(regionid: string, selectedOrderVmPage:orderVmPageModel) {
+        const pathParams = [
+            {
+                key: "regionid",
+                value: regionid
+            }
+        ];
+        let body: GetSecGroupSubmitModel = new GetSecGroupSubmitModel();
+        body.accessinfo.accessId = this.keysecret.accessId;
+        body.accessinfo.accessSecret = this.keysecret.accessSecret;
+        body.pageNumber = "1";
+        body.pageSize = "50";
+        /*
+        if(selectedOrderVmPage.selectedNetworkType == 'classic') {
+            body.vpcId = null;
+        } else if (selectedOrderVmPage.selectedNetworkType == 'vpc'){
+            body.vpcId = selectedOrderVmPage.selectedVpcId;
+        }
+        */
+        body.vpcId = null;
+        
+        console.log(body, "getSecurityGroups body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.securitygroup.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    serviceGetSecurityGroups(regionid: string, selectedOrderVmPage:orderVmPageModel) {
+        const pathParams = [
+            {
+                key: "regionid",
+                value: regionid
+            }
+        ];
+        let body: GetSecGroupSubmitModel = new GetSecGroupSubmitModel();
+        body.accessinfo.accessId = this.keysecret.accessId;
+        body.accessinfo.accessSecret = this.keysecret.accessSecret;
+        body.pageNumber = "1";
+        body.pageSize = "50";
+        if(selectedOrderVmPage.selectedNetworkType == 'classic') {
+            body.vpcId = null;
+        } else if (selectedOrderVmPage.selectedNetworkType == 'vpc'){
+            body.vpcId = selectedOrderVmPage.selectedVpcId;
+        }
+        
+        console.log(body, "serviceGetSecurityGroups body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.securitygroup.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body).then(
             res =>{
@@ -243,7 +285,6 @@ export class AliCloudVmService {
                 }
             }
         );
-
     }
 
     calculatePrice(selectedOrderVmPage: orderVmPageModel): Promise<any> {
@@ -277,7 +318,7 @@ export class AliCloudVmService {
             body2.commodity.ioOptimized = true;
         }
         */
-        body2.commodity.ioOptimized = selectedOrderVmPage.ioOptimized;
+        body2.commodity.ioOptimized = selectedOrderVmPage.ioOptimized_price;
         
         body2.commodity.networkType = selectedOrderVmPage.selectedNetworkType;
         if(body2.commodity.networkType == 'classic') {
@@ -295,12 +336,12 @@ export class AliCloudVmService {
             }
         }
 
-        if(selectedOrderVmPage.selectedChargeType=='PostPaid') {
+        if(selectedOrderVmPage.selectedChargeType.toLowerCase()=='postpaid') {
             body2.commodity.period = 1;
             body2.commodity.priceUnit = 'Hour';
             body2.commodity.periodType = 'Hourly';
             body2.commodity.autoRenew = null;
-        } else if (selectedOrderVmPage.selectedChargeType=='PrePaid') {
+        } else if (selectedOrderVmPage.selectedChargeType.toLowerCase()=='prepaid') {
             if (selectedOrderVmPage.selectedQuantity<12) {
                 body2.commodity.period = selectedOrderVmPage.selectedQuantity;
                 body2.commodity.priceUnit = 'Month';
@@ -320,11 +361,11 @@ export class AliCloudVmService {
         
 
         let body: any = null;
-        if (selectedOrderVmPage.selectedInternetChargeType == "PayByTraffic") { //按量带宽，多传一个traffic-bandwidth            
-            body = [body1, body2];
-        } else if (selectedOrderVmPage.selectedInternetChargeType == "PayByBandwidth") { //固定带宽，只传一个instance-buy
+        if (selectedOrderVmPage.selectedInternetChargeType == null || selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybybandwidth") { //固定带宽，只传一个instance-buy
             body = [body2];
-        }
+        } else if (selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybytraffic") { //按量带宽，多传一个traffic-bandwidth            
+            body = [body1, body2];
+        } 
         console.log(body, "calculatePrice body!!!!!!!!!!!");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.price.get");
         return this.restApi.request(api.method, api.url, null, null, body);
@@ -355,10 +396,10 @@ export class AliCloudVmService {
         body2.systemDiskDiskName = null;
 
         body2.instanceChargeType = selectedOrderVmPage.selectedChargeType;
-        if(selectedOrderVmPage.selectedChargeType=='PostPaid') {
+        if(selectedOrderVmPage.selectedChargeType.toLowerCase()=='postpaid') {
             body2.autoRenew = null;
             body2.autoRenewPeriod = null;
-        } else if (selectedOrderVmPage.selectedChargeType=='PrePaid') {
+        } else if (selectedOrderVmPage.selectedChargeType.toLowerCase()=='prepaid') {
             body2.autoRenew = selectedOrderVmPage.renew;
             body2.autoRenewPeriod = "1";            
         }
@@ -369,9 +410,9 @@ export class AliCloudVmService {
         body2.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut || null;
 
         if(selectedOrderVmPage.selectedGeneration == "ecs-1"){
-            body2.ioOptimized = null;
+            body2.ioOptimized = "none";
         } else {
-            body2.ioOptimized = true;
+            body2.ioOptimized = "optimized";
         }
         
         body2.password = selectedOrderVmPage.Password  || null;
@@ -385,9 +426,7 @@ export class AliCloudVmService {
         body2.vswitchId = selectedOrderVmPage.selectedVswitchId  || null;
         body2.zoneId = selectedOrderVmPage.selectedArea.ZoneId  || null;
 
-        //let bodycontent = JSON.stringify(body2);
-        
-        let body = body2
+        let body = body2;
         console.log(body, "order vm body!!!!!!!!!!");
         let str = JSON.stringify(body);
         console.log(str);
