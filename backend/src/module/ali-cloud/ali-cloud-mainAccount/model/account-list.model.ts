@@ -1,10 +1,16 @@
 export class AccountListModel{
+    id:string;
     loginName:string;
-    accountType:string;
-    enterprise:string;
+    mainAccountType:string=""; //1 独享， 2 共享
+    tenantCross:string;     //所属企业
     status:string;
-    updateTime:string;
+    lastUpdate:string;
     operator:string;
     description:string;
+    accessUrl:string;
+    accessKey:string;
+    accessSecret:string;
     isSelect=false;
+    hasSubAccount:string;//1有 0 没有
+
 }

@@ -3,7 +3,7 @@
 </div>
 <div class="page-content">
     <div style="margin-bottom:10px">
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/ali-cloud-subAccount-add.html">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="createAccount();">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">添加子账号</span>
         </button>
@@ -19,10 +19,10 @@
             </ul>
         </div>
         <div class="pull-right mgl10">
-            <button class="fox-cloud-button fox-cloud-button-green" key="boe/ali-cloud-subAccount-entprise.html">分配企业</button>
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="setEntprise();">分配企业</button>
         </div>
         <div class="pull-right">
-            <button class="fox-cloud-button fox-cloud-button-green" key="boe/ali-cloud-subAccount-edit.html">编辑</button>
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="editAccount();">编辑</button>
         </div>
     </div>
     <div class="table-container">
