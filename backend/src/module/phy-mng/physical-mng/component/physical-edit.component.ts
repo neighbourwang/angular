@@ -161,9 +161,11 @@ export class PhysicalEditComponent implements OnInit {
 
     //编辑物理机
     editPhysical() {
-    //    if(this.physical.mainEndDate >this.physical.mainStartDate) { 
+        let a= (this.physical.mainEndDate == "") && (this.physical.mainStartDate == "");
+        console.log(a,this.physical.mainEndDate,this.physical.mainStartDate);
+        if(this.physical.mainEndDate >this.physical.mainStartDate ||a) { 
            this.layoutService.show();
-        this.service.editPhysical(this.physical)
+           this.service.editPhysical(this.physical)
             .then(
             response => {
                 this.layoutService.hide();
@@ -171,19 +173,19 @@ export class PhysicalEditComponent implements OnInit {
                     this.layoutService.hide();
                     //this.showAlert("保存成功！");
                     this.gotoList();
-                } else {
+                } 
+                else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
-            }
-            )
+            })
             .catch((e) => this.onRejected(e));
-    //    }
-    //    else{
-    //        this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");//结束时间大于开始时间
-    //        return;
-    //    }
-       
+        }
+        else{
+           this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");//结束时间大于开始时间
+           return;
+        }
     }
+
     //编辑物理机部件
     editPhysicalPart(){       
         this.layoutService.show();
@@ -264,7 +266,9 @@ export class PhysicalEditComponent implements OnInit {
             ) 
             .then(
                 ()=>{
-                //    if(this.physical.mainEndDate>this.physical.mainStartDate){
+                    let a= (this.physical.mainEndDate == "") && (this.physical.mainStartDate == "");
+                    console.log(a,this.physical.mainEndDate,this.physical.mainStartDate);
+                   if((this.physical.mainEndDate>this.physical.mainStartDate) || a){
                        this.layoutService.show();
                        this.service.createPhysical(this.physical)
                         .then(
@@ -278,16 +282,14 @@ export class PhysicalEditComponent implements OnInit {
                             } else {
                                 this.showAlert("COMMON.OPERATION_ERROR");
                             }
-                        }
-                        )
+                        })
                         .catch((e) => this.onRejected(e));
-                            // }
-                            // else{
-                            //     this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME")
-                            //     return;
-                            // }
-                    }                     
-                    );        
+                    }
+                    else  {
+                        this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME")
+                        return;
+                    }
+                    });        
     }
 
     //读取物理机硬件信息
@@ -420,13 +422,6 @@ export class PhysicalEditComponent implements OnInit {
     //维保起始时间
      startTimeChange($event){
 		this.physical.mainStartDate = $event.formatted;
-        //  if(this.physical.mainEndDate){
-        //      let e=this.mainDateCompare();
-        //      if(!e){
-        //          this.showAlert("PHYSICAL_MNG.END_TIME_BIGGER_THAN_START_TIME");
-        //          return;
-        //      }
-        // }    
 	}
     
     //维保结束时间
