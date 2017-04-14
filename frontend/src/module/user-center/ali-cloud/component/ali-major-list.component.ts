@@ -46,6 +46,7 @@ export class AliMajorListComponent implements OnInit{
     testInfo: boolean;
     id: string;
     departs: Array<DepartList>;
+    selectedDepartment: string;
 
 
     ngOnInit (){
@@ -146,8 +147,23 @@ export class AliMajorListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
+    selected(item: DepartList){
+        this.departs.forEach((p) =>{
+            p.selected= false;
+        });
+        item.selected= true;
+        this.selectedDepartment= item.departmentName;
+    }
+
+    reset(){
+        this.departs.forEach((p) =>{
+            p.selected= false;
+        });
+        this.selectedDepartment= "";
+    }
+
     gotoSubMng(item){
-        this.router.navigate([`user-center/ali-cloud/ali-sub-list`,{"id": item.id}]);
+        this.router.navigate([`user-center/ali-cloud/ali-sub-list/${item.loginName}`,{"id": item.id }]);
     }
 
     operate(){
