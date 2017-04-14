@@ -117,7 +117,7 @@
                     <div class="col-md-4" *ngIf="physical.mainStartDate && eidtMode !='create'">
                        <date-picker  [options]="myDatePickerOptions"  [initDate]= "physical.mainStartDate" (dateChanged)="startTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
                     </div>
-                    <div class="col-md-4" *ngIf="eidtMode =='create' || physical.mainStartDate ==null">
+                    <div class="col-md-4" *ngIf="eidtMode =='create' || physical.mainStartDate ==''">
                        <date-picker  [options]="myDatePickerOptions"  (dateChanged)="startTimeChange($event)" [disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
                     <div class="col-md-4" *ngIf="physical.mainEndDate && eidtMode !='create'">
                        <date-picker  [options]="myDatePickerOptions" [initDate]= "physical.mainEndDate" (dateChanged)="endTimeChange($event)" [disabled]="eidtMode =='view'||eidtMode =='editParts'" ></date-picker>
                     </div>
-                     <div class="col-md-4" *ngIf="eidtMode =='create' || physical.mainEndDate ==null">
+                     <div class="col-md-4" *ngIf="eidtMode =='create' || physical.mainEndDate ==''">
                        <date-picker  [options]="myDatePickerOptions"  (dateChanged)="endTimeChange($event)"[disabled]="eidtMode =='view'||eidtMode =='editParts'"  ></date-picker>
                     </div>
                 </div>
