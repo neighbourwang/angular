@@ -1,6 +1,9 @@
 <div class="page-content  cloud_host_order cloud_drive_order">
     <h1 class="page-content-header">阿里云主机实例列表</h1>
 
+
+    {{queryObject.toString()}}<br />
+
     <ul class="page-box" style="margin: 20px 0px;">
         <li>
             <div class="col-md-1 li-title" style="background: #f7f7f7; border-right: 1px solid #ddd; height: 100%">
@@ -20,19 +23,28 @@
 
     <div class="col-md-12 no-padding mgb20">
         <div class="dropdown float-left mgr10">
-            <select [(ngModel)]="listqueryField" class="form-control">
-				<option>实例名称</option>
-				<option>即将到期</option>
+            <select [(ngModel)]="queryObject.criteria" class="form-control">
+				<option value="instance_name">实例名称</option>
+                <option value="instance_id">实例ID</option>
+                <option value="private_ip">私网IP</option>
+                <option value="inner_ip">内网IP</option>
+                <option value="public_ip">外网IP</option>
+                <option value="image_id">镜像ID</option>
+                <option value="securitygroup_id">安全组ID</option>
+                <!--<option value="expire">即将到期</option>-->
+                <option value="instance_type">实例规格</option>
+                <option value="vpc_id">专有网络ID</option>
+				<option value="vswitch_id">虚拟交换机ID</option>
 			</select>
         </div>
 
         <div class="input-group col-md-2 float-left mgr10">
-            <input type="text" class="form-control" [(ngModel)]="phynet_create" style="display: inline" />
-            <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
+            <input type="text" class="form-control" [(ngModel)]="queryObject.keyword" style="display: inline" />
+            <div class="input-group-addon" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
         </div>
 
         <div class="input-group float-left">
-            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
+            <button class="btn button-gray-gradient" (click)="search();"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
         </div>
 
         <div class="dropdown float-right">
@@ -94,5 +106,5 @@
     <fc-pagination tp={{totalPage}} (pf)="getInstanceList($event)"></fc-pagination>
     <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
 </div>
-<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
+<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{modalOKTitle}}" ct="{{modalCancelTitle}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{modalOKTitle}}" (of)="okClicked(0)"></fc-notice>

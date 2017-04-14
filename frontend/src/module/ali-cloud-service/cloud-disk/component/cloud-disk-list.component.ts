@@ -10,7 +10,7 @@ import {
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
-import { RegionModel, keysecretModel, AreaModel, diskOrderModel, diskListModel } from "../model/cloud-disk.model";
+import { RegionModel, keysecretModel, AreaModel, diskOrderModel, diskListModel, QueryObject } from "../model/cloud-disk.model";
 import { instanceListModel } from "../../cloud-vm/model/cloud-vm.model";
 
 //Service
@@ -63,8 +63,11 @@ export class AliCloudDiskListComponent implements OnInit {
 
     //keysecret: keysecretModel = new keysecretModel();
 
+    queryObject: QueryObject = new QueryObject();
+
     regions: Array<RegionModel> = [];
-    choosenRegion: RegionModel = new RegionModel();
+    defaultRegion: RegionModel = new RegionModel();
+    choosenRegion: RegionModel = this.defaultRegion;
 
     disks: Array<diskListModel> = []; //订购body模型
     selectedDiskItem: diskListModel = new diskListModel();
@@ -183,6 +186,8 @@ export class AliCloudDiskListComponent implements OnInit {
             item.selected = false;
         });
         region.selected = true;
+        this.queryObject.keyword = "";
+        this.queryObject.criteria = "disk_name";
         this.getDiskList(region); // 列出对应region的disk list
         /*
         if (region.areas == null || region.areas.length == 0) {
@@ -193,7 +198,7 @@ export class AliCloudDiskListComponent implements OnInit {
 
     getDiskList(region: RegionModel) {
         this.layoutService.show();
-        this.service.getDiskList(this.pageIndex, this.pageSize, region.RegionId)
+        this.service.getDiskList(this.pageIndex, this.pageSize, region.RegionId, this.queryObject)
         .then(
             response => {
                 this.layoutService.hide();
@@ -221,6 +226,17 @@ export class AliCloudDiskListComponent implements OnInit {
                 this.onRejected(e);
             });
 
+    }
+
+    search() {
+        console.log(this.queryObject);
+        if (this.choosenRegion == this.defaultRegion) {
+            this.showMsg("请选择区域");
+        } else if(this.queryObject.keyword != "") {
+            this.getDiskList(this.choosenRegion);
+        } else {
+            console.log(this.queryObject.keyword, "queryObject.keyword is '' or please choose Region!");
+        }
     }
 
     //根据regionId获取可用区列表

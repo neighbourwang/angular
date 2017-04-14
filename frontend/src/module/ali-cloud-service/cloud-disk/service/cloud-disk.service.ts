@@ -4,7 +4,7 @@ import { RestApiCfg, RestApi } from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
-import { RegionModel, keysecretModel, diskOrderModel, diskListModel } from '../model/cloud-disk.model';
+import { RegionModel, keysecretModel, diskOrderModel, diskListModel, GetDisksSubmitModel, QueryObject } from '../model/cloud-disk.model';
 
 @Injectable()
 export class AliCloudDiskService {
@@ -115,13 +115,14 @@ export class AliCloudDiskService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
-    getDiskList(pageIndex: number, pageSize: number, regionid: string): Promise<any> {
+    getDiskList(pageIndex: number, pageSize: number, regionid: string, queryObject:QueryObject): Promise<any> {
         const pathParams = [
             {
                 key: "regionid",
                 value: regionid
             }
         ];
+        /*
         const body = {
             "accessinfo": {
                 "accessId": this.keysecret.accessId,
@@ -131,8 +132,35 @@ export class AliCloudDiskService {
                 "pageNumber": pageIndex,
                 "pageSize": pageSize,
             }
+        }*/
+        let body: GetDisksSubmitModel = new GetDisksSubmitModel();
+        body.accessinfo.accessId = this.keysecret.accessId;
+        body.accessinfo.accessSecret = this.keysecret.accessSecret;
+        body.conditionModel.pageNumber = pageIndex;
+        body.conditionModel.pageSize = pageSize;
+
+        if (queryObject.keyword != "") {
+            switch (queryObject.criteria) {
+                case "disk_name":
+                    body.conditionModel.diskName = queryObject.keyword + "*";
+                    break;
+                case "disk_id":
+                    body.conditionModel.diskIds = queryObject.keyword;
+                    break;
+                case "instance_id":
+                    body.conditionModel.instanceId = queryObject.keyword;
+                    break;
+                case "snapshot_id":
+                    body.conditionModel.snapshotId = queryObject.keyword;
+                    break;
+                default:
+                    console.log("queryObject.keyword don't match any criteria");
+            }
         }
+
         console.log(body, "body");
+        let str = JSON.stringify(body);
+        console.log(str);
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.disklist.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
