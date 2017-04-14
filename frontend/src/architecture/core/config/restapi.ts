@@ -942,4 +942,54 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "/marketplace/authsec/alicloud/mmp/main/depart/list"
     },
+    // 阿里云子账号管理
+    {
+        "desc": "子账号列表",
+        "id": "user-center.ali-cloud.sublist",
+        "method": "GET",
+        "url": "marketplace/authsec/alicloud/mmp/sub/list/{id}"
+    },
+    {
+        "desc": "子账号详细信息",
+        "id": "user-center.ali-cloud.subinfo",
+        "method": "GET",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/detail/{id}"
+    },
+    {
+        "desc": "子账号部门列表",
+        "id": "user-center.ali-cloud.departsublist",
+        "method": "GET",
+        "url": "marketplace/authsec/alicloud/mmp/sub/depart/list"
+    },
+    {
+        "desc": "测试子账号",
+        "id": "user-center.ali-cloud.subtest",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/testsubacct"
+    },
+    {
+        "desc": "启用子账号",
+        "id": "user-center.ali-cloud.enable",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/enable/{id}"
+    },
+    {
+        "desc": "禁用子账号",
+        "id": "user-center.ali-cloud.disable",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/disable/{id}"
+    },
+    {
+        "desc": "删除子账号",
+        "id": "user-center.ali-cloud.delete",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/delete/{id}"
+    },
+    // 阿里云共享账号管理
+    {
+        "desc": "共享账号列表",
+        "id": "user-center.ali-cloud.sharedlist",
+        "method": "GET",
+        "url": "marketplace/authsec/alicloud/mmp/share/acct/list"
+    },
 ]

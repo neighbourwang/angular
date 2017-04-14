@@ -6,7 +6,8 @@ import 'rxjs/add/operator/toPromise';
 
 import { RegionModel, keysecretModel } from '../../cloud-disk/model/cloud-disk.model';
 import { orderVmPageModel, QuantityModel, instanceListModel, 
-    priceSubmitModel, priceCommodityModel, orderSubmitModel, GetSecGroupSubmitModel } from "../model/cloud-vm.model";
+    priceSubmitModel, priceCommodityModel, orderSubmitModel, GetSecGroupSubmitModel, 
+    GetInstancesSubmitModel, VmQueryObject } from "../model/cloud-vm.model";
 
 @Injectable()
 export class AliCloudVmService {
@@ -434,22 +435,74 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
-    getInstanceList(pageIndex: number, pageSize: number, regionid: string): Promise<any> {
+    getInstanceList(pageIndex: number, pageSize: number, regionid: string, queryObject: VmQueryObject): Promise<any> {
         const pathParams = [
             {
                 key: "regionid",
                 value: regionid
             }
         ];
-        const body = {
-            "accessinfo": {
-                "accessId": this.keysecret.accessId,
-                "accessSecret": this.keysecret.accessSecret
-            },
-            "pageNumber": pageIndex,
-            "pageSize": pageSize
+        let body: GetInstancesSubmitModel = new GetInstancesSubmitModel();
+        body.accessinfo.accessId = this.keysecret.accessId;
+        body.accessinfo.accessSecret = this.keysecret.accessSecret;
+        body.pageNumber = pageIndex;
+        body.pageSize = pageSize;
+        if (queryObject.keyword != "") {
+            switch (queryObject.criteria) {
+                case "instance_name":
+                    body.instanceName = queryObject.keyword;
+                    break;
+                case "instance_ids":
+                    let instanceIds: Array<string> = [];                    
+                    instanceIds = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(instanceIds);
+                    body.instanceIds = instanceIds;
+                    break;
+                case "private_ips":
+                    let privateIps: Array<string> = [];
+                    privateIps = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(privateIps);
+                    body.privateIpAddresses = privateIps;
+                    break;
+                case "inner_ips":
+                    let innerIps: Array<string> = [];
+                    innerIps = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(innerIps);
+                    body.innerIpAddresses = innerIps;
+                    break;
+                case "public_ips":
+                    let publicIps: Array<string> = [];
+                    publicIps = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(publicIps);
+                    body.publicIpAddresses = publicIps;
+                    break;
+                case "image_id":
+                    body.imageId = queryObject.keyword;
+                    break;
+                case "securitygroup_id":
+                    body.securityGroupId = queryObject.keyword;
+                    break;
+                /*case "expire":
+                    body. = queryObject.keyword;
+                    break;
+                    */
+                case "instance_type":
+                    body.instanceType = queryObject.keyword;
+                    break;
+                case "vpc_id":
+                    body.vpcId = queryObject.keyword;
+                    break;
+                case "vswitch_id":
+                    body.vswitchId = queryObject.keyword;
+                    break;
+                default:
+                    console.log("queryObject.keyword don't match any criteria");
+            }
+
         }
         console.log(body, "body");
+        let str = JSON.stringify(body);
+        console.log(str);
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.list");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }

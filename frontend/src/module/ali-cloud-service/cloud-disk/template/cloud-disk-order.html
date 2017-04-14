@@ -4,10 +4,10 @@
         <ul class="page-box" style="padding-left: 0;">
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-location"></span>地域：</p>
+                    <p><span class="icon-location"></span><br />地域：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12">
+                    <div class="col-md-12 no-padding">
                         <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}'>
                             <div class="regionName" (click)="selectRegion(region);">{{region.LocalName}}</div>
                             <div class="regionArea">
@@ -25,13 +25,14 @@
                     </div>
 
 
-                    <div class="col-md-12 text-tip">云盘只能挂载在同一可用区的ECS实例内，订购后不支持更换地域，请谨慎选择，<a href="javascript:void(0);">教我选择>></a><span class="glyphicon glyphicon-question-sign"></span></div>
+                    <div class="col-md-12 no-padding text-tip">云盘只能挂载在同一可用区的ECS实例内，订购后不支持更换地域，请谨慎选择!
+                        <!--，<a href="javascript:void(0);">教我选择>></a><span class="glyphicon glyphicon-question-sign"></span> --></div>
                 </div>
             </li>
 
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-configure"></span>云盘：</p>
+                    <p><span class="icon-disk"></span><br />云盘：</p>
                 </div>
                 <div class="col-md-12 li-content">
 

@@ -18,22 +18,23 @@
     </ul>
 
     <div class="col-md-12 no-padding mgb20">
-        <!--
+
         <div class="dropdown float-left mgr10">
-            <select [(ngModel)]="listqueryField" class="form-control">
-                <option>云硬盘名称</option>
-                <option>其他</option>
+            <select [(ngModel)]="queryObject.criteria" class="form-control">
+                <option value="disk_name">磁盘名称</option>
+                <option value="disk_ids">磁盘IDs</option>
+                <option value="instance_id">实例ID</option>
+                <option value="snapshot_id">自动快照策略ID</option>
             </select>
         </div>
-        -->
 
         <div class="input-group col-md-2 float-left mgr10">
-            <input type="text" name="seachtext" class="form-control" [(ngModel)]="seachkeyword" style="display: inline" placeholder="输入云硬盘信息搜索" />
-            <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
+            <input type="text" name="seachtext" class="form-control" [(ngModel)]="queryObject.keyword" style="display: inline" placeholder="输入云硬盘信息搜索" />
+            <div class="input-group-addon" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
         </div>
 
         <div class="input-group float-left">
-            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
+            <button class="btn button-gray-gradient" (click)="search();"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
         </div>
 
         <div class="dropdown float-right ">

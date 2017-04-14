@@ -20,19 +20,9 @@ export class AliMajorService {
         this.restApiCfg.loadCfgData();
     }
 
-    getData(pageIndex: number, pageSize: number): Promise<any>{
-        const pathParams=[
-            {
-                key:"page",
-                value: pageIndex
-            },
-            {
-                key:"size",
-                value: pageSize
-            }
-        ];
+    getData(): Promise<any>{
 /*        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.list");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);*/
+        return this.restApi.request(api.method, api.url, null, null, null);*/
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => MajorList_mock);
     }
 

@@ -9,7 +9,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
 
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
-import { instanceListModel } from "../model/cloud-vm.model";
+import { instanceListModel, VmQueryObject } from "../model/cloud-vm.model";
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
@@ -53,8 +53,12 @@ export class AliCloudVmListComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
+    queryObject: VmQueryObject = new VmQueryObject();
+
     regions: Array<RegionModel> = [];
-    choosenRegion: RegionModel = new RegionModel();
+    defaultRegion: RegionModel = new RegionModel();
+    choosenRegion: RegionModel = this.defaultRegion;
+    
 
     instances: Array<instanceListModel> = []; 
     selectedInstance: instanceListModel = new instanceListModel();
@@ -136,12 +140,14 @@ export class AliCloudVmListComponent implements OnInit {
             item.selected = false;
         });
         region.selected = true;
+        this.queryObject.criteria = "instance_name";
+        this.queryObject.keyword = "";
         this.getInstanceList(region); // 列出对应region的instance list
     }
 
     getInstanceList(region: RegionModel) {
         this.layoutService.show();
-        this.service.getInstanceList(this.pageIndex, this.pageSize, region.RegionId)
+        this.service.getInstanceList(this.pageIndex, this.pageSize, region.RegionId, this.queryObject)
         .then(
             response => {
                 this.layoutService.hide();
@@ -170,6 +176,17 @@ export class AliCloudVmListComponent implements OnInit {
                 this.onRejected(e);
             });
 
+    }
+
+    search() {
+        console.log(this.queryObject);
+        if (this.choosenRegion == this.defaultRegion) {
+            this.showMsg("请选择区域");
+        } else if(this.queryObject.keyword != "") {
+            this.getInstanceList(this.choosenRegion);
+        } else {
+            console.log(this.queryObject.keyword, "queryObject.keyword is '' or please choose Region!");
+        }
     }
 
     goToInstanceOrder() {
@@ -268,7 +285,7 @@ export class AliCloudVmListComponent implements OnInit {
                     }
                 })
                 .catch((e) => this.onRejected(e));
-            }
+            };
             this.confirm.open();
         } else {
             this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");

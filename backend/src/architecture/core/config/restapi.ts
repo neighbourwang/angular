@@ -2589,6 +2589,44 @@ export let RestApis: RestApiModel[] = [
         "id":"compute-trend.export.all",
         "method":"GET",
         "url":"maintenance/trend/query/export/current"
-     }
+     },
+     //阿里云账号管理
+     {
+        "desc": "获取主账号列表",
+        "id":"ali-mainAccount-list.get",
+        "method":"GET",
+        "url":"adminboe/authsec/alicloud/adm/main/list"
+     },
+     {
+        "desc": "添加主账号",
+        "id":"ali-mainAccount-create.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/addacct"
+     },
+    {
+        "desc": "查看主账号/编辑读取",
+        "id":"ali-mainAccount-view.get",
+        "method":"GET",
+        "url":"adminboe/authsec/alicloud/adm/main/acct/{id}"
+     },
+    {
+        "desc": "主账号更新",
+        "id":"ali-mainAccount-update.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/update"
+     },
+    {
+        "desc": "主账号类型变更",
+        "id":"ali-mainAccount-type-edit.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/updatetype/{id}"
+     },
+     {
+        "desc": "主账号状态修改",
+        "id":"ali-mainAccount-statusChange.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/updatestatus/{id}/{type}"
+     },
+
 ]
 
