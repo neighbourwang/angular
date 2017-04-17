@@ -33,6 +33,7 @@ import { PlatformZoneModule } from './platform-zone/platform-zone.module';
 
 import { filterPlatformPipe } from './pipe/filter-platform.pipe'
 
+import { DispatchEvent } from './dispatch-event'
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { filterPlatformPipe } from './pipe/filter-platform.pipe'
         cartCompleteService,
         // UnsubscribeService,
         OpenConsoleService,
-        CustomOsService
+        CustomOsService,
+        DispatchEvent
     ]
 
 })
