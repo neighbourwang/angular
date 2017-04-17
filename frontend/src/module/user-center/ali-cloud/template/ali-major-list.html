@@ -33,8 +33,6 @@
     </tbody>
 </table>
 
-<fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
-
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
 
@@ -89,9 +87,10 @@
 
 <fc-popup #distriDepart title="{{title}}" ot="{{'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="operate()">
     <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
-        <div class="col-md-4 content-title" style="text-align : right">当前所选部门：管理部</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-4 content-title">当前所选部门：{{selectedDepartment}}</div>
         <div class="col-md-2 no-padding form-group ">
-            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+            <button class="btn button-gray-gradient" (click)="reset()"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
         </div>
     </div>
     <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
@@ -104,7 +103,7 @@
                     <th class="text-center">部门名称</th>
                 </tr>
                 <tr *ngFor="let item of departs" class="text-center">
-                    <td><input type='radio' class="fox-cloud-radio"/></td>
+                    <td><input type='radio' class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
                     <td class="text-center">{{item.departmentName}}</td>
                 </tr>
                 </tbody>

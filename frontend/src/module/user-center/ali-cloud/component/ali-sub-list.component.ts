@@ -26,7 +26,11 @@ export class AliSubListComponent implements OnInit{
         private layoutService : LayoutService,
         private activatedRouter : ActivatedRoute
     ) {
-
+        if (activatedRouter.snapshot.params["loginName"]) {
+            this.name = activatedRouter.snapshot.params["loginName"] || "";
+        } else {
+            this.name = "";
+        }
     }
 
     @ViewChild("pager")
@@ -37,16 +41,19 @@ export class AliSubListComponent implements OnInit{
     subMng: PopupComponent;
     @ViewChild("distriDepart")
     distriDepart: PopupComponent;
+    @ViewChild('confirm')
+    confirm: ConfirmComponent;
 
     noticeTitle = "";
     noticeMsg = "";
 
-
+    name: string;
     type: string;
     data: Array<AliSubList>;
     id: string;
     subInfo: AliSubList= new AliSubList();
     departsList: Array<DepartList>;
+    selectedDepartment: string;
 
     ngOnInit (){
         console.log('init');
@@ -124,7 +131,81 @@ export class AliSubListComponent implements OnInit{
     }
     distriPage(item){
         this.type= "distribute";
+        this.getDepartsList();
         this.distriDepart.open("分配部门")
+    }
+
+    selected(item: DepartList){
+        this.departsList.forEach((p) =>{
+            p.selected= false;
+        });
+        item.selected= true;
+        this.selectedDepartment= item.departmentName;
+    }
+
+    reset(){
+        this.departsList.forEach((p) =>{
+            p.selected= false;
+        });
+        this.selectedDepartment= "";
+    }
+
+    enable(item){
+        this.confirm.open("启用账号","您选择启用，请确认");
+        this.confirm.ccf= ()=>{
+            this.layoutService.show();
+            this.service.enable(item.id)
+                .then(
+                    response => {
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            this.getData();
+                        } else {
+                            this.showAlert("COMMON.OPERATION_ERROR");
+                        }
+                    }
+                )
+                .catch((e) => this.onRejected(e));
+        }
+
+    }
+
+    disable(item){
+        this.confirm.open("禁用账号","您选择禁用，请确认");
+        this.confirm.ccf= ()=>{
+            this.layoutService.show();
+            this.service.disable(item.id)
+                .then(
+                    response => {
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            this.getData();
+                        } else {
+                            this.showAlert("COMMON.OPERATION_ERROR");
+                        }
+                    }
+                )
+                .catch((e) => this.onRejected(e));
+        }
+    }
+
+    delete(item){
+        this.confirm.open("删除账号","您选择删除，请确认");
+        this.confirm.ccf= ()=>{
+            this.layoutService.show();
+            this.service.delete(item.id)
+                .then(
+                    response => {
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            this.getData();
+                        } else {
+                            this.showAlert("COMMON.OPERATION_ERROR");
+                        }
+                    }
+                )
+                .catch((e) => this.onRejected(e));
+        }
     }
 
     operate(){

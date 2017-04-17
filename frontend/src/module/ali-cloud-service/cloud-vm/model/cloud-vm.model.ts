@@ -351,3 +351,57 @@ export class accessinfoModel {
     accessSecret: string = null;
 }
 
+
+export class VmQueryObject {
+    criteria: string = "instance_name";
+    keyword: string = "";
+
+    toString() {
+        JSON.stringify(this);
+    }
+}
+
+export class GetInstancesSubmitModel {
+  accessinfo: accessinfoModel = new accessinfoModel();
+  deviceAvailable: string = null;
+  filter1Key: string = null;
+  filter1Value: string = null;
+  filter2Key: string = null;
+  filter2Value: string = null;
+  filter3Key: string = null;
+  filter3Value: string = null;
+  filter4Key: string = null;
+  filter4Value: string = null;
+  imageId: string = null;
+  innerIpAddresses: Array<string> = null;   //
+  instanceChargeType: string = null;
+  instanceIds: Array<string> = null;   //
+  instanceName: string = null;
+  instanceNetworkType: string = null;
+  instanceType: string = null;
+  instanceTypeFamily: string = null;
+  internetChargeType: string = null;
+  ioOptimized: string = null;
+  lockReason: string = null;
+  ownerAccount: string = null;
+  pageNumber: number = null;
+  pageSize: number = null;
+  privateIpAddresses: Array<string> = null;   //
+  publicIpAddresses: Array<string> = null;   //
+  securityGroupId: string = null;
+  status: string = null;
+  tag1Key: string = null;
+  tag1Value: string = null;
+  tag2Key: string = null;
+  tag2Value: string = null;
+  tag3Key: string = null;
+  tag3Value: string = null;
+  tag4Key: string = null;
+  tag4Value: string = null;
+  tag5Key: string = null;
+  tag5Value: string = null;
+  vpcId: string = null;
+  vswitchId: string = null;
+  zoneId: string = null;
+}
+

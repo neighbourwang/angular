@@ -1,7 +1,7 @@
 <div class="page-content-header icon-create-product">{{'PROD_MNG.CREATE_PRODUCT_CAT' | translate}}: {{'PROD_MNG.PHSICAL_SERVICE' | translate}}</div>
 <!--创建产品目录-->
 <!--物理机服务-->
-<div class="page-content fix-page-content">
+<div class="page-content">
 	<div class="row" style="padding-top: 30px;">
 		<div class="col-md-12">
 			<div class="row row-line-height">
@@ -9,7 +9,7 @@
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}:</div>
 					<!--产品目录名称-->
 					<div class="col-sm-4">
-						<input type="text" class="form-control font-gray" [(ngModel)]="prodDir" placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}(必须)">
+						<input type="text" class="form-control font-gray" [(ngModel)]="physicalService.serviceName" name='serviceName' placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}(必须)">
 						<!--产品目录名称-->
 					</div>
 				</div>
@@ -18,13 +18,13 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>标准规格:</div>
 					<div class="col-sm-4" style="padding-top:4px">
-						<button class="fox-cloud-button-md fox-cloud-button-white" style="margin-right:10px;padding:0 10px" (click)="newUnit()">{{'COMMON.NEW' | translate}}</button>
+						<button class="fox-cloud-button-md fox-cloud-button-white" style="margin-right:10px;padding:0 10px" (click)="addUnit()">{{'COMMON.NEW' | translate}}</button>
 						<button class="fox-cloud-button-md fox-cloud-button-white" style="margin-right:10px;padding:0 10px" (click)="enableStorage(storage)">{{'COMMON.EDIT' | translate}}</button>
 						<button class="fox-cloud-button-md fox-cloud-button-white" style="padding:0 10px" (click)="enableStorage(storage)">{{'COMMON.DELETE' | translate}}</button>
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row mgb10">
 				<div class="form-group">
 					<div class="col-sm-4"></div>
 					<div class="col-sm-4">
@@ -43,55 +43,18 @@
 									</tr>
 								</thead>
 								<tbody>
-									<!--<tr *ngFor="let item of prodDirList; let idx = index;">-->
-									<tr>
+									<tr *ngFor="let unit of unitList; let idx = index;">
 										<td>
-											<input class="fox-cloud-radio" type="radio" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"
+											<input class="fox-cloud-radio" type="radio" [checked]="unit.selected" (click)="selectUnit(idx)"
 											/></td>
 										<td>
-											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'cpu'}}</a>
+											{{unit.partsName}}
 										</td>
-										<td>{{'Xeon E5 2560'}}</td>
-										<td>{{'2.9GHZ'}}</td>
-										<td>{{'2'}}</td>										
-										<td>{{'128GB'}}</td>
-									</tr>
-									<tr>
-										<td>
-											<input class="fox-cloud-radio" type="radio" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"
-											/></td>
-										<td>
-											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'内存'}}</a>
-										</td>
-										<td>{{'Xeon E5 2560'}}</td>
-										<td>{{'2.9GHZ'}}</td>
-										<td>{{'2'}}</td>										
-										<td>{{'128GB'}}</td>
-									</tr>
-									<tr>
-										<td>
-											<input class="fox-cloud-radio" type="radio" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"
-											/></td>
-										<td>
-											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'磁盘'}}</a>
-										</td>
-										<td>{{'Xeon E5 2560'}}</td>
-										<td>{{'2.9GHZ'}}</td>
-										<td>{{'2'}}</td>										
-										<td>{{'128GB'}}</td>
-									</tr>
-									<tr>
-										<td>
-											<input class="fox-cloud-radio" type="radio" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"
-											/></td>
-										<td>
-											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'网卡'}}</a>
-										</td>
-										<td>{{'Xeon E5 2560'}}</td>
-										<td>{{'2.9GHZ'}}</td>
-										<td>{{'2'}}</td>										
-										<td>{{'128GB'}}</td>
-									</tr>
+										<td>{{unit.specName}}</td>
+										<td>{{unit.partsFlavorValue}}</td>
+										<td>{{unit.partFlavorNum}}</td>										
+										<td>{{unit.partFlavorNum*unit.partsFlavorValue}}</td>
+									</tr>									
 								</tbody>
 							</table>
 						</div>
@@ -102,7 +65,7 @@
 				<div class="form-group">
 					<div for="firstname" class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}:</div>
 					<div class="col-sm-4">
-						<textarea class="form-control font-gray" rows="4" [(ngModel)]="description" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"></textarea>
+						<textarea class="form-control font-gray" rows="4" [(ngModel)]="physicalService.desc" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"></textarea>
 					</div>
 				</div>
 			</div>
@@ -122,42 +85,20 @@
 								<thead>
 									<tr>
 										<th class="check-box-col">
-											<input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"/>											
+											<input class="fox-cloud-checkbox" type="checkbox" [checked]="Allselected" (click)="selectAllResourcePool()"/>											
 											{{'COMMON.SELECT_ALL'| translate}}</th>										
 										<th>{{'资源池' | translate}}</th>
 										<th>{{'描述' | translate}}</th>
 									</tr>
 								</thead>
 								<tbody>
-									<!--<tr *ngFor="let item of prodDirList; let idx = index;">-->
-									<tr>
+									<tr *ngFor="let resourcePool of resourcePooList; let idx = index;">
 										<td>
-											<input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"/>
+											<input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="resourcePool.selected" (click)="resourcePool.selected=!resourcePool.selected"/>
 										</td>										
-										<td>{{'北京地区-物理资源池1'}}</td>										
-										<td>{{'description'}}</td>
-									</tr>
-									<tr>
-										<td>
-											<input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"/>
-										</td>										
-										<td>{{'北京地区-物理资源池2'}}</td>										
-										<td>{{'description'}}</td>
-									</tr>
-									<tr>
-										<td>
-											<input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"/>
-										</td>										
-										<td>{{'北京地区-物理资源池3'}}</td>										
-										<td>{{'description'}}</td>
-									</tr>
-									<tr>
-										<td>
-											<input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"/>
-										</td>										
-										<td>{{'北京地区-物理资源池4'}}</td>										
-										<td>{{'description'}}</td>
-									</tr>
+										<td>{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>										
+										<td>{{resourcePool.description}}</td>
+									</tr>									
 								</tbody>
 							</table>
 						</div>
@@ -172,16 +113,16 @@
     </button>
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onCreateService();" style="margin-left:20px">
         <span class="icon-button-label">{{'PHY_MNG_POOL.CREATE' | translate}}</span><!--创建-->
-
     </button>
 </div>
 <fc-popup #newUnitPop title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreateUnit()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'部件名称' | translate}}:</div>
-			<div class="col-sm-6">
-				<select class="form-control" [(ngModel)]="prodDirTypeId">
-                    <option  [value]="">{{'one'}}</option>
+			<div class="col-sm-5">
+				<select class="form-control" [ngClass]="{'validErr':!partIdValid}" [(ngModel)]="selectedPartId" (ngModelChange)="selectFlavorObj(selectedPartId)">
+					<option value="">--选择部件--</option>
+                    <option  *ngFor="let flavor of flavorInfoList" [value]="flavor.partsId">{{flavor.partsName}}</option>
                 </select>
 			</div>
 		</div>
@@ -189,9 +130,10 @@
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'规格' | translate}}:</div>
-			<div class="col-sm-6">
-				<select class="form-control" [(ngModel)]="prodDirTypeId">
-                    <option  [value]="">{{'one'}}</option>
+			<div class="col-sm-5">
+				<select class="form-control" [ngClass]="{'validErr':!specIdValid}" [(ngModel)]="selectedSpecId" (ngModelChange)="selectSpec()">
+					<option value="">--选择规格--</option>					
+                    <option  *ngFor="let spec of selectedFlavor.specList" [value]="spec.specId">{{spec.specName}}</option>
                 </select>
 			</div>
 		</div>
@@ -200,20 +142,21 @@
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'规格值' | translate}}:</div>
 			<div class="col-sm-4">
-				<select class="form-control" [(ngModel)]="prodDirTypeId">
-                    <option  [value]="">{{'one'}}</option>
+				<select class="form-control" [ngClass]="{'validErr':!specValueValid}" [(ngModel)]="newUnitObj.partsFlavorValue" (ngModelChange)="specValueValid=newUnitObj.partsFlavorValue!=''?true:false">
+					<option value="">--选择规格值--</option>					
+                    <option  *ngFor="let value of selectedSpecObj.specValues" [value]="value">{{value}}</option>
                 </select>
 			</div>
 			<div class="cole-sm-2">
-				GB
+				<span style="line-height:34px">GB</span>
 			</div>
 		</div>
 	</div>
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'数量' | translate}}:</div>
-			<div class="col-sm-6">
-				<input type="number" class="form-control" name="" value="">
+			<div class="col-sm-5">
+				<input type="number" min=0 [ngClass]="{'validErr':!specNumberValid}" class="form-control" name="specId" [(ngModel)]="newUnitObj.partFlavorNum" (ngModelChange)="specNumberValid=newUnitObj.partFlavorNum!=''?true:false">
 			</div>
 		</div>
 	</div>	
