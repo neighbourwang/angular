@@ -114,7 +114,7 @@ export class OrderMngComponent implements OnInit {
 		this._typeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
 		//详情已购服务加载
-		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "ORDER_MNG.ORDER_DETAILS_DATA_FAILED", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
+		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "已购服务详情加载失败！", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
 		this._orderDetailLoader.MapFunc = (source: Array<any>, target: Array<OrderDetailItem>) => {
 			for (let item of source) {
 				let obj: OrderDetailItem = _.extendOwn(new OrderDetailItem(), item)
