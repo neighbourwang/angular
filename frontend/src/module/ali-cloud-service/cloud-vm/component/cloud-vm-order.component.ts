@@ -996,6 +996,7 @@ export class AliCloudVmOrderComponent implements OnInit {
 
             console.log(this.selectedOrderVmPage.selectedVpcId, "selected VpcId!");
 
+            //first_check_classic_network = false;
             this.vpc_vswitch_secgroup();
 
             /*
@@ -1104,6 +1105,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                 this.securitygrouplist = result.SecurityGroups.SecurityGroup;
                 console.log(this.securitygrouplist, "this.securitygrouplist!");
                 if (this.securitygrouplist.length != 0) {
+                    this.checkClassicNetworkSecGroups();
                     this.checkVpcNetworkSecGroups(this.selectedOrderVmPage.selectedVpcId);
                 } else {
                     console.log("this.securitygrouplist.length = 0");
@@ -1200,13 +1202,13 @@ export class AliCloudVmOrderComponent implements OnInit {
                     .then(
                     response => {
                         this.layoutService.hide();
-                        console.log(response.resultContent);
+                        //console.log(response.resultContent);
                         if (response && 100 == response["resultCode"]) {
                             let result: Array<priceReturnModel> = response.resultContent;
-                            console.log(result);
+                            //console.log(result);
                             if (this.selectedOrderVmPage.selectedInternetChargeType == null || this.selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybybandwidth") { //按固定带宽，只传一个instance-buy
                                 let price_ins: Array<priceReturnModel> = result.filter((n) => { return (n.orderType == "instance-buy") });
-                                console.log(price_ins);
+                                //console.log(price_ins);
                                 if (price_ins.length != 0) {
                                     console.log(price_ins);
                                     this.selectedOrderVmPage.price_instance = price_ins[0].tradeAmount;

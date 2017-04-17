@@ -362,6 +362,8 @@ export class AliCloudVmService {
             }
             body2.commodity.autoRenew = selectedOrderVmPage.renew;
         }
+
+        console.log("----------- InternetChargeType ------------", selectedOrderVmPage.selectedInternetChargeType);
         
         let str1 = JSON.stringify(body1);
         console.log(str1);

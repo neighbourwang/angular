@@ -422,7 +422,7 @@
                                 <span>系统盘：</span>
                                 <span>{{selectedOrderVmPage.selectedDisk || ""}}</span>
                             </tr>
-                            <tr>
+                            <tr *ngIf="selectedOrderVmPage.selectedChargeType=='PrePaid'">
                                 <span>购买量：</span>
                                 <span>{{selectedOrderVmPage.selectedQuantity || ""}}</span>
                             </tr>
