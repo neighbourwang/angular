@@ -19,8 +19,8 @@
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>标准规格:</div>
 					<div class="col-sm-4" style="padding-top:4px">
 						<button class="fox-cloud-button-md fox-cloud-button-white" style="margin-right:10px;padding:0 10px" (click)="addUnit()">{{'COMMON.NEW' | translate}}</button>
-						<button class="fox-cloud-button-md fox-cloud-button-white" style="margin-right:10px;padding:0 10px" (click)="enableStorage(storage)">{{'COMMON.EDIT' | translate}}</button>
-						<button class="fox-cloud-button-md fox-cloud-button-white" style="padding:0 10px" (click)="enableStorage(storage)">{{'COMMON.DELETE' | translate}}</button>
+						<button class="fox-cloud-button-md fox-cloud-button-white" style="margin-right:10px;padding:0 10px" (click)="editUnit()">{{'COMMON.EDIT' | translate}}</button>
+						<button class="fox-cloud-button-md fox-cloud-button-white" style="padding:0 10px" (click)="deleteUnit()">{{'COMMON.DELETE' | translate}}</button>
 					</div>
 				</div>
 			</div>
@@ -43,7 +43,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr *ngFor="let unit of unitList; let idx = index;">
+									<tr *ngFor="let unit of physicalService.phyMachinePartsFlavors; let idx = index;">
 										<td>
 											<input class="fox-cloud-radio" type="radio" [checked]="unit.selected" (click)="selectUnit(idx)"
 											/></td>
