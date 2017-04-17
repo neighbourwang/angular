@@ -7,10 +7,13 @@
 					<p><span class="icon-location"></span><br>{{'COMMON.AREA'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
-					<div class="col-md-2 content-title">{{'COMMON.CLOUD_PLATFORM'| translate}}</div>
+					<div class="col-md-2 content-title">区域</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value;relyChanges('platform')" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
-							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
+						<label *ngFor="let r of regions;" 
+								class="btn btn-default" 
+								(click)="region = r; dux.dispatch('region')"
+								[ngClass]="{'active': region?.id === r.id}">
+							<input type="radio" name="region" autocomplete="off"> {{ r.name }}
 						</label>
 					</div>
 					<div class="col-md-2"></div>
@@ -24,8 +27,11 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">资源池</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value;relyChanges('platform')" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
-							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
+						<label *ngFor="let r of resourcePolls;" 
+								class="btn btn-default" 
+								(click)="resourcePoll = r; dux.dispatch('resourcePoll')"
+								[ngClass]="{'active': resourcePoll?.id === r.id}">
+							<input type="radio" name="resourcePoll" autocomplete="off"> {{ r.poolName }}
 						</label>
 					</div>
 				</div>
@@ -96,15 +102,15 @@
 
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.SELECT_PHYSICAL_RES'| translate}}</div>
 					<div class="col-md-10" data-toggle="buttons">
-						<select [(ngModel)]="sendModule.networktype" class="form-control float-left mgr10">
+						<!-- <select [(ngModel)]="sendModule.networktype" class="form-control float-left mgr10">
 							<option
 							 *ngFor="let value of networkList"
 							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
-						</select>
+						</select> -->
 						<button 
-				        	[popover]="popover_host" 
-				        	[ngClass]="{'active': popover_host.popover?.visible}" 
-				        	class="btn btn-default button-gray-gradient mgr20">{{'VM_INSTANCE.SELECT_FROM_POOL'| translate}}</button>
+					[popover]="popover_host" 
+					[ngClass]="{'active': popover_host.popover?.visible}" 
+					class="btn btn-default button-gray-gradient mgr20">{{'VM_INSTANCE.SELECT_FROM_POOL'| translate}}</button>
 
 				        <popover-content #popover_host [closeOnClickOutside]="true" >
 							666
@@ -112,197 +118,14 @@
 					</div>
 				</div>
 			</li>
-			<li>
-				<div class="col-md-1 li-title">
-					<p><span class="icon-network"></span><br>{{'VM_INSTANCE.NET'| translate}}</p>
-				</div>
-				<div class="col-md-12 li-content">
-					<div class="col-md-2 content-title">{{'VM_INSTANCE.NET_TYPE'| translate}}</div>
-					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.networktype" class="form-control">
-							<option
-							 *ngFor="let value of networkList"
-							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
-						</select>
-					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-10 text-tip">{{'VM_INSTANCE.PLEASE_SELECT_SUBNET_YOU_NEED'| translate}}</div>
-					
-				</div>
-			</li>
-			<li>
-				<div class="col-md-1 li-title">
-					<p><span class="icon-host"></span><br>{{'IMAGE.OPERATING_SYSTEM'| translate}}</p>
-				</div>
-				<div class="col-md-12 li-content">
-					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_LIST'| translate}}</div>
-					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.os"  class="form-control">
-							<option
-							 *ngFor="let value of imageList"
-							 [ngValue]="value" >{{ value.attrDisplayValue }}</option>
-						</select>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="col-md-1 li-title">
-					<p><span class="icon-password"></span><br>{{'VM_INSTANCE.PASSWORD_SETTING'| translate}}</p>
-				</div>
-				<div class="col-md-12 li-content li-password">
-					<!-- <div class="col-md-12 no-padding mb15">
-						<div class="col-md-2 content-title">设置方式</div>
-						<div class="col-md-4 no-padding btn-group" data-toggle="buttons">
-							<label class="btn btn-default active" (click)="setPassword = true">
-								<input type="radio" name="mirror" autocomplete="off" checked> 立即设置
-							</label>
-							<label class="btn btn-default" (click)="setPassword = false">
-								<input type="radio" name="mirror" autocomplete="off"> 模板自带密码
-							</label>
-						</div>
-						<div class="col-md-5 no-padding text-tip">请牢记您所设置的密码，如遗忘可登录ESC控制台重置密码。</div>
-					</div> -->
-
-					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">{{'VM_INSTANCE.USER_NAME'| translate}}</div>
-						<div class="col-md-10 user-root">root</div>
-					</div>
-
-					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
-						<div class="col-md-2 content-title">{{'VM_INSTANCE.LOGIN_PASSWORD'| translate}}</div>
-						<div class="col-md-4 no-padding" [ngClass]="{'has-error': check.password === false}">
-							<input type="password" 
-								(keyup) = "checkValue('password')"
-								[(ngModel)]="sendModule.password.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWORD'| translate}}">
-						</div>
-						<div class="col-md-5 no-padding text-tip">{{'VM_INSTANCE.PASSWORD_COMPLEXITY_DESCRIPTION'| translate}}</div>
-					</div>
-
-					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
-						<div class="col-md-2 content-title">{{'VM_INSTANCE.CONFIRM_PASSWORD'| translate}}</div>
-						<div class="col-md-4 no-padding"
-							[ngClass]="{'has-error': check.passwordShadow === false }">
-
-							<input type="password" class="form-control" (keyup)="checkValue('passwordShadow')"  [(ngModel)]="passwordShadow"  placeholder="{{'VM_INSTANCE.ENTER_PASSWORD_AGAIN'| translate}}">
-						</div>
-					</div>
-
-					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">{{'VM_INSTANCE.INSTANCE_NAME'| translate}}</div>
-						<div class="col-md-4 no-padding"
-							[ngClass]="{'has-error': check.instancename === false }">
-							
-							<input type="text" [(ngModel)]="sendModule.instancename.attrValue" (keyup)="checkValue('instancename')" class="form-control" placeholder="{{'VM_INSTANCE.SYSTEM_AUTO_IN'| translate}}">
-						</div>
-						<div class="col-md-5 no-padding text-tip">{{'COMMON.SET_NAME_FORMAT'| translate}}</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="col-md-1 li-title">
-					<p><span class="icon-amount"></span><br>{{'COMMON.PURCHASE_AMOUNT'|translate}}</p>
-				</div>
-				<div class="col-md-12 li-content">
-					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_DURATION'|translate}}</div>
-						<div class="col-md-2 no-padding mr10">
-							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" (ngModelChange)="setVmPrice();" class="form-control">
-								<option
-								*ngFor="let value of this.configs.timelineunit.mapValueList[this.vmSku.skuId];"
-								[ngValue]="value" >{{ value.attrDisplayValue }}</option>
-							</select>
-						</div>
-						<div class="col-md-2 no-padding mr10" [ngClass]="{'has-error': check.timeline === false }">
-							<input [disabled]="timeForever" 
-								   (keyup)="checkValue('timeline');setVmPrice();setDiskPrice();" 
-								   [(ngModel)]="sendModule.timeline.attrValue" type="text" class="form-control">
-						</div>
-						<div class="col-md-2 no-padding">
-							<!-- <label class="btn btn-default" (click)="timeForever = timeForever ? false : true" [ngClass]="{'active': timeForever}">
-								永久
-							</label> -->
-						</div>
-					</div>
-
-					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_AMOUNT'|translate}}</div>
-						<div class="col-md-2 no-padding mr10">
-							<select [(ngModel)]="payLoad.quality" (ngModelChange)="setVmPrice();setDiskPrice();"   class="form-control">
-								<option [ngValue]="1">{{'COMMON.ONE_SET'| translate}}</option>
-								<option [ngValue]="2">{{'COMMON.TWO_SET'| translate}}</option>
-								<option [ngValue]="3">{{'COMMON.THREE_SET'| translate}}</option>
-								<option [ngValue]="4">{{'COMMON.FOUR_SET'| translate}}</option>
-								<option [ngValue]="5">{{'COMMON.FIVE_SET'| translate}}</option>
-							</select>
-							<!--<div class="btn-group input-step-compontent">
-								<button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
-								<input type="text" class="form-control" value="20">
-								<button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
-							</div>-->
-						</div>
-						<!--<div class="col-md-2 no-padding lh32">台</div>-->
-					</div>
-				</div>
-			</li>
+			
 		</ul>
 	</div>
 	 <!-- [ngClass]="{'right-fixed' : rightFixed}" (window:scroll)="onScroll($event)" -->
 	<div class="col-md-3 no-padding right-box">
 		<cart-button #cartButton></cart-button>
 		<div class="col-md-12 content-box">
-			<h3 class="boder-gray-bottom-title">{{'COMMON.CURRENT_CONFIGURATION'| translate}}</h3>
-			<h4 class="cloud-title font-green">{{'COMMON.AREA'| translate}}</h4>
-			<p class="cloud-p">{{'COMMON.CLOUD_PLATFORM'| translate}}: {{ sendModule.platform?.attrDisplayValue}}</p>
-			<p class="cloud-p">{{'COMMON.AVAILABLE_ZONE'| translate}}: {{ sendModule.zone?.attrDisplayValue}}</p>
-			<h4 class="cloud-title font-green">{{'VM_INSTANCE.NET'| translate}}</h4>
-			<p class="cloud-p">{{'VM_INSTANCE.NET_TYPE'| translate}}: {{ sendModule.networktype?.attrDisplayValue}}</p>
-			<p class="cloud-p">{{'VM_INSTANCE.SECURITY_GROUP'| translate}}: {{ sendModule.securitygroup?.attrDisplayValue}}</p>
-			<h4 class="cloud-title font-green">{{'VM_INSTANCE.INSTANCE_CONFIGURATION'| translate}}</h4>
-			<p class="cloud-p">{{'VM_INSTANCE.CPU'| translate}}: {{ sendModule.cpu?.attrDisplayValue}}</p>
-			<p class="cloud-p">{{'VM_INSTANCE.RAM'| translate}}: {{ sendModule.mem?.attrDisplayValue}}</p>
-			<h4 class="cloud-title font-green">{{'VM_INSTANCE.CLOUD_HOST_SOURCE'| translate}}</h4>
-			<p class="cloud-p">{{'VM_INSTANCE.START_SOURCE'| translate}}: {{ sendModule.startupsource?.attrDisplayValue}}</p>
-			<p class="cloud-p">{{'VM_INSTANCE.MIRROR_TYPE'| translate}}: {{ sendModule.imagetype?.attrDisplayValue}}</p>
-			<p class="cloud-p">{{'VM_INSTANCE.MIRROR_NAME'| translate}}: {{ sendModule.os?.attrDisplayValue}}</p>
-			<h4 class="cloud-title font-green">{{'VM_INSTANCE.STORE'| translate}}</h4>
-
-			<p class="cloud-p">{{'VM_INSTANCE.BOOT_DISK'| translate}}: {{ sendModule.bootstorage?.attrDisplayValue}} / {{ sendModule.bootsize?.attrValue}}GB</p>
-			<!-- <p class="cloud-p">数据盘: {{ sendModule.stroage ? sendModule.stroage.attrDisplayValue : "" }} / {{ sendModule.storagesize ? sendModule.storagesize.attrDisplayValue : "" }}</p> -->
-			<h4 class="cloud-title font-green">{{'COMMON.PURCHASE_AMOUNT'|translate}}</h4>
-			<p class="cloud-p">{{'COMMON.PURCHASE_DURATION'|translate}}: {{ sendModule.timelineunit.attrDisplayValue}} / {{ sendModule.timeline?.attrValue}}</p>
-
-			<p class="cloud-p">{{'COMMON.PURCHASE_AMOUNT'|translate}}: {{payLoad.quality}}台</p>
-			<div class="cloud-line"></div>
-
-			<h4 class="cloud-title font-green">{{'VM_INSTANCE.HOST_ONE_PRICE'|translate}}<!-- 云主机单价 --></h4>
-			<p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}}{{ vmBasePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
-			<p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}<!-- 周期费用 -->: <font class="font-orange">{{'COMMON.$' | translate}}{{vmProduct?.billingInfo.basicPrice}} / {{ sendModule.timelineunit.attrDisplayValue }}</font></p>
-			<!-- <h4 class="cloud-title font-green">{{'VM_INSTANCE.CLOUD_HARD_DISK_COSTS'| translate}}</h4>
-			<p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{ diskBasePrice }}</font></p>
-			<p class="cloud-p">{{'VM_INSTANCE.BY_VOLUMN_COSTS'| translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{diskTotalPrice}} / {{ diskUnitType | dict:service.unitType | async }}</font></p> -->
-			<div class="cloud-p">
-				<p class="cloud-title">{{'VM_INSTANCE.TOTAL_COST'| translate}}：</p>
-	            <table style="width: 90%;line-height: 26px;">
-	                <tr>
-	                    <td>{{'COMMON.ONE_TIME_COSTS'|translate}}： </td>
-	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{vmBasePrice + diskBasePrice}}</font>{{'COMMON.YUAN' | translate}}</td>
-	                </tr>
-<!-- 	                <tr>
-	                    <td><font>{{'COMMON.TOTAL_EXPENSE'|translate}}： </font></td>
-	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ diskUnitType | dict:service.unitType | async }} <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
-	                </tr> -->
-	                <tr>
-	                    <td><font>{{'COMMON.TOTAL_EXPENSE'|translate}}： </font></td>
-	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ diskUnitType | dict:service.unitType | async }} <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
-	                </tr>
-	                <tr>
-	                    <td><font>{{'VM_INSTANCE.TOTAL_BILLINGARR'|translate}}<!-- 总周期费用 -->： </font></td>
-	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{vmTotalPrice}}</font>{{'COMMON.YUAN'|translate}}<span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
-	                </tr>
-	            </table>
-	                
-	            <p class="mgt20">{{'VM_INSTANCE.BILLINGARR_TEXT'|translate}}<!-- 以上为总费用估算，实际支付金额，请以每月账单为准。 --></p>
-			</div>
+	
 			<div class="col-md-12 colud-order-button">
 				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">{{'COMMON.BUY_NOW'|translate}}</button></div>
 				<div class="col-md-6"><button (click)="addCart()" class="btn button-orange-light">{{'COMMON.ADD_TO_SHOPPING_CART'|translate}}</button></div>
