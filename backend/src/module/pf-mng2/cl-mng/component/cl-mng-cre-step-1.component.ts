@@ -50,7 +50,6 @@ export class ClMngCreStep1Component implements OnInit {
 
     @ViewChild('regionSelect')
     regionSelect: PopupComponent;
-
     ngOnInit() {
         console.log('init');
         // this.layoutService.show();
