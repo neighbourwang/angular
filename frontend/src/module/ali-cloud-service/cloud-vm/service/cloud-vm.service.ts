@@ -269,11 +269,14 @@ export class AliCloudVmService {
         body.accessinfo.accessSecret = this.keysecret.accessSecret;
         body.pageNumber = "1";
         body.pageSize = "50";
+        /*
         if(selectedOrderVmPage.selectedNetworkType == 'classic') {
             body.vpcId = null;
         } else if (selectedOrderVmPage.selectedNetworkType == 'vpc'){
             body.vpcId = selectedOrderVmPage.selectedVpcId;
         }
+        */
+        body.vpcId = null;
         
         console.log(body, "serviceGetSecurityGroups body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.securitygroup.get");
@@ -328,6 +331,10 @@ export class AliCloudVmService {
             body2.commodity.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut;            
         } else if (body2.commodity.networkType == 'vpc'){
             body2.commodity.vpcId = selectedOrderVmPage.selectedVpcId;
+            body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
+            body2.commodity.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut;
+            
+            /*
             if(selectedOrderVmPage.AllocatePublicIP == false) {
                 body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
                 body2.commodity.internetMaxBandwidthOut = 0;             
@@ -335,6 +342,7 @@ export class AliCloudVmService {
                 body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
                 body2.commodity.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut; 
             }
+            */
         }
 
         if(selectedOrderVmPage.selectedChargeType.toLowerCase()=='postpaid') {
@@ -362,10 +370,13 @@ export class AliCloudVmService {
         
 
         let body: any = null;
-        if (selectedOrderVmPage.selectedInternetChargeType == null || selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybybandwidth") { //固定带宽，只传一个instance-buy
+        //if (selectedOrderVmPage.selectedInternetChargeType == null || selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybybandwidth") { //固定带宽，只传一个instance-buy
+        if (selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybybandwidth") { //固定带宽，只传一个instance-buy
             body = [body2];
         } else if (selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybytraffic") { //按量带宽，多传一个traffic-bandwidth            
             body = [body1, body2];
+        } else {
+            body = [body2];
         } 
         console.log(body, "calculatePrice body!!!!!!!!!!!");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.price.get");
