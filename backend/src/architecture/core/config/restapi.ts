@@ -795,6 +795,11 @@ export let RestApis: RestApiModel[] = [
         "id": "ent-mng.ent-est-mng.ent-mng-cre.check-name.post",
         "method": "POST",
         "url": "adminui/authsec/enterprise/query"
+    },{
+        "desc": "加载某平台下的可分配配额资源",
+        "id": "ent-mng.ent-est-mng.ent-mng.resouces.quotas.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/{_platformId}/resouces/quotas"
     },
 
 
