@@ -11,7 +11,7 @@
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate }}:</div>
 					<div class="col-sm-4">
 						<div class="form-group has-feedback" [ngClass]="{'has-success':isSameName==1,'has-error':isSameName==2}">
-							<input type="text" class="form-control input-control" placeholder="{{ 'COMMON.NAME' | translate }}" [(ngModel)]="entEst.BasicInfo.name"
+							<input type="text" class="form-control input-control" maxlength="20" placeholder="{{ 'COMMON.NAME' | translate }}" [(ngModel)]="entEst.BasicInfo.name"
 								(blur)="checkName();">
 								<span *ngIf="isSameName==1" class="glyphicon glyphicon-ok form-control-feedback" style="right: -180px!important;"></span>
 								<span *ngIf="isSameName==2" class="glyphicon glyphicon-remove form-control-feedback" style="right: -180px!important;"></span>
@@ -211,7 +211,7 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let item of resourceQuotas.items">
-						<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.checked" /></td>
+						<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.checked"/></td>
 						<td>{{item.platformName}}</td>
 						<td>{{item.cpu}}</td>
 						<td>{{item.memory}}</td>
