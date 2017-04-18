@@ -1,14 +1,8 @@
-/**
- * Created by junjie on 16/10/18.
- */
 import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, Params, ActivatedRoute } from '@angular/router';
 
 import { ZoneListModel } from '../model/cre-step3.model';
-
-
-
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 

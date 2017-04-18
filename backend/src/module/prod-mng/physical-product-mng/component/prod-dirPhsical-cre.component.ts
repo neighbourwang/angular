@@ -1,6 +1,3 @@
-/**
- * Created by wangyao on 2016/10/18.
- */
 import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -30,7 +27,8 @@ export class PhsicalProdDirCreComponent implements OnInit {
         private layoutService: LayoutService,
         private location: Location,
         private service: PhysicalServiceService,
-        private v: Validation
+        private v: Validation,
+        private router:Router
 
     ) { 
         this.v.result={};
@@ -67,17 +65,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
             console.log(err);
         })
     }
-    //获取部件列表
-    // getUnitList() {
-    //     this.service.getUnitList().then(res => {
-    //         console.log('unitList', res);
-    //         if (res.resultCode == '100') {
-    //             this.unitList = res.resultContent;
-    //         }
-    //     }).catch(err => {
-    //         console.log(err);
-    //     })
-    // }
+    
     //获取新增部件规格选择列表
     getUnitFlavorList() {
         this.service.getflavorInfoList().then(res => {
@@ -113,13 +101,18 @@ export class PhsicalProdDirCreComponent implements OnInit {
             this.specIdValid = false;
             return;
         }
-        if (this.newUnitObj.partsFlavorValue == '') {
+        if (this.newUnitObj.partsFlavorValue == 0) {
             this.specValueValid = false;
             return;
         }
         if (this.newUnitObj.partFlavorNum == 0) {
             this.specNumberValid = false;
             return;
+        }
+        if(this.selectedPartId=='35dc99bd-167e-11e7-91af-0242ac110002'||this.selectedPartId=='2eeb0a38-167e-11e7-91af-0242ac110002'){
+            this.newUnitObj.capacity=this.newUnitObj.partFlavorNum*this.newUnitObj.partsFlavorValue;
+        }else{
+            this.newUnitObj.capacity=0;
         }
         console.log(this.newUnitObj);
         if(this.isEditUnit){
@@ -171,7 +164,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
         })[0]);
         this.newUnitObj.specId = this.selectedSpecObj.specId;
         this.newUnitObj.specName = this.selectedSpecObj.specName;
-        this.newUnitObj.partsFlavorValue = '';
+        this.newUnitObj.partsFlavorValue = 0;
         if (this.newUnitObj.specId != '') {
             this.specIdValid = true;
         }
@@ -252,6 +245,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
     }
     //拼接资源池对象数组
     combineObj() {
+        this.physicalService.phyMachineAreaPoolsProfile=[];
         console.log(this.resourcePooList);
         let list = this.resourcePooList.filter(ele => {
             if (ele.selected == true)
@@ -266,14 +260,14 @@ export class PhsicalProdDirCreComponent implements OnInit {
         let poolList: Array<ResourcePoolObj>;
         for (let i of noRepeateList) {
             let obj: ResourcePoolObj = new ResourcePoolObj();
-            obj.areaID = i;
+            obj.regionId = i;
             for (let resource of this.resourcePooList) {
                 if (resource.selected && resource.regionId == i) {
-                    obj.areaName = resource.region;
+                    obj.region = resource.region;
                     obj.areaDisplayName = '';
                     obj.phyMachineResourcPoolsProfile.push({
-                        "resourcePoolId": resource.pmPoolId,
-                        "resourcePoolName": resource.poolName,
+                        "pmPoolId": resource.pmPoolId,
+                        "poolName": resource.poolName,
                         "resourcePoolDisplayName": '',
                         selected: true
                     })
@@ -299,10 +293,15 @@ export class PhsicalProdDirCreComponent implements OnInit {
         if (message) return;
         // this.physicalService.phyMachineAreaPoolsProfile
         this.combineObj();
-        // this.service.postPhysicalService(this.physicalService).then(res=>{
-        //     console.log(res);
-        // }).catch(err=>console.error(err))
-        // this.location.back;
+        this.layoutService.show();
+        this.service.postPhysicalService(this.physicalService).then(res=>{
+            console.log(res);
+            this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+            this.layoutService.hide();
+        }).catch(err=>{
+            console.error(err);
+            this.layoutService.hide();
+        })
     }
     cancel() {
         this.location.back;

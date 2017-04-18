@@ -53,9 +53,14 @@
 											{{unit.partsName}}
 										</td>
 										<td>{{unit.specName}}</td>
-										<td>{{unit.partsFlavorValue}}</td>
+										<td>
+											{{unit.partsFlavorValue}}
+											<span *ngIf="unit.partsId=='2eeb0a38-167e-11e7-91af-0242ac110002'||unit.partsId=='35dc99bd-167e-11e7-91af-0242ac110002'">GB</span>
+										</td>
 										<td>{{unit.partFlavorNum}}</td>
-										<td>{{unit.partFlavorNum*unit.partsFlavorValue}}</td>
+										<td>
+											<span *ngIf="unit.capacity!=0">{{unit.capacity}}GB</span>									
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -148,7 +153,7 @@
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'规格值' | translate}}:</div>
 			<div class="col-sm-4">
 				<select class="form-control" [ngClass]="{'validErr':!specValueValid}" [(ngModel)]="newUnitObj.partsFlavorValue" (ngModelChange)="specValueValid=newUnitObj.partsFlavorValue!=''?true:false">
-					<option value="">--选择规格值--</option>					
+					<option value=0>--选择规格值--</option>					
                     <option  *ngFor="let value of selectedSpecObj.specValues" [value]="value">{{value}}</option>
                 </select>
 			</div>

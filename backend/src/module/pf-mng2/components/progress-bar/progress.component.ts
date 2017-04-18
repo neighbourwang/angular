@@ -6,9 +6,9 @@ import { Component, Input, Output, OnInit, ElementRef, ViewChild, OnChanges, tri
     template: `<div #el [@heroState]="state" (@heroState.start)="animationStarted($event)" style="position:relative;min-height:85px;width:100%">
                     <div  *ngIf="!display" style="transform:rotateX(180deg)">
                         <div class="row navigator-progress" >
-                            <div class="col-md-3" [ngClass]="{'active':step>=1}"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}</span><span *ngIf="step==2" class="icon-tick"></span></div>
-                            <div class="col-md-3" [ngClass]="{'active':step>=2}"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}</span><span *ngIf="step==3" class="icon-tick"></span></div>
-                            <div class="col-md-3" [ngClass]="{'active':step>=3}"><span class="mark">3</span><span>{{"PF_MNG2.AVAILABLE_ZONE_CONFIGURATION" | translate}}</span><span *ngIf="step==4" class="icon-tick"></span></div>
+                            <div class="col-md-3" [ngClass]="{'active':step>=1}"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}</span><span *ngIf="step>=2" class="icon-tick"></span></div>
+                            <div class="col-md-3" [ngClass]="{'active':step>=2}"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}</span><span *ngIf="step>=3" class="icon-tick"></span></div>
+                            <div class="col-md-3" [ngClass]="{'active':step>=3}"><span class="mark">3</span><span>{{"PF_MNG2.AVAILABLE_ZONE_CONFIGURATION" | translate}}</span><span *ngIf="step>=4" class="icon-tick"></span></div>
                             <div class="col-md-3" [ngClass]="{'active':step>=4}"><span class="mark">4</span><span>{{"PF_MNG2.STORAGE_CONFIGURATION" | translate}}</span></div>
                         </div>
                         <div class="step-progress">
@@ -21,11 +21,11 @@ import { Component, Input, Output, OnInit, ElementRef, ViewChild, OnChanges, tri
                     </div>
                     <div *ngIf="display" >
                         <div  class="row navigator-progress">
-                            <div class="col-md-2" [ngClass]="{'active':step>=1}"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}<!--基本信息--></span><span *ngIf="step==2" class="icon-tick"></span></div>
-                            <div class="col-md-2" [ngClass]="{'active':step>=2}"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}<!--资源同步--></span><span *ngIf="step==3" class="icon-tick"></span></div>
-                            <div class="col-md-2" [ngClass]="{'active':step>=3}"><span class="mark">3</span><span>{{"PF_MNG2.AVAILABLE_ZONE_CONFIGURATION" | translate}}</span><span *ngIf="step==4" class="icon-tick"></span></div>
-                            <div class="col-md-2" [ngClass]="{'active':step>=4}"><span class="mark">4</span><span>{{"PF_MNG2.STORAGE_CONFIGURATION" | translate}}</span><span *ngIf="step==5" class="icon-tick"></span></div>
-                            <div class="col-md-2" [ngClass]="{'active':step>=5}"><span class="mark">5</span><span>{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</span><span *ngIf="step==6" class="icon-tick"></span></div>
+                            <div class="col-md-2" [ngClass]="{'active':step>=1}"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}<!--基本信息--></span><span *ngIf="step>=2" class="icon-tick"></span></div>
+                            <div class="col-md-2" [ngClass]="{'active':step>=2}"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}<!--资源同步--></span><span *ngIf="step>=3" class="icon-tick"></span></div>
+                            <div class="col-md-2" [ngClass]="{'active':step>=3}"><span class="mark">3</span><span>{{"PF_MNG2.AVAILABLE_ZONE_CONFIGURATION" | translate}}</span><span *ngIf="step>=4" class="icon-tick"></span></div>
+                            <div class="col-md-2" [ngClass]="{'active':step>=4}"><span class="mark">4</span><span>{{"PF_MNG2.STORAGE_CONFIGURATION" | translate}}</span><span *ngIf="step>=5" class="icon-tick"></span></div>
+                            <div class="col-md-2" [ngClass]="{'active':step>=5}"><span class="mark">5</span><span>{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</span><span *ngIf="step>=6" class="icon-tick"></span></div>
                             <div class="col-md-2" [ngClass]="{'active':step>=6}"><span class="mark">6</span><span>{{"PF_MNG2.IMAGE_CONFIGURATION" | translate}}</span></div>
                         </div>
                         <div class="step-progress">

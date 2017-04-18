@@ -11,6 +11,7 @@ import { PhysicalProdCreStep4Component} from './component/physical-prod-cre-step
 
 //service
 import { PhysicalServiceService } from './service/physical-prod-service.service';
+import { PhysicalProductService } from './service/physical-prod-cre.service';
 // Routing
 import { PhysicalProdMngRouting } from './physical-prod-mng.routing';
 
@@ -29,7 +30,8 @@ import { PhysicalProdMngRouting } from './physical-prod-mng.routing';
     exports: [
     ],
     providers: [
-        PhysicalServiceService
+        PhysicalServiceService,
+        PhysicalProductService
     ]
 
 })
