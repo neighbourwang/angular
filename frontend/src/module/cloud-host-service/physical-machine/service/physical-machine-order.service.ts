@@ -73,7 +73,7 @@ export class PhysicalMachineOrderService {
         return request;
     }
 
-    fetchPhysicalDetail( cpuCount:number, diskTypeList:string[], memorySize:string, netTypeList:string[], serverTypeList:string[]): Promise<PMOrderResponse[]> {
+    fetchPhysicalDetail( cpuCount:number, memorySize:string, diskTypeList:string[], serverTypeList:string[], netTypeList:string[]): Promise<PMOrderResponse[]> {
         const api = this.restApiCfg.getRestApi("post.pmlist.detail");
 
         const request = this.restApi.request(api.method, api.url, undefined, undefined, { cpuCount, diskTypeList, memorySize, netTypeList, serverTypeList })
@@ -95,19 +95,19 @@ export class PhysicalMachineOrderService {
     cpuList = [
         {
             displayName: "1",
-            value: "1"
+            value: 1
         },
         {
             displayName: "2",
-            value: "2"
+            value: 2
         },
         {
             displayName: "3",
-            value: "3"
+            value: 3
         },
         {
             displayName: "所有",
-            value: "0"
+            value: -1
         }
     ];
 
@@ -138,11 +138,11 @@ export class PhysicalMachineOrderService {
         },
         {
             displayName: "512GB以上",
-            value: "512"
+            value: "512+"
         },
         {
             displayName: "所有",
-            value: "0"
+            value: "-1"
         },
     ]
 
@@ -150,7 +150,7 @@ export class PhysicalMachineOrderService {
         {
             displayName: "SSD",
             value: "SSD",
-            isSelected: true
+            isSelected: false
         },
         {
             displayName: "SATA",
@@ -166,17 +166,22 @@ export class PhysicalMachineOrderService {
 
     diskType = [
         {
+            displayName: "X64",
+            value: "X64",
+            isSelected: false
+        },
+        {
             displayName: "X86",
             value: "X86",
-            isSelected: true
-        },
+            isSelected: false
+        }
     ]
 
     networkRequirements = [
         {
             displayName: "千兆",
             value: "千兆",
-            isSelected: true
+            isSelected: false
         },
         {
             displayName: "万兆",
@@ -189,7 +194,7 @@ export class PhysicalMachineOrderService {
         {
             displayName: "需要",
             value: "需要",
-            isSelected: true
+            isSelected: false
         },
         {
             displayName: "不需要",

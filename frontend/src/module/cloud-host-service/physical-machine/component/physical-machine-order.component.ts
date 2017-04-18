@@ -32,27 +32,26 @@ export class PhysicalMachineOrderComponent implements OnInit {
 
 	check = {};
 
-	regions:Regions[] = [];
-	region:Regions;
-	resourcePolls:ResoucePolls[] = [];
-	resourcePoll:ResoucePolls;
+	regions: Regions[] = [];
+	region: Regions;
+	resourcePolls: ResoucePolls[] = [];
+	resourcePoll: ResoucePolls;
+	phsicalList: PMOrderResponse[];
+	selectedPhsical: PMOrderResponse;
 
 	//物理机规格值
 	cpuList = this.service.cpuList;
+	cpu = this.cpuList[0];
 	memList = this.service.memList;
+	mem = this.memList[0];
 	diskRequirements = this.service.diskRequirements;
-	diskType = this.service.diskType;
+	diskRequirement: any[];
+	diskTypes = this.service.diskType;
+	diskType: any[];
 	networkRequirements = this.service.networkRequirements;
+	networkRequirement: any[];
 	needHBA = this.service.needHBA;
-
-	queryList = {
-		cpuList: this.cpuList[0].value,
-		memList: this.memList[0].value,
-		diskRequirements: this.diskRequirements[0].value,
-		diskType: this.diskType[0].value,
-		networkRequirements: this.networkRequirements[0].value,
-		needHBA: this.needHBA[0].value,
-	};
+	HBA = [];
 
 	@ViewChild('cartButton') cartButton;
 
@@ -60,19 +59,28 @@ export class PhysicalMachineOrderComponent implements OnInit {
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
-        private dux: DispatchEvent,
+		private dux: DispatchEvent,
 		private service: PhysicalMachineOrderService
 	) {
-		
+
 	};
 
 	ngOnInit() {
 		this.makeSubscriber()
 		this.fetchRegion()
+
+		this.initDispatch()
+	}
+
+	/****初始化派发事件***/
+	initDispatch() {
+		this.dux.dispatch("spec")  //规格选取
 	}
 
 	private makeSubscriber() {
-		this.dux.subscribe("region", () => { this.fetchResourcePoll() })	
+		this.dux.subscribe("region", () => { this.fetchResourcePoll() })
+		this.dux.subscribe("spec", () => { this.changedSpec() })
+		this.dux.subscribe("phsical", () => { this.phsicalChange() })
 	}
 
 	/****区域*****/
@@ -87,12 +95,40 @@ export class PhysicalMachineOrderComponent implements OnInit {
 
 	/****资源池*****/
 	private fetchResourcePoll() {
-		this.service.fetchResourcePoll( this.region.id ).then(res => {
+		this.service.fetchResourcePoll(this.region.id).then(res => {
 			this.resourcePolls = res;
 			this.resourcePoll = this.resourcePolls[0]
 
 			this.dux.dispatch("resourcePoll")
 		})
+	}
+
+	/*****规格变化*****/
+	private changedSpec() {
+		const filterCheckBox = (arrs: any[]) => arrs.filter(arr => arr.isSelected).map(arr => arr.value);
+
+		this.diskRequirement = filterCheckBox(this.diskRequirements)
+		this.diskType = filterCheckBox(this.diskTypes)
+		this.networkRequirement = filterCheckBox(this.networkRequirements)
+		this.HBA = filterCheckBox(this.needHBA)
+
+		let {
+			cpu: { value: cpu },
+			mem: { value: mem },
+			HBA, diskRequirement, diskType, networkRequirement } = this
+
+		this.service.fetchPhysicalDetail(cpu, mem, diskRequirement, diskType, networkRequirement)
+			.then( res => {
+				this.phsicalList = res;
+				this.selectedPhsical = undefined;
+
+				this.dux.dispatch("phsical")
+			})
+	}
+
+	/******选中物理机变化******/
+	private phsicalChange() {
+		console.log(this.selectedPhsical)
 	}
 
 
@@ -115,16 +151,16 @@ export class PhysicalMachineOrderComponent implements OnInit {
 
 
 	checkValue(value?: string) { //动态验证
-		
+
 	}
 
 
 	// 警告框相关
 	showNotice(title: string, msg: string) {
-	    this.modalTitle = title;
-	    this.modalMessage = msg;
+		this.modalTitle = title;
+		this.modalMessage = msg;
 
-	    this.noticeDialog.open();
+		this.noticeDialog.open();
 	}
-	modalAction() {}
+	modalAction() { }
 }
