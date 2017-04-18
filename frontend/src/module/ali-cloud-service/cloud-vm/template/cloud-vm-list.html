@@ -56,11 +56,13 @@
 			<span class="caret"></span>
 			</button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <!--
                 <li><a href="javascript:" (click)="startInstance();">启动</a></li>
                 <li><a href="javascript:" (click)="stopInstance();">停止</a></li>
-                <li><a href="javascript:">重启</a></li>
-                <li><a href="javascript:">绑定弹性IP</a></li>
+                <li><a href="javascript:" (click)="reStartInstance();">重启</a></li>
+                <li><a href="javascript:" (click)="attachIPToInstance();">绑定弹性IP</a></li>
                 <li><a href="javascript:">远程连接</a></li>
+                -->
                 <li><a href="javascript:" (click)="deleteInstance();">释放实例</a></li>
             </ul>
         </div>
@@ -110,3 +112,30 @@
 </div>
 <fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{modalOKTitle}}" ct="{{modalCancelTitle}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{modalOKTitle}}" (of)="okClicked(0)"></fc-notice>
+
+<!--
+<fc-popup #allocateIP ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'USER_CENTER.DELETE_MSG' | translate}}" (of)="acceptDeleteMsgModify()" (cf)="cancelDeleteMsgModify()">
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <i class="glyphicon glyphicon-trash"></i> {{'USER_CENTER.DELETE_MSG_CONFIRM' | translate:{value_1: ( selectedmsglist.length )} }}
+                </div>
+            </div>
+        </div>
+    </div>
+</fc-popup>
+
+<fc-popup #unAllocateIP ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'USER_CENTER.DELETE_MSG' | translate}}" (of)="acceptDeleteMsgModify()" (cf)="cancelDeleteMsgModify()">
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <i class="glyphicon glyphicon-trash"></i> {{'USER_CENTER.DELETE_MSG_CONFIRM' | translate:{value_1: ( selectedmsglist.length )} }}
+                </div>
+            </div>
+        </div>
+    </div>
+</fc-popup>
+
+-->

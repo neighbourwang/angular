@@ -876,6 +876,24 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/stopinstance/instanceid/{instanceid}"
     },
+    { //重启阿里云主机
+        "desc": "Reboot alicloud Instance",
+        "id": "al-cloud.cloud-vm.instance.reboot",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/rebootinstance/instanceid/{instanceid}/operation/{forcereboot}"
+    },
+    { //获取浮动IP地址
+        "desc": "Get floating ip list",
+        "id": "al-cloud.cloud-vm.instance.floating.ips.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeeipaddresses/regionid/{regionid}"
+    },
+    { //分配IP地址给云主机
+        "desc": "Allocation alicloud ip addresss with instance",
+        "id": "al-cloud.cloud-vm.instance.ip.allocate",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/associateeipaddress/instanceid/{instanceid}/allocationid/{allocationid}"
+    },
     { //获取阿里云主机列表
         "desc": "query instance",
         "id": "al-cloud.cloud-vm.instance.list",

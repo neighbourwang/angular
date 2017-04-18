@@ -345,7 +345,7 @@
                     <div class="col-md-12 no-padding mgb20">
                         <div class="col-md-12 no-padding mgb20 has-feedback" [ngClass]="{'has-error':v.result.password}">
                             <div style="min-width:65px;" style="display: inline;">登陆密码:</div>
-                            <input class="mgl20 input_style" [(ngModel)]="selectedOrderVmPage.Password" (ngModelChange)="checkForm('password')" /> 8-30个字符，且同时包含三项(大写字母，小写字母，数字或特殊符号)
+                            <input type="password" class="mgl20 input_style" [(ngModel)]="selectedOrderVmPage.Password" (ngModelChange)="checkForm('password')" /> 8-30个字符，且同时包含三项(大写字母，小写字母，数字或特殊符号)
                         </div>
                         <div class="col-md-12" *ngIf="v.result.password">
                             <span class="alert alert-danger input_style" role="alert" style="margin-left:83px;">{{v.result.password}}</span>
@@ -357,7 +357,7 @@
                         <div class="has-feedback" [ngClass]="{'has-error':v.result.passwordCheck}">
                             <div class="col-md-12 no-padding mgb20">
                                 <div style="min-width:65px;" style="display: inline;">确认密码: </div>
-                                <input class="mgl20 input_style" [(ngModel)]="selectedOrderVmPage.passwordCheck" (ngModelChange)="checkForm('passwordCheck')" />
+                                <input type="password" class="mgl20 input_style" [(ngModel)]="selectedOrderVmPage.passwordCheck" (ngModelChange)="checkForm('passwordCheck')" />
                             </div>
                             <div class="col-md-12" *ngIf="v.result.passwordCheck">
                                 <span *ngIf="v.result.passwordCheck" class="alert alert-danger" role="alert" style="margin-left:83px;">{{v.result.passwordCheck}}</span>

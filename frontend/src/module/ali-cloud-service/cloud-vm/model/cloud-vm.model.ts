@@ -405,3 +405,19 @@ export class GetInstancesSubmitModel {
   zoneId: string = null;
 }
 
+export class FloatingIPAddressModel {
+    ChargeType: string = null;
+    Status: string = null;
+    InstanceId: string = null;
+    AllocationTime: string = null;
+    RegionId: string = null;
+    IpAddress: string = null;
+    AllocationId: string = null;
+    OperationLocks: OperationLocksModel = new OperationLocksModel();
+    ExpiredTime: string = null;
+    InternetChargeType: string = null;
+    InstanceType: string = null;
+    Bandwidth: number = null;
+
+}
+

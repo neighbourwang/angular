@@ -1408,8 +1408,8 @@ export class AliCloudVmOrderComponent implements OnInit {
             this.confirmOKTitle = "确认";
             this.confirmCancelTitle = "取消";
         };
-        this.confirmOKTitle = "返回到主机列表页";
-        this.confirmCancelTitle = "留在主机定购页";
+        this.confirmOKTitle = "返回主机列表页";
+        this.confirmCancelTitle = "留在主机订购页";
     }
 
     showMsg(msg: string) {
