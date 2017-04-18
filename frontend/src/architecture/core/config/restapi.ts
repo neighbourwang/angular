@@ -222,6 +222,32 @@ export let RestApis: RestApiModel[] = [
         "id": "disk.vm.search",
         "url": "marketplace/authsec/subinstance/itemlist/vm/simple/search/page"
     },
+    //物理机部分,
+    {
+        "desc": "获取区域列表",
+        "method": "GET",
+        "id": "basis.regions",
+        "url": "basis/authsec/regions"
+    },
+    {
+        "desc": "按条件查询匹配的物理机信息",
+        "method": "POST",
+        "id": "post.pmlist.detail",
+        "url": "pmresourcemgmt/noauth/pmmgmt/order/pmlist"
+    },
+    {
+        "desc": "根据区域得到相关的资源池列表",
+        "method": "GET",
+        "id": "region.pmpool.list",
+        "url": "pmresourcemgmt/noauth/pmmgmt/order/pmpool/{regionId}/list"
+    },
+    {
+        "desc": "根据pmImagePoolId显示资源池的分配信息",
+        "method": "GET",
+        "id": "pmPoolId.image.list",
+        "url": "pmimagemgmt/noauth/pmimage/image/listbype/{pmPoolId}/{enterpriseId}"
+    },
+
     //镜像管理部分
     {
         "desc": "创建镜像",
@@ -849,6 +875,24 @@ export let RestApis: RestApiModel[] = [
         "id": "al-cloud.cloud-vm.instance.stop",
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/stopinstance/instanceid/{instanceid}"
+    },
+    { //重启阿里云主机
+        "desc": "Reboot alicloud Instance",
+        "id": "al-cloud.cloud-vm.instance.reboot",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/rebootinstance/instanceid/{instanceid}/operation/{forcereboot}"
+    },
+    { //获取浮动IP地址
+        "desc": "Get floating ip list",
+        "id": "al-cloud.cloud-vm.instance.floating.ips.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeeipaddresses/regionid/{regionid}"
+    },
+    { //分配IP地址给云主机
+        "desc": "Allocation alicloud ip addresss with instance",
+        "id": "al-cloud.cloud-vm.instance.ip.allocate",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/associateeipaddress/instanceid/{instanceid}/allocationid/{allocationid}"
     },
     { //获取阿里云主机列表
         "desc": "query instance",

@@ -50,7 +50,6 @@ export class ClMngCreStep1Component implements OnInit {
 
     @ViewChild('regionSelect')
     regionSelect: PopupComponent;
-
     ngOnInit() {
         console.log('init');
         // this.layoutService.show();
@@ -194,8 +193,10 @@ export class ClMngCreStep1Component implements OnInit {
             index == 3 ? '4' : '6';
         this.creStep1Model.platformType = item.value;
         console.log(item);
+        item.code=
+            item.code=='Desktop Vmware'?"VMWARE_DESKTOP":item.code;
         this.creStep1Model.version = '';
-        index != 3 && this.commonService.getVersion(item.code).then(
+        index != 2 && this.commonService.getVersion(item.code).then(
             res => {
                 console.log(res);
                 this.platformVersion = res

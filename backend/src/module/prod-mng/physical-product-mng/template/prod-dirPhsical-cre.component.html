@@ -8,26 +8,28 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}:</div>
 					<!--产品目录名称-->
-					<div class="col-sm-4">
-						<input type="text" class="form-control font-gray" [(ngModel)]="physicalService.serviceName" name='serviceName' placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}(必须)">
-						<!--产品目录名称-->
+					<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.serviceName}">
+						<input type="text" [(ngModel)]="physicalService.serviceName" (ngModelChange)="checkForm('serviceName')" name="serviceName"
+						 placeholder="{{'PROD_MNG.INPUT_PRODUCT_CAT' | translate}}" class="form-control">
+						<span *ngIf="v.result.serviceName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						<div *ngIf="v.result.serviceName" class="alert alert-danger" role="alert">{{v.result.serviceName}}</div>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>标准规格:</div>
-					<div class="col-sm-4" style="padding-top:4px">
+					<div class="col-sm-4 no-padding" style="padding-top:4px">
 						<button class="fox-cloud-button-md fox-cloud-button-white" style="margin-right:10px;padding:0 10px" (click)="addUnit()">{{'COMMON.NEW' | translate}}</button>
-						<button class="fox-cloud-button-md fox-cloud-button-white" style="margin-right:10px;padding:0 10px" (click)="enableStorage(storage)">{{'COMMON.EDIT' | translate}}</button>
-						<button class="fox-cloud-button-md fox-cloud-button-white" style="padding:0 10px" (click)="enableStorage(storage)">{{'COMMON.DELETE' | translate}}</button>
+						<button class="fox-cloud-button-md fox-cloud-button-white" style="margin-right:10px;padding:0 10px" (click)="editUnit()">{{'COMMON.EDIT' | translate}}</button>
+						<button class="fox-cloud-button-md fox-cloud-button-white" style="padding:0 10px" (click)="deleteUnit()">{{'COMMON.DELETE' | translate}}</button>
 					</div>
 				</div>
 			</div>
 			<div class="row mgb10">
 				<div class="form-group">
 					<div class="col-sm-4"></div>
-					<div class="col-sm-4">
+					<div class="col-sm-4 no-padding">
 						<div style="border:1px solid #cfd8e7">
 							<table class="table table-hover">
 								<thead>
@@ -43,18 +45,18 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr *ngFor="let unit of unitList; let idx = index;">
+									<tr *ngFor="let unit of physicalService.phyMachinePartsFlavors; let idx = index;">
 										<td>
-											<input class="fox-cloud-radio" type="radio" [checked]="unit.selected" (click)="selectUnit(idx)"
-											/></td>
+											<input class="fox-cloud-radio" type="radio" [checked]="unit.selected" (click)="selectUnit(idx)" />
+										</td>
 										<td>
 											{{unit.partsName}}
 										</td>
 										<td>{{unit.specName}}</td>
 										<td>{{unit.partsFlavorValue}}</td>
-										<td>{{unit.partFlavorNum}}</td>										
+										<td>{{unit.partFlavorNum}}</td>
 										<td>{{unit.partFlavorNum*unit.partsFlavorValue}}</td>
-									</tr>									
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -63,9 +65,11 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div for="firstname" class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}:</div>
-					<div class="col-sm-4">
-						<textarea class="form-control font-gray" rows="4" [(ngModel)]="physicalService.desc" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"></textarea>
+					<div for="firstname" class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>
+					<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
+						<textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
+						 rows="3" [(ngModel)]="physicalService.desc" name="description">
+                            </textarea>
 					</div>
 				</div>
 			</div>
@@ -77,31 +81,31 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-3">					
+				<div class="col-sm-3">
 				</div>
 				<div class="col-sm-6">
 					<div style="border:1px solid #cfd8e7">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th class="check-box-col">
-											<input class="fox-cloud-checkbox" type="checkbox" [checked]="Allselected" (click)="selectAllResourcePool()"/>											
-											{{'COMMON.SELECT_ALL'| translate}}</th>										
-										<th>{{'资源池' | translate}}</th>
-										<th>{{'描述' | translate}}</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr *ngFor="let resourcePool of resourcePooList; let idx = index;">
-										<td>
-											<input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="resourcePool.selected" (click)="resourcePool.selected=!resourcePool.selected"/>
-										</td>										
-										<td>{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>										
-										<td>{{resourcePool.description}}</td>
-									</tr>									
-								</tbody>
-							</table>
-						</div>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th class="check-box-col">
+										<input class="fox-cloud-checkbox" type="checkbox" [checked]="allSelected" (click)="selectAllResourcePool()" />										{{'COMMON.SELECT_ALL'| translate}}</th>
+									<th>{{'资源池' | translate}}</th>
+									<th>{{'描述' | translate}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let resourcePool of resourcePooList; let idx = index;">
+									<td>
+										<input class="fox-cloud-checkbox" type="checkbox" [checked]="resourcePool.selected" [(ngModel)]="resourcePool.selected" (click)="selectResourcePool(idx)"
+										/>
+									</td>
+									<td>{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>
+									<td>{{resourcePool.description}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -115,12 +119,13 @@
         <span class="icon-button-label">{{'PHY_MNG_POOL.CREATE' | translate}}</span><!--创建-->
     </button>
 </div>
-<fc-popup #newUnitPop title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreateUnit()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
+<fc-popup #newUnitPop title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreateUnit()" ct="HOST_OPENSTACK_MNG.CANCEL"
+ (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'部件名称' | translate}}:</div>
 			<div class="col-sm-5">
-				<select class="form-control" [ngClass]="{'validErr':!partIdValid}" [(ngModel)]="selectedPartId" (ngModelChange)="selectFlavorObj(selectedPartId)">
+				<select class="form-control" [disabled]="isEditUnit" [ngClass]="{'validErr':!partIdValid}" [(ngModel)]="selectedPartId" (ngModelChange)="selectFlavorObj(selectedPartId)">
 					<option value="">--选择部件--</option>
                     <option  *ngFor="let flavor of flavorInfoList" [value]="flavor.partsId">{{flavor.partsName}}</option>
                 </select>
@@ -156,9 +161,10 @@
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'数量' | translate}}:</div>
 			<div class="col-sm-5">
-				<input type="number" min=0 [ngClass]="{'validErr':!specNumberValid}" class="form-control" name="specId" [(ngModel)]="newUnitObj.partFlavorNum" (ngModelChange)="specNumberValid=newUnitObj.partFlavorNum!=''?true:false">
+				<input type="number" min=0 [ngClass]="{'validErr':!specNumberValid}" class="form-control" name="specId" [(ngModel)]="newUnitObj.partFlavorNum"
+				 (ngModelChange)="specNumberValid=newUnitObj.partFlavorNum!=''?true:false">
 			</div>
 		</div>
-	</div>	
+	</div>
 </fc-popup>
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>

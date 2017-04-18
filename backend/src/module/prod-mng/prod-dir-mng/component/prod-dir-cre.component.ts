@@ -27,7 +27,9 @@ export class ProdDirCreComponent implements OnInit {
         private CreateProdDirService: CreateProdDirService,
         private LayoutService: LayoutService,
         private v: Validation
-    ) { }
+    ) {
+        this.v.result={};
+     }
 
     @ViewChild('notice')
     notice: NoticeComponent;

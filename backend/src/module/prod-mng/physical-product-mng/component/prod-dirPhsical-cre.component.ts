@@ -8,6 +8,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { LayoutService, ValidationService, NoticeComponent, PopupComponent } from '../../../../architecture';
+import { Validation, ValidationRegs } from '../../../../architecture';
+
 
 //service
 import { PhysicalServiceService } from '../service/physical-prod-service.service';
@@ -27,8 +29,12 @@ export class PhsicalProdDirCreComponent implements OnInit {
     constructor(
         private layoutService: LayoutService,
         private location: Location,
-        private service: PhysicalServiceService
-    ) { }
+        private service: PhysicalServiceService,
+        private v: Validation
+
+    ) { 
+        this.v.result={};
+    }
 
     @ViewChild('notice')
     notice: NoticeComponent;
@@ -37,7 +43,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
     newUnitPop: PopupComponent
 
     //
-    unitList: Array<PartsFlavor>;
+    // unitList: Array<PartsFlavor>=new Array <PartsFlavor>();
     resourcePooList: Array<FlatResourcePool>;
     physicalService: PhysicalService = new PhysicalService();
     flavorInfoList: Array<UnitObj>;
@@ -84,8 +90,10 @@ export class PhsicalProdDirCreComponent implements OnInit {
         })
     }
     addUnit() {
-        this.newUnitPop.open('新增部件');
         this.newUnitObj = new PartsFlavor();
+        this.selectedPartId='';
+        this.selectedSpecId='';        
+        this.newUnitPop.open('新增部件');
         // this.selectedFlavor=this.flavorInfoList[0];
     }
     partIdValid: boolean = true;
@@ -93,11 +101,15 @@ export class PhsicalProdDirCreComponent implements OnInit {
     specValueValid: boolean = true;
     specNumberValid: boolean = true;
     otcreateUnit() {
-        if (this.newUnitObj.partsId == '') {
-            this.partIdValid = false;
+        console.log(this.selectedPartId);
+        console.log(this.selectedSpecId);
+        console.log(this.newUnitObj.partsFlavorValue);
+        console.log(this.newUnitObj.partFlavorNum);
+        if (!this.selectedPartId||this.newUnitObj.partsId == '') {
+            if(!this.isEditUnit)this.partIdValid = false;
             return;
         }
-        if (this.newUnitObj.specId == '') {
+        if (!this.selectedSpecId||this.newUnitObj.specId == '') {
             this.specIdValid = false;
             return;
         }
@@ -110,6 +122,15 @@ export class PhsicalProdDirCreComponent implements OnInit {
             return;
         }
         console.log(this.newUnitObj);
+        if(this.isEditUnit){
+            this.physicalService.phyMachinePartsFlavors[this.selectedUnitIdex].specId=this.newUnitObj.specId;
+            this.physicalService.phyMachinePartsFlavors[this.selectedUnitIdex].specName=this.newUnitObj.specName;
+            this.physicalService.phyMachinePartsFlavors[this.selectedUnitIdex].partsFlavorValue=this.newUnitObj.partsFlavorValue;
+            this.physicalService.phyMachinePartsFlavors[this.selectedUnitIdex].partFlavorNum=this.newUnitObj.partFlavorNum;
+        }else{
+            this.physicalService.phyMachinePartsFlavors.push(this.newUnitObj);            
+        }
+        this.newUnitPop.close();
         // this.unitList.push(this.newUnitObj);
         // this.newUnitPop.close();
     }
@@ -122,6 +143,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
         this.specIdValid = true;
         this.specValueValid = true;
         this.specNumberValid = true;
+        this.isEditUnit=false;
     }
     //选择部件规格
     selectedPartId: string = '';
@@ -157,11 +179,57 @@ export class PhsicalProdDirCreComponent implements OnInit {
     //选择规格值
 
     //选择操作部件
+    selectedUnitIdex:number;
     selectUnit(idx) {
-        this.unitList.forEach(unit => {
+        this.physicalService.phyMachinePartsFlavors.forEach(unit => {
             unit.selected = false;
         })
-        this.unitList[idx].selected = true;
+        this.selectedUnitIdex=idx;
+        this.physicalService.phyMachinePartsFlavors[idx].selected = true;
+    }
+    //编辑部件
+    isEditUnit:boolean=false;
+    editUnit(){
+        let part:PartsFlavor;
+        part=this.physicalService.phyMachinePartsFlavors.filter(ele=>{
+            if(ele.selected==true){
+                return ele
+            }
+        })[0];
+        if(!part){
+            this.notice.open('操作错误','请选择操作部件');
+            return ;
+        }
+        this.isEditUnit=true;
+        console.log(part);
+        console.log(this.newUnitObj);
+        console.log(this.selectedSpecId);
+        this.selectedPartId=part.partsId;
+        this.selectedFlavor = Object.assign({}, this.flavorInfoList.filter(ele => {
+            if (ele.partsId == this.selectedPartId) { return ele; }
+        })[0]);
+        this.selectedSpecId=part.specId;
+        this.selectedSpecObj = Object.assign({}, this.selectedFlavor.specList.filter(ele => {
+            if (ele.specId == this.selectedSpecId) { return ele }
+        })[0]);
+        this.newUnitObj.partFlavorNum=part.partFlavorNum;
+        this.newUnitObj.partsFlavorValue=part.partsFlavorValue;
+        this.newUnitPop.open('新增部件');
+    }
+    //删除部件
+    deleteUnit(){
+        console.log();
+        if(this.physicalService.phyMachinePartsFlavors.length==0){
+            this.notice.open('操作错误','无可操作部件')
+        }
+        let list=this.physicalService.phyMachinePartsFlavors
+        for(let i=0;i<list.length;i++){
+            if(list[i].selected==true){
+                list.splice(i,1);
+                return
+            }            
+        }
+        this.notice.open('操作错误','请选择操作部件');        
     }
     //选择全部资源池
     allSelected: boolean = false;
@@ -169,7 +237,19 @@ export class PhsicalProdDirCreComponent implements OnInit {
         this.allSelected = !this.allSelected;
         this.resourcePooList.forEach(ele => ele.selected = this.allSelected);
     }
-
+    //选择资源池
+    selectResourcePool(idx){
+        console.log(idx);
+        console.log(this.resourcePooList[idx]);
+        this.resourcePooList[idx].selected=!this.resourcePooList[idx].selected;
+        for(let resourcePool of this.resourcePooList){
+            if(resourcePool.selected==false){
+                this.allSelected=false;
+                return;
+            }
+        }
+        this.allSelected=true;
+    }
     //拼接资源池对象数组
     combineObj() {
         console.log(this.resourcePooList);
@@ -203,9 +283,25 @@ export class PhsicalProdDirCreComponent implements OnInit {
         }
         console.log(this.physicalService);
     }
+    //表单验证
+    checkForm(key?: string) {
+        let regs: ValidationRegs = {  //regs是定义规则的对象
+            serviceName: [this.physicalService.serviceName, [this.v.isInstanceName, this.v.isBase, this.v.isUnBlank], "产品目录名称格式不正确"],
+
+            description: [this.physicalService.desc, [this.v.maxLength(68)], "描述输入错误"],
+
+        }
+        console.log(this.v.check(key, regs));
+        return this.v.check(key, regs);
+    }
     onCreateService() {
+        let message = this.checkForm();
+        if (message) return;
         // this.physicalService.phyMachineAreaPoolsProfile
         this.combineObj();
+        // this.service.postPhysicalService(this.physicalService).then(res=>{
+        //     console.log(res);
+        // }).catch(err=>console.error(err))
         // this.location.back;
     }
     cancel() {
