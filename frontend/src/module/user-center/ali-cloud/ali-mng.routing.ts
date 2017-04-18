@@ -11,7 +11,7 @@ export const AliMngRouting= RouterModule.forChild([
         component: AliMajorListComponent
     },
     {
-        path: "ali-cloud/ali-sub-list",
+        path: "ali-cloud/ali-sub-list/:loginName",
         component: AliSubListComponent
     },
     {

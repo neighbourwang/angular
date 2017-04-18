@@ -6,7 +6,8 @@ import 'rxjs/add/operator/toPromise';
 
 import { RegionModel, keysecretModel } from '../../cloud-disk/model/cloud-disk.model';
 import { orderVmPageModel, QuantityModel, instanceListModel, 
-    priceSubmitModel, priceCommodityModel, orderSubmitModel, GetSecGroupSubmitModel } from "../model/cloud-vm.model";
+    priceSubmitModel, priceCommodityModel, orderSubmitModel, GetSecGroupSubmitModel, 
+    GetInstancesSubmitModel, VmQueryObject, FloatingIPAddressModel } from "../model/cloud-vm.model";
 
 @Injectable()
 export class AliCloudVmService {
@@ -268,11 +269,14 @@ export class AliCloudVmService {
         body.accessinfo.accessSecret = this.keysecret.accessSecret;
         body.pageNumber = "1";
         body.pageSize = "50";
+        /*
         if(selectedOrderVmPage.selectedNetworkType == 'classic') {
             body.vpcId = null;
         } else if (selectedOrderVmPage.selectedNetworkType == 'vpc'){
             body.vpcId = selectedOrderVmPage.selectedVpcId;
         }
+        */
+        body.vpcId = null;
         
         console.log(body, "serviceGetSecurityGroups body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.network.securitygroup.get");
@@ -327,6 +331,10 @@ export class AliCloudVmService {
             body2.commodity.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut;            
         } else if (body2.commodity.networkType == 'vpc'){
             body2.commodity.vpcId = selectedOrderVmPage.selectedVpcId;
+            body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
+            body2.commodity.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut;
+            
+            /*
             if(selectedOrderVmPage.AllocatePublicIP == false) {
                 body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
                 body2.commodity.internetMaxBandwidthOut = 0;             
@@ -334,6 +342,7 @@ export class AliCloudVmService {
                 body2.commodity.internetChargeType = selectedOrderVmPage.selectedInternetChargeType;
                 body2.commodity.internetMaxBandwidthOut = selectedOrderVmPage.selectedInternetMaxBandwidthOut; 
             }
+            */
         }
 
         if(selectedOrderVmPage.selectedChargeType.toLowerCase()=='postpaid') {
@@ -353,6 +362,8 @@ export class AliCloudVmService {
             }
             body2.commodity.autoRenew = selectedOrderVmPage.renew;
         }
+
+        console.log("----------- InternetChargeType ------------", selectedOrderVmPage.selectedInternetChargeType);
         
         let str1 = JSON.stringify(body1);
         console.log(str1);
@@ -361,10 +372,13 @@ export class AliCloudVmService {
         
 
         let body: any = null;
-        if (selectedOrderVmPage.selectedInternetChargeType == null || selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybybandwidth") { //固定带宽，只传一个instance-buy
+        //if (selectedOrderVmPage.selectedInternetChargeType == null || selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybybandwidth") { //固定带宽，只传一个instance-buy
+        if (selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybybandwidth") { //固定带宽，只传一个instance-buy
             body = [body2];
         } else if (selectedOrderVmPage.selectedInternetChargeType.toLowerCase() == "paybytraffic") { //按量带宽，多传一个traffic-bandwidth            
             body = [body1, body2];
+        } else {
+            body = [body2];
         } 
         console.log(body, "calculatePrice body!!!!!!!!!!!");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.price.get");
@@ -434,22 +448,74 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
-    getInstanceList(pageIndex: number, pageSize: number, regionid: string): Promise<any> {
+    getInstanceList(pageIndex: number, pageSize: number, regionid: string, queryObject: VmQueryObject): Promise<any> {
         const pathParams = [
             {
                 key: "regionid",
                 value: regionid
             }
         ];
-        const body = {
-            "accessinfo": {
-                "accessId": this.keysecret.accessId,
-                "accessSecret": this.keysecret.accessSecret
-            },
-            "pageNumber": pageIndex,
-            "pageSize": pageSize
+        let body: GetInstancesSubmitModel = new GetInstancesSubmitModel();
+        body.accessinfo.accessId = this.keysecret.accessId;
+        body.accessinfo.accessSecret = this.keysecret.accessSecret;
+        body.pageNumber = pageIndex;
+        body.pageSize = pageSize;
+        if (queryObject.keyword != "") {
+            switch (queryObject.criteria) {
+                case "instance_name":
+                    body.instanceName = queryObject.keyword;
+                    break;
+                case "instance_ids":
+                    let instanceIds: Array<string> = [];                    
+                    instanceIds = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(instanceIds);
+                    body.instanceIds = instanceIds;
+                    break;
+                case "private_ips":
+                    let privateIps: Array<string> = [];
+                    privateIps = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(privateIps);
+                    body.privateIpAddresses = privateIps;
+                    break;
+                case "inner_ips":
+                    let innerIps: Array<string> = [];
+                    innerIps = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(innerIps);
+                    body.innerIpAddresses = innerIps;
+                    break;
+                case "public_ips":
+                    let publicIps: Array<string> = [];
+                    publicIps = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(publicIps);
+                    body.publicIpAddresses = publicIps;
+                    break;
+                case "image_id":
+                    body.imageId = queryObject.keyword;
+                    break;
+                case "securitygroup_id":
+                    body.securityGroupId = queryObject.keyword;
+                    break;
+                /*case "expire":
+                    body. = queryObject.keyword;
+                    break;
+                    */
+                case "instance_type":
+                    body.instanceType = queryObject.keyword;
+                    break;
+                case "vpc_id":
+                    body.vpcId = queryObject.keyword;
+                    break;
+                case "vswitch_id":
+                    body.vswitchId = queryObject.keyword;
+                    break;
+                default:
+                    console.log("queryObject.keyword don't match any criteria");
+            }
+
         }
         console.log(body, "body");
+        let str = JSON.stringify(body);
+        console.log(str);
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.list");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
@@ -499,6 +565,107 @@ export class AliCloudVmService {
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.stop");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    reStartInstance(instance: instanceListModel, forcereboot: boolean): Promise<any> {
+        const pathParams = [
+            {
+                key: "instanceid",
+                value: instance.InstanceId
+            },
+            {
+                key: "forcereboot",
+                value: forcereboot
+            }
+        ];
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.reboot");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    getFreeFloatingIps(regionid: string): Promise<any> {
+        const pathParams = [
+            {
+                key: "regionid",
+                value: regionid
+            }
+        ];
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "pageNumber": "1",
+            "pageSize": "50",
+            "status": "Available"
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.floating.ips.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    getFloatingIpsInInstance(regionid: string): Promise<any> {
+        const pathParams = [
+            {
+                key: "regionid",
+                value: regionid
+            }
+        ];
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "AssociatedInstanceType": "",//////////////status
+            "AssociatedInstanceId": ""////////////status
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.floating.ips.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    allocateIPToInstane(instance: instanceListModel, ip: FloatingIPAddressModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "instanceid",
+                value: instance.InstanceId
+            },
+            {
+                key: "allocationid",
+                value: ip.AllocationId
+            }
+        ];
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.ip.allocate");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    unAllocateIPToInstane(instance: instanceListModel, ip: FloatingIPAddressModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "instanceid",
+                value: instance.InstanceId
+            },
+            {
+                key: "allocationid",
+                value: ip.AllocationId
+            }
+        ];
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.ip.unallocate");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 

@@ -1,0 +1,75 @@
+<div class="page-content-header icon-content-header-platform-manage">{{"PF_MNG2.CREATE_PLATFORM" | translate}}<!--创建平台--></div>
+<div class="page-content fix-page-content">
+    <div>
+        <progress-bar [state]="4" [step]=2></progress-bar>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="float: none; margin: 0px auto;">
+            <div class="section-title h4">
+                {{"PF_MNG.SYNC_RESOURCE_STATISTICS" | translate}}:
+            </div>
+            <div class="table-container">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>{{"PF_MNG2.PLATFORM_RESOURCES" | translate}}</th>
+                        <th>{{"PF_MNG2.SYNC_STATE" | translate}}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{"COMMON.AVAILABLE_ZONE" | translate}}</td>
+                        <td>{{creStep2Model.zones}}</td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.zonesStatus"></span></td>
+                    </tr>
+                    <tr>
+                        <td>{{"COMMON.STORAGE" | translate}}</td>
+                        <td>{{creStep2Model.storages}}</td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.storagesStatus"></span></td>
+                    </tr>
+                    <!--<tr>
+                        <td>{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</td>
+                        <td>{{creStep2Model.flavors}}</td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.flavorsStatus"></span></td>
+                    </tr>
+                    <tr>
+                        <td>{{"COMMON.IMAGE" | translate}}</td>
+                        <td>{{creStep2Model.images}}</td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.imagesStatus"></span></td>
+                    </tr>-->
+                    <tr>
+                        <td>{{"PF_MNG2.HOST" | translate}}</td>
+                        <td>{{creStep2Model.hosts}}</td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.hostsStatus"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="progress-title">
+                {{creStep2Model.message | translate}}
+            </div>
+            <div class="fox-cloud-progress-rounded-angle">
+                <div class="progress-bar fox-cloud-progress-bar-rounded-angle" role="progressbar"
+                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                     [ngStyle]="{'width': creStep2Model.percentage + '%'}">
+                </div>
+                <span class="progress-prompt">{{creStep2Model.percentage}}%</span>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+<div class="text-center">
+    <button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancel();" [disabled]="!creStep2Model.isBack">
+        <span class="icon-button-label">{{"COMMON.RETURN" | translate}}</span>
+    </button>    
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20 btn" (click)="next();" [disabled]="!creStep2Model.isNext">
+        <span class="icon-button-label">{{"COMMON.NEXT" | translate}}</span>
+    </button>
+</div>
+
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
+

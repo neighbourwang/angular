@@ -11,7 +11,7 @@
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate }}:</div>
 					<div class="col-sm-4">
 						<div class="form-group has-feedback" [ngClass]="{'has-success':isSameName==1,'has-error':isSameName==2}">
-							<input type="text" class="form-control input-control" placeholder="{{ 'COMMON.NAME' | translate }}" [(ngModel)]="entEst.BasicInfo.name"
+							<input type="text" class="form-control input-control" maxlength="20" placeholder="{{ 'COMMON.NAME' | translate }}" [(ngModel)]="entEst.BasicInfo.name"
 								(blur)="checkName();">
 								<span *ngIf="isSameName==1" class="glyphicon glyphicon-ok form-control-feedback" style="right: -180px!important;"></span>
 								<span *ngIf="isSameName==2" class="glyphicon glyphicon-remove form-control-feedback" style="right: -180px!important;"></span>
@@ -123,13 +123,14 @@
 
 	<div class="secondPanel mgb20">
 		<div class="page-second-title">{{ 'COMMON.QUOTA_SET' | translate }}</div>
-		<div class="infoContent left">
+		<div class="infoContent left" style="width: 1200px!important;">
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_VCPU_NUM' | translate }}:</div>
 					<div class="col-sm-8">
-						<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_VCPU_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.vcpuQuota"><span
-							class=" form-control-title">个</span>
+						<!--<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_VCPU_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.vcpuQuota"><span
+							class=" form-control-title">个</span>-->
+						<count-bar  class="float-left mgr20"  [step]=100 [max]=2000000 [min]=1 [disabled]=false [stepCheck]=false [value]="entEst.ResourceQuota.vcpuQuota||0" #vcpuQuota   (output)="outputValue($event,'vcpuQuota')"></count-bar><span class=" form-control-title float-left">个</span>
 					</div>
 				</div>
 			</div>
@@ -137,8 +138,10 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.VAILABLE_RAM_NUM' | translate }}:</div>
 					<div class="col-sm-8">
-						<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.VAILABLE_RAM_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.memroyQuota"><span
-							class=" form-control-title">GB</span>
+						<!--<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.VAILABLE_RAM_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.memroyQuota"><span
+							class=" form-control-title">GB</span>-->
+						<count-bar  class="float-left mgr20"  [step]=100 [max]=2000000 [min]=1 [disabled]=false [stepCheck]=false [value]="entEst.ResourceQuota.memroyQuota||0" #memroyQuota   (output)="outputValue($event,'memroyQuota')"></count-bar><span class=" form-control-title float-left">GB</span>
+				
 					</div>
 				</div>
 			</div>
@@ -146,8 +149,10 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_PYH_NUM' | translate }}:</div>
 					<div class="col-sm-8">
-						<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_PYH_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.physicalQuota"><span
-							class=" form-control-title">台</span>
+						<!--<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_PYH_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.physicalQuota"><span
+							class=" form-control-title">台</span>-->
+						<count-bar  class="float-left mgr20"  [step]=100 [max]=2000000 [min]=1 [disabled]=false [stepCheck]=false [value]="entEst.ResourceQuota.physicalQuota||0" #physicalQuota   (output)="outputValue($event,'physicalQuota')"></count-bar><span class=" form-control-title float-left">台</span>
+				
 					</div>
 				</div>
 			</div>
@@ -155,8 +160,10 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.VAILABLE_STORAGE_QUOTA' | translate }}:</div>
 					<div class="col-sm-8">
-						<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.VAILABLE_STORAGE_QUOTA' | translate }}"
-							[(ngModel)]="entEst.ResourceQuota.storageQuota"><span class=" form-control-title">GB</span>
+						<!--<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.VAILABLE_STORAGE_QUOTA' | translate }}"
+							[(ngModel)]="entEst.ResourceQuota.storageQuota"><span class=" form-control-title">GB</span>-->
+						<count-bar  class="float-left mgr20"  [step]=100 [max]=2000000 [min]=1 [disabled]=false [stepCheck]=false [value]="entEst.ResourceQuota.storageQuota||0" #storageQuota   (output)="outputValue($event,'storageQuota')"></count-bar><span class=" form-control-title float-left">GB</span>
+				
 					</div>
 				</div>
 			</div>
@@ -165,8 +172,10 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_SNAPSHOT_NUM' | translate }}:</div>
 					<div class="col-sm-8">
-						<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_SNAPSHOT_NUM' | translate }}"
-							[(ngModel)]="entEst.ResourceQuota.snapShotQuota"><span class=" form-control-title">个</span>
+						<!--<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_SNAPSHOT_NUM' | translate }}"
+							[(ngModel)]="entEst.ResourceQuota.snapShotQuota"><span class=" form-control-title">个</span>-->
+						<count-bar  class="float-left mgr20"  [step]=100 [max]=2000000 [min]=1 [disabled]=false [stepCheck]=false [value]="entEst.ResourceQuota.snapShotQuota||0" #snapShotQuota   (output)="outputValue($event,'snapShotQuota')"></count-bar><span class=" form-control-title float-left">个</span>
+				
 					</div>
 				</div>
 			</div>
@@ -174,8 +183,10 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_IMAGE_NUM' | translate }}:</div>
 					<div class="col-sm-8">
-						<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_IMAGE_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.imageQuota"><span
-							class=" form-control-title">个</span>
+						<!--<input type="number" name="imageQuota" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_IMAGE_NUM' | translate }}" [(ngModel)]="entEst.ResourceQuota.imageQuota"><span
+							class=" form-control-title">个</span>-->
+						<count-bar  class="float-left mgr20"  [step]=100 [max]=2000000 [min]=1 [disabled]=false [stepCheck]=false [value]="entEst.ResourceQuota.imageQuota||0" #imageQuota   (output)="outputValue($event,'imageQuota')"></count-bar><span class=" form-control-title float-left">个</span>
+				
 					</div>
 				</div>
 			</div>
@@ -183,8 +194,9 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_FLOAT_IP_NUM' | translate }}:</div>
 					<div class="col-sm-8">
-						<input type="number" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_FLOAT_IP_NUM' | translate }}"
-							[(ngModel)]="entEst.ResourceQuota.floatIpQuota"><span class=" form-control-title">个</span>
+						<!--<input name="floatIpQuota" class="form-control input-control" placeholder="{{ 'ENT_MNG.CAN_CREATE_FLOAT_IP_NUM' | translate }}"
+							[(ngModel)]="entEst.ResourceQuota.floatIpQuota">-->
+						<count-bar class="float-left mgr20 " [step]=100 [max]=2000000 [min]=1 [disabled]=false [stepCheck]=false [value]="entEst.ResourceQuota.floatIpQuota||0" #floatIpQuota   (output)="outputValue($event,'floatIpQuota')"></count-bar><span class=" form-control-title float-left">个</span>
 					</div>
 				</div>
 			</div>
@@ -211,7 +223,7 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let item of resourceQuotas.items">
-						<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.checked" /></td>
+						<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.checked"/></td>
 						<td>{{item.platformName}}</td>
 						<td>{{item.cpu}}</td>
 						<td>{{item.memory}}</td>

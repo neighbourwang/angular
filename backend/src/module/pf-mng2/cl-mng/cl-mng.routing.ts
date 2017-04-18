@@ -18,6 +18,11 @@ import { ClMngCreStep4Component } from './component/cl-mng-cre-step-4.component'
 import { ClMngCreStep5Component } from './component/cl-mng-cre-step-5.component';
 import { ClMngCreStep6Component } from './component/cl-mng-cre-step-6.component';
 
+//desktop cloud
+ import { DeskCloudCreStep2Component } from './component/desk-cloud-cre-step2.component';
+ import { DeskCloudCreStep3Component } from './component/desk-cloud-cre-step3.component';
+ import { DeskCloudCreStep4Component } from './component/desk-cloud-cre-step4.component';
+
 export const ClMngRouting:ModuleWithProviders = RouterModule.forChild([
     {
         path: 'cl-mng/cl-mng',
@@ -46,6 +51,18 @@ export const ClMngRouting:ModuleWithProviders = RouterModule.forChild([
     {
         path : 'cl-mng/cre-step6',
         component : ClMngCreStep6Component
+    },
+    {
+        path : 'cl-mng/desk-cloud-cre-step2',
+        component : DeskCloudCreStep2Component
+    },
+    {
+        path : 'cl-mng/desk-cloud-cre-step3',
+        component : DeskCloudCreStep3Component
+    },
+    {
+        path : 'cl-mng/desk-cloud-cre-step4',
+        component : DeskCloudCreStep4Component
     },
     {
         path: 'pf-mng-detail',

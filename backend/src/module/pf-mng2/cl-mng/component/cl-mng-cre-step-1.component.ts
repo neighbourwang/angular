@@ -1,7 +1,7 @@
 /**
  * Created by junjie on 16/10/18.
  */
-import { Component, ViewChild, OnInit, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -26,39 +26,7 @@ import { ClMngIdService } from '../service/cl-mng-id.service';
             background-color: #00a982;
             color : #fff
         }`
-    ],
-    animations: [
-        trigger('heroState', [
-            state('leave', style({
-                transform: 'rotateX(0)'
-            })),
-            state('in', style({
-                transform: 'rotateX(360deg)'
-            })),
-            transition('leave => in', animate('500ms ease-in')),
-            transition('in => leave', animate('500ms ease-out'))
-        ]),
-        trigger('flyInOut', [
-            state('leave', style({
-                transform: 'rotateX(360deg)'
-            })),
-            state('in', style({
-                transform: 'rotateX(0)'
-            })),
-            transition('leave => in', animate('500ms ease-in')),
-            transition('in => leave', animate('500ms ease-out'))
-        ])
-        // trigger('flyInOut', [
-        //     state('in', style({ transform: 'rotateX(0)' })),
-        //     transition('void => *', [
-        //         style({ transform: 'rotateX(180deg)' }),
-        //         animate(100)
-        //     ]),
-        //     transition('* => void', [
-        //         animate(100, style({ transform: 'rotateX(180deg)' }))
-        //     ])
-        // ])
-    ],
+    ],    
     providers: []
 })
 
@@ -82,7 +50,6 @@ export class ClMngCreStep1Component implements OnInit {
 
     @ViewChild('regionSelect')
     regionSelect: PopupComponent;
-
     ngOnInit() {
         console.log('init');
         // this.layoutService.show();
@@ -151,7 +118,7 @@ export class ClMngCreStep1Component implements OnInit {
             )
 
     }
-    next() {
+    next() {        
         let message: String = this.checkValue();
         if (this.checkValue()) {
             this.notice.open('COMMON.ERROR', message);
@@ -185,7 +152,11 @@ export class ClMngCreStep1Component implements OnInit {
                                 res => {
                                     this.layoutService.hide();
                                     this.idService.setPlatformId(res.resultContent);
-                                    this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
+                                    if(this.creStep1Model.platformType == '2'){
+                                        this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);                                        
+                                    }else{
+                                        this.router.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step2", { type: this.creStep1Model.platformType }]);
+                                    }
                                 }
                             ).catch(
                                 err => {
@@ -223,8 +194,10 @@ export class ClMngCreStep1Component implements OnInit {
             index == 3 ? '4' : '6';
         this.creStep1Model.platformType = item.value;
         console.log(item);
+        item.code=
+            item.code=='Desktop Vmware'?"VMWARE_DESKTOP":item.code;
         this.creStep1Model.version = '';
-        index != 3 && this.commonService.getVersion(item.code).then(
+        index != 1 && this.commonService.getVersion(item.code).then(
             res => {
                 console.log(res);
                 this.platformVersion = res

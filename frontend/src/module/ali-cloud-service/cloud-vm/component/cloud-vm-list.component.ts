@@ -9,7 +9,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
 
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
-import { instanceListModel } from "../model/cloud-vm.model";
+import { instanceListModel, VmQueryObject, FloatingIPAddressModel } from "../model/cloud-vm.model";
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
@@ -43,6 +43,15 @@ export class AliCloudVmListComponent implements OnInit {
     @ViewChild("confirm")
     confirm: ConfirmComponent;
 
+    @ViewChild("restartvm")
+    restartvm: PopupComponent;
+
+    @ViewChild("allocateip")
+    allocateip: PopupComponent;
+    
+    @ViewChild("unallocateip")
+    unallocateip: PopupComponent;
+
     noticeTitle = "";
     noticeMsg = "";
 
@@ -53,11 +62,24 @@ export class AliCloudVmListComponent implements OnInit {
     pageSize = 10;
     totalPage = 1;
 
+    forcereboot: boolean = false;
+
+    queryObject: VmQueryObject = new VmQueryObject();
+
     regions: Array<RegionModel> = [];
-    choosenRegion: RegionModel = new RegionModel();
+    defaultRegion: RegionModel = new RegionModel();
+    choosenRegion: RegionModel = this.defaultRegion;    
 
     instances: Array<instanceListModel> = []; 
     selectedInstance: instanceListModel = new instanceListModel();
+
+    freeips: Array<FloatingIPAddressModel> = [];
+    defaultfreeip: FloatingIPAddressModel = new FloatingIPAddressModel();
+    selectedfreeip: FloatingIPAddressModel = this.defaultfreeip;
+
+    vmips: Array<FloatingIPAddressModel> = [];
+    defaultvmip: FloatingIPAddressModel = new FloatingIPAddressModel();
+    selectedvmip: FloatingIPAddressModel = this.defaultvmip;
 
     private okCallback: Function = null;
     okClicked() {
@@ -136,12 +158,14 @@ export class AliCloudVmListComponent implements OnInit {
             item.selected = false;
         });
         region.selected = true;
+        this.queryObject.criteria = "instance_name";
+        this.queryObject.keyword = "";
         this.getInstanceList(region); // 列出对应region的instance list
     }
 
     getInstanceList(region: RegionModel) {
         this.layoutService.show();
-        this.service.getInstanceList(this.pageIndex, this.pageSize, region.RegionId)
+        this.service.getInstanceList(this.pageIndex, this.pageSize, region.RegionId, this.queryObject)
         .then(
             response => {
                 this.layoutService.hide();
@@ -170,6 +194,17 @@ export class AliCloudVmListComponent implements OnInit {
                 this.onRejected(e);
             });
 
+    }
+
+    search() {
+        console.log(this.queryObject);
+        if (this.choosenRegion == this.defaultRegion) {
+            this.showMsg("请选择区域");
+        } else if(this.queryObject.keyword != "") {
+            this.getInstanceList(this.choosenRegion);
+        } else {
+            console.log(this.queryObject.keyword, "queryObject.keyword is '' or please choose Region!");
+        }
     }
 
     goToInstanceOrder() {
@@ -233,15 +268,205 @@ export class AliCloudVmListComponent implements OnInit {
     }
 
     reStartInstance() {
+        this.selectedInstance = this.getSelected();
+        if (this.selectedInstance) {
+            this.restartvm.open();
+        } else {
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return;
+        }
+    }
 
+    displayvalue() {
+        console.log(this.forcereboot);
+    }
+
+    acceptRestartInstanceModify() {
+        this.layoutService.show();
+        this.service.reStartInstance(this.selectedInstance, this.forcereboot)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.showMsg("重启实例成功");
+                } else {
+                    this.showMsg("重启实例失败");
+                    return;
+                }
+            })
+            .then(() => {
+                this.restartvm.close();
+                this.getInstanceList(this.choosenRegion);
+            })
+            .catch(err => {
+                console.log('重启实例异常', err);
+                this.layoutService.hide();
+                this.restartvm.close();
+                this.showMsg("重启实例异常");
+                this.okCallback = () => {
+                    this.restartvm.open();
+                };
+            });
+    }
+
+    cancelRestartInstanceModify() {
+        this.forcereboot = false;
     }
 
     attachIPToInstance() {
+        this.selectedInstance = this.getSelected();
+        if (this.selectedInstance) {
+            this.layoutService.show();
+            this.service.getFreeFloatingIps(this.selectedInstance.RegionId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    console.log("Got free floating ip!");
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                        console.log(result, "result!");
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.freeips = result.EipAddresses.EipAddress;
+                    console.log(this.freeips, "free ips!");
+                    this.allocateip.open();
+                } else {
+                    this.showMsg("获取弹性IP失败");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+        } else {
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return;
+        }
 
     }
 
-    detachIPToInstance() {
+    freeIPChanged() {
+        window.setTimeout(()=> {
 
+        }, 50);
+    }
+
+    acceptAttachIPToInstanceModify() {
+        this.layoutService.show();
+        if(this.selectedfreeip == this.defaultfreeip) {
+        this.service.allocateIPToInstane(this.selectedInstance, this.selectedfreeip)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.showMsg("绑定弹性IP到实例成功");
+                } else {
+                    this.showMsg("绑定弹性IP到实例失败");
+                    return;
+                }
+            })
+            .then(() => {
+                this.allocateip.close();
+                this.getInstanceList(this.choosenRegion);
+            })
+            .catch(err => {
+                console.log('绑定弹性IP到实例异常', err);
+                this.layoutService.hide();
+                this.allocateip.close();
+                this.showMsg("绑定弹性IP到实例异常");
+                this.okCallback = () => {
+                    this.allocateip.open();
+                };
+            });
+        } else {
+            this.showMsg("请选择弹性IP");
+        }
+
+    }
+
+    cancelAttachIPToInstanceModify() {
+        this.freeips = [];
+        this.selectedfreeip = new FloatingIPAddressModel();
+    }
+
+    detachIPToInstance() {
+        this.selectedInstance = this.getSelected();
+        if (this.selectedInstance) {
+            this.layoutService.show();
+            this.service.getFreeFloatingIps(this.selectedInstance.RegionId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    console.log("Got specific floating ip!");
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                        console.log(result, "result!");
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.vmips = result.EipAddresses.EipAddress;
+                    console.log(this.vmips, "Instance ips!");
+                    this.unallocateip.open();
+                } else {
+                    this.showMsg("获取弹性IP失败");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });            
+        } else {
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return;
+        }
+
+    }
+
+    vmIPChanged() {
+
+    }
+
+    acceptDetachIPToInstanceModify() {
+        if(this.selectedvmip == this.defaultvmip) {
+        this.layoutService.show();
+        this.service.unAllocateIPToInstane(this.selectedInstance, this.selectedvmip)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.showMsg("解绑弹性IP到实例成功");
+                } else {
+                    this.showMsg("解绑弹性IP到实例失败");
+                    return;
+                }
+            })
+            .then(() => {
+                this.unallocateip.close();
+                this.getInstanceList(this.choosenRegion);
+            })
+            .catch(err => {
+                console.log('解绑弹性IP到实例异常', err);
+                this.layoutService.hide();
+                this.unallocateip.close();
+                this.showMsg("解绑弹性IP到实例异常");
+                this.okCallback = () => {
+                    this.unallocateip.open();
+                };
+            });
+        } else {
+            this.showMsg("请选择弹性IP");
+        }
+
+    }
+
+    cancelDetachIPToInstanceModify() {
+        this.vmips = [];
+        this.selectedvmip = new FloatingIPAddressModel();
     }
     
     remoteToInstance() {
@@ -268,7 +493,7 @@ export class AliCloudVmListComponent implements OnInit {
                     }
                 })
                 .catch((e) => this.onRejected(e));
-            }
+            };
             this.confirm.open();
         } else {
             this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");

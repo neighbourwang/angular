@@ -79,6 +79,7 @@ export class OrderMngDetailComponent implements OnInit {
       this.layoutService.hide();
     })
     .catch(err=>{
+      this.showMsg(err);
       this.layoutService.hide();
     })
   }

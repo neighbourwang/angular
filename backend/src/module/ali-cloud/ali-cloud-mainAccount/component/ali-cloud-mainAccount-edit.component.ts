@@ -6,7 +6,7 @@ import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../
 
 //model
 import{AccountModel} from '../model/account.model';
-
+import{AccountListModel} from '../model/account-list.model';
 //service
 import { AliCloudMainAccountEditService} from '../service/ali-cloud-mainAccount-edit.service'
 
@@ -34,14 +34,16 @@ export class AliCloudMainAccountEditComponent implements OnInit{
     @ViewChild("notice")
     notice: NoticeComponent;
 
-    account:AccountModel=new AccountModel();
+    account:AccountListModel=new AccountListModel();
 
     editMode:string;
     title:string;
+    //accountId:string;
 
     ngOnInit (){
         this.activeRoute.params.forEach((params: Params) => {
-            this.editMode = params["type"];  
+            this.editMode = params["type"]; 
+            this.account.id = params["id"];   
             console.log(this.editMode);   
              switch (this.editMode) {
                 case "edit":
@@ -55,8 +57,88 @@ export class AliCloudMainAccountEditComponent implements OnInit{
                     break;
             } 
         }); 
+        if (this.account.id) {
+                    this.getAccount(this.account.id);
+                } else {
+                    this.account=new AccountListModel();
+                }
+    }
+    //获取账号信息
+    getAccount(id:string){
+        this.layoutService.hide();
+        this.service.getAccount(id)
+             .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.account = response["resultContent"].find((e)=>{return e.id ==this.account.id});
+                        console.log("主账号信息",this.account);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
+    //编辑账号
+    editAccount(){
+        this.layoutService.hide();
+        this.service.editAccount(this.account)
+        .then(
+            response=>{ 
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.gotoAccountList();
+                } 
+                else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+        )
+        .catch((e) => this.onRejected(e));
+    }
+
+    //添加账号
+    createAccount(){
+        this.layoutService.hide();
+        if (!this.account.loginName) {
+            this.showAlert("");
+            return false;
+        }
+        if (!this.account.loginName) {
+            this.showAlert("");
+            return false;
+        }
+        if (!this.account.loginName) {
+            this.showAlert("");
+            return false;
+        }
+        if (!this.account.loginName) {
+            this.showAlert("");
+            return false;
+        }
+        if (!this.account.loginName) {
+            this.showAlert("");
+            return false;
+        }
+        this.service.createAccount(this.account)
+        .then(
+            response=>{ 
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.gotoAccountList();
+                } 
+                else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+        )
+        .catch((e) => this.onRejected(e));
+    }
     //跳转到账号列表
      gotoAccountList(){
            this.route.navigate([`ali-cloud/ali-cloud-mainAccount/ali-cloud-mainAccount-list`])

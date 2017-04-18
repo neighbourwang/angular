@@ -10,7 +10,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from
 
 
 @Component({
-    templateUrl: '../template/physical-prod-cre-step1.html',
+    templateUrl: '../template/physical-prod-cre-step3.html',
     styleUrls: [],
     providers: []
 })
@@ -46,9 +46,11 @@ export class PhysicalProdCreStep3Component implements OnInit {
     ccf() { }
     //获取platformRegionList
     // platFormRegionList:;
-
+    previous(){
+        this.route.navigate(["prod-mng/physical-prod-mng/prod-mng-cre-step2"]);        
+    }
     next() {
-        this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-4"]);
+        this.route.navigate(["prod-mng/physical-prod-mng/prod-mng-cre-step4"]);
     }
     //取消
     cancel() {

@@ -5,9 +5,12 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary, PaginationComponent  } from '../../../../architecture';
 
 //model
+import { AliSharedList } from '../model/ali-shared-list.model';
+import { DepartList } from '../model/depart-list.model';
 
 //service
 import { AliSharedService } from '../service/ali-shared-list.service';
+import { AliSubService } from '../service/ali-sub-list.service';
 
 @Component({
     selector: 'ali-shared-list',
@@ -21,6 +24,7 @@ export class AliSharedListComponent implements OnInit{
     constructor(
         private router : Router,
         private service : AliSharedService,
+        private subservice : AliSubService,
         private layoutService : LayoutService
     ) {
 
@@ -38,8 +42,30 @@ export class AliSharedListComponent implements OnInit{
     noticeTitle = "";
     noticeMsg = "";
 
+    data: Array<AliSharedList>;
+    departsList: Array<DepartList>;
+    selectedDepartment: string;
+
     ngOnInit (){
         console.log('init');
+        this.getData();
+    }
+
+    getData() {
+        this.layoutService.show();
+        this.service.getData()
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.data = response["resultContent"];
+                        console.log(this.data,"this.data");
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     getDetail(item){
@@ -47,9 +73,38 @@ export class AliSharedListComponent implements OnInit{
     }
 
     distriPage(item){
-        this.distriDepart.open("分配部门")
+        this.layoutService.show();
+        this.subservice.getDepartsList()
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.departsList = response["resultContent"];
+                        console.log("departsList",this.departsList);
+                        this.distriDepart.open("分配部门")
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
     
+    selected(item: DepartList){
+        this.departsList.forEach((p) =>{
+            p.selected= false;
+        });
+        item.selected= true;
+        this.selectedDepartment= item.departmentName;
+    }
+
+    reset(){
+        this.departsList.forEach((p) =>{
+           p.selected= false; 
+        });
+        this.selectedDepartment= "";
+    }
+
     close(){
         this.sharedMng.close();
     }

@@ -7,7 +7,7 @@
     <button class="btn button-confirm  pull-right" (click)="crePage();type='create'">
         <span class="icon-create"></span>创建子账号
     </button>
-    <span style="line-height:34px;">主账号登录名：xxx</span>
+    <span style="line-height:34px;">主账号登录名：{{name}}</span>
 </div>
 <table class="table table-hover mgt20" >
     <tbody>
@@ -20,30 +20,33 @@
             <th class="text-center">操作人 </th>
             <th class="text-center">操作 </th>
         </tr>
-        <tr>
-            <td class="text-center">1</td>
-            <td class="text-center"><a href="javascript:void(0);" class="a-active" (click)="getDetail(item);type= 'info';">fhd_001</a></td>
-            <td class="text-center">管理员部门</td>
-            <td class="text-center">已启用</td>
-            <td class="text-center">2017-4-6 8:00:00</td>
-            <td class="text-center">王某某</td>
+        <tr *ngFor="let item of data">
+            <td class="text-center">{{item.id}}</td>
+            <td class="text-center"><a href="javascript:void(0);" class="a-active" (click)="getDetail(item);type= 'info';">{{item.loginName}}</a></td>
+            <td class="text-center">{{item.departmentName}}</td>
+            <td class="text-center">{{item.status}}</td>
+            <td class="text-center">{{item.lastUpdate}}</td>
+            <td class="text-center">{{item.operator}}</td>
             <td class="text-center">
                 <span class="glyphicon glyphicon-edit font-green" style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);type='edit'"></span>
                 <span class="glyphicon glyphicon-user font-green" style="margin-right : 10px ;cursor:pointer" (click)="distriPage(item);"></span>
-                <span class="glyphicon glyphicon-ok-circle font-green" style="margin-right : 10px ;cursor:pointer"></span>
-                <span class="glyphicon glyphicon-ban-circle font-orange" style="margin-right : 10px ;cursor:pointer"></span>
-                <span class="glyphicon glyphicon-trash font-orange" style="margin-right : 10px ;cursor:pointer"></span>
+                <span class="glyphicon glyphicon-ok-circle font-green" style="margin-right : 10px ;cursor:pointer" (click)="enable(item);"></span>
+                <span class="glyphicon glyphicon-ban-circle font-orange" style="margin-right : 10px ;cursor:pointer" (click)="disable(item);"></span>
+                <span class="glyphicon glyphicon-trash font-orange" style="margin-right : 10px ;cursor:pointer" (click)="delete(item);"></span>
             </td>
         </tr>
     </tbody>
 </table>
+
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CANCEL' | translate}}" ct="{{ 'COMMON.CONFIRM' | translate}}"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
 
 <fc-popup #subMng title="{{title}}" ot="{{type== 'info'? '关闭': 'DIALOG.SAVE' | translate }}" ct="{{ type== 'info'? '':'DIALOG.CANCEL' | translate }}" (of)="operate()">
     <div class="mgt10 border">
         <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
             <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>子账号登录名:</div>
             <div *ngIf="type!= 'create'" class="col-md-8 no-padding">
-                <span style="line-height: 34px;">王国庆45087461</span>
+                <span style="line-height: 34px;">{{subInfo.loginName}}</span>
             </div>
             <div *ngIf="type== 'create'" class="col-md-6 no-padding form-group">
                 <input type="text" class="form-control" maxlength="50">
@@ -55,7 +58,7 @@
                 <input type="text" class="form-control" maxlength="50">
             </div>
             <div *ngIf="type== 'info'" class="col-md-8 no-padding">
-                <span style="line-height: 34px;">dsafjalsdkj;</span>
+                <span style="line-height: 34px;">{{subInfo.accessKey}}</span>
             </div>
         </div>
         <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
@@ -64,7 +67,7 @@
                 <input type="text" class="form-control">
             </div>
             <div *ngIf="type== 'info'" class="col-md-8 no-padding">
-                <span style="line-height: 34px;">dsafjalsdkj;</span>
+                <span style="line-height: 34px;">{{subInfo.accessSecret}}</span>
             </div>
         </div>
         <div *ngIf="type!= 'info'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">
@@ -79,12 +82,11 @@
         <div *ngIf="type== 'info' || type== 'create'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">
             <div class="col-md-4 content-title" style="text-align : right">所属部门:</div>
             <div *ngIf="type== 'info'" class="col-md-8 no-padding">
-                <span style="line-height: 34px;">dsafjalsdkj;</span>
+                <span style="line-height: 34px;">{{subInfo.departmentName}}</span>
             </div>
             <div *ngIf="type== 'create'" class="col-md-6 no-padding form-group">
                 <select class="form-control">
-                    <option>ABC</option>
-                    <option>CD</option>
+                    <option *ngFor="let item of departsList">{{item.departmentName}}</option>
                 </select>
             </div>
         </div>
@@ -93,9 +95,10 @@
 
 <fc-popup #distriDepart title="{{title}}" ot="{{'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="operate()">
     <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
-        <div class="col-md-4 content-title" style="text-align : right">当前所选部门：管理部</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-4 content-title">当前所选部门：{{selectedDepartment}}</div>
         <div class="col-md-2 no-padding form-group ">
-            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+            <button class="btn button-gray-gradient" (click)="reset()"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
         </div>
     </div>
     <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
@@ -107,9 +110,9 @@
                     <th class="text-center">选择 </th>
                     <th class="text-center">部门名称</th>
                 </tr>
-                <tr class="text-center">
-                    <td><input type='radio' class="fox-cloud-radio"/></td>
-                    <td class="text-center">管华</td>
+                <tr *ngFor="let item of departsList" class="text-center">
+                    <td><input type='radio' class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
+                    <td class="text-center">{{item.departmentName}}</td>
                 </tr>
                 </tbody>
             </table>

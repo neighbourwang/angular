@@ -75,10 +75,7 @@
 <div class="text-center">
     <button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancel();" [disabled]="!creStep2Model.isBack">
         <span class="icon-button-label">{{"COMMON.RETURN" | translate}}</span>
-    </button>
-    <!--<button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();" [disabled]="!creStep2Model.isNext">
-        <span class="icon-button-label">{{"COMMON.PREVIOUS" | translate}}</span>
-    </button>-->
+    </button>    
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20 btn" (click)="next();" [disabled]="!creStep2Model.isNext">
         <span class="icon-button-label">{{"COMMON.NEXT" | translate}}</span>
     </button>
@@ -87,4 +84,3 @@
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>

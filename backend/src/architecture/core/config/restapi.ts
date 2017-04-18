@@ -795,6 +795,11 @@ export let RestApis: RestApiModel[] = [
         "id": "ent-mng.ent-est-mng.ent-mng-cre.check-name.post",
         "method": "POST",
         "url": "adminui/authsec/enterprise/query"
+    },{
+        "desc": "加载某平台下的可分配配额资源",
+        "id": "ent-mng.ent-est-mng.ent-mng.resouces.quotas.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/{_platformId}/resouces/quotas"
     },
 
 
@@ -1155,7 +1160,31 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminui/authsec/enterprises/product/update/enterprise"
     },
-    
+    //物理机产品相关
+    {
+        "desc": "获取部件列表",
+        "id": "physical-service-unitList.get",
+        "method": "GET",
+        "url": "adminui/authsec/pm/partsinfo/all"
+    },
+    {
+        "desc": "获取可用资源池列表",
+        "id": "physical-service-resourcepool.get",
+        "method": "GET",
+        "url": "adminui/authsec/service/areaResourcePool"
+    },
+    {
+        "desc": "获取物理机规格信息",
+        "id": "physical-service-flavorInfo.get",
+        "method": "GET",
+        "url": "adminui/authsec/service/phyMachineFlavor"
+    },
+    {
+        "desc": "创建物理机服务",
+        "id": "physical-service-create.post",
+        "method": "POST",
+        "url": "adminui/authsec/services/type/phymachine"
+    },    
     //用户中心
     {
         "desc": "获取所有机构",
@@ -2565,6 +2594,44 @@ export let RestApis: RestApiModel[] = [
         "id":"compute-trend.export.all",
         "method":"GET",
         "url":"maintenance/trend/query/export/current"
-     }
+     },
+     //阿里云账号管理
+     {
+        "desc": "获取主账号列表",
+        "id":"ali-mainAccount-list.get",
+        "method":"GET",
+        "url":"adminboe/authsec/alicloud/adm/main/list"
+     },
+     {
+        "desc": "添加主账号",
+        "id":"ali-mainAccount-create.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/addacct"
+     },
+    {
+        "desc": "查看主账号/编辑读取",
+        "id":"ali-mainAccount-view.get",
+        "method":"GET",
+        "url":"adminboe/authsec/alicloud/adm/main/acct/{id}"
+     },
+    {
+        "desc": "主账号更新",
+        "id":"ali-mainAccount-update.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/update"
+     },
+    {
+        "desc": "主账号类型变更",
+        "id":"ali-mainAccount-type-edit.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/updatetype/{id}"
+     },
+     {
+        "desc": "主账号状态修改",
+        "id":"ali-mainAccount-statusChange.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/updatestatus/{id}/{type}"
+     },
+
 ]
 

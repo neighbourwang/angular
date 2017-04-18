@@ -45,13 +45,13 @@ export class AliCloudSubAccountEditComponent implements OnInit{
             console.log(this.editMode);   
              switch (this.editMode) {
                 case "edit":
-                    this.title = "编辑主账号";
+                    this.title = "编辑子账号";
                     break;
                 case "view":
-                    this.title = "主账号详情";
+                    this.title = "子账号详情";
                     break;
                 case "create":
-                    this.title = "添加主账号";
+                    this.title = "添加子账号";
                     break;
             } 
         }); 
@@ -59,7 +59,7 @@ export class AliCloudSubAccountEditComponent implements OnInit{
 
     //跳转到账号列表
      gotoAccountList(){
-           this.route.navigate([`ali-cloud/ali-cloud-mainAccount/ali-cloud-mainAccount-list`])
+           this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-list`])
      }
 
     showAlert(msg: string): void {

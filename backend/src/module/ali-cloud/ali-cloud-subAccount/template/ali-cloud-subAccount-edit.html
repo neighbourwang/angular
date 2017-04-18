@@ -1,5 +1,5 @@
 <div class="page-content-header icon-content-header-ali-cloud">
-    添加子账号
+    {{title}}
 </div>
 <div class="page-content">
     <div class="row row-line-height">
@@ -20,12 +20,13 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>Access Key Secret:</div>
+            <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>Access Key Secret:</div>
             <div class="col-sm-4">
-               <input type="text" class="form-control">
+               <input type="text" class="form-control" *ngIf="editMode !='view'">
+               <span style="line-height:34px" *ngIf="editMode =='view'">1</span>
             </div>
-            <div class="col-sm-4">
-                <button class="fox-cloud-button fox-cloud-button-white ">
+            <div class="col-sm-4" *ngIf="editMode !='view'">
+                <button class="fox-cloud-button fox-cloud-button-white " *ngIf="editMode =='edit'">
                 登录信息变更
                 </button>
                 <button class="fox-cloud-button fox-cloud-button-white ">
@@ -48,10 +49,16 @@
     <div class="col-sm-offset-4 pdl10">最多只能输入200个文字</div>
 </div>
 <div class="text-center ">
-    <button class="fox-cloud-button-lg fox-cloud-button-white">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode !='view'" (click)="gotoAccountList();">
         <span class="icon-button-label">取消</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='create'">
         <span class="icon-button-label">添加</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='edit'">
+        <span class="icon-button-label">保存</span>
+    </button>
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='view'" (click)="gotoAccountList();">
+        <span class="icon-button-label">关闭</span>
     </button>
 </div>

@@ -48,7 +48,7 @@ export class PhysicalProdCreStep1Component implements OnInit {
     // platFormRegionList:;
 
     next() {
-        this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-2"]);
+        this.route.navigate(["prod-mng/physical-prod-mng/prod-mng-cre-step2"]);
     }
     //取消
     cancel() {

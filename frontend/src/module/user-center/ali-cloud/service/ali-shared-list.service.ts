@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel, SystemDictionaryService } from '../../../../architecture';
 
 //model
-
+import {SharedList_mock} from "../model/shared-list.mock.model";
 
 import 'rxjs/add/operator/toPromise';
 
@@ -20,4 +20,9 @@ export class AliSharedService {
         this.restApiCfg.loadCfgData();
     }
 
+    getData(): Promise<any>{
+        /* const api= this.restApiCfg.getRestApi("user-center.ali-cloud.sharedlist");
+         return this.restApi.request(api.method, api.url, null, null, null);*/
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() => SharedList_mock);
+    }
 }

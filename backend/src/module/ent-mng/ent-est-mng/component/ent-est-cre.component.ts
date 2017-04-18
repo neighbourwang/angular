@@ -103,166 +103,191 @@ export class EntEstCreComponent implements OnInit{
 	}
 	
 
-	//非空验证
-	validate(){
-		let checkList:Array<any> = [
-		{
-			"name":"" //名称
-			,'value':this.entEst.BasicInfo.name
-			,"op":"*"
-		},
-		{
-			"name":""//认证方式
-			,"value":this.entEst.BasicInfo.certMethod
-			,"op":"*"
-		}
-		];
+	// //非空验证
+	// validate(){
+	// 	let checkList:Array<any> = [
+	// 	{
+	// 		"name":"" //名称
+	// 		,'value':this.entEst.BasicInfo.name
+	// 		,"op":"*"
+	// 	},
+	// 	{
+	// 		"name":""//认证方式
+	// 		,"value":this.entEst.BasicInfo.certMethod
+	// 		,"op":"*"
+	// 	}
+	// 	];
 
-		if(this.isADSelected())
-		{
-			checkList = checkList.concat([
-				{
-					"name":""//URL地址
-					,"value":this.entEst.BasicInfo.certUrl
-					,"op":"*"
-				},
-				{
-					"name":""//AD名称
-					,"value":this.entEst.BasicInfo.adname
-					,"op":"*"
-				},
-				{
-					"name":""//用户名(Full DN)
-					,"value":this.entEst.BasicInfo.contactorName
-					,"op":"*"
-				},
-				{
-					"name":""//密码
-					,"value":this.entEst.BasicInfo.password
-					,"op":"*"
-				}
-				,
-				{
-					"name":""//登录账户属性名称
-					,"value":this.entEst.BasicInfo.loginProp
-					,"op":"*"
-				}]
-				);
-		}
+	// 	if(this.isADSelected())
+	// 	{
+	// 		checkList = checkList.concat([
+	// 			{
+	// 				"name":""//URL地址
+	// 				,"value":this.entEst.BasicInfo.certUrl
+	// 				,"op":"*"
+	// 			},
+	// 			{
+	// 				"name":""//AD名称
+	// 				,"value":this.entEst.BasicInfo.adname
+	// 				,"op":"*"
+	// 			},
+	// 			{
+	// 				"name":""//用户名(Full DN)
+	// 				,"value":this.entEst.BasicInfo.contactorName
+	// 				,"op":"*"
+	// 			},
+	// 			{
+	// 				"name":""//密码
+	// 				,"value":this.entEst.BasicInfo.password
+	// 				,"op":"*"
+	// 			}
+	// 			,
+	// 			{
+	// 				"name":""//登录账户属性名称
+	// 				,"value":this.entEst.BasicInfo.loginProp
+	// 				,"op":"*"
+	// 			}]
+	// 			);
+	// 	}
 
-		checkList = checkList.concat([
-			{
-				"name":""//可创建浮动IP数量
-				,"value":this.entEst.ResourceQuota.floatIpQuota
-				,"op":"*"
-			},
-			{
-				"name":""//可创建镜像数量
-				,"value":this.entEst.ResourceQuota.imageQuota
-				,"op":"*"
-			},
-			{
-				"name":""//可用内存数量
-				,"value":this.entEst.ResourceQuota.memroyQuota
-				,"op":"*"
-			},
-			{
-				"name":""//可创建物理机数量
-				,"value":this.entEst.ResourceQuota.physicalQuota
-				,"op":"*"
-			},
-			{
-				"name":""//可创建快照数量
-				,"value":this.entEst.ResourceQuota.snapShotQuota
-				,"op":"*"
-			},
-			{
-				"name":""//可用存储额度
-				,"value":this.entEst.ResourceQuota.storageQuota
-				,"op":"*"
-			},
-			{
-				"name":""//可使用vCPU数量
-				,"value":this.entEst.ResourceQuota.vcpuQuota
-				,"op":"*"
-			}]);
+	// 	checkList = checkList.concat([
+	// 		{
+	// 			"name":""//可创建浮动IP数量
+	// 			,"value":this.entEst.ResourceQuota.floatIpQuota
+	// 			,"op":"*"
+	// 		},
+	// 		{
+	// 			"name":""//可创建镜像数量
+	// 			,"value":this.entEst.ResourceQuota.imageQuota
+	// 			,"op":"*"
+	// 		},
+	// 		{
+	// 			"name":""//可用内存数量
+	// 			,"value":this.entEst.ResourceQuota.memroyQuota
+	// 			,"op":"*"
+	// 		},
+	// 		{
+	// 			"name":""//可创建物理机数量
+	// 			,"value":this.entEst.ResourceQuota.physicalQuota
+	// 			,"op":"*"
+	// 		},
+	// 		{
+	// 			"name":""//可创建快照数量
+	// 			,"value":this.entEst.ResourceQuota.snapShotQuota
+	// 			,"op":"*"
+	// 		},
+	// 		{
+	// 			"name":""//可用存储额度
+	// 			,"value":this.entEst.ResourceQuota.storageQuota
+	// 			,"op":"*"
+	// 		},
+	// 		{
+	// 			"name":""//可使用vCPU数量
+	// 			,"value":this.entEst.ResourceQuota.vcpuQuota
+	// 			,"op":"*"
+	// 		}]);
 
-		let notValid = checkList.find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
+    //     alert(this.entEst.ResourceQuota.floatIpQuota);
+	// 	let notValid = checkList.find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
 
-		if(notValid !== void 0)
-		{
-			this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
-			return false;
-		}
+	// 	if(notValid !== void 0)
+	// 	{
+	// 		this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
+	// 		return false;
+	// 	}
 
-		if(_.isEmpty(this.entEst.BasicInfo.platformIds))
-		{
-			this.showMsg('ENT_MNG.SELECT_PLATFORM');
-			return false;
-		}
-
-
-		return true;
-	}
-
-   //非负整数验证
-	validateInterger(){
-		let checkList:Array<any>=[];
-
-		checkList = checkList.concat([
-			{
-				"name":""//可创建浮动IP数量
-				,"value":this.entEst.ResourceQuota.floatIpQuota
-				,"op":"integer"
-			},
-			{
-				"name":""//可创建镜像数量
-				,"value":this.entEst.ResourceQuota.imageQuota
-				,"op":"integer"
-			},
-			{
-				"name":""//可用内存数量
-				,"value":this.entEst.ResourceQuota.memroyQuota
-				,"op":"integer"
-			},
-			{
-				"name":""//可创建物理机数量
-				,"value":this.entEst.ResourceQuota.physicalQuota
-				,"op":"integer"
-			},
-			{
-				"name":""//可创建快照数量
-				,"value":this.entEst.ResourceQuota.snapShotQuota
-				,"op":"integer"
-			},
-			{
-				"name":""//可用存储额度
-				,"value":this.entEst.ResourceQuota.storageQuota
-				,"op":"integer"
-			},
-			{
-				"name":""//可使用vCPU数量
-				,"value":this.entEst.ResourceQuota.vcpuQuota
-				,"op":"integer"
-			}]);
-
-		let notValid = checkList.find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
-
-		if(notValid !== void 0)
-		{
-			this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
-			return false;
-		}
-
-		if(_.isEmpty(this.entEst.BasicInfo.platformIds))
-		{
-			this.showMsg('ENT_MNG.SELECT_PLATFORM');
-			return false;
-		}
+	// 	if(_.isEmpty(this.entEst.BasicInfo.platformIds))
+	// 	{
+	// 		this.showMsg('ENT_MNG.SELECT_PLATFORM');
+	// 		return false;
+	// 	}
 
 
-		return true;
-	}
+	// 	return true;
+	// }
+
+  outputValue(e,name){
+	  if(name=='vcpuQuota'){
+		  this.entEst.ResourceQuota.vcpuQuota=e;
+	  }
+	   if(name=='memroyQuota'){
+		  this.entEst.ResourceQuota.memroyQuota=e;
+	  }
+	   if(name=='physicalQuota'){
+		  this.entEst.ResourceQuota.physicalQuota=e;
+	  }
+	   if(name=='storageQuota'){
+		  this.entEst.ResourceQuota.storageQuota=e;
+	  }
+	   if(name=='snapShotQuota'){
+		  this.entEst.ResourceQuota.snapShotQuota=e;
+	  }
+	   if(name=='imageQuota'){
+		  this.entEst.ResourceQuota.imageQuota=e;
+	  }
+	   if(name=='floatIpQuota'){
+		  this.entEst.ResourceQuota.floatIpQuota=e;
+	  }
+    console.log(e);
+}
+//    //非负整数验证
+// 	validateInterger(){
+// 		let checkList:Array<any>=[];
+
+// 		checkList = checkList.concat([
+// 			{
+// 				"name":"可创建浮动IP数量"//可创建浮动IP数量
+// 				,"value":this.entEst.ResourceQuota.floatIpQuota
+// 				,"op":"integer"
+// 			},
+// 			{
+// 				"name":"可创建镜像数量"//可创建镜像数量
+// 				,"value":this.entEst.ResourceQuota.imageQuota
+// 				,"op":"integer"
+// 			},
+// 			{
+// 				"name":"可使用内存数量"//可用内存数量
+// 				,"value":this.entEst.ResourceQuota.memroyQuota
+// 				,"op":"integer"
+// 			},
+// 			{
+// 				"name":"可创建物理机数量"//可创建物理机数量
+// 				,"value":this.entEst.ResourceQuota.physicalQuota
+// 				,"op":"integer"
+// 			},
+// 			{
+// 				"name":"可创建快照数量"//可创建快照数量
+// 				,"value":this.entEst.ResourceQuota.snapShotQuota
+// 				,"op":"integer"
+// 			},
+// 			{
+// 				"name":"可使用存储额度"//可用存储额度
+// 				,"value":this.entEst.ResourceQuota.storageQuota
+// 				,"op":"integer"
+// 			},
+// 			{
+// 				"name":"可使用vCPU数量"//可使用vCPU数量
+// 				,"value":this.entEst.ResourceQuota.vcpuQuota
+// 				,"op":"integer"
+// 			}]);
+
+// 		let notValid = checkList.find(n=>this.service.validate(n.name, n.value, n.op) !== undefined)
+
+// 		if(notValid !== void 0)
+// 		{
+// 			this.showMsg(this.service.validate(notValid.name, notValid.value, notValid.op));
+// 			return false;
+// 		}
+
+// 		if(_.isEmpty(this.entEst.BasicInfo.platformIds))
+// 		{
+// 			this.showMsg('ENT_MNG.SELECT_PLATFORM');
+// 			return false;
+// 		}
+
+
+// 		return true;
+// 	}
    
 	showMsg(msg: string)
 	{
@@ -273,11 +298,14 @@ export class EntEstCreComponent implements OnInit{
 	create(){
 		this.entEst.BasicInfo.platformIds
 			= this.resourceQuotas.items.filter(n=>n.checked).map(n=>n.platformId);
-		if(this.validate())
-		{
+		    if(this.entEst.BasicInfo.platformIds.length==0||this.entEst.BasicInfo.platformIds==null){
+				this.showMsg("请选择平台配额!");
+				return;
+			}
+				
 			if(this.isSameName!=1){
 				this.showMsg("该用户已存在！");
-			}else if(this.validateInterger()){
+			}else if(this.validateMaxPlatform()){
 				this.layoutService.show();
 				this.service.createEnterpise(this.entEst).then(ret=>{
 				this.layoutService.hide();
@@ -288,11 +316,36 @@ export class EntEstCreComponent implements OnInit{
 				console.log('创建企业失败', err);
 				this.notice.open("COMMON.PROMPT", "ENT_MNG.FAIL_TO_CREATE_ENTERPRISE");
 			})
-			}	
 		}
 	
 	}
 
+   //
+   validateMaxPlatform(){
+	    let totalVcpu:number=0;
+		let totalMemory :number=0;
+		let totalStorageQuota:number=0;
+	
+		for(let item of this.resourceQuotas.items){
+			if(item.checked){
+				totalVcpu+=item.cpu;
+				totalMemory+=item.memory;
+				totalStorageQuota+=item.storageQuota;
+			}
+		}
+		if(this.entEst.ResourceQuota.vcpuQuota>totalVcpu){
+			this.showMsg("vCPU数量不能大于可分配vCPU数量！");
+			return false;
+		}else if(this.entEst.ResourceQuota.memroyQuota>totalMemory){
+			this.showMsg( "可使用内存数量不能大于可分配内存！");
+			return false;
+		}else if(this.entEst.ResourceQuota.storageQuota>totalStorageQuota){
+			this.showMsg("可使用存储额度不能大于可分配存储！");
+			return false;
+		}
+		return true;
+
+   }
 	cancel(){
 		this.returnToList();
 	}
@@ -398,4 +451,6 @@ export class EntEstCreComponent implements OnInit{
 return(){
     this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
   }
+
+ 
 }
