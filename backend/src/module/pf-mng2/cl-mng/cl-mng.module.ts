@@ -29,6 +29,13 @@ import { ClMngCreStep5Component } from './component/cl-mng-cre-step-5.component'
 
 import { ClMngCreStep6Component } from './component/cl-mng-cre-step-6.component';
 
+//desktop cloud
+ import { DeskCloudCreStep2Component } from './component/desk-cloud-cre-step2.component';
+
+ import { DeskCloudCreStep3Component } from './component/desk-cloud-cre-step3.component';
+
+ import { DeskCloudCreStep4Component } from './component/desk-cloud-cre-step4.component';
+
 
 // Routing
 import { ClMngRouting } from './cl-mng.routing';
@@ -76,7 +83,10 @@ import { BootDiskService } from './service/platform-mng-bootDisk.service';
         ClMngCreStep6Component,
         bootDiskMngComponent,
         bootDiskCreEditComponent,
-        CloudHostSpecComponent,        
+        CloudHostSpecComponent,
+        DeskCloudCreStep2Component,
+        DeskCloudCreStep3Component,
+        DeskCloudCreStep4Component        
     ],
     exports: [
     ],
