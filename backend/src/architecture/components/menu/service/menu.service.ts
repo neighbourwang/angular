@@ -149,6 +149,13 @@ export class MenuService {
 							"isShow": !isRoot,
 							"routing": "mtc-center/case-mng/case-list"
 						},
+                        {
+                            "label": "管理服务",
+                            "isOpen": false,
+                            "isActive": false,
+                            "isShow": !isRoot,
+                            "routing": "mtc-center/mng-service/mng-service-list"
+                        },
 					]
 				},
 				{
