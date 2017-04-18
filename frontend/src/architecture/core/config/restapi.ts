@@ -925,14 +925,14 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/alicloud/mmp/main/testacct"
     },
     {
-        "desc": "更新主账号信息",
-        "id": "user-center.ali-cloud.updateInfo",
+        "desc": "编辑保存主账号信息",
+        "id": "user-center.ali-cloud.edit",
         "method": "POST",
         "url": "marketplace/authsec/alicloud/mmp/main/update/{id}"
     },
     {
-        "desc": "编辑保存主账号",
-        "id": "user-center.ali-cloud.edit",
+        "desc": "编辑保存主账号部门分配",
+        "id": "user-center.ali-cloud.editdepart",
         "method": "POST",
         "url": "marketplace/authsec/alicloud/mmp/main/depart/update/{id}"
     },
@@ -984,6 +984,12 @@ export let RestApis: RestApiModel[] = [
         "id": "user-center.ali-cloud.delete",
         "method": "POST",
         "url": "marketplace/authsec/alicloud/mmp/sub/acct/delete/{id}"
+    },
+    {
+        "desc": "创建子账号",
+        "id": "user-center.ali-cloud.create",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/create"
     },
     // 阿里云共享账号管理
     {
