@@ -11,11 +11,11 @@ export class orderVmPageModel {
     selectedChargeType: string = "PostPaid";//===收费方式:PostPaid,按量付费,PrePaid,包年包月
 
     selectedNetworkType: string = "vpc"; //==='classic' 表示经典网络，'vpc'表示专有网络
-    AllocatePublicIP: boolean = false; //===经典网络时，显示带宽供选择
+    //AllocatePublicIP: boolean = false; //===经典网络时，显示带宽供选择
     selectedVpcId: string = null;
     selectedVswitchId: string = null;
 
-    selectedInternetChargeType: string = null; //===经典网络时，带宽默认是按量方式    
+    selectedInternetChargeType: string = "PayByBandwidth"; //===经典网络时，带宽默认是按量方式    
     selectedInternetMaxBandwidthIn = null;
     selectedInternetMaxBandwidthOut = null;//===
     

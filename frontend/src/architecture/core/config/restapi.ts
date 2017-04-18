@@ -222,6 +222,32 @@ export let RestApis: RestApiModel[] = [
         "id": "disk.vm.search",
         "url": "marketplace/authsec/subinstance/itemlist/vm/simple/search/page"
     },
+    //物理机部分,
+    {
+        "desc": "获取区域列表",
+        "method": "GET",
+        "id": "basis.regions",
+        "url": "basis/authsec/regions"
+    },
+    {
+        "desc": "按条件查询匹配的物理机信息",
+        "method": "POST",
+        "id": "post.pmlist.detail",
+        "url": "pmresourcemgmt/noauth/pmmgmt/order/pmlist"
+    },
+    {
+        "desc": "根据区域得到相关的资源池列表",
+        "method": "GET",
+        "id": "region.pmpool.list",
+        "url": "pmresourcemgmt/noauth/pmmgmt/order/pmpool/{regionId}/list"
+    },
+    {
+        "desc": "根据pmImagePoolId显示资源池的分配信息",
+        "method": "GET",
+        "id": "pmPoolId.image.list",
+        "url": "pmimagemgmt/noauth/pmimage/image/listbype/{pmPoolId}/{enterpriseId}"
+    },
+
     //镜像管理部分
     {
         "desc": "创建镜像",
