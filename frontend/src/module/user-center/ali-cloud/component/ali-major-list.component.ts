@@ -47,6 +47,7 @@ export class AliMajorListComponent implements OnInit{
     id: string;
     departs: Array<DepartList>;
     selectedDepartment: string;
+    selectedDepartmentId: string;
 
 
     ngOnInit (){
@@ -63,26 +64,6 @@ export class AliMajorListComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         this.data = response["resultContent"];
                         console.log(this.data,"this.data");
-                    } else {
-                        this.showAlert("COMMON.OPERATION_ERROR");
-                    }
-                }
-            )
-            .catch((e) => this.onRejected(e));
-    }
-
-    editPage(item){
-        this.type= "edit";
-        this.id= item.id;
-        this.layoutService.show();
-        this.service.updateInfo(this.id)
-            .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.majorInfo = response["resultContent"];
-                        this.majorMng.open("编辑登录信息");
-                        console.log("editInfo",this.majorInfo);
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -111,9 +92,29 @@ export class AliMajorListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
+    editPage(item){
+        this.type= "edit";
+        this.id= item.id;
+        this.layoutService.show();
+        this.service.getDetail(this.id)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.majorInfo = response["resultContent"];
+                        this.majorMng.open("编辑登录信息");
+                        console.log("editInfo",this.majorInfo);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
     testMajor(){
         this.layoutService.show();
-        this.service.testMajor()
+        this.service.testMajor(this.majorInfo)
             .then(
                 response => {
                     this.layoutService.hide();
@@ -153,6 +154,7 @@ export class AliMajorListComponent implements OnInit{
         });
         item.selected= true;
         this.selectedDepartment= item.departmentName;
+        this.selectedDepartmentId= item.id;
     }
 
     reset(){
@@ -171,7 +173,7 @@ export class AliMajorListComponent implements OnInit{
             this.majorMng.close();
         }else if(this.type== "edit"){
             this.layoutService.show();
-            this.service.edit(this.id)
+            this.service.edit(this.id, this.majorInfo)
                 .then(
                     response => {
                         this.layoutService.hide();
@@ -185,7 +187,20 @@ export class AliMajorListComponent implements OnInit{
                 )
                 .catch((e) => this.onRejected(e));
         }else{
-
+            this.layoutService.show();
+            this.service.editDepart(this.selectedDepartmentId)
+                .then(
+                    response => {
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            this.getData();
+                            this.distriDepart.close();
+                        }else {
+                            this.showAlert("COMMON.OPERATION_ERROR");
+                        }
+                    }
+                )
+                .catch((e) => this.onRejected(e));
         }
     }
 

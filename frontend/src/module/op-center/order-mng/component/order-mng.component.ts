@@ -127,9 +127,40 @@ export class OrderMngComponent implements OnInit {
 						obj.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
 					}
 				}
+
+				
+				// if(item.hisOrderList&&item.hisOrderList.itemList&&item.hisOrderList.itemList[0].specList){
+				// 	for(let hisItem of item.hisOrderList){
+				// 		let getProperty = _.property("attrDisplayValue");
+				// 	 if(hisItem.productType==0){
+				// 		hisItem.instanceName = getProperty(item.hisOrderList[0].itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+				// 	}else{
+				// 		obj.hisOrderList[0].instanceName = getProperty(item.hisOrderList[0].itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
+				// 	}
+				// 	}
+					
+				// }
 			}
 		};
-
+		this._orderDetailLoader.Trait = (target:Array<OrderDetailItem>)=>{
+			//匹配历史信息
+			for(let item of target ){
+				if(item.hisOrderList){
+					for(let hisItem of item.hisOrderList){
+						// item.hisOrderList[0].type=0;
+						// item.hisOrderList[1].type=0;0是订购单
+						let getProperty = _.property("attrDisplayValue");
+						if(hisItem.specList){
+							 if(hisItem.productType==0){
+								hisItem.instanceName = getProperty(hisItem.specList.find(n=>n.attrCode == 'INSTANCENAME'));
+							}else{
+								hisItem.instanceName = getProperty(hisItem.specList.find(n=>n.attrCode == 'DISKINSNAME'));
+							}
+						}
+					}
+				}
+			}
+		}
 
 		this._orderDetailLoader.FirstItem = new OrderDetailItem();
 

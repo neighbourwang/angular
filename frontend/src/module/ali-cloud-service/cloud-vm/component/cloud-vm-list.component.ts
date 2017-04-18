@@ -43,6 +43,12 @@ export class AliCloudVmListComponent implements OnInit {
     @ViewChild("confirm")
     confirm: ConfirmComponent;
 
+    @ViewChild("allocateIP")
+    allocateIP: PopupComponent;
+    
+    @ViewChild("unAllocateIP")
+    unAllocateIP: PopupComponent;
+
     noticeTitle = "";
     noticeMsg = "";
 
@@ -250,7 +256,31 @@ export class AliCloudVmListComponent implements OnInit {
     }
 
     reStartInstance() {
-
+        this.selectedInstance = this.getSelected();
+        if (this.selectedInstance) {
+            this.confirmTitle = "重启实例";
+            this.confirmMsg = "重启实例：" + this.selectedInstance.InstanceId;
+            this.confirm.cof = () => { };
+            this.confirm.ccf = () => {
+                this.layoutService.show();
+                this.service.stopInstance(this.selectedInstance)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showAlert("重启实例成功！");
+                        this.selectRegion(this.choosenRegion);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                })
+                .catch((e) => this.onRejected(e));
+            }
+            this.confirm.open();
+        } else {
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return;
+        }
     }
 
     attachIPToInstance() {

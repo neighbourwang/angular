@@ -876,6 +876,24 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/stopinstance/instanceid/{instanceid}"
     },
+    { //重启阿里云主机
+        "desc": "Reboot alicloud Instance",
+        "id": "al-cloud.cloud-vm.instance.reboot",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/rebootinstance/instanceid/{instanceid}/operation/{forcereboot}"
+    },
+    { //获取浮动IP地址
+        "desc": "Get floating ip list",
+        "id": "al-cloud.cloud-vm.instance.floating.ips.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeeipaddresses/regionid/{regionid}"
+    },
+    { //分配IP地址给云主机
+        "desc": "Allocation alicloud ip addresss with instance",
+        "id": "al-cloud.cloud-vm.instance.ip.allocate",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/associateeipaddress/instanceid/{instanceid}/allocationid/{allocationid}"
+    },
     { //获取阿里云主机列表
         "desc": "query instance",
         "id": "al-cloud.cloud-vm.instance.list",
@@ -951,14 +969,14 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/alicloud/mmp/main/testacct"
     },
     {
-        "desc": "更新主账号信息",
-        "id": "user-center.ali-cloud.updateInfo",
+        "desc": "编辑保存主账号信息",
+        "id": "user-center.ali-cloud.edit",
         "method": "POST",
         "url": "marketplace/authsec/alicloud/mmp/main/update/{id}"
     },
     {
-        "desc": "编辑保存主账号",
-        "id": "user-center.ali-cloud.edit",
+        "desc": "编辑保存主账号部门分配",
+        "id": "user-center.ali-cloud.editdepart",
         "method": "POST",
         "url": "marketplace/authsec/alicloud/mmp/main/depart/update/{id}"
     },
@@ -1010,6 +1028,12 @@ export let RestApis: RestApiModel[] = [
         "id": "user-center.ali-cloud.delete",
         "method": "POST",
         "url": "marketplace/authsec/alicloud/mmp/sub/acct/delete/{id}"
+    },
+    {
+        "desc": "创建子账号",
+        "id": "user-center.ali-cloud.create",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/create"
     },
     // 阿里云共享账号管理
     {
