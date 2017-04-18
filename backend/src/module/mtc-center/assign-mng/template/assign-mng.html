@@ -23,7 +23,7 @@
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.PLATFORM'|translate}}：</div><!--平台-->
         <div class="col-md-2">
-            <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion">
+            <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion;selectedZone=defaultZone">
                 <option [ngValue]="defaultPlf">{{'ASSIGN_MNG.ALL_PLATFORMS'|translate}}</option><!--所有平台-->
                 <option *ngFor="let plf of plfList" [ngValue]="plf" >{{plf.platformName}}</option>
             </select>
