@@ -91,7 +91,7 @@
                 -->
             </td>
             <td class="text-center">{{instance.ZoneId}}</td>
-            <td class="text-left"><span style="display: block">内网IP：{{instance.InnerIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.PublicIpAddress.IpAddress[0]}}</span></td>
+            <td class="text-left"><span style="display: block">内网IP：{{instance.InnerIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.EipAddress.IpAddress}}</span></td>
             <td class="text-center">{{instance.InstanceNetworkType}}</td>
             <td class="text-center">{{instance.Status}}</td>
             <td class="text-left"><span style="display: block">CPU: {{instance.Cpu}}核</span><span>内存：{{instance.Memory}} MB (I/O优化)</span></td>
@@ -101,7 +101,7 @@
                 <span *ngIf="instance.Status!='Stopped'" class="icon_style icon-stop" (click)="selectItem(i); stopInstance();" name="stopvm"></span>
                 <span class="icon_style icon-reboot" (click)="selectItem(i); reStartInstance();" name="restartvm"></span>
                 <span *ngIf="true" class="icon_style icon-IPlock" (click)="selectItem(i); attachIPToInstance();" name="attachIP"></span>
-                <span *ngIf="false" class="icon_style icon-IPrelease" (click)="selectItem(i); detachIPToInstance();" name="detachIP"></span>
+                <span *ngIf="true" class="icon_style icon-IPrelease" (click)="selectItem(i); detachIPToInstance();" name="detachIP"></span>
                 <span class="icon_style icon-remotelink" (click)="selectItem(i); remoteToInstance();" name="remotevm"></span>
                 <span class="icon_style icon-ali-delete3" (click)="selectItem(i); deleteInstance();" name="deletevm"></span>
             </td>
@@ -120,7 +120,7 @@
             <div class="form-group">
 
                 <div class="col-sm-12">
-                    <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>云主机实例：</div>
+                    <div class="col-sm-5 form-control-title">云主机实例：</div>
                     <div class="col-sm-6">{{selectedInstance.InstanceId}}</div>
                 </div>
 
@@ -145,7 +145,7 @@
             <div class="form-group">
 
                 <div class="col-sm-12">
-                    <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>云主机实例：</div>
+                    <div class="col-sm-5 form-control-title">云主机实例：</div>
                     <div class="col-sm-6">{{selectedInstance.InstanceId}}</div>
                 </div>
 

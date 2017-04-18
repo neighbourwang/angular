@@ -819,7 +819,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "Get cloud disk price",
         "id": "al-cloud.cloud-disk.price.get",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/price/disk"
+        "url": "alicloud/noauth/alicloud/price/disk"
     },
     { //订购阿里云硬盘
         "desc": "create alicloud disk",
@@ -894,6 +894,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/associateeipaddress/instanceid/{instanceid}/allocationid/{allocationid}"
     },
+    { //从云主机解绑IP地址
+        "desc": "Unassociate public ip addresss",
+        "id": "al-cloud.cloud-vm.instance.ip.unallocate",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/unassociateeipaddress"
+    },
     { //获取阿里云主机列表
         "desc": "query instance",
         "id": "al-cloud.cloud-vm.instance.list",
@@ -946,7 +952,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "Get instance price",
         "id": "al-cloud.cloud-vm.price.get",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/price"
+        "url": "alicloud/noauth/alicloud/price"
     },
 
     // 阿里云主账号管理

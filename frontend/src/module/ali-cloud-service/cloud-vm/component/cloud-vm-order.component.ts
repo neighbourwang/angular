@@ -1274,7 +1274,14 @@ export class AliCloudVmOrderComponent implements OnInit {
                     }
                     );
                 } else {
-                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                        console.log(result, "result!");
+                    } catch (ex) {
+                        console.log(ex);
+                    };
+                    this.showMsg(result.Message);
                     return;
                 }
             })
