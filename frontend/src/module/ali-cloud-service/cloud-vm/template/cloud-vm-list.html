@@ -1,6 +1,9 @@
 <div class="page-content  cloud_host_order cloud_drive_order">
     <h1 class="page-content-header">阿里云主机实例列表</h1>
 
+
+    {{queryObject.toString()}}<br />
+
     <ul class="page-box" style="margin: 20px 0px;">
         <li>
             <div class="col-md-1 li-title" style="background: #f7f7f7; border-right: 1px solid #ddd; height: 100%">
@@ -20,19 +23,30 @@
 
     <div class="col-md-12 no-padding mgb20">
         <div class="dropdown float-left mgr10">
-            <select [(ngModel)]="listqueryField" class="form-control">
-				<option>实例名称</option>
-				<option>即将到期</option>
+            <select [(ngModel)]="queryObject.criteria" class="form-control">
+				<option value="instance_name">实例名称</option>
+                <option value="instance_ids">实例IDs</option>
+                <option value="private_ips">私网IPs</option>
+                <option value="inner_ips">内网IPs</option>
+                <option value="public_ips">外网IPs</option>
+                <!--<option value="expire">即将到期</option>-->
+                <!--
+                <option value="image_id">镜像ID</option>
+                <option value="securitygroup_id">安全组ID</option>
+                <option value="instance_type">实例规格</option>
+                <option value="vpc_id">专有网络ID</option>
+				<option value="vswitch_id">虚拟交换机ID</option>
+                -->
 			</select>
         </div>
 
         <div class="input-group col-md-2 float-left mgr10">
-            <input type="text" class="form-control" [(ngModel)]="phynet_create" style="display: inline" />
-            <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
+            <input type="text" class="form-control" [(ngModel)]="queryObject.keyword" style="display: inline" />
+            <div class="input-group-addon" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
         </div>
 
         <div class="input-group float-left">
-            <button class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
+            <button class="btn button-gray-gradient" (click)="search();"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
         </div>
 
         <div class="dropdown float-right">
@@ -42,11 +56,13 @@
 			<span class="caret"></span>
 			</button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <!--
                 <li><a href="javascript:" (click)="startInstance();">启动</a></li>
                 <li><a href="javascript:" (click)="stopInstance();">停止</a></li>
-                <li><a href="javascript:">重启</a></li>
-                <li><a href="javascript:">绑定弹性IP</a></li>
+                <li><a href="javascript:" (click)="reStartInstance();">重启</a></li>
+                <li><a href="javascript:" (click)="attachIPToInstance();">绑定弹性IP</a></li>
                 <li><a href="javascript:">远程连接</a></li>
+                -->
                 <li><a href="javascript:" (click)="deleteInstance();">释放实例</a></li>
             </ul>
         </div>
@@ -94,5 +110,32 @@
     <fc-pagination tp={{totalPage}} (pf)="getInstanceList($event)"></fc-pagination>
     <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
 </div>
-<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
+<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{modalOKTitle}}" ct="{{modalCancelTitle}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{modalOKTitle}}" (of)="okClicked(0)"></fc-notice>
+
+<!--
+<fc-popup #allocateIP ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'USER_CENTER.DELETE_MSG' | translate}}" (of)="acceptDeleteMsgModify()" (cf)="cancelDeleteMsgModify()">
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <i class="glyphicon glyphicon-trash"></i> {{'USER_CENTER.DELETE_MSG_CONFIRM' | translate:{value_1: ( selectedmsglist.length )} }}
+                </div>
+            </div>
+        </div>
+    </div>
+</fc-popup>
+
+<fc-popup #unAllocateIP ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'USER_CENTER.DELETE_MSG' | translate}}" (of)="acceptDeleteMsgModify()" (cf)="cancelDeleteMsgModify()">
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <i class="glyphicon glyphicon-trash"></i> {{'USER_CENTER.DELETE_MSG_CONFIRM' | translate:{value_1: ( selectedmsglist.length )} }}
+                </div>
+            </div>
+        </div>
+    </div>
+</fc-popup>
+
+-->

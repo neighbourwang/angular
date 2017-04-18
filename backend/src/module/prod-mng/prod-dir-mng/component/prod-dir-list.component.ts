@@ -311,7 +311,7 @@ export class ProdDirListComponent implements OnInit {
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre",{type:'new'}]);
         }else if(this.prodDirTypeId == '2adcbb9a-1d96-11e7-91af-0242ac110002'){
             //物理机
-            this.router.navigate(["prod-mng/prod-dir-mng/prod-dirPhsical-cre",{type:'new'}]);            
+            this.router.navigate(["prod-mng/physical-prod-mng/prod-dirPhsical-cre",{type:'new'}]);            
         }
 
     }

@@ -211,37 +211,37 @@ export class EntEstCreComponent implements OnInit{
 
 		checkList = checkList.concat([
 			{
-				"name":""//可创建浮动IP数量
+				"name":"可创建浮动IP数量"//可创建浮动IP数量
 				,"value":this.entEst.ResourceQuota.floatIpQuota
 				,"op":"integer"
 			},
 			{
-				"name":""//可创建镜像数量
+				"name":"可创建镜像数量"//可创建镜像数量
 				,"value":this.entEst.ResourceQuota.imageQuota
 				,"op":"integer"
 			},
 			{
-				"name":""//可用内存数量
+				"name":"可使用内存数量"//可用内存数量
 				,"value":this.entEst.ResourceQuota.memroyQuota
 				,"op":"integer"
 			},
 			{
-				"name":""//可创建物理机数量
+				"name":"可创建物理机数量"//可创建物理机数量
 				,"value":this.entEst.ResourceQuota.physicalQuota
 				,"op":"integer"
 			},
 			{
-				"name":""//可创建快照数量
+				"name":"可创建快照数量"//可创建快照数量
 				,"value":this.entEst.ResourceQuota.snapShotQuota
 				,"op":"integer"
 			},
 			{
-				"name":""//可用存储额度
+				"name":"可使用存储额度"//可用存储额度
 				,"value":this.entEst.ResourceQuota.storageQuota
 				,"op":"integer"
 			},
 			{
-				"name":""//可使用vCPU数量
+				"name":"可使用vCPU数量"//可使用vCPU数量
 				,"value":this.entEst.ResourceQuota.vcpuQuota
 				,"op":"integer"
 			}]);
@@ -273,11 +273,12 @@ export class EntEstCreComponent implements OnInit{
 	create(){
 		this.entEst.BasicInfo.platformIds
 			= this.resourceQuotas.items.filter(n=>n.checked).map(n=>n.platformId);
+		
 		if(this.validate())
 		{
 			if(this.isSameName!=1){
 				this.showMsg("该用户已存在！");
-			}else if(this.validateInterger()){
+			}else if(this.validateInterger()&&this.validateMaxPlatform()){
 				this.layoutService.show();
 				this.service.createEnterpise(this.entEst).then(ret=>{
 				this.layoutService.hide();
@@ -293,6 +294,31 @@ export class EntEstCreComponent implements OnInit{
 	
 	}
 
+   //
+   validateMaxPlatform(){
+	    let totalVcpu:number=0;
+		let totalMemory :number=0;
+		let totalStorageQuota:number=0;
+		for(let item of this.resourceQuotas.items){
+			if(item.checked){
+				totalVcpu+=item.cpu;
+				totalMemory+=item.memory;
+				totalStorageQuota+=item.storageQuota;
+			}
+		}
+		if(this.entEst.ResourceQuota.vcpuQuota>totalVcpu){
+			this.showMsg("vCPU数量不能大于可分配vCPU数量！");
+			return false;
+		}else if(this.entEst.ResourceQuota.memroyQuota>totalMemory){
+			this.showMsg( "可使用内存数量不能大于可分配内存！");
+			return false;
+		}else if(this.entEst.ResourceQuota.storageQuota>totalStorageQuota){
+			this.showMsg("可使用存储额度不能大于可分配存储！");
+			return false;
+		}
+		return true;
+
+   }
 	cancel(){
 		this.returnToList();
 	}
@@ -398,4 +424,6 @@ export class EntEstCreComponent implements OnInit{
 return(){
     this.router.navigateByUrl('ent-mng/ent-est-mng/ent-est-mng');
   }
+
+ 
 }

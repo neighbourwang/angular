@@ -21,11 +21,11 @@ import { Component, Input, Output, OnInit, ElementRef, ViewChild, OnChanges, tri
                     </div>
                     <div *ngIf="display" >
                         <div  class="row navigator-progress">
-                            <div class="col-md-2 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}<!--基本信息--></span></div>
-                            <div class="col-md-2"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}<!--资源同步--></span></div>
-                            <div class="col-md-2"><span class="mark">3</span><span>{{"PF_MNG2.AVAILABLE_ZONE_CONFIGURATION" | translate}}</span></div>
-                            <div class="col-md-2"><span class="mark">4</span><span>{{"PF_MNG2.STORAGE_CONFIGURATION" | translate}}</span></div>
-                            <div class="col-md-2"><span class="mark">5</span><span>{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</span></div>
+                            <div class="col-md-2 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}<!--基本信息--></span><span *ngIf="step==2" class="icon-tick"></span></div>
+                            <div class="col-md-2"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}<!--资源同步--></span><span *ngIf="step==3" class="icon-tick"></span></div>
+                            <div class="col-md-2"><span class="mark">3</span><span>{{"PF_MNG2.AVAILABLE_ZONE_CONFIGURATION" | translate}}</span><span *ngIf="step==4" class="icon-tick"></span></div>
+                            <div class="col-md-2"><span class="mark">4</span><span>{{"PF_MNG2.STORAGE_CONFIGURATION" | translate}}</span><span *ngIf="step==5" class="icon-tick"></span></div>
+                            <div class="col-md-2"><span class="mark">5</span><span>{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</span><span *ngIf="step==6" class="icon-tick"></span></div>
                             <div class="col-md-2"><span class="mark">6</span><span>{{"PF_MNG2.IMAGE_CONFIGURATION" | translate}}</span></div>
                         </div>
                         <div class="step-progress">
@@ -56,6 +56,7 @@ export class ProgressBarComponent implements OnInit, OnChanges {
 
     }
     @Input() state: string = "6"; //状态
+    @Input() step: number ; //步骤
     @ViewChild('el') el: ElementRef;    
     ngOnInit() { }
     display:boolean=true;

@@ -127,3 +127,40 @@ export class diskOrderModel {
     size: string = "";
     snapshotId: string = "";
 }
+
+export class accessinfoModel {
+    accessId: string = null;
+    accessSecret: string = null;
+}
+
+export class conditionModel {
+    category: string = null;
+    deleteAutoSnapshot: string = null;
+    deleteWithInstance: string = null;
+    diskChargeType: string = null;
+    diskIds: Array<string> = null;
+    diskName: string = null;
+    diskType: string = null;
+    enableAutoSnapshot: string = null;
+    instanceId: string = null;
+    pageNumber: number = null;
+    pageSize: number = null;
+    portable: string = null;
+    snapshotId: string = null;
+    status: string = null;
+    zoneId: string = null;
+}
+
+export class GetDisksSubmitModel {
+  accessinfo: accessinfoModel = new accessinfoModel();
+  conditionModel: conditionModel = new conditionModel();
+}
+
+export class DiskQueryObject {
+    criteria: string = "disk_name";
+    keyword: string = "";
+
+    toString() {
+        JSON.stringify(this);
+    }
+}
