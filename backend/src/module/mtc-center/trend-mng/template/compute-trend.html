@@ -7,7 +7,7 @@
             <div class="col-md-10" >
                 <div class="col-md-2 form-control-title">{{'TREND_MNG.ANALYSIS_TYPE'|translate}}：</div><!--分析类型-->
                 <div class="col-md-2">
-                    <select class="form-control" [(ngModel)]="queryOpt.queryType"> 
+                    <select class="form-control" [(ngModel)]="queryOpt.queryType" (ngModelChange)="getDefaultflaovarId()"> 
                         <option [value]="1">按CPU</option>  
                         <option [value]="2">按云主机规格</option>  
                         <option [value]="3">按内存</option>                
@@ -77,7 +77,8 @@
         </div>
     </div>
     <div>{{queryOpt.platformId}},{{queryOpt.regionId}},{{queryOpt.zoneId}},{{hostId}}</div>
-    <div>{{queryOpt.powerStatus}},{{queryOpt.flaovarId}},{{queryOpt.period}}</div>
+    <div>{{queryOpt.powerStatus}},{{queryOpt.period}}</div>
+    <div>{{queryOpt.flaovarId}}</div>
     
     <div>
         <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15" (click)="exportCurrent()">{{'ASSIGN_MNG.EXPORT_ALL_DATA'|translate}}</button><!--导出所有数据-->

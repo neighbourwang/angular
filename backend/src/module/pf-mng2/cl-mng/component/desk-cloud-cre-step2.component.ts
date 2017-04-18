@@ -1,6 +1,3 @@
-/**
- * Created by junjie on 16/10/18.
- */
 import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, Params, ActivatedRoute } from '@angular/router';
@@ -14,14 +11,13 @@ import { CreStep2Model } from '../model/cre-step2.model';
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 
 @Component({
-    selector: 'cl-mng-cre-step-2',
-    templateUrl: '../template/cl-mng-cre-step-02.component.html',
+    templateUrl: '../template/desk-cloud-cre-step2.component.html',
     styleUrls: [
     ],
     providers: []
 })
 
-export class ClMngCreStep2Component implements OnInit {
+export class DeskCloudCreStep2Component implements OnInit {
 
     constructor(
         private router: ActivatedRoute,
@@ -44,15 +40,14 @@ export class ClMngCreStep2Component implements OnInit {
         this.router.params.forEach((params: Params) => {
             this.platformType = params['type'];
             console.log(this.platformType);
-        })
-        
+        })        
         this.service.zones(platFormId).then(
             res => {
                 console.log('zone', res);
                 this.creStep2Model.zones = 'ok';
                 this.creStep2Model.zonesStatus = true;
                 this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_COMP_SYNC_STORAGE';
-                this.creStep2Model.percentage = 20;
+                this.creStep2Model.percentage = 33.33;
                 this.storages();
             }
         ).catch(
@@ -61,12 +56,8 @@ export class ClMngCreStep2Component implements OnInit {
                 this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
                 this.creStep2Model.isBack = true;
             }           
-            )
-
-        
+            )        
     }
-
-
     private storages() {
         let platFormId: string = this.idService.getPlatformId();
         this.service.storages(platFormId).then(
@@ -75,22 +66,8 @@ export class ClMngCreStep2Component implements OnInit {
                 this.creStep2Model.storages = 'ok';
                 this.creStep2Model.storagesStatus = true;
                 this.creStep2Model.message = 'PF_MNG2.SYNC_STORAGE_COMP_SYNC_SPEC';
-                this.creStep2Model.percentage = 40;
-                if (this.platformType != '2') {
-                    //openstack 同步规格和volumeType;
-                    this.flavors();                    
-                    this.service.getvolumeType(platFormId);
-                } else {
-                    window.setTimeout(() => {
-                        this.creStep2Model.flavors = 'ok';
-                        this.creStep2Model.flavorsStatus = true;
-                        this.creStep2Model.message = 'PF_MNG2.SYNC_SPEC_COM_SYNC_IMG';
-                        this.creStep2Model.percentage = 60;
-                        this.images();
-
-                    }, 1000)
-
-                }
+                this.creStep2Model.percentage = 66.66;
+                this.hosts();                
             }
         ).catch(
             error => {
@@ -99,65 +76,7 @@ export class ClMngCreStep2Component implements OnInit {
                 this.creStep2Model.isBack = true;
             }
             )
-    }
-
-    private flavors() {
-        let platFormId: string = this.idService.getPlatformId();
-
-        this.service.flavors(platFormId).then(
-            res => {
-                console.log('flavors', res);
-                this.creStep2Model.flavors = 'ok';
-                this.creStep2Model.flavorsStatus = true;
-                this.creStep2Model.message = 'PF_MNG2.SYNC_SPEC_COM_SYNC_IMG';
-                this.creStep2Model.percentage = 60;
-                this.images();
-            }
-        ).catch(
-            error => {
-                this.creStep2Model.flavors = 'fail';
-                this.creStep2Model.message = 'PF_MNG2.SYNC_SPEC_FAILED';
-                this.creStep2Model.isBack = true;
-            }
-            )
-    }
-
-    private images() {
-        let platFormId: string = this.idService.getPlatformId();
-        this.service.getImages(platFormId).then(
-            res => {
-                // console.log(res.resultContent);
-                let data = {
-                    imageList: []
-                }
-                data.imageList = res.resultContent;
-                this.service.postImages(platFormId, data).then(
-                    res => {
-                        console.log(res);
-                        this.creStep2Model.images = 'ok';
-                        this.creStep2Model.imagesStatus = true;
-                        this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_COMP_SYNC_HOST';
-                        this.creStep2Model.percentage = 80;
-                        this.hosts();
-                    }
-                ).catch(
-                    error => {
-                        this.creStep2Model.images = 'fail';
-                        this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_FAILED';
-                        this.creStep2Model.isBack = true;
-                    }
-                    )
-
-            }
-        ).catch(
-            error => {
-                this.creStep2Model.images = 'fail';
-                this.creStep2Model.message = 'PF_MNG2.GET_IMG_FAILED';
-                this.creStep2Model.isBack = true;
-            }
-            )
-    }
-
+    }  
     private hosts() {
         let platFormId: string = this.idService.getPlatformId();
 
@@ -179,10 +98,8 @@ export class ClMngCreStep2Component implements OnInit {
             }
             )
     }
-
-
     next() {
-        this.route.navigate(["pf-mng2/cl-mng/cre-step3", { type: this.platformType }]);
+        this.route.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step2", { type: this.platformType }]);
     }
     cancel() {
         this.route.navigateByUrl("pf-mng2/cl-mng/cl-mng");

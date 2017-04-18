@@ -600,7 +600,9 @@ export class AliCloudVmService {
                 "accessId": this.keysecret.accessId,
                 "accessSecret": this.keysecret.accessSecret
             },
-            "status": ""////////////////////status
+            "pageNumber": "1",
+            "pageSize": "50",
+            "status": "Available"
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.floating.ips.get");

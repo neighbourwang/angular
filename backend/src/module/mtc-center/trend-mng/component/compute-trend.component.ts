@@ -59,13 +59,14 @@ export class ComputeTrendComponent implements OnInit {
     memData: Bar = new Bar();
 
     ngOnInit() {
-        
+        this.queryOpt.queryType = "1";
         this.defaultPlf.platformId = 'all';
         this.defaultRegion.regionId = 'all';
         this.defaultZone.zoneId = 'all';
+        this.queryOpt.flaovarId = '';
         this.getPlfList();
         this.getCloudHostSpec();
-        this.queryOpt.queryType = "1";
+        
         console.log('Dic',this.service.queryTypeDic);
         this.reset();
     }
@@ -163,6 +164,15 @@ export class ComputeTrendComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    getDefaultflaovarId() {
+        if (this.queryOpt.queryType == "2") {
+            this.queryOpt.flaovarId = 'all';
+        }
+        else {
+            this.queryOpt.flaovarId = '';
+        }
+    }
+
     confirm() {
         this.queryOpt.platformId = this.selectedPlf.platformId;
         this.queryOpt.regionId = this.selectedRegion.regionId;
@@ -181,7 +191,7 @@ export class ComputeTrendComponent implements OnInit {
 
         if (this.queryOpt.queryType == "1") {
             this.showType = 1;
-            this.queryOpt.flaovarId = '';
+            
             this.getBasicList();
             this.getCpuData();
 
@@ -199,7 +209,7 @@ export class ComputeTrendComponent implements OnInit {
 
         } else if (this.queryOpt.queryType == "3") {
             this.showType = 3;
-            this.queryOpt.flaovarId = '';
+           
             this.getBasicList();
             this.getMemData();
      
@@ -213,7 +223,7 @@ export class ComputeTrendComponent implements OnInit {
         this.selectedZone = this.defaultZone;
         
         this.queryOpt.powerStatus = '0';
-        this.queryOpt.flaovarId = 'all';
+       // this.queryOpt.flaovarId = 'all';
         this.queryOpt.period = '1';
     }
 
