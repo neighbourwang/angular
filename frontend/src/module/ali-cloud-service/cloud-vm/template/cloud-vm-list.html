@@ -81,7 +81,7 @@
             <th class="text-center">操作</th>
         </tr>
         <tr style="line-height: 65px;" *ngFor="let instance of instances; let i=index;">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list"></td>
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list"> {{(i+1)}}</td>
             <td class="text-center active" style="position: relative;width: 220px;"> {{instance.InstanceId}}
                 <!--<table-edit-name 
 					(nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])" 
@@ -91,7 +91,7 @@
                 -->
             </td>
             <td class="text-center">{{instance.ZoneId}}</td>
-            <td class="text-left"><span style="display: block">内网IP：{{instance.InnerIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.PublicIpAddress.IpAddress[0]}}</span></td>
+            <td class="text-left"><span style="display: block">内网IP：{{instance.InnerIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.EipAddress.IpAddress}}</span></td>
             <td class="text-center">{{instance.InstanceNetworkType}}</td>
             <td class="text-center">{{instance.Status}}</td>
             <td class="text-left"><span style="display: block">CPU: {{instance.Cpu}}核</span><span>内存：{{instance.Memory}} MB (I/O优化)</span></td>
@@ -101,7 +101,7 @@
                 <span *ngIf="instance.Status!='Stopped'" class="icon_style icon-stop" (click)="selectItem(i); stopInstance();" name="stopvm"></span>
                 <span class="icon_style icon-reboot" (click)="selectItem(i); reStartInstance();" name="restartvm"></span>
                 <span *ngIf="true" class="icon_style icon-IPlock" (click)="selectItem(i); attachIPToInstance();" name="attachIP"></span>
-                <span *ngIf="false" class="icon_style icon-IPrelease" (click)="selectItem(i); detachIPToInstance();" name="detachIP"></span>
+                <span *ngIf="true" class="icon_style icon-IPrelease" (click)="selectItem(i); detachIPToInstance();" name="detachIP"></span>
                 <span class="icon_style icon-remotelink" (click)="selectItem(i); remoteToInstance();" name="remotevm"></span>
                 <span class="icon_style icon-ali-delete3" (click)="selectItem(i); deleteInstance();" name="deletevm"></span>
             </td>
@@ -113,29 +113,71 @@
 <fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{modalOKTitle}}" ct="{{modalCancelTitle}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{modalOKTitle}}" (of)="okClicked(0)"></fc-notice>
 
-<!--
-<fc-popup #allocateIP ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'USER_CENTER.DELETE_MSG' | translate}}" (of)="acceptDeleteMsgModify()" (cf)="cancelDeleteMsgModify()">
+
+<fc-popup #allocateip ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="绑定弹性IP" (of)="acceptAttachIPToInstanceModify()" (cf)="cancelAttachIPToInstanceModify()">
     <div class="dialogContent">
         <div class="row row-line-height">
             <div class="form-group">
+
                 <div class="col-sm-12">
-                    <i class="glyphicon glyphicon-trash"></i> {{'USER_CENTER.DELETE_MSG_CONFIRM' | translate:{value_1: ( selectedmsglist.length )} }}
+                    <div class="col-sm-5 form-control-title">云主机实例：</div>
+                    <div class="col-sm-6">{{selectedInstance.InstanceId}}</div>
                 </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>弹性IP：</div>
+                    <div class="col-sm-6">
+                        <select [(ngModel)]="selectedfreeip" (change)="freeIPChanged();">
+                        <option [ngValue]="defaultfreeip">请选择弹性IP</option>
+                        <option *ngFor="let ip of freeips;" [ngValue]="ip">{{ip.IpAddress}}</option>
+                        </select>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </fc-popup>
 
-<fc-popup #unAllocateIP ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'USER_CENTER.DELETE_MSG' | translate}}" (of)="acceptDeleteMsgModify()" (cf)="cancelDeleteMsgModify()">
+<fc-popup #unallocateip ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="解绑弹性IP" (of)="acceptDetachIPToInstanceModify()" (cf)="cancelDetachIPToInstanceModify()">
     <div class="dialogContent">
         <div class="row row-line-height">
             <div class="form-group">
+
                 <div class="col-sm-12">
-                    <i class="glyphicon glyphicon-trash"></i> {{'USER_CENTER.DELETE_MSG_CONFIRM' | translate:{value_1: ( selectedmsglist.length )} }}
+                    <div class="col-sm-5 form-control-title">云主机实例：</div>
+                    <div class="col-sm-6">{{selectedInstance.InstanceId}}</div>
                 </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>弹性IP：</div>
+                    <div class="col-sm-6">
+                        <select [(ngModel)]="selectedvmip" (change)="vmIPChanged();">
+                        <option [ngValue]="defaultvmip">请选择弹性IP</option>
+                        <option *ngFor="let ip of vmips;" [ngValue]="ip">{{ip.IpAddress}}</option>
+                        </select>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </fc-popup>
 
--->
+
+<fc-popup #restartvm ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="重启实例" (of)="acceptRestartInstanceModify()" (cf)="cancelRestartInstanceModify()">
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-12 text-center mgb20">
+                    <i class="glyphicon glyphicon-trash"></i> 您所选的{{selectedInstance.InstanceId}}将执行重启操作，您是否确认操作？
+                </div>
+                <div class="col-sm-12 text-center">
+                    重启方式：
+                    <input type="radio" name="restart" [checked]="forcereboot==false" (click)="forcereboot=false; displayvalue();" />重启
+                    <input type="radio" name="forcerestart" [checked]="forcereboot==true" (click)="forcereboot=true; displayvalue();" />强制重启
+                </div>
+            </div>
+        </div>
+    </div>
+</fc-popup>

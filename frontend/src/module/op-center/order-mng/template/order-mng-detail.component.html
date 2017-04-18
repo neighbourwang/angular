@@ -103,7 +103,17 @@
 						<th>{{ 'COMMON.EXPLAIN' | translate}}</th>
 				</thead>
 				<tbody>
-					
+					<tr>
+						<td>{{_orderDetail.createDate}}</td>
+						<td>{{_orderDetail.instanceName}}</td>
+						<td>{{_orderDetail.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
+						<td>{{_orderDetail.specification}}</td>
+						<td>{{_orderDetail.buyer}}</td>
+						<td>{{_orderDetail.department}}</td>
+						<td>{{_orderDetail.expireDate}}
+						</td>
+						<td>{{_orderDetail.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
+					</tr>
 					<tr *ngFor="let item of _orderDetail.hisOrderList">
 						<td>{{item.createDate}}</td>
 						<td>{{item.instanceName}}</td>
@@ -115,17 +125,7 @@
 						</td>
 						<td>{{item.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 					</tr>
-					<!--<tr>
-						<td>{{_orderDetail.createDate}}</td>
-						<td>{{_orderDetail.instanceName}}</td>
-						<td>{{_orderDetail.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
-						<td>{{_orderDetail.specification}}</td>
-						<td>{{_orderDetail.buyer}}</td>
-						<td>{{_orderDetail.department}}</td>
-						<td>{{_orderDetail.expireDate}}
-						</td>
-						<td>{{_orderDetail.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
-					</tr>-->
+					
 				</tbody>
 			</table>
 		</div>				
