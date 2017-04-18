@@ -247,7 +247,12 @@ export let RestApis: RestApiModel[] = [
         "id": "pmPoolId.image.list",
         "url": "pmimagemgmt/noauth/pmimage/image/listbype/{pmPoolId}/{enterpriseId}"
     },
-
+    {
+        "desc": "物理机--根据物理机id，获取对应的产品信息",
+        "method": "GET",
+        "id": "phymachine.product.info",
+        "url": "marketplace/authsec/shopping/product/phymachine/{phymachineId}"
+    },
     //镜像管理部分
     {
         "desc": "创建镜像",
