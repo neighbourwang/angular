@@ -25,7 +25,7 @@ export const MajorInfo_mock= {
     "resultCode": "100",
     "detailDescription": null,
     "resultContent": {
-            "loginName": "fhd_001",
+            "loginName": "fhd_002",
             "departmentName": "管理员部门",  //部门名称
             "accessKey": "1",    //  access key
             "accessSecret": "1",  // access secret
@@ -46,7 +46,7 @@ export const DepartList_mock= {
     "detailDescription": null,
     "resultContent": [
         {
-            id: "1",  
+            id: "1",
             departmentName: "管理员部门",  //部门名称
         },
         {

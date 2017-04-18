@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
-import { CertMethod, Status, EntEstItem, EntEst
+import { CertMethod, Status, EntEstItem, EntEst,Platform,ResourceQuota
   , EntEstCreResourceQuota} from '../model';
 
 import { EntEstCreService, Paging } from './../service/ent-est-cre.service';
@@ -46,6 +46,9 @@ export class EntEstMngComponent implements OnInit {
   private  nameCheckLoader: ItemLoader<{code:string;name:string}> = null;//重名判断
   private isSameName:number = 0;//0初始状态，1名称不相同，2名称相同
 
+  private selectedPlatformLoader : ItemLoader<Platform> = null; //某企业下的可用平台
+  private resourceQuotaLoader:ItemLoader<ResourceQuota>= null;//平台获取配额
+
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -78,7 +81,18 @@ export class EntEstMngComponent implements OnInit {
 
     this.entEstResource.FirstItem = new EntEstCreResourceQuota();
 
-
+    this.selectedPlatformLoader = new ItemLoader<Platform>(false,'加载已选择可用平台列表错误','ent-mng.ent-est-mng.enterprise.platform.selected',restApiCfg,restApi);
+       this.selectedPlatformLoader.MapFunc = (source:Array<any>,target:Array<Platform>)=>{
+      for(let item of source){
+         let obj = new Platform();
+        obj.id = item.id;
+        obj.name = item.name;
+        obj.type = item.platformType;
+        obj.status = item.status;
+        target.push(obj);
+      }
+    }
+    this.resourceQuotaLoader = new ItemLoader<ResourceQuota>(false,'可分配配额加载失败','ent-mng.ent-est-mng.ent-mng.resouces.quotas.get',restApiCfg,restApi);
       //字典配置
       this.statusDic = new DicLoader(restApiCfg, restApi, "TENANT", "STATUS");
       this.statusDic.SourceName = "status";
@@ -125,6 +139,27 @@ export class EntEstMngComponent implements OnInit {
       this.layoutService.hide();
     })
   }
+   searchSelectedPlatform(){
+    this.layoutService.show();
+    let entId = this.entEstMng.Items.filter(n=>n.checked).map(n=>n.enterpriseId);
+    this.selectedPlatformLoader.Go(null,[{key:'_enterpriseId',value:entId}])
+    .then(success=>{
+      this.layoutService.hide();
+    })
+    .catch(err=>{
+      this.layoutService.hide();
+    })
+ }
+
+ loadRerouceQuoat(platformId:string){
+   this.resourceQuotaLoader.Go(null,[{key:'_platformId',value:platformId}])
+    .then(success=>{
+      this.layoutService.hide();
+    })
+    .catch(err=>{
+      this.layoutService.hide();
+    })
+ }
 
   getSelected(){
     let item = this.entEstMng.Items.find(n=>n.checked) as EntEstItem;
@@ -423,6 +458,10 @@ manageAviPlatform(){
     {
       this.editQuota.close();
       this.entEstResource.FirstItem.memroyQuota = this.entEstResource.FirstItem.memroyQuota*1024;
+      this.searchSelectedPlatform();
+      for(let item of this.selectedPlatformLoader.Items){
+          this.loadRerouceQuoat(item.id);
+      }
       this.service.updateEntQuota(this.entEstResource.FirstItem)
       .then(ret=>{
         this.search(null);//刷新

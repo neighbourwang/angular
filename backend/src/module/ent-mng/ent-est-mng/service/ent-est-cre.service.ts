@@ -332,7 +332,7 @@ export class EntEstCreService{
 				,"msg": "ENT_MNG.INVALID_EMAIL"
 			},"integer":{ 
 				"func": val=>!this.validation.isInteger(val)
-				,"msg": name+"COMMON.CANNOT_BE_INTEGER"
+				,"msg": "为无效值！"
 			}
 		}
 

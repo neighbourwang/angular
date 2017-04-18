@@ -54,6 +54,7 @@ export class AliSubListComponent implements OnInit{
     subInfo: AliSubList= new AliSubList();
     departsList: Array<DepartList>;
     selectedDepartment: string;
+    testInfo: boolean;
 
     ngOnInit (){
         console.log('init');
@@ -84,14 +85,21 @@ export class AliSubListComponent implements OnInit{
         this.router.navigate([`user-center/ali-cloud/ali-major-list`]);
     }
 
-    editPage(item){
-        this.type= "edit";
-        this.subMng.open("编辑子账号");
-    }
-    crePage(){
-        this.type= "create";
-        this.getDepartsList();
-        this.subMng.open("创建子账号");
+    getDepartsList(){
+        this.layoutService.show();
+        this.service.getDepartsList()
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.departsList = response["resultContent"];
+                        console.log("departsList",this.departsList);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     getDetail(item){
@@ -113,15 +121,21 @@ export class AliSubListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
-    getDepartsList(){
+    crePage(){
+        this.type= "create";
+        this.getDepartsList();
+        this.subMng.open("创建子账号");
+    }
+
+    create(){
         this.layoutService.show();
-        this.service.getDepartsList()
+        this.service.create(this.subInfo)
             .then(
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.departsList = response["resultContent"];
-                        console.log("departsList",this.departsList);
+                        this.getData();
+                        this.subMng.close();
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -129,6 +143,44 @@ export class AliSubListComponent implements OnInit{
             )
             .catch((e) => this.onRejected(e));
     }
+
+    editPage(item){
+        this.type= "edit";
+        this.layoutService.show();
+        this.service.getDetail(item.id)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.subInfo = response["resultContent"];
+                        this.subMng.open("编辑子账号");
+                        console.log("subInfo",this.subInfo);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    testSub(){
+        this.layoutService.show();
+        this.service.testSub(this.subInfo)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.testInfo= true;
+                    }else if(response.resultCode == 500){
+                        this.testInfo= false;
+                    }else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
     distriPage(item){
         this.type= "distribute";
         this.getDepartsList();
