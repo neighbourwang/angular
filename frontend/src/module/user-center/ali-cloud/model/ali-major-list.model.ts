@@ -7,15 +7,23 @@ export class AliMajorList{
     operator: string;   // 操作人
     accessKey: string;    //  access key
     accessSecret: string;  // access secret
+    departmentId: string;
 }
 
-/*[
+/*{
+    "detailDescription": "string",
+    "resultCode": "string",
+    "resultContent": [
     {
-        id   // uuid 唯一编号
-        loginName   // 登录账号
-        departmentName  //部门名称
-        subNumber   //   子账号数量
-        lastUpdate  //最后更新
-        operator   // 操作人
+        "accessKey": "string",
+        "accessSecret": "string",
+        "departmentId": "string",
+        "departmentName": "string",
+        "id": "string",
+        "lastUpdate": ,
+        "loginName": "string",
+        "operator": "string",
+        "subNumber": "string"
     }
-]*/
+]
+}*/

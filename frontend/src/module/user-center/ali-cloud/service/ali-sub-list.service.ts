@@ -29,7 +29,7 @@ export class AliSubService {
                 value: id
             }
         ];
-        /* const api= this.restApiCfg.getRestApi("user-center.ali-cloud.sublist");
+/*         const api= this.restApiCfg.getRestApi("user-center.ali-cloud.sublist");
          return this.restApi.request(api.method, api.url, pathParams, null, null);*/
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => SubList_mock);
     }
