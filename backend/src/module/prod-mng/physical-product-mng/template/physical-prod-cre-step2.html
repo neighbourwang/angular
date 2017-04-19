@@ -107,53 +107,37 @@
 							<table class="table table-hover">
 								<thead>
 									<tr>
-										<th>
+										<th style="width:20%">
 											{{"部件名称"}}
 										</th>
-										<th>{{'规格' | translate}}</th>
-										<th>{{'规格值' | translate}}</th>
-										<th>{{'基础周期价格' | translate}}</th>
-										<th></th>
+										<th style="width:15%">{{'规格' | translate}}</th>
+										<th style="width:15%">{{'规格值' | translate}}</th>
+										<th style="width:20%">{{'基础周期价格' | translate}}</th>
+										<th style="width:30%"></th>
 									</tr>
 								</thead>
 								<tbody>
-									<!--<tr *ngFor="let item of prodDirList; let idx = index;">-->
-									<tr>
+									<tr *ngFor="let unit of unitList; let idx = index;">
 										<td>
-											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'cpu'}}</a>
+											{{unit.partsName}}
 										</td>
-										<td>{{'Xeon E5 2560'}}</td>
-										<td>{{'2.9GHZ'}}</td>
-										<td>{{'2'}}</td>										
-										<td>{{'128GB'}}</td>
-									</tr>
-									<tr>
+										<td>{{unit.specName}}</td>
 										<td>
-											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'cpu'}}</a>
-										</td>
-										<td>{{'Xeon E5 2560'}}</td>
-										<td>{{'2.9GHZ'}}</td>
-										<td>{{'2'}}</td>										
-										<td>{{'128GB'}}</td>
-									</tr>
-									<tr>
+                                            {{unit.specValue}}
+                                            <span *ngIf="unit.partsId=='2eeb0a38-167e-11e7-91af-0242ac110002'||unit.partsId=='35dc99bd-167e-11e7-91af-0242ac110002'">GB</span>
+                                        </td>
 										<td>
-											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'cpu'}}</a>
-										</td>
-										<td>{{'Xeon E5 2560'}}</td>
-										<td>{{'2.9GHZ'}}</td>
-										<td>{{'2'}}</td>										
-										<td>{{'128GB'}}</td>
-									</tr>
-									<tr>
+                                            <span *ngIf="!unit.isEdit">{{unit.referencePrice}}</span>                                           
+                                            <input *ngIf="unit.isEdit" class="form-control" type="number" [(ngModel)]="unit.temPrice" name="referencePrice" style="width:100px;">                                            
+                                        </td>										
 										<td>
-											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'cpu'}}</a>
-										</td>
-										<td>{{'Xeon E5 2560'}}</td>
-										<td>{{'2.9GHZ'}}</td>
-										<td>{{'2'}}</td>										
-										<td>{{'128GB'}}</td>
-									</tr>
+                                            <span *ngIf="!unit.isEdit" class="glyphicon glyphicon-edit pointer" (click)="unit.isEdit=true;unit.temPrice=unit.referencePrice"></span>
+                                            <span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-remove pointer" (click)="unit.isEdit=false;unit.temPrice=unit.referencePrice"></span>
+                                            <span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-saved pointer mgl10" (click)="unit.isEdit=false;unit.referencePrice=unit.temPrice"></span>
+                                            <!--<button *ngIf="unit.isEdit" class="fox-cloud-button-md fox-cloud-button-white" (click)="unit.isEdit=false;unit.referencePrice=unit.temPrice">{{'COMMON.SAVE' | translate}}</button>-->
+                                            <!--<button *ngIf="unit.isEdit" class="fox-cloud-button-md fox-cloud-button-white" (click)="unit.isEdit=false;unit.temPrice=unit.referencePrice">{{'COMMON.CANCEL' | translate}}</button>-->
+                                        </td>
+									</tr>									
 								</tbody>
 							</table>
 						</div>

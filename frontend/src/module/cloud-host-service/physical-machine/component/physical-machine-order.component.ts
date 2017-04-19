@@ -2,7 +2,7 @@
 import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, ValidationRegs, Validation } from '../../../../architecture';
 import { PhysicalMachineOrderService } from '../service/physical-machine-order.service';
 
 import { DispatchEvent } from "../../components/dispatch-event"
@@ -36,8 +36,10 @@ export class PhysicalMachineOrderComponent implements OnInit {
 	region: Regions;
 	resourcePolls: ResoucePolls[] = [];
 	resourcePoll: ResoucePolls;
-	phsicalList: PMOrderResponse[];
-	selectedPhsical: PMOrderResponse;
+	phsicalList: PMOrderResponse[] = [];
+	selectedPhsical: PMOrderResponse = new PMOrderResponse;
+	oSlList: PMImageBaseVO[] = [];
+	os: PMImageBaseVO = new PMImageBaseVO;
 
 	//物理机规格值
 	cpuList = this.service.cpuList;
@@ -53,6 +55,15 @@ export class PhysicalMachineOrderComponent implements OnInit {
 	needHBA = this.service.needHBA;
 	HBA = [];
 
+	//密码用户名
+	username: string = "root";
+	password: string;
+	passwordShadow: string;
+	instancename: string;
+	quality: number = 1;
+
+	timeForever: boolean = false;
+
 	@ViewChild('cartButton') cartButton;
 
 
@@ -60,6 +71,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 		private layoutService: LayoutService,
 		private router: Router,
 		private dux: DispatchEvent,
+		private v: Validation,
 		private service: PhysicalMachineOrderService
 	) {
 
@@ -70,6 +82,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 		this.fetchRegion()
 
 		this.initDispatch()
+		this.v.result = {};
 	}
 
 	/****初始化派发事件***/
@@ -81,11 +94,15 @@ export class PhysicalMachineOrderComponent implements OnInit {
 		this.dux.subscribe("region", () => { this.fetchResourcePoll() })
 		this.dux.subscribe("spec", () => { this.changedSpec() })
 		this.dux.subscribe("phsical", () => { this.phsicalChange() })
+		this.dux.subscribe("phsical", () => { this.setOs() })
+		this.dux.subscribe("phsical", () => { this.setPhysicalInfo() })
 	}
 
 	/****区域*****/
 	private fetchRegion() {
 		this.service.fetchRegion().then(res => {
+			if(!res.length) return
+
 			this.regions = res;
 			this.region = this.regions[0]
 
@@ -96,6 +113,8 @@ export class PhysicalMachineOrderComponent implements OnInit {
 	/****资源池*****/
 	private fetchResourcePoll() {
 		this.service.fetchResourcePoll(this.region.id).then(res => {
+			if(!res.length) return
+
 			this.resourcePolls = res;
 			this.resourcePoll = this.resourcePolls[0]
 
@@ -120,9 +139,6 @@ export class PhysicalMachineOrderComponent implements OnInit {
 		this.service.fetchPhysicalDetail(cpu, mem, diskRequirement, diskType, networkRequirement)
 			.then( res => {
 				this.phsicalList = res;
-				this.selectedPhsical = undefined;
-
-				this.dux.dispatch("phsical")
 			})
 	}
 
@@ -131,7 +147,50 @@ export class PhysicalMachineOrderComponent implements OnInit {
 		console.log(this.selectedPhsical)
 	}
 
+	/*****设置镜像*****/
+	private setOs() {
+		this.service.fetchImageList(this.selectedPhsical.id)
+			.then(res => {
+				if(!res.length) return
 
+				this.oSlList = res
+				this.os = res[0]
+			})
+	}
+
+	/******获取物理机的价格等信息*******/
+	private setPhysicalInfo() {
+		this.service.fetchPhysicalInfo(this.selectedPhsical.id)
+			.then(res => {
+
+			})
+	}
+
+	private checkValue(key?:string){
+
+		const regs:ValidationRegs = {
+			region: [this.region.id, [this.v.isUnBlank], "请选择区域"],
+			resourcePoll: [this.resourcePoll.id, [this.v.isUnBlank], "请选择资源池"],
+			selectedPhsical: [this.selectedPhsical.id, [this.v.isUnBlank], "请选择物理机"],
+			pmNetworkVO: [this.selectedPhsical.pmNetworkVO.id, [this.v.isUnBlank], "该物理机无可用网络"],
+			os: [this.os.id, [this.v.isUnBlank], "请选择镜像"],
+			password: [this.password, [this.v.isPassword, this.v.lengthRange(8,30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
+			passwordShadow: [this.passwordShadow, [this.v.equalTo(this.password), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
+			instancename: [this.instancename, [this.v.isInstanceName, this.v.isBase], "VM_INSTANCE.HOST_NAME_FORMAT_IS_NOT_CORRECT"],
+			// timeline: [this.sendModule.timeline.attrValue.trim(), [this.v.isNumber, this.v.max(999), this.v.isUnBlank], "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION"],
+			// timelineunit: [this.sendModule.timelineunit.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"],
+		}
+
+		return this.v.check(key, regs);
+	}
+
+	private checkInput(): boolean {
+		const al = value => !!this.showNotice("提示",value);
+
+		const value = this.checkValue();
+		if (value) return al(value);
+		return true;
+	}
 
 	addCart() {   //加入购物车
 		// if (!this.checkInput()) return;
@@ -148,12 +207,6 @@ export class PhysicalMachineOrderComponent implements OnInit {
 		//	this.layoutService.hide();
 		// })
 	}
-
-
-	checkValue(value?: string) { //动态验证
-
-	}
-
 
 	// 警告框相关
 	showNotice(title: string, msg: string) {

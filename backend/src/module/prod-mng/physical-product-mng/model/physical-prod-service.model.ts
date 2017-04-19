@@ -10,20 +10,20 @@ class PhysicalService {
 }
 class ResourcePoolObj {
     "areaDisplayName": string;
-    "areaID": string;
-    "areaName": string;
+    "region": string;
+    "regionId": string;
     "phyMachineResourcPoolsProfile": Array<ResourcePool>;
     constructor() {
-        this.areaID = '';
-        this.areaName = '';
+        this.regionId = '';
+        this.region = '';
         this.areaDisplayName = '';
         this.phyMachineResourcPoolsProfile = new Array<ResourcePool>();
     }
 }
 class ResourcePool {
     "resourcePoolDisplayName": string;
-    "resourcePoolId": string;
-    "resourcePoolName": string;
+    "pmPoolId": string;
+    "poolName": string;
     "selected": boolean;
 }
 class FlatResourcePool {
@@ -35,36 +35,39 @@ class FlatResourcePool {
     "description": string;
     selected: boolean;
 }
-// class FlatUnitObj {
-//     "id": string;
-//     "partsId": string;
-//     "partsName": string;
-//     "specId": string;
-//     "specName": string;
-//     "specValue": string;
-//     "referencePrice": number;
-//     selected: boolean
-// }
+class FlatUnitObj {
+    "id": string;
+    "partsId": string;
+    "partsName": string;
+    "specId": string;
+    "specName": string;
+    "specValue": string;
+    "referencePrice": number;
+    isEdit: boolean;
+    temPrice:number;
+}
 class PartsFlavor {
     "partFlavorNum": number;
     "partsCode": string;
     "partsDisplayName": string;
     "partsFlavorDisplayName": string;
-    "partsFlavorValue": string;
+    "partsFlavorValue": number;
     "partsFlavorValueDisplayName": string;
     "partsFlavorValueName": string;
     "partsId": string;
     "partsName": string;
     "specId": string;
     "specName": string;
+    "capacity":number;
     selected:boolean;
     constructor(){
-        this.partsFlavorValue="";
+        this.partsFlavorValue=0;
         this.partsId='';
         this.partsName='';
         this.specId='';
         this.specName='';
         this.partFlavorNum=0;
+        this.capacity=0;
     }
 }
 class UnitObj {
@@ -86,5 +89,5 @@ class Spec {
     }
 }
 export {
-    PhysicalService, FlatResourcePool, ResourcePoolObj, PartsFlavor, UnitObj,Spec
+    PhysicalService, FlatResourcePool, ResourcePoolObj, PartsFlavor, UnitObj,Spec,FlatUnitObj
 }    

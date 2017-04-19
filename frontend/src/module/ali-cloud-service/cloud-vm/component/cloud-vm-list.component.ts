@@ -289,6 +289,7 @@ export class AliCloudVmListComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.showMsg("重启实例成功");
+                    this.getInstanceList(this.choosenRegion);
                 } else {
                     this.showMsg("重启实例失败");
                     return;
@@ -296,7 +297,6 @@ export class AliCloudVmListComponent implements OnInit {
             })
             .then(() => {
                 this.restartvm.close();
-                this.getInstanceList(this.choosenRegion);
             })
             .catch(err => {
                 console.log('重启实例异常', err);
@@ -355,32 +355,32 @@ export class AliCloudVmListComponent implements OnInit {
     }
 
     acceptAttachIPToInstanceModify() {
-        this.layoutService.show();
-        if(this.selectedfreeip == this.defaultfreeip) {
-        this.service.allocateIPToInstane(this.selectedInstance, this.selectedfreeip)
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.showMsg("绑定弹性IP到实例成功");
-                } else {
-                    this.showMsg("绑定弹性IP到实例失败");
-                    return;
-                }
-            })
-            .then(() => {
-                this.allocateip.close();
-                this.getInstanceList(this.choosenRegion);
-            })
-            .catch(err => {
-                console.log('绑定弹性IP到实例异常', err);
-                this.layoutService.hide();
-                this.allocateip.close();
-                this.showMsg("绑定弹性IP到实例异常");
-                this.okCallback = () => {
-                    this.allocateip.open();
-                };
-            });
+        if (this.selectedfreeip != this.defaultfreeip) {
+            this.layoutService.show();
+            this.service.allocateIPToInstane(this.selectedInstance, this.selectedfreeip)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showMsg("绑定弹性IP到实例成功");
+                        this.getInstanceList(this.choosenRegion);
+                    } else {
+                        this.showMsg("绑定弹性IP到实例失败");
+                        return;
+                    }
+                })
+                .then(() => {
+                    this.allocateip.close();
+                })
+                .catch(err => {
+                    console.log('绑定弹性IP到实例异常', err);
+                    this.layoutService.hide();
+                    this.allocateip.close();
+                    this.showMsg("绑定弹性IP到实例异常");
+                    this.okCallback = () => {
+                        this.allocateip.open();
+                    };
+                });
         } else {
             this.showMsg("请选择弹性IP");
         }
@@ -396,7 +396,7 @@ export class AliCloudVmListComponent implements OnInit {
         this.selectedInstance = this.getSelected();
         if (this.selectedInstance) {
             this.layoutService.show();
-            this.service.getFreeFloatingIps(this.selectedInstance.RegionId)
+            this.service.getFloatingIpsInInstance(this.selectedInstance.RegionId, this.selectedInstance)
             .then(
             response => {
                 this.layoutService.hide();
@@ -432,7 +432,7 @@ export class AliCloudVmListComponent implements OnInit {
     }
 
     acceptDetachIPToInstanceModify() {
-        if(this.selectedvmip == this.defaultvmip) {
+        if(this.selectedvmip != this.defaultvmip) {
         this.layoutService.show();
         this.service.unAllocateIPToInstane(this.selectedInstance, this.selectedvmip)
             .then(
@@ -440,14 +440,14 @@ export class AliCloudVmListComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.showMsg("解绑弹性IP到实例成功");
+                    this.getInstanceList(this.choosenRegion);
                 } else {
                     this.showMsg("解绑弹性IP到实例失败");
                     return;
                 }
             })
             .then(() => {
-                this.unallocateip.close();
-                this.getInstanceList(this.choosenRegion);
+                this.unallocateip.close();                
             })
             .catch(err => {
                 console.log('解绑弹性IP到实例异常', err);
@@ -531,7 +531,7 @@ export class AliCloudVmListComponent implements OnInit {
         this.instances.map(n=> {n.checked = false;});
         this.instances[index].checked = true;
         this.selectedInstance = this.instances[index];
-        console.log(this.selectedInstance, "this.selectedInstance");
+        console.log(this.selectedInstance, "this.selectedInstance!");
     }
 
     UnselectItem(): void {

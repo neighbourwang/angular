@@ -86,6 +86,26 @@ export class PhysicalMachineOrderService {
         return request;
     }
 
+    fetchPhysicalInfo(phymachineId:string) {
+        const api = this.restApiCfg.getRestApi("phymachine.product.info");
+
+        let pathParams = [
+            {
+                key: 'phymachineId',
+                value: phymachineId
+            }
+        ];
+
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined)
+            .then(res => {
+                if (res.resultCode !== "100") {
+                    throw "";
+                }
+                return res.resultContent;
+            });
+        return request;
+    }
+
 
     unitType = this.dict.get({
         owner: "PACKAGE_BILLING",

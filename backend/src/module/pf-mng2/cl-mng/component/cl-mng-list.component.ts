@@ -337,7 +337,11 @@ export class ClMngListComponent implements OnInit {
     resetInit(item){
         console.log(item)
         this.idService.setPlatformId(item.id);
-        item.status=='0'&&this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: item.platformType }]);
+        if(item.platformType=='2'){
+            this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: item.platformType }]);
+        }else if(item.platformType=='3'){
+            this.router.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step2", { type: item.platformType }]);             
+        }
     }
 
     //管理启动盘

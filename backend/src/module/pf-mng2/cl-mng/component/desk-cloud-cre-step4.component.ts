@@ -1,6 +1,3 @@
-/**
- * Created by junjie on 16/10/18.
- */
 import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router, Params, ActivatedRoute } from '@angular/router';
@@ -13,9 +10,6 @@ import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../ar
 import { StorageListService } from '../service/cl-mng-cre-step-4.service';
 
 import { ClMngIdService } from '../service/cl-mng-id.service';
-
-
-
 
 @Component({
     templateUrl: '../template/desk-cloud-cre-step4.component.html',

@@ -4,7 +4,7 @@ interface Regions {
 	name: string;
 	parentId: string;
 }
-interface PMOrderResponse {
+class PMOrderResponse {
 	cpuNumber: number; //integer, optional);
 	cpuSpec: string; //string, optional);
 	diskInfo: string; //string, optional);
@@ -13,8 +13,8 @@ interface PMOrderResponse {
 	id: string; //string, optional);
 	memSize: number; //integer, optional);
 	netInfo: string; //string, optional);
-	partsEntitys: PMPartsEntity[]; //PMPartsEntity[], optional);
-	pmNetworkVO: PMNetworkVO; //PMNetworkVO, optional);
+	partsEntitys: PMPartsEntity[] = []; //PMPartsEntity[], optional);
+	pmNetworkVO: PMNetworkVO = new PMNetworkVO; //PMNetworkVO, optional);
 	serverTypeId: number; //integer, optional);
 	serverTypeName: string; //string, optional);
 	status: number; //integer, optional)
@@ -28,7 +28,7 @@ interface PMPartsEntity {
 	specName: string; //string, optional);
 	specValue: string; //string, optional)
 }
-interface PMNetworkVO {
+class PMNetworkVO {
 	dnsAlt: string;  // optional);
 	dnsPre: string;  // optional);
 	gateway: string;  // optional);
@@ -50,11 +50,11 @@ interface ResoucePolls {
 	createDate: string; // null;
 	updateDate: string; // null;
 }
-interface PMImageBaseVO {
+class PMImageBaseVO {
 	bitId: string;   //integer, optional),
 	bitName: string;   //string, optional),
 	destImageName: string;   //string, optional),
-	id: string;   //string, optional),
+	id: string = "";   //string, optional),
 	imageTypeId: string;   //integer, optional),
 	imageTypeName: string;   //string, optional),
 	origImageName: string;   //string, optional),

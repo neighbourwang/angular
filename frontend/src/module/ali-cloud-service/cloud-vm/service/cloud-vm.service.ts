@@ -609,7 +609,7 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
-    getFloatingIpsInInstance(regionid: string): Promise<any> {
+    getFloatingIpsInInstance(regionid: string, instance: instanceListModel): Promise<any> {
         const pathParams = [
             {
                 key: "regionid",
@@ -621,10 +621,15 @@ export class AliCloudVmService {
                 "accessId": this.keysecret.accessId,
                 "accessSecret": this.keysecret.accessSecret
             },
-            "AssociatedInstanceType": "",//////////////status
-            "AssociatedInstanceId": ""////////////status
+            "pageNumber": "1",
+            "pageSize": "50",
+            "associatedInstanceType": "EcsInstance", //////////////
+            "associatedInstanceId": instance.InstanceId,
+            "status": "InUse"
         }
         console.log(body, "body");
+        let str = JSON.stringify(body);
+        console.log(str);
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.floating.ips.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
@@ -650,6 +655,7 @@ export class AliCloudVmService {
     }
 
     unAllocateIPToInstane(instance: instanceListModel, ip: FloatingIPAddressModel): Promise<any> {
+        /*
         const pathParams = [
             {
                 key: "instanceid",
@@ -659,14 +665,18 @@ export class AliCloudVmService {
                 key: "allocationid",
                 value: ip.AllocationId
             }
-        ];
+        ];*/
         const body = {
-            "accessId": this.keysecret.accessId,
-            "accessSecret": this.keysecret.accessSecret
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "allocationId": ip.AllocationId,
+            "instanceId": instance.InstanceId
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.instance.ip.unallocate");
-        return this.restApi.request(api.method, api.url, pathParams, null, body);
+        return this.restApi.request(api.method, api.url, null, null, body);
     }
 
 

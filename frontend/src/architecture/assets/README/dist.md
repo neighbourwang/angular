@@ -17,13 +17,11 @@
 3. 根据需求执行相应的命令：
 
 ```css
-npm run release:backend    (编译后台并发布到开发环境)
-npm run release:frontend    (编译前台并发布到开发环境)
-npm run release:all               (编译前台与后台并发布到开发环境)
+npm run release:dev    (编译前台与后台并发布到开发环境)
+npm run release:qa    (编译前台与后台并发布到测试环境)
+npm run release:all:oldqa    (编译前台与后台并发布到老测试环境)
+npm run release:all               (编译前台与后台并发布到开发环境，测试环境，老测试环境)
 
-npm run release:backend:qa	 (编译后台并发布到测试环境)
-npm run release:frontend:qa	(编译前台并发布到测试环境)
-npm run release:all:qa 			(编译前台与后台并发布到测试环境)
 ```
 
 
