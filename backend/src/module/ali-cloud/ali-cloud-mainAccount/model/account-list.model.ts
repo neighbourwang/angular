@@ -11,6 +11,13 @@ export class AccountListModel{
     accessKey:string;
     accessSecret:string;
     isSelect=false;
-    hasSubAccount:string;//1有 0 没有
+   isEditable:string;//1有 0 没有
 
+}
+
+export class EnterpriseModel{
+    tenantId:string;
+    tenantName:string;
+    status:string;
+    isSelect=false;
 }

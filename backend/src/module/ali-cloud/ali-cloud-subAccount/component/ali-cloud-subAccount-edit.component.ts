@@ -2,13 +2,13 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router,ActivatedRoute, Params } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent,Validation,ValidationRegs } from '../../../../architecture';
 
 //model
-//import{AccountModel} from '../model/account.model';
+import{AccountListModel} from '../model/account-list.model';
 
 //service
-//import { AliCloudMainAccountEditService} from '../service/ali-cloud-mainAccount-edit.service'
+import { AliCloudSubAccountEditService} from '../service/ali-cloud-subAccount-edit.service'
 
 @Component({
     selector: 'ali-cloud-subAccount-edit',
@@ -22,11 +22,10 @@ export class AliCloudSubAccountEditComponent implements OnInit{
     constructor(
         private route : Router,
         private activeRoute:ActivatedRoute,
-        //private service : AliCloudMainAccountEditService,
-        private layoutService : LayoutService
-    ) {
-
-    }
+        private service : AliCloudSubAccountEditService,
+        private layoutService : LayoutService,
+         private v:Validation
+    ) { this.v.result = {};}
 
     noticeTitle = "";
     noticeMsg = "";
@@ -34,14 +33,17 @@ export class AliCloudSubAccountEditComponent implements OnInit{
     @ViewChild("notice")
     notice: NoticeComponent;
 
-    //account:AccountModel=new AccountModel();
+    account:AccountListModel=new AccountListModel();
 
     editMode:string;
     title:string;
+    testResult:string;
+    changebt=true;
 
     ngOnInit (){
         this.activeRoute.params.forEach((params: Params) => {
-            this.editMode = params["type"];  
+            this.editMode = params["type"]; 
+            this.account.id = params["id"];   
             console.log(this.editMode);   
              switch (this.editMode) {
                 case "edit":
@@ -55,7 +57,108 @@ export class AliCloudSubAccountEditComponent implements OnInit{
                     break;
             } 
         }); 
+         if (this.account.id) {
+             this.getAccount(this.account.id);
+        } 
+        else {
+            this.account=new AccountListModel();
+        }
     }
+
+    //获取账号信息
+    getAccount(id:string){
+        this.layoutService.hide();
+        this.service.getAccount(id)
+             .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.account = response["resultContent"].find((e)=>{return e.id ==this.account.id});
+                        console.log("主账号信息",this.account);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+     //编辑账号
+    editAccount(){
+        this.layoutService.hide();
+        this.service.editAccount(this.account)
+        .then(
+            response=>{ 
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.gotoAccountList();
+                } 
+                else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+        )
+        .catch((e) => this.onRejected(e));
+    }
+
+    //添加账号
+    createAccount(){
+        this.layoutService.show();
+        if (this.testResult=="1") {
+            this.service.createAccount(this.account)
+            .then(
+                response=>{ 
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.gotoAccountList();
+                    } 
+                    else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+        .catch((e) => this.onRejected(e));
+        }
+        else{
+            this.showAlert("请填写主账号登录名");
+            return false;
+        }
+    }
+
+    //测试access信息
+    testAccessInfo(){
+        this.layoutService.hide();
+        this.service.testAccessInfo(this.account)
+        .then(
+            response=>{
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.layoutService.hide();
+                    this.testResult="1";
+                } 
+                else {
+                   this.testResult="0";
+                }
+            }
+        )
+    }
+      changebtn():boolean{
+        this.changebt=false;
+        return this.changebt;
+    }
+
+     checkForm(key?:string) {
+        let regs:ValidationRegs = {  //regs是定义规则的对象         
+            username: [this.account.loginName, [this.v.isUnBlank, this.v.isBase], "用户名输入格式不正确"],
+            accessKey: [this.account.accessKey, [this.v.isUnBlank, this.v.isBase], "access key id不正确"],
+            accessSecret: [this.account.accessSecret, [this.v.isUnBlank,this.v.isBase], "access key secret不正确"],
+        }
+        return this.v.check(key, regs);
+    }
+
 
     //跳转到账号列表
      gotoAccountList(){

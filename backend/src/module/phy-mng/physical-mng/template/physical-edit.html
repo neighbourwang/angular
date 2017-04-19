@@ -76,7 +76,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title"> <span *ngIf="eidtMode=='create'" class="asterisk">*</span>{{'PHYSICAL_MNG.BRAND'|translate}}:</div>
                     <div class="col-md-4">
-                        <select class="form-control" [(ngModel)]="selectedBrand" (change)="physical.modleId=''" [disabled]="eidtMode !='create'">
+                        <select class="form-control" [(ngModel)]="selectedBrand" (ngModelChange)="physical.modleId=''" [disabled]="eidtMode !='create'">
                             <option [ngValue]="defaultBrand">{{'PHYSICAL_MNG.PLEASE_CHOOSE'|translate}}</option>
                             <option *ngFor="let brand of brands" [ngValue]="brand">{{brand.brand}}</option>
                         </select>
@@ -371,7 +371,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.PART_NAME'|translate}}:</div>
             <div class="col-sm-4">
-                <select class="form-control" [(ngModel)]="selectedPart" (change)="selectedSpace=defaultSpace">
+                <select class="form-control" [(ngModel)]="selectedPart" (ngModelChange)="selectedSpace=defaultSpace">
                     <option [ngValue]="defaultPart">{{'PHYSICAL_MNG.PLEASE_CHOOSE'|translate}}</option>
                     <option *ngFor="let item of parts" [ngValue]="item">{{item.partsName}}</option>
                 </select>
@@ -382,7 +382,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.SPEC'|translate}}:</div>
             <div class="col-sm-4">
-                <select class="form-control" [(ngModel)]="selectedSpace" (change)="popSpecValue=''">
+                <select class="form-control" [(ngModel)]="selectedSpace" (ngModelChange)="popSpecValue=''">
                       <option [ngValue]="defaultSpace">{{'PHYSICAL_MNG.PLEASE_CHOOSE'|translate}}</option>
                      <option *ngFor="let item of selectedPart.specList" [ngValue]="item">{{item.specName}}</option>
                 </select>

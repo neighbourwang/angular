@@ -1,14 +1,14 @@
 <div class="page-content-header icon-content-header-ali-cloud">
-   子账号管理--分配企业
+  分配企业
 </div>
 <div class="page-content mgt20">
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">当前所选企业:</div>
             <div class="col-sm-3">
-               <span style="line-height:34px">无所不能企业</span>     
+               <span style="line-height:34px">{{changeEntName}}</span>     
             </div>
-           <button class="fox-cloud-button fox-cloud-button-white "> 重置 </button>
+           <button class="fox-cloud-button fox-cloud-button-white "(click)="changeEnt();"> 重置 </button>
         </div>
     </div>
     <div  style="margin-left:260px;width:570px">
@@ -22,10 +22,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><input type="checkbox" name="entprise" class="fox-cloud-checkbox"></td>
-                        <td>无所不能企业</td>
-                        <td class="font-green">已启用</td>
+                    <tr *ngFor="let item of enterpriseList">
+                        <td><input type="radio" name="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);"></td>
+                        <td>{{item.tenantName}}</td>
+                        <td [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}"> 
+                            {{item.status| dict:service.dictStatus | async}}
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -36,7 +38,9 @@
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="gotoAccountList();">
         <span class="icon-button-label">取消</span>
     </button>   
-    <button class="fox-cloud-button-lg fox-cloud-button-white" >
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="setEnterprise();" >
         <span class="icon-button-label">保存</span>
     </button>
 </div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice> 
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}" ct="{{'PHYSICAL_MNG.CANCEL'|translate}}"  ></fc-confirm>
