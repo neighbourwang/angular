@@ -2,7 +2,8 @@ class PhysicalService {
     "desc": string;
     "phyMachineAreaPoolsProfile": Array<ResourcePoolObj>;
     "phyMachinePartsFlavors": Array<PartsFlavor>;
-    "serviceName": string
+    "serviceName": string;
+    "serviceId":string;
     constructor() {
         this.phyMachineAreaPoolsProfile = new Array<ResourcePoolObj>();
         this.phyMachinePartsFlavors = new Array<PartsFlavor>();

@@ -27,6 +27,7 @@ export class ZoneListModel {
     isEdit: boolean;
     hosts:Array<string>;
     status: string;
+    vmNumbers:number;//云桌面实例数量
     constructor() {
         this.displayNameValid = true;
         this.exceedPercentageValid = true;

@@ -1184,7 +1184,13 @@ export let RestApis: RestApiModel[] = [
         "id": "physical-service-create.post",
         "method": "POST",
         "url": "adminui/authsec/services/type/phymachine"
-    },    
+    },
+    {
+        "desc": "获取物理机产品目录详情",
+        "id": "physical-service-detail.get",
+        "method": "GET",
+        "url": "adminui/authsec/services/pmservice/{id}"
+    },     
     //用户中心
     {
         "desc": "获取所有机构",

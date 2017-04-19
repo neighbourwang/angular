@@ -30,16 +30,21 @@
 					</div>
 					<div class="row row-line-height entdown">
 						<div class="col-sm-5 entBody">
-							<div style="position: relative;height:40px;">
-								<span class="span2" (click)="selectEnterprise(ent1,i)" style="width:80%">name</span>
-								<span class="icon-tick" style="margin-top:5px;left:80%" ></span>
+							<div style="position: relative;height:40px;" *ngFor="let ent1 of this.service.product?.enterpriseListForSelect; let i=index">
+								<span class="span2" (click)="selectEnterprise(ent1,i)" style="width:80%">{{ent1.name}}</span>
+								<span class="icon-tick" style="margin-top:5px;left:80%" *ngIf="ent1.selected"></span>
+								<!--<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" ">-->
 								<div class="clear:both"></div>
-							</div>							
+							</div>
+							<!--<div *ngFor="let ent1 of enterpriseList; let i=index">
+								<span class="span1">{{ent1.name}}</span>
+								<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" (click)="selectEnterprise(ent1,i)">
+							</div>-->
 						</div>
 						<div class="col-sm-2"></div>
 						<div class="col-sm-5 entBody">
-							<div >
-								<span class="span2" (click)='unSelected(ent2,ii)'>name</span>
+							<div *ngFor="let ent2 of service.product.productEnterpiseReqs;let ii=index">
+								<span class="span2" (click)='unSelected(ent2,ii)'>{{ent2.name}}</span>
 							</div>
 						</div>
 					</div>
