@@ -4,6 +4,7 @@ import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from "../../../architecture";
 
 import {MngServiceListComponent} from './component/mng-service-list.component'
+import {MngServiceDetailComponent} from './component/mng-service-detail.component'
 import {MngServiceRouting} from './mng-service.routing';
 @NgModule({
     imports: [
@@ -12,10 +13,12 @@ import {MngServiceRouting} from './mng-service.routing';
         MngServiceRouting
     ],
     declarations: [
-        MngServiceListComponent
+        MngServiceListComponent,
+        MngServiceDetailComponent
     ],
     exports: [
-        MngServiceListComponent
+        MngServiceListComponent,
+        MngServiceDetailComponent
     ],
     providers:[
 

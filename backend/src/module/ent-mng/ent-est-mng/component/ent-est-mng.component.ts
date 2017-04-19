@@ -48,7 +48,8 @@ export class EntEstMngComponent implements OnInit {
 
   private selectedPlatformLoader : ItemLoader<Platform> = null; //某企业下的可用平台
   private resourceQuotaLoader:ItemLoader<ResourceQuota>= null;//平台获取配额
-
+  private totalResourceQuotas:EntEstCreResourceQuota =new EntEstCreResourceQuota();
+  // private isValidateCompleted :boolean = false;
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -141,9 +142,16 @@ export class EntEstMngComponent implements OnInit {
   }
    searchSelectedPlatform(){
     this.layoutService.show();
+    this.totalResourceQuotas.vcpuQuota = 0;
+    this.totalResourceQuotas.memroyQuota = 0;
+    this.totalResourceQuotas.storageQuota = 0;
     let entId = this.entEstMng.Items.filter(n=>n.checked).map(n=>n.enterpriseId);
     this.selectedPlatformLoader.Go(null,[{key:'_enterpriseId',value:entId}])
     .then(success=>{
+      for(let item of this.selectedPlatformLoader.Items){
+        this.loadRerouceQuoat(item.id);
+      }
+      // this.isValidateCompleted = this.validateMaxPlatform();
       this.layoutService.hide();
     })
     .catch(err=>{
@@ -154,7 +162,12 @@ export class EntEstMngComponent implements OnInit {
  loadRerouceQuoat(platformId:string){
    this.resourceQuotaLoader.Go(null,[{key:'_platformId',value:platformId}])
     .then(success=>{
-      this.layoutService.hide();
+      for(let item of this.resourceQuotaLoader.Items){
+            this.totalResourceQuotas.vcpuQuota+= item.cpu;
+            this.totalResourceQuotas.storageQuota += item.storageQuota;
+            this.totalResourceQuotas.memroyQuota +=item.memory;
+       }
+        this.layoutService.hide();
     })
     .catch(err=>{
       this.layoutService.hide();
@@ -297,6 +310,7 @@ export class EntEstMngComponent implements OnInit {
       }])
       .then(success=>{
         this.layoutService.hide();
+        this.searchSelectedPlatform();
         this.editQuota.open();
       },err=>{
         this.layoutService.hide();
@@ -456,26 +470,41 @@ manageAviPlatform(){
   acceptQuotaModify(){
     if(this.validateQuotaModify())
     {
-      this.editQuota.close();
-      this.entEstResource.FirstItem.memroyQuota = this.entEstResource.FirstItem.memroyQuota*1024;
-      this.searchSelectedPlatform();
-      for(let item of this.selectedPlatformLoader.Items){
-          this.loadRerouceQuoat(item.id);
+      // this.searchSelectedPlatform();
+      if(this.validateMaxPlatform()){
+          this.entEstResource.FirstItem.memroyQuota = this.entEstResource.FirstItem.memroyQuota*1024;
+          this.service.updateEntQuota(this.entEstResource.FirstItem)
+          .then(ret=>{
+          this.entEstResource.FirstItem.memroyQuota = this.entEstResource.FirstItem.memroyQuota/1024;
+          this.editQuota.close();
+          this.search(null);//刷新
+
+        })
+        .catch(err=>{
+          this.entEstResource.FirstItem.memroyQuota = this.entEstResource.FirstItem.memroyQuota/1024;
+          console.log("修改配额失败", err);
+          this.showMsg("ENT_MNG.FAIL_TO_MODIFY_QUOTA");
+          this.okCallback = ()=>{this.editQuota.open();};
+        });
       }
-      this.service.updateEntQuota(this.entEstResource.FirstItem)
-      .then(ret=>{
-        this.search(null);//刷新
-      })
-      .catch(err=>{
-        console.log("修改配额失败", err);
-        this.showMsg("ENT_MNG.FAIL_TO_MODIFY_QUOTA");
-        this.okCallback = ()=>{this.editQuota.open();};
-      });
-    }
-    else{
-      this.editQuota.close();
     }
   }
+
+   validateMaxPlatform(){
+		 
+		if(this.entEstResource.FirstItem.vcpuQuota>this.totalResourceQuotas.vcpuQuota){
+			this.showMsg("vCPU数量不能大于可分配vCPU数量！");
+			return false;
+		}else if(this.entEstResource.FirstItem.memroyQuota>this.totalResourceQuotas.memroyQuota){
+			this.showMsg( "可使用内存数量不能大于可分配内存！");
+			return false;
+		}else if(this.entEstResource.FirstItem.storageQuota>this.totalResourceQuotas.storageQuota){
+			this.showMsg("可使用存储额度不能大于可分配存储！");
+			return false;
+		}
+		return true;
+
+   }
 
   //验证修改配额不为空也不能为负数
   validateQuotaModify():boolean{

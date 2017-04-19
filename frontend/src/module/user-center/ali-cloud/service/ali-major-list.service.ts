@@ -22,9 +22,9 @@ export class AliMajorService {
     }
 
     getData(): Promise<any>{
-/*        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.list");
-        return this.restApi.request(api.method, api.url, null, null, null);*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => MajorList_mock);
+        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.list");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => MajorList_mock);
     }
 
     getDetail(id: string): Promise<any>{
@@ -34,20 +34,21 @@ export class AliMajorService {
                 value: id
             }
         ];
-/*        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.majorinfo");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => MajorInfo_mock);
+        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.majorinfo");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => MajorInfo_mock);
     }
 
     testMajor(majorInfo: AliMajorList): Promise<any>{
-/*        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.majortest");
+        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.majortest");
         return this.restApi.request(api.method, api.url, null, null,
             {
                 "id": majorInfo.id,
                 "accessKey": majorInfo.accessKey,
-                "accessSecret": majorInfo.accessSecret
-            });*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => Test_mock);
+                "accessSecret": majorInfo.accessSecret,
+                "loginName": majorInfo.loginName
+            });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => Test_mock);
     }
 
     edit(id: string, majorInfo: AliMajorList): Promise<any>{
@@ -57,12 +58,12 @@ export class AliMajorService {
                 value: id
             }
         ];
-/*         const api= this.restApiCfg.getRestApi("user-center.ali-cloud.edit");
+         const api= this.restApiCfg.getRestApi("user-center.ali-cloud.edit");
          return this.restApi.request(api.method, api.url, pathParams, null, {
              "accessKey": majorInfo.accessKey,
              "accessSecret": majorInfo.accessSecret
-         });*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => Success_mock);
+         });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => Success_mock);
     }
     editDepart(id: string): Promise<any>{
         const pathParams=[
