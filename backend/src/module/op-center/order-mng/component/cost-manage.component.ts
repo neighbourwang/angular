@@ -49,6 +49,7 @@ private selectedItem :CostManageItem = new CostManageItem();
 		private restApi:RestApi,
 		private service:OrderMngService){
 		this.currentYear = this.timeCaculater.getCurrentYear();
+		this._param.year = this.currentYear.toString(); 
 
 		this._enterpriseLoader = new ItemLoader<{id:string; name:string}>(false, 'COMMON.ENTPRISE_OPTIONS_DATA_ERROR', "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
 
@@ -81,11 +82,14 @@ private selectedItem :CostManageItem = new CostManageItem();
         .then(success=>{
            return this._statusTypeDic.Go();
         })
+		.then(success=>{
+           this.search();
+		   this.layoutService.hide();
+        })
         .catch(err=>{
 			this.layoutService.hide();
 			this.showMsg(err);
 		});
-		this.layoutService.hide();
 	}
 
 	loadYears(){
@@ -95,10 +99,22 @@ private selectedItem :CostManageItem = new CostManageItem();
 		let param;
 		let endTime = this._param.year+'-12-31'+' 23:59:59';
 		let startTime = this._param.year+'-01-01'+' 00:00:00';
+		let ids = [];
+		if(this.isNullYear()){
+			this.showMsg("请选择年份！");
+			return;
+		}
+		if (this.isNullEnterprise()){
+			for(let item of this._enterpriseLoader.Items){
+				ids.push(item.id);
+			}
+		}else{
+			ids.push(this._param.enterpriseId)
+		}
 		param={
   			"billEndTime": endTime,
   			"billStartTime": startTime,
-  			"idList": [this._param.enterpriseId],
+  			"idList": ids,
 			"sendEndTime": null,
   			"sendStartTime": null
 		}
@@ -109,10 +125,10 @@ private selectedItem :CostManageItem = new CostManageItem();
 			this._statusTypeDic.UpdateWithDic(success);
 			this.layoutService.hide();
 		})
-	.catch(err=>{
-		this.layoutService.hide();
-		this.showMsg(err);
-	})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
 }
 
 	//显示金额管理
@@ -237,5 +253,10 @@ private selectedItem :CostManageItem = new CostManageItem();
         return false;
         
     }
+	isNullYear(){
+		  if(this._param.year==null||this._param.year=='null')
+            return true;
+        return false;
+	}
 
 }
