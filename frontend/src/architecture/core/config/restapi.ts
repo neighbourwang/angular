@@ -222,6 +222,37 @@ export let RestApis: RestApiModel[] = [
         "id": "disk.vm.search",
         "url": "marketplace/authsec/subinstance/itemlist/vm/simple/search/page"
     },
+    //物理机部分,
+    {
+        "desc": "获取区域列表",
+        "method": "GET",
+        "id": "basis.regions",
+        "url": "basis/authsec/regions"
+    },
+    {
+        "desc": "按条件查询匹配的物理机信息",
+        "method": "POST",
+        "id": "post.pmlist.detail",
+        "url": "pmresourcemgmt/noauth/pmmgmt/order/pmlist"
+    },
+    {
+        "desc": "根据区域得到相关的资源池列表",
+        "method": "GET",
+        "id": "region.pmpool.list",
+        "url": "pmresourcemgmt/noauth/pmmgmt/order/pmpool/{regionId}/list"
+    },
+    {
+        "desc": "根据pmImagePoolId显示资源池的分配信息",
+        "method": "GET",
+        "id": "pmPoolId.image.list",
+        "url": "pmimagemgmt/noauth/pmimage/image/listbype/{pmPoolId}/{enterpriseId}"
+    },
+    {
+        "desc": "物理机--根据物理机id，获取对应的产品信息",
+        "method": "GET",
+        "id": "phymachine.product.info",
+        "url": "marketplace/authsec/shopping/product/phymachine/{phymachineId}"
+    },
     //镜像管理部分
     {
         "desc": "创建镜像",
@@ -793,7 +824,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "Get cloud disk price",
         "id": "al-cloud.cloud-disk.price.get",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/price/disk"
+        "url": "alicloud/noauth/alicloud/price/disk"
     },
     { //订购阿里云硬盘
         "desc": "create alicloud disk",
@@ -850,6 +881,30 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/stopinstance/instanceid/{instanceid}"
     },
+    { //重启阿里云主机
+        "desc": "Reboot alicloud Instance",
+        "id": "al-cloud.cloud-vm.instance.reboot",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/rebootinstance/instanceid/{instanceid}/operation/{forcereboot}"
+    },
+    { //获取浮动IP地址
+        "desc": "Get floating ip list",
+        "id": "al-cloud.cloud-vm.instance.floating.ips.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeeipaddresses/regionid/{regionid}"
+    },
+    { //分配IP地址给云主机
+        "desc": "Allocation alicloud ip addresss with instance",
+        "id": "al-cloud.cloud-vm.instance.ip.allocate",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/associateeipaddress/instanceid/{instanceid}/allocationid/{allocationid}"
+    },
+    { //从云主机解绑IP地址
+        "desc": "Unassociate public ip addresss",
+        "id": "al-cloud.cloud-vm.instance.ip.unallocate",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/unassociateeipaddress"
+    },
     { //获取阿里云主机列表
         "desc": "query instance",
         "id": "al-cloud.cloud-vm.instance.list",
@@ -902,7 +957,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "Get instance price",
         "id": "al-cloud.cloud-vm.price.get",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/price"
+        "url": "alicloud/noauth/alicloud/price"
     },
 
     // 阿里云主账号管理
@@ -910,44 +965,44 @@ export let RestApis: RestApiModel[] = [
         "desc": "主账号列表",
         "id": "user-center.ali-cloud.list",
         "method": "GET",
-        "url": "marketplace/authsec/alicloud/mmp/main/list"
+        "url": "alicloud/authsec/alicloud/mmp/main/list"
     },
     {
         "desc": "主账号详细信息",
         "id": "user-center.ali-cloud.majorinfo",
         "method": "GET",
-        "url": "marketplace/authsec/alicloud/mmp/main/acct/{id}"
+        "url": "alicloud/authsec/alicloud/mmp/main/acct/{id}"
     },
     {
         "desc": "测试主账号",
         "id": "user-center.ali-cloud.majortest",
         "method": "POST",
-        "url": "marketplace/authsec/alicloud/mmp/main/testacct"
+        "url": "alicloud/authsec/alicloud/mmp/main/testacct"
     },
     {
-        "desc": "更新主账号信息",
-        "id": "user-center.ali-cloud.updateInfo",
-        "method": "POST",
-        "url": "marketplace/authsec/alicloud/mmp/main/update/{id}"
-    },
-    {
-        "desc": "编辑保存主账号",
+        "desc": "编辑保存主账号信息",
         "id": "user-center.ali-cloud.edit",
         "method": "POST",
-        "url": "marketplace/authsec/alicloud/mmp/main/depart/update/{id}"
+        "url": "alicloud/authsec/alicloud/mmp/main/update/{id}"
+    },
+    {
+        "desc": "编辑保存主账号部门分配",
+        "id": "user-center.ali-cloud.editdepart",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/mmp/main/depart/update/{id}"
     },
     {
         "desc": "主账号部门列表",
         "id": "user-center.ali-cloud.departmajorlist",
         "method": "GET",
-        "url": "/marketplace/authsec/alicloud/mmp/main/depart/list"
+        "url": "alicloud/authsec/alicloud/mmp/main/depart/list"
     },
     // 阿里云子账号管理
     {
         "desc": "子账号列表",
         "id": "user-center.ali-cloud.sublist",
         "method": "GET",
-        "url": "marketplace/authsec/alicloud/mmp/sub/list/{id}"
+        "url": "alicloud/authsec/alicloud/mmp/sub/list/{id}"
     },
     {
         "desc": "子账号详细信息",
@@ -960,5 +1015,42 @@ export let RestApis: RestApiModel[] = [
         "id": "user-center.ali-cloud.departsublist",
         "method": "GET",
         "url": "marketplace/authsec/alicloud/mmp/sub/depart/list"
+    },
+    {
+        "desc": "测试子账号",
+        "id": "user-center.ali-cloud.subtest",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/testsubacct"
+    },
+    {
+        "desc": "启用子账号",
+        "id": "user-center.ali-cloud.enable",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/enable/{id}"
+    },
+    {
+        "desc": "禁用子账号",
+        "id": "user-center.ali-cloud.disable",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/disable/{id}"
+    },
+    {
+        "desc": "删除子账号",
+        "id": "user-center.ali-cloud.delete",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/delete/{id}"
+    },
+    {
+        "desc": "创建子账号",
+        "id": "user-center.ali-cloud.create",
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/create"
+    },
+    // 阿里云共享账号管理
+    {
+        "desc": "共享账号列表",
+        "id": "user-center.ali-cloud.sharedlist",
+        "method": "GET",
+        "url": "marketplace/authsec/alicloud/mmp/share/acct/list"
     },
 ]

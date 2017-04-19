@@ -2,7 +2,7 @@
     <!--创建平台-->
 </div>
 <div class="page-content fix-page-content">
-    <!--<div [@flyInOut]="state">
+    <!--<div >
         <div class="row navigator-progress">
             <div class="col-md-2 active"><span class="mark">1</span><span>{{"PF_MNG2.BASIC_INFO" | translate}}</span></div>
             <div class="col-md-2"><span class="mark">2</span><span>{{"PF_MNG2.RESOURCE_SYNC" | translate}}</span></div>
@@ -18,9 +18,9 @@
                 </div>
             </div>
         </div>
-    </div>-->   
+    </div>-->
     <div>
-        <progress-bar [state]="state"></progress-bar>
+        <progress-bar [state]="state" [step]=1></progress-bar>
     </div>
     <div class="row">
         <div class="col-md-12">

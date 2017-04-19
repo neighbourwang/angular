@@ -4,6 +4,7 @@ import { RestApiCfg, RestApi, RestApiModel, SystemDictionaryService } from '../.
 
 //model
 import {MajorList_mock, MajorInfo_mock, Test_mock, Success_mock, DepartList_mock} from "../model/major-list.mock.model";
+import { AliMajorList } from '../model/ali-major-list.model';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -21,9 +22,9 @@ export class AliMajorService {
     }
 
     getData(): Promise<any>{
-/*        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.list");
-        return this.restApi.request(api.method, api.url, null, null, null);*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => MajorList_mock);
+        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.list");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => MajorList_mock);
     }
 
     getDetail(id: string): Promise<any>{
@@ -33,36 +34,45 @@ export class AliMajorService {
                 value: id
             }
         ];
-/*        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.majorinfo");
-        return this.restApi.request(api.method, api.url, pathParams, null, null);*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => MajorInfo_mock);
+        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.majorinfo");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => MajorInfo_mock);
     }
 
-    testMajor(): Promise<any>{
-/*        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.majortest");
-        return this.restApi.request(api.method, api.url, null, null, null);*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => Test_mock);
+    testMajor(majorInfo: AliMajorList): Promise<any>{
+        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.majortest");
+        return this.restApi.request(api.method, api.url, null, null,
+            {
+                "id": majorInfo.id,
+                "accessKey": majorInfo.accessKey,
+                "accessSecret": majorInfo.accessSecret,
+                "loginName": majorInfo.loginName
+            });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => Test_mock);
     }
 
-    updateInfo(id: string): Promise<any>{
+    edit(id: string, majorInfo: AliMajorList): Promise<any>{
         const pathParams=[
             {
                 key:"id",
                 value: id
             }
         ];
-        /* const api= this.restApiCfg.getRestApi("user-center.ali-cloud.updateInfo");
-         return this.restApi.request(api.method, api.url, pathParams, null, null);*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => MajorInfo_mock);
+         const api= this.restApiCfg.getRestApi("user-center.ali-cloud.edit");
+         return this.restApi.request(api.method, api.url, pathParams, null, {
+             "accessKey": majorInfo.accessKey,
+             "accessSecret": majorInfo.accessSecret
+         });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => Success_mock);
     }
-    edit(id: string): Promise<any>{
+    editDepart(id: string): Promise<any>{
         const pathParams=[
             {
                 key:"id",
                 value: id
             }
         ];
-        /* const api= this.restApiCfg.getRestApi("user-center.ali-cloud.edit");
+        /* const api= this.restApiCfg.getRestApi("user-center.ali-cloud.editdepart");
          return this.restApi.request(api.method, api.url, pathParams, null, null);*/
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => Success_mock);
     }

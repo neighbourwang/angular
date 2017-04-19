@@ -5,8 +5,10 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 
 //model 
-
+import { PhysicalService, FlatResourcePool, ResourcePoolObj, PartsFlavor, UnitObj ,FlatUnitObj} from '../model/physical-prod-service.model'
 // service;
+import { PhysicalServiceService } from '../service/physical-prod-service.service';
+import { PhysicalProductService } from '../service/physical-prod-cre.service';
 
 
 @Component({
@@ -22,26 +24,39 @@ export class PhysicalProdCreStep2Component implements OnInit {
         private route: Router,
         private router: ActivatedRoute,
         private LayoutService: LayoutService,
+        private service:PhysicalProductService,
+        private serviceService:PhysicalServiceService
     ) { }
 
 
     @ViewChild('notice')
     notice: NoticeComponent;
 
-    @ViewChild('regionSelect')
-    regionSelect: PopupComponent;
-
-    prodDirType: string = "";
-    prodDirId: string = "";
+    unitList:FlatUnitObj;
     ngOnInit() {
-        this.router.params.forEach((params: Params) => {
+        // this.router.params.forEach((params: Params) => {
             
-        })
-        if (this.prodDirId) {
+        // })
+        // if (this.prodDirId) {
            
-        }
+        // }
+        this.getUnitList();
     }
-
+    //获取部件列表
+    getUnitList() {
+        this.service.getUnitList().then(res => {
+            console.log('unitList', res);
+            if (res.resultCode == '100') {
+                this.unitList = res.resultContent;
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+    //同步counterBar
+    outputValue(e, num) {
+        this.service.product[num] = e;
+    }
     // 下一步
     ccf() { }
     //获取platformRegionList

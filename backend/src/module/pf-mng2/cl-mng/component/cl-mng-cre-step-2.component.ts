@@ -45,29 +45,7 @@ export class ClMngCreStep2Component implements OnInit {
             this.platformType = params['type'];
             console.log(this.platformType);
         })
-        //可用区同步
-        //       this.service.zones(platFormId,this.platformType).then(
-        //         res => {
-        //             console.log(res);
-        //             this.creStep2Model.zones = 'ok';
-        //             this.creStep2Model.zonesStatus = true;
-        //             this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_COMP_SYNC_STORAGE';
-        //             this.creStep2Model.percentage = 20;
-        //             this.storages();
-        //         }
-        //     ).catch(
-        //         error => {
-        //             this.creStep2Model.zones = 'fail';
-        //             this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
-        //         }
-        //         //     function(){
-        //         //     this.creStep2Model.synchronize = 'fail';
-        //         //     this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
-        //         // }
-        //         )
-        // }
-
-
+        
         this.service.zones(platFormId).then(
             res => {
                 console.log('zone', res);
@@ -82,11 +60,7 @@ export class ClMngCreStep2Component implements OnInit {
                 this.creStep2Model.zones = 'fail';
                 this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
                 this.creStep2Model.isBack = true;
-            }
-            //     function(){
-            //     this.creStep2Model.synchronize = 'fail';
-            //     this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
-            // }
+            }           
             )
 
         
@@ -150,22 +124,6 @@ export class ClMngCreStep2Component implements OnInit {
 
     private images() {
         let platFormId: string = this.idService.getPlatformId();
-
-        // this.service.images(platFormId).then(
-        //     res => {
-        //         console.log(res);
-        //         this.creStep2Model.images = 'ok';
-        //         this.creStep2Model.imagesStatus = true;
-        //         this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_COMP_SYNC_HOST';
-        //         this.creStep2Model.percentage = 80;
-        //         this.hosts();
-        //     }
-        // ).catch(
-        //     error => {
-        //         this.creStep2Model.images = 'fail';
-        //         this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_FAILED';
-        //     }
-        //     )
         this.service.getImages(platFormId).then(
             res => {
                 // console.log(res.resultContent);
@@ -225,10 +183,6 @@ export class ClMngCreStep2Component implements OnInit {
 
     next() {
         this.route.navigate(["pf-mng2/cl-mng/cre-step3", { type: this.platformType }]);
-    }
-
-    previous() {
-        this.route.navigateByUrl('pf-mng2/cl-mng/cre-step1');
     }
     cancel() {
         this.route.navigateByUrl("pf-mng2/cl-mng/cl-mng");

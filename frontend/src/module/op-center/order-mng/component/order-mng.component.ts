@@ -17,6 +17,7 @@ import {
 	, OrderDetailItem
 	, CancelParam
 	, AutoRenewItem
+	,UserInfo
 } from '../model'
 import * as _ from 'underscore';
 
@@ -103,6 +104,9 @@ export class OrderMngComponent implements OnInit {
 	private autoRenewConfigItem: ItemLoader<any> = null;
 	private autoRenewSetting: ItemLoader<any> = null;
 
+	private userTypeLoader:ItemLoader<UserInfo>= null;
+	private isAdmin:boolean = false;
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -113,8 +117,27 @@ export class OrderMngComponent implements OnInit {
 		//类型
 		this._typeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
+		this.userTypeLoader = new ItemLoader<UserInfo> (false,'用户类型加载出错','op-center.order-mng.ent-type.get',this.restApiCfg,this.restApi);
+	     this.userTypeLoader.MapFunc = (source:Array<any>, target:Array<UserInfo>)=>{
+                let obj = new UserInfo();
+                for(let item of source){
+                obj.enterpriseId = item.enterpriseId;
+				obj.enterpriseName = item.enterpriseName;
+				obj.organizationId = item.organizationId;
+				obj.organizationName = item.organizationName;
+                obj.roleName = item.roles[0].roleName;
+                }
+				
+                target.push(obj);
+			
+		}
+
+		// this.userTypeLoader.Trait = (target:Array<UserInfo>)=>{
+		
+		// }
+
 		//详情已购服务加载
-		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "ORDER_MNG.ORDER_DETAILS_DATA_FAILED", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
+		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "已购服务详情加载失败！", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
 		this._orderDetailLoader.MapFunc = (source: Array<any>, target: Array<OrderDetailItem>) => {
 			for (let item of source) {
 				let obj: OrderDetailItem = _.extendOwn(new OrderDetailItem(), item)
@@ -127,9 +150,40 @@ export class OrderMngComponent implements OnInit {
 						obj.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
 					}
 				}
+
+				
+				// if(item.hisOrderList&&item.hisOrderList.itemList&&item.hisOrderList.itemList[0].specList){
+				// 	for(let hisItem of item.hisOrderList){
+				// 		let getProperty = _.property("attrDisplayValue");
+				// 	 if(hisItem.productType==0){
+				// 		hisItem.instanceName = getProperty(item.hisOrderList[0].itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+				// 	}else{
+				// 		obj.hisOrderList[0].instanceName = getProperty(item.hisOrderList[0].itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
+				// 	}
+				// 	}
+					
+				// }
 			}
 		};
-
+		this._orderDetailLoader.Trait = (target:Array<OrderDetailItem>)=>{
+			//匹配历史信息
+			for(let item of target ){
+				if(item.hisOrderList){
+					for(let hisItem of item.hisOrderList){
+						// item.hisOrderList[0].type=0;
+						// item.hisOrderList[1].type=0;0是订购单
+						let getProperty = _.property("attrDisplayValue");
+						if(hisItem.specList){
+							 if(hisItem.productType==0){
+								hisItem.instanceName = getProperty(hisItem.specList.find(n=>n.attrCode == 'INSTANCENAME'));
+							}else{
+								hisItem.instanceName = getProperty(hisItem.specList.find(n=>n.attrCode == 'DISKINSNAME'));
+							}
+						}
+					}
+				}
+			}
+		}
 
 		this._orderDetailLoader.FirstItem = new OrderDetailItem();
 
@@ -302,15 +356,13 @@ export class OrderMngComponent implements OnInit {
 	}
 	ngOnInit() {
 		this.layoutService.show();
-		this._orderStatusDic.Go()
+		
+		this._orderStatusDic.Go()	
 			.then(success => {
-				return this._productTypeLoader.Go();
-			})
+				this.loadUserType();
+			})	
 			.then(success => {
 				return this._typeDic.Go();
-			})
-			.then(success => {
-				return this._departmentLoader.Go(null, [{ key: "enterpriseId", value: this.restApi.getLoginInfo().userInfo.enterpriseId }]);
 			})
 			.then(success => {
 				return this._billinModeDic.Go();
@@ -322,15 +374,20 @@ export class OrderMngComponent implements OnInit {
 				return this._platformLoader.Go();
 			})
 			.then(success => {
-				this.layoutService.hide();
+				return this._productTypeLoader.Go();
 			})
 			.then(success => {
 				this.search();
+			})
+			.then(success => {
+				this.layoutService.hide();
 			})
 			.catch(err => {
 				this.layoutService.hide();
 				this.showMsg(err);
 			});
+
+			
 
 		this._param.enterpriseId = this.restApi.getLoginInfo().userInfo.enterpriseId;
 
@@ -451,6 +508,47 @@ export class OrderMngComponent implements OnInit {
 		this.AutoRenewDialog.showCt();
 		this.AutoRenewDialog.showOt();
 	}
+
+	//判断用户是普通用户还是管理员
+    loadUserType(){
+        this.layoutService.show();
+        this.userTypeLoader.Go()
+            .then(sucess=>{
+				let item = this.userTypeLoader.FirstItem;
+				if(item.roleName&&item.roleName=='ENTERPRISE_ADMIN'){
+					this.isAdmin = true;
+					item.isAdmin = true;
+				}
+					
+				this._departmentLoader.Items.splice(0,this._departmentLoader.Items.length);
+				if(item.isAdmin){
+					this.layoutService.show();
+					// this.restApi.getLoginInfo().userInfo.enterpriseId;
+					this._departmentLoader.Go(null, [{ key: "enterpriseId", value: item.enterpriseId}])
+					.then(sucess=>{
+						this.layoutService.hide();
+					})
+					.catch(err=>{
+						this.layoutService.hide();
+						this.showMsg(err);
+					})
+				}else{
+					// let obj = new ListItem();
+					// obj.id = this.userTypeLoader.FirstItem.organizationId;
+					// obj.name = this.userTypeLoader.FirstItem.organizationName;
+					this._param.organization = item.organizationId;
+					this.loadBuyer();
+					// this._departmentLoader.Items.push(obj);
+				}
+                this.layoutService.hide();
+            })
+            .catch(err=>{
+                this.layoutService.hide();
+                this.showMsg(err);
+            })
+     
+        
+    }
 
 	//选择续订	
 	renewSelect(orderItem: SubInstanceResp) {

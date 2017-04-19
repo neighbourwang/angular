@@ -5,9 +5,12 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 
 //model 
+import { PhysicalModel } from '../model/physical-product.model';
+import { PhysicalService, FlatResourcePool, ResourcePoolObj, PartsFlavor, UnitObj, Spec } from '../model/physical-prod-service.model'
 
 // service;
-
+import { PhysicalServiceService } from '../service/physical-prod-service.service';
+import { PhysicalProductService } from '../service/physical-prod-cre.service';
 
 @Component({
     templateUrl: '../template/physical-prod-cre-step1.html',
@@ -22,26 +25,28 @@ export class PhysicalProdCreStep1Component implements OnInit {
         private route: Router,
         private router: ActivatedRoute,
         private LayoutService: LayoutService,
+        private service:PhysicalProductService,
     ) { }
 
 
     @ViewChild('notice')
     notice: NoticeComponent;
 
-    @ViewChild('regionSelect')
-    regionSelect: PopupComponent;
-
+    
     prodDirType: string = "";
     prodDirId: string = "";
     ngOnInit() {
+        this.service.product=new PhysicalModel();
         this.router.params.forEach((params: Params) => {
-            
+            this.prodDirId = params['id'];
+            console.log(this.prodDirId);
         })
         if (this.prodDirId) {
-           
+            this.service.getPhysicalService(this.prodDirId);
+            this.service.getEnterPriseList();  
         }
     }
-
+    
     // 下一步
     ccf() { }
     //获取platformRegionList

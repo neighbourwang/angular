@@ -50,7 +50,6 @@ export class ClMngCreStep1Component implements OnInit {
 
     @ViewChild('regionSelect')
     regionSelect: PopupComponent;
-
     ngOnInit() {
         console.log('init');
         // this.layoutService.show();
@@ -119,10 +118,7 @@ export class ClMngCreStep1Component implements OnInit {
             )
 
     }
-    next() {
-        if(this.state=='4'){
-            return
-        }
+    next() {        
         let message: String = this.checkValue();
         if (this.checkValue()) {
             this.notice.open('COMMON.ERROR', message);
@@ -156,7 +152,11 @@ export class ClMngCreStep1Component implements OnInit {
                                 res => {
                                     this.layoutService.hide();
                                     this.idService.setPlatformId(res.resultContent);
-                                    this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
+                                    if(this.creStep1Model.platformType == '2'){
+                                        this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);                                        
+                                    }else{
+                                        this.router.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step2", { type: this.creStep1Model.platformType }]);
+                                    }
                                 }
                             ).catch(
                                 err => {
@@ -194,8 +194,10 @@ export class ClMngCreStep1Component implements OnInit {
             index == 3 ? '4' : '6';
         this.creStep1Model.platformType = item.value;
         console.log(item);
+        item.code=
+            item.code=='Desktop Vmware'?"VMWARE_DESKTOP":item.code;
         this.creStep1Model.version = '';
-        index != 3 && this.commonService.getVersion(item.code).then(
+        index != 1 && this.commonService.getVersion(item.code).then(
             res => {
                 console.log(res);
                 this.platformVersion = res

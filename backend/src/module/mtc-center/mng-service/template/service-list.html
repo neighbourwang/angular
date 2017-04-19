@@ -1,0 +1,129 @@
+<div class="page-content-header icon-content-header-mng-service">
+    管理服务
+</div>
+<div class="page-content">
+    <div class="mgt10">
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">服务状态：</span>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl5 " (click)="oneSet();"><span class="icon-button-label">进行中 </span> </button>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10 "><span class="icon-button-label">已完成 </span> </button>
+    </div>
+    <div class="mgt15">
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>
+        <div class="float-left pdr20 mgl5">
+            <select class="pdl10 form-control" style="width: 165px;">
+                <option>请选择企业</option>
+                <option>上海惠普有限公司</option>
+            </select>
+        </div>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">管理服务名称：</span>
+        <div class="float-left pdr20 mgl5">
+            <select class="pdl10 form-control">
+                <option>请选择服务</option>
+                <option>服务名称1</option>
+            </select>
+        </div>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">服务对象：</span>
+        <div class="float-left pdr20 mgl5">
+            <select class="pdl10 form-control">
+                <option>请选择对象</option>
+                <option>服务对象1</option>
+            </select>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="mgt15 mgb15">
+        <div class="float-left pdr20">
+            <select class="pdl10 form-control">
+                <option>实例名称</option>
+                <option>上海惠普有限公司</option>
+            </select>
+        </div>
+        <div class="input-group col-md-2 float-left">
+            <input  type="text" class="form-control" placeholder="输入信息快速搜索">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+        </div>
+        <button class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" >重置</button>
+
+        <button class="fox-cloud-button fox-cloud-button-white pull-right mgl10" (click)="serviceUpdate()">
+            <span class="icon-button-label icon-left-button-label">服务状态更新</span>
+        </button>
+        <button class="fox-cloud-button fox-cloud-button-white pull-right mgl10" (click)="servicefollow()">
+            <span class="icon-button-label icon-left-button-label">服务跟进</span>
+        </button>
+    </div>
+    <div class="table-comtainer">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>服务编号</th>
+                <th>管理服务名称</th>
+                <th>服务对象</th>
+                <th>实例ID/实例名称</th>
+                <th>所在区域</th>
+                <th>所属企业</th>
+                <th>服务类型</th>
+                <th>服务状态</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="radio" class="fox-cloud-radio"/></td>
+                <td>123</td>
+                <td><a href="javascript:void(0);" (click)="gotoDetail();">我的云主机管理服务</a></td>
+                <td>云主机</td>
+                <td>asdasdaffdsf</td>
+                <td>上海1区</td>
+                <td>DXC</td>
+                <td>持续型服务</td>
+                <td>进行中</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
+    </div>
+</div>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" ></fc-confirm>
+
+<fc-popup #popUnit title="{{title}}" ot="{{type== 'update'? '服务完成': 'COMMON.SAVE' | translate }}"  ct="{{ 'COMMON.CANCEL' | translate }}" (of)="creOredit()">
+   <div style="height: 150px;">
+       <div *ngIf="type== 'update'" class="row">
+           <div class="form-group">
+               <div class="col-sm-2 form-control-title no-padding">更新信息:</div>
+           </div>
+       </div>
+       <div class="row row-line-height">
+           <div class="form-group mgl5">
+               <textarea class="form-control" rows="4" placeholder="必须输入内容才能保存"></textarea>
+           </div>
+       </div>
+   </div>
+</fc-popup>
+
+<fc-popup #setUnit title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'COMMON.SAVE' | translate }}"  ct="{{ 'COMMON.CANCEL' | translate }}" (of)="creOredit()">
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title mgl5"><span class="asterisk">*</span>自动完成:</div>
+            <div class="col-md-2" style="line-height:34px">
+                <input class="fox-cloud-radio" type="radio">
+                <span class="mgl5">开启</span>
+            </div>
+            <div class="col-md-2" style="line-height:34px">
+                <input class="fox-cloud-radio" type="radio">
+                <span class="mgl5">关闭</span>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title" style="text-align:left;padding-right:0px;">自动完成等待时间:</div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-sm-4" style="line-height:34px">分钟</div>
+        </div>
+    </div>
+</fc-popup>
