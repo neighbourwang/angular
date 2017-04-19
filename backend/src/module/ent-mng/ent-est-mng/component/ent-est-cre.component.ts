@@ -320,7 +320,6 @@ export class EntEstCreComponent implements OnInit{
 	
 	}
 
-   //
    validateMaxPlatform(){
 	    let totalVcpu:number=0;
 		let totalMemory :number=0;
