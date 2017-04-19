@@ -4,7 +4,7 @@
 <div class="page-content">
     <div class="mgt10">
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">服务状态：</span>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl5 "><span class="icon-button-label">进行中 </span> </button>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl5 " (click)="oneSet();"><span class="icon-button-label">进行中 </span> </button>
         <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10 "><span class="icon-button-label">已完成 </span> </button>
     </div>
     <div class="mgt15">
@@ -44,10 +44,10 @@
         </div>
         <button class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" >重置</button>
 
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgl10">
+        <button class="fox-cloud-button fox-cloud-button-white pull-right mgl10" (click)="serviceUpdate()">
             <span class="icon-button-label icon-left-button-label">服务状态更新</span>
         </button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgl10">
+        <button class="fox-cloud-button fox-cloud-button-white pull-right mgl10" (click)="servicefollow()">
             <span class="icon-button-label icon-left-button-label">服务跟进</span>
         </button>
     </div>
@@ -67,9 +67,9 @@
             </thead>
             <tbody>
             <tr>
-                <td><input type="radio" class="fox-cloud-radio" name="radio"/></td>
+                <td><input type="radio" class="fox-cloud-radio"/></td>
                 <td>123</td>
-                <td>我的云主机管理服务</td>
+                <td><a href="javascript:void(0);" (click)="gotoDetail();">我的云主机管理服务</a></td>
                 <td>云主机</td>
                 <td>asdasdaffdsf</td>
                 <td>上海1区</td>
@@ -80,4 +80,50 @@
             </tbody>
         </table>
     </div>
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
+    </div>
 </div>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" ></fc-confirm>
+
+<fc-popup #popUnit title="{{title}}" ot="{{type== 'update'? '服务完成': 'COMMON.SAVE' | translate }}"  ct="{{ 'COMMON.CANCEL' | translate }}" (of)="creOredit()">
+   <div style="height: 150px;">
+       <div *ngIf="type== 'update'" class="row">
+           <div class="form-group">
+               <div class="col-sm-2 form-control-title no-padding">更新信息:</div>
+           </div>
+       </div>
+       <div class="row row-line-height">
+           <div class="form-group mgl5">
+               <textarea class="form-control" rows="4" placeholder="必须输入内容才能保存"></textarea>
+           </div>
+       </div>
+   </div>
+</fc-popup>
+
+<fc-popup #setUnit title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'COMMON.SAVE' | translate }}"  ct="{{ 'COMMON.CANCEL' | translate }}" (of)="creOredit()">
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title mgl5"><span class="asterisk">*</span>自动完成:</div>
+            <div class="col-md-2" style="line-height:34px">
+                <input class="fox-cloud-radio" type="radio">
+                <span class="mgl5">开启</span>
+            </div>
+            <div class="col-md-2" style="line-height:34px">
+                <input class="fox-cloud-radio" type="radio">
+                <span class="mgl5">关闭</span>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title" style="text-align:left;padding-right:0px;">自动完成等待时间:</div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-sm-4" style="line-height:34px">分钟</div>
+        </div>
+    </div>
+</fc-popup>
