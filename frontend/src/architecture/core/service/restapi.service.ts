@@ -22,8 +22,8 @@ export class RestApi {
 		return this.httpRequest('GET', url, jwt, pathParams, queryParams, undefined);
 	}
 
-	post(url: string, pathParams: Array<any>, queryParams: any, body: any, jwt: string = undefined): Promise<any> {
-		return this.httpRequest('POST', url, jwt, pathParams, queryParams, body);
+	post(url: string, pathParams: Array<any>, queryParams: any, body: any, isOriginBody: boolean = false, jwt: string = undefined): Promise<any> {
+		return this.httpRequest('POST', url, jwt, pathParams, queryParams, body, undefined, undefined, isOriginBody);
 	}
 
 	put(url: string, pathParams: Array<any>, queryParams: any, body: any, jwt: string = undefined): Promise<any> {
@@ -66,7 +66,7 @@ export class RestApi {
 		}
 	}
 
-	private httpRequest(type: string, url: string, jwt: string, pathParams: Array<any>, queryParams: Array<any>, body: any, headerParams: Headers = new Headers(), responseType = undefined): Promise<any> {
+	private httpRequest(type: string, url: string, jwt: string, pathParams: Array<any>, queryParams: Array<any>, body: any, headerParams: Headers = new Headers(), responseType = undefined, isOriginBody: boolean = false): Promise<any> {
 		console.debug(`START ${type} ${new Date().toLocaleString()}: ${url}`);
 
 		const path = pathParams ? this.createPath(url, pathParams) : url;
@@ -84,7 +84,7 @@ export class RestApi {
 		};
 		if (body) {
 			headerParams.append('Content-Type', 'application/json');
-			requestOptions.body = JSON.stringify(body);
+			requestOptions.body = isOriginBody ? body : JSON.stringify(body);
 		}
 
 		headerParams.append('Authorization', environment.jwt);

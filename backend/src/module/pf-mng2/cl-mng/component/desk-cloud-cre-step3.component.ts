@@ -43,14 +43,6 @@ export class DeskCloudCreStep3Component implements OnInit {
             res => {
                 console.log(res);
                 this.creStep3Model = res.resultContent;
-                this.creStep3Model.forEach(ele => {
-                    ele.displayNameValid = true;
-                    ele.exceedPercentageValid = true;
-                    ele.quotaPercentDisplayValid = true;
-                    ele.quotaPercentage =
-                        ele.quotaPercentage ? ele.quotaPercentage : 0;
-                    ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                });
                 this.layoutService.hide();
             }
         ).catch(
@@ -65,65 +57,34 @@ export class DeskCloudCreStep3Component implements OnInit {
         item.displayNameValid =
             item.displayName ? true : false;
     }
-    exceedPercentageVa(item) {
-        if (item.exceedPercentage && item.exceedPercentage >= 0) {
-            item.exceedPercentageValid = true;
-        } else {
-            item.exceedPercentageValid = false;
-        }
-    }
-    quotaPercentDisplayVa(item) {
-        if (item.quotaPercentDisplay && item.quotaPercentDisplay >= 0 && item.quotaPercentDisplay <= 100) {
-            item.quotaPercentDisplayValid = true;
-        } else {
-            item.quotaPercentDisplayValid = false;
-        }
-    }
-
     next() {
 
         let platFormId: string = this.idService.getPlatformId();
-
-        // this.router.navigateByUrl("pf-mng2/cl-mng/cre-step4");
         for (let zone of this.creStep3Model) {
             this.displayNameVa(zone);
             if (!zone.displayNameValid) {
                 return
-            }
-            this.exceedPercentageVa(zone);
-            if (!zone.exceedPercentageValid) {
-                return
-            }
-            this.quotaPercentDisplayVa(zone);
-            if (!zone.quotaPercentDisplayValid) {
-                return
-            }
-            zone.quotaPercentage = 0;
-            zone.quotaPercentage = zone.quotaPercentDisplay * 0.01
-        }
-        // this.creStep3Model.forEach(ele => {
-
-        // }
-        // );
+            }                      
+        }       
         console.log(this.creStep3Model);
         //等待接口
-        this.layoutService.show();
-        this.service.putZone(platFormId, this.creStep3Model).then(
-            res => {
-                console.log(res);
-                this.layoutService.hide();
-                this.router.navigate(["pf-mng2/cl-mng/cre-step4", { type: this.platformType }]);
-            }
-        ).catch(
-            error => {
-                this.layoutService.hide();
-                console.error('error');
-            }
-            )
+        // this.layoutService.show();
+        // this.service.putZone(platFormId, this.creStep3Model).then(
+        //     res => {
+        //         console.log(res);
+        //         this.layoutService.hide();
+        //         this.router.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step4", { type: this.platformType }]);
+        //     }
+        // ).catch(
+        //     error => {
+        //         this.layoutService.hide();
+        //         console.error('error');
+        //     }
+        //     )
     }
 
     previous() {
-        this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.platformType }]);
+        this.router.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step2", { type: this.platformType }]);
     }
     cancel() {
         this.router.navigate(["pf-mng2/cl-mng/cl-mng", { type: this.platformType }]);

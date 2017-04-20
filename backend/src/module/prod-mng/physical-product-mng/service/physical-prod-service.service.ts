@@ -14,12 +14,6 @@ export class PhysicalServiceService {
         private restApi: RestApi
     ) { }
 
-    // 获取部件列表
-    getUnitList() {
-        let api = this.restApiCfg.getRestApi("physical-service-unitList.get");
-
-        return this.restApi.request(api.method, api.url, [], undefined);
-    }
     //获取可用资源池列表
     getResourcePoolList() {
         let api = this.restApiCfg.getRestApi("physical-service-resourcepool.get");

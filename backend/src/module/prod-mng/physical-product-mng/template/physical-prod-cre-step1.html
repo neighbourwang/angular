@@ -18,7 +18,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品名称：</div><!--产品名称-->
 					<div class="col-sm-4">
-						<input type="text" class="form-control" [(ngModel)]="name" placeholder="{{'PROD_MNG.PROD_NAME' | translate}}">
+						<input type="text" class="form-control" [(ngModel)]="service.product.name" placeholder="{{'PROD_MNG.PROD_NAME' | translate}}">
 					</div>
 				</div>
 			</div>
@@ -26,7 +26,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div><!--产品目录-->
 					<div class="col-sm-4">
-						<input type="text" class="form-control" disabled [(ngModel)]="serviceName">
+						<input type="text" class="form-control" disabled [(ngModel)]="service.physicalService.serviceName">
 					</div>
 				</div>
 			</div>			
@@ -38,7 +38,6 @@
 							<table class="table table-hover">
 								<thead>
 									<tr>
-										<th class="check-box-col">{{'COMMON.SELECT_ALL'| translate}}</th>
 										<th>
 											{{"部件名称"}}
 										</th>
@@ -49,54 +48,19 @@
 									</tr>
 								</thead>
 								<tbody>
-									<!--<tr *ngFor="let item of prodDirList; let idx = index;">-->
-									<tr>
+									<tr *ngFor="let unit of service.physicalService.phyMachinePartsFlavors; let idx = index;">										
 										<td>
-											<input class="fox-cloud-radio" type="radio" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"
-											/></td>
-										<td>
-											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'cpu'}}</a>
+											{{unit.partsName}}
 										</td>
-										<td>{{'Xeon E5 2560'}}</td>
-										<td>{{'2.9GHZ'}}</td>
-										<td>{{'2'}}</td>										
-										<td>{{'128GB'}}</td>
-									</tr>
-									<tr>
+										<td>{{unit.specName}}</td>
 										<td>
-											<input class="fox-cloud-radio" type="radio" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"
-											/></td>
-										<td>
-											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'内存'}}</a>
+											{{unit.partsFlavorValue}}
+											<span *ngIf="unit.partsId=='2eeb0a38-167e-11e7-91af-0242ac110002'||unit.partsId=='35dc99bd-167e-11e7-91af-0242ac110002'">GB</span>
 										</td>
-										<td>{{'Xeon E5 2560'}}</td>
-										<td>{{'2.9GHZ'}}</td>
-										<td>{{'2'}}</td>										
-										<td>{{'128GB'}}</td>
-									</tr>
-									<tr>
+										<td>{{unit.partFlavorNum}}</td>
 										<td>
-											<input class="fox-cloud-radio" type="radio" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"
-											/></td>
-										<td>
-											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'磁盘'}}</a>
+											<span *ngIf="unit.capacity!=0">{{unit.capacity}}GB</span>									
 										</td>
-										<td>{{'Xeon E5 2560'}}</td>
-										<td>{{'2.9GHZ'}}</td>
-										<td>{{'2'}}</td>										
-										<td>{{'128GB'}}</td>
-									</tr>
-									<tr>
-										<td>
-											<input class="fox-cloud-radio" type="radio" [(ngModel)]="isSelected" (ngModelChange)="switchSelectIndividual(idx)"
-											/></td>
-										<td>
-											<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{'网卡'}}</a>
-										</td>
-										<td>{{'Xeon E5 2560'}}</td>
-										<td>{{'2.9GHZ'}}</td>
-										<td>{{'2'}}</td>										
-										<td>{{'128GB'}}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -108,7 +72,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">描述：</div>
 					<div class="col-sm-4">
-						<textarea class="form-control" rows="4" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}" [(ngModel)]="desc"></textarea>
+						<textarea class="form-control" rows="4" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}" [(ngModel)]="service.product.desc"></textarea>
 					</div>
 				</div>
 			</div>

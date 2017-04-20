@@ -44,7 +44,7 @@ export class PhysicalProdCreStep2Component implements OnInit {
     }
     //获取部件列表
     getUnitList() {
-        this.serviceService.getUnitList().then(res => {
+        this.service.getUnitList().then(res => {
             console.log('unitList', res);
             if (res.resultCode == '100') {
                 this.unitList = res.resultContent;
@@ -52,6 +52,10 @@ export class PhysicalProdCreStep2Component implements OnInit {
         }).catch(err => {
             console.log(err);
         })
+    }
+    //同步counterBar
+    outputValue(e, num) {
+        this.service.product[num] = e;
     }
     // 下一步
     ccf() { }

@@ -16,39 +16,7 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10 table-container no-padding">
-            <table class="table table-hover" *ngIf="platformType=='0'">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>{{"COMMON.NAME" | translate}}</th>
-                        <th style="width:25%">{{"CAPACITY_MNG.DISPLAY_NAME" | translate}}</th>
-                        <th>{{"CAPACITY_MNG.STORAGE_TYPE" | translate}}</th>
-                        <th>{{"CAPACITY_MNG.TOTAL_CAPACITY" | translate}}</th>
-                        <th style="width:7%">{{"CAPACITY_MNG.COPIES" | translate}}</th>
-                        <th style="width:100px">{{"COMMON.QUOTA" | translate}}%</th>
-                        <th style="width:25%">{{"COMMON.COMMENT" | translate}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of creStep4Model; let idx = index;">
-                        <td>{{idx + 1}}</td>
-                        <td>{{item.name}}</td>
-                        <td><input type="text" class="form-control" [(ngModel)]="item.displayName" required></td>
-                        <td>{{item.typeDisplayName}}</td>
-                        <td>{{item.maximum||0}}</td>
-                        <td>
-                            <input type="number" class="form-control" required [(ngModel)]="item.replica" style="width: 100px; display: inline;" min="0" max="9">
-                        </td>
-                        <td>
-                            <input type="number" class="form-control"  required [(ngModel)]="item.quotaPercentDisplay" style=" display: inline;" min="0" max="100">
-                        </td>
-                        <td >
-                            <input type="text" class="form-control" [(ngModel)]="item.description" style=" display: inline;" >
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-hover mgt20" *ngIf="platformType=='2'">
+            <table class="table table-hover mgt20">
                 <thead>
                     <tr>
                         <th>#</th>

@@ -14,9 +14,9 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li><a href="javascript:void(0);" (click)="editAccountType();">编辑账号类型</a></li>
-                <li><a href="javascript:void(0);" (click)="changeAccountStatus('1');">启用</a></li>
-                <li><a href="javascript:void(0);" (click)="changeAccountStatus('0');">禁用</a></li>
-                <li><a href="javascript:void(0);" (click)="changeAccountStatus('2');">删除</a></li>
+                <li><a href="javascript:void(0);" (click)="enableAccount();">启用</a></li>
+                <li><a href="javascript:void(0);" (click)="disableAccount();">禁用</a></li>
+                <li><a href="javascript:void(0);" (click)="deleteAccount();">删除</a></li>
             </ul>
         </div>
         <div class="pull-right mgl10">
@@ -35,7 +35,7 @@
             <tr>
                 <th>选择</th>
                 <th>主账号登录名</th>
-                <th>账号类型（1独享 2共享）</th>
+                <th>账号类型</th>
                 <th>所属企业</th>
                 <th>状态</th>
                 <th>最后更新时间</th>
@@ -49,12 +49,12 @@
                     <input type="radio" name="aliAccount" class="fox-cloud-radio" (change)="getSelectAccount(item);"[checked]="item.isSelect" />
                 </td>
                 <td><a href="javascript:void(0);" (click)="viewAccount(item);">{{item.loginName}}</a></td>
-                <td>{{item.mainAccountType}}</td>
+                <td>{{item.mainAccountType | dict:service.dictType | async }}</td><!--| dict:service.dictType | async-->
                 <td>{{item.mainAccountType =="2"? "多个":item.tenantCross}}</td>
-                <td  [ngClass]="{'font-orange': item.status=='0','font-green': item.status=='1'}">
+                <td  [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}">
                    {{item.status| dict:service.dictStatus | async}}  <!-- {{item.status}}-->
                 </td>
-                <td>{{item.lastUpdate}}</td>
+                <td>{{item.lastUpdate| formatDate}}</td>
                 <td>{{item.operator}}</td>
                 <td>{{item.description}}</td>
             </tr>
