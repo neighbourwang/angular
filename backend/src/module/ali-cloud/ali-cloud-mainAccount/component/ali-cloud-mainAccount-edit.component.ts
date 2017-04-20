@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router,ActivatedRoute, Params } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
+import { LayoutService,NoticeComponent,ConfirmComponent,Validation,ValidationRegs  } from '../../../../architecture';
 
 //model
 import{AccountModel} from '../model/account.model';
@@ -23,9 +23,10 @@ export class AliCloudMainAccountEditComponent implements OnInit{
         private route : Router,
         private activeRoute:ActivatedRoute,
         private service : AliCloudMainAccountEditService,
-        private layoutService : LayoutService
+        private layoutService : LayoutService,
+        private v:Validation
     ) {
-
+       this.v.result = {};
     }
 
     noticeTitle = "";
@@ -38,6 +39,8 @@ export class AliCloudMainAccountEditComponent implements OnInit{
 
     editMode:string;
     title:string;
+    testResult:string;
+    changebt=true;
     //accountId:string;
 
     ngOnInit (){
@@ -72,7 +75,7 @@ export class AliCloudMainAccountEditComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.layoutService.hide();
-                        this.account = response["resultContent"].find((e)=>{return e.id ==this.account.id});
+                        this.account = response["resultContent"];
                         console.log("主账号信息",this.account);
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -103,46 +106,65 @@ export class AliCloudMainAccountEditComponent implements OnInit{
 
     //添加账号
     createAccount(){
+        this.layoutService.show();
+        if (this.testResult=="1") {
+            this.service.createAccount(this.account)
+            .then(
+                response=>{ 
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.gotoAccountList();
+                    } 
+                    else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+        .catch((e) => this.onRejected(e));
+        }
+    }
+
+    changebtn():boolean{
+        this.changebt=false;
+        return this.changebt;
+    }
+
+    //测试access信息
+    testAccessInfo(){
         this.layoutService.hide();
-        if (!this.account.loginName) {
-            this.showAlert("");
-            return false;
-        }
-        if (!this.account.loginName) {
-            this.showAlert("");
-            return false;
-        }
-        if (!this.account.loginName) {
-            this.showAlert("");
-            return false;
-        }
-        if (!this.account.loginName) {
-            this.showAlert("");
-            return false;
-        }
-        if (!this.account.loginName) {
-            this.showAlert("");
-            return false;
-        }
-        this.service.createAccount(this.account)
+        this.service.testAccessInfo(this.account)
         .then(
-            response=>{ 
+            response=>{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.gotoAccountList();
+                    this.testResult="1";
                 } 
                 else {
-                    this.showAlert("COMMON.OPERATION_ERROR");
+                   this.testResult="0";
                 }
+                console.log("测试结果",this.testResult)
             }
         )
-        .catch((e) => this.onRejected(e));
     }
+
     //跳转到账号列表
      gotoAccountList(){
            this.route.navigate([`ali-cloud/ali-cloud-mainAccount/ali-cloud-mainAccount-list`])
      }
+
+     checkForm(key?:string) {
+        let regs:ValidationRegs = {  //regs是定义规则的对象         
+            username: [this.account.loginName, [this.v.isUnBlank, this.v.isBase], "用户名输入格式不正确"],
+            url: [this.account.accessUrl, [this.v.isUnBlank, this.v.isUrl], "阿里云访问地址输入不正确"],
+            accessKey: [this.account.accessKey, [this.v.isUnBlank, this.v.isBase], "access key id不正确"],
+            accessSecret: [this.account.accessSecret, [this.v.isUnBlank,this.v.isBase], "access key secret不正确"],
+            type: [this.account.mainAccountType, [this.v.isUnBlank], "账号类型不能为空"],
+        }
+        return this.v.check(key, regs);
+    }
+
 
     showAlert(msg: string): void {
         this.layoutService.hide(); 

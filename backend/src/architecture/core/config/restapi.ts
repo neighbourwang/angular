@@ -2631,13 +2631,93 @@ export let RestApis: RestApiModel[] = [
         "id":"ali-mainAccount-type-edit.post",
         "method":"POST",
         "url":"adminboe/authsec/alicloud/adm/main/updatetype/{id}"
+     },    
+    {
+        "desc": "主账号启用",
+        "id":"ali-mainAccount-status-enable.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/enable/{id}"
      },
      {
-        "desc": "主账号状态修改",
-        "id":"ali-mainAccount-statusChange.post",
+        "desc": "主账号禁用",
+        "id":"ali-mainAccount-status-disable.post",
         "method":"POST",
-        "url":"adminboe/authsec/alicloud/adm/main/updatestatus/{id}/{type}"
+        "url":"adminboe/authsec/alicloud/adm/disable/{id}"
      },
-
+     {
+        "desc": "删除主账号",
+        "id":"ali-mainAccount-delete.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/delete/{id}"
+     },
+      {
+        "desc": "获取主账号企业列表",
+        "id":"ali-mainAccount-enterprise-list.get",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/entlist"
+     },
+     {
+        "desc": "保存设置主账号企业",
+        "id":"ali-mainAccount-enterprise-set.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/ent/update/{id}"
+     },  
+     {
+        "desc": "子账号列表",
+        "id":"ali-subAccount-list.get",
+        "method":"GET",
+        "url":"adminboe/authsec/alicloud/adm/sub/list"
+     },  
+    {
+        "desc": "查看子账号",
+        "id":"ali-subAccount-view.get",
+        "method":"GET",
+        "url":"adminboe/authsec/alicloud/adm/sub/acct/{id}"
+     },
+     {
+        "desc": "子账号启用",
+        "id":"ali-subAccount-status-enable.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/enable/{id}"
+     },
+     {
+        "desc": "子账号禁用",
+        "id":"ali-subAccount-status-disable.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/disable/{id}"
+     },
+     {
+        "desc": "删除子账号",
+        "id":"ali-subAccount-delete.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/delete/{id}"
+     },
+     {
+        "desc": "获取子账号企业列表",
+        "id":"ali-subAccount-enterprise-list.get",
+        "method":"GET",
+        "url":"adminboe/authsec/alicloud/adm/sub/entlist"
+     },
+     {
+        "desc": "保存设置子账号企业",
+        "id":"ali-subAccount-enterprise-set.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/ent/update/{id}"
+     },  
+    {
+        "desc": "添加子账号",
+        "id":"ali-subAccount-create.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/addacct"
+     },
+     {
+        "desc": "测试access信息",
+        "id":"ali-Account-accessInfo-test.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/test"
+     },
+    
+   
+     
 ]
 

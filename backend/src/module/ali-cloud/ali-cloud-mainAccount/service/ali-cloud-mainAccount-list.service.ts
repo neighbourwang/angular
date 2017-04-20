@@ -23,45 +23,75 @@ export class AliCloudMainAccountMngService {
     //字典
     dictStatus = this.dict.get(
         {      
-        owner : "PM",
+        owner : "PORTGROUP",
         field : "STATUS"             //状态
     }             
     );
     dictType = this.dict.get(
-    //     {      
-    //     owner : "GLOBAL ",
-    //     field : "SERVICE_TYPE"      //账号类型
-    // }             
+        {      
+        owner : "ALICLOUD",
+        field : "MAIN_ACCOUNT_TYPE"      //账号类型
+    }             
     );
 
     //获取主账号列表
     getMainAccounts():Promise<any>{    
-         const pathParams = [
-        //     {
-        //         key: "page",
-        //         value: pageIndex
-        //     },              
-         ]
          const api = this.restApiCfg.getRestApi("ali-mainAccount-list.get");
-        //return this.restApi.request(api.method, api.url, pathParams, null, { });
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => mainAccountList_mock);
+        return this.restApi.request(api.method, api.url,null, null,null);
+       // return new Promise(resovle => setTimeout(resovle, 200)).then(() => mainAccountList_mock);
     }
-    
-    //修改主账号状态
-     updateStatusAndDelete(accountId:string,status:string):Promise<any>{
-         const pathParams = [
+
+    //删除主账号
+    deleteAccount(accountId:string):Promise<any>{
+        const pathParams = [
             {
                 key: "id",
                 value: accountId
-            },
-            {
-                key: "status",
-                value: status
             }
-        ];
-        const api = this.restApiCfg.getRestApi("ali-mainAccount-statusChange.post");
+        ]
+        const api = this.restApiCfg.getRestApi("ali-mainAccount-delete.post");
         return this.restApi.request(api.method, api.url, pathParams, null,null);
     }
+
+    //启用主账号
+    enableAccount(accountId:string):Promise<any>{
+        const pathParams = [
+            {
+                key: "id",
+                value: accountId
+            }
+        ]
+        const api = this.restApiCfg.getRestApi("ali-mainAccount-status-enable.post");
+        return this.restApi.request(api.method, api.url, pathParams, null,null);
+    }
+
+    //禁用主账号
+    disableAccount(accountId:string):Promise<any>{
+        const pathParams = [
+            {
+                key: "id",
+                value: accountId
+            }
+        ]
+        const api = this.restApiCfg.getRestApi("ali-mainAccount-status-disable.post");
+        return this.restApi.request(api.method, api.url, pathParams, null,null);
+    }
+    
+    // //修改主账号状态
+    //  updateStatusAndDelete(accountId:string,status:string):Promise<any>{
+    //      const pathParams = [
+    //         {
+    //             key: "id",
+    //             value: accountId
+    //         },
+    //         {
+    //             key: "status",
+    //             value: status
+    //         }
+    //     ];
+    //     const api = this.restApiCfg.getRestApi("ali-mainAccount-statusChange.post");
+    //     return this.restApi.request(api.method, api.url, pathParams, null,null);
+    // }
 
     //修改账号类型
     editAccountType(accountId:string,type:string):Promise<any>{
@@ -70,12 +100,8 @@ export class AliCloudMainAccountMngService {
                 key: "id",
                 value: accountId
             },
-            {
-                key: "type",
-                value: type
-            }
         ];
         const api = this.restApiCfg.getRestApi("ali-mainAccount-type-edit.post");
-        return this.restApi.request(api.method, api.url, pathParams, null,null);
+        return this.restApi.request(api.method, api.url, pathParams, null,type);
     }
 }

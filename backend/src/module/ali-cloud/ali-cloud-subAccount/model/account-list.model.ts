@@ -1,8 +1,23 @@
 export class AccountListModel{
-    mainAccountName:string;
-    enterprise:string;
-    department:string;
-    updateTime:string;
+    id:string;
+    loginName:string;
+    tenantName:string;
+    orgName:string;
+    orgId:string;
+    status:string;
+    lastUpdate:string;
     operator:string;
     description:string;
+    accessUrl:string;
+    accessKey:string;
+    accessSecret:string;
+    isEditable:string;
+    isSelect=false;
+    
+}
+export class EnterpriseModel{
+    tenantId:string;
+    tenantName:string;
+    status:string;
+    isSelect=false;
 }

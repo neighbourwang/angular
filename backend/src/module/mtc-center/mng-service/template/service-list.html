@@ -4,9 +4,9 @@
 <div class="page-content">
     <div class="mgt10">
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">服务状态：</span>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl5 " (click)="oneSet();"><span class="icon-button-label">进行中 </span> </button>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10 "><span class="icon-button-label">已完成 </span> </button>
-    </div>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white checked-radio mgl5 " (click)="selecteding()" [ngClass]="{'selected':ingSelected}"><span class="icon-button-label">进行中 </span> </button>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white checked-radio mgl10" (click)="selectedover()" [ngClass]="{'selected':overSelected}"><span class="icon-button-label">已完成 </span> </button>
+    </div>{{ingSelected}} {{overSelected}}
     <div class="mgt15">
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>
         <div class="float-left pdr20 mgl5">
@@ -42,7 +42,7 @@
             <input  type="text" class="form-control" placeholder="输入信息快速搜索">
             <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
         </div>
-        <button class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" >重置</button>
+        <button class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="reset()">重置</button>
 
         <button class="fox-cloud-button fox-cloud-button-white pull-right mgl10" (click)="serviceUpdate()">
             <span class="icon-button-label icon-left-button-label">服务状态更新</span>
@@ -108,11 +108,11 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title mgl5"><span class="asterisk">*</span>自动完成:</div>
             <div class="col-md-2" style="line-height:34px">
-                <input class="fox-cloud-radio" type="radio">
+                <input class="fox-cloud-radio" type="radio" name="radio" checked="checked">
                 <span class="mgl5">开启</span>
             </div>
             <div class="col-md-2" style="line-height:34px">
-                <input class="fox-cloud-radio" type="radio">
+                <input class="fox-cloud-radio" type="radio" name="radio">
                 <span class="mgl5">关闭</span>
             </div>
         </div>

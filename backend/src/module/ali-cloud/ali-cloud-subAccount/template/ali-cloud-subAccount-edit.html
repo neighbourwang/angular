@@ -4,58 +4,73 @@
 <div class="page-content">
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>子账号登录名:</div>
-            <div class="col-sm-4">
-                <input type="text" class="form-control">
+            <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>子账号登录名:</div>
+            <div class="col-sm-4 has-feedback no-padding" [ngClass]="{'has-error':v.result.username}">
+                <input type="text" class="form-control" *ngIf="editMode =='create'" [(ngModel)]="account.loginName" (ngModelChange)="checkForm('username')">
+                <span *ngIf="v.result.username" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                <div *ngIf="v.result.username" class="alert alert-danger" role="alert">{{v.result.username}}</div>
+                <span style="line-height:34px" *ngIf="editMode !='create'">{{account.loginName}}</span>
             </div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>Access Key ID:</div>
-            <div class="col-sm-4">
-                <input type="text" class="form-control">
+            <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>Access Key ID:</div>
+            <div class="col-sm-4 has-feedback no-padding" [ngClass]="{'has-error':v.result.accessKey}">
+                <input type="text" class="form-control" [disabled]="editMode =='view'"  *ngIf="editMode !='edit'"[(ngModel)]="account.accessKey" (ngModelChange)="checkForm('accessKey')">
+                 <input type="text" class="form-control" *ngIf="editMode =='edit'" [(ngModel)]="account.accessKey" (ngModelChange)="checkForm('accessKey')" [disabled]="changebt">
+                 <span *ngIf="v.result.accessKey" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                <div *ngIf="v.result.accessKey" class="alert alert-danger" role="alert">{{v.result.accessKey}}</div>
+                
             </div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>Access Key Secret:</div>
-            <div class="col-sm-4">
-               <input type="text" class="form-control" *ngIf="editMode !='view'">
-               <span style="line-height:34px" *ngIf="editMode =='view'">1</span>
+            <div class="col-sm-4 has-feedback no-padding" [ngClass]="{'has-error':v.result.accessSecret}">
+               <input type="text" class="form-control" [disabled]="editMode =='view'" *ngIf="editMode !='edit'"[(ngModel)]="account.accessSecret" (ngModelChange)="checkForm('accessSecret')"> 
+                <input type="text" class="form-control" *ngIf="editMode =='edit'" [(ngModel)]="account.accessSecret" (ngModelChange)="checkForm('accessSecret')" [disabled]="changebt">
+                <span *ngIf="v.result.accessSecret" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                <div *ngIf="v.result.accessSecret" class="alert alert-danger" role="alert">{{v.result.accessSecret}}</div>
             </div>
             <div class="col-sm-4" *ngIf="editMode !='view'">
-                <button class="fox-cloud-button fox-cloud-button-white " *ngIf="editMode =='edit'">
+                <button class="fox-cloud-button fox-cloud-button-white " *ngIf="editMode =='edit'"  (click)="changebtn();">
                 登录信息变更
                 </button>
-                <button class="fox-cloud-button fox-cloud-button-white ">
+                <button class="fox-cloud-button fox-cloud-button-white " (click)="testAccessInfo();">
                     测试<span class="glyphicon glyphicon-menu-right "></span>
                     <span class="glyphicon glyphicon-menu-right"></span>
                 </button>
-                <span class="font-green mgl15">测试成功<span class="glyphicon glyphicon-ok mgl10"></span></span>
-                <!--<span class="font-orange mgl15">测试失败<span class="glyphicon glyphicon-remove mgl10"></span></span>-->
+                <span class="font-green mgl15" *ngIf="testResult =='1'"> 测试成功<span class="glyphicon glyphicon-ok mgl10"></span></span>
+                <span class="font-orange mgl15" *ngIf="testResult == '0'">测试失败<span class="glyphicon glyphicon-remove mgl10"></span></span>
             </div>
+        </div>
+    </div>
+    <div class="row row-line-height" *ngIf="editMode =='view'">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">当前所分配企业及部门:</div>
+            <div class="col-sm-4"><span style="line-height:34px">{{account.tenantName}}</span></div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">描述:</div>
-            <div class="col-sm-4">
-                <textarea rows="3"  class="form-control" maxlength="200"></textarea>
+            <div class="col-sm-4 has-feedback no-padding">
+                <textarea rows="3"  class="form-control" maxlength="200" [(ngModel)]="account.description"[disabled]="editMode =='view'"></textarea>
             </div>
         </div>
     </div>
-    <div class="col-sm-offset-4 pdl10">最多只能输入200个文字</div>
+    <div class="col-sm-offset-4" *ngIf="editMode !='view'">最多只能输入200个文字</div>
 </div>
 <div class="text-center ">
     <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode !='view'" (click)="gotoAccountList();">
         <span class="icon-button-label">取消</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='create'">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='create'" (click)="createAccount();">
         <span class="icon-button-label">添加</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='edit'">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='edit'" (click)="editAccount();">
         <span class="icon-button-label">保存</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='view'" (click)="gotoAccountList();">

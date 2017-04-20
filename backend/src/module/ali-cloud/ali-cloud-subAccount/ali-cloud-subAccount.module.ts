@@ -13,7 +13,7 @@ import { AliCloudSubAccountRouting } from './ali-cloud-subAccount.routing';
 
 //service
 import { AliCloudSubAccountMngService} from './service/ali-cloud-subAccount-mng.service'
-
+import { AliCloudSubAccountEditService} from './service/ali-cloud-subAccount-edit.service'
 
 @NgModule({
     imports: [
@@ -32,7 +32,8 @@ import { AliCloudSubAccountMngService} from './service/ali-cloud-subAccount-mng.
         AliCloudSubAccountEnterpriseComponent
     ],
     providers: [
-        AliCloudSubAccountMngService
+        AliCloudSubAccountMngService,
+        AliCloudSubAccountEditService
     ]
 
 })

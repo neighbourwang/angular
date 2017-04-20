@@ -65,22 +65,22 @@ export class AliMajorService {
          });
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => Success_mock);
     }
-    editDepart(id: string): Promise<any>{
+    editDepart(id: string, departId: string): Promise<any>{
         const pathParams=[
             {
                 key:"id",
                 value: id
             }
         ];
-        /* const api= this.restApiCfg.getRestApi("user-center.ali-cloud.editdepart");
-         return this.restApi.request(api.method, api.url, pathParams, null, null);*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => Success_mock);
+         const api= this.restApiCfg.getRestApi("user-center.ali-cloud.editdepart");
+         return this.restApi.post(api.url, pathParams, null, departId, true);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => Success_mock);
     }
 
     departMajor(): Promise<any>{
-        /* const api= this.restApiCfg.getRestApi("user-center.ali-cloud.departmajorlist");
-         return this.restApi.request(api.method, api.url, null, null, null);*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => DepartList_mock);
+         const api= this.restApiCfg.getRestApi("user-center.ali-cloud.departmajorlist");
+         return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => DepartList_mock);
     }
 
 }
