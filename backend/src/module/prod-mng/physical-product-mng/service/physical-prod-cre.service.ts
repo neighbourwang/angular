@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 //model 
 import { PhysicalModel } from '../model/physical-product.model';
-import { PhysicalService, FlatResourcePool, ResourcePoolObj, PartsFlavor, UnitObj, Spec } from '../model/physical-prod-service.model'
+import { PhysicalService, FlatResourcePool, ResourcePoolObj, PartsFlavor, UnitObj, Spec,FlatUnitObj } from '../model/physical-prod-service.model'
 
 @Injectable()
 export class PhysicalProductService {
@@ -18,11 +18,19 @@ export class PhysicalProductService {
 
     product:PhysicalModel=new PhysicalModel();
     physicalService:PhysicalService=new PhysicalService();
+    // unitList:FlatUnitObj;
     // 获取部件列表
     getUnitList() {
         let api = this.restApiCfg.getRestApi("physical-service-unitList.get");
-
-        return this.restApi.request(api.method, api.url, [], undefined);
+        return this.restApi.request(api.method, api.url, [], undefined).then(res => {
+            console.log('unitList', res);
+            if (res.resultCode == '100') {
+                // this.unitList = res.resultContent;
+                this.product.pmPartsBaseprises=res.resultContent;
+            }
+        }).catch(err => {
+            console.log(err);
+        })
     }
     //获取物理机产品目录详情
     getPhysicalService(id:string){

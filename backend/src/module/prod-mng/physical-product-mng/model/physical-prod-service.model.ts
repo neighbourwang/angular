@@ -13,7 +13,11 @@ class ResourcePoolObj {
     "areaDisplayName": string;
     "region": string;
     "regionId": string;
+    "pmPoolId":string;
+    "poolName":string;
+    "skuid":string;
     "phyMachineResourcPoolsProfile": Array<ResourcePool>;
+    selected:boolean;
     constructor() {
         this.regionId = '';
         this.region = '';
@@ -26,6 +30,7 @@ class ResourcePool {
     "pmPoolId": string;
     "poolName": string;
     "selected": boolean;
+    "skuid":string;    
 }
 class FlatResourcePool {
     "pmPoolId": string;

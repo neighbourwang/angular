@@ -270,6 +270,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
                         "pmPoolId": resource.pmPoolId,
                         "poolName": resource.poolName,
                         "resourcePoolDisplayName": '',
+                        "skuid":'',
                         selected: true
                     })
                 }

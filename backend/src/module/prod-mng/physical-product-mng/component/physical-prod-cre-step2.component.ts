@@ -40,19 +40,19 @@ export class PhysicalProdCreStep2Component implements OnInit {
         // if (this.prodDirId) {
            
         // }
-        this.getUnitList();
+        // this.getUnitList();
     }
     //获取部件列表
-    getUnitList() {
-        this.service.getUnitList().then(res => {
-            console.log('unitList', res);
-            if (res.resultCode == '100') {
-                this.unitList = res.resultContent;
-            }
-        }).catch(err => {
-            console.log(err);
-        })
-    }
+    // getUnitList() {
+    //     this.service.getUnitList().then(res => {
+    //         console.log('unitList', res);
+    //         if (res.resultCode == '100') {
+    //             this.unitList = res.resultContent;
+    //         }
+    //     }).catch(err => {
+    //         console.log(err);
+    //     })
+    // }
     //同步counterBar
     outputValue(e, num) {
         this.service.product[num] = e;

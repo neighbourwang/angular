@@ -12,7 +12,7 @@ import { PhysicalProductService } from '../service/physical-prod-cre.service';
 
 @Component({
     templateUrl: '../template/physical-prod-cre-step4.html',
-    styleUrls: [],
+    styleUrls: ['.././style/prod-cre.less'],
     providers: []
 })
 

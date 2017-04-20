@@ -43,7 +43,8 @@ export class PhysicalProdCreStep1Component implements OnInit {
         })
         if (this.prodDirId) {
             this.service.getPhysicalService(this.prodDirId);
-            this.service.getEnterPriseList();  
+            this.service.getEnterPriseList();
+            this.service.getUnitList();  
         }
     }
     
