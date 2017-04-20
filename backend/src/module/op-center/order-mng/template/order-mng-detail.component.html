@@ -112,6 +112,17 @@
 							
 				</thead>
 				<tbody>
+					<tr>
+						<td>{{_detailLoader.FirstItem.createDate}}</td>
+						<td>{{_detailLoader.FirstItem.instanceName}}</td>
+						<td>{{_detailLoader.FirstItem.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
+						<td>{{_detailLoader.FirstItem.specification}}</td>
+						<td>{{_detailLoader.FirstItem.buyer}}</td>
+						<td>{{_detailLoader.FirstItem.department}}</td>
+						<td>{{_detailLoader.FirstItem.expireDate}}
+						</td>
+						<td>{{_detailLoader.FirstItem.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
+					</tr>
 					<tr *ngFor="let historyItem of _detailLoader.FirstItem.hisOrderList">
 						<td>{{historyItem.createDate}}</td>
 						<td>{{historyItem.instanceName}}</td>
@@ -121,7 +132,7 @@
 						<td>{{historyItem.department}}</td>
 						<td>{{historyItem.expireDate}}
 						</td>
-						<td>{{historyItem.description}}</td>
+						<td>{{historyItem.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 					</tr>
 				</tbody>
 			</table>

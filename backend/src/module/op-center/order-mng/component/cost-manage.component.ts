@@ -63,6 +63,7 @@ private selectedItem :CostManageItem = new CostManageItem();
 				let obj = new CostManageItem();
 				target.push(obj);
 				obj.id=item.id;
+				obj.tenantId = item.tenantId;
 				obj.startTime = item.startTime;
 				obj.endTime = item.endTime;
 				obj.money = item.amount;
@@ -185,19 +186,10 @@ private selectedItem :CostManageItem = new CostManageItem();
 		let filename = 'testassbj';
 		let endTime = this._param.year+'-12-31'+' 23:59:59';
 		let startTime = this._param.year+'-01-01'+' 00:00:00';
-		let ids =[];
-		if(this.isNullEnterprise()){    
-                for(let item of this._enterpriseLoader.Items){
-                    ids.push(item.id);
-                }       
-        }
-        else{
-                    ids.push(this._param.enterpriseId);
-        }
 		let param = {
 					"enterpiseSubinstanceSearchCondition": {
 						"endTime": endTime,
-						"idList": ids,
+						"idList": [item.tenantId],
 						"startTime": startTime
 					},
 					"id": item.id
