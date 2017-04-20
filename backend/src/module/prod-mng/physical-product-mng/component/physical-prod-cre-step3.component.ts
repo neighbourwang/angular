@@ -18,8 +18,6 @@ import { PhysicalProductService } from '../service/physical-prod-cre.service';
 })
 
 export class PhysicalProdCreStep3Component implements OnInit {
-
-
     constructor(
         private route: Router,
         private router: ActivatedRoute,
@@ -30,9 +28,6 @@ export class PhysicalProdCreStep3Component implements OnInit {
 
     @ViewChild('notice')
     notice: NoticeComponent;
-
-    @ViewChild('regionSelect')
-    regionSelect: PopupComponent;
 
     prodDirType: string = "";
     prodDirId: string = "";
@@ -87,11 +82,11 @@ export class PhysicalProdCreStep3Component implements OnInit {
             for (let resource of this.service.physicalService.phyMachineAreaPoolsProfile) {
                 if (resource.selected && resource.regionId == i) {
                     obj.region = resource.region;
-                    obj.areaDisplayName = '';
+                    obj.areaDisplayName = resource.areaDisplayName;
                     obj.phyMachineResourcPoolsProfile.push({
                         "pmPoolId": resource.pmPoolId,
                         "poolName": resource.poolName,
-                        "resourcePoolDisplayName": resource.areaDisplayName,
+                        "resourcePoolDisplayName": resource.resourcePoolDisplayName,
                         "skuid":resource.skuid,
                         selected: true
                     })
@@ -110,6 +105,10 @@ export class PhysicalProdCreStep3Component implements OnInit {
     }
     next() {
         this.combineObj();
+        if(this.service.product.phyMachineAreaPoolsProfile.length==0){
+            this.notice.open('操作错误','请选择资源池');
+            return;
+        }
         this.route.navigate(["prod-mng/physical-prod-mng/prod-mng-cre-step4"]);
     }
     //取消

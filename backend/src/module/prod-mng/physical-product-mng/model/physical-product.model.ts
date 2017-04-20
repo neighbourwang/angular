@@ -1,8 +1,9 @@
-class PhysicalModel {
+class PhysicalProductModel {
     "basicCyclePrice": number;
     "billingCycle": string;
     "billingId": string;
     "billingType": string;
+    "billingCycleClick":boolean;
     "desc": string;
     "extendCyclePrice": number;
     "name": string;
@@ -10,7 +11,6 @@ class PhysicalModel {
     "phyMachineAreaPoolsProfile": Array<PhyMachineAreaPoolsProfile>;
     "pmPartsBaseprises": Array<PmPartsBaseprises>;
     "productEnterpiseReqs": Array<ProductEnterpiseReqs>;
-    "enterpriseListForSelect": Array<ProductEnterpiseReqs>;
     "productId": string;
     "serviceId": string;
     "serviceSkuId": string;
@@ -18,7 +18,6 @@ class PhysicalModel {
         this.phyMachineAreaPoolsProfile=new Array<PhyMachineAreaPoolsProfile>();
         this.pmPartsBaseprises=new Array<PmPartsBaseprises>();
         this.productEnterpiseReqs=new Array<ProductEnterpiseReqs>();
-        this.enterpriseListForSelect=new Array<ProductEnterpiseReqs>();
     }
 }
 class PhyMachineAreaPoolsProfile {
@@ -43,10 +42,13 @@ class PmPartsBaseprises {
     "specId": string;
     "specName": string;
     "specValue": string;
+    constructor(){
+        this.ajustmentPrice=0;
+    }
 }
 class ProductEnterpiseReqs {
     "id": string;
     "name": string;
     "selected":boolean;
 }
-export{ PhysicalModel,ProductEnterpiseReqs}
+export{ PhysicalProductModel,ProductEnterpiseReqs}

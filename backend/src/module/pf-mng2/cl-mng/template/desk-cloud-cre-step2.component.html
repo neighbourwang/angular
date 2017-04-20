@@ -20,22 +20,22 @@
             </div>
             <div class="table-container">
                 <table class="table table-hover">
-                    <thead>
+                     <thead>
                     <tr>
-                        <th>{{"PF_MNG2.PLATFORM_RESOURCES" | translate}}</th>
-                        <th>{{"PF_MNG2.SYNC_STATE" | translate}}</th>
-                        <th></th>
+                        <th style="width:40%;line-height:35px;">{{"PF_MNG2.PLATFORM_RESOURCES" | translate}}</th>
+                        <th style="width:40%;line-height:35px;">{{"PF_MNG2.SYNC_STATE" | translate}}</th>
+                        <th style="width:20%"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>{{"COMMON.AVAILABLE_ZONE" | translate}}</td>
-                        <td>{{creStep2Model.zones}}</td>
+                        <td style="line-height:35px;">{{"COMMON.AVAILABLE_ZONE" | translate}}</td>
+                        <td style="line-height:35px;">{{creStep2Model.zones}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.zonesStatus"></span></td>
                     </tr>
                     <tr>
-                        <td>{{"COMMON.STORAGE" | translate}}</td>
-                        <td>{{creStep2Model.storages}}</td>
+                        <td style="line-height:35px;">{{"COMMON.STORAGE" | translate}}</td>
+                        <td style="line-height:35px;">{{creStep2Model.storages}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.storagesStatus"></span></td>
                     </tr>
                     <!--<tr>
@@ -49,8 +49,8 @@
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.imagesStatus"></span></td>
                     </tr>-->
                     <tr>
-                        <td>{{"PF_MNG2.HOST" | translate}}</td>
-                        <td>{{creStep2Model.hosts}}</td>
+                        <td style="line-height:35px;">{{"PF_MNG2.HOST" | translate}}</td>
+                        <td style="line-height:35px;">{{creStep2Model.hosts}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.hostsStatus"></span></td>
                     </tr>
                     </tbody>

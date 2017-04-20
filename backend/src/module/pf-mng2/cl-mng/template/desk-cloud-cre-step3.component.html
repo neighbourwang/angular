@@ -37,8 +37,9 @@
                             </td>
                         <td>{{item.name}}</td>
                         <td>
-                             <div [ngClass]="{'has-error':!item.displayNameValid}">
-                                <input type="text" class="form-control" [(ngModel)]="item.displayName"  required (blur)="displayNameVa(item)" (focus)="item.displayNameValid=true"/>                               
+                             <!--<div [ngClass]="{'has-error':!item.displayNameValid}">-->
+                             <div>
+                                <input type="text" class="form-control" [(ngModel)]="item.displayName"  name="displayName" required/>                               
                             </div>
                         </td>
                         <td>{{item.hostNum||0}}</td>

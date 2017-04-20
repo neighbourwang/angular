@@ -27,6 +27,9 @@ export class StorageModel {
     //   "uuid": null,
     isEdit:boolean;
     valid:boolean;
+    freeCapacity:number;
+    uncommited:number;
+    allocatedCapacity:number;
     constructor() {
         this.valid=true;
     }
