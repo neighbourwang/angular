@@ -8,7 +8,7 @@ import { MngServiceList } from '../service/mng-service-list.service';
 @Component({
     selector:"mng-service-list",
     templateUrl:"../template/service-list.html",
-    styleUrls:[],
+    styleUrls:['../style/mng-service-list.less'],
     providers:[]
 })
 
@@ -41,6 +41,8 @@ export class MngServiceListComponent implements OnInit{
     totalPage= 1;
 
     type: string;
+    ingSelected= false;
+    overSelected= false;
 
     ngOnInit() {
 
@@ -64,7 +66,18 @@ export class MngServiceListComponent implements OnInit{
         this.router.navigate([`mtc-center/mng-service/mng-service-detail`]);
     }
 
+    selecteding(){
+        this.overSelected= false;
+        this.ingSelected= !this.ingSelected;
+    }
+    selectedover(){
+        this.ingSelected= false;
+        this.overSelected= !this.overSelected;
+    }
 
+    reset(){
+        
+    }
 
     showAlert(msg: string): void {
         this.layoutService.hide();
