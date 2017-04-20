@@ -776,7 +776,7 @@ acceptDownload(item:CostManageItem){
     let param = {
                 "enterpiseSubinstanceSearchCondition": {
                     "endTime": endTime,
-                    "idList": [this.userTypeLoader.FirstItem.enterpriseId],
+                    "idList": [this.userTypeLoader.FirstItem.enterpriseId],//或者[item.tenantId]
                     "startTime": startTime
                 },
                 "id": item.id
