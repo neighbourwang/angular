@@ -121,7 +121,7 @@
 						<td>{{historyItem.department}}</td>
 						<td>{{historyItem.expireDate}}
 						</td>
-						<td>{{historyItem.description}}</td>
+						<td>{{historyItem.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 					</tr>
 				</tbody>
 			</table>
