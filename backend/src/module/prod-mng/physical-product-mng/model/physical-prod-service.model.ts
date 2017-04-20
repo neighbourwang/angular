@@ -2,7 +2,8 @@ class PhysicalService {
     "desc": string;
     "phyMachineAreaPoolsProfile": Array<ResourcePoolObj>;
     "phyMachinePartsFlavors": Array<PartsFlavor>;
-    "serviceName": string
+    "serviceName": string;
+    "serviceId":string;
     constructor() {
         this.phyMachineAreaPoolsProfile = new Array<ResourcePoolObj>();
         this.phyMachinePartsFlavors = new Array<PartsFlavor>();
@@ -12,7 +13,11 @@ class ResourcePoolObj {
     "areaDisplayName": string;
     "region": string;
     "regionId": string;
+    "pmPoolId":string;
+    "poolName":string;
+    "skuid":string;
     "phyMachineResourcPoolsProfile": Array<ResourcePool>;
+    selected:boolean;
     constructor() {
         this.regionId = '';
         this.region = '';
@@ -25,6 +30,7 @@ class ResourcePool {
     "pmPoolId": string;
     "poolName": string;
     "selected": boolean;
+    "skuid":string;    
 }
 class FlatResourcePool {
     "pmPoolId": string;

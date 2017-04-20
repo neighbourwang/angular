@@ -44,6 +44,7 @@ export class AliMajorListComponent implements OnInit{
     data: Array<AliMajorList>;
     majorInfo: AliMajorList= new AliMajorList();
     testInfo: boolean;
+    start: boolean;
     id: string;
     departs: Array<DepartList>;
     selectedDepartment: string;
@@ -75,6 +76,7 @@ export class AliMajorListComponent implements OnInit{
     getDetail(item){
         this.type= "info";
         this.id= item.id;
+        this.start= false;
         this.layoutService.show();
         this.service.getDetail(this.id)
             .then(
@@ -120,11 +122,13 @@ export class AliMajorListComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.testInfo= true;
-                    }else if(response.resultCode == 500){
+                    }else if(response.resultCode == 90011){
                         this.testInfo= false;
                     }else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
+                    this.start= true;
+                    console.log("testMajor",this.majorInfo);
                 }
             )
             .catch((e) => this.onRejected(e));
@@ -132,6 +136,7 @@ export class AliMajorListComponent implements OnInit{
 
     distriPage(item){
         this.type= "distribute";
+        this.id= item.id;
         this.layoutService.show();
         this.service.departMajor()
             .then(
@@ -180,6 +185,7 @@ export class AliMajorListComponent implements OnInit{
                         if (response && 100 == response["resultCode"]) {
                             this.getData();
                             this.majorMng.close();
+                            console.log("edit后",this.majorInfo);
                         }else {
                             this.showAlert("COMMON.OPERATION_ERROR");
                         }
@@ -188,13 +194,14 @@ export class AliMajorListComponent implements OnInit{
                 .catch((e) => this.onRejected(e));
         }else{
             this.layoutService.show();
-            this.service.editDepart(this.selectedDepartmentId)
+            this.service.editDepart(this.id, this.selectedDepartmentId)
                 .then(
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                             this.getData();
                             this.distriDepart.close();
+                            console.log("editDepart",this.id, this.selectedDepartmentId);
                         }else {
                             this.showAlert("COMMON.OPERATION_ERROR");
                         }
@@ -207,7 +214,6 @@ export class AliMajorListComponent implements OnInit{
 
     showAlert(msg: string): void {
         this.layoutService.hide();
-
         this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();

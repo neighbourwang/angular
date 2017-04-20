@@ -7,11 +7,12 @@ import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from
 //model 
 
 // service;
+import { PhysicalProductService } from '../service/physical-prod-cre.service';
 
 
 @Component({
     templateUrl: '../template/physical-prod-cre-step4.html',
-    styleUrls: [],
+    styleUrls: ['.././style/prod-cre.less'],
     providers: []
 })
 
@@ -22,6 +23,7 @@ export class PhysicalProdCreStep4Component implements OnInit {
         private route: Router,
         private router: ActivatedRoute,
         private LayoutService: LayoutService,
+        private service:PhysicalProductService
     ) { }
 
 
@@ -40,8 +42,31 @@ export class PhysicalProdCreStep4Component implements OnInit {
         if (this.prodDirId) {
            
         }
+        this.service.getEnterPriseList().then(res=>{
+            console.log(res);
+        }).catch(err=>{
+            console.error(err);
+        })
     }
-
+    //选择企业
+    selectEnterprise(ent, index) {
+        ent.selected=!ent.selected;
+        console.log(ent);        
+        this.service.product.productEnterpiseReqs = this.service.product.enterpriseListForSelect.filter((ele) => {
+            if (ele.selected == true) {
+                return ele;
+            }
+        });       
+    }
+    //
+    unSelected(e, index) {
+        this.service.product.enterpriseListForSelect.map(ele=>{
+           if(ele.id==e.id){
+               ele.selected=false;
+           } 
+        })
+        this.service.product.productEnterpiseReqs.splice(index,1);
+    }
     // 下一步
     ccf() { }
     //获取platformRegionList
@@ -50,7 +75,8 @@ export class PhysicalProdCreStep4Component implements OnInit {
         this.route.navigate(["prod-mng/physical-prod-mng/prod-mng-cre-step3"]);        
     }
     next() {
-        this.route.navigate(["prod-mng/prod-mng/prod-mng"]);
+        console.log(this.service.product);
+        // this.route.navigate(["prod-mng/prod-mng/prod-mng"]);
     }
     //取消
     cancel() {

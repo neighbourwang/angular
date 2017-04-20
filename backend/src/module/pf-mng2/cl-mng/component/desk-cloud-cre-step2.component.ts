@@ -65,7 +65,7 @@ export class DeskCloudCreStep2Component implements OnInit {
                 console.log('storage', res);
                 this.creStep2Model.storages = 'ok';
                 this.creStep2Model.storagesStatus = true;
-                this.creStep2Model.message = 'PF_MNG2.SYNC_STORAGE_COMP_SYNC_SPEC';
+                this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_COMP_SYNC_HOST';
                 this.creStep2Model.percentage = 66.66;
                 this.hosts();                
             }
@@ -99,7 +99,7 @@ export class DeskCloudCreStep2Component implements OnInit {
             )
     }
     next() {
-        this.route.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step2", { type: this.platformType }]);
+        this.route.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step3", { type: this.platformType }]);
     }
     cancel() {
         this.route.navigateByUrl("pf-mng2/cl-mng/cl-mng");

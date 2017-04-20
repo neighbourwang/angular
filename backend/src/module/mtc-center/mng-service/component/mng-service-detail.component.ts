@@ -6,13 +6,13 @@ import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, Pagi
 import { MngServiceList } from '../service/mng-service-list.service';
 
 @Component({
-    selector:"mng-service-list",
-    templateUrl:"../template/service-list.html",
-    styleUrls:['../style/mng-service-list.less'],
+    selector:"mng-service-detail",
+    templateUrl:"../template/service-detail.html",
+    styleUrls:[],
     providers:[]
 })
 
-export class MngServiceListComponent implements OnInit{
+export class MngServiceDetailComponent implements OnInit{
     constructor(
         private router : Router,
         //private service : MngServiceList,
@@ -28,10 +28,6 @@ export class MngServiceListComponent implements OnInit{
     notice: NoticeComponent;
     @ViewChild('confirm')
     confirm: ConfirmComponent;
-    @ViewChild("popUnit")
-    popUnit: PopupComponent;
-    @ViewChild("setUnit")
-    setUnit: PopupComponent;
 
     noticeTitle = "";
     noticeMsg = "";
@@ -41,47 +37,18 @@ export class MngServiceListComponent implements OnInit{
     totalPage= 1;
 
     type: string;
-    ingSelected= false;
-    overSelected= false;
 
     ngOnInit() {
 
     }
 
-    serviceUpdate(){
-        this.type= "update";
-        this.popUnit.open("服务状态更新");
+    goBack(){
+        this.router.navigate([`mtc-center/mng-service/mng-service-list`]);
     }
 
-    servicefollow(){
-        this.type= "follow";
-        this.popUnit.open("服务跟进");
-    }
-
-    oneSet(){
-        this.setUnit.open("一次性管理服务系统设置");
-    }
-
-    gotoDetail(){
-        this.router.navigate([`mtc-center/mng-service/mng-service-detail`]);
-    }
-
-    selecteding(){
-        this.overSelected= false;
-        this.ingSelected= !this.ingSelected;
-    }
-    selectedover(){
-        this.ingSelected= false;
-        this.overSelected= !this.overSelected;
-    }
-
-    reset(){
-        
-    }
 
     showAlert(msg: string): void {
         this.layoutService.hide();
-
         this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();

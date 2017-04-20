@@ -120,6 +120,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
             this.physicalService.phyMachinePartsFlavors[this.selectedUnitIdex].specName=this.newUnitObj.specName;
             this.physicalService.phyMachinePartsFlavors[this.selectedUnitIdex].partsFlavorValue=this.newUnitObj.partsFlavorValue;
             this.physicalService.phyMachinePartsFlavors[this.selectedUnitIdex].partFlavorNum=this.newUnitObj.partFlavorNum;
+            this.physicalService.phyMachinePartsFlavors[this.selectedUnitIdex].capacity=this.newUnitObj.capacity;
         }else{
             this.physicalService.phyMachinePartsFlavors.push(this.newUnitObj);            
         }
@@ -269,6 +270,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
                         "pmPoolId": resource.pmPoolId,
                         "poolName": resource.poolName,
                         "resourcePoolDisplayName": '',
+                        "skuid":'',
                         selected: true
                     })
                 }

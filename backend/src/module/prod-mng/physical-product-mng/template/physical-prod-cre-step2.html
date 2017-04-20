@@ -2,7 +2,7 @@
 <!--创建产品-->
 <div class="page-content fix-page-content">
     <div class="row navigator-progress">
-        <div class="col-md-3"><span class="mark">1</span><span>基本信息<!--基本信息--></span></div>
+        <div class="col-md-3"><span class="mark">1</span><span>基本信息<!--基本信息--></span><span class="icon-tick"></span></div>
         <div class="col-md-3 active"><span class="mark">2</span><span>计价方式<!--资源同步--></span></div>
         <div class="col-md-3"><span class="mark">3</span><span>选择平台</span></div>
         <div class="col-md-3"><span class="mark">4</span><span>选择企业</span></div>
@@ -40,12 +40,12 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="billingCycle" (click)="this.service.product.billingCycleClick=true"> {{'COMMON.BY_YEAR' | translate}}<!--包年-->
+                           				<input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle" > {{'COMMON.BY_YEAR' | translate}}<!--包年-->
                        				</label>
                                     </div>
                                     <div class="col-sm-6">
                                         <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="billingCycle" (click)="this.service.product.billingCycleClick=true"> {{'COMMON.BY_MONTH' | translate}}<!--包月-->
+                           				<input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle"> {{'COMMON.BY_MONTH' | translate}}<!--包月-->
                        				</label>
                                     </div>
                                 </div>
@@ -54,12 +54,12 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="billingCycle" (click)="this.service.product.billingCycleClick=true"> {{'COMMON.BY_DAY' | translate}}
+                           				<input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle"> {{'COMMON.BY_DAY' | translate}}
                        				</label>
                                     </div>
                                     <div class="col-sm-6">
                                         <label class="radio-inline row-inline-radio4 font-gray" style="width:100%">
-                           				<input type="radio" name="inlineRadioOption"  value="0" class="fox-cloud-radio" [(ngModel)]="billingCycle" (click)="this.service.product.billingCycleClick=true"> {{'COMMON.BY_HOUR' | translate}}
+                           				<input type="radio" name="inlineRadioOption"  value="0" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle"> {{'COMMON.BY_HOUR' | translate}}
                        				</label>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                         <div class="col-sm-4 form-control-title">{{'PROD_MNG.BASIC_CYCLE_PRICE' | translate}}：</div>
                         <!--基础周期价格-->
                         <div class="col-sm-6">
-                            <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="basicCyclePrice||0" #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
+                            <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="service.product.basicCyclePrice||0" #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">{{'PROD_MNG.INCREMENT_CYCLE_PRICE' | translate}}：</div>
                         <div class="col-sm-6">
-                            <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="extendCyclePrice||0" #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
+                            <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="service.product.extendCyclePrice||0" #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                             <!--一次性价格-->
                         </div>
                         <div class="col-sm-6">
-                            <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
+                            <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="service.product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr *ngFor="let unit of unitList; let idx = index;">
+									<tr *ngFor="let unit of service.product.pmPartsBaseprises; let idx = index;">
 										<td>
 											{{unit.partsName}}
 										</td>
@@ -128,7 +128,7 @@
                                         </td>
 										<td>
                                             <span *ngIf="!unit.isEdit">{{unit.referencePrice}}</span>                                           
-                                            <input *ngIf="unit.isEdit" class="form-control" type="number" [(ngModel)]="unit.temPrice" name="referencePrice" style="width:100px;">                                            
+                                            <input *ngIf="unit.isEdit" class="form-control" type="number" [(ngModel)]="unit.temPrice" name="referencePrice" style="height:20px">                                            
                                         </td>										
 										<td>
                                             <span *ngIf="!unit.isEdit" class="glyphicon glyphicon-edit pointer" (click)="unit.isEdit=true;unit.temPrice=unit.referencePrice"></span>

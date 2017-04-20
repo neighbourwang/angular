@@ -17,8 +17,8 @@
             <th class="text-center">操作人 </th>
             <th class="text-center">操作 </th>
         </tr>
-        <tr *ngFor="let item of data">
-            <td class="text-center">{{item.id}}</td>
+        <tr *ngFor="let item of data; let idx= index;">
+            <td class="text-center">{{idx+1}}</td>
             <td class="text-center"><a href="javascript:void(0);" class="a-active" (click)="getDetail(item);type= 'info';">{{item.loginName}}</a></td>
             <td class="text-center">{{item.departmentName}}</td>
             <td class="text-center">{{item.subNumber}}</td>
@@ -65,7 +65,7 @@
         <div *ngIf="type== 'edit'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">
             <div class="col-md-4"></div>
             <div class="col-md-2 no-padding form-group ">
-                <button class="btn btn-default button-gray-gradient" (click)="testMajor();start= true;">  测试  </button>
+                <button class="btn btn-default button-gray-gradient" (click)="testMajor()">  测试  </button>
             </div>
             <div *ngIf="start">
                 <div *ngIf="testInfo== true" class="col-md-4 no-padding">

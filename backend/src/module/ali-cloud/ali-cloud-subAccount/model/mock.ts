@@ -1,12 +1,13 @@
-export const mainAccountList_mock = {
+export const subAccountList_mock = {
 "resultCode": "100",
   "detailDescription": null,
   "resultContent": [
     {
-      "id": "157876b7-8529-4fb9-ae6e-f0c257e4f026",
+      "id": "257876b7-8529-4fb9-ae6e-f0c257e4f026",
       "loginName": "王国庆001",
-      "mainAccountType":"1",
-      "tenantCross": "京东方",
+      "tenantName": "京东方",
+      "orgName":"无组织",
+      "orgId":"1",
       "status": "2",
       "lastUpdate": "2017-4-12",
       "operator": "某人",
@@ -17,10 +18,11 @@ export const mainAccountList_mock = {
       " isEditable":"1",//1有 0 没有
     },
     {
-      "id": "157876b7-8529-4fb9-ae6e-f0c257e4f027",
+      "id": "257876b7-8529-4fb9-ae6e-f0c257e4f027",
       "loginName": "王国庆002",
-      "mainAccountType":"2",
-      "tenantCross": "京东方1",
+      "tenantName": "京东方1",
+      "orgName":"无纪律",
+      "orgId":"2",
       "status": "2",
       "lastUpdate": "2017-4-19",
       "operator": "某人de",
@@ -31,10 +33,11 @@ export const mainAccountList_mock = {
       " isEditable":"1",
     },
     {
-      "id": "157876b7-8529-4fb9-ae6e-f0c257e4f028",
+      "id": "257876b7-8529-4fb9-ae6e-f0c257e4f028",
       "loginName": "王国庆003",
-      "mainAccountType":"1",
-      "tenantCross": "京东方2",
+      "tenantName": "京东方2",
+      "orgName":"无法",
+      "orgId":"3",
       "status": "1",
       "lastUpdate": "2017-4-12",
       "operator": "某人",
@@ -45,10 +48,11 @@ export const mainAccountList_mock = {
       " isEditable":"0",
     },
     {
-      "id": "157876b7-8529-4fb9-ae6e-f0c257e4f029",
+      "id": "257876b7-8529-4fb9-ae6e-f0c257e4f029",
       "loginName": "王国庆004",
-      "mainAccountType":"2",
-      "tenantCross": "京东方3",
+      "tenantName": "京东方3",
+      "orgName":"",
+      "orgId":"4",
       "status": "1",
       "lastUpdate": "2017-4-12",
       "operator": "某人",
@@ -60,7 +64,7 @@ export const mainAccountList_mock = {
     },
   ],
   }
- export const EnterpriseList_mock = {
+  export const EnterpriseList_mock = {
 "resultCode": "100",
   "detailDescription": null,
   "resultContent": [
