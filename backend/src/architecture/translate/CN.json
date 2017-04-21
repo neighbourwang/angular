@@ -1302,9 +1302,13 @@
     "SYNC_STORAGE_BACKEND": "同步存储后端",
     "SYNC_STORAGE_SPACE": "同步存储空间",
     "AVAI_STORAGE":"可用容量",
-    "SURPLUS":"剩余容量",
+    "SURPLUS_STORAGE":"剩余容量",
     "OCCU_STORAGE":"已分配容量",
-    "DESK_CLOUD_EXMAPLE_COUNTS":"云桌面实例数"
+    "DESK_CLOUD_EXMAPLE_COUNTS":"云桌面实例数",
+    "BOOT_DISK_NAME":"启动盘名称",
+    "ALL_STORAGE_BACKEND":"所有存储后端",
+    "SELECTED_STORAGE_BACKEND":"选择的存储后端",
+    "CLICK_SELECT_STORAGE_BACKEND":"点击选择存储后端"
   },
   "PHY_MNG_POOL": {
     "ACTIVE": "启用",
