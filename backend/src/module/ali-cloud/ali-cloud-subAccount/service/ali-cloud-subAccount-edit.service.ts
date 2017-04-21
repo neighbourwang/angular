@@ -35,11 +35,11 @@ export class AliCloudSubAccountEditService {
             },             
         ]
         const api = this.restApiCfg.getRestApi("ali-subAccount-view.get");
-        //return this.restApi.request(api.method, api.url, pathParams, null, { });
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => subAccountList_mock);
+        return this.restApi.request(api.method, api.url, pathParams, null, { });
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => subAccountList_mock);
     }
 
-    //编辑主账号
+    //编辑子账号
     editAccount(account:AccountListModel):Promise<any>{       
         const api = this.restApiCfg.getRestApi("ali-subAccount-update.post");
         return this.restApi.request(api.method, api.url,null, null,account);
@@ -47,9 +47,23 @@ export class AliCloudSubAccountEditService {
     }
 
     //添加账号
-    createAccount(account:AccountListModel):Promise<any>{
+    createAccount(account:AccountListModel,id:string):Promise<any>{
+         const pathParams = [
+            {
+                key: "id",
+                value: id
+            },             
+        ]
         const api = this.restApiCfg.getRestApi("ali-subAccount-create.post");
-        return this.restApi.request(api.method, api.url,null, null,account);
+        return this.restApi.request(api.method, api.url,pathParams, null,
+        {
+            "accessSecret": account.accessSecret,
+            "accessUrl": account.accessUrl,
+            "accesskey": account.accessKey,
+            "description": account.description,
+            "loginName": account.loginName,
+            "mainAccountType": " "
+        });
         // return new Promise(resovle => setTimeout(resovle, 200)).then(() => mainAccountList_mock);
     }
 
@@ -58,21 +72,32 @@ export class AliCloudSubAccountEditService {
          const api = this.restApiCfg.getRestApi("ali-Account-accessInfo-test.post");
         return this.restApi.request(api.method, api.url,null, null,{
             "loginName":account.loginName,
-            "accessKey":account.accessKey,
-            "accessSecret":account.accessSecret
+            "accesskey":account.accessKey,
+            "accessSecret":account.accessSecret,
+            "description": account.description,
+            "mainAccountType": "",
         });
     }
     //获取子账号企业列表
     getEnterpriseList():Promise<any>{
         const api = this.restApiCfg.getRestApi("ali-mainAccount-enterprise-list.get");
-        //return this.restApi.request(api.method, api.url,null, null,null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => EnterpriseList_mock);
+        return this.restApi.request(api.method, api.url,null, null,null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => EnterpriseList_mock);
     }
 
-      //保存企业设置
-    saveSetEnt():Promise<any>{
-        const api = this.restApiCfg.getRestApi("ali-mainAccount-enterprise-set.post");
-       // return this.restApi.request(api.method, api.url,null, null,null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => EnterpriseList_mock);
+      //保存企业设置    
+     saveSetEnt(id:string,entId:string):Promise<any>{
+         const pathParams = [
+            {
+                key: "id",
+                value:id
+            },             
+        ]
+        const api = this.restApiCfg.getRestApi("ali-subAccount-enterprise-set.post");
+         return this.restApi.request(api.method, api.url,pathParams, null,{
+            "tenantId":entId
+        });
+       // return this.restApi.post(api.url, pathParams, null,entId,true);
+      //  return new Promise(resovle => setTimeout(resovle, 200)).then(() => EnterpriseList_mock);
     }
 }

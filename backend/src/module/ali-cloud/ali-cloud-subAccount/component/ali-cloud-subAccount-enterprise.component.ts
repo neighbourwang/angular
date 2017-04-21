@@ -33,6 +33,7 @@ export class AliCloudSubAccountEnterpriseComponent implements OnInit{
     account:AccountListModel=new AccountListModel();
     enterpriseList:Array<EnterpriseModel>;
     changeEntName:string;
+    mainAccountId:string;
 
     @ViewChild("notice")
     notice: NoticeComponent;
@@ -42,9 +43,10 @@ export class AliCloudSubAccountEnterpriseComponent implements OnInit{
      ngOnInit (){
         this.activeRoute.params.forEach((params: Params) => {
              this.account.id = params["id"];
+              this.mainAccountId = params["mainId"];   
         });
         this.getEnterprises();
-       // this.getAccount(this.account.id);
+       this.getAccount(this.account.id);
     }
      //获取账号信息
     getAccount(id:string){
@@ -55,9 +57,9 @@ export class AliCloudSubAccountEnterpriseComponent implements OnInit{
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.layoutService.hide();
-                    this.account = response["resultContent"].find((e)=>{return e.id ==this.account.id});
+                    this.account = response["resultContent"];
                     this.changeEntName=this.account.tenantName;
-                    console.log("子账号信息",this.account);
+                    console.log("子账号信息",this.account,"子账号企业", this.changeEntName);
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -85,14 +87,25 @@ export class AliCloudSubAccountEnterpriseComponent implements OnInit{
     //保存企业设置
     setEnterprise(){
          const selectEnt=this.enterpriseList.find((e)=> {return e.isSelect});
-        if(this.account.tenantName != selectEnt.tenantName){
+          let entId:string="";
+         let entName:string="";
+         if(!this.changeEntName){
+            entId="";
+            entName="";
+         }
+         else{
+              entId=selectEnt.tenantId;
+             entName=selectEnt.tenantName
+        }
+        console.log("传的企业",entId,entName)
+        if(this.account.tenantName != this.changeEntName){
             this.noticeTitle="设置企业";
-            this.noticeMsg="企业已从'"+this.account.tenantName+ "'变更为'"+selectEnt.tenantName+"'。 确认是否保存";
+            this.noticeMsg="企业已从'"+this.account.tenantName+ "'变更为'"+entName+"'。 确认是否保存";
         }
         this.confirm.ccf = () => {};
         this.confirm.cof = () => {
             this.layoutService.show();
-            this.service.saveSetEnt()
+            this.service.saveSetEnt(this.account.id,entId)
             .then(
                 response=>{
                     this.layoutService.hide();
@@ -107,10 +120,10 @@ export class AliCloudSubAccountEnterpriseComponent implements OnInit{
          this.confirm.open(); 
     }
 
+
     //点击重置按钮
     changeEnt(){
-        const selectEnt=this.enterpriseList.find((e)=> {return e.isSelect});
-        this.changeEntName= selectEnt.tenantName;
+        this.changeEntName="";
     }
     
     //选取企业
@@ -119,10 +132,11 @@ export class AliCloudSubAccountEnterpriseComponent implements OnInit{
             selectedEnt.isSelect = false;
         });
         selectedEnt.isSelect= true;
+         this.changeEntName=selectedEnt.tenantName;
     }
     //跳转到账号列表
      gotoAccountList(){
-           this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-list`])
+           this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-list`,{id:this.mainAccountId}])
      }
 
     showAlert(msg: string): void {

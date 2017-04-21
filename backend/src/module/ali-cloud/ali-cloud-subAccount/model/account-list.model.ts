@@ -2,8 +2,9 @@ export class AccountListModel{
     id:string;
     loginName:string;
     tenantName:string;
-    orgName:string;
-    orgId:string;
+    tenantId:string;
+    departName:string;
+    departId:string;
     status:string;
     lastUpdate:string;
     operator:string;
@@ -21,3 +22,4 @@ export class EnterpriseModel{
     status:string;
     isSelect=false;
 }
+

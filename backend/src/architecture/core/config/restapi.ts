@@ -2636,19 +2636,19 @@ export let RestApis: RestApiModel[] = [
         "desc": "主账号启用",
         "id":"ali-mainAccount-status-enable.post",
         "method":"POST",
-        "url":"adminboe/authsec/alicloud/adm/enable/{id}"
+        "url":"adminboe/authsec/alicloud/adm/main/enable/{id}"
      },
      {
         "desc": "主账号禁用",
         "id":"ali-mainAccount-status-disable.post",
         "method":"POST",
-        "url":"adminboe/authsec/alicloud/adm/disable/{id}"
+        "url":"adminboe/authsec/alicloud/adm/main/disable/{id}"
      },
      {
         "desc": "删除主账号",
         "id":"ali-mainAccount-delete.post",
         "method":"POST",
-        "url":"adminboe/authsec/alicloud/adm/delete/{id}"
+        "url":"adminboe/authsec/alicloud/adm/main/delete/{id}"
      },
       {
         "desc": "获取主账号企业列表",
@@ -2666,7 +2666,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "子账号列表",
         "id":"ali-subAccount-list.get",
         "method":"GET",
-        "url":"adminboe/authsec/alicloud/adm/sub/list"
+        "url":"adminboe/authsec/alicloud/adm/sub/list/{id}"
      },
     {
         "desc": "查看子账号",
@@ -2695,7 +2695,7 @@ export let RestApis: RestApiModel[] = [
      {
         "desc": "获取子账号企业列表",
         "id":"ali-subAccount-enterprise-list.get",
-        "method":"GET",
+        "method":"POST",
         "url":"adminboe/authsec/alicloud/adm/sub/entlist"
      },
      {
@@ -2708,7 +2708,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "添加子账号",
         "id":"ali-subAccount-create.post",
         "method":"POST",
-        "url":"adminboe/authsec/alicloud/adm/sub/addacct"
+        "url":"adminboe/authsec/alicloud/adm/sub/addacct/{id}"
+     },
+       {
+        "desc": "更新子账号",
+        "id":"ali-subAccount-update.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/update"
      },
      {
         "desc": "测试access信息",
