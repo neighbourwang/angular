@@ -1086,7 +1086,9 @@
     "SYNC_STORAGE_SPACE": "Synchronous storage space",
     "AVAI_STORAGE":"available storage",
     "SURPLUS":"surplus storage",
-    "OCCU_STORAGE":"occupied storage"
+    "OCCU_STORAGE":"occupied storage",
+    "DESK_CLOUD_EXMAPLE_COUNTS":"desk cloud living example counts"
+
   },
   "PHY_MNG_POOL": {
     "ACTIVE": "Enable",

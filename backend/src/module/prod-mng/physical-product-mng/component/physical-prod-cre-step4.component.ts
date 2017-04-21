@@ -64,9 +64,12 @@ export class PhysicalProdCreStep4Component implements OnInit {
     }
     next() {
         console.log(this.service.product);
+        this.LayoutService.show();
         this.service.postPhysicalProduct(this.service.product).then(res=>{
+            this.LayoutService.hide();
             this.route.navigate(["prod-mng/prod-mng/prod-mng"]);            
         }).catch(err=>{
+            this.LayoutService.hide();            
             console.error(err);
         })
     }

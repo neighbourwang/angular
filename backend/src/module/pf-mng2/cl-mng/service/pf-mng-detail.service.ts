@@ -22,6 +22,12 @@ export class PlatformDetailService {
         let api = this.restApiCfg.getRestApi("pf-mng-update.put");
         return this.restApi.request(api.method, api.url,[],undefined,data);
     }
+    //平台名臣唯一性验证
+    platformNameNorepeate(name:string){
+        let api = this.restApiCfg.getDataRestApi("pf.cre.name.norepeat");
+
+        return this.restApi.request(api.method , api.url,[{key:'name',value:name}],undefined );
+    }
     //获取平台可用区信息    
     getUpdateZoneList (id:string){
         let api = this.restApiCfg.getRestApi("pf-mng-zonelist.get");
