@@ -67,13 +67,11 @@
             <div class="col-md-2 no-padding form-group ">
                 <button class="btn btn-default button-gray-gradient" (click)="testMajor()">  测试  </button>
             </div>
-            <div *ngIf="start">
-                <div *ngIf="testInfo== true" class="col-md-4 no-padding">
-                    <span class="font-green" style="line-height: 34px;">提示:测试成功</span>
-                </div>
-                <div *ngIf="testInfo== false" class="col-md-4 no-padding">
-                    <span class="font-orange" style="line-height: 34px;">提示:测试失败</span>
-                </div>
+            <div *ngIf="testInfo== 'success'" class="col-md-4 no-padding">
+                <span class="font-green" style="line-height: 34px;">提示:测试成功</span>
+            </div>
+            <div *ngIf="testInfo== 'failed'" class="col-md-4 no-padding">
+                <span class="font-orange" style="line-height: 34px;">提示:测试失败</span>
             </div>
         </div>
         <div *ngIf="type== 'info'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">

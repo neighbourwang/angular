@@ -54,8 +54,8 @@ export class AliSubListComponent implements OnInit{
     subInfo: AliSubList= new AliSubList();
     departsList: Array<DepartList>;
     selectedDepartment: string;
-    testInfo: boolean;
     selectedDepartmentId: string;
+    testInfo: string;
 
     ngOnInit (){
         console.log('init');
@@ -154,11 +154,9 @@ export class AliSubListComponent implements OnInit{
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.testInfo= true;
-                    }else if(response.resultCode == 500){
-                        this.testInfo= false;
-                    }else {
-                        this.showAlert("COMMON.OPERATION_ERROR");
+                        this.testInfo= "success";
+                    }else{
+                        this.testInfo= "failed";
                     }
                 }
             )
