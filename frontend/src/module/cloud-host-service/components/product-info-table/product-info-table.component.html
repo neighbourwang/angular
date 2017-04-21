@@ -11,11 +11,11 @@
         <th class="text-center">{{'COMMON.EXPIRE_DATE' | translate}}</th>
         <th class="text-center">{{'SHOPPING_CART.QUANTITY' | translate}}</th>
     </tr>
-    <tr product-info-tr 
+    <tbody product-info-tr 
         [hasSelect]="hasSelect"
         [disabled]="disabled"
         (onSelect)="selectChange($event)"
         (countPrice)="priceChange($event)"
         [isorder]="isorder"
-        [itemList]="itemList"></tr>
+        [itemList]="itemList"></tbody>
 </table>

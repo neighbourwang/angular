@@ -2,7 +2,7 @@
 <!--创建产品-->
 <div class="page-content fix-page-content">
     <div class="row navigator-progress">
-        <div class="col-md-3"><span class="mark">1</span><span>基本信息<!--基本信息--></span></div>
+        <div class="col-md-3"><span class="mark">1</span><span>基本信息<!--基本信息--></span><span class="icon-tick"></span></div>
         <div class="col-md-3 active"><span class="mark">2</span><span>计价方式<!--资源同步--></span></div>
         <div class="col-md-3"><span class="mark">3</span><span>选择平台</span></div>
         <div class="col-md-3"><span class="mark">4</span><span>选择企业</span></div>
@@ -24,7 +24,6 @@
                         <div class="col-sm-6" *ngIf="prodDirType=='0'">
                             <label class="radio-inline row-inline-radio2 font-gray">
                             		<input type="radio" name="billingTypeRadios" checked=true class="fox-cloud-radio" > {{'PROD_MNG.BY_YEAR_BY_MONTH' | translate}}<!--包年包月-->
-
                        			</label>
                         </div>
                         <div class="col-sm-6" *ngIf="prodDirType=='1'">

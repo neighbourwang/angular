@@ -142,32 +142,22 @@ export class OrderMngComponent implements OnInit {
 			for (let item of source) {
 				let obj: OrderDetailItem = _.extendOwn(new OrderDetailItem(), item)
 				target.push(obj);
-				if(item.itemList&&item.itemList[0].specList){
-					let getProperty = _.property("attrDisplayValue");
-					 if(item.productType==0){
-						obj.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
-					}else{
-						obj.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
-					}
-				}
-
 				
-				// if(item.hisOrderList&&item.hisOrderList.itemList&&item.hisOrderList.itemList[0].specList){
-				// 	for(let hisItem of item.hisOrderList){
-				// 		let getProperty = _.property("attrDisplayValue");
-				// 	 if(hisItem.productType==0){
-				// 		hisItem.instanceName = getProperty(item.hisOrderList[0].itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
-				// 	}else{
-				// 		obj.hisOrderList[0].instanceName = getProperty(item.hisOrderList[0].itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
-				// 	}
-				// 	}
-					
-				// }
 			}
 		};
 		this._orderDetailLoader.Trait = (target:Array<OrderDetailItem>)=>{
-			//匹配历史信息
+			
 			for(let item of target ){
+				//实例名称
+				if(item.itemList&&item.itemList[0].specList){
+					let getProperty = _.property("attrDisplayValue");
+					 if(item.productType==0){
+						item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+					}else{
+						item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
+					}
+				}
+				//匹配历史信息的实例名称
 				if(item.hisOrderList){
 					for(let hisItem of item.hisOrderList){
 						// item.hisOrderList[0].type=0;

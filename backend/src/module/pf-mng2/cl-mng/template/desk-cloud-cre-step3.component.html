@@ -25,7 +25,7 @@
                         <th>{{"PF_MNG2.NUMBER_OF_HOSTS" | translate}}</th>
                         <th>{{"CAPACITY_MNG.PHYSICAL_CPU_CORE_NUMBER" | translate}}</th>
                         <th>{{"CAPACITY_MNG.TOTAL_MEMORY" | translate}}(MB)</th>
-                        <th>云桌面实例数量</th>
+                        <th>{{'PF_MNG2.DESK_CLOUD_EXMAPLE_COUNTS' | translate}}</th>
                         <th style="width:30%">{{"COMMON.COMMENT" | translate}}</th>
                     </tr>
                 </thead>
@@ -37,8 +37,9 @@
                             </td>
                         <td>{{item.name}}</td>
                         <td>
-                             <div [ngClass]="{'has-error':!item.displayNameValid}">
-                                <input type="text" class="form-control" [(ngModel)]="item.displayName"  required (blur)="displayNameVa(item)" (focus)="item.displayNameValid=true"/>                               
+                             <!--<div [ngClass]="{'has-error':!item.displayNameValid}">-->
+                             <div>
+                                <input type="text" class="form-control" [(ngModel)]="item.displayName"  name="displayName" required/>                               
                             </div>
                         </td>
                         <td>{{item.hostNum||0}}</td>

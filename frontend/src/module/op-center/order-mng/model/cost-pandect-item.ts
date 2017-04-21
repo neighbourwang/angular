@@ -129,8 +129,8 @@ export class  Chart{
 
 export class CostManageItem{
 
-     id:string;
-     
+     id:string;//自身Id
+     tenantId:String;//企业Id
      startTime:string;
      endTime:string;//记账周期
 

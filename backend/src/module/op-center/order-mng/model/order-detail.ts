@@ -1,3 +1,4 @@
+import {SubInstanceItemResp,SubInstanceAttrPair} from "./";
 //订单详情
 export class OrderDetailItem {
   instanceId:string = null;//订单ID
@@ -20,6 +21,8 @@ export class OrderDetailItem {
   description:string;//说明,接口里无字段，之前用已有字段代替的
   billingModeName:string = null;//计费模式
   extendType : string;//自动续订方式
+  itemList:SubInstanceItemResp[] = [];
+  specList: Array<SubInstanceAttrPair> = null;
   get isExtend():string{
     if(this.extendType=='0')
       return '否';
