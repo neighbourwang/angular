@@ -69,14 +69,14 @@ export class AliCloudMainAccountListComponent implements OnInit{
             .catch((e) => this.onRejected(e));      
     }
 
-    //编辑账号类型弹出框 1独享 2共享  还需要修改199
+    //编辑账号类型弹出框 1独享 2共享  还需要修改
     editAccountType(){
         const selectAccount=this.accountList.find((e)=>{return e.isSelect});
         if(!selectAccount){
             this.showAlert("请选择需要编辑的账号！");
             return;
         }
-        if(selectAccount.mainAccountType =="1" && (selectAccount.tenantCross !="" || selectAccount.tenantCross !=null)){
+        if(selectAccount.mainAccountType =="1" && selectAccount.tenantCross !="" ){
             this.showAlert("独享主账号分配给了企业后，不能改账号类型，请先移除其所分配的企业。");
             return;  
         }     
@@ -330,7 +330,7 @@ export class AliCloudMainAccountListComponent implements OnInit{
             this.showAlert("独享账号不能管理子账号，请选择共享账号！")
             return ;
         }
-        else this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-list`,{loginName:account.loginName}])
+        else this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-list`,{id:account.id}])
     }
 
     //跳转到账号列表

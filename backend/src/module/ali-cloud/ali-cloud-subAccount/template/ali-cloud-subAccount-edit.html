@@ -50,7 +50,19 @@
     <div class="row row-line-height" *ngIf="editMode =='view'">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">当前所分配企业及部门:</div>
-            <div class="col-sm-4"><span style="line-height:34px">{{account.tenantName}}</span></div>
+            <div class="col-sm-4">
+                <div class="col-sm-3" style="line-height:34px">企业名称：</div>
+                <div class="col-sm-4"  style="line-height:34px">{{account.tenantName}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height" *ngIf="editMode =='view'">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title"></div>
+            <div class="col-sm-4">
+                <div class="col-sm-3"  style="line-height:34px">部门名称：</div>
+                <div class="col-sm-4"  style="line-height:34px">{{account.departName}}</div>
+            </div>
         </div>
     </div>
     <div class="row row-line-height">

@@ -103,7 +103,7 @@ export class AliCloudMainAccountEnterpriseComponent implements OnInit{
         this.confirm.ccf = () => {};
         this.confirm.cof = () => {
             this.layoutService.show();
-            this.service.saveSetEnt(this.account,entId)
+            this.service.saveSetEnt(this.account.id,entId)
             .then(
                 response=>{
                     this.layoutService.hide();

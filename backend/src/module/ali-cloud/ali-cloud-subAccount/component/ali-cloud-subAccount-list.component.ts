@@ -38,22 +38,22 @@ export class AliCloudSubAccountListComponent implements OnInit{
 
      type: string;
      mainLoginName:string;
+     mainAccountId:string;
      accountList:Array<AccountListModel>;
 
     ngOnInit (){
         console.log('init');
          this.activeRoute.params.forEach((params: Params) => {
-             this.mainLoginName=params["loginName"]; 
+             this.mainAccountId=params["id"];
         });
         this.getAccountList();
-
-
+        this.getAccount();
     }
 
     //获取子账号列表
     getAccountList(){
         this.layoutService.hide();
-        this.service.getSubAccounts() 
+        this.service.getSubAccounts( this.mainAccountId) 
         .then(
             response => {
                 this.layoutService.hide();
@@ -69,7 +69,23 @@ export class AliCloudSubAccountListComponent implements OnInit{
         )
         .catch((e) => this.onRejected(e));      
     }
-
+     //获取主账号信息
+    getAccount(){
+        this.layoutService.hide();
+        this.service.getMainAccount( this.mainAccountId)
+             .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.mainLoginName= response["resultContent"].loginName;
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
      //启用子账号
     enableAccount(){
         const account=this.accountList.find((e)=>{return e.isSelect});
@@ -180,19 +196,19 @@ export class AliCloudSubAccountListComponent implements OnInit{
    //查看账号详细
     viewAccount(account:AccountListModel){
         this.type="view";
-        this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-edit`,{type:this.type,id:account.id}])
+        this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-edit`,{type:this.type,id:account.id,mainId:this.mainAccountId}])
     }
     //跳转添加子账号
     createAccount(){
          this.type="create";
-        this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-edit`,{type:this.type}])
+        this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-edit`,{type:this.type,mainId:this.mainAccountId}])
     }
 
     //编辑账号
     editAccount(){
         this.type="edit";
          const account=this.accountList.find((e)=>{return e.isSelect});
-         this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-edit`,{type:this.type,id:account.id}])
+         this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-edit`,{type:this.type,id:account.id,mainId:this.mainAccountId}])
     }
 
      //分配企业
@@ -202,8 +218,8 @@ export class AliCloudSubAccountListComponent implements OnInit{
             this.showAlert("请选择需要编辑的账号！")
             return ;
         }
-        if(account.orgName==""){
-          this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-setEnterprise`,{id:account.id}])
+        if(account.departName==null){
+          this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-setEnterprise`,{id:account.id,mainId:this.mainAccountId}])
         }
         else{
             this.showAlert("只有该子账号没有分配给全部部门或单一部门时，才能重新分配企业！");
