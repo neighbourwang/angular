@@ -1,11 +1,18 @@
-import {NgModule} from '@angular/core';
-// Common Components
-import { PipeModule } from '../../../architecture';
-import { CommonComponentModule } from "../../../architecture";
+import { NgModule } from '@angular/core';
 
+// Common Components
+import { CommonComponentModule, PipeModule} from '../../../architecture';
+
+//Components
 import {MngServiceListComponent} from './component/mng-service-list.component'
 import {MngServiceDetailComponent} from './component/mng-service-detail.component'
+
+// Routing
 import {MngServiceRouting} from './mng-service.routing';
+
+//service
+import { MngService} from './service/mng-service.service';
+
 @NgModule({
     imports: [
         CommonComponentModule,
@@ -21,7 +28,7 @@ import {MngServiceRouting} from './mng-service.routing';
         MngServiceDetailComponent
     ],
     providers:[
-
+        MngService
     ]
 })
 

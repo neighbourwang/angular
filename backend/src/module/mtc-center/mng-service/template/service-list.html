@@ -10,38 +10,37 @@
     <div class="mgt15">
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>
         <div class="float-left pdr20 mgl5">
-            <select class="pdl10 form-control" style="width: 165px;">
-                <option>请选择企业</option>
-                <option>上海惠普有限公司</option>
+            <select [(ngModel)]="enterpriseId" class="pdl10 form-control" style="width: 165px;">
+                <option value="">所有企业</option>
+                <option *ngFor="let v of enterpriseList" [value]="v.id">{{v.name}}</option>
             </select>
-        </div>
+        </div>{{enterpriseId}}
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">管理服务名称：</span>
         <div class="float-left pdr20 mgl5">
-            <select class="pdl10 form-control">
-                <option>请选择服务</option>
+            <select [(ngModel)]="serviceName" class="pdl10 form-control">
+                <option value="">所有</option>
                 <option>服务名称1</option>
             </select>
         </div>
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">服务对象：</span>
         <div class="float-left pdr20 mgl5">
-            <select class="pdl10 form-control">
-                <option>请选择对象</option>
-                <option>服务对象1</option>
-            </select>
+            <select [(ngModel)]="serviceObjectCode" class="pdl10 form-control">
+                <option value="">所有</option>
+                <option *ngFor="let v of service.typeDic | async" [value]="v.value">{{v.displayValue}}</option>
+            </select>{{serviceObjectCode}}
         </div>
     </div>
     <div class="clear"></div>
     <div class="mgt15 mgb15">
         <div class="float-left pdr20">
-            <select class="pdl10 form-control">
-                <option>实例名称</option>
-                <option>上海惠普有限公司</option>
+            <select [(ngModel)]="searchTypeCode" class="pdl10 form-control">
+                <option *ngFor="let v of service.searchDic | async" [value]="v.value">{{v.displayValue}}</option>
             </select>
-        </div>
+        </div>{{searchTypeCode}}
         <div class="input-group col-md-2 float-left">
-            <input  type="text" class="form-control" placeholder="输入信息快速搜索">
+            <input [(ngModel)]="keyWords" type="text" class="form-control" placeholder="输入信息快速搜索">
             <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-        </div>
+        </div>{{keyWords}}
         <button class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="reset()">重置</button>
 
         <button class="fox-cloud-button fox-cloud-button-white pull-right mgl10" (click)="serviceUpdate()">
@@ -66,16 +65,27 @@
                 <th>服务状态</th>
             </thead>
             <tbody>
-            <tr>
+            <tr *ngFor="let item of data">
                 <td><input type="radio" class="fox-cloud-radio"/></td>
-                <td>123</td>
-                <td><a href="javascript:void(0);" (click)="gotoDetail();">我的云主机管理服务</a></td>
-                <td>云主机</td>
-                <td>asdasdaffdsf</td>
-                <td>上海1区</td>
-                <td>DXC</td>
-                <td>持续型服务</td>
-                <td>进行中</td>
+                <td>{{item.serviceProductId}}</td>
+                <td><a href="javascript:void(0);" (click)="gotoDetail();">{{item.serviceName}}</a></td>
+                <td>{{item.serviceObjectCode | dict: this.service.typeDic | async}}</td>
+                <td>
+                    <ol>
+                        <li style="display: inline-block; padding: 2px 5px;">
+                            {{item.instance.instanceId}}
+                        </li>
+                    </ol>
+                    <ol>
+                        <li style="display: inline-block; padding: 2px 5px;">
+                            {{item.instance.instanceName}}
+                        </li>
+                    </ol>
+                </td>
+                <td>{{item.instance.instanceRegion}}</td>
+                <td></td>
+                <td>{{item.serviceType | dict: this.service.typeDic | async}}</td>
+                <td>{{item.serviceStatus}}</td>
             </tr>
             </tbody>
         </table>

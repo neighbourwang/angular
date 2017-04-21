@@ -12,9 +12,9 @@ import { AliSharedListComponent } from './component/ali-shared-list.component';
 import { AliMngRouting } from './ali-mng.routing';
 
 //service
-import { AliMajorService} from './service/ali-major-list.service'
-import { AliSubService} from './service/ali-sub-list.service'
-import { AliSharedService} from './service/ali-shared-list.service'
+import { AliMajorService} from './service/ali-major-list.service';
+import { AliSubService} from './service/ali-sub-list.service';
+import { AliSharedService} from './service/ali-shared-list.service';
 
 @NgModule({
     imports: [
