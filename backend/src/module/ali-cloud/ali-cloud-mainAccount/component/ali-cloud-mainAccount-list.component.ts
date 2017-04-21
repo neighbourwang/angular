@@ -51,7 +51,7 @@ export class AliCloudMainAccountListComponent implements OnInit{
 
     //获取主账号列表
     getAccountList(){
-        this.layoutService.hide();
+        this.layoutService.show();
         this.service.getMainAccounts() 
         .then(
                 response => {

@@ -39,7 +39,7 @@ export class AliCloudSubAccountEditService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => subAccountList_mock);
     }
 
-    //编辑主账号
+    //编辑子账号
     editAccount(account:AccountListModel):Promise<any>{       
         const api = this.restApiCfg.getRestApi("ali-subAccount-update.post");
         return this.restApi.request(api.method, api.url,null, null,account);
