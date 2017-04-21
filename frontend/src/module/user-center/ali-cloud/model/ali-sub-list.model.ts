@@ -5,7 +5,7 @@ export class AliSubList{
     status: string;   //   子账号数量
     lastUpdate: string;  //最后更新
     operator: string;   // 操作人
-    departId: string;
+    departId: string= "";
     accessKey: string;
     accessSecret: string;
 }

@@ -55,6 +55,7 @@ export class AliSubListComponent implements OnInit{
     departsList: Array<DepartList>;
     selectedDepartment: string;
     testInfo: boolean;
+    selectedDepartmentId: string;
 
     ngOnInit (){
         console.log('init');
@@ -125,23 +126,6 @@ export class AliSubListComponent implements OnInit{
         this.type= "create";
         this.getDepartsList();
         this.subMng.open("创建子账号");
-    }
-
-    create(){
-        this.layoutService.show();
-        this.service.create(this.subInfo)
-            .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.getData();
-                        this.subMng.close();
-                    } else {
-                        this.showAlert("COMMON.OPERATION_ERROR");
-                    }
-                }
-            )
-            .catch((e) => this.onRejected(e));
     }
 
     editPage(item){
@@ -264,7 +248,20 @@ export class AliSubListComponent implements OnInit{
         if(this.type== "info"){
             this.subMng.close();
         }else if(this.type== "create"){
-
+            this.layoutService.show();
+            this.service.create(this.id, this.subInfo)
+                .then(
+                    response => {
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            this.getData();
+                            this.subMng.close();
+                        } else {
+                            this.showAlert("COMMON.OPERATION_ERROR");
+                        }
+                    }
+                )
+                .catch((e) => this.onRejected(e));
         }else if(this.type== "edit"){
 
         }else{
