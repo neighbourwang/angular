@@ -3,7 +3,7 @@
     <div class="col-md-4">
         <div class="form-group">
             <div class="row  row-line-height">
-                <div class="col-md-4 form-control-title">启动盘名称：</div>
+                <div class="col-md-4 form-control-title">{{'PF_MNG2.BOOT_DISK_NAME'| translate}}：</div>
                 <div class="col-md-8">
                     <input class="form-control" type="text" placeholder="{{'COMMON.NAME' | translate}}" [(ngModel)]="bootDisk.bootStorageName"
                         name="bootStorageName">
@@ -14,7 +14,7 @@
     <div class="col-md-4">
         <div class="form-group">
             <div class="row  row-line-height">
-                <div class="col-md-3 form-control-title">可用区：</div>
+                <div class="col-md-3 form-control-title">{{'COMMON.AVAILABLE_ZONE'| translate}}：</div>
                 <div class="col-md-9">
                     <select *ngIf="!isEdit" class="form-control" [(ngModel)]="selectedZoneId" (ngModelChange)="selectValidZone($event)">
                         <option *ngFor="let zone of validZoneList; let idx=index" [value]="zone.zoneId">{{zone.zoneName}}</option>
@@ -28,7 +28,7 @@
     <div class="col-md-4">
         <div class="form-group">
             <div class="row  row-line-height">
-                <div class="col-md-3 form-control-title">说明：</div>
+                <div class="col-md-3 form-control-title">{{'NET_MNG_VM_IP_MNG.DESCRIPTION'| translate}}：</div>
                 <div class="col-md-9">
                     <input class="form-control" type="text" placeholder="{{'COMMON.COMMENT' | translate}}" [(ngModel)]="bootDisk.bootStorageDescription"
                         name="bootStorageDescription">
@@ -41,7 +41,7 @@
     <div></div>
     <div class="col-md-5 bord">
         <div class="row grayTab">
-            <div class="col-md-4 form-control-title boldTitle">所有存储后端</div>
+            <div class="col-md-4 form-control-title boldTitle">{{'PF_MNG2.ALL_STORAGE_BACKEND'| translate}}</div>
             <div class="col-md-7">
                 <div class="has-feedback">
                     <input type="text" class="form-control" #userName [(ngModel)]="personAcc" pla>
@@ -64,7 +64,7 @@
     <div class="col-md-2"></div>
     <div class="col-md-5 bord">
         <div class="row grayTab">
-            <div class="col-md-4 form-control-title boldTitle">选中的存储后端</div>
+            <div class="col-md-4 form-control-title boldTitle">{{'PF_MNG2.SELECTED_STORAGE_BACKEND'| translate}}</div>
             <div class="col-md-7">
                 <div class="has-feedback">
                     <input type="text" class="form-control" #userName [(ngModel)]="personAcc" >
@@ -78,7 +78,7 @@
             </div>
         </div>
         <div class="row bodyList">
-            <div class="col-md-12 " *ngFor="let storageName of bootDisk.storageName;let idxx=index" (click)="cancelStorage(idx)" style="cursor:pointer" title="点击选择存储后端">
+            <div class="col-md-12 " *ngFor="let storageName of bootDisk.storageName;let idxx=index" (click)="cancelStorage(idx)" style="cursor:pointer" title="{{'PF_MNG2.CLICK_SELECT_STORAGE_BACKEND'| translate}}">
                 {{storageName}}
             </div>
             <div style="clear:both"></div> 
@@ -87,10 +87,10 @@
 </div>
 <div class="text-center">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();" style="margin-right:40px;">
-            <span class="icon-button-label">取消</span>
+            <span class="icon-button-label">{{'COMMON.CANCEL'| translate}}</span>
         </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="createBootDisk();">
-            <span class="icon-button-label">保存</span>
+            <span class="icon-button-label">{{'COMMON.SAVE'| translate}}</span>
     </button>
 </div>
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CANCEL" (of)="nof()"></fc-notice>

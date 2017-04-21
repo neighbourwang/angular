@@ -1,7 +1,7 @@
 export class CostManageItem{
 
      id:string;
-     
+     tenantId :string;//企业Id
      startTime:string;
      endTime:string;//记账周期
 

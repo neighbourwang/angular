@@ -136,6 +136,7 @@ export class AliMajorListComponent implements OnInit{
 
     distriPage(item){
         this.type= "distribute";
+        this.id= item.id;
         this.layoutService.show();
         this.service.departMajor()
             .then(
@@ -193,13 +194,14 @@ export class AliMajorListComponent implements OnInit{
                 .catch((e) => this.onRejected(e));
         }else{
             this.layoutService.show();
-            this.service.editDepart(this.selectedDepartmentId)
+            this.service.editDepart(this.id, this.selectedDepartmentId)
                 .then(
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                             this.getData();
                             this.distriDepart.close();
+                            console.log("editDepart",this.id, this.selectedDepartmentId);
                         }else {
                             this.showAlert("COMMON.OPERATION_ERROR");
                         }

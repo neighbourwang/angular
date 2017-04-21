@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Location } from '@angular/common';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, dictPipe } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, dictPipe,PopupComponent } from '../../../../architecture';
 
 import { PlatformDetailService } from '../service/pf-mng-detail.service';
 import { ZoneListService } from '../service/cl-mng-cre-step-3.service';
@@ -41,14 +41,14 @@ export class PfDetailComponent implements OnInit {
         private location: Location,
         private dictPipe: dictPipe,
     ) {
-    }   
+    }
 
     @ViewChild('enableZoneConfirm')
     enableZoneConfirm: ConfirmComponent;
 
     @ViewChild('suspendZoneConfirm')
     suspendZoneConfirm: ConfirmComponent;
- 
+
     @ViewChild('enableStorageConfirm')
     enableStorageConfirm: ConfirmComponent;
 
@@ -64,6 +64,11 @@ export class PfDetailComponent implements OnInit {
     @ViewChild('memSync') memSync;
     @ViewChild('volumeTypeSync') volumetypeSync;
 
+    @ViewChild('syncDeskPop')
+    syncDeskPop:PopupComponent;
+
+    @ViewChild('syncCapacityPop')
+    syncCapacityPop:PopupComponent;
 
     // 确认Box/通知Box的标题
     title: String = "";
@@ -113,6 +118,8 @@ export class PfDetailComponent implements OnInit {
                         this.platformTypes.forEach(ele => {
                             if (ele.value == this.platform.platformType) {
                                 ele.isSelected = true;
+                                ele.code =
+                                    ele.code == 'Desktop Vmware' ? "VMWARE_DESKTOP" : ele.code;
                                 this.getVersion(ele.code);
                             } else {
                                 ele.isSelected = false;
@@ -156,16 +163,18 @@ export class PfDetailComponent implements OnInit {
         item.active = true;
     }
     //选择平台类型
-    choosePlatFormType(item, index) {
-        for (let i = 0; i < this.platformTypes.length; i++) {
-            this.platformTypes[i].isSelected = false;
-        }
-        this.platformTypes[index].isSelected = true;
-        this.platform.platformType = item.value;
-        console.log(item);
-        this.platform.version = '';
-        this.getVersion(item.code);
-    }
+    // choosePlatFormType(item, index) {
+    //     for (let i = 0; i < this.platformTypes.length; i++) {
+    //         this.platformTypes[i].isSelected = false;
+    //     }
+    //     this.platformTypes[index].isSelected = true;
+    //     this.platform.platformType = item.value;
+    //     console.log(item);
+    //     this.platform.version = '';
+    //     item.code=
+    //         item.code=='Desktop Vmware'?"VMWARE_DESKTOP":item.code;
+    //     this.getVersion(item.code);
+    // }
     //获取版本版本
     getVersion(code) {
         this.commonService.getVersion(code).then(
@@ -187,7 +196,7 @@ export class PfDetailComponent implements OnInit {
         this.zoneListService.getZone(this.platform.id).then(
             res => {
                 this.zoneList = res.resultContent;
-                this.zoneList.forEach(ele => {
+                this.platformType!="3"&&this.zoneList.forEach(ele => {
                     ele.quotaPercentage =
                         ele.quotaPercentage ? ele.quotaPercentage : 0;
                     ele.quotaPercentDisplay = ele.quotaPercentage * 100;
@@ -201,16 +210,16 @@ export class PfDetailComponent implements OnInit {
         })
     }
     //启用可用区
-    selectedZone:ZoneListModel;
-    enableZone(zone){
+    selectedZone: ZoneListModel;
+    enableZone(zone) {
         if (this.platform.status != 1) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.NONSUPPORT_CHANGES_STATE');
             return;
         }
-        this.selectedZone=zone;
-        this.enableZoneConfirm.open('启用可用区',"你选择启用 '"+zone.name+" '可用区")
+        this.selectedZone = zone;
+        this.enableZoneConfirm.open('启用可用区', "你选择启用 '" + zone.name + " '可用区")
     }
-    enableZoneCof() {        
+    enableZoneCof() {
         this.layoutService.show();
         this.platformDetailService.enableZone(this.selectedZone.id).then(res => {
             console.log(res)
@@ -222,13 +231,13 @@ export class PfDetailComponent implements OnInit {
         })
     }
     //禁用可用区
-    suspendZone(zone){
+    suspendZone(zone) {
         if (this.platform.status != 1) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.NONSUPPORT_CHANGES_STAT');
             return;
         }
-        this.selectedZone=zone;        
-        this.suspendZoneConfirm.open('禁用可用区',"你选择禁用 '"+zone.name+" '可用区")
+        this.selectedZone = zone;
+        this.suspendZoneConfirm.open('禁用可用区', "你选择禁用 '" + zone.name + " '可用区")
     }
     suspendZoneCof(id: string) {
         this.layoutService.show();
@@ -283,7 +292,7 @@ export class PfDetailComponent implements OnInit {
                 if (this.updateZoneList.length == 0) {
                     this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_ZONES')
                 } else {
-                    this.updateZoneList.forEach(ele => {
+                    this.platformType!="3"&&this.updateZoneList.forEach(ele => {
                         ele.quotaPercentage =
                             ele.quotaPercentage ? ele.quotaPercentage : 0;
                         ele.quotaPercentDisplay = ele.quotaPercentage * 100;
@@ -337,7 +346,7 @@ export class PfDetailComponent implements OnInit {
         this.storageListService.getStorage(this.platform.id).then(
             res => {
                 this.storageList = res.resultContent;
-                this.storageList.forEach(ele => {
+                this.platformType!="3"&&this.storageList.forEach(ele => {
                     ele.quota =
                         ele.quota ? ele.quota : 0;
                     ele.quotaPercentDisplay = ele.quota * 100;
@@ -364,10 +373,10 @@ export class PfDetailComponent implements OnInit {
             )
     }
     //启用存储区
-    selectedStorage:StorageModel;
-    enableStorage(storage){
-        this.selectedStorage=storage;
-        this.enableStorageConfirm.open('启用存储区',"你选择启用 '"+storage.name+"'存储区 ")
+    selectedStorage: StorageModel;
+    enableStorage(storage) {
+        this.selectedStorage = storage;
+        this.enableStorageConfirm.open('启用存储区', "你选择启用 '" + storage.name + "'存储区 ")
     }
     enableStorageCof() {
         this.layoutService.show();
@@ -381,9 +390,9 @@ export class PfDetailComponent implements OnInit {
         })
     }
     //禁用存储区
-    suspendStorage(storage){
-        this.selectedStorage=storage;
-        this.suspendStorageConfirm.open('禁用存储区',"你选择禁用 '"+storage.name+"'存储区 ")
+    suspendStorage(storage) {
+        this.selectedStorage = storage;
+        this.suspendStorageConfirm.open('禁用存储区', "你选择禁用 '" + storage.name + "'存储区 ")
     }
     suspendStorageCof() {
         this.layoutService.show();
@@ -393,7 +402,7 @@ export class PfDetailComponent implements OnInit {
             this.layoutService.hide();
         }).catch(err => {
             console.error('禁用存储区失败', err);
-            this.layoutService.hide();            
+            this.layoutService.hide();
         })
     }
     //更多操作
@@ -469,7 +478,7 @@ export class PfDetailComponent implements OnInit {
                 if (this.updateStorageList.length == 0) {
                     this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_STORAGES')  //暂时没有可同步存储后端信息
                 } else {
-                    this.updateStorageList.forEach(ele => {
+                    this.platformType!="3"&&this.updateStorageList.forEach(ele => {
                         ele.quota =
                             ele.quota ? ele.quota : 0;
                         ele.quotaPercentDisplay = ele.quota * 100;
@@ -582,7 +591,7 @@ export class PfDetailComponent implements OnInit {
             console.log('updateVolumetype', res);
             this.layoutService.hide();
             if (res.resultCode == 100) {
-                if (res.resultContent.length!=0) {
+                if (res.resultContent.length != 0) {
                     this.updateVolumeTypeList = res.resultContent;
                     this.volumetypeSync.open();
                 } else {
@@ -590,9 +599,24 @@ export class PfDetailComponent implements OnInit {
                 }
             }
         }).catch(err => {
-            console.log('更新存储类型出错',err);
-            this.layoutService.hide();            
+            console.log('更新存储类型出错', err);
+            this.layoutService.hide();
         })
+    }
+    //桌面云
+    //自动同步桌面云设置
+    autoSyncDeskSet(){
+        this.syncDeskPop.open('自动同步云桌面设置');
+    }
+    otSaveSyncDesk(){
+
+    }
+    //自动同步存储容量设置
+    autoSyncCapacitySet(){
+        this.syncCapacityPop.open('自动同步存储容量设置');        
+    }
+    otSaveSyncCapacity(){
+
     }
     //返回
     back() {
@@ -612,13 +636,28 @@ export class PfDetailComponent implements OnInit {
         if (!this.platform.uri) {
             return this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.ADDRESS_REQUIRED');
         }
+        //验证唯一性
         this.layoutService.show();
-        this.platformDetailService.putPlatform(this.platform).then(res => {
-            console.log(res);
-            this.layoutService.hide();
-            this.location.back();
+        this.platformDetailService.platformNameNorepeate(this.platform.name).then(res => {
+            if (res.resultCode == 100) {
+                console.log(res);
+                if (res.resultContent.length == 0) {
+                    this.platformDetailService.putPlatform(this.platform).then(res => {
+                        console.log(res);
+                        this.layoutService.hide();
+                        this.location.back();
+                    }).catch(err => {
+                        console.error(err);
+                        this.layoutService.hide();
+                    })
+                } else {
+                    this.layoutService.hide();
+                    // this.notice.open('COMMON.ERROR',"PF_MNG2.PLATFORM NAME"+" '"+this.creStep1Model.name+"' "+"PF_MNG2.EXISTS");
+                    this.notice.open('COMMON.ERROR', "PF_MNG2.PLATFORM_NAME_EXISTS");
+                }
+            }
         }).catch(err => {
-            console.error(err);
+            console.log(err);
             this.layoutService.hide();
         })
     }

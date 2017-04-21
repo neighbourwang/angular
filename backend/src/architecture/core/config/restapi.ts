@@ -51,13 +51,13 @@ export let RestApis: RestApiModel[] = [
         "id": "pf.cre.step.01.paltformRegins.get",
         "method": "POST",
         "url": "adminui/authsec/regions"
-    }, 
+    },
     {
         "desc": "创建平台",
         "id": "pf.cre.step.01.paltform.post",
         "method": "POST",
         "url": "adminui/authsec/platform"
-    },   
+    },
     {
         "desc": "创建平台名称唯一性验证",
         "id": "pf.cre.name.norepeat",
@@ -1190,7 +1190,7 @@ export let RestApis: RestApiModel[] = [
         "id": "physical-service-detail.get",
         "method": "GET",
         "url": "adminui/authsec/services/pmservice/{id}"
-    },     
+    },
     //用户中心
     {
         "desc": "获取所有机构",
@@ -2203,13 +2203,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "查询物理机已有的部件和规格清单",
         "id": "physical-mng.physical.partList.get",
         "method": "GET",
-        "url": "pmresourcemgmt/noauth/pm/parts/specvaluelist"  
+        "url": "pmresourcemgmt/noauth/pm/parts/specvaluelist"
     },
     {
         "desc": "编辑物理机部件",
         "id": "physical-mng.physical.partList.edit",
         "method": "POST",
-        "url": "pmresourcemgmt/noauth/pmpool/pm/{pm_id}/pmparts" 
+        "url": "pmresourcemgmt/noauth/pmpool/pm/{pm_id}/pmparts"
     },
 
     //物理机网络管理
@@ -2631,24 +2631,24 @@ export let RestApis: RestApiModel[] = [
         "id":"ali-mainAccount-type-edit.post",
         "method":"POST",
         "url":"adminboe/authsec/alicloud/adm/main/updatetype/{id}"
-     },    
+     },
     {
         "desc": "主账号启用",
         "id":"ali-mainAccount-status-enable.post",
         "method":"POST",
-        "url":"adminboe/authsec/alicloud/adm/main/enable/{id}"
+        "url":"adminboe/authsec/alicloud/adm/enable/{id}"
      },
      {
         "desc": "主账号禁用",
         "id":"ali-mainAccount-status-disable.post",
         "method":"POST",
-        "url":"adminboe/authsec/alicloud/adm/main/disable/{id}"
+        "url":"adminboe/authsec/alicloud/adm/disable/{id}"
      },
      {
         "desc": "删除主账号",
         "id":"ali-mainAccount-delete.post",
         "method":"POST",
-        "url":"adminboe/authsec/alicloud/adm/main/delete/{id}"
+        "url":"adminboe/authsec/alicloud/adm/delete/{id}"
      },
       {
         "desc": "获取主账号企业列表",
@@ -2660,31 +2660,19 @@ export let RestApis: RestApiModel[] = [
         "desc": "保存设置主账号企业",
         "id":"ali-mainAccount-enterprise-set.post",
         "method":"POST",
-        "url":"adminboe/authsec/alicloud/adm/main/ent/update/{id}"
-     },  
+        "url":"adminboe/authsec/alicloud/adm/ent/update/{id}"
+     },
      {
         "desc": "子账号列表",
         "id":"ali-subAccount-list.get",
         "method":"GET",
-        "url":"adminboe/authsec/alicloud/adm/sub/list/{id}"
-     },  
+        "url":"adminboe/authsec/alicloud/adm/sub/list"
+     },
     {
         "desc": "查看子账号",
         "id":"ali-subAccount-view.get",
         "method":"GET",
         "url":"adminboe/authsec/alicloud/adm/sub/acct/{id}"
-     },
-     {
-        "desc": "添加子账号",
-        "id":"ali-subAccount-create.post",
-        "method":"POST",
-        "url":"adminboe/authsec/alicloud/adm/sub/addacct/{id}"
-     },
-     {
-        "desc": "更新子账号",
-        "id":"ali-subAccount-update.post",
-        "method":"POST",
-        "url":"adminboe/authsec/alicloud/adm/sub/update"
      },
      {
         "desc": "子账号启用",
@@ -2707,7 +2695,7 @@ export let RestApis: RestApiModel[] = [
      {
         "desc": "获取子账号企业列表",
         "id":"ali-subAccount-enterprise-list.get",
-        "method":"POST",
+        "method":"GET",
         "url":"adminboe/authsec/alicloud/adm/sub/entlist"
      },
      {
@@ -2715,15 +2703,40 @@ export let RestApis: RestApiModel[] = [
         "id":"ali-subAccount-enterprise-set.post",
         "method":"POST",
         "url":"adminboe/authsec/alicloud/adm/sub/ent/update/{id}"
-     },  
+     },
+    {
+        "desc": "添加子账号",
+        "id":"ali-subAccount-create.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/addacct"
+     },
      {
         "desc": "测试access信息",
         "id":"ali-Account-accessInfo-test.post",
         "method":"POST",
         "url":"adminboe/authsec/alicloud/adm/test"
      },
-    
-   
-     
+
+    //管理服务
+    {
+        "desc": "企业列表",
+        "id": "mtc-center.mng-service.enterprise",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple"
+    },
+    {
+        "desc": "管理服务列表",
+        "id": "mtc-center.mng-service.list",
+        "method": "POST",
+        "url": "servicemgmt/authsec/services/supervise/operation/{page}/{size}"
+    },
+    {
+        "desc": "管理服务详情",
+        "id": "mtc-center.mng-service.list",
+        "method": "GET",
+        "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
+    },
+
+
 ]
 

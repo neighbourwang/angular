@@ -181,7 +181,7 @@
     "AGREE": "同意",
     "ALL": "所有",
     "ALL1": "全部",
-    "ALL_PURCHASER": "所有订购人",
+    "ALL_PURCHASER": "所有用户",
     "AMOUNT": "数量",
     "APPROVE": "审批",
     "APPROVED": "已审批",
@@ -1300,7 +1300,15 @@
     "SYNC_AVAILABLE_ZONE": "同步可用区",
     "SYNC_HOST": "同步宿主机",
     "SYNC_STORAGE_BACKEND": "同步存储后端",
-    "SYNC_STORAGE_SPACE": "同步存储空间"
+    "SYNC_STORAGE_SPACE": "同步存储空间",
+    "AVAI_STORAGE":"可用容量",
+    "SURPLUS_STORAGE":"剩余容量",
+    "OCCU_STORAGE":"已分配容量",
+    "DESK_CLOUD_EXMAPLE_COUNTS":"云桌面实例数",
+    "BOOT_DISK_NAME":"启动盘名称",
+    "ALL_STORAGE_BACKEND":"所有存储后端",
+    "SELECTED_STORAGE_BACKEND":"选择的存储后端",
+    "CLICK_SELECT_STORAGE_BACKEND":"点击选择存储后端"
   },
   "PHY_MNG_POOL": {
     "ACTIVE": "启用",
@@ -1569,7 +1577,8 @@
     "ENTERPRISE_LIST_IS_EMPTY": "企业列表为空",
     "RETURN_TO_PREVIOUS_STEP": "返回上一步重新选择平台",
     "RETURN_PRODUCT_LIST": "返回产品列表",
-    "ADD":"添加"
+    "ADD":"添加",
+    "PHYSICAL_PRODUCT":"物理机产品"
   },
   "USER_CENTER": {
     "ACCOUNT": "帐号",

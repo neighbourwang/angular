@@ -60,13 +60,10 @@ export class DeskCloudCreStep4Component implements OnInit {
                 this.layoutService.hide();
             }
             )
-        //获volumeType列表
-
     }
     next() {
         console.log(this.volumeTypeList);
         let platFormId: String = this.idService.getPlatformId();
-
         this.layoutService.show();
         this.service.putStorage(this.platformId, this.creStep4Model)
             .then(
@@ -98,7 +95,7 @@ export class DeskCloudCreStep4Component implements OnInit {
             )
     }
     previous() {
-        this.router.navigate(["pf-mng2/cl-mng/cre-step3", { type: this.platformType }]);
+        this.router.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step3", { type: this.platformType }]);
     }
     cancel() {
         this.router.navigate(["pf-mng2/cl-mng/cl-mng", { type: this.platformType }]);

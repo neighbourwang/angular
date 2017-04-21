@@ -12,13 +12,11 @@ import { PhysicalProductService } from '../service/physical-prod-cre.service';
 
 @Component({
     templateUrl: '../template/physical-prod-cre-step4.html',
-    styleUrls: [],
+    styleUrls: ['.././style/prod-cre.less'],
     providers: []
 })
 
 export class PhysicalProdCreStep4Component implements OnInit {
-
-
     constructor(
         private route: Router,
         private router: ActivatedRoute,
@@ -26,12 +24,8 @@ export class PhysicalProdCreStep4Component implements OnInit {
         private service:PhysicalProductService
     ) { }
 
-
     @ViewChild('notice')
     notice: NoticeComponent;
-
-    @ViewChild('regionSelect')
-    regionSelect: PopupComponent;
 
     prodDirType: string = "";
     prodDirId: string = "";
@@ -39,20 +33,14 @@ export class PhysicalProdCreStep4Component implements OnInit {
         this.router.params.forEach((params: Params) => {
             
         })
-        if (this.prodDirId) {
-           
-        }
-        this.service.getEnterPriseList().then(res=>{
-            console.log(res);
-        }).catch(err=>{
-            console.error(err);
-        })
+        
+        
     }
     //选择企业
     selectEnterprise(ent, index) {
         ent.selected=!ent.selected;
         console.log(ent);        
-        this.service.product.productEnterpiseReqs = this.service.product.enterpriseListForSelect.filter((ele) => {
+        this.service.product.productEnterpiseReqs = this.service.enterpriseListForSelect.filter((ele) => {
             if (ele.selected == true) {
                 return ele;
             }
@@ -60,7 +48,7 @@ export class PhysicalProdCreStep4Component implements OnInit {
     }
     //
     unSelected(e, index) {
-        this.service.product.enterpriseListForSelect.map(ele=>{
+        this.service.enterpriseListForSelect.map(ele=>{
            if(ele.id==e.id){
                ele.selected=false;
            } 
@@ -76,7 +64,14 @@ export class PhysicalProdCreStep4Component implements OnInit {
     }
     next() {
         console.log(this.service.product);
-        // this.route.navigate(["prod-mng/prod-mng/prod-mng"]);
+        this.LayoutService.show();
+        this.service.postPhysicalProduct(this.service.product).then(res=>{
+            this.LayoutService.hide();
+            this.route.navigate(["prod-mng/prod-mng/prod-mng"]);            
+        }).catch(err=>{
+            this.LayoutService.hide();            
+            console.error(err);
+        })
     }
     //取消
     cancel() {

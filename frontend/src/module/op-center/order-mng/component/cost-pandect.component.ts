@@ -211,10 +211,10 @@ private downLoadHandler:ItemLoader<CostManageItem> = null;//下载账单表格�
         this.createTopBar2();
         this.loadUserType();
 	}
-loadChart(){
-    this.loadLastDay();
-    this.search_chart();
-}
+// loadChart(){
+//     this.loadLastDay();
+//     this.search_chart();
+// }
 isRootUser(){
     let item = this.userTypeLoader.FirstItem;
     if(item.roleName&&item.roleName=='ENTERPRISE_ADMIN')
@@ -776,7 +776,7 @@ acceptDownload(item:CostManageItem){
     let param = {
                 "enterpiseSubinstanceSearchCondition": {
                     "endTime": endTime,
-                    "idList": [this.userTypeLoader.FirstItem.enterpriseId],
+                    "idList": [this.userTypeLoader.FirstItem.enterpriseId],//或者[item.tenantId]
                     "startTime": startTime
                 },
                 "id": item.id

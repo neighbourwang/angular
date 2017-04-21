@@ -270,6 +270,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
                         "pmPoolId": resource.pmPoolId,
                         "poolName": resource.poolName,
                         "resourcePoolDisplayName": '',
+                        "skuid":'',
                         selected: true
                     })
                 }
@@ -293,7 +294,15 @@ export class PhsicalProdDirCreComponent implements OnInit {
         let message = this.checkForm();
         if (message) return;
         // this.physicalService.phyMachineAreaPoolsProfile
+        if(this.physicalService.phyMachinePartsFlavors.length==0){
+            this.notice.open('操作错误','服务目录规格列表不能为空');
+            return;
+        }
         this.combineObj();
+        if(this.physicalService.phyMachineAreaPoolsProfile.length==0){
+            this.notice.open('操作错误','服务目录资源池列表不能为空');
+            return;            
+        }
         this.layoutService.show();
         this.service.postPhysicalService(this.physicalService).then(res=>{
             console.log(res);
