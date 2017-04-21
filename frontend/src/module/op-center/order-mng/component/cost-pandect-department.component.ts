@@ -175,10 +175,10 @@ private _orderDetailLoader: ItemLoader<OrderDetailItem> = null;
 		this.layoutService.hide();
 	}
 
-loadChart(){
-    this.loadLastDay();
-    this.search_chart();
-}
+// loadChart(){
+//     this.loadLastDay();
+//     this.search_chart();
+// }
 isRootUser(){
     let item = this.userTypeLoader.FirstItem;
     if(item.roleName&&item.roleName=='ENTERPRISE_ADMIN')
