@@ -1085,10 +1085,13 @@
     "SYNC_STORAGE_BACKEND": "Synchronous storage backend",
     "SYNC_STORAGE_SPACE": "Synchronous storage space",
     "AVAI_STORAGE":"available storage",
-    "SURPLUS":"surplus storage",
+    "SURPLUS_STORAGE":"surplus storage",
     "OCCU_STORAGE":"occupied storage",
-    "DESK_CLOUD_EXMAPLE_COUNTS":"desk cloud living example counts"
-
+    "DESK_CLOUD_EXMAPLE_COUNTS":"desk cloud living example counts",
+    "BOOT_DISK_NAME":"boot disk name",
+    "ALL_STORAGE_BACKEND":"all storage backend",
+    "SELECTED_STORAGE_BACKEND":"select storage backend",
+    "CLICK_SELECT_STORAGE_BACKEND":"click select storage backend"
   },
   "PHY_MNG_POOL": {
     "ACTIVE": "Enable",

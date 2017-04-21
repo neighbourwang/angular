@@ -196,7 +196,7 @@ export class PfDetailComponent implements OnInit {
         this.zoneListService.getZone(this.platform.id).then(
             res => {
                 this.zoneList = res.resultContent;
-                this.zoneList.forEach(ele => {
+                this.platformType!="3"&&this.zoneList.forEach(ele => {
                     ele.quotaPercentage =
                         ele.quotaPercentage ? ele.quotaPercentage : 0;
                     ele.quotaPercentDisplay = ele.quotaPercentage * 100;
@@ -292,7 +292,7 @@ export class PfDetailComponent implements OnInit {
                 if (this.updateZoneList.length == 0) {
                     this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_ZONES')
                 } else {
-                    this.updateZoneList.forEach(ele => {
+                    this.platformType!="3"&&this.updateZoneList.forEach(ele => {
                         ele.quotaPercentage =
                             ele.quotaPercentage ? ele.quotaPercentage : 0;
                         ele.quotaPercentDisplay = ele.quotaPercentage * 100;
@@ -346,7 +346,7 @@ export class PfDetailComponent implements OnInit {
         this.storageListService.getStorage(this.platform.id).then(
             res => {
                 this.storageList = res.resultContent;
-                this.storageList.forEach(ele => {
+                this.platformType!="3"&&this.storageList.forEach(ele => {
                     ele.quota =
                         ele.quota ? ele.quota : 0;
                     ele.quotaPercentDisplay = ele.quota * 100;
@@ -478,7 +478,7 @@ export class PfDetailComponent implements OnInit {
                 if (this.updateStorageList.length == 0) {
                     this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_STORAGES')  //暂时没有可同步存储后端信息
                 } else {
-                    this.updateStorageList.forEach(ele => {
+                    this.platformType!="3"&&this.updateStorageList.forEach(ele => {
                         ele.quota =
                             ele.quota ? ele.quota : 0;
                         ele.quotaPercentDisplay = ele.quota * 100;
@@ -609,10 +609,13 @@ export class PfDetailComponent implements OnInit {
         this.syncDeskPop.open('自动同步云桌面设置');
     }
     otSaveSyncDesk(){
-        
+
     }
     //自动同步存储容量设置
     autoSyncCapacitySet(){
+        this.syncCapacityPop.open('自动同步存储容量设置');        
+    }
+    otSaveSyncCapacity(){
 
     }
     //返回

@@ -185,9 +185,9 @@
                         </td>
                         <td [ngClass]="{'font-green':zone.status == '1' ,'font-orange':zone.status == '3'}">
                             <span [ngSwitch]="zone.status">
-                                <template [ngSwitchCase]="0">未启用</template>
-                                <template [ngSwitchCase]="1">已启用</template>
-                                <template [ngSwitchCase]="2">已禁用</template>
+                                <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="1">{{'COMMON.ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="2">{{'COMMON.UNABLED'| translate}}</template>
                                 <template ngSwitchDefault>Unknown</template>
                     	    </span>
                             <!--{{zone.status|dict:this.commonService.globalStatus|async}}-->
@@ -217,7 +217,7 @@
     </div>
     <div class="page-content" *ngIf="platformType=='3'">
         <div style="padding-bottom: 10px;">
-            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
+            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" *ngIf="false">
                 <span class="icon-button-label" (click)='autoSyncDeskSet()'>自动同步桌面设置</span>
              </button>
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
@@ -262,9 +262,9 @@
                         <td>{{zone.vmNumbers||0}}</td>
                         <td [ngClass]="{'font-green':zone.status == '1' ,'font-orange':zone.status == '3'}">
                             <span [ngSwitch]="zone.status">
-                                <template [ngSwitchCase]="0">未启用</template>
-                                <template [ngSwitchCase]="1">已启用</template>
-                                <template [ngSwitchCase]="2">已禁用</template>
+                                <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="1">{{'COMMON.ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="2">{{'COMMON.UNABLED'| translate}}</template>
                                 <template ngSwitchDefault>Unknown</template>
                     	    </span>
                             <!--{{zone.status|dict:this.commonService.globalStatus|async}}-->
@@ -322,9 +322,12 @@
             <div style="font-size: 16px;padding-left: 0;float:left">
                 <span style="line-height: 34px;">后端存储( Backends )信息 :</span>
             </div>
+            <button class="fox-cloud-button-md fox-cloud-button-white mgl20" style="float:right" *ngIf="false">
+                <span class="icon-button-label" (click)='autoSyncCapacitySet()'>{{'自动同步存储容量设置' | translate}}</span>
+             </button>
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
                 <span class="icon-button-label" (click)='updateStorageListPop()'>{{'PF_MNG2.SYNC_STORAGE_BACKEND' | translate}}</span>
-             </button>
+             </button>             
             <div style="clear:both"></div>
         </div>
         <div class="table-container" *ngIf="platformType==0">
@@ -364,9 +367,9 @@
                         </td>
                         <td [ngClass]="{'font-green':zone?.status == '1' ,'font-orange':zone?.status == '3'}">
                             <span [ngSwitch]="storage.status">
-                                <template [ngSwitchCase]="0">未启用</template>
-                                <template [ngSwitchCase]="1">已启用</template>
-                                <template [ngSwitchCase]="2">已禁用</template>
+                                <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="1">{{'COMMON.ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="2">{{'COMMON.UNABLED'| translate}}</template>
                                 <template ngSwitchDefault>Unknown</template>
                     	    </span>
                             <!--{{storage.status|dict:this.commonService.globalStatus|async}}-->
@@ -424,9 +427,9 @@
                         <td>{{volumeType.volumeBackendName}}</td>
                         <td>
                             <span [ngSwitch]="volumeType.status">
-                                <template [ngSwitchCase]="0">初始化</template>
-                                <template [ngSwitchCase]="1">已启用</template>
-                                <template [ngSwitchCase]="2">已禁用</template>
+                                <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="1">{{'COMMON.ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="2">{{'COMMON.UNABLED'| translate}}</template>
                                 <template ngSwitchDefault>Unknown</template>
                             </span>
                         </td>
@@ -448,7 +451,6 @@
                     </tr>
                 </tbody>
             </table>
-
         </div>
         <div class="table-container" *ngIf="platformType==2">
             <table class="table table-hover">
@@ -490,9 +492,9 @@
                         </td>
                         <td [ngClass]="{'font-green':storage.status == '1' ,'font-orange':storage.status == '3'}">
                             <span [ngSwitch]="storage.status">
-                                <template [ngSwitchCase]="0">未启用</template>
-                                <template [ngSwitchCase]="1">已启用</template>
-                                <template [ngSwitchCase]="2">已禁用</template>
+                                <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="1">{{'COMMON.ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="2">{{'COMMON.UNABLED'| translate}}</template>
                                 <template ngSwitchDefault>Unknown</template>
                     	    </span>
                             <!--{{storage.status|dict:this.commonService.globalStatus | async}}-->
@@ -516,6 +518,82 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="table-container" *ngIf="platformType==3">
+            <table class="table table-hover mgt20">
+                <thead>
+                    <tr>
+                        <!--<th>#</th>                        -->
+                        <th>{{'COMMON.NAME' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.DISPLAY_NAME' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.STORAGE_TYPE' | translate}}</th>
+                        <th>{{"PF_MNG2.AVAI_STORAGE" | translate}}</th>
+                        <th>{{"PF_MNG2.SURPLUS_STORAGE" | translate}}</th>
+                        <th style="width:100px">{{"PF_MNG2.OCCU_STORAGE" | translate}}</th>
+                        <th>{{'COMMON.STATUS' | translate}}</th>
+                        <th>{{'COMMON.COMMENT' | translate}}</th>
+                        <th style="width:15%">{{'COMMON.OPERATION' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let storage of storageList;let idx=index">
+                        <!--<td>1</td>-->
+                        <td>{{storage.name}}</td>
+                        <td>
+                            <span *ngIf="!storage.isEdit">{{storage.displayName||'NULL'}}</span>
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.displayName">
+                        </td>
+                        <td>{{storage.typeDisplayName}}</td>
+                        <td>{{storage.freeCapacity||0}}</td>
+                        <td>
+                            {{storage.uncommited||0}}
+                        </td>
+                        <td>
+                            {{storage.allocatedCapacity||0}}
+                        </td>
+                        <td [ngClass]="{'font-green':zone?.status == '1' ,'font-orange':zone?.status == '3'}">
+                            <span [ngSwitch]="storage.status">
+                                <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="1">{{'COMMON.ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="2">{{'COMMON.UNABLED'| translate}}</template>
+                                <template ngSwitchDefault>Unknown</template>
+                    	    </span>
+                            <!--{{storage.status|dict:this.commonService.globalStatus|async}}-->
+                        </td>
+                        <td>
+                            <span *ngIf="!storage.isEdit">{{storage.description||'NULL'}}</span>
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" style=" display: inline;">
+                        </td>
+                        <td>
+                            <div *ngIf="!storage.isEdit">
+                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage)">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage)">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">{{'COMMON.EDIT' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
+                            </div>
+                            <div *ngIf="storage.isEdit">
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">{{'COMMON.CANCEL' | translate}}</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <fc-popup #syncCapacityPop title="{{title}}" ot="COMMON.SAVE" (of)="otSaveSyncCapacity()" ct="HOST_OPENSTACK_MNG.CANCEL"
+            (cf)="ccf()">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-6 form-control-title">{{'自动同步时间间隔'| translate}}:</div>
+                    <!--选择产品目录-->
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="col-sm-4 form-control-title" style="text-align:left">
+                        分钟
+                    </div>
+                </div>
+            </div>
+        </fc-popup>
         </div>
         <storage-sync #storageSync [type]="platformType" [storageList]="updateStorageList" (complete)="getStorageList()"></storage-sync>
         <mem-sync #memSync [storage]="updateStorageMem" (complete)="getStorageList()"></mem-sync>
