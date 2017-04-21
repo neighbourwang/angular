@@ -16,16 +16,19 @@
         <div class="col-md-12">
             <div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品名称：</div><!--产品名称-->
-					<div class="col-sm-4">
-						<input type="text" class="form-control" [(ngModel)]="this.service.product.name" placeholder="{{'PROD_MNG.PROD_NAME' | translate}}">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品名称：</div><!--产品名称-->					
+					<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.serviceName}">
+						<input type="text" [(ngModel)]="service.product.name" (ngModelChange)="checkForm('productName')" name="productName"
+						 placeholder="{{'PROD_MNG.PROD_NAME' | translate}}" class="form-control">
+						<span *ngIf="v.result.productName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						<div *ngIf="v.result.productName" class="alert alert-danger" role="alert">{{v.result.productName}}</div>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div><!--产品目录-->
-					<div class="col-sm-4">
+					<div class="col-sm-4 no-padding">
 						<input type="text" class="form-control" disabled [(ngModel)]="this.service.productDir.serviceName">
 					</div>
 				</div>
@@ -34,7 +37,7 @@
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title">产品规格：</div>
-						<div class="col-sm-4 row-line-child font-gray">
+						<div class="col-sm-4 row-line-child font-gray no-padding">
 							<div class="font-gray">CPU</div>
 							<div class="mid-line-child border-gray font-gray">{{this.service.productDir?.specification?.vcpu||0}}</div>
 							<div class="last-line-child font-gray">{{'COMMON.CORE' | translate}}（vCPU）</div>
@@ -44,7 +47,7 @@
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
-						<div class="col-sm-4 row-line-child font-gray">
+						<div class="col-sm-4 row-line-child font-gray no-padding">
 							<div class="font-gray">{{'COMMON.RAM' | translate}}</div>
 							<div class="mid-line-child border-gray font-gray">{{this.service.productDir?.specification?.mem||0}}</div>
 							<div class="last-line-child font-gray">{{'COMMON.MB' | translate}}（MB）</div>
@@ -66,7 +69,7 @@
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title">产品规格：</div>
-						<div class="col-sm-4 row-line-child font-gray">
+						<div class="col-sm-4 row-line-child font-gray no-padding">
 							<div class="font-gray">{{'PROD_MNG.INIT_SIZE' | translate}}</div><!--初始大小-->
 
 							<div class="mid-line-child border-gray font-gray">{{this.service.productDir?.specification?.initialSize||0}}</div>
@@ -77,7 +80,7 @@
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
-						<div class="col-sm-4 row-line-child font-gray">
+						<div class="col-sm-4 row-line-child font-gray no-padding">
 							<div class="font-gray">{{'COMMON.STEP' | translate}}</div>
 							<div class="mid-line-child border-gray font-gray">{{this.service.productDir?.specification?.stepSize||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
@@ -87,7 +90,7 @@
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
-						<div class="col-sm-4 row-line-child font-gray">
+						<div class="col-sm-4 row-line-child font-gray no-padding">
 							<div class="font-gray">{{'COMMON.MAX' | translate}}</div>
 							<div class="mid-line-child border-gray font-gray">{{this.service.productDir?.specification?.maxSize||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
@@ -97,9 +100,11 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">描述：</div>
-					<div class="col-sm-4">
-						<textarea class="form-control" rows="4" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}" [(ngModel)]="this.service.product.desc"></textarea>
+					<div class="col-sm-4 form-control-title">描述：</div>					
+					<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
+						<textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
+						 rows="3" [(ngModel)]="service.product.desc" name="description">
+                            </textarea>
 					</div>
 				</div>
 			</div>

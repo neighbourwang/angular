@@ -1083,7 +1083,10 @@
     "SYNC_AVAILABLE_ZONE": "Synchronous available zone",
     "SYNC_HOST": "Synchronous host",
     "SYNC_STORAGE_BACKEND": "Synchronous storage backend",
-    "SYNC_STORAGE_SPACE": "Synchronous storage space"
+    "SYNC_STORAGE_SPACE": "Synchronous storage space",
+    "AVAI_STORAGE":"available storage",
+    "SURPLUS":"surplus storage",
+    "OCCU_STORAGE":"occupied storage"
   },
   "PHY_MNG_POOL": {
     "ACTIVE": "Enable",
@@ -1204,7 +1207,9 @@
     "PLATFORM_LIST_IS_EMPTY": "Platform list is empty",
     "ENTERPRISE_LIST_IS_EMPTY": "Enterprise list is empty",
     "RETURN_TO_PREVIOUS_STEP": "Go back to the previous step and reselect the platform",
-    "RETURN_PRODUCT_LIST": "Return product list"
+    "RETURN_PRODUCT_LIST": "Return product list",
+    "PHYSICAL_PRODUCT":"physical product"
+
   },
   "USER_CENTER": {
     "ACCOUNT": "Account",

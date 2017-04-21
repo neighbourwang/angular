@@ -15,6 +15,7 @@ class ResourcePoolObj {
     "regionId": string;
     "pmPoolId":string;
     "poolName":string;
+    "resourcePoolDisplayName":string;
     "skuid":string;
     "phyMachineResourcPoolsProfile": Array<ResourcePool>;
     selected:boolean;

@@ -4,7 +4,7 @@
     <div class="row navigator-progress">
         <div class="col-md-3"><span class="mark">1</span><span>基本信息<!--基本信息--></span><span class="icon-tick"></span></div>
         <div class="col-md-3 active"><span class="mark">2</span><span>计价方式<!--资源同步--></span></div>
-        <div class="col-md-3"><span class="mark">3</span><span>选择平台</span></div>
+        <div class="col-md-3"><span class="mark">3</span><span>选择资源池</span></div>
         <div class="col-md-3"><span class="mark">4</span><span>选择企业</span></div>
     </div>
     <div class="step-progress">
@@ -40,12 +40,12 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle" > {{'COMMON.BY_YEAR' | translate}}<!--包年-->
+                           				<input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle"  (click)="service.product.billingCycleClick=true;"> {{'COMMON.BY_YEAR' | translate}}<!--包年-->
                        				</label>
                                     </div>
                                     <div class="col-sm-6">
                                         <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle"> {{'COMMON.BY_MONTH' | translate}}<!--包月-->
+                           				<input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle" (click)="service.product.billingCycleClick=true;"> {{'COMMON.BY_MONTH' | translate}}<!--包月-->
                        				</label>
                                     </div>
                                 </div>
@@ -54,12 +54,12 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle"> {{'COMMON.BY_DAY' | translate}}
+                           				<input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle" (click)="service.product.billingCycleClick=true;"> {{'COMMON.BY_DAY' | translate}}
                        				</label>
                                     </div>
                                     <div class="col-sm-6">
                                         <label class="radio-inline row-inline-radio4 font-gray" style="width:100%">
-                           				<input type="radio" name="inlineRadioOption"  value="0" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle"> {{'COMMON.BY_HOUR' | translate}}
+                           				<input type="radio" name="inlineRadioOption"  value="0" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle" (click)="service.product.billingCycleClick=true;"> {{'COMMON.BY_HOUR' | translate}}
                        				</label>
                                     </div>
                                 </div>
@@ -127,13 +127,13 @@
                                             <span *ngIf="unit.partsId=='2eeb0a38-167e-11e7-91af-0242ac110002'||unit.partsId=='35dc99bd-167e-11e7-91af-0242ac110002'">GB</span>
                                         </td>
 										<td>
-                                            <span *ngIf="!unit.isEdit">{{unit.referencePrice}}</span>                                           
-                                            <input *ngIf="unit.isEdit" class="form-control" type="number" [(ngModel)]="unit.temPrice" name="referencePrice" style="height:20px">                                            
+                                            <span *ngIf="!unit.isEdit">{{unit.ajustmentPrice}}</span>                                           
+                                            <input *ngIf="unit.isEdit" class="form-control" type="number" [(ngModel)]="unit.ajustmentPrice" name="ajustmentPrice" style="height:20px">                                            
                                         </td>										
 										<td>
-                                            <span *ngIf="!unit.isEdit" class="glyphicon glyphicon-edit pointer" (click)="unit.isEdit=true;unit.temPrice=unit.referencePrice"></span>
-                                            <span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-remove pointer" (click)="unit.isEdit=false;unit.temPrice=unit.referencePrice"></span>
-                                            <span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-saved pointer mgl10" (click)="unit.isEdit=false;unit.referencePrice=unit.temPrice"></span>
+                                            <span *ngIf="!unit.isEdit" class="glyphicon glyphicon-edit pointer" (click)="unit.isEdit=true;unit.temPrice=unit.ajustmentPrice"></span>
+                                            <span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-remove pointer" (click)="unit.isEdit=false;unit.temPrice=unit.ajustmentPrice"></span>
+                                            <span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-saved pointer mgl10" (click)="unit.isEdit=false;unit.ajustmentPrice=unit.temPrice"></span>
                                             <!--<button *ngIf="unit.isEdit" class="fox-cloud-button-md fox-cloud-button-white" (click)="unit.isEdit=false;unit.referencePrice=unit.temPrice">{{'COMMON.SAVE' | translate}}</button>-->
                                             <!--<button *ngIf="unit.isEdit" class="fox-cloud-button-md fox-cloud-button-white" (click)="unit.isEdit=false;unit.temPrice=unit.referencePrice">{{'COMMON.CANCEL' | translate}}</button>-->
                                         </td>

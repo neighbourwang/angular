@@ -52,35 +52,30 @@ export class DeskCloudCreStep3Component implements OnInit {
             }
             )
     }
-    //验证Valid
-    displayNameVa(item) {
-        item.displayNameValid =
-            item.displayName ? true : false;
-    }
+    //验证Valid   
     next() {
-
         let platFormId: string = this.idService.getPlatformId();
-        for (let zone of this.creStep3Model) {
-            this.displayNameVa(zone);
-            if (!zone.displayNameValid) {
-                return
-            }                      
-        }       
+        // for (let zone of this.creStep3Model) {
+        //     this.displayNameVa(zone);
+        //     if (!zone.displayNameValid) {
+        //         return
+        //     }                      
+        // }       
         console.log(this.creStep3Model);
         //等待接口
-        // this.layoutService.show();
-        // this.service.putZone(platFormId, this.creStep3Model).then(
-        //     res => {
-        //         console.log(res);
-        //         this.layoutService.hide();
-        //         this.router.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step4", { type: this.platformType }]);
-        //     }
-        // ).catch(
-        //     error => {
-        //         this.layoutService.hide();
-        //         console.error('error');
-        //     }
-        //     )
+        this.layoutService.show();
+        this.service.putZone(platFormId, this.creStep3Model).then(
+            res => {
+                console.log(res);
+                this.layoutService.hide();
+                this.router.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step4", { type: this.platformType }]);
+            }
+        ).catch(
+            error => {
+                this.layoutService.hide();
+                console.error('error');
+            }
+            )
     }
 
     previous() {
