@@ -1303,7 +1303,8 @@
     "SYNC_STORAGE_SPACE": "同步存储空间",
     "AVAI_STORAGE":"可用容量",
     "SURPLUS":"剩余容量",
-    "OCCU_STORAGE":"已分配容量"
+    "OCCU_STORAGE":"已分配容量",
+    "DESK_CLOUD_EXMAPLE_COUNTS":"云桌面实例数"
   },
   "PHY_MNG_POOL": {
     "ACTIVE": "启用",
