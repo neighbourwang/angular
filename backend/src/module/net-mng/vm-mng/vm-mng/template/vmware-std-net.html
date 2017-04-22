@@ -125,7 +125,7 @@
 <fc-popup #editStdNet title="{{title}}" ot="{{tempEditNet.id==''? 'NET_MNG_VM_IP_MNG.CREATE':'NET_MNG_VM_IP_MNG.SAVE' | translate }}" (of)="saveEditNet(stdnet);" ct="{{'COMMON.CLOSE' | translate}}" (cf)="cancelEdit();">
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>DC：</div>
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>DC：</div>
             <div class="col-sm-6">
                 <select class="form-control" [(ngModel)]="selectedDC4Popup" (change)="selectedCluster4Popup = defaultCluster;">
                     <option [ngValue]="defaultDc">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE' | translate}}</option>
@@ -136,7 +136,7 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.CLUSTER_NAME' | translate}}：</div>
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.CLUSTER_NAME' | translate}}：</div>
             <div class="col-sm-6">
                 <select class="form-control" [(ngModel)]="selectedCluster4Popup">
                     <option [ngValue]="defaultCluster">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE' | translate}}</option>
@@ -147,15 +147,15 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.DISPLAY_NAME' | translate}}：</div>
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.DISPLAY_NAME' | translate}}：</div>
             <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="tempEditNet.clusterDisplayName" />
+                <input type="text" class="form-control" [(ngModel)]="tempEditNet.portDisplayName" />
             </div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.PG_NAME' | translate}}：</div>
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.PG_NAME' | translate}}：</div>
             <div class="col-sm-6">
                 <input type="text" class="form-control" [(ngModel)]="tempEditNet.portGroupName" />
             </div>
@@ -163,7 +163,7 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.VLAN_ID' | translate}}：</div>
+            <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'NET_MNG_VM_IP_MNG.VLAN_ID' | translate}}：</div>
             <div class="col-sm-6">
                 <input type="text" class="form-control" [(ngModel)]="tempEditNet.vlanId" />
             </div>
