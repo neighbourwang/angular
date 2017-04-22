@@ -213,4 +213,27 @@ export class AliCloudDiskService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
+    updateDisk(disk: diskListModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "diskid",
+                value: disk.DiskId
+            }
+        ];
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "deleteAutoSnapshot": null,
+            "deleteWithInstance": null,
+            "description": null,
+            "diskName": disk.DiskName,
+            "enableAutoSnapshot": null
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.property.modify");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
 }

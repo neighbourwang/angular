@@ -72,6 +72,7 @@ export class AliCloudVmListComponent implements OnInit {
 
     instances: Array<instanceListModel> = []; 
     selectedInstance: instanceListModel = new instanceListModel();
+    changedInstance: instanceListModel = new instanceListModel();
 
     freeips: Array<FloatingIPAddressModel> = [];
     defaultfreeip: FloatingIPAddressModel = new FloatingIPAddressModel();
@@ -548,6 +549,48 @@ export class AliCloudVmListComponent implements OnInit {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
             return null;
         }
+    }
+
+    onSelect(instance: instanceListModel) {
+        if (instance) {
+            this.changedInstance.InstanceName = instance.InstanceName;
+            this.changedInstance.InstanceId = instance.InstanceId;
+        } else {
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return;
+        }
+
+    }
+
+    onSave() {
+        if (this.changedInstance.InstanceName != "") {
+            this.layoutService.show();
+            this.service.updateInstance(this.changedInstance)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    console.log(response, "response!");
+                    if (response && 100 == response["resultCode"]) {
+                        console.log("云主机名称更改成功！");
+                        this.showMsg("云主机名称更改成功！");
+                        this.selectRegion(this.choosenRegion);
+                    } else {
+                        this.showMsg("COMMON.GETTING_DATA_FAILED");
+                        return;
+                    }
+                })
+                .catch((e) => {
+                    this.onRejected(e);
+                });
+
+        } else {
+            this.showMsg("云主机名称不能为空！");
+        }
+
+    }
+
+    onCancel(instance: instanceListModel) {
+        instance.EnableEdit = false;
     }
 
 }

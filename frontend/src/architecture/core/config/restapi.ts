@@ -959,6 +959,18 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/noauth/alicloud/price"
     },
+    { //更改阿里云主机名字
+        "desc": "Update instance property",
+        "id": "al-cloud.cloud-vm.property.modify",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/modifyinstanceattribute/instanceid/{instanceid}"
+    },
+    { //更改阿里云硬盘名字
+        "desc": "Update disk property",
+        "id": "al-cloud.cloud-disk.property.modify",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/modifydiskattribute/diskid/{diskid}"
+    },
 
     // 阿里云主账号管理
     {

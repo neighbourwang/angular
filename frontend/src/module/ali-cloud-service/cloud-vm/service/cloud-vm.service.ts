@@ -679,6 +679,28 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, null, null, body);
     }
 
+    updateInstance(instance: instanceListModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "instanceid",
+                value: instance.InstanceId
+            }
+        ];
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "description": null,
+            "hostName": null,
+            "instanceName": instance.InstanceName,
+            "password": null
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.property.modify");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
 
 
 }

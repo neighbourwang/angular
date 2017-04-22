@@ -72,6 +72,7 @@ export class AliCloudDiskListComponent implements OnInit {
 
     disks: Array<diskListModel> = []; //订购body模型
     selectedDiskItem: diskListModel = new diskListModel();
+    changedDisk: diskListModel = new diskListModel();
 
     diskCategoryDictArray: Array<SystemDictionary> = [];
     diskStatusDictArray: Array<SystemDictionary> = [];
@@ -437,10 +438,39 @@ export class AliCloudDiskListComponent implements OnInit {
     }
 
     onSelect(disk: diskListModel) {
-
+        if (disk) {
+            this.changedDisk.DiskName = disk.DiskName;
+            this.changedDisk.DiskId = disk.DiskId;
+        } else {
+            this.showAlert("COMMON.GETTING_DATA_FAILED");
+            return;
+        }
     }
 
-    onSave(disk: diskListModel) {
+    onSave() {
+        if (this.changedDisk.DiskName != "") {
+            this.layoutService.show();
+            this.service.updateDisk(this.changedDisk)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    console.log(response, "response!");
+                    if (response && 100 == response["resultCode"]) {
+                        console.log("云硬盘名称更改成功！");
+                        this.showMsg("云硬盘名称更改成功！");
+                        this.selectRegion(this.choosenRegion);
+                    } else {
+                        this.showMsg("COMMON.GETTING_DATA_FAILED");
+                        return;
+                    }
+                })
+                .catch((e) => {
+                    this.onRejected(e);
+                });
+
+        } else {
+            this.showMsg("云硬盘名称不能为空！");
+        }
 
     }
 
