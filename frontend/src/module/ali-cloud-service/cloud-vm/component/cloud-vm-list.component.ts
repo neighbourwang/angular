@@ -52,6 +52,10 @@ export class AliCloudVmListComponent implements OnInit {
     @ViewChild("unallocateip")
     unallocateip: PopupComponent;
 
+    @ViewChild("remotecontrolvm")
+    remotecontrolvm: PopupComponent;
+    
+
     noticeTitle = "";
     noticeMsg = "";
 
@@ -65,6 +69,8 @@ export class AliCloudVmListComponent implements OnInit {
     forcereboot: boolean = false;
 
     queryObject: VmQueryObject = new VmQueryObject();
+
+    remoteUrl: string = "";
 
     regions: Array<RegionModel> = [];
     defaultRegion: RegionModel = new RegionModel();
@@ -471,8 +477,33 @@ export class AliCloudVmListComponent implements OnInit {
     }
     
     remoteToInstance() {
-
+        this.selectedInstance = this.getSelected();
+        if (this.selectedInstance) {
+            this.showMsg("远程控制台Url, 有效时间为15秒，请尽快输入密码登陆！");
+            this.layoutService.show();
+            this.service.remoteControlInstance(this.choosenRegion.RegionId, this.selectedInstance)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    console.log(response, "response!");
+                    if (response && 100 == response["resultCode"]) {
+                        console.log(this.remoteUrl, "remoteUrl!");
+                        this.remoteUrl = response.resultContent;
+                        window.open(this.remoteUrl);
+                    } else {
+                        this.showMsg("COMMON.GETTING_DATA_FAILED");
+                        return;
+                    }
+                })
+                .catch((e) => {
+                    this.onRejected(e);
+                });
+        } else {
+            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            return;
+        }
     }
+
 
     deleteInstance() {
         this.selectedInstance = this.getSelected();
