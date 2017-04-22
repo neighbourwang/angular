@@ -73,7 +73,9 @@ export class AliMajorService {
             }
         ];
          const api= this.restApiCfg.getRestApi("user-center.ali-cloud.editdepart");
-         return this.restApi.post(api.url, pathParams, null, departId, true);
+         return this.restApi.request(api.method, api.url, pathParams, null, {
+             "commonString": departId
+         });
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => Success_mock);
     }
 

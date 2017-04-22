@@ -102,6 +102,6 @@ export class AliCloudMainAccountMngService {
             },
         ];
         const api = this.restApiCfg.getRestApi("ali-mainAccount-type-edit.post");
-        return this.restApi.request(api.method, api.url, pathParams, null,type);
+        return this.restApi.post(api.url, pathParams, null,type,true);
     }
 }

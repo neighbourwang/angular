@@ -27,11 +27,29 @@ export class AliCloudSubAccountMngService {
         field : "STATUS"             //状态
     }             
     );
+    //获取主账号信息
+    getMainAccount(id:string):Promise<any>{   
+        const pathParams = [
+            {
+                key: "id",
+                value: id
+            },             
+        ]
+        const api = this.restApiCfg.getRestApi("ali-mainAccount-view.get");
+        return this.restApi.request(api.method, api.url, pathParams, null,null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => mainAccountList_mock);
+    }
     //获取子账号列表
-    getSubAccounts():Promise<any>{
+    getSubAccounts(id:string):Promise<any>{
+         const pathParams = [
+            {
+                key: "id",
+                value: id
+            },             
+        ]
         const api = this.restApiCfg.getRestApi("ali-subAccount-list.get");
-        //return this.restApi.request(api.method, api.url,null, null,null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => subAccountList_mock);
+       return this.restApi.request(api.method, api.url,pathParams, null,null);
+       // return new Promise(resovle => setTimeout(resovle, 200)).then(() => subAccountList_mock);
     }
 
     //获取子账号

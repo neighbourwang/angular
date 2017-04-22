@@ -36,6 +36,7 @@ export class AliCloudSubAccountEditComponent implements OnInit{
     account:AccountListModel=new AccountListModel();
 
     editMode:string;
+    mainAccountId:string;
     title:string;
     testResult:string;
     changebt=true;
@@ -43,7 +44,8 @@ export class AliCloudSubAccountEditComponent implements OnInit{
     ngOnInit (){
         this.activeRoute.params.forEach((params: Params) => {
             this.editMode = params["type"]; 
-            this.account.id = params["id"];   
+            this.account.id = params["id"];
+            this.mainAccountId = params["mainId"];   
             console.log(this.editMode);   
              switch (this.editMode) {
                 case "edit":
@@ -74,8 +76,7 @@ export class AliCloudSubAccountEditComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.layoutService.hide();
-                        this.account = response["resultContent"].find((e)=>{return e.id ==this.account.id});
-                        console.log("主账号信息",this.account);
+                        this.account = response["resultContent"];
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -107,7 +108,7 @@ export class AliCloudSubAccountEditComponent implements OnInit{
     createAccount(){
         this.layoutService.show();
         if (this.testResult=="1") {
-            this.service.createAccount(this.account)
+            this.service.createAccount(this.account,this.mainAccountId)
             .then(
                 response=>{ 
                     this.layoutService.hide();
@@ -162,7 +163,7 @@ export class AliCloudSubAccountEditComponent implements OnInit{
 
     //跳转到账号列表
      gotoAccountList(){
-           this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-list`])
+           this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-list`,{id:this.mainAccountId}])
      }
 
     showAlert(msg: string): void {

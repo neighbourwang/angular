@@ -88,29 +88,19 @@ export class AliCloudMainAccountEditService {
     }
 
     //保存企业设置
-    saveSetEnt(account:AccountListModel,entId):Promise<any>{
+    saveSetEnt(id:string,entId:string):Promise<any>{
          const pathParams = [
             {
                 key: "id",
-                value:account.id
+                value:id
             },             
         ]
         const api = this.restApiCfg.getRestApi("ali-mainAccount-enterprise-set.post");
-        return this.restApi.request(api.method, api.url,pathParams, null,{
-            "accessKey": account.accessKey,
-            "accessSecret": account.accessSecret,
-            "accessUrl": account.accessUrl,
-            "description": account.description,
-            "id": account.id,
-            "isEditable":account.isEditable ,
-            "lastUpdate": account.lastUpdate,
-            "loginName": account.loginName,
-            "mainAccountType": account.mainAccountType,
-            "operator": account.operator,
-            "status": account.status,
-            "tenantCross": account.tenantCross,
-            "tenantId": entId
-            });
+         return this.restApi.request(api.method, api.url,pathParams, null,{
+            "tenantId":entId
+        });
+
+       // return this.restApi.post(api.url, pathParams, null,entId,true);
       //  return new Promise(resovle => setTimeout(resovle, 200)).then(() => EnterpriseList_mock);
     }
  }

@@ -43,8 +43,7 @@ export class AliMajorListComponent implements OnInit{
     type: string;
     data: Array<AliMajorList>;
     majorInfo: AliMajorList= new AliMajorList();
-    testInfo: boolean;
-    start: boolean;
+    testInfo: string;
     id: string;
     departs: Array<DepartList>;
     selectedDepartment: string;
@@ -76,7 +75,6 @@ export class AliMajorListComponent implements OnInit{
     getDetail(item){
         this.type= "info";
         this.id= item.id;
-        this.start= false;
         this.layoutService.show();
         this.service.getDetail(this.id)
             .then(
@@ -121,13 +119,10 @@ export class AliMajorListComponent implements OnInit{
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.testInfo= true;
-                    }else if(response.resultCode == 90011){
-                        this.testInfo= false;
-                    }else {
-                        this.showAlert("COMMON.OPERATION_ERROR");
+                        this.testInfo= "success";
+                    }else{
+                        this.testInfo= "failed";
                     }
-                    this.start= true;
                     console.log("testMajor",this.majorInfo);
                 }
             )
