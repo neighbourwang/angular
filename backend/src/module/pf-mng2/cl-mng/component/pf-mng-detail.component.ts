@@ -315,13 +315,13 @@ export class PfDetailComponent implements OnInit {
         this.layoutService.show();
         this.platformDetailService.getUpdateZone(zoneId).then(
             res => {
-                console.log('同步计算资源', res);
+                console.log('同步宿主机', res);
                 if (res.resultCode == 100) {
                     if (res.resultContent) {
                         this.hostList = res.resultContent;
                         this.hostSync.open(this.hostList);
                     } else {
-                        this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_COMPUTING_SOURCE')
+                        this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_HOST_INFO')
                     }
 
                 }

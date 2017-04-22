@@ -1233,7 +1233,7 @@
     "GET_PLATFORM_ERROR": "获取云平台错误",
     "GET_REGION_ERROR": "获取区域信息错误",
     "GET_VERSION_ERROR": "获取版本错误",
-    "NO_SYNC_COMPUTING_SOURCE": "暂时没有可同步计算资源信息",
+    "NO_SYNC_HOST_INFO": "暂时没有可同步宿主机信息",
     "NO_SYNC_STORAGES": "暂时没有可同步存储信息",
     "ONLY_OPENSTACK_TYPE_AVAILABLE": "配置规格只适用openStack类型平台",
     "PASSWORD_REQUIRED": "请输入密码",

@@ -140,7 +140,7 @@ export class AccountMngCrLocalComponent implements OnInit, OnChanges {
     //验证
     checkValue(key?: string) {
         const regs: ValidationRegs = {
-            userName: [this.account.userName, [this.v.isInstanceName, this.v.isBase, this.v.isUnBlank], "用户名输入格式不正确"],
+            userName: [this.account.userName, [this.v.isBase, this.v.isUnBlank], "用户名输入格式不正确"],
             loginName: [this.account.loginName, [this.v.isEmail, this.v.isUnBlank], "USER_CENTER.ACCOUNT_FORMAT_ERROR"],
             phone: [this.account.phone, [this.v.isMoblie, this.v.isUnBlank], "USER_CENTER.PHONE_ERRO_ENTER_PHONE"],
             //手机号码验证
