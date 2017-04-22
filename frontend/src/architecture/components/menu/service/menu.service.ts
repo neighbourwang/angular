@@ -48,6 +48,18 @@ export class MenuService {
 							"isOpen": true,
 							"isShow": true,
 							"routing": "image-mng/image-mng"
+						},
+						{
+							"label": "阿里云主机",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "ali-cloud-service/cloud-vm/cloud-vm-list"
+						},
+						{
+							"label": "阿里云硬盘",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "ali-cloud-service/cloud-disk/cloud-disk-list"
 						}
 					]
 				},

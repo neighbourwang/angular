@@ -30,7 +30,7 @@
             <thead>
               <tr>
                   <th>选择</th>
-                  <th>主账号登录名</th>
+                  <th>子账号登录名</th>
                   <th>所属企业</th>
                   <th>所属部门</th>
                   <th>状态</th>
@@ -46,7 +46,7 @@
                     </td>
                     <td><a href="javascript:void(0);" (click)="viewAccount(item);">{{item.loginName}}</a></td>
                     <td>{{item.tenantName}}</td>
-                    <td>{{item.orgName}}</td>
+                    <td>{{item.departName}}</td>
                     <td  [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}">
                         {{item.status| dict:service.dictStatus | async}}
                     </td>

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, PaginationComponent, SystemDictionary, ValidationService} from "../../../../architecture";
 
 
-import { MngServiceList } from '../service/mng-service-list.service';
+import { MngService } from '../service/mng-service.service';
 
 @Component({
     selector:"mng-service-detail",
@@ -15,7 +15,7 @@ import { MngServiceList } from '../service/mng-service-list.service';
 export class MngServiceDetailComponent implements OnInit{
     constructor(
         private router : Router,
-        //private service : MngServiceList,
+        //private service : MngService,
         private layoutService : LayoutService,
         private validationService: ValidationService
     ){

@@ -2,20 +2,24 @@ import {Component, ViewChild, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, PaginationComponent, SystemDictionary, ValidationService} from "../../../../architecture";
 
+//model
+import { Enterprise } from "../model/enterprise.model";
+import { MngServiceList } from "../model/mng-service-list.model";
 
-import { MngServiceList } from '../service/mng-service-list.service';
+//service
+import { MngService } from '../service/mng-service.service';
 
 @Component({
     selector:"mng-service-list",
     templateUrl:"../template/service-list.html",
-    styleUrls:[],
+    styleUrls:['../style/mng-service-list.less'],
     providers:[]
 })
 
 export class MngServiceListComponent implements OnInit{
     constructor(
         private router : Router,
-        //private service : MngServiceList,
+        private service : MngService,
         private layoutService : LayoutService,
         private validationService: ValidationService
     ){
@@ -40,10 +44,64 @@ export class MngServiceListComponent implements OnInit{
     pageSize= 10;
     totalPage= 1;
 
+    typeDic: Array<SystemDictionary>;
+    searchDic: Array<SystemDictionary>;
+
     type: string;
+    ingSelected= false;
+    overSelected= false;
+    enterpriseList:Array<Enterprise>;
+    enterpriseId= "";
+    serviceName= "";
+    serviceObjectCode= "";
+    searchTypeCode: string;
+    keyWords: string;
+    serviceStatus: string;
+    data: Array<MngServiceList>;
 
     ngOnInit() {
+        this.getData();
+        this.getEnterprises();
+        this.service.searchDic.then(res =>{
+            this.searchTypeCode= res[0].value
+        });
+    }
 
+    getData(pageIndex?) {
+        this.pageIndex= pageIndex || this.pageIndex;
+        this.layoutService.show();
+        this.service.getData(this.pageIndex, this.pageSize, this.serviceStatus, this.enterpriseId, this.serviceName, this.serviceObjectCode,
+            this.searchTypeCode, this.keyWords)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.data= response["resultContent"];
+                        //this.totalPage= response.pageInfo.totalPage;
+                        console.log("data",response["resultContent"]);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    getEnterprises(){
+        this.layoutService.show();
+        this.service.getEnterprises()
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.enterpriseList = response["resultContent"];
+                        console.log("企业列表",this.enterpriseList);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     serviceUpdate(){
@@ -64,7 +122,18 @@ export class MngServiceListComponent implements OnInit{
         this.router.navigate([`mtc-center/mng-service/mng-service-detail`]);
     }
 
+    selecteding(){
+        this.overSelected= false;
+        this.ingSelected= !this.ingSelected;
+    }
+    selectedover(){
+        this.ingSelected= false;
+        this.overSelected= !this.overSelected;
+    }
 
+    reset(){
+        this.keyWords= "";
+    }
 
     showAlert(msg: string): void {
         this.layoutService.hide();

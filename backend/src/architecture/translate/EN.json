@@ -1021,7 +1021,7 @@
     "GET_PLATFORM_ERROR": "Platform retrieval failure",
     "GET_REGION_ERROR": "Region retrieval failure",
     "GET_VERSION_ERROR": "Version retrieval failure",
-    "NO_SYNC_COMPUTING_SOURCE": "No compute resource information is available",
+    "NO_SYNC_HOST_INFO": "No host information is available to sync",
     "NO_SYNC_ZONES": "There is no sync available area information at this time",
     "PASSWORD_REQUIRED": "Please input the password",
     "PLATFORM_NAME_REQUIRED": "Please input the platform name",
@@ -1083,7 +1083,15 @@
     "SYNC_AVAILABLE_ZONE": "Synchronous available zone",
     "SYNC_HOST": "Synchronous host",
     "SYNC_STORAGE_BACKEND": "Synchronous storage backend",
-    "SYNC_STORAGE_SPACE": "Synchronous storage space"
+    "SYNC_STORAGE_SPACE": "Synchronous storage space",
+    "AVAI_STORAGE":"available storage",
+    "SURPLUS_STORAGE":"surplus storage",
+    "OCCU_STORAGE":"occupied storage",
+    "DESK_CLOUD_EXMAPLE_COUNTS":"desk cloud living example counts",
+    "BOOT_DISK_NAME":"boot disk name",
+    "ALL_STORAGE_BACKEND":"all storage backend",
+    "SELECTED_STORAGE_BACKEND":"select storage backend",
+    "CLICK_SELECT_STORAGE_BACKEND":"click select storage backend"
   },
   "PHY_MNG_POOL": {
     "ACTIVE": "Enable",
@@ -1204,7 +1212,9 @@
     "PLATFORM_LIST_IS_EMPTY": "Platform list is empty",
     "ENTERPRISE_LIST_IS_EMPTY": "Enterprise list is empty",
     "RETURN_TO_PREVIOUS_STEP": "Go back to the previous step and reselect the platform",
-    "RETURN_PRODUCT_LIST": "Return product list"
+    "RETURN_PRODUCT_LIST": "Return product list",
+    "PHYSICAL_PRODUCT":"physical product"
+
   },
   "USER_CENTER": {
     "ACCOUNT": "Account",

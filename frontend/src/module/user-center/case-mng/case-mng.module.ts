@@ -11,8 +11,8 @@ import { CaseDepartListComponent } from './component/case-depart-list.component'
 import { CaseMngRouting } from './case-mng.routing';
 
 //service
-import { CaseMngService} from './service/case-mng-list.service'
-import { CaseDepartService} from './service/case-depart-list.service'
+import { CaseMngService} from './service/case-mng-list.service';
+import { CaseDepartService} from './service/case-depart-list.service';
 
 @NgModule({
     imports: [

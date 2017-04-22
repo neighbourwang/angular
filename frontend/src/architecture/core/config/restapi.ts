@@ -959,6 +959,24 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/noauth/alicloud/price"
     },
+    { //更改阿里云主机名字
+        "desc": "Update instance property",
+        "id": "al-cloud.cloud-vm.property.modify",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/modifyinstanceattribute/instanceid/{instanceid}"
+    },
+    { //更改阿里云硬盘名字
+        "desc": "Update disk property",
+        "id": "al-cloud.cloud-disk.property.modify",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/modifydiskattribute/diskid/{diskid}"
+    },
+    { //远程控制云主机
+        "desc": "Get remote url",
+        "id": "al-cloud.cloud-vm.remotecontrol",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeinstancevncurl/regionid/{regionid}/instanceid/{instanceid}"
+    },
 
     // 阿里云主账号管理
     {
@@ -1014,13 +1032,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "子账号部门列表",
         "id": "user-center.ali-cloud.departsublist",
         "method": "GET",
-        "url": "marketplace/authsec/alicloud/mmp/sub/depart/list"
+        "url": "alicloud/authsec/alicloud/mmp/sub/depart/list"
     },
     {
         "desc": "测试子账号",
         "id": "user-center.ali-cloud.subtest",
         "method": "POST",
-        "url": "marketplace/authsec/alicloud/mmp/sub/acct/testsubacct"
+        "url": "alicloud/authsec/alicloud/mmp/sub/acct/testsubacct"
     },
     {
         "desc": "启用子账号",
@@ -1044,7 +1062,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建子账号",
         "id": "user-center.ali-cloud.create",
         "method": "POST",
-        "url": "marketplace/authsec/alicloud/mmp/sub/acct/create"
+        "url": "alicloud/authsec/alicloud/mmp/sub/acct/create/{id}"
     },
     // 阿里云共享账号管理
     {

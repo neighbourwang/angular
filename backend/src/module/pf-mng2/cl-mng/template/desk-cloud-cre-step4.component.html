@@ -24,9 +24,9 @@
                         <th>{{"CAPACITY_MNG.DISPLAY_NAME" | translate}}</th>
                         <th>DC/{{"CAPACITY_MNG.AVAILABLE_ZONE_INFO" | translate}}</th>                        
                         <th>{{"CAPACITY_MNG.STORAGE_TYPE" | translate}}</th>
-                        <th>{{"CAPACITY_MNG.TOTAL_CAPACITY" | translate}}</th>
-                        <th>{{"CAPACITY_MNG.COPIES" | translate}}</th>
-                        <th style="width:100px">{{"COMMON.QUOTA" | translate}}%</th>
+                        <th>{{"PF_MNG2.AVAI_STORAGE" | translate}}</th>
+                        <th>{{"PF_MNG2.SURPLUS_STORAGE" | translate}}</th>
+                        <th style="width:100px">{{"PF_MNG2.OCCU_STORAGE" | translate}}</th>
                         <th style="width:25%">{{"COMMON.COMMENT" | translate}}</th>
                     </tr>
                 </thead>
@@ -39,12 +39,12 @@
                             <p style="margin:0" *ngFor="let name of item.clusterAndDc">{{name.dcName+"--"+name.zoneName}}</p>
                         </td>                        
                         <td>{{item.typeDisplayName}}</td>
-                        <td>{{item.maximum||0}}</td>
+                        <td>{{item.freeCapacity||0}}</td>
                         <td>
-                            <input type="number" class="form-control" required min="0"    [(ngModel)]="item.replica" style="width: 100px; display: inline;" (blur)="keepSame(item)">
+                            {{item.uncommited||0}}
                         </td>
                         <td>
-                            <input type="number" class="form-control" required min="0" max="100" [(ngModel)]="item.quotaPercentDisplay" [class.border-error]="!item.valid" (blur)="keepSame(item)" style=" display: inline;">
+                            {{item.allocatedCapacity||0}}
                         </td>
                         <td >
                             <input type="text" class="form-control" [(ngModel)]="item.description" style=" display: inline;" >

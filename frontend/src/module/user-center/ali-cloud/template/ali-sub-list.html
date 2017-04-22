@@ -20,18 +20,20 @@
             <th class="text-center">操作人 </th>
             <th class="text-center">操作 </th>
         </tr>
-        <tr *ngFor="let item of data">
-            <td class="text-center">{{item.id}}</td>
+        <tr *ngFor="let item of data; let idx= index;">
+            <td class="text-center">{{idx+1}}</td>
             <td class="text-center"><a href="javascript:void(0);" class="a-active" (click)="getDetail(item);type= 'info';">{{item.loginName}}</a></td>
             <td class="text-center">{{item.departmentName}}</td>
-            <td class="text-center">{{item.status}}</td>
-            <td class="text-center">{{item.lastUpdate}}</td>
+            <td class="text-center" [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}">
+                {{item.status | dict:service.statusDic | async}}
+            </td>
+            <td class="text-center">{{item.lastUpdate | formatDate}}</td>
             <td class="text-center">{{item.operator}}</td>
             <td class="text-center">
                 <span class="glyphicon glyphicon-edit font-green" style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);type='edit'"></span>
                 <span class="glyphicon glyphicon-user font-green" style="margin-right : 10px ;cursor:pointer" (click)="distriPage(item);"></span>
-                <span class="glyphicon glyphicon-ok-circle font-green" style="margin-right : 10px ;cursor:pointer" (click)="enable(item);"></span>
-                <span class="glyphicon glyphicon-ban-circle font-orange" style="margin-right : 10px ;cursor:pointer" (click)="disable(item);"></span>
+                <span *ngIf="item.status== 2" class="glyphicon glyphicon-ok-circle font-green" style="margin-right : 10px ;cursor:pointer" (click)="enable(item);"></span>
+                <span *ngIf="item.status== 1" class="glyphicon glyphicon-ban-circle font-orange" style="margin-right : 10px ;cursor:pointer" (click)="disable(item);"></span>
                 <span class="glyphicon glyphicon-trash font-orange" style="margin-right : 10px ;cursor:pointer" (click)="delete(item);"></span>
             </td>
         </tr>
@@ -49,13 +51,13 @@
                 <span style="line-height: 34px;">{{subInfo.loginName}}</span>
             </div>
             <div *ngIf="type== 'create'" class="col-md-6 no-padding form-group">
-                <input type="text" class="form-control" maxlength="50">
+                <input [(ngModel)]="subInfo.loginName" type="text" class="form-control" maxlength="50">
             </div>
         </div>
         <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
             <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>Access Key ID:</div>
             <div *ngIf="type!= 'info'" class="col-md-6 no-padding form-group">
-                <input type="text" class="form-control" maxlength="50">
+                <input [(ngModel)]="subInfo.accessKey" type="text" class="form-control" maxlength="50">
             </div>
             <div *ngIf="type== 'info'" class="col-md-8 no-padding">
                 <span style="line-height: 34px;">{{subInfo.accessKey}}</span>
@@ -64,7 +66,7 @@
         <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
             <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>Access Key Secret:</div>
             <div *ngIf="type!= 'info'" class="col-md-6 no-padding form-group">
-                <input type="text" class="form-control">
+                <input [(ngModel)]="subInfo.accessSecret" type="text" class="form-control">
             </div>
             <div *ngIf="type== 'info'" class="col-md-8 no-padding">
                 <span style="line-height: 34px;">{{subInfo.accessSecret}}</span>
@@ -75,8 +77,11 @@
             <div class="col-md-2 no-padding form-group ">
                 <button class="btn btn-default button-gray-gradient">  测试  </button>
             </div>
-            <div class="col-md-4 no-padding">
-                <span class="font-orange" style="line-height: 34px;">提示:测试成功</span>
+            <div *ngIf="testInfo== 'success'" class="col-md-4 no-padding">
+                <span class="font-green" style="line-height: 34px;">提示:测试成功</span>
+            </div>
+            <div *ngIf="testInfo== 'failed'" class="col-md-4 no-padding">
+                <span class="font-orange" style="line-height: 34px;">提示:测试失败</span>
             </div>
         </div>
         <div *ngIf="type== 'info' || type== 'create'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">
@@ -85,10 +90,11 @@
                 <span style="line-height: 34px;">{{subInfo.departmentName}}</span>
             </div>
             <div *ngIf="type== 'create'" class="col-md-6 no-padding form-group">
-                <select class="form-control">
-                    <option *ngFor="let item of departsList">{{item.departmentName}}</option>
+                <select class="form-control" [(ngModel)]="subInfo.departId">
+                    <option value="">请选择部门</option>
+                    <option *ngFor="let item of departsList" [value]="item.id">{{item.departmentName}}</option>
                 </select>
-            </div>
+            </div>{{subInfo.departId}}
         </div>
     </div>
 </fc-popup>

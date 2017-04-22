@@ -369,7 +369,7 @@ export class OrderMngComponent implements OnInit{
 
 		
 		param.pageParameter = {
-			currentPage:pageNumber
+			currentPage:pageNumber-1//后台页码从0开始
 			,size:10
 		};
 		this._orderLoader.clear();//清空列表

@@ -23,6 +23,7 @@ export class OrderMngParam{
     this.serviceType = null;
     this.status = null;
     this.zoneId = null;
+    this.buyerId = null;
   }
 }
 

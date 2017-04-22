@@ -21,8 +21,8 @@ export class AliSharedService {
     }
 
     getData(): Promise<any>{
-        /* const api= this.restApiCfg.getRestApi("user-center.ali-cloud.sharedlist");
-         return this.restApi.request(api.method, api.url, null, null, null);*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => SharedList_mock);
+         const api= this.restApiCfg.getRestApi("user-center.ali-cloud.sharedlist");
+         return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => SharedList_mock);
     }
 }

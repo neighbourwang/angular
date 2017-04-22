@@ -270,6 +270,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
                         "pmPoolId": resource.pmPoolId,
                         "poolName": resource.poolName,
                         "resourcePoolDisplayName": '',
+                        "skuid":'',
                         selected: true
                     })
                 }
@@ -281,7 +282,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            serviceName: [this.physicalService.serviceName, [this.v.isInstanceName, this.v.isBase, this.v.isUnBlank], "产品目录名称格式不正确"],
+            serviceName: [this.physicalService.serviceName, [this.v.isBase, this.v.isUnBlank], "产品目录名称格式不正确"],
 
             description: [this.physicalService.desc, [this.v.maxLength(68)], "描述输入错误"],
 
@@ -293,7 +294,15 @@ export class PhsicalProdDirCreComponent implements OnInit {
         let message = this.checkForm();
         if (message) return;
         // this.physicalService.phyMachineAreaPoolsProfile
+        if(this.physicalService.phyMachinePartsFlavors.length==0){
+            this.notice.open('操作错误','服务目录规格列表不能为空');
+            return;
+        }
         this.combineObj();
+        if(this.physicalService.phyMachineAreaPoolsProfile.length==0){
+            this.notice.open('操作错误','服务目录资源池列表不能为空');
+            return;            
+        }
         this.layoutService.show();
         this.service.postPhysicalService(this.physicalService).then(res=>{
             console.log(res);

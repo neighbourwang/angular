@@ -83,6 +83,7 @@
 						<span [ngSwitch]="item.serviceType"> 
 							<template ngSwitchCase="0">{{'COMMON.CLOUD_HOSTING' | translate}}</template>
 							<template ngSwitchCase="1">{{'COMMON.CLOUD_HARD_DISK' | translate}}</template><!--云硬盘-->
+							<template ngSwitchCase="4">{{'PROD_MNG.PHYSICAL_PRODUCT' | translate}}</template><!--云硬盘-->
 							<template ngSwitchDefault>Unknown</template>							
 						</span>
 					</td>

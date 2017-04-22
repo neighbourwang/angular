@@ -51,20 +51,20 @@
 
         <div class="dropdown float-right">
             <button class="btn float-left btn-success" (click)="goToInstanceOrder();"><!--<i class="glyphicon glyphicon-plus"></i>--><span class="icon_style icon-ali-create"></span>创建云主机</button>
+            <!--
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			更多操作
 			<span class="caret"></span>
 			</button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <!--
                 <li><a href="javascript:" (click)="startInstance();">启动</a></li>
                 <li><a href="javascript:" (click)="stopInstance();">停止</a></li>
                 <li><a href="javascript:" (click)="reStartInstance();">重启</a></li>
                 <li><a href="javascript:" (click)="attachIPToInstance();">绑定弹性IP</a></li>
                 <li><a href="javascript:">远程连接</a></li>
-                -->
                 <li><a href="javascript:" (click)="deleteInstance();">释放实例</a></li>
             </ul>
+            -->
         </div>
     </div>
 
@@ -81,17 +81,34 @@
             <th class="text-center">操作</th>
         </tr>
         <tr style="line-height: 65px;" *ngFor="let instance of instances; let i=index;">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list"> {{(i+1)}}</td>
-            <td class="text-center active" style="position: relative;width: 220px;"> {{instance.InstanceId}}
-                <!--<table-edit-name 
-					(nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])" 
-					[value]="vm.instanceName" 
-					(onChange)="changeName($event, vm)">
-                </table-edit-name>
-                -->
+            <td class="text-center">
+                <!-- <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list">-->{{(i+1)}}</td>
+            <td class="text-center active" style="position: relative;width: 220px;">
+                {{instance.InstanceId}}
+                <br /> {{instance.InstanceName}}
+                <span class="pull-right icon-edit2" (click)="instance.EnableEdit=true; onSelect(instance);" style="width: 30px; height: 18px; line-height: 30px;"></span>
+                <div *ngIf="instance.EnableEdit" class="popover fade bottom in" role="tooltip" id="popover316538" style="top:25px; left:150px; width:370px; max-width:1100px; display: block; z-index: 50;">
+                    <div class="arrow" style="left: 30%;"></div>
+                    <div class="popover-content">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">实例名称:</label>
+                                <div class="col-sm-8 float-left">
+                                    <!--<input type="text" class="form-control" [(ngModel)]="selecteddisk.DiskId" name="name">-->
+                                    <input type="text" class="form-control" name="diskname" [(ngModel)]="changedInstance.InstanceName">
+                                </div>
+                            </div>
+                        </form>
+                        <div class="pull-right" style="margin-bottom:10px;">
+                            <button class="btn button-gray-gradient" (click)="onSave();">保存</button>
+                            <button class="btn button-gray-gradient" (click)="instance.EnableEdit=false;">取消</button>
+                        </div>
+                    </div>
+
+                </div>
             </td>
             <td class="text-center">{{instance.ZoneId}}</td>
-            <td class="text-left"><span style="display: block">内网IP：{{instance.InnerIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.EipAddress.IpAddress}}</span></td>
+            <td class="text-left"><span style="display: block">内网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.EipAddress.IpAddress}}</span></td>
             <td class="text-center">{{instance.InstanceNetworkType}}</td>
             <td class="text-center">{{instance.Status}}</td>
             <td class="text-left"><span style="display: block">CPU: {{instance.Cpu}}核</span><span>内存：{{instance.Memory}} MB (I/O优化)</span></td>
@@ -100,8 +117,8 @@
                 <span *ngIf="instance.Status=='Stopped'" class="icon_style icon-start" (click)="selectItem(i); startInstance();" name="startvm"></span>
                 <span *ngIf="instance.Status!='Stopped'" class="icon_style icon-stop" (click)="selectItem(i); stopInstance();" name="stopvm"></span>
                 <span class="icon_style icon-reboot" (click)="selectItem(i); reStartInstance();" name="restartvm"></span>
-                <span *ngIf="true" class="icon_style icon-IPlock" (click)="selectItem(i); attachIPToInstance();" name="attachIP"></span>
-                <span *ngIf="true" class="icon_style icon-IPrelease" (click)="selectItem(i); detachIPToInstance();" name="detachIP"></span>
+                <span *ngIf="instance.EipAddress.IpAddress==''" class="icon_style icon-IPlock" (click)="selectItem(i); attachIPToInstance();" name="attachIP"></span>
+                <span *ngIf="instance.EipAddress.IpAddress!=''" class="icon_style icon-IPrelease" (click)="selectItem(i); detachIPToInstance();" name="detachIP"></span>
                 <span class="icon_style icon-remotelink" (click)="selectItem(i); remoteToInstance();" name="remotevm"></span>
                 <span class="icon_style icon-ali-delete3" (click)="selectItem(i); deleteInstance();" name="deletevm"></span>
             </td>
@@ -181,3 +198,17 @@
         </div>
     </div>
 </fc-popup>
+
+<!--
+<fc-popup #remotecontrolvm ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="远程控制云主机" (of)="acceptRemoteInstanceModify()" (cf)="cancelRemoteInstanceModify()">
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-12 text-center mgb20">
+                    <a [routerLink]="remoteUrl">点击链接进行云主机访问</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</fc-popup>
+-->
