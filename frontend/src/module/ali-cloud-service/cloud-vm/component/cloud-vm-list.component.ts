@@ -134,7 +134,6 @@ export class AliCloudVmListComponent implements OnInit {
     }
 
     getAllRegions(): void {
-
         this.layoutService.show();
         this.commonService.getAllRegions()
             .then(
@@ -234,14 +233,14 @@ export class AliCloudVmListComponent implements OnInit {
                         this.showAlert("启动实例成功！");
                         this.selectRegion(this.choosenRegion);
                     } else {
-                        this.showAlert("COMMON.OPERATION_ERROR");
+                        this.showAlert("启动实例失败！");
                     }
                 })
                 .catch((e) => this.onRejected(e));
             }
             this.confirm.open();
         } else {
-            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            this.showAlert("请选择实例");
             return;
         }
     }
@@ -262,14 +261,14 @@ export class AliCloudVmListComponent implements OnInit {
                         this.showAlert("停止实例成功！");
                         this.selectRegion(this.choosenRegion);
                     } else {
-                        this.showAlert("COMMON.OPERATION_ERROR");
+                        this.showAlert("停止实例失败！");
                     }
                 })
                 .catch((e) => this.onRejected(e));
             }
             this.confirm.open();
         } else {
-            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            this.showAlert("请选择实例");
             return;
         }
     }
@@ -279,7 +278,7 @@ export class AliCloudVmListComponent implements OnInit {
         if (this.selectedInstance) {
             this.restartvm.open();
         } else {
-            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            this.showAlert("请选择实例");
             return;
         }
     }
@@ -349,7 +348,7 @@ export class AliCloudVmListComponent implements OnInit {
                 this.onRejected(e);
             });
         } else {
-            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            this.showAlert("请选择实例");
             return;
         }
 
@@ -428,7 +427,7 @@ export class AliCloudVmListComponent implements OnInit {
                 this.onRejected(e);
             });            
         } else {
-            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            this.showAlert("请选择实例");
             return;
         }
 
@@ -446,10 +445,10 @@ export class AliCloudVmListComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    this.showMsg("解绑弹性IP到实例成功");
+                    this.showMsg("从实例中解绑弹性IP成功");
                     this.getInstanceList(this.choosenRegion);
                 } else {
-                    this.showMsg("解绑弹性IP到实例失败");
+                    this.showMsg("从实例中解绑弹性IP失败");
                     return;
                 }
             })
@@ -457,10 +456,10 @@ export class AliCloudVmListComponent implements OnInit {
                 this.unallocateip.close();                
             })
             .catch(err => {
-                console.log('解绑弹性IP到实例异常', err);
+                console.log('从实例中解绑弹性IP异常', err);
                 this.layoutService.hide();
                 this.unallocateip.close();
-                this.showMsg("解绑弹性IP到实例异常");
+                this.showMsg("从实例中解绑弹性IP异常");
                 this.okCallback = () => {
                     this.unallocateip.open();
                 };
@@ -499,7 +498,7 @@ export class AliCloudVmListComponent implements OnInit {
                     this.onRejected(e);
                 });
         } else {
-            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            this.showAlert("请选择实例");
             return;
         }
     }
@@ -521,14 +520,14 @@ export class AliCloudVmListComponent implements OnInit {
                         this.showAlert("释放实例成功！");
                         this.selectRegion(this.choosenRegion);
                     } else {
-                        this.showAlert("COMMON.OPERATION_ERROR");
+                        this.showAlert("COMMON.GETTING_DATA_FAILED");
                     }
                 })
                 .catch((e) => this.onRejected(e));
             };
             this.confirm.open();
         } else {
-            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            this.showAlert("请选择实例");
             return;
         }
     }
@@ -575,9 +574,8 @@ export class AliCloudVmListComponent implements OnInit {
         let item = this.instances.find((n) => n.checked) as instanceListModel;
         if (item){
             return item;
-        }            
-        else {
-            this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+        } else {
+            this.showMsg("COMMON.GETTING_DATA_FAILED");
             return null;
         }
     }
@@ -587,7 +585,7 @@ export class AliCloudVmListComponent implements OnInit {
             this.changedInstance.InstanceName = instance.InstanceName;
             this.changedInstance.InstanceId = instance.InstanceId;
         } else {
-            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            this.showAlert("COMMON.GETTING_DATA_FAILED");
             return;
         }
 

@@ -292,37 +292,38 @@ export class AliCloudDiskListComponent implements OnInit {
             this.vmService.getInstanceList(1, 100, this.choosenRegion.RegionId, this.vmqueryObject)
                 .then(
                 response => {
-                this.layoutService.hide();
-                //console.log(response, "response!");
-                if (response && 100 == response["resultCode"]) {
-                    let result;
-                    try {
-                        result = JSON.parse(response.resultContent);
-                        console.log(result, "result!");
-                    } catch (ex) {
-                        console.log(ex);
+                    this.layoutService.hide();
+                    //console.log(response, "response!");
+                    if (response && 100 == response["resultCode"]) {
+                        let result;
+                        try {
+                            result = JSON.parse(response.resultContent);
+                            console.log(result, "result!");
+                        } catch (ex) {
+                            console.log(ex);
+                        }
+                        this.instances = result.Instances.Instance;
+                        for (let i = 0; i < this.instances.length; i++) {
+                            console.log(this.instances[i].InstanceId, " == ");
+                        }
+                        console.log(this.instances, "this.instances!");
+                        this.attachdisk.open();
+                    } else {
+                        this.showMsg("COMMON.GETTING_DATA_FAILED");
+                        return;
                     }
-                    this.instances = result.Instances.Instance;
-                    for(let i=0; i<this.instances.length; i++) {
-                        console.log(this.instances[i].InstanceId, " == ");
-                    }
-                    console.log(this.instances, "this.instances!");
-                    this.attachdisk.open();
-                } else {
-                    this.showMsg("COMMON.GETTING_DATA_FAILED");
-                    return;
-                }
-        })
-        .catch((e) => {
-                this.onRejected(e);
-        });            
+                })
+                .catch((e) => {
+                    this.onRejected(e);
+                });
         } else {
             this.showAlert("请选择云硬盘");
             return;
         }
     }
+
     acceptAttachDiskModify() {
-        if(this.selectedInstanceId != "") {
+        if (this.selectedInstanceId != "") {
             this.layoutService.show();
             this.service.attachDisk(this.selectedDiskItem, this.selectedInstanceId, this.deleteWithInstance)
                 .then(
@@ -340,8 +341,8 @@ export class AliCloudDiskListComponent implements OnInit {
         } else {
             this.showAlert("请选择实例");
         }
-        
     }
+
     cancelAttachDiskModify() {
         
     }
@@ -381,14 +382,16 @@ export class AliCloudDiskListComponent implements OnInit {
         }
 
     }
-    acceptDetachDiskModify() {        
-        if(this.selectedDiskItem.InstanceId != "") {
+    
+    acceptDetachDiskModify() {
+        if (this.selectedDiskItem.InstanceId != "") {
             this.detachdisk.close();
             this.layoutService.show();
-                this.service.detachDisk(this.selectedDiskItem)
+            this.service.detachDisk(this.selectedDiskItem)
                 .then(
                 response => {
                     this.layoutService.hide();
+                    this.detachdisk.close();
                     if (response && 100 == response["resultCode"]) {
                         this.selectRegion(this.choosenRegion);
                         this.showAlert("卸载云硬盘成功！");
@@ -398,10 +401,9 @@ export class AliCloudDiskListComponent implements OnInit {
                 })
                 .catch((e) => this.onRejected(e));
         } else {
-            this.detachdisk.close();
-            this.showAlert("COMMON.OPERATION_ERROR");
+            this.showAlert("请选择实例");
         }
-        
+
     }
     cancelDetachDiskModify() {
 
@@ -431,7 +433,7 @@ export class AliCloudDiskListComponent implements OnInit {
             }
             this.confirm.open();
         } else {
-            this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
+            this.showAlert("请选择云硬盘");
             return;
         }
 

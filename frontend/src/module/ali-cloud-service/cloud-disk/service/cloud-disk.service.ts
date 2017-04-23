@@ -122,17 +122,6 @@ export class AliCloudDiskService {
                 value: regionid
             }
         ];
-        /*
-        const body = {
-            "accessinfo": {
-                "accessId": this.keysecret.accessId,
-                "accessSecret": this.keysecret.accessSecret
-            },
-            "conditionModel": {
-                "pageNumber": pageIndex,
-                "pageSize": pageSize,
-            }
-        }*/
         let body: GetDisksSubmitModel = new GetDisksSubmitModel();
         body.accessinfo.accessId = this.keysecret.accessId;
         body.accessinfo.accessSecret = this.keysecret.accessSecret;
