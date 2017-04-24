@@ -122,17 +122,6 @@ export class AliCloudDiskService {
                 value: regionid
             }
         ];
-        /*
-        const body = {
-            "accessinfo": {
-                "accessId": this.keysecret.accessId,
-                "accessSecret": this.keysecret.accessSecret
-            },
-            "conditionModel": {
-                "pageNumber": pageIndex,
-                "pageSize": pageSize,
-            }
-        }*/
         let body: GetDisksSubmitModel = new GetDisksSubmitModel();
         body.accessinfo.accessId = this.keysecret.accessId;
         body.accessinfo.accessSecret = this.keysecret.accessSecret;
@@ -210,6 +199,29 @@ export class AliCloudDiskService {
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.diskorder.delete");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    updateDisk(disk: diskListModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "diskid",
+                value: disk.DiskId
+            }
+        ];
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "deleteAutoSnapshot": null,
+            "deleteWithInstance": null,
+            "description": null,
+            "diskName": disk.DiskName,
+            "enableAutoSnapshot": null
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.property.modify");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 

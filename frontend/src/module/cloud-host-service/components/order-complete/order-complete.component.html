@@ -1,23 +1,28 @@
-<table class="table table-all-boder mgb20">
+
+<ng-container *ngFor="let order of orderList;let i = index ">
+
+<table class="table table-all-boder mgb20"  style="width: 100%">
     <tr class="table-title">
-        <td class="text-center">{{'SHOPPING_CART.PRODUCT_INFORMATION' | translate}}</td>
-        <td class="text-center">{{'SHOPPING_CART.PRODUCT_TYPE' | translate}}</td>
-        <td class="text-center">{{'COMMON.BILLING_MODE'| translate}}</td>
-        <td class="text-center">{{'SHOPPING_CART.PURCHASE_CYCLE' | translate}}</td> 
-        <td class="text-center">{{'COMMON.EXPENSE' | translate}}</td>
-        <td class="text-center">{{'COMMON.STATUS' | translate}}</td>
-        <td class="text-center">{{'COMMON.CREATED_TIME' | translate}}</td>
-        <td class="text-center">{{'COMMON.EXPIRE_DATE' | translate}}</td>
-        <td class="text-center">{{'SHOPPING_CART.QUANTITY' | translate}}</td>
-    </tr>
-    <tr colspan="9" class="table-gap"></tr>
-    <ng-container *ngFor="let order of orderList;let i = index ">
-    <tr>
-        <td colspan="9" class="table-line-head">
+        <td class="table-line-head">
             <font class="font-green">{{'COMMON.ORDER_NUMBER' | translate}}：{{order.itemNo}} {{'COMMON.CREATED_TIME' | translate}}：{{order.createDate}}</font>
         </td>
     </tr>
-    <tr product-info-tr [isorder]="true" [itemList]="order.itemList"></tr>
-   
-    </ng-container>
 </table>
+<table class="table table-all-boder mgb20" style="width: 100%">
+    <tr class="table-title">
+        <th class="text-center">{{'SHOPPING_CART.PRODUCT_INFORMATION' | translate}}</th>
+        <th class="text-center">{{'SHOPPING_CART.PRODUCT_TYPE' | translate}}</th>
+        <th class="text-center">{{'COMMON.BILLING_MODE'| translate}}</th>
+        <th class="text-center">{{'SHOPPING_CART.PURCHASE_CYCLE' | translate}}</th> 
+        <th class="text-center">{{'COMMON.EXPENSE' | translate}}</th>
+        <th class="text-center">{{'COMMON.STATUS' | translate}}</th>
+        <th class="text-center">{{'COMMON.CREATED_TIME' | translate}}</th>
+        <th class="text-center">{{'COMMON.EXPIRE_DATE' | translate}}</th>
+        <th class="text-center">{{'SHOPPING_CART.QUANTITY' | translate}}</th>
+    </tr>
+    <tbody product-info-tr [isorder]="true" [itemList]="order.itemList">
+        
+    </tbody>
+</table>
+
+</ng-container>

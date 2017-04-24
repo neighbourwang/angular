@@ -92,7 +92,7 @@ export class AliCloudMainAccountListComponent implements OnInit{
     }
     //确认修改账号类型
     confirmAccountType(){
-         this.layoutService.hide();
+         this.layoutService.show();
          this.service.editAccountType(this.account.id,this.selectAccountType)
             .then(
                 response => {
