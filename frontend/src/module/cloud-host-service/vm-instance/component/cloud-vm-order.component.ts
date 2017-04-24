@@ -129,7 +129,7 @@ export class cloudHostComponentOrder implements OnInit {
 	}
 
 	private setSelectList() {
-		// this.platforms = 
+		this.platforms = this.attrList.
 
 	}
 
