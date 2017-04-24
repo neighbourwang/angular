@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary, PaginationComponent  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary, PaginationComponent,  ValidationService ,Validation, ValidationRegs } from '../../../../architecture';
 
 //model
 import { AliMajorList } from '../model/ali-major-list.model';
@@ -23,7 +23,9 @@ export class AliMajorListComponent implements OnInit{
     constructor(
         private router : Router,
         private service : AliMajorService,
-        private layoutService : LayoutService
+        private layoutService : LayoutService,
+        private v:Validation,
+        private validationService: ValidationService
     ) {
 
     }
@@ -95,6 +97,7 @@ export class AliMajorListComponent implements OnInit{
     editPage(item){
         this.type= "edit";
         this.id= item.id;
+        this.testInfo= "";
         this.layoutService.show();
         this.service.getDetail(this.id)
             .then(
@@ -131,6 +134,8 @@ export class AliMajorListComponent implements OnInit{
 
     distriPage(item){
         this.type= "distribute";
+        this.selectedDepartment= item.departmentName;
+        this.selectedDepartmentId= "";
         this.id= item.id;
         this.layoutService.show();
         this.service.departMajor()
@@ -162,6 +167,7 @@ export class AliMajorListComponent implements OnInit{
             p.selected= false;
         });
         this.selectedDepartment= "";
+        this.selectedDepartmentId= "";
     }
 
     gotoSubMng(item){
@@ -169,6 +175,9 @@ export class AliMajorListComponent implements OnInit{
     }
 
     operate(){
+        if(this.validationService.isBlank(this.majorInfo.accessKey) || this.validationService.isBlank(this.majorInfo.accessSecret)){
+            return;
+        }
         if(this.type== "info"){
             this.majorMng.close();
         }else if(this.type== "edit"){
@@ -204,6 +213,15 @@ export class AliMajorListComponent implements OnInit{
                 )
                 .catch((e) => this.onRejected(e));
         }
+    }
+
+    checkForm(key?:string){
+        const regs:ValidationRegs = {
+            accessKey: [this.majorInfo.accessKey, [this.v.isUnBlank], "accessKey不能为空"],
+            accessSecret: [this.majorInfo.accessSecret, [this.v.isUnBlank], "accessSecret不能为空"],
+        }
+
+        return this.v.check(key, regs);
     }
 
 

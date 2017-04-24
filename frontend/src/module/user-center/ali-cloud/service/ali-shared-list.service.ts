@@ -25,4 +25,17 @@ export class AliSharedService {
          return this.restApi.request(api.method, api.url, null, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => SharedList_mock);
     }
+
+    editDepart(id: string, departId: string): Promise<any>{
+        const pathParams=[
+            {
+                key:"id",
+                value: id
+            }
+        ];
+        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.sharedepart");
+        return this.restApi.request(api.method, api.url, pathParams, null, {
+            "commonString": departId
+        });
+    }
 }

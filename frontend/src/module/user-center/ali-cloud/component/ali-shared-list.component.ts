@@ -34,8 +34,6 @@ export class AliSharedListComponent implements OnInit{
     pager: PaginationComponent;
     @ViewChild("notice")
     notice: NoticeComponent;
-    @ViewChild("sharedMng")
-    sharedMng: PopupComponent;
     @ViewChild("distriDepart")
     distriDepart: PopupComponent;
 
@@ -45,6 +43,9 @@ export class AliSharedListComponent implements OnInit{
     data: Array<AliSharedList>;
     departsList: Array<DepartList>;
     selectedDepartment: string;
+    selectedDepartmentId: string;
+    id: string;
+    selectAll= false;
 
     ngOnInit (){
         console.log('init');
@@ -68,11 +69,10 @@ export class AliSharedListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
-    getDetail(item){
-        this.sharedMng.open("账号详情");
-    }
-
     distriPage(item){
+        this.id= item.id;
+        this.selectedDepartment= item.departmentName;
+        this.selectedDepartmentId= "";
         this.layoutService.show();
         this.subservice.getDepartsList()
             .then(
@@ -89,27 +89,41 @@ export class AliSharedListComponent implements OnInit{
             )
             .catch((e) => this.onRejected(e));
     }
-    
+
     selected(item: DepartList){
         this.departsList.forEach((p) =>{
             p.selected= false;
         });
         item.selected= true;
         this.selectedDepartment= item.departmentName;
+        this.selectedDepartmentId= item.id;
     }
 
     reset(){
         this.departsList.forEach((p) =>{
-           p.selected= false; 
+           p.selected= false;
         });
         this.selectedDepartment= "";
-    }
-
-    close(){
-        this.sharedMng.close();
+        this.selectedDepartmentId= "";
+        this.selectAll= false;
     }
 
     operate(){
+        this.layoutService.show();
+        this.service.editDepart(this.id, this.selectedDepartmentId)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getData();
+                        this.distriDepart.close();
+                        console.log("editDepart",this.id, this.selectedDepartmentId);
+                    }else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
 
