@@ -2660,7 +2660,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "保存设置主账号企业",
         "id":"ali-mainAccount-enterprise-set.post",
         "method":"POST",
-        "url":"adminboe/authsec/alicloud/adm/ent/update/{id}"
+        "url":"adminboe/authsec/alicloud/adm/main/ent/update/{id}"
      },
      {
         "desc": "子账号列表",
