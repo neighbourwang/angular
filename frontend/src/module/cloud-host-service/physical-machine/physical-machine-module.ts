@@ -22,6 +22,10 @@ import { PhysicalMachineOrderService } from './service/physical-machine-order.se
 
 // import { MyDatePickerModule } from 'mydatepicker';
 
+import { CountPartLengthPipe } from './pipe/countPartLength';
+
+
+
 @NgModule({
     imports: [
         PhysicalMachineRouting,
@@ -35,6 +39,7 @@ import { PhysicalMachineOrderService } from './service/physical-machine-order.se
     ],
     declarations: [
         // PhysicalMachineListComponent,
+        CountPartLengthPipe,
         PhysicalMachineOrderComponent,
         // PhysicalMachineDetailComponent,
     ],
@@ -42,6 +47,7 @@ import { PhysicalMachineOrderService } from './service/physical-machine-order.se
     ],
     providers: [
         PhysicalMachineOrderService,
+
         // PhysicalMachineListService,
         // PhysicalMachineDetailService,
     ]

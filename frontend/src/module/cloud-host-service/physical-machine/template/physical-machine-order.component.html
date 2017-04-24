@@ -70,16 +70,17 @@
                     </div>
                     <div class="col-md-2 content-title">是否需要HBA卡</div>
                     <div class="col-md-4 btn-group no-padding mgb15">
-                        <label *ngFor="let items of needHBA" class="mgr20">
-                            <input type="checkbox" class="fox-cloud-checkbox fox-cloud-checkbox-white" name="needHBA" [checked]="items.isSelected" (change)="items.isSelected = !items.isSelected; dux.dispatch('spec')"> {{items.displayName}}
+                        <label *ngFor="let items of needHBAList" class="mgr20">
+                            <input type="radio" class="fox-cloud-radio fox-cloud-radio-white" name="needHBA" [checked]="HBA?.value === items.value" (change)="HBA = items; dux.dispatch('spec')"> {{items.displayName}}
                         </label>
                     </div>
                     <div class="col-md-12">
                         <table class="table">
                             <tr>
+                                <th style="width: 5%;" class="text-center"></th>
                                 <th style="width: 5%;" class="text-center">编号</th>
-                                <th style="width: 15%;" class="text-center">物理机名称</th>
-                                <th style="width: 16%;" class="text-center">CPU规格</th>
+                                <th style="width: 11%;" class="text-center">物理机名称</th>
+                                <th style="width: 15%;" class="text-center">CPU规格</th>
                                 <th style="width: 12%;" class="text-center">CPU数量</th>
                                 <th style="width: 12%;" class="text-center">内存(G)</th>
                                 <th style="width: 16%;" class="text-center">磁盘信息</th>
@@ -90,11 +91,12 @@
                         <div class="table-scroll mgb20">
                             <table class="table table-hover table-boder-top-none table-all-boder">
                                 <ng-container *ngFor="let phsical of phsicalList;let i = index">
-                                    <tr 
-										[popover]="popover_host" 
-										[popoverOnHover]="true" 
-										[ngClass]="selectedPhsical?.id === phsical.id ? 'active' : ''"
-										(click)="selectedPhsical=phsical;dux.dispatch('phsical')">
+                                    <tr [popover]="popover_host" [popoverOnHover]="true" >
+                                        <td style="width: 5%; text-align: center;">
+                                            <input type="radio" class="fox-cloud-radio fox-cloud-radio-white" name="physical" 
+                                                [checked]="selectedPhsical?.id === phsical.id " 
+                                                (change)="selectedPhsical=phsical;dux.dispatch('phsical')">
+                                        </td>
                                         <td style="width: 5%;" class="text-center">{{i + 1}}
                                             <popover-content #popover_host [closeOnClickOutside]="true">
                                                 <table class="table" style="min-width: 500px">
@@ -110,13 +112,13 @@
                                                         <td class="text-center">{{part.specName}}</td>
                                                         <td class="text-center">{{part.specValue}}</td>
                                                         <td class="text-center">{{part.number}}</td>
-                                                        <td class="text-center">{{part.number}}</td>
+                                                        <td class="text-center">{{part | countPartLength}}</td>
                                                     </tr>
                                                 </table>
                                             </popover-content>
                                         </td>
-                                        <td style="width: 15%;" class="text-center">物理机名称</td>
-                                        <td style="width: 16%;" class="text-center">{{phsical.cpuSpec}}</td>
+                                        <td style="width: 11%;" class="text-center">{{phsical.pmName}}</td>
+                                        <td style="width: 15%;" class="text-center">{{phsical.cpuSpec}}</td>
                                         <td style="width: 12%;" class="text-center">{{phsical.cpuNumber}}</td>
                                         <td style="width: 12%;" class="text-center">{{phsical.memSize}}</td>
                                         <td style="width: 16%;" class="text-center">{{phsical.diskInfo}}</td>

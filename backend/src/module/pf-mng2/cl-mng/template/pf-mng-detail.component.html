@@ -307,7 +307,7 @@
             </div>
         </fc-popup>
     </div>
-    <zone-sync #zoneSync [zoneList]="updateZoneList" (complete)=getZoneList()> </zone-sync>
+    <zone-sync #zoneSync [zoneList]="updateZoneList" [type]="platformType" (complete)=getZoneList()> </zone-sync>
     <host-sync #hostSync [zone]="hostList" (complete)=getZoneList()> </host-sync>
     <fc-confirm #enableZoneConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="enableZoneCof()" ct="HOST_VMWARE_MNG.CANCEL"
         (cf)="ccf()"></fc-confirm>
