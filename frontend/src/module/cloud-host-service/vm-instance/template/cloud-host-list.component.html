@@ -143,7 +143,7 @@
 							<a *ngIf="['0'].indexOf(vm.vmState) > -1" (click)="console.open()" href="javascript:">{{'VM_INSTANCE.VIEW_CONSOLE'| translate}}</a>
 						</li>
 						<li role="separator" class="divider"></li>
-						<li><a *ngIf="['0','7','14'].indexOf(vm.vmState) > -1" (click)="hostReconfig.open(vm)" href="javascript:">配置变更</a></li>
+						<li><a (click)="hostReconfig.open(vm)" href="javascript:">配置变更</a></li>
 						<custom-os [uuid]="vm.uuid" [platformid]="vm.platformId" #customos></custom-os>
 						<li><a *ngIf="['0','7','14','16'].indexOf(vm.vmState) > -1 && vm.platformType === '0'" (click)="customos.open()" href="javascript:">创建自定义镜像</a></li>
 					</ul>
