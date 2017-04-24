@@ -4,7 +4,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent} from '../../../../architecture';
 //service
 import { ProdListService } from '../service/prodList.service';
 import { ProdDirListService } from '../service/prodDirList.service';

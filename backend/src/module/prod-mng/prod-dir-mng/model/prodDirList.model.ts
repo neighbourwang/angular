@@ -2,6 +2,8 @@
       "cpu": string;
       "mem": string;
       "bootStorageSize": string;
+      "serviceId":string;
+      "serviceName":string;
       constructor(){
           this.cpu='';
           this.mem='';

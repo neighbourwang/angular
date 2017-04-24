@@ -34,4 +34,9 @@ export class ProdDirListService {
         let api = this.restApiCfg.getRestApi("services.flavors.get");
         return this.restApi.request(api.method, api.url, [], undefined);
     }
+    //获取管理服务对象列表
+    dictServiceObjList = this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise
+      owner : "SUPERVISE_SERVICE",
+      field : ""    
+   });
 }
