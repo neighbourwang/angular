@@ -137,10 +137,10 @@ export class AliCloudMainAccountEditComponent implements OnInit{
             this.showAlert("请填写Access Key Secret!");
             return;
         }
-        if(!this.account.mainAccountType){
-            this.showAlert("请填写账号类型!");
+       if(!this.account.mainAccountType){
+            this.showAlert("请选择主账号类型!");
             return;
-        }      
+        }    
         this.layoutService.show();
         if (this.testResult=="1") {
             this.service.createAccount(this.account)
