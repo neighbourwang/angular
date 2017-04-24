@@ -66,7 +66,7 @@ export class CheckMngListComponent implements OnInit {
 		});
 
 		//拒绝
-		this._refuseHandler = new ItemLoader<any>(false, '同意/拒绝', "check-center.approve-refust.post", _restApiCfg, _restApi);
+		this._refuseHandler = new ItemLoader<any>(false, '审批失败!', "check-center.approve-refust.post", _restApiCfg, _restApi);
 
 
 		//列表数据加载
