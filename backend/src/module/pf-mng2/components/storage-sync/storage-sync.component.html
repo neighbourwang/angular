@@ -7,7 +7,9 @@
             </div>
             <div class="modal-body">
                 <div class="table-container">
-                <!--<p class="modal-title">以下存储为新增存储后端</p>                    -->
+                    <div style="font-size: 16px;padding-left: 0;float:left">
+                        <span style="line-height: 34px;">以下存储为新增存储后端 :</span>
+                    </div>
                     <table class="table table-hover mgt20" *ngIf="type=='0'">
                         <thead>
                             <tr>
@@ -29,7 +31,8 @@
                                 <td>{{item.typeDisplayName}}</td>
                                 <td>{{item.maximum||0}}</td>
                                 <td>
-                                    <input type="number" class="form-control" required [(ngModel)]="item.replica" min="0" max="10" style="width: 100px; display: inline;" min="0">
+                                    <input type="number" class="form-control" required [(ngModel)]="item.replica" min="0" max="10" style="width: 100px; display: inline;"
+                                        min="0">
                                 </td>
                                 <td>
                                     <input type="number" class="form-control" required [(ngModel)]="item.quotaPercentDisplay" style=" display: inline;" min="0"
@@ -66,10 +69,46 @@
                                 <td>{{item.typeDisplayName}}</td>
                                 <td>{{item.maximum||0}}</td>
                                 <td>
-                                    <input type="number" class="form-control" required min="0" [(ngModel)]="item.replica" style="width: 100px; display: inline;" >
+                                    <input type="number" class="form-control" required min="0" [(ngModel)]="item.replica" style="width: 100px; display: inline;">
                                 </td>
                                 <td>
-                                    <input type="number" class="form-control" required min="0" max="100" [(ngModel)]="item.quotaPercentDisplay"  style=" display: inline;">
+                                    <input type="number" class="form-control" required min="0" max="100" [(ngModel)]="item.quotaPercentDisplay" style=" display: inline;">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" [(ngModel)]="item.description" style=" display: inline;">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-hover mgt20" *ngIf="type=='3'">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>名称</th>
+                                <th>显示名称</th>
+                                <th>DC/可用区信息</th>
+                                <th>存储类型</th>
+                                <th>{{"PF_MNG2.AVAI_STORAGE" | translate}}</th>
+                                <th>{{"PF_MNG2.SURPLUS_STORAGE" | translate}}</th>
+                                <th style="width:100px">{{"PF_MNG2.OCCU_STORAGE" | translate}}</th>
+                                <th style="width:25%">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of storageList; let idx = index;">
+                                <td>{{idx + 1}}</td>
+                                <td>{{item.name}}</td>
+                                <td><input type="text" class="form-control" [(ngModel)]="item.displayName" required></td>
+                                <td>
+                                    <p style="margin:0" *ngFor="let name of item.clusterAndDc">{{name.dcName+"--"+name.zoneName}}</p>
+                                </td>
+                                <td>{{item.typeDisplayName}}</td>
+                                <td>{{item.freeCapacity||0}}</td>
+                                <td>
+                                    {{item.uncommited||0}}
+                                </td>
+                                <td>
+                                    {{item.allocatedCapacity||0}}
                                 </td>
                                 <td>
                                     <input type="text" class="form-control" [(ngModel)]="item.description" style=" display: inline;">
