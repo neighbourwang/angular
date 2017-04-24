@@ -187,6 +187,7 @@ export class VmwareStdNetComponent implements OnInit {
         this.tempEditNet.dcName = this.selectedDC4Popup.dcName;
         this.tempEditNet.clusterId = this.selectedCluster4Popup.clusterId;
         this.tempEditNet.clusterName = this.selectedCluster4Popup.clusterName;
+        this.tempEditNet.clusterDisplayName = this.selectedCluster4Popup.clusterDisplayName;
         if (this.validationService.isBlank(this.tempEditNet.dcName)) {
             this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_DATACENTER");
             return;

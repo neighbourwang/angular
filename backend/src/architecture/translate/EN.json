@@ -1021,7 +1021,7 @@
     "GET_PLATFORM_ERROR": "Platform retrieval failure",
     "GET_REGION_ERROR": "Region retrieval failure",
     "GET_VERSION_ERROR": "Version retrieval failure",
-    "NO_SYNC_COMPUTING_SOURCE": "No compute resource information is available",
+    "NO_SYNC_HOST_INFO": "No host information is available to sync",
     "NO_SYNC_ZONES": "There is no sync available area information at this time",
     "PASSWORD_REQUIRED": "Please input the password",
     "PLATFORM_NAME_REQUIRED": "Please input the platform name",

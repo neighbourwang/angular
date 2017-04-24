@@ -208,6 +208,7 @@ export class instanceListModel {
     ZoneId: string = "";
 
     checked: boolean = false;
+    EnableEdit: boolean = false;
 }
 export class EipAddressModel {
     AllocationId: string  = "";
