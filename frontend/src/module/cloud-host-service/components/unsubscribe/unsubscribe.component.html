@@ -1,4 +1,4 @@
-<!-- <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice> -->
+<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
 <fc-popup #popup (cf)="modalAction()" sizeClass="big-dialog" (of)="startUnsubscribe()">
 
         <div *ngIf="detail.itemList && state!=='done'" class="">

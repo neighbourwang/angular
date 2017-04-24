@@ -43,17 +43,17 @@ export class PhysicalMachineOrderComponent implements OnInit {
 
 	//物理机规格值
 	cpuList = this.service.cpuList;
-	cpu = this.cpuList[0];
+	cpu = this.cpuList[this.cpuList.length - 1];
 	memList = this.service.memList;
-	mem = this.memList[0];
+	mem = this.memList[this.memList.length - 1];
 	diskRequirements = this.service.diskRequirements;
 	diskRequirement: any[];
 	diskTypes = this.service.diskType;
 	diskType: any[];
 	networkRequirements = this.service.networkRequirements;
 	networkRequirement: any[];
-	needHBA = this.service.needHBA;
-	HBA = [];
+	needHBAList = this.service.needHBAList;
+	HBA = this.needHBAList[0];
 
 	//密码用户名
 	username: string = "root";
@@ -93,6 +93,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 	private makeSubscriber() {
 		this.dux.subscribe("region", () => { this.fetchResourcePoll() })
 		this.dux.subscribe("spec", () => { this.changedSpec() })
+		this.dux.subscribe("resourcePoll", () => { this.changedSpec() })
 		this.dux.subscribe("phsical", () => { this.phsicalChange() })
 		this.dux.subscribe("phsical", () => { this.setOs() })
 		this.dux.subscribe("phsical", () => { this.setPhysicalInfo() })
@@ -124,21 +125,31 @@ export class PhysicalMachineOrderComponent implements OnInit {
 
 	/*****规格变化*****/
 	private changedSpec() {
+		if(!this.resourcePoll) return;
+
 		const filterCheckBox = (arrs: any[]) => arrs.filter(arr => arr.isSelected).map(arr => arr.value);
 
 		this.diskRequirement = filterCheckBox(this.diskRequirements)
 		this.diskType = filterCheckBox(this.diskTypes)
 		this.networkRequirement = filterCheckBox(this.networkRequirements)
-		this.HBA = filterCheckBox(this.needHBA)
 
 		let {
+			resourcePoll: { id: poolid},
 			cpu: { value: cpu },
 			mem: { value: mem },
-			HBA, diskRequirement, diskType, networkRequirement } = this
+			HBA: { value: hbaEnable },
+			diskRequirement, diskType, networkRequirement } = this
 
-		this.service.fetchPhysicalDetail(cpu, mem, diskRequirement, diskType, networkRequirement)
+		poolid = "9ab4b3b2-50fb-455f-95d9-fa3f0ed246a7"  //临时添加
+		this.layoutService.show()
+		this.service.fetchPhysicalDetail(poolid, cpu, mem, diskRequirement, diskType, networkRequirement, hbaEnable)
 			.then( res => {
+				this.layoutService.hide()
 				this.phsicalList = res;
+			})
+			.catch( error => {
+				this.layoutService.hide()
+				this.showNotice("提示", "获取物理机列表失败")
 			})
 	}
 

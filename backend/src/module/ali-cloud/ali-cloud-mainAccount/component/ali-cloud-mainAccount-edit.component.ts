@@ -41,6 +41,7 @@ export class AliCloudMainAccountEditComponent implements OnInit{
     title:string;
     testResult:string;
     changebt=true;
+   
     //accountId:string;
 
     ngOnInit (){
@@ -61,10 +62,12 @@ export class AliCloudMainAccountEditComponent implements OnInit{
             } 
         }); 
         if (this.account.id) {
-                    this.getAccount(this.account.id);
-                } else {
-                    this.account=new AccountListModel();
-                }
+             this.getAccount(this.account.id);
+        }
+         else {
+            this.account=new AccountListModel();
+        }
+
     }
     //获取账号信息
     getAccount(id:string){
@@ -87,6 +90,18 @@ export class AliCloudMainAccountEditComponent implements OnInit{
 
     //编辑账号
     editAccount(){
+        if(!this.account.accessUrl){
+            this.showAlert("请填写阿里云访问地址!");
+            return;
+        }
+        if(!this.account.accessKey){
+            this.showAlert("请填写Access Key ID!");
+            return;
+        }
+        if(!this.account.accessSecret){
+            this.showAlert("请填写Access Key Secret!");
+            return;
+        }
         this.layoutService.hide();
         this.service.editAccount(this.account)
         .then(
@@ -106,6 +121,26 @@ export class AliCloudMainAccountEditComponent implements OnInit{
 
     //添加账号
     createAccount(){
+        if(!this.account.loginName){
+            this.showAlert("请填写主账号登录名!");
+            return;
+        }
+        if(!this.account.accessUrl){
+            this.showAlert("请填写阿里云访问地址!");
+            return;
+        }
+        if(!this.account.accessKey){
+            this.showAlert("请填写Access Key ID!");
+            return;
+        }
+        if(!this.account.accessSecret){
+            this.showAlert("请填写Access Key Secret!");
+            return;
+        }
+        if(!this.account.mainAccountType){
+            this.showAlert("请填写账号类型!");
+            return;
+        }      
         this.layoutService.show();
         if (this.testResult=="1") {
             this.service.createAccount(this.account)
@@ -123,10 +158,15 @@ export class AliCloudMainAccountEditComponent implements OnInit{
             )
         .catch((e) => this.onRejected(e));
         }
+        else{
+            this.showAlert("请测试账号信息！");
+            return;
+        }
     }
 
     changebtn():boolean{
-        this.changebt=false;
+      this.changebt=false;
+     // this.changebt=true;
         return this.changebt;
     }
 

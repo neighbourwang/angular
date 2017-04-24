@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewChild, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, PopupComponent } from '../../../../architecture';
+import { LayoutService, PopupComponent, NoticeComponent } from '../../../../architecture';
 import { HostReconfigService} from './host-reconfig.service';
 import { VmList, HandleVm, QuiryVmList } from '../../vm-instance/model/vm-list.model';
 
@@ -17,6 +17,9 @@ export class HostReconfigComponent implements OnInit {
 
 	@Output() complete=new EventEmitter();
 
+	@ViewChild('notice')
+	private noticeDialog: NoticeComponent;
+
 	state:"change"|"done" = "change";
 	vm:VmList = new VmList;
 
@@ -27,6 +30,10 @@ export class HostReconfigComponent implements OnInit {
 	selectedPlatform:ProductAttributeValueItem;
 	product:any;  //选中的产品
 	billingInfo: ProductBillingItem;  //选中产品的价格信息
+
+	modalTitle: string = '';
+	modalMessage: string = '';
+	modalOKTitle: string = '';
 
 	ot:string = "";
 
@@ -72,6 +79,11 @@ export class HostReconfigComponent implements OnInit {
 	}
 
 	open(vm:VmList) {
+
+		if (vm.vmState != "14") {
+			return this.showNotice("提示", "您必须先关闭主机，才能进行配置变更操作。")
+		}
+		
 		$('#hostBox').modal('show');
 
 		this.vm = vm;
@@ -131,4 +143,21 @@ export class HostReconfigComponent implements OnInit {
 	}
 
 
+	// 警告框相关
+	showNotice(title: string, msg: string) {
+	    this.modalTitle = title;
+	    this.modalMessage = msg;
+
+	    this.noticeDialog.open();
+	}
+
+	modalAction(btnType: number) {
+	    if (btnType == 0) {
+	      this.noticeDialog.close();
+	      return;
+	    }
+	    
+	    this.noticeDialog.close()
+	    // this.confirmDialog.close();
+	}
 }

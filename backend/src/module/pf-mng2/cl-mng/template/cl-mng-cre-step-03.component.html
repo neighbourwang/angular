@@ -80,7 +80,7 @@
                 <tbody>
                     <tr *ngFor="let item of creStep3Model; let idx = index;">
                         <td>{{idx + 1}}</td>
-                        <td >{{item.dcOrRegion}}</td>
+                        <td>{{item.dcOrRegion}}</td>
                         <td>{{item.name}}</td>
                         <td>
                             <div [ngClass]="{'has-error':!item.displayNameValid}">
