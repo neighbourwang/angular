@@ -73,10 +73,10 @@ export class PhysicalMachineOrderService {
         return request;
     }
 
-    fetchPhysicalDetail( cpuCount:number, memorySize:string, diskTypeList:string[], serverTypeList:string[], netTypeList:string[]): Promise<PMOrderResponse[]> {
+    fetchPhysicalDetail( pmPoolId:string, cpuCount:number, memorySize:string, diskTypeList:string[], serverTypeList:string[], netTypeList:string[], hbaEnable: number): Promise<PMOrderResponse[]> {
         const api = this.restApiCfg.getRestApi("post.pmlist.detail");
 
-        const request = this.restApi.request(api.method, api.url, undefined, undefined, { cpuCount, diskTypeList, memorySize, netTypeList, serverTypeList })
+        const request = this.restApi.request(api.method, api.url, undefined, undefined, { cpuCount, pmPoolId, diskTypeList, memorySize, netTypeList, serverTypeList, hbaEnable })
             .then(res => {
                 if (res.resultCode !== "100") {
                     throw "";
@@ -210,16 +210,18 @@ export class PhysicalMachineOrderService {
         },
     ]
 
-    needHBA = [
+    needHBAList = [
+        {
+            displayName: "全部",
+            value: -1,
+        },
         {
             displayName: "需要",
-            value: "需要",
-            isSelected: false
+            value: 1,
         },
         {
             displayName: "不需要",
-            value: "不需要",
-            isSelected: false
+            value: 0,
         },
     ]
 }
