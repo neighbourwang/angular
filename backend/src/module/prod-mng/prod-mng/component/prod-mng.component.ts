@@ -116,7 +116,6 @@ export class ProdMngComponent implements OnInit {
                     this.prodDirList.slice(i,1);
                 }
             }
-            console.log('filterparodlist',this.prodDirList);
         }).catch(err => {
             console.error(err)
         })

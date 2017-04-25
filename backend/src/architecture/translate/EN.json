@@ -1213,7 +1213,9 @@
     "ENTERPRISE_LIST_IS_EMPTY": "Enterprise list is empty",
     "RETURN_TO_PREVIOUS_STEP": "Go back to the previous step and reselect the platform",
     "RETURN_PRODUCT_LIST": "Return product list",
-    "PHYSICAL_PRODUCT":"physical product"
+    "PHYSICAL_PRODUCT":"physical product",
+    "MANAGER_SERVICE":"manager service",
+    "SERVE_OBJECT":"serve object"
 
   },
   "USER_CENTER": {

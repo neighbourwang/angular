@@ -1191,6 +1191,13 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/services/pmservice/{id}"
     },
+    //管理服务产品
+    {
+        "desc": "创建管理服务",
+        "id": "manager-serve-service-create.post",
+        "method": "POST",
+        "url": "servicemgmt/authsec/services/supervise"
+    },
     //用户中心
     {
         "desc": "获取所有机构",

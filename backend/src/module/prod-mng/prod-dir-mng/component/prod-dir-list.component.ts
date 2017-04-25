@@ -316,9 +316,11 @@ export class ProdDirListComponent implements OnInit {
         } else if (this.prodDirTypeCode == 'SUPERVISE_SERVICE') {
             this.service.dictServiceObjList.then(arrs => {
                 if (!$.isArray(arrs)) return "";  //如果不是arr返回空
+                    console.log(arrs);                
                 arrs = arrs.filter(arr => arr.code == this.servObjCode); //过滤字典
                 if (arrs.length) {   //是否取到了值
-                    console.log(arrs[0].displayValue);
+                    console.log(arrs[0]);
+                    this.router.navigate(["prod-mng/manager-serve/manager-serve-service-cre", { type: 'new' ,code:arrs[0].value,objName:arrs[0].displayValue}]);                   
                 }
                 return "";
             });

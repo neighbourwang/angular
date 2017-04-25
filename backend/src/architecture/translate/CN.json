@@ -1578,7 +1578,9 @@
     "RETURN_TO_PREVIOUS_STEP": "返回上一步重新选择平台",
     "RETURN_PRODUCT_LIST": "返回产品列表",
     "ADD":"添加",
-    "PHYSICAL_PRODUCT":"物理机产品"
+    "PHYSICAL_PRODUCT":"物理机产品",
+    "MANAGER_SERVICE":"管理服务",
+    "SERVE_OBJECT":"服务对象"
   },
   "USER_CENTER": {
     "ACCOUNT": "帐号",

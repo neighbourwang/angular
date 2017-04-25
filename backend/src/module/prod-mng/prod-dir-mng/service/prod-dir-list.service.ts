@@ -37,6 +37,6 @@ export class ProdDirListService {
     //获取管理服务对象列表
     dictServiceObjList = this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise
       owner : "SUPERVISE_SERVICE",
-      field : ""    
+      field : "TYPE"    
    });
 }
