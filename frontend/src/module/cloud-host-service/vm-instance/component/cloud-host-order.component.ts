@@ -104,11 +104,6 @@ export class cloudVmComponentOrder implements OnInit {
 		this.fetchConfig()
 	}
 
-	/****初始化派发事件***/
-	initDispatch() {
-		// this.dux.dispatch("spec")  //规格选取
-	}
-
 	private makeSubscriber() {
 		this.dux.subscribe("CONFIG_DONE", () => { this.setMapValueSubscriber() })   //先设置子层有依赖的订阅者
 		this.dux.subscribe("CONFIG_DONE", () => { this.setDefaultValueList() })     //再无依赖的父层 并派发事件
@@ -119,12 +114,6 @@ export class cloudVmComponentOrder implements OnInit {
 		this.dux.subscribe("FINDE_DISKSKU", () => { this.getSkuMap("disk") })
 		this.dux.subscribe("SET_TIME_UNIT", () => { this.setTimeUnit() })
 		this.dux.subscribe("SET_VMPRICE", () => { this.setVmPrice() })
-
-		// this.dux.subscribe("spec", () => { this.changedSpec() })
-		// this.dux.subscribe("resourcePoll", () => { this.changedSpec() })
-		// this.dux.subscribe("phsical", () => { this.phsicalChange() })
-		// this.dux.subscribe("phsical", () => { this.setOs() })
-		// this.dux.subscribe("phsical", () => { this.setPhysicalInfo() })
 	}
 
 	private fetchConfig() {
