@@ -69,6 +69,8 @@ export class cartListComponent implements OnInit {
 
 	buyNow():void {
 		const list = this.cart.cartList.map(cart => cart.id);   //提取cartID
+		if(!list.length) return this.noticeDialog.open("提示","购物车中没有订单");
+
 		this.layoutService.show();
 		this.service.purchaseCart(list).then(res => {
 			this.layoutService.hide();
