@@ -41,11 +41,33 @@
 							<option value="">请选择云盘</option>
                             <option *ngFor="let disktype of selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories" [value]="disktype">{{displayDiskType(disktype)}}</option>
 						</select>
-                        <div class="mgb20 has-feedback" [ngClass]="{'has-error':v.result.numberRange}" style="display: inline;">
-                            <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (ngModelChange)="checkForm('numberRange')" (change)="calculatePrice();" /> G
+                        <div *ngIf="selectedRegion.selectedDisk=='cloud'" class="mgb20 has-feedback" [ngClass]="{'has-error':v.result.numberRange_cloud}" style="display: inline;">
+                            <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (ngModelChange)="checkForm('numberRange_cloud')" (change)="calculatePrice();" /> G
                             <span class="text-tip">用快照创建磁盘</span>
-                            <div *ngIf="v.result.numberRange" style="display: inline;">
-                                <span class="alert alert-danger input_style" role="alert">{{v.result.numberRange}}</span>
+                            <div *ngIf="v.result.numberRange_cloud" style="display: inline;">
+                                <span class="alert alert-danger input_style" role="alert">{{v.result.numberRange_cloud}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="selectedRegion.selectedDisk=='cloud_efficiency'" class="mgb20 has-feedback" [ngClass]="{'has-error':v.result.numberRange_cloud_efficiency}" style="display: inline;">
+                            <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (ngModelChange)="checkForm('numberRange_cloud_efficiency')" (change)="calculatePrice();" /> G
+                            <span class="text-tip">用快照创建磁盘</span>
+                            <div *ngIf="v.result.numberRange_cloud_efficiency" style="display: inline;">
+                                <span class="alert alert-danger input_style" role="alert">{{v.result.numberRange_cloud_efficiency}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="selectedRegion.selectedDisk=='cloud_ssd'" class="mgb20 has-feedback" [ngClass]="{'has-error':v.result.numberRange_cloud_ssd}" style="display: inline;">
+                            <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (ngModelChange)="checkForm('numberRange_cloud_ssd')" (change)="calculatePrice();" /> G
+                            <span class="text-tip">用快照创建磁盘</span>
+                            <div *ngIf="v.result.numberRange_cloud_ssd" style="display: inline;">
+                                <span class="alert alert-danger input_style" role="alert">{{v.result.numberRange_cloud_ssd}}</span>
+                            </div>
+                        </div>
+
+                        <div *ngIf="selectedRegion.selectedDisk==''" class="mgb20 has-feedback" [ngClass]="{'has-error':v.result.mustnull}" style="display: inline;">
+                            <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (ngModelChange)="checkForm('mustnull')" (change)="calculatePrice();" /> G
+                            <span class="text-tip">用快照创建磁盘</span>
+                            <div *ngIf="v.result.mustnull" style="display: inline;">
+                                <span class="alert alert-danger input_style" role="alert">{{v.result.mustnull}}</span>
                             </div>
                         </div>
                     </div>
