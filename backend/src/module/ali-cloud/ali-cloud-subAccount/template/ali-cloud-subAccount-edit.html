@@ -5,10 +5,14 @@
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>子账号登录名:</div>
-            <div class="col-sm-4 has-feedback no-padding" [ngClass]="{'has-error':v.result.username}">
+            <!--<div class="col-sm-4 has-feedback no-padding" [ngClass]="{'has-error':v.result.username}">
                 <input type="text" class="form-control" *ngIf="editMode =='create'" [(ngModel)]="account.loginName" (ngModelChange)="checkForm('username')">
                 <span *ngIf="v.result.username" class="glyphicon glyphicon-remove form-control-feedback"></span>
                 <div *ngIf="v.result.username" class="alert alert-danger" role="alert">{{v.result.username}}</div>
+                <span style="line-height:34px" *ngIf="editMode !='create'">{{account.loginName}}</span>
+            </div>-->
+            <div class="col-sm-4">
+                <input type="text" class="form-control" *ngIf="editMode =='create'" [(ngModel)]="account.loginName" >
                 <span style="line-height:34px" *ngIf="editMode !='create'">{{account.loginName}}</span>
             </div>
         </div>
@@ -16,23 +20,30 @@
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>Access Key ID:</div>
-            <div class="col-sm-4 has-feedback no-padding" [ngClass]="{'has-error':v.result.accessKey}">
+            <!--<div class="col-sm-4 has-feedback no-padding" [ngClass]="{'has-error':v.result.accessKey}">
                 <input type="text" class="form-control" [disabled]="editMode =='view'"  *ngIf="editMode !='edit'"[(ngModel)]="account.accessKey" (ngModelChange)="checkForm('accessKey')">
                  <input type="text" class="form-control" *ngIf="editMode =='edit'" [(ngModel)]="account.accessKey" (ngModelChange)="checkForm('accessKey')" [disabled]="changebt">
                  <span *ngIf="v.result.accessKey" class="glyphicon glyphicon-remove form-control-feedback"></span>
-                <div *ngIf="v.result.accessKey" class="alert alert-danger" role="alert">{{v.result.accessKey}}</div>
-                
+                <div *ngIf="v.result.accessKey" class="alert alert-danger" role="alert">{{v.result.accessKey}}</div>              
+            </div>-->
+            <div class="col-sm-4">
+                <input type="text" class="form-control" [disabled]="editMode =='view'"  *ngIf="editMode !='edit'" [(ngModel)]="account.accessKey" >
+                 <input type="text" class="form-control" *ngIf="editMode =='edit'" [(ngModel)]="account.accessKey"  [disabled]="changebt">              
             </div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>Access Key Secret:</div>
-            <div class="col-sm-4 has-feedback no-padding" [ngClass]="{'has-error':v.result.accessSecret}">
+            <!--<div class="col-sm-4 has-feedback no-padding" [ngClass]="{'has-error':v.result.accessSecret}">
                <input type="text" class="form-control" [disabled]="editMode =='view'" *ngIf="editMode !='edit'"[(ngModel)]="account.accessSecret" (ngModelChange)="checkForm('accessSecret')"> 
                 <input type="text" class="form-control" *ngIf="editMode =='edit'" [(ngModel)]="account.accessSecret" (ngModelChange)="checkForm('accessSecret')" [disabled]="changebt">
                 <span *ngIf="v.result.accessSecret" class="glyphicon glyphicon-remove form-control-feedback"></span>
                 <div *ngIf="v.result.accessSecret" class="alert alert-danger" role="alert">{{v.result.accessSecret}}</div>
+            </div>-->
+            <div class="col-sm-4">
+               <input type="text" class="form-control" [disabled]="editMode =='view'" *ngIf="editMode !='edit'" [(ngModel)]="account.accessSecret" > 
+                <input type="text" class="form-control" *ngIf="editMode =='edit'" [(ngModel)]="account.accessSecret"  [disabled]="changebt">
             </div>
             <div class="col-sm-4" *ngIf="editMode !='view'">
                 <button class="fox-cloud-button fox-cloud-button-white " *ngIf="editMode =='edit'"  (click)="changebtn();">
@@ -47,7 +58,7 @@
             </div>
         </div>
     </div>
-    <div class="row row-line-height" *ngIf="editMode =='view'">
+    <div class="row row-line-height" *ngIf="editMode =='view' && account.tenantName">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">当前所分配企业及部门:</div>
             <div class="col-sm-4">
@@ -56,7 +67,7 @@
             </div>
         </div>
     </div>
-    <div class="row row-line-height" *ngIf="editMode =='view'">
+    <div class="row row-line-height" *ngIf="editMode =='view' &&account.departName ">
         <div class="form-group">
             <div class="col-sm-4 form-control-title"></div>
             <div class="col-sm-4">
@@ -68,7 +79,7 @@
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">描述:</div>
-            <div class="col-sm-4 has-feedback no-padding">
+            <div class="col-sm-4 ">
                 <textarea rows="3"  class="form-control" maxlength="200" [(ngModel)]="account.description"[disabled]="editMode =='view'"></textarea>
             </div>
         </div>

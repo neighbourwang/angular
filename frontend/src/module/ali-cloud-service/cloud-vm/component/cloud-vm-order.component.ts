@@ -301,6 +301,9 @@ export class AliCloudVmOrderComponent implements OnInit {
                         this.selectedOrderVmPage.selectedVpcId = null;
                         //this.selectedOrderVmPage.AllocatePublicIP = false;
                         this.selectedOrderVmPage.selectedVswitchId = null;
+                        this.classicSecGrouplist = [];
+                        this.vpcSecGrouplist = [];
+                        this.selectedsecgroup = this.defaultsecgroup;
                         this.showMsg("无虚拟VPC");
                     }
 
@@ -400,6 +403,9 @@ export class AliCloudVmOrderComponent implements OnInit {
                         this.selectedOrderVmPage.selectedVpcId = null;
                         //this.selectedOrderVmPage.AllocatePublicIP = false;
                         this.selectedOrderVmPage.selectedVswitchId = null;
+                        this.classicSecGrouplist = [];
+                        this.vpcSecGrouplist = [];
+                        this.selectedsecgroup = this.defaultsecgroup;
                         this.showMsg("无虚拟VPC");
                     }
 
@@ -520,6 +526,7 @@ export class AliCloudVmOrderComponent implements OnInit {
     checkClassicNetworkSecGroups() {
         this.classicSecGrouplist = [];
         this.vpcSecGrouplist = [];
+        this.selectedsecgroup = this.defaultsecgroup;
 
         this.classicSecGrouplist = this.securitygrouplist.filter((item) => {
             return (item.VpcId == "");
@@ -541,13 +548,15 @@ export class AliCloudVmOrderComponent implements OnInit {
             this.selectedsecgroup = this.defaultsecgroup;
             this.selectedOrderVmPage.SecurityGroupId = null;
             this.selectedOrderVmPage.SecurityGroupName = null;
-            this.showMsg("无安全组");
+            //this.showMsg("无安全组");
+            console.log("checkClassicNetworkSecGroups: no classic network secury group!");
         }
     }
 
     checkVpcNetworkSecGroups(vpcId: string) {
         this.classicSecGrouplist = [];
         this.vpcSecGrouplist = [];
+        this.selectedsecgroup = this.defaultsecgroup;
         if (vpcId != null || vpcId != "") {
             this.vpcSecGrouplist = this.securitygrouplist.filter((item) => {
                 return (item.VpcId == vpcId);
@@ -572,7 +581,8 @@ export class AliCloudVmOrderComponent implements OnInit {
             this.selectedsecgroup = this.defaultsecgroup;
             this.selectedOrderVmPage.SecurityGroupId = null;
             this.selectedOrderVmPage.SecurityGroupName = null;
-            this.showMsg("无安全组");
+            //this.showMsg("无安全组");
+            console.log("checkVpcNetworkSecGroups: no vpc network secury group!");
         }
     }
 
@@ -1120,29 +1130,10 @@ export class AliCloudVmOrderComponent implements OnInit {
             }).catch((e) => this.onRejected(e));
     }
 
-
-/*
-    allocatePublicIPOrNot() {
-        this.selectedOrderVmPage.AllocatePublicIP = !this.selectedOrderVmPage.AllocatePublicIP;
-        if (this.selectedOrderVmPage.AllocatePublicIP == true) {
-            this.selectedOrderVmPage.selectedInternetChargeType = "PayByTraffic"; //AllocatePublicIP = true
-            this.selectedOrderVmPage.selectedInternetMaxBandwidthOut = 1;
-        } else {
-            this.selectedOrderVmPage.selectedInternetChargeType = null;  //AllocatePublicIP = false
-            this.selectedOrderVmPage.selectedInternetMaxBandwidthOut = null;
-        }
-        console.log(this.selectedOrderVmPage.AllocatePublicIP, "selected AllocatePublicIPOrNot!");
-
-        this.calculatePrice();
-    }
-*/
-
     showInternetChargeType() {
         console.log(this.selectedOrderVmPage.selectedInternetChargeType, "selected InternetChargeType!");
         this.calculatePrice();
     }
-
-
 
     validatePriceParam(): boolean {
         //console.log(JSON.stringify(this.selectedOrderVmPage));

@@ -7,7 +7,7 @@ import { PhysicalMachineOrderService } from '../service/physical-machine-order.s
 
 import { DispatchEvent } from "../../components/dispatch-event"
 
-import { Regions, PMOrderResponse, PMPartsEntity, PMNetworkVO, ResoucePolls, PMImageBaseVO } from '../model/service.model';
+import { Regions, PMOrderResponse, PMPartsEntity, PMNetworkVO, ResoucePolls, PMImageBaseVO, AttrList, ValuesList, Values } from '../model/service.model';
 
 @Component({
 	selector: 'physical-machine-order',
@@ -31,6 +31,11 @@ export class PhysicalMachineOrderComponent implements OnInit {
 	modalOKTitle: string = '';
 
 	check = {};
+
+	attrList: AttrList = new AttrList;
+	valuesList: ValuesList = new ValuesList;
+	values: Values = new Values;
+	proMap:any;
 
 	regions: Regions[] = [];
 	region: Regions;
@@ -87,16 +92,18 @@ export class PhysicalMachineOrderComponent implements OnInit {
 
 	/****初始化派发事件***/
 	initDispatch() {
-		this.dux.dispatch("spec")  //规格选取
+		this.dux.dispatch("SPEC")  //规格选取
 	}
 
 	private makeSubscriber() {
-		this.dux.subscribe("region", () => { this.fetchResourcePoll() })
-		this.dux.subscribe("spec", () => { this.changedSpec() })
-		this.dux.subscribe("resourcePoll", () => { this.changedSpec() })
-		this.dux.subscribe("phsical", () => { this.phsicalChange() })
-		this.dux.subscribe("phsical", () => { this.setOs() })
-		this.dux.subscribe("phsical", () => { this.setPhysicalInfo() })
+		this.dux.subscribe("REGION", () => { this.fetchResourcePoll() })
+		this.dux.subscribe("SPEC", () => { this.changedSpec() })
+		this.dux.subscribe("RESOURCEPOLL", () => { this.changedSpec() })
+		this.dux.subscribe("PHSICAL", () => { this.phsicalChange() })
+		this.dux.subscribe("PHSICAL", () => { this.setOs() })
+		this.dux.subscribe("PHSICAL", () => { this.setPhysicalInfo() })
+		this.dux.subscribe("CONFIG_DONE", () => { this.setValuesListAndValues() })
+		this.dux.subscribe("TIMELINEUNIT", () => { this.getTureProduct() })
 	}
 
 	/****区域*****/
@@ -107,7 +114,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 			this.regions = res;
 			this.region = this.regions[0]
 
-			this.dux.dispatch("region")
+			this.dux.dispatch("REGION")
 		})
 	}
 
@@ -119,7 +126,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 			this.resourcePolls = res;
 			this.resourcePoll = this.resourcePolls[0]
 
-			this.dux.dispatch("resourcePoll")
+			this.dux.dispatch("RESOURCEPOLL")
 		})
 	}
 
@@ -171,10 +178,31 @@ export class PhysicalMachineOrderComponent implements OnInit {
 
 	/******获取物理机的价格等信息*******/
 	private setPhysicalInfo() {
+		this.layoutService.show();
 		this.service.fetchPhysicalInfo(this.selectedPhsical.id)
 			.then(res => {
+				res.attrList.forEach(config => {
+					this.layoutService.hide();
+					this.attrList[config.attrCode] = config;
+				});
+				this.proMap = res.proMap;
 
+				this.dux.dispatch("CONFIG_DONE")   //派发获取配置完成的时间
 			})
+	}
+
+	/******获取远程的配置信息 转换成对象*******/
+	private setValuesListAndValues() {
+		for( let code in this.valuesList) {
+			this.valuesList[code] = this.attrList[code].valueList
+			this.values[code] = this.valuesList[code].length ? this.valuesList[code][0] : new Values
+			this.dux.dispatch(code)
+		}
+	}
+
+	/*******获取真正的产品*******/
+	private getTureProduct() {
+		console.log(this.values.TIMELINEUNIT.attrValueCode)
 	}
 
 	private checkValue(key?:string){
@@ -183,13 +211,13 @@ export class PhysicalMachineOrderComponent implements OnInit {
 			region: [this.region.id, [this.v.isUnBlank], "请选择区域"],
 			resourcePoll: [this.resourcePoll.id, [this.v.isUnBlank], "请选择资源池"],
 			selectedPhsical: [this.selectedPhsical.id, [this.v.isUnBlank], "请选择物理机"],
-			pmNetworkVO: [this.selectedPhsical.pmNetworkVO.id, [this.v.isUnBlank], "该物理机无可用网络"],
-			os: [this.os.id, [this.v.isUnBlank], "请选择镜像"],
+			pmNetworkVO: [this.selectedPhsical.pmNetworkVO && this.selectedPhsical.pmNetworkVO.id, [this.v.isUnBlank], "该物理机无可用网络"],
+			os: [this.os.id, [this.v.isUnBlank], "请选择镜像"], 
 			password: [this.password, [this.v.isPassword, this.v.lengthRange(8,30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
 			passwordShadow: [this.passwordShadow, [this.v.equalTo(this.password), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
 			instancename: [this.instancename, [this.v.isInstanceName, this.v.isBase], "VM_INSTANCE.HOST_NAME_FORMAT_IS_NOT_CORRECT"],
-			// timeline: [this.sendModule.timeline.attrValue.trim(), [this.v.isNumber, this.v.max(999), this.v.isUnBlank], "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION"],
-			// timelineunit: [this.sendModule.timelineunit.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"],
+			timeline: [this.values.TIMELINE.attrValue.trim(), [this.v.isNumber, this.v.max(999), this.v.isUnBlank], "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION"],
+			timelineunit: [this.values.TIMELINEUNIT.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"],
 		}
 
 		return this.v.check(key, regs);

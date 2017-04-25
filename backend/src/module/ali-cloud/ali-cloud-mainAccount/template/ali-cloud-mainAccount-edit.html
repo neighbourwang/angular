@@ -100,7 +100,7 @@
             </div>
         </div>
     </div>
-    <div class="row row-line-height" *ngIf="editMode =='view'">
+    <div class="row row-line-height" *ngIf="editMode =='view' && account.tenantCross">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">已分配企业:</div>
             <div class="col-sm-4"><span style="line-height:34px">{{account.tenantCross}}</span></div>
@@ -109,7 +109,7 @@
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title">描述:</div>
-            <div class="col-sm-4 has-feedback no-padding">
+            <div class="col-sm-4 ">
                 <textarea rows="3"  class="form-control" maxlength="200" [(ngModel)]="account.description"[disabled]="editMode =='view'"></textarea>
             </div>
         </div>
