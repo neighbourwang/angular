@@ -20,22 +20,58 @@ import { Router } from '@angular/router';
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, ValidationRegs, Validation } from '../../../../architecture';
 import { cloudHostServiceOrder } from '../service/cloud-host-order.service';
 
+import { DispatchEvent } from "../../components/dispatch-event"
+
 import { AttrList, PayLoad } from '../model/attr-list.model';
 import { OrderOptions } from '../model/options.model';
-import { OrderList, OrderService, SendModule, TimeLineData, VlueList, SkuMap, ProMap, BillingInfo, Network, Image } from '../model/services.model';
+import { OrderList, OrderService, SendModule, AttrConfigList, ValuesList, Values, TimeLineData, VlueList, SkuMap, ProMap, BillingInfo, Network, Image } from '../model/services.model';
 
 @Component({
-	selector: 'cloud-host-order',
+	selector: 'cloud-vm-order',
 	templateUrl: '../template/cloud-host-order.component.html',
 	styleUrls: ['../style/cloud-host-order.less'],
 })
-export class cloudHostComponentOrder implements OnInit {
+export class cloudVmComponentOrder implements OnInit {
 
-	configs: OrderList;
-	payLoad: PayLoad;
+	attrList: AttrConfigList = new AttrConfigList;
+	valuesList: ValuesList = new ValuesList;
+	values: Values = new Values;
+	payLoad: PayLoad = new PayLoad();
 	payLoadArr: PayLoad[];  //最后提交的是个PayLoad数组
 	sendModule: SendModule;
 	setPassword: boolean = true;
+
+	bootsizeList: VlueList[] = [];
+	networkList: VlueList[];
+	imageList: VlueList[];
+
+	passwordShadow: string;
+	skuMap: SkuMap[];  //skuMap
+	proMap: ProMap[];  //skuMap
+
+	totalPrice: number = 0;
+	vmSku: SkuMap = new SkuMap;
+	vmSkuMap: SkuMap[];
+	diskSku: SkuMap;
+	vmProduct: ProMap; //最终匹配到的主机
+	diskProduct: ProMap[] = []; //最终匹配到的硬盘
+
+	vmBasePrice: number = 0; //云主机一次性费用
+	vmTotalPrice: number = 0; //云主机费用
+	diskBasePrice: number = 0; //云硬盘一次性费用
+	diskTotalPrice: number = 0; //云硬盘费用
+	diskUnitType: number = 0; //云硬盘类型
+
+	isZoneSupportOs: boolean = true; //可用区是否支持该镜像
+
+	tempImagetype =
+	{
+		"attrValueId": "tempid",
+		"attrValueCode": null,
+		"attrDisplayValue": "私有镜像",
+		"attrValue": "1#2",
+		"status": false
+	}
 
 	@ViewChild('confirm')
 	private confirmDialog: ConfirmComponent;
@@ -46,107 +82,196 @@ export class cloudHostComponentOrder implements OnInit {
 	@ViewChild('popup')
 	private popup: PopupComponent;
 
-	@Input() options: OrderOptions;
-
 	modalTitle: string = '';
 	modalMessage: string = '';
 	modalOKTitle: string = '';
 
-	totalPrice: number = 0;
-	vmSku: SkuMap = new SkuMap;
-	vmSkuMap: SkuMap[];
-	diskSku: SkuMap[];
-	vmProduct: ProMap; //最终匹配到的主机
-	diskProduct: ProMap[] = []; //最终匹配到的硬盘
-
-	bootsizeList : VlueList[] = [];
-	networkList: VlueList[];
-	imageList: VlueList[];
-
-	vmBasePrice: number = 0; //云主机一次性费用
-	vmTotalPrice: number = 0; //云主机费用
-	diskBasePrice: number = 0; //云硬盘一次性费用
-	diskTotalPrice: number = 0; //云硬盘费用
-	diskUnitType: number = 0; //云硬盘类型
-
-	isZoneSupportOs: boolean = true; //可用区是否支持该镜像
-
-	check = {};
-
-	tempImagetype = 
-      {
-        "attrValueId": "tempid",
-        "attrValueCode": null,
-        "attrDisplayValue": "私有镜像",
-        "attrValue": "1#2",
-        "status": false
-      }
-
-
 	@ViewChild('cartButton') cartButton;
-    @ViewChild('storage') storage;
-
-	// timeForever : boolean = false;
-
-	// rightFixed : boolean = false;   //让右侧配置起飞
-
-	passwordShadow: string;
-	skuMap: SkuMap[];  //skuMap
-	proMap: ProMap[];  //skuMap
+	@ViewChild('storage') storage;
 
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private v: Validation,
+		private dux: DispatchEvent,
 		private service: cloudHostServiceOrder
 	) {
-		this.configs = new OrderList();
-		this.sendModule = new SendModule();
-		this.payLoad = new PayLoad();
 		this.v.result = {};
 	};
 
 	ngOnInit() {
-		this.setConfigList();
-		// $("[data-toggle=popover]").popover();
+		this.makeSubscriber()
+		this.fetchConfig()
 	}
 
-	setConfigList(): void {
+	/****初始化派发事件***/
+	initDispatch() {
+		// this.dux.dispatch("spec")  //规格选取
+	}
+
+	private makeSubscriber() {
+		this.dux.subscribe("CONFIG_DONE", () => { this.setMapValueSubscriber() })   //先设置子层有依赖的订阅者
+		this.dux.subscribe("CONFIG_DONE", () => { this.setDefaultValueList() })     //再无依赖的父层 并派发事件
+		this.dux.subscribe("ZONE", () => { this.setNetwork() })
+		this.dux.subscribe("IMAGETYPE", () => { this.setImage() })
+		this.dux.subscribe("OS", () => { this.osChanged() })
+		this.dux.subscribe("FINDE_VMSKU", () => { this.getSkuMap("vm") })
+		this.dux.subscribe("FINDE_DISKSKU", () => { this.getSkuMap("disk") })
+		this.dux.subscribe("SET_TIME_UNIT", () => { this.setTimeUnit() })
+		this.dux.subscribe("SET_VMPRICE", () => { this.setVmPrice() })
+
+		// this.dux.subscribe("spec", () => { this.changedSpec() })
+		// this.dux.subscribe("resourcePoll", () => { this.changedSpec() })
+		// this.dux.subscribe("phsical", () => { this.phsicalChange() })
+		// this.dux.subscribe("phsical", () => { this.setOs() })
+		// this.dux.subscribe("phsical", () => { this.setPhysicalInfo() })
+	}
+
+	private fetchConfig() {
 		this.layoutService.show();
 		this.service.getHostConfigList().then(configList => {
-
 			configList.attrList.forEach(config => {
-				// 设置配置列表
-				const attrName = config.attrCode.toLowerCase();
+				this.layoutService.hide();
 
-				this.configs[config.attrCode.toLowerCase()] = config;
-				this.setSenModule(config);
+				this.attrList[config.attrCode] = config;
 			});
-
-			// this.sendModule.imagetype.
-			// console.log(this.sendModule, this.configs)
-
 			this.skuMap = configList.skuMap;
 			this.proMap = configList.proMap;
-		}).then(res => {
-			// this.setTimeLineType();
-			this.layoutService.hide();
+
+			this.dux.dispatch("CONFIG_DONE")   //派发获取配置完成的时间
 		}).catch(e => {
 			this.layoutService.hide();
 		})
 	}
 
+	//设置独立的含有valueList的默认值
+	private setDefaultValueList() {
+		for (let code in this.attrList) {
+			if (this.attrList[code].valueList) {
+				this.setValueListAndValue(code)
+			}
+		}
+	}
+
+	//设置有ralyid子层的订阅者
+	private setMapValueSubscriber() {
+		for (let code in this.attrList) {
+
+			if (code === "OS" || code === "NETWORKTYPE") this.attrList[code].relyAttrId = ""   //去掉OS和NETWORKTYPE的relyid 因为他们是通过远程获取的
+
+			if (this.attrList[code].relyAttrId) {
+				let subCode, relyId = this.attrList[code].relyAttrId;
+				for (let code in this.attrList) {
+					if (this.attrList[code].attrId === relyId) {
+						subCode = code;
+						break;
+					}
+				}
+
+				this.dux.subscribe(subCode, () => {
+					if (!this.attrList[code].mapValueList || !this.values[subCode]) return false    //如果父层没有mapvaluelist 返回
+
+					let valueList = this.attrList[code].mapValueList[this.values[subCode].attrValueId] || []
+					this.setValueListAndValue(code, valueList)
+				})
+			}
+		}
+	}
+
+	//设置默认值 并派发事件
+	private setValueListAndValue(code, list?) {
+		list = list ? list : this.attrList[code].valueList
+
+		if (code === "IMAGETYPE") list = list.concat(this.tempImagetype) //后端未实现 临时添加
+
+		this.valuesList[code] = list
+		this.values[code] = this.valuesList[code].length ? this.valuesList[code][0] : new Values
+
+		this.dux.dispatch(code)  //派发当前的code的subscriber
+		if (["ZONE", "PLATFORM", "CPU", "MEM", "BOOTSIZE"].indexOf(code) > -1) this.dux.dispatch("FINDE_VMSKU")   //如果是这五个触发 匹配sku的事件
+		if (["ZONE", "PLATFORM", "STORAGE"].indexOf(code) > -1) this.dux.dispatch("FINDE_DISKSKU")   //如果是这五个触发 匹配sku的事件
+	}
+
+
+	private setNetwork() {  //设置可用网络
+		this.layoutService.show();
+		this.service.getNetwork(this.values.PLATFORM.attrValue, this.values.ZONE.attrValue).then(res => {
+			this.layoutService.hide();
+			let list: VlueList[] = [];
+
+			for (let r of res) {
+				if (r.networkType != "2") continue;
+				list.push({
+					attrValueId: "",
+					attrValueCode: r.networkcode,
+					attrDisplayValue: r.networkDisplayName,
+					attrValue: r.networkId,
+				})
+			}
+
+			this.setValueListAndValue("NETWORKTYPE", list)
+		}).catch(e => {
+			this.setValueListAndValue("NETWORKTYPE", [])
+			this.layoutService.hide();
+		})
+	}
+
+	private setImage() { //获取镜像列表
+		if (!(this.values.PLATFORM && this.values.STARTUPSOURCE && this.values.IMAGETYPE)) return this.setValueListAndValue("OS", []);
+
+		this.layoutService.show();
+		this.service.getImage(this.values.PLATFORM.attrValue, this.values.IMAGETYPE.attrValue, this.values.STARTUPSOURCE.attrValue).then(res => {
+			this.layoutService.hide();
+			let list: VlueList[] = [];
+
+			for (let r of res) {
+				list.push({
+					attrValueId: "",
+					attrValueCode: r.imageId,
+					attrDisplayValue: r.imageDisplayName,
+					attrValue: r.imageCode,
+					capacity: r.capacity,
+					osType: r.osType
+				})
+			}
+
+			this.setValueListAndValue("OS", list)
+		}).catch(error => {
+			this.setValueListAndValue("OS", []);
+			this.layoutService.hide()
+		})
+	}
+
+	private osChanged() {
+		if (!this.values.USERNAME || !this.values.OS) return
+
+		this.values.USERNAME.attrValue = this.values.OS.osType == 0 ? "administrtor" : "root";
+	}
+
+	private oSfilterBootsize(bootSizeList: VlueList[]): VlueList[] {  //根据os的大小过滤bootsize的大小
+		if (!this.values.OS) return [];
+
+		const filteredList = bootSizeList.filter(bootSizeObj =>
+			parseInt(bootSizeObj.attrValue) * 1024 * 1024 * 1024 >= this.values.OS.capacity
+		);
+
+		setTimeout(res => {
+			this.isZoneSupportOs = !!filteredList.length;
+		}, 0);
+		return filteredList;
+	}
+
 	private getSkuMap(code: "vm" | "disk"): SkuMap[] {   //获取根据参数获取的sku数组 因为云主机的sku不止一个
 
-		let list = code === "vm" ? ["zone", "platform", "cpu", "mem", "bootsize"].map(v => this.sendModule[v].attrValueId)   //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
-			: code === "disk" ? ["zone", "platform", "storage"].map(v => this.sendModule[v].attrValueId) : [];  //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
+		let list = code === "vm" ? ["ZONE", "PLATFORM", "CPU", "MEM", "BOOTSIZE"].map(v => this.values[v].attrValueId)   //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
+			: code === "disk" ? ["ZONE", "PLATFORM", "STORAGE"].map(v => this.values[v].attrValueId) : [];  //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
 
 		const trim = val => val.replace("[", "").replace("]", "");
 
 		for (let v of list) if (!v || !list.length) return [];  //如果列表存在空值 直接return出去 不再匹配
 
 		let totalId = list.join(","),
-			nub = 0, 	//验证sku成功的个数
+			nub = 0,	//验证sku成功的个数
 			skuValue = {},
 			skuMap = [];
 
@@ -159,8 +284,145 @@ export class cloudHostComponentOrder implements OnInit {
 			}
 			nub = 0;
 		}
-		console.log("匹配的sku列表：" ,skuMap)
-		return skuMap;
+		console.log("匹配的sku列表：", code, skuMap)
+		if (code === "vm") this.vmSku = skuMap[0]   //目前sku只有一个 所以取第一个
+		if (code === "disk") this.diskSku = skuMap[0]
+		this.dux.dispatch("SET_TIME_UNIT")
+	}
+
+	private setTimeUnit(): void {
+		if (!(this.vmSku && this.vmSku.skuId)) return;
+
+		const timeUnit = this.attrList.TIMELINEUNIT.mapValueList[this.vmSku.skuId];
+		this.setValueListAndValue("TIMELINEUNIT", timeUnit)
+
+		this.dux.dispatch("SET_VMPRICE")
+	}
+
+	private setVmPrice(): void {   //设置主机的价格
+		const sku = this.vmSku.skuId,
+			timeline = +(this.values.TIMELINE.attrValue || "0");
+		// console.log(this.values.TIMELINEUNIT.attrValueCode)
+		if (!this.values.TIMELINEUNIT.attrValueCode || !sku) return;
+		this.vmProduct = this.proMap[`[${sku}, ${this.values.TIMELINEUNIT.attrValueCode}]`];  //获取产品信息
+
+		console.log("匹配到的云主机：", this.vmProduct)
+		if (!this.vmProduct) return;  //如果没获取到价格
+
+		this.vmBasePrice = this.vmProduct.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
+		this.vmTotalPrice = (this.vmProduct.billingInfo.basicPrice) * timeline * this.payLoad.quality;   //周期费用
+	}
+	// private setDiskPrice(): void {  //设置数据盘的价格
+	//	const timeline = +(this.values.TIMELINE.attrValue || "0"),
+	//		storages = this.storage ? this.storage.getData() : [];   //获取数据盘
+
+	//	let basePrice = 0, totalPrice = 0;
+	//	for (let data of storages) {
+	//		let skuMap = this.getSkuMap("disk");
+
+	//		if(!skuMap.length) return;  //如果没有获取到sku
+
+	//		let sku = skuMap[0];
+	//		this.values.STORAGE = data.storage;
+	//		this.diskSku.push(sku); //获取sku
+
+	//		let price = this.proMap[`[${sku.skuId}]`];  //计算价格
+	//		this.diskProduct.push(price);
+
+	//		console.log("匹配到的云硬盘：", price)
+	//		if (!price) return; //如果没获取到价格
+
+	//		basePrice += price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
+	//		totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * this.payLoad.quality;   //周期费用
+
+	//		this.diskUnitType = price.billingInfo.unitType;
+	//	}
+
+	//	this.diskBasePrice = basePrice;  //一次性费用
+	//	this.diskTotalPrice = totalPrice;   //周期费用
+	// }
+
+	checkValue(key?: string) {
+		const regs: ValidationRegs = {
+			platform: [this.values.PLATFORM.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_CLOUD_PALTFORM"],
+			zone: [this.values.ZONE.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_AVAILABLE_ZONE"],
+			cpu: [this.values.CPU.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_CPU"],
+			mem: [this.values.MEM.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_RAM"],
+			networktype: [this.values.NETWORKTYPE.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_NET_TYPE"],
+			securitygroup: [this.values.SECURITYGROUP.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_SECURITY_GROUP"],
+			startupsource: [this.values.STARTUPSOURCE.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE"],
+			imagetype: [this.values.IMAGETYPE.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE"],
+			os: [this.values.OS.attrValueCode, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME"],
+			password: [this.values.PASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
+			passwordShadow: [this.passwordShadow, [this.v.equalTo(this.values.PASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
+			instancename: [this.values.INSTANCENAME.attrValue, [this.v.isInstanceName, this.v.isBase], "VM_INSTANCE.HOST_NAME_FORMAT_IS_NOT_CORRECT"],
+			timeline: [this.values.TIMELINE.attrValue.trim(), [this.v.isNumber, this.v.max(999), this.v.isUnBlank], "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION"],
+			timelineunit: [this.values.TIMELINEUNIT.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"],
+		}
+
+		return this.v.check(key, regs);
+	}
+
+	checkInput(): boolean {
+		const al = value => !!this.showNotice("提示",value);
+
+		// if(!this.vmSku.skuId) return al("sku不正确");
+
+		const value = this.checkValue();
+		if (value) return al(value);
+		return true;
+	}
+
+	checkQuota():Promise<boolean> {  //计算配额
+		const compare = (big, small) =>  +big >= +small;  //比较大小
+		const argAllTrue = (...arg:boolean[]) => arg.filter(r => r).length === arg.length;    //传来的参数全为真
+
+		return Promise.all([this.service.getPlatformQuota(this.values.PLATFORM.attrValue), this.service.getQuotaResoure()]).then(res => {
+			const [platformQuota, quotaResoure] = res;
+			console.log(platformQuota, quotaResoure, this.values.MEM.attrValue, this.values.CPU.attrValue)
+			return argAllTrue(
+				compare(quotaResoure.mem || 0 - quotaResoure.usedMem || 0, +this.values.MEM.attrValue),
+				compare(quotaResoure.vcpu || 0 - quotaResoure.usedCpu || 0, this.values.CPU.attrValue),
+				compare(platformQuota.memory || 0, +this.values.MEM.attrValue),
+				compare(platformQuota.cpu || 0, this.values.CPU.attrValue),
+			)
+		})
+	}
+
+	goTo(url: string) {
+		this.router.navigateByUrl(url);
+	}
+
+	submitCheck():Promise<PayLoad[]>{  //检测是否可以提交订单
+		if (!this.checkInput()) return Promise.reject("提示一下：表单验证不通过");
+
+		this.layoutService.show();
+		return this.checkQuota().then(isEnoughQuota => {
+			this.layoutService.hide();
+			if(!isEnoughQuota) {
+				this.showNotice("提示","部门或平台配额不足, 无法完成购买！");
+				throw "配额不足";
+			}
+
+			return this.payLoadFormat();   //获取最新的的payload的对象
+			
+		}).catch(res => {
+			this.layoutService.hide();
+		})
+	}
+
+	addCart() {   //加入购物车
+		this.submitCheck().then(payLoadArr => {
+			this.layoutService.show();
+			return this.service.addCart(payLoadArr).then(res => {
+				this.layoutService.hide();
+				this.noticeDialog.open("","CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
+				this.cartButton.setCartList();
+				// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
+			}).catch(res => {
+				this.layoutService.hide();
+			})
+		});
 	}
 
 	private itemNum: number = 0;
@@ -171,17 +433,17 @@ export class cloudHostComponentOrder implements OnInit {
 	private sendModuleToPay(): AttrList[] {   //把sendModule转换成数组
 		let payloadList = [];
 
-		for (let v in this.sendModule) {
-			if(this.sendModule[v].attrValueCode === "" && this.sendModule[v].attrValue === "")  continue;
+		for (let v in this.values) {
+			if(this.values[v].attrValueCode === "" && this.values[v].attrValue === "")  continue;
 
 			payloadList.push({
-				attrId: this.configs[v].attrId,   	//服务属性ID
-				attrCode: this.configs[v].attrCode,  	//服务属性CODE
-				attrDisplayValue: this.sendModule[v].attrDisplayValue, 	//服务属性Name
-				attrDisplayName: this.configs[v].attrDisplayName, 	//服务属性Name
-				attrValueId: this.sendModule[v].attrValueId,     	//服务属性值ID
-				attrValue: this.sendModule[v].attrValue, 	//服务属性值
-				attrValueCode: this.sendModule[v].attrValueCode, 	//服务属性值
+				attrId: this.attrList[v].attrId,                  	//服务属性ID
+				attrCode: this.attrList[v].attrCode,              	//服务属性CODE
+				attrDisplayValue: this.values[v].attrDisplayValue,	//服务属性Name
+				attrDisplayName: this.attrList[v].attrDisplayName,	//服务属性Name
+				attrValueId: this.values[v].attrValueId,          	//服务属性值ID
+				attrValue: this.values[v].attrValue,              	//服务属性值
+				attrValueCode: this.values[v].attrValueCode,      	//服务属性值
 			});
 		};
 		return payloadList;
@@ -250,281 +512,7 @@ export class cloudHostComponentOrder implements OnInit {
 		return this.payLoadArr;
 	}
 
-	setVmPrice(): void {   //设置主机的价格
-		const sku = this.vmSku.skuId,
-			timeline = +(this.sendModule.timeline.attrValue || "0");
-		// console.log(this.sendModule.timelineunit.attrValueCode)
-		if (!this.sendModule.timelineunit.attrValueCode || !sku) return;
-		this.vmProduct = this.proMap[`[${sku}, ${this.sendModule.timelineunit.attrValueCode}]`];  //获取产品信息
 
-		console.log("匹配到的云主机：", this.vmProduct)		
-		if (!this.vmProduct) return;  //如果没获取到价格
-
-		this.vmBasePrice = this.vmProduct.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
-		this.vmTotalPrice = (this.vmProduct.billingInfo.basicPrice) * timeline * this.payLoad.quality;   //周期费用
-	}
-	setDiskPrice(): void {  //设置数据盘的价格
-		const timeline = +(this.sendModule.timeline.attrValue || "0"),
-			storages = this.storage ? this.storage.getData() : [];   //获取数据盘
-		this.diskSku = [];
-		let basePrice = 0, totalPrice = 0;
-		for (let data of storages) {
-			let skuMap = this.getSkuMap("disk");
-
-			if(!skuMap.length) return;  //如果没有获取到sku
-
-			let sku = skuMap[0];
-			this.sendModule.storage = data.storage;
-			this.diskSku.push(sku); //获取sku
-
-			let price = this.proMap[`[${sku.skuId}]`];  //计算价格
-			this.diskProduct.push(price);
-
-			console.log("匹配到的云硬盘：", price)
-			if (!price) return; //如果没获取到价格
-
-			basePrice += price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
-			totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * this.payLoad.quality;   //周期费用
-
-			this.diskUnitType = price.billingInfo.unitType;
-		}
-
-		this.diskBasePrice = basePrice;  //一次性费用
-		this.diskTotalPrice = totalPrice;   //周期费用
-	}
-
-	storageChange(status) {
-		this.setDiskPrice();
-	}
-
-	setSenModule(config: OrderService): void {
-
-		const isValueLength = config.valueList && config.valueList.length;
-		const attrName = config.attrCode.toLowerCase();
-
-		//设置创建云主机的属性列表
-		isValueLength ? this.sendModule[attrName] = config.valueList[0] : 0;   //默认第一个
-	}
-
-	getRelyName(relyAttrId): string {
-		for (let config in this.configs) {
-			if (this.configs[config].attrId === relyAttrId) {
-				return config;
-			}
-		}
-	}
-	rely(attrName: string): VlueList[] {
-		if (!this.configs[attrName].relyAttrId) return [];
-
-		//根据他的依赖的id获取它自身的list
-		const list = (this.configs[attrName].mapValueList && this.configs[attrName].mapValueList[this.sendModule[this.getRelyName(this.configs[attrName].relyAttrId)].attrValueId]) || [];
-
-		const attrid = this.sendModule[attrName].attrValueId;   //获取当前的sendmoudle的attrid
-		const isHas = (attrid && list && list.length && !!list.filter(l => l.attrValueId === attrid).length) || (!list.length && !attrid);   //列表里面是否有以选择的senModule
-		//设置sendmodule使它选择第一个
-		if (!isHas) {
-			this.sendModule[attrName] = list.length ? list[0] : new VlueList;   //当没有选择sendmoudle的attrid时候，说明该模块还没有选择过，如果list里面没有这个attrid说明，他的父级已经有变动，需要重新选择
-			this.relyChanges(attrName);     //上面的一步说明页面上有变化的 进行一些改变
-		}
-
-		return list;
-	}
-
-	relyChanges(attrName) {   //当依赖的元素有改变的时候执行
-		/******获取并设置网络******/
-		if (attrName === "zone") {   //这里捕捉不到平台，侧面的，当zone改变的时候说明 自己依赖的云平台已经改变
-			this.setNetwork(this.sendModule.platform.attrValue, this.sendModule.zone.attrValue);   //获取网络
-		}
-		/******获取并设置镜像列表******/
-		if (attrName === "imagetype" || attrName === "zone") {   //镜像有改变的时候，从rely函数里传进来的是父层的改变，从html里面捕捉click也会执行到这里
-			this.setImage(this.sendModule.platform.attrValue, this.sendModule.imagetype.attrValue, this.sendModule.startupsource.attrValue);   //获取镜像列表
-		}
-
-		this.vmSkuMap = this.getSkuMap("vm");     //确定sku
-
-		if (this.vmSkuMap.length) {
-			this.vmSku = this.vmSkuMap[0];   // 设置启动盘大小
-			this.setTimeUnit();
-		}
-	}
-
-	private setTimeUnit(): void {
-		if (!this.vmSku.skuId) return;
-
-		const timeUnit = this.configs.timelineunit.mapValueList[this.vmSku.skuId];
-		if (timeUnit && timeUnit.length) {
-			this.sendModule.timelineunit = timeUnit[0];    //设置一下时长为第一位
-			this.setVmPrice();   //拿到时长就可以设置主机价格了  
-		}
-	}
-
-	// private setBootsize() {
-	// 	this.bootsizeList = this.vmSkuMap.map(vmsku => {
-	// 		let bootsize = this.configs.bootsize.mapValueList[vmsku.skuId];
-			
-	// 		if(!bootsize && !bootsize.length) return;
-
-	// 		bootsize[0].sku = vmsku;
-	// 		return bootsize[0];
-	// 	});
-	// 	this.sendModule.bootsize = this.bootsizeList[0];   //设置一下启动盘为第一位
-	// 	this.bootSizeChange();
-	// }
-	// bootSizeChange() {   //监听启动盘大小列表的改变， 只有启动盘大小列表的改变才能确定vm的skuid
-	// 	this.vmSku = this.sendModule.bootsize.sku;
-	// 	this.setTimeUnit(); //确定了真正的skuid后 再去确定购买时长
-	// }
-
-	private setNetwork(platformId: string, zoneId: string) {  //设置可用网络
-		this.layoutService.show();
-		this.service.getNetwork(platformId,zoneId).then(res => {
-			this.layoutService.hide();
-			if (!res.length) return this.networkList = [];
-			let list: VlueList[] = [];
-
-			for (let r of res) {
-				if(r.networkType != "2") continue;
-				list.push({
-					attrValueId: "",
-					attrValueCode: r.networkcode,
-					attrDisplayValue: r.networkDisplayName,
-					attrValue: r.networkId,
-				})
-			}
-
-			this.networkList = list;
-			this.sendModule.networktype = list[0];
-			this.osChanged();
-		}).catch(e => {
-			this.networkList = [];
-			this.layoutService.hide();
-		})
-	}
-	private setImage(platformId: string, imageType: string, startupResouce: string) { //获取镜像列表
-		this.layoutService.show();
-		this.service.getImage(platformId, imageType, startupResouce).then(res => {
-			this.layoutService.hide();
-			if (!res.length) return this.imageList = [];
-			let list: VlueList[] = [];
-
-			for (let r of res) {
-				list.push({
-					attrValueId: "",
-					attrValueCode: r.imageId,
-					attrDisplayValue: r.imageDisplayName,
-					attrValue: r.imageCode,
-					capacity: r.capacity,
-					osType: r.osType
-				})
-			}
-
-			this.imageList = list;
-			this.sendModule.os = list[0];
-		}).catch(error => {
-			this.imageList = [];
-			this.layoutService.hide()
-		})
-	}
-
-	osChanged() {
-		this.sendModule.username.attrValue = this.sendModule.os.osType == 0 ? "administrtor" : "root";
-	}
-
-	oSfilterBootsize(bootSizeList:VlueList[]):VlueList[] {  //根据os的大小过滤bootsize的大小
-		if(!this.sendModule.os.attrValueCode) return bootSizeList;
-
-		const filteredList = bootSizeList.filter(bootSizeObj => 
-			parseInt(bootSizeObj.attrValue)*1024*1024*1024 >= this.sendModule.os.capacity
-		);
-		
-		setTimeout(res => {
-			this.isZoneSupportOs = !!filteredList.length;
-		},0);
-		return filteredList;
-	}
-
-	checkValue(key?:string){
-		const regs:ValidationRegs = {
-			platform: [this.sendModule.platform.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_CLOUD_PALTFORM"],
-			zone: [this.sendModule.zone.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_AVAILABLE_ZONE"],
-			cpu: [this.sendModule.cpu.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_CPU"],
-			mem: [this.sendModule.mem.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_RAM"],
-			networktype: [this.sendModule.networktype.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_NET_TYPE"],
-			securitygroup: [this.sendModule.securitygroup.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_SECURITY_GROUP"],
-			startupsource: [this.sendModule.startupsource.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_STARTUP_SOURCE"],
-			imagetype: [this.sendModule.imagetype.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_IMAGE_TYPE"],
-			os: [this.sendModule.os.attrValueCode, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_IMAGE_NAME"],
-			password: [this.sendModule.password.attrValue, [this.v.isPassword, this.v.lengthRange(8,30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
-			passwordShadow: [this.passwordShadow, [this.v.equalTo(this.sendModule.password.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
-			instancename: [this.sendModule.instancename.attrValue, [this.v.isInstanceName, this.v.isBase], "VM_INSTANCE.HOST_NAME_FORMAT_IS_NOT_CORRECT"],
-			timeline: [this.sendModule.timeline.attrValue.trim(), [this.v.isNumber, this.v.max(999), this.v.isUnBlank], "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION"],
-			timelineunit: [this.sendModule.timelineunit.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"],
-		}
-
-		return this.v.check(key, regs);
-	}
-
-	checkInput(): boolean {
-		const al = value => !!this.showNotice("提示",value);
-
-		// if(!this.vmSku.skuId) return al("sku不正确");
-
-		const value = this.checkValue();
-		if (value) return al(value);
-		return true;
-	}
-
-	checkQuota():Promise<boolean> {  //计算配额
-		const compare = (big, small) =>  +big >= +small;  //比较大小
-		const argAllTrue = (...arg:boolean[]) => arg.filter(r => r).length === arg.length;    //传来的参数全为真
-
-		return Promise.all([this.service.getPlatformQuota(this.sendModule.platform.attrValue), this.service.getQuotaResoure()]).then(res => {
-			const [platformQuota, quotaResoure] = res;
-			console.log(platformQuota, quotaResoure, this.sendModule.mem.attrValue, this.sendModule.cpu.attrValue)
-			return argAllTrue(
-				compare(quotaResoure.mem || 0 - quotaResoure.usedMem || 0, +this.sendModule.mem.attrValue),
-				compare(quotaResoure.vcpu || 0 - quotaResoure.usedCpu || 0, this.sendModule.cpu.attrValue),
-				compare(platformQuota.memory || 0, +this.sendModule.mem.attrValue),
-				compare(platformQuota.cpu || 0, this.sendModule.cpu.attrValue),
-			)
-		})
-	}
-
-	goTo(url: string) {
-		this.router.navigateByUrl(url);
-	}
-
-	submitCheck():Promise<PayLoad[]>{  //检测是否可以提交订单
-		if (!this.checkInput()) return Promise.reject("提示一下：表单验证不通过");
-
-		this.layoutService.show();
-		return this.checkQuota().then(isEnoughQuota => {
-			this.layoutService.hide();
-			if(!isEnoughQuota) {
-				this.showNotice("提示","部门或平台配额不足, 无法完成购买！");
-				throw "配额不足";
-			}
-
-			return this.payLoadFormat();   //获取最新的的payload的对象
-			
-		}).catch(res => {
-			this.layoutService.hide();
-		})
-	}
-
-	addCart() {   //加入购物车
-		this.submitCheck().then(payLoadArr => {
-			this.layoutService.show();
-			return this.service.addCart(payLoadArr).then(res => {
-				this.layoutService.hide();
-				this.noticeDialog.open("","CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
-				this.cartButton.setCartList();
-				// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
-			}).catch(res => {
-				this.layoutService.hide();
-			})
-		});
-	}
 	buyNow() {
 		this.submitCheck().then(payLoadArr => {
 			if(!payLoadArr) return;
@@ -537,15 +525,13 @@ export class cloudHostComponentOrder implements OnInit {
 				this.layoutService.hide();
 			})
 		})
-	};
-
-
+	}
 	// 警告框相关
 	showNotice(title: string, msg: string) {
-	    this.modalTitle = title;
-	    this.modalMessage = msg;
+		this.modalTitle = title;
+		this.modalMessage = msg;
 
-	    this.noticeDialog.open();
+		this.noticeDialog.open();
 	}
-	modalAction() {}
+	modalAction() { }
 }

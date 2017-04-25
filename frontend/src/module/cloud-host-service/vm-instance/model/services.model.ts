@@ -83,6 +83,99 @@ class SendModule {
     os : VlueList = new VlueList();
 }
 
+class AttrConfigList {
+    IMAGETYPE : OrderService = new OrderService();
+    DISKINITIALSIZE : OrderService = new OrderService();
+    DISKTYPE : OrderService = new OrderService();
+    NETWORKTYPE : OrderService = new OrderService();
+    BILLINGMODE : OrderService = new OrderService();
+    CPU : OrderService = new OrderService();
+    DISKMOUNTHOSTID : OrderService = new OrderService();
+    USERNAME : OrderService = new OrderService();
+    DISKSTEPSIZE : OrderService = new OrderService();
+    SETTINGTYPE : OrderService = new OrderService();
+    BOOTSTORAGE : OrderService = new OrderService();
+    BOOTSIZE : OrderService = new OrderService();
+    TIMELINEUNIT : OrderService = new OrderService();
+    SECURITYGROUP : OrderService = new OrderService();
+    DISKINSNAME : OrderService = new OrderService();
+    DISKMOUNTHOSTNAME : OrderService = new OrderService();
+    STORAGE : OrderService = new OrderService();
+    INSTANCENAME : OrderService = new OrderService();
+    MEM : OrderService = new OrderService();
+    STARTUPSOURCE : OrderService = new OrderService();
+    TIMELINE : OrderService = new OrderService();
+    DISKMAXSIZE : OrderService = new OrderService();
+    STORAGESIZE : OrderService = new OrderService();
+    DISKSIZE : OrderService = new OrderService();
+    ZONE : OrderService = new OrderService();
+    PASSWORD : OrderService = new OrderService();
+    PLATFORM : OrderService = new OrderService();
+    OS : OrderService = new OrderService();
+}
+
+class Values {
+    IMAGETYPE : VlueList = new VlueList;
+    DISKINITIALSIZE : VlueList = new VlueList;
+    DISKTYPE : VlueList = new VlueList;
+    NETWORKTYPE : VlueList = new VlueList;
+    BILLINGMODE : VlueList = new VlueList;
+    CPU : VlueList = new VlueList;
+    DISKMOUNTHOSTID : VlueList = new VlueList;
+    USERNAME : VlueList = new VlueList;
+    DISKSTEPSIZE : VlueList = new VlueList;
+    SETTINGTYPE : VlueList = new VlueList;
+    BOOTSTORAGE : VlueList = new VlueList;
+    BOOTSIZE : VlueList = new VlueList;
+    TIMELINEUNIT : VlueList = new VlueList;
+    SECURITYGROUP : VlueList = new VlueList;
+    DISKINSNAME : VlueList = new VlueList;
+    DISKMOUNTHOSTNAME : VlueList = new VlueList;
+    STORAGE : VlueList = new VlueList;
+    INSTANCENAME : VlueList = new VlueList;
+    MEM : VlueList = new VlueList;
+    STARTUPSOURCE : VlueList = new VlueList;
+    TIMELINE : VlueList = new VlueList;
+    DISKMAXSIZE : VlueList = new VlueList;
+    STORAGESIZE : VlueList = new VlueList;
+    DISKSIZE : VlueList = new VlueList;
+    ZONE : VlueList = new VlueList;
+    PASSWORD : VlueList = new VlueList;
+    PLATFORM : VlueList = new VlueList;
+    OS : VlueList = new VlueList;
+}
+
+class ValuesList {
+    IMAGETYPE : VlueList[] = [];
+    DISKINITIALSIZE : VlueList[] = [];
+    DISKTYPE : VlueList[] = [];
+    NETWORKTYPE : VlueList[] = [];
+    BILLINGMODE : VlueList[] = [];
+    CPU : VlueList[] = [];
+    DISKMOUNTHOSTID : VlueList[] = [];
+    USERNAME : VlueList[] = [];
+    DISKSTEPSIZE : VlueList[] = [];
+    SETTINGTYPE : VlueList[] = [];
+    BOOTSTORAGE : VlueList[] = [];
+    BOOTSIZE : VlueList[] = [];
+    TIMELINEUNIT : VlueList[] = [];
+    SECURITYGROUP : VlueList[] = [];
+    DISKINSNAME : VlueList[] = [];
+    DISKMOUNTHOSTNAME : VlueList[] = [];
+    STORAGE : VlueList[] = [];
+    INSTANCENAME : VlueList[] = [];
+    MEM : VlueList[] = [];
+    STARTUPSOURCE : VlueList[] = [];
+    TIMELINE : VlueList[] = [];
+    DISKMAXSIZE : VlueList[] = [];
+    STORAGESIZE : VlueList[] = [];
+    DISKSIZE : VlueList[] = [];
+    ZONE : VlueList[] = [];
+    PASSWORD : VlueList[] = [];
+    PLATFORM : VlueList[] = [];
+    OS : VlueList[] = [];
+}
+
 interface CommonServiceAttrValue{
     bootStorageSize : number;
 }
@@ -131,7 +224,7 @@ interface Network{
     networkType: string;
     networkcode: string;
 }
-interface Image{
+interface Image {
     imageCode: string;
     imageDisplayName: string;
     imageId: string;
@@ -145,6 +238,9 @@ export {
     VlueList,
     OrderService,
     SendModule,
+    AttrConfigList,
+    ValuesList,
+    Values,
     TimeLineData,
     SkuMap,
     ProMap,
