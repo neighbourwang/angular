@@ -866,6 +866,7 @@
     "NSX_VERSION": "NSX版本",
     "OCCUPIED": "已占用",
     "OCCUPY": "占用",
+	"DIS_NAME_CANT_NULL":"显示名称不能为空",
     "PG_DIS_NAME_CANT_NULL": "端口组显示名称不能为空.",
     "PG_NAME": "端口组名称",
     "PG_NAME_CANT_NULL": "端口组名称不能为空.",

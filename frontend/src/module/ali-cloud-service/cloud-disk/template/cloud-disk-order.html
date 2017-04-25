@@ -112,6 +112,7 @@
                             <span>费用总计：</span>
                             <span>
                                 <span *ngIf="selectedRegion.price!=''">￥</span> {{(selectedRegion.price) || ""}}
+                            <span *ngIf="selectedRegion.price!=''"> /时</span>
                             </span>
                         </tr>
                     </table>

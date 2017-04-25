@@ -1,7 +1,7 @@
 <div class="page-content cloud_host_order cloud_drive_order">
 
     <div class="col-md-9">
-        <h1 class="page-content-header" (click)="payLoadFormat()">阿里云主机实例订购</h1>
+        <h1 class="page-content-header" (click)="payLoadFormat()">创建阿里云主机</h1>
         <ul class="page-box">
             <!-- 计费方式 -->
             <li>
@@ -101,7 +101,8 @@
 
                     <div class="col-md-12 no-padding mgb20 form-group" *ngIf="securitygrouplist.length!=0">
                         <div class="text-tip">
-                            <span>安全组类似防火墙功能，用于设置网络访问控制，您也可以到管理控制台 <a href="javascript:void(0);">新建安全组>></a> <a href="javascript:void(0);">教我选择>></a> </span>
+                            <!--<span>安全组类似防火墙功能，用于设置网络访问控制，您也可以到管理控制台 <a href="javascript:void(0);">新建安全组>></a> <a href="javascript:void(0);">教我选择>></a> </span> -->
+                            <span>安全组类似防火墙功能，用于设置网络访问控制，您也可以到管理控制台新建安全组</span>
                         </div>
                         <select *ngIf="(selectedOrderVmPage.selectedNetworkType=='classic')" class="form-control select_style" [(ngModel)]="selectedsecgroup" (change)="SecurityGroupChanged();">
                             <option [ngValue]="defaultsecgroup">请选择网络安全组</option>
@@ -122,7 +123,7 @@
                     <p><span class="icon-specifications"></span><br />实例：</p>
                 </div>
                 <div class="col-md-12 li-content" *ngIf="displayInstanceType">
-                    <div class="col-md-12 no-padding mgb20" style="display: inline">
+                    <div class="col-md-12 no-padding mgb5" style="display: inline">
                         <div *ngFor="let gene of instancegenerations;" style="display: inline">
                             <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedGeneration==gene.generation}' (click)="selectedOrderVmPage.selectedGeneration=gene.generation;
                                      instancetypefamilies=gene.instancefamilyid;
@@ -146,7 +147,7 @@
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </static-tooltip>
                     -->
-                    <div class="text-tip">系列之间不能互相升降配</div>
+                    <div class="text-tip mgb20">系列之间不能互相升降配</div>
 
                     <div class="col-md-12 no-padding mgb20">
                         <div *ngFor="let family of instancetypefamilies;" style="display: inline">
@@ -338,7 +339,7 @@
                     <div class="col-md-12 no-padding mgb20">
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":true}' (click)="selectedOrderVmPage.selected=true;">设置密码
                         </button>
-                        <div class="text-tip">
+                        <div class="text-tip" style="display: inline-block;">
                             请牢记您所设置的密码，如遗忘可登陆ECS控制台重置密码
                         </div>
                     </div>

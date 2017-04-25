@@ -196,8 +196,12 @@ export class VmwareStdNetComponent implements OnInit {
             this.showAlert("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_CLUSTER");
             return;
         }
-        if (this.validationService.isBlank(this.tempEditNet.clusterDisplayName)) {
-            this.showAlert("NET_MNG_VM_IP_MNG.CLS_DIS_NAME_CANT_NULL");
+        //if (this.validationService.isBlank(this.tempEditNet.clusterDisplayName)) {
+        //    this.showAlert("NET_MNG_VM_IP_MNG.CLS_DIS_NAME_CANT_NULL");//可用区显示名称不能为空
+        //    return;
+        //}
+        if (this.validationService.isBlank(this.tempEditNet.portDisplayName)) {
+            this.showAlert("NET_MNG_VM_IP_MNG.DIS_NAME_CANT_NULL");//显示名称不能为空
             return;
         }
         if (this.validationService.isBlank(this.tempEditNet.portGroupName)) {
