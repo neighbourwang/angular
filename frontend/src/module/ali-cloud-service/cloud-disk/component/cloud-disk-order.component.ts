@@ -136,6 +136,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
                     }
                     this.regions = result.Regions.Region;
                     console.log(this.regions, "this.regions!");
+                    this.selectRegion(this.regions[0]);
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -274,7 +275,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
     }
 
     calculatePrice() {
-        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "" && parseInt(this.selectedRegion.diskCount) < 2001) {
+        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "" && (parseInt(this.selectedRegion.diskCount) < 2001 && parseInt(this.selectedRegion.diskCount) > 0 )) {
             this.selectedRegion.price = "计算中...";
             this.calculatetimer && window.clearTimeout(this.calculatetimer);
             this.calculatetimer = window.setTimeout(() => {
@@ -311,6 +312,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
         this.diskorder.diskName = "";
         this.diskorder.size = this.selectedRegion.diskCount;
         this.diskorder.snapshotId = "";
+        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "" && (parseInt(this.selectedRegion.diskCount) < 2001 && parseInt(this.selectedRegion.diskCount) > 0 )) {
 
         this.layoutService.show();
         this.service.createDiskOrder(this.selectedRegion.RegionId, this.selectedRegion.selectedArea.ZoneId, this.diskorder)
@@ -337,6 +339,10 @@ export class AliCloudDiskOrderComponent implements OnInit {
             .catch((e) => {
                 this.onRejected(e);
             });
+        
+        } else {
+            this.showMsg("请选择正确的配置！");
+        }
 
     }
 
