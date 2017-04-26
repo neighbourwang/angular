@@ -1215,7 +1215,10 @@
     "RETURN_PRODUCT_LIST": "Return product list",
     "PHYSICAL_PRODUCT":"physical product",
     "MANAGER_SERVICE":"manager service",
-    "SERVE_OBJECT":"serve object"
+    "SERVE_OBJECT":"serve object",
+    "NOT_ALLOW_TO_DELETE_PRODUCT_CAT_WITH_PRODUCT":"bot allow delete a product service with product",
+    "SELECT_PRODUCT_CAT":"please select a product service"
+
 
   },
   "USER_CENTER": {
