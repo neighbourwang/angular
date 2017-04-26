@@ -299,9 +299,13 @@ export class AliCloudVmOrderComponent implements OnInit {
                         this.vswitchlist = [];
                         this.selectedVSwitch = this.defaultVSwitch;
                         this.selectedOrderVmPage.selectedVpcId = null;
-                        //this.selectedOrderVmPage.AllocatePublicIP = false;
+                        this.selectedOrderVmPage.selectedVpcId = "random";
                         this.selectedOrderVmPage.selectedVswitchId = null;
+                        this.classicSecGrouplist = [];
+                        this.vpcSecGrouplist = [];
+                        this.selectedsecgroup = this.defaultsecgroup;
                         this.showMsg("无虚拟VPC");
+                        this.calculatePrice();
                     }
 
                     //this.getSecurityGroups(region);//网络类型一确定，就得去拿securitygroup数据
@@ -397,10 +401,14 @@ export class AliCloudVmOrderComponent implements OnInit {
                         this.selectedVPC = this.defaultVPC;
                         this.vswitchlist = [];
                         this.selectedVSwitch = this.defaultVSwitch;
-                        this.selectedOrderVmPage.selectedVpcId = null;
-                        //this.selectedOrderVmPage.AllocatePublicIP = false;
+                        //this.selectedOrderVmPage.selectedVpcId = null;
+                        this.selectedOrderVmPage.selectedVpcId = "random";
                         this.selectedOrderVmPage.selectedVswitchId = null;
+                        this.classicSecGrouplist = [];
+                        this.vpcSecGrouplist = [];
+                        this.selectedsecgroup = this.defaultsecgroup;
                         this.showMsg("无虚拟VPC");
+                        this.calculatePrice();
                     }
 
                     //this.getSecurityGroups(region);//网络类型一确定，就得去拿securitygroup数据                    
@@ -482,6 +490,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                                 this.vswitchlist = [];
                                 this.selectedVSwitch = this.defaultVSwitch;
                                 this.selectedOrderVmPage.selectedVswitchId = null;
+                                this.selectedOrderVmPage.selectedVpcId = "random";
                                 this.showMsg("无虚拟交换机");
                             }
                         } else {
@@ -520,6 +529,7 @@ export class AliCloudVmOrderComponent implements OnInit {
     checkClassicNetworkSecGroups() {
         this.classicSecGrouplist = [];
         this.vpcSecGrouplist = [];
+        this.selectedsecgroup = this.defaultsecgroup;
 
         this.classicSecGrouplist = this.securitygrouplist.filter((item) => {
             return (item.VpcId == "");
@@ -541,13 +551,15 @@ export class AliCloudVmOrderComponent implements OnInit {
             this.selectedsecgroup = this.defaultsecgroup;
             this.selectedOrderVmPage.SecurityGroupId = null;
             this.selectedOrderVmPage.SecurityGroupName = null;
-            this.showMsg("无安全组");
+            //this.showMsg("无安全组");
+            console.log("checkClassicNetworkSecGroups: no classic network secury group!");
         }
     }
 
     checkVpcNetworkSecGroups(vpcId: string) {
         this.classicSecGrouplist = [];
         this.vpcSecGrouplist = [];
+        this.selectedsecgroup = this.defaultsecgroup;
         if (vpcId != null || vpcId != "") {
             this.vpcSecGrouplist = this.securitygrouplist.filter((item) => {
                 return (item.VpcId == vpcId);
@@ -572,7 +584,8 @@ export class AliCloudVmOrderComponent implements OnInit {
             this.selectedsecgroup = this.defaultsecgroup;
             this.selectedOrderVmPage.SecurityGroupId = null;
             this.selectedOrderVmPage.SecurityGroupName = null;
-            this.showMsg("无安全组");
+            //this.showMsg("无安全组");
+            console.log("checkVpcNetworkSecGroups: no vpc network secury group!");
         }
     }
 
@@ -680,13 +693,11 @@ export class AliCloudVmOrderComponent implements OnInit {
         window.setTimeout(() => {
             console.log(this.selectedOrderVmPage.selectedDisk, "selected selectedDisk!");
             if (this.selectedOrderVmPage.selectedDisk != "") {
-                //this.calculatePrice();
+                this.calculatePrice();
             } else {
                 this.selectedOrderVmPage.selectedDisk = null;
             }
         }, 50); //window内的代码要延后50ms执行
-
-        this.calculatePrice();
     }
 
     DiskCountChanged() {
@@ -843,6 +854,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                             this.vswitchlist = [];
                             this.selectedVSwitch = this.defaultVSwitch;
                             this.selectedOrderVmPage.selectedVswitchId = null;
+                            this.selectedOrderVmPage.selectedVpcId = "random";
                             this.showMsg("无虚拟交换机");
                         }
 
@@ -878,7 +890,8 @@ export class AliCloudVmOrderComponent implements OnInit {
                     }).catch((e) => this.onRejected(e));
 
             } else {
-                this.selectedOrderVmPage.selectedVpcId = null;
+                //this.selectedOrderVmPage.selectedVpcId = null;
+                this.selectedOrderVmPage.selectedVpcId = "random";
                 this.vswitchlist = [];
                 this.selectedVSwitch = this.defaultVSwitch;
                 this.selectedOrderVmPage.selectedVswitchId = null;
@@ -896,6 +909,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                 this.calculatePrice();
             } else {
                 this.selectedOrderVmPage.selectedVswitchId = null;
+                this.selectedOrderVmPage.selectedVpcId = "random";
             }
             console.log(this.selectedOrderVmPage.selectedNetworkType, this.selectedOrderVmPage.selectedVswitchId, "selected NetworkType and VSwitchId!");
         }, 50); //window内的代码要延后50ms执行
@@ -999,64 +1013,11 @@ export class AliCloudVmOrderComponent implements OnInit {
             //first_check_classic_network = false;
             this.vpc_vswitch_secgroup();
 
-            /*
-            
-            this.layoutService.show();
-            Promise.all([this.service.serviceGetVSwitches(this.selectedOrderVmPage), this.service.serviceGetSecurityGroups(this.selectedOrderVmPage.RegionId, this.selectedOrderVmPage)])
-                .then((arr) => {
-                    this.layoutService.hide();
-
-                    //VSwitches
-                    let result;
-                    try {
-                        result = JSON.parse(arr[0]);
-                    } catch (ex) {
-                        console.log(ex);
-                    }
-                    this.vswitchlist = result.VSwitches.VSwitch;
-                    console.log(this.vswitchlist, "this.vswitchlist!");
-                    if (this.vswitchlist.length != 0) {
-                        this.selectedVSwitch = this.vswitchlist[0];
-                        this.selectedOrderVmPage.selectedVswitchId = this.selectedVSwitch.VSwitchId;
-                        console.log(this.selectedOrderVmPage.selectedVswitchId, "selected VswitchId!");
-                    } else {
-                        console.log("this.vswitchlist.length = 0");
-                        this.vswitchlist = [];
-                        this.selectedVSwitch = this.defaultVSwitch;
-                        this.selectedOrderVmPage.selectedVswitchId = null;
-                        this.showMsg("无虚拟交换机");
-                    }
-
-
-                    //SecurityGroups
-                    result = null;
-                    try {
-                        result = JSON.parse(arr[1]);
-                        //console.log(result, "SecurityGroups!");
-                    } catch (ex) {
-                        console.log(ex);
-                    }
-                    this.securitygrouplist = result.SecurityGroups.SecurityGroup;
-                    console.log(this.securitygrouplist, "this.securitygrouplist!");
-                    if (this.securitygrouplist.length != 0) {
-                        this.checkVpcNetworkSecGroups(this.selectedOrderVmPage.selectedVpcId);
-                    } else {
-                        console.log("this.securitygrouplist.length = 0");
-                        this.selectedsecgroup = this.defaultsecgroup;
-                        this.selectedOrderVmPage.SecurityGroupId = null;
-                        this.selectedOrderVmPage.SecurityGroupName = null;
-                        this.showMsg("无安全组");
-                    }
-
-                    this.calculatePrice();
-
-                }).catch((e) => this.onRejected(e));
-                */
-
         } else {
             console.log("this.vpclist.length = 0");
             this.selectedVPC = this.defaultVPC;
-            this.selectedOrderVmPage.selectedVpcId = null;
+            //this.selectedOrderVmPage.selectedVpcId = null;
+            this.selectedOrderVmPage.selectedVpcId = "random";
 
             this.vswitchlist = [];
             this.selectedVSwitch = this.defaultVSwitch;
@@ -1090,6 +1051,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                     this.vswitchlist = [];
                     this.selectedVSwitch = this.defaultVSwitch;
                     this.selectedOrderVmPage.selectedVswitchId = null;
+                    this.selectedOrderVmPage.selectedVpcId = "random";
                     this.showMsg("无虚拟交换机");
                 }
 
@@ -1120,64 +1082,68 @@ export class AliCloudVmOrderComponent implements OnInit {
             }).catch((e) => this.onRejected(e));
     }
 
-
-/*
-    allocatePublicIPOrNot() {
-        this.selectedOrderVmPage.AllocatePublicIP = !this.selectedOrderVmPage.AllocatePublicIP;
-        if (this.selectedOrderVmPage.AllocatePublicIP == true) {
-            this.selectedOrderVmPage.selectedInternetChargeType = "PayByTraffic"; //AllocatePublicIP = true
-            this.selectedOrderVmPage.selectedInternetMaxBandwidthOut = 1;
-        } else {
-            this.selectedOrderVmPage.selectedInternetChargeType = null;  //AllocatePublicIP = false
-            this.selectedOrderVmPage.selectedInternetMaxBandwidthOut = null;
-        }
-        console.log(this.selectedOrderVmPage.AllocatePublicIP, "selected AllocatePublicIPOrNot!");
-
-        this.calculatePrice();
-    }
-*/
-
     showInternetChargeType() {
         console.log(this.selectedOrderVmPage.selectedInternetChargeType, "selected InternetChargeType!");
         this.calculatePrice();
     }
 
-
-
     validatePriceParam(): boolean {
         //console.log(JSON.stringify(this.selectedOrderVmPage));
-        if (
-            this.selectedOrderVmPage.selectedImage != null &&
-            (this.selectedOrderVmPage.selectedQuantity != null || this.selectedOrderVmPage.selectedChargeType == 'PostPaid')
-            &&
-            (this.selectedOrderVmPage.selectedNetworkType == "classic" || this.selectedOrderVmPage.selectedVswitchId != null)
-            /*&&
-            (this.selectedOrderVmPage.selectedInternetChargeType != null || this.selectedOrderVmPage.AllocatePublicIP == true)*/
-            &&
-            this.selectedOrderVmPage.selectedDisk != null &&
-            this.selectedOrderVmPage.diskCount != null &&
-            this.selectedOrderVmPage.selectedGeneration != null &&
-            this.selectedOrderVmPage.selectedInstanceFamily != null &&
-            this.selectedOrderVmPage.selectedInstanceType != null
-        ) {
-            console.log("start calculate price!");
-            return true;
-        } else {
-            console.log("never calculate price!");
-            console.log(
+        console.log(
                 "selectedImage=", this.selectedOrderVmPage.selectedImage,
                 "selectedQuantity=", this.selectedOrderVmPage.selectedQuantity,
                 "selectedChargeType=", this.selectedOrderVmPage.selectedChargeType,
                 "selectedNetworkType=", this.selectedOrderVmPage.selectedNetworkType,
+                "selectedVpcId=", this.selectedOrderVmPage.selectedVpcId,
                 "selectedVswitchId=", this.selectedOrderVmPage.selectedVswitchId,
                 "selectedInternetChargeType=", this.selectedOrderVmPage.selectedInternetChargeType,
-                //"AllocatePublicIP=", this.selectedOrderVmPage.AllocatePublicIP,
                 "selectedDisk=", this.selectedOrderVmPage.selectedDisk,
                 "diskCount=", this.selectedOrderVmPage.diskCount,
                 "selectedGeneration=", this.selectedOrderVmPage.selectedGeneration,
                 "selectedInstanceFamily=", this.selectedOrderVmPage.selectedInstanceFamily,
                 "selectedInstanceType=", this.selectedOrderVmPage.selectedInstanceType,
             );
+
+        if (this.selectedOrderVmPage.selectedImage != null)
+        {
+            console.log(this.selectedOrderVmPage.selectedImage);
+        } else {
+            console.log("never calculate price!");
+            return false;
+        }
+
+        if (this.selectedOrderVmPage.selectedQuantity != null || this.selectedOrderVmPage.selectedChargeType == 'PostPaid')
+        {
+            console.log(this.selectedOrderVmPage.selectedQuantity, this.selectedOrderVmPage.selectedChargeType);
+        } else {
+            console.log("never calculate price!");
+            return false;
+        }
+
+        if (this.selectedOrderVmPage.selectedNetworkType == "classic" || this.selectedOrderVmPage.selectedVpcId == 'random' || this.selectedOrderVmPage.selectedVswitchId != null)
+        {
+            console.log(this.selectedOrderVmPage.selectedNetworkType, this.selectedOrderVmPage.selectedVpcId, this.selectedOrderVmPage.selectedVswitchId);
+        } else {
+            console.log("never calculate price!");
+            return false;
+        }
+
+        if (this.selectedOrderVmPage.selectedDisk != "null" && this.selectedOrderVmPage.selectedDisk != null && this.selectedOrderVmPage.diskCount != null)
+        {
+            console.log(this.selectedOrderVmPage.selectedDisk, this.selectedOrderVmPage.diskCount);
+        } else {
+            console.log("never calculate price!");
+            return false;
+        }
+
+        if (this.selectedOrderVmPage.selectedGeneration != null &&
+            this.selectedOrderVmPage.selectedInstanceFamily != null &&
+            this.selectedOrderVmPage.selectedInstanceType != null)
+        {
+            console.log("start calculate price!");
+            return true;
+        } else {
+            console.log("never calculate price!");
             return false;
         }
 
@@ -1362,7 +1328,7 @@ export class AliCloudVmOrderComponent implements OnInit {
 			phone: [this.phone, [this.v.isMoblie, this.v.isUnBlank], "手机号码输入不正确"],
   			//手机号码验证
               */
-            password: [this.selectedOrderVmPage.Password, [this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
+            password: [this.selectedOrderVmPage.Password, [this.v.isAliCloudPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
             //两次验证[密码验证，8-16个字]
             passwordCheck: [this.selectedOrderVmPage.passwordCheck, [this.v.equalTo(this.selectedOrderVmPage.Password)], "两次密码输入不一致"],
             //再次输入密码验证

@@ -866,6 +866,7 @@
     "NSX_VERSION": "NSX版本",
     "OCCUPIED": "已占用",
     "OCCUPY": "占用",
+	"DIS_NAME_CANT_NULL":"显示名称不能为空",
     "PG_DIS_NAME_CANT_NULL": "端口组显示名称不能为空.",
     "PG_NAME": "端口组名称",
     "PG_NAME_CANT_NULL": "端口组名称不能为空.",
@@ -1578,7 +1579,11 @@
     "RETURN_TO_PREVIOUS_STEP": "返回上一步重新选择平台",
     "RETURN_PRODUCT_LIST": "返回产品列表",
     "ADD":"添加",
-    "PHYSICAL_PRODUCT":"物理机产品"
+    "PHYSICAL_PRODUCT":"物理机产品",
+    "MANAGER_SERVICE":"管理服务",
+    "SERVE_OBJECT":"服务对象",
+    "NOT_ALLOW_TO_DELETE_PRODUCT_CAT_WITH_PRODUCT":"不能删除已绑定产品的产品目录",
+    "SELECT_PRODUCT_CAT":"请选择产品目录"
   },
   "USER_CENTER": {
     "ACCOUNT": "帐号",

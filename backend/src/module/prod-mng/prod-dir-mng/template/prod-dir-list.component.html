@@ -142,7 +142,7 @@
 	<div *ngIf="prodDirTypeCode=='SUPERVISE_SERVICE'">
 		<div class="row row-line-height">
 			<div class="form-group">
-				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SELECT_CLOUD_HOST_SPECIFICATIONS' | translate}}: </div>
+				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SERVE_OBJECT' | translate}}: </div>
 				<div class="col-sm-6">
 					<select class="form-control" [(ngModel)]="servObjCode">
                     <option *ngFor="let obj of service.dictServiceObjList | async; let idx=index" [value]="obj.code">{{obj.displayValue}}</option>

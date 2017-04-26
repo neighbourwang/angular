@@ -183,7 +183,7 @@ private selectedItem :CostManageItem = new CostManageItem();
 		}
 
 	acceptDownload(item:CostManageItem){
-		let filename = 'testassbj';
+		let filename = '账单';
 		let endTime = this._param.year+'-12-31'+' 23:59:59';
 		let startTime = this._param.year+'-01-01'+' 00:00:00';
 		let param = {

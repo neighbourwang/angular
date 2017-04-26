@@ -10,7 +10,7 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-2 content-title">区域</div>
                     <div class="col-md-10 btn-group" data-toggle="buttons">
-                        <label *ngFor="let r of regions;" class="btn btn-default" (click)="region = r; dux.dispatch('region')" [ngClass]="{'active': region?.id === r.id}">
+                        <label *ngFor="let r of regions;" class="btn btn-default" (click)="region = r; dux.dispatch('REGION')" [ngClass]="{'active': region?.id === r.id}">
                             <input type="radio" name="region" autocomplete="off"> {{ r.name }}
                         </label>
                     </div>
@@ -26,7 +26,7 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-2 content-title">资源池</div>
                     <div class="col-md-10 btn-group" data-toggle="buttons">
-                        <label *ngFor="let r of resourcePolls;" class="btn btn-default" (click)="resourcePoll = r; dux.dispatch('resourcePoll')" [ngClass]="{'active': resourcePoll?.id === r.id}">
+                        <label *ngFor="let r of resourcePolls;" class="btn btn-default" (click)="resourcePoll = r; dux.dispatch('RESOURCEPOLL')" [ngClass]="{'active': resourcePoll?.id === r.id}">
                             <input type="radio" name="resourcePoll" autocomplete="off"> {{ r.poolName }}
                         </label>
                     </div>
@@ -40,38 +40,38 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-2 content-title">CPU数量</div>
                     <div class="col-md-10 btn-group">
-                        <button *ngFor="let c of cpuList;" (click)="cpu = c;dux.dispatch('spec');" class="btn btn-default" [ngClass]="{'active': cpu.value === c.value}">
+                        <button *ngFor="let c of cpuList;" (click)="cpu = c;dux.dispatch('SPEC');" class="btn btn-default" [ngClass]="{'active': cpu.value === c.value}">
                             {{ c.displayName }}
                         </button>
                     </div>
                     <div class="col-md-2 content-title">内存容量</div>
                     <div class="col-md-10 btn-group">
-                        <button style="padding: 5px 20px" *ngFor="let m of memList;" (click)="mem = m;dux.dispatch('spec');" class="btn btn-default mgb10" [ngClass]="{'active': mem.value === m.value}">
+                        <button style="padding: 5px 20px" *ngFor="let m of memList;" (click)="mem = m;dux.dispatch('SPEC');" class="btn btn-default mgb10" [ngClass]="{'active': mem.value === m.value}">
                             {{ m.displayName }}
                         </button>
                     </div>
                     <div class="col-md-2 content-title">磁盘需求</div>
                     <div class="col-md-4 btn-group  no-padding mgb15">
                         <label *ngFor="let items of diskRequirements" class="mgr20">
-                            <input type="checkbox" name="diskRequirements" class="fox-cloud-checkbox fox-cloud-checkbox-white" [checked]="items.isSelected" (change)="items.isSelected = !items.isSelected; dux.dispatch('spec')"> {{items.displayName}}
+                            <input type="checkbox" name="diskRequirements" class="fox-cloud-checkbox fox-cloud-checkbox-white" [checked]="items.isSelected" (change)="items.isSelected = !items.isSelected; dux.dispatch('SPEC')"> {{items.displayName}}
                         </label>
                     </div>
                     <div class="col-md-2 content-title">类型</div>
                     <div class="col-md-4 btn-group no-padding mgb15">
                         <label *ngFor="let items of diskTypes" class="mgr20">
-                            <input type="checkbox" class="fox-cloud-checkbox fox-cloud-checkbox-white" name="diskType" [checked]="items.isSelected" (change)="items.isSelected = !items.isSelected; dux.dispatch('spec')"> {{items.displayName}}
+                            <input type="checkbox" class="fox-cloud-checkbox fox-cloud-checkbox-white" name="diskType" [checked]="items.isSelected" (change)="items.isSelected = !items.isSelected; dux.dispatch('SPEC')"> {{items.displayName}}
                         </label>
                     </div>
                     <div class="col-md-2 content-title">网卡需求</div>
                     <div class="col-md-4 btn-group  no-padding mgb15">
                         <label *ngFor="let items of networkRequirements" class="mgr20">
-                            <input type="checkbox" class="fox-cloud-checkbox fox-cloud-checkbox-white" name="networkRequirements" [checked]="items.isSelected" (change)="items.isSelected = !items.isSelected; dux.dispatch('spec')"> {{items.displayName}}
+                            <input type="checkbox" class="fox-cloud-checkbox fox-cloud-checkbox-white" name="networkRequirements" [checked]="items.isSelected" (change)="items.isSelected = !items.isSelected; dux.dispatch('SPEC')"> {{items.displayName}}
                         </label>
                     </div>
                     <div class="col-md-2 content-title">是否需要HBA卡</div>
                     <div class="col-md-4 btn-group no-padding mgb15">
                         <label *ngFor="let items of needHBAList" class="mgr20">
-                            <input type="radio" class="fox-cloud-radio fox-cloud-radio-white" name="needHBA" [checked]="HBA?.value === items.value" (change)="HBA = items; dux.dispatch('spec')"> {{items.displayName}}
+                            <input type="radio" class="fox-cloud-radio fox-cloud-radio-white" name="needHBA" [checked]="HBA?.value === items.value" (change)="HBA = items; dux.dispatch('SPEC')"> {{items.displayName}}
                         </label>
                     </div>
                     <div class="col-md-12">
@@ -91,11 +91,9 @@
                         <div class="table-scroll mgb20">
                             <table class="table table-hover table-boder-top-none table-all-boder">
                                 <ng-container *ngFor="let phsical of phsicalList;let i = index">
-                                    <tr [popover]="popover_host" [popoverOnHover]="true" >
+                                    <tr [popover]="popover_host" [popoverOnHover]="true">
                                         <td style="width: 5%; text-align: center;">
-                                            <input type="radio" class="fox-cloud-radio fox-cloud-radio-white" name="physical" 
-                                                [checked]="selectedPhsical?.id === phsical.id " 
-                                                (change)="selectedPhsical=phsical;dux.dispatch('phsical')">
+                                            <input type="radio" class="fox-cloud-radio fox-cloud-radio-white" name="physical" [checked]="selectedPhsical?.id === phsical.id " (change)="selectedPhsical=phsical;dux.dispatch('PHSICAL')">
                                         </td>
                                         <td style="width: 5%;" class="text-center">{{i + 1}}
                                             <popover-content #popover_host [closeOnClickOutside]="true">
@@ -133,22 +131,22 @@
             </li>
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-host"></span><br>操作系统</p>
+                    <p><span class="icon-host"></span>
+                        <br>操作系统</p>
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-2 content-title">操作系统</div>
                     <div class="col-md-10">
-                        <select [(ngModel)]="os" class="form-control">
-                            <option
-                             *ngFor="let value of oSlList"
-                             [ngValue]="value" >{{ value.osTypeName }}</option>
+                        <select [(ngModel)]="values.OSYSTEM" class="form-control">
+                            <option *ngFor="let value of valuesList.OSYSTEM" [ngValue]="value">{{ value.attrDisplayValue }}</option>
                         </select>
                     </div>
                 </div>
             </li>
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-network"></span><br>网络</p>
+                    <p><span class="icon-network"></span>
+                        <br>网络</p>
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-2 content-title">网络</div>
@@ -159,41 +157,35 @@
             </li>
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-password"></span><br>{{'VM_INSTANCE.PASSWORD_SETTING'| translate}}</p>
+                    <p><span class="icon-password"></span>
+                        <br>{{'VM_INSTANCE.PASSWORD_SETTING'| translate}}</p>
                 </div>
                 <div class="col-md-12 li-content li-password">
                     <div class="col-md-12 no-padding mb20">
                         <div class="col-md-2 content-title">{{'VM_INSTANCE.USER_NAME'| translate}}</div>
-                        <div class="col-md-10 user-root">{{username}}</div>
+                        <div class="col-md-10 user-root">{{valuse?.USERNAME.attrDisplayName}}</div>
                     </div>
-
                     <div class="col-md-12 no-padding mb20">
                         <div class="col-md-2 content-title">{{'VM_INSTANCE.LOGIN_PASSWORD'| translate}}</div>
                         <div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': v.result.password}">
-                            <input type="password" 
-                                (keyup) = "checkValue('password')"
-                                [(ngModel)]="password" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWORD'| translate}}">
+                            <input type="password" (keyup)="checkValue('password')" [(ngModel)]="values.PASSWORD.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWORD'| translate}}">
                             <span *ngIf="v.result.password" class="glyphicon glyphicon-remove form-control-feedback"></span>
                             <div *ngIf="v.result.password" class="alert alert-danger" role="alert">{{v.result.password | translate}}</div>
                         </div>
                         <div class="col-md-5 text-tip  pdb0">{{'VM_INSTANCE.PASSWORD_COMPLEXITY_DESCRIPTION'| translate}}</div>
                     </div>
-
                     <div class="col-md-12 no-padding mb20">
                         <div class="col-md-2 content-title">{{'VM_INSTANCE.CONFIRM_PASSWORD'| translate}}</div>
                         <div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': v.result.passwordShadow }">
-
-                            <input type="password" class="form-control" (keyup)="checkValue('passwordShadow')"  [(ngModel)]="passwordShadow"  placeholder="{{'VM_INSTANCE.ENTER_PASSWORD_AGAIN'| translate}}">
+                            <input type="password" class="form-control" (keyup)="checkValue('passwordShadow')" [(ngModel)]="passwordShadow" placeholder="{{'VM_INSTANCE.ENTER_PASSWORD_AGAIN'| translate}}">
                             <span *ngIf="v.result.passwordShadow" class="glyphicon glyphicon-remove form-control-feedback"></span>
                             <div *ngIf="v.result.passwordShadow" class="alert alert-danger" role="alert">{{v.result.passwordShadow | translate}}</div>
                         </div>
                     </div>
-
                     <div class="col-md-12 no-padding mb20">
                         <div class="col-md-2 content-title">{{'VM_INSTANCE.INSTANCE_NAME'| translate}}</div>
                         <div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': v.result.instancename }">
-                            
-                            <input type="text" [(ngModel)]="instancename" (keyup)="checkValue('instancename')" class="form-control" placeholder="{{'VM_INSTANCE.SYSTEM_AUTO_IN'| translate}}">
+                            <input type="text" [(ngModel)]="values.INSTANCENAME.attrValue" (keyup)="checkValue('instancename')" class="form-control" placeholder="{{'VM_INSTANCE.SYSTEM_AUTO_IN'| translate}}">
                             <span *ngIf="v.result.instancename" class="glyphicon glyphicon-remove form-control-feedback"></span>
                             <div *ngIf="v.result.instancename" class="alert alert-danger" role="alert">{{v.result.instancename | translate}}</div>
                         </div>
@@ -203,22 +195,19 @@
             </li>
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-amount"></span><br>{{'COMMON.PURCHASE_AMOUNT'|translate}}</p>
+                    <p><span class="icon-amount"></span>
+                        <br>{{'COMMON.PURCHASE_AMOUNT'|translate}}</p>
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 no-padding mb20">
                         <div class="col-md-2 content-title">{{'COMMON.PURCHASE_DURATION'|translate}}</div>
                         <div class="col-md-2 no-padding mr10">
-                           <!--  <select [disabled]="timeForever" [(ngModel)]="timelineunit" (ngModelChange)="setVmPrice();" class="form-control">
-                                <option
-                                *ngFor="let value of this.configs.timelineunit.mapValueList[this.vmSku.skuId];"
-                                [ngValue]="value" >{{ value.attrDisplayValue | translate}}</option>
-                            </select> -->
+                            <select [disabled]="timeForever" [(ngModel)]="values.TIMELINEUNIT" (ngModelChange)="dux.dispatch('TIMELINEUNIT');" class="form-control">
+                                <option *ngFor="let value of valuesList.TIMELINEUNIT;" [ngValue]="value">{{ value.attrDisplayValue | dict:service.unitType | async}}</option>
+                            </select>
                         </div>
                         <div class="col-md-2 no-padding mr10 has-feedback" [ngClass]="{'has-error': v.result.timeline }">
-                            <input [disabled]="timeForever" 
-                                   (keyup)="checkValue('timeline');" 
-                                   [(ngModel)]="timeline" type="text" class="form-control">
+                            <input [disabled]="timeForever" (keyup)="checkValue('timeline');dux.dispatch('TIMELINEUNIT');" [(ngModel)]="values.TIMELINE.attrValue" type="text" class="form-control">
                             <span *ngIf="v.result.timeline" class="glyphicon glyphicon-remove form-control-feedback"></span>
                             <div *ngIf="v.result.timeline" class="alert alert-danger" role="alert">{{v.result.timeline | translate}}</div>
                         </div>
@@ -228,11 +217,10 @@
                             </label> -->
                         </div>
                     </div>
-
                     <div class="col-md-12 no-padding mb20">
                         <div class="col-md-2 content-title">{{'COMMON.PURCHASE_AMOUNT'|translate}}</div>
                         <div class="col-md-2 no-padding mr10">
-                            <select [(ngModel)]="quality"  class="form-control">
+                            <select [(ngModel)]="payLoad.quality" (ngModelChange)="dux.dispatch('TIMELINEUNIT');" class="form-control">
                                 <option [ngValue]="1">{{'COMMON.ONE_SET'| translate}}</option>
                                 <option [ngValue]="2">{{'COMMON.TWO_SET'| translate}}</option>
                                 <option [ngValue]="3">{{'COMMON.THREE_SET'| translate}}</option>
@@ -251,10 +239,56 @@
             </li>
         </ul>
     </div>
-  
     <div class="col-md-3 no-padding right-box">
         <cart-button #cartButton></cart-button>
         <div class="col-md-12 content-box">
+            <h3 class="boder-gray-bottom-title">{{'COMMON.CURRENT_CONFIGURATION'| translate}}</h3>
+            <h4 class="cloud-title font-green">{{'COMMON.AREA'| translate}}</h4>
+            <p class="cloud-p">区域: {{ region?.name}}</p>
+            <h4 class="cloud-title font-green">资源池</h4>
+            <p class="cloud-p">资源池: {{ resourcePoll?.poolName}}</p>
+            <h4 class="cloud-title font-green">{{'VM_INSTANCE.INSTANCE_CONFIGURATION'| translate}}</h4>
+            <p class="cloud-p">CPU数量: {{ cpu?.displayName}}</p>
+            <p class="cloud-p">内存容量: {{ mem?.displayName}}</p>
+            <p class="cloud-p">磁盘需求: {{ diskRequirement?.join(",") }}</p>
+            <p class="cloud-p">类型: {{ diskType?.join(",") }}</p>
+            <p class="cloud-p">网卡需求: {{ networkRequirement?.join(",") }}</p>
+            <p class="cloud-p">是否需要HBA卡: {{ HBA?.displayName }}</p>
+            <h4 class="cloud-title font-green">操作系统</h4>
+            <p class="cloud-p">操作系统: {{ values?.OSYSTEM.attrDisplayValue}}</p>
+            <h4 class="cloud-title font-green">网络</h4>
+            <p class="cloud-p">网络: {{ selectedPhsical?.networkName}}</p>
+            <h4 class="cloud-title font-green">{{'COMMON.PURCHASE_AMOUNT'|translate}}</h4>
+            <p class="cloud-p">{{'COMMON.PURCHASE_DURATION'|translate}}: {{ values.TIMELINE?.attrValue}} {{ values.TIMELINEUNIT.attrDisplayValue | dict:service.unitType | async}} </p>
+            <p class="cloud-p">{{'COMMON.PURCHASE_AMOUNT'|translate}}: {{payLoad.quality}}台</p>
+            <div class="cloud-line"></div>
+            <h4 class="cloud-title font-green">{{'VM_INSTANCE.HOST_ONE_PRICE'|translate}}<!-- 云主机单价 --></h4>
+            <p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}:
+                <font class="font-orange">{{'COMMON.$' | translate}}{{ phyProduct?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+            <p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}
+                <font class="font-orange">{{'COMMON.$' | translate}}{{ phyProduct?.billingInfo.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue | dict:service.unitType | async }}</font>
+            </p>
+            <div class="cloud-p">
+                <p class="cloud-title">{{'VM_INSTANCE.TOTAL_COST'| translate}}：</p>
+                <table style="width: 90%;line-height: 26px;">
+                    <tr>
+                        <td>{{'COMMON.ONE_TIME_COSTS'|translate}}： </td>
+                        <td>
+                            <font class="font-orange">{{'COMMON.$' | translate}}{{phyBasePrice}}</font>{{'COMMON.YUAN' | translate}}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <font>{{'VM_INSTANCE.TOTAL_BILLINGARR'|translate}}
+                                <!-- 总周期费用 -->： </font>
+                        </td>
+                        <td>
+                            <font class="font-orange">{{'COMMON.$' | translate}}{{phyTotalPrice}}</font>{{'COMMON.YUAN'|translate}}<span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
+                    </tr>
+                </table>
+                <p class="mgt20">{{'VM_INSTANCE.BILLINGARR_TEXT'|translate}}
+                    <!-- 以上为总费用估算，实际支付金额，请以每月账单为准。 -->
+                </p>
+            </div>
             <div class="col-md-12 colud-order-button">
                 <div class="col-md-6">
                     <button (click)="buyNow()" class="btn button-orange-deep">{{'COMMON.BUY_NOW'|translate}}</button>

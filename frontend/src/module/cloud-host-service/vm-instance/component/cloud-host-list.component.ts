@@ -31,8 +31,6 @@ export class cloudHostListComponent implements OnInit {
 
 	@ViewChild('hostReconfig') hostReconfig;
 
-	@Input() options:ListOptions;
-
 	list : QuiryVmList = new QuiryVmList();
 	saveList : QuiryVmList = new QuiryVmList();   //储存点，重置搜索时会返回到这个点
 

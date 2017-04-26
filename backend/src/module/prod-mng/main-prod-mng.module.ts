@@ -7,20 +7,23 @@ import { ProdDirMngModule } from './prod-dir-mng/prod-dir-mng.module';
 import { ProdMngModule } from './prod-mng/prod-mng.module';
 import { PhysicalProdMngModule } from './physical-product-mng/physical-prod-mng.module';
 import { ProductMngComponents } from './components/product-mng.components.module'
+import { ManagerServeModule } from './manager-serve/manager-serve.module'
 
 @NgModule({
     imports: [
         ProdDirMngModule,
         ProdMngModule,
         ProductMngComponents,
-        PhysicalProdMngModule
+        PhysicalProdMngModule,
+        ManagerServeModule
     ],
     declarations: [],
     exports: [
         ProdDirMngModule,
         ProdMngModule,
         ProductMngComponents,
-        PhysicalProdMngModule
+        PhysicalProdMngModule,
+        ManagerServeModule        
     ],
     providers: []
 })
