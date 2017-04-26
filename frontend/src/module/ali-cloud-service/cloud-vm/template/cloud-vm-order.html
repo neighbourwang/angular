@@ -276,7 +276,7 @@
                     <div class="col-md-12 no-padding mgb20 form-group">
                         <span>系统盘：</span>
                         <select class="form-control select_style" [(ngModel)]="selectedOrderVmPage.selectedDisk" (change)="DiskChanged();" style="display: inline;">
-							<option value="">请选择云盘</option>
+							<option value="null">请选择云盘</option>
                             <option *ngFor="let disktype of selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories" [value]="disktype">{{displayDiskType(disktype)}}</option>
 						</select>
                         <div class="form-group has-feedback" [ngClass]="{'has-error':v.result.numberRange}" style="display: inline;">
