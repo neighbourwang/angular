@@ -72,7 +72,7 @@ export class AliSharedListComponent implements OnInit{
     distriPage(item){
         this.id= item.id;
         this.selectedDepartment= item.departmentName;
-        this.selectedDepartmentId= "";
+        this.selectedDepartmentId= item.departId;
         this.tempDepartmentId= item.departId;
         this.layoutService.show();
         this.service.getDepartsList()
