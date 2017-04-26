@@ -177,6 +177,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
 
             this.selectedRegion.selectedDisk = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories[0];
             console.log(this.selectedRegion.selectedDisk, "selected selectedDisk!");
+            if (this.selectedRegion.selectedDisk == undefined)  this.selectedRegion.selectedDisk = '';
             this.calculatePrice();
         }
     }
@@ -215,6 +216,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
 
                     this.selectedRegion.selectedDisk = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories[0];
                     console.log(this.selectedRegion.selectedDisk, "selected selectedDisk!");
+                    if (this.selectedRegion.selectedDisk == undefined)  this.selectedRegion.selectedDisk = '';
                     this.calculatePrice();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -248,6 +250,10 @@ export class AliCloudDiskOrderComponent implements OnInit {
             region.selectedArea.ZoneId = this.selectedRegion.selectedArea.ZoneId;
             region.selectedArea.AvailableDiskCategories = this.selectedRegion.selectedArea.AvailableDiskCategories;
             console.log(region, this.selectedRegion, "region, this.selectedRegion in AreaChanged()!");
+            
+            this.selectedRegion.selectedDisk = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories[0];
+            console.log(this.selectedRegion.selectedDisk, "selected selectedDisk!");
+            if (this.selectedRegion.selectedDisk == undefined)  this.selectedRegion.selectedDisk = '';
         }, 50); //window内的代码要延后50ms执行
     }
 
@@ -275,7 +281,15 @@ export class AliCloudDiskOrderComponent implements OnInit {
     }
 
     calculatePrice() {
-        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "" && (parseInt(this.selectedRegion.diskCount) < 2001 && parseInt(this.selectedRegion.diskCount) > 0 )) {
+        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "") {
+            if (this.selectedRegion.selectedDisk == "cloud" && (parseInt(this.selectedRegion.diskCount) > 2000 || parseInt(this.selectedRegion.diskCount) < 5)) {
+                //this.showMsg("请选择正确的配置！");
+                return;
+            }
+            if ((this.selectedRegion.selectedDisk == "cloud_efficiency" || this.selectedRegion.selectedDisk == "cloud_ssd") && (parseInt(this.selectedRegion.diskCount) > 32768 || parseInt(this.selectedRegion.diskCount) < 20)) {
+                //this.showMsg("请选择正确的配置！");
+                return;
+            }
             this.selectedRegion.price = "计算中...";
             this.calculatetimer && window.clearTimeout(this.calculatetimer);
             this.calculatetimer = window.setTimeout(() => {

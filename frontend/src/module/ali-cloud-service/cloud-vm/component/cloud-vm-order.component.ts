@@ -1353,7 +1353,7 @@ export class AliCloudVmOrderComponent implements OnInit {
 			phone: [this.phone, [this.v.isMoblie, this.v.isUnBlank], "手机号码输入不正确"],
   			//手机号码验证
               */
-            password: [this.selectedOrderVmPage.Password, [this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
+            password: [this.selectedOrderVmPage.Password, [this.v.isAliCloudPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
             //两次验证[密码验证，8-16个字]
             passwordCheck: [this.selectedOrderVmPage.passwordCheck, [this.v.equalTo(this.selectedOrderVmPage.Password)], "两次密码输入不一致"],
             //再次输入密码验证

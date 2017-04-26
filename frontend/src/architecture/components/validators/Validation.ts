@@ -27,6 +27,7 @@ class Validation {
     isInteger  = (v:any):boolean => /^\d*$/.test(v);  //是否是整数
     isIpaddress= (v:any):boolean => /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/.test(v);  //是否是IP
     isAliCloudInstanceName = (v:any):boolean => /((^([a-zA-Z\u4e00-\u9fa5])+)([a-zA-Z\u4e00-\u9fa5\_\-\.0-9].{1,127}$))/.test(v);   //阿里云主机名称 2-128个字符，以大小写字母或中文开头
+    isAliCloudPassword = (v:any):boolean => /(^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_]+$)(?![a-z0-9]+$)(?![a-z\W_]+$)(?![0-9\W_]+$)[a-zA-Z0-9\W_]{8,31}$)/.test(v);
 
     //下面为curry函数
     min = (min:number):Function => (v:any):boolean => +v >= min;   //数字的最小值
