@@ -59,6 +59,7 @@ export class AliSubListComponent implements OnInit{
     selectedDepartmentId: string;
     testInfo: string;
     id: string;
+    tempDepartmentId: string;
 
     ngOnInit (){
         console.log('init');
@@ -128,8 +129,26 @@ export class AliSubListComponent implements OnInit{
     crePage(){
         this.type= "create";
         this.testInfo= "";
+        this.subInfo= new AliSubList();
         this.getDepartsList();
         this.subMng.open("创建子账号");
+    }
+
+    create(){
+        this.layoutService.show();
+        this.service.create(this.Majorid, this.subInfo)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getData();
+                        this.subMng.close();
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     editPage(item){
@@ -146,6 +165,24 @@ export class AliSubListComponent implements OnInit{
                         this.subMng.open("编辑子账号");
                         console.log("subInfo",this.subInfo);
                     } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    edit(){
+        this.layoutService.show();
+        this.service.edit(this.id, this.subInfo)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getData();
+                        this.subMng.close();
+                        console.log("edit后",this.subInfo);
+                    }else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
@@ -172,6 +209,7 @@ export class AliSubListComponent implements OnInit{
     distriPage(item){
         this.type= "distribute";
         this.selectedDepartment= item.departmentName;
+        this.tempDepartmentId= item.departId;
         this.selectedDepartmentId= "";
         this.id= item.id;
         this.layoutService.show();
@@ -190,6 +228,7 @@ export class AliSubListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
+
     selected(item: DepartList){
         this.departsList.forEach((p) =>{
             p.selected= false;
@@ -199,12 +238,32 @@ export class AliSubListComponent implements OnInit{
         this.selectedDepartmentId= item.id;
     }
 
+
     reset(){
         this.departsList.forEach((p) =>{
             p.selected= false;
+            p.visible= "true";
         });
         this.selectedDepartment= "";
         this.selectedDepartmentId= "";
+    }
+
+    editDepart(){
+        this.layoutService.show();
+        this.service.editDepart(this.id, this.selectedDepartmentId)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getData();
+                        this.distriDepart.close();
+                        console.log("editDepart",this.id, this.selectedDepartmentId);
+                    }else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     enable(item){
@@ -267,73 +326,57 @@ export class AliSubListComponent implements OnInit{
         }else{
             this.showAlert("必须为禁用状态且未分配给任何部门时才能删除");
         }
-
     }
 
+
+    //待完善
     operate(){
         if(this.type== "info"){
             this.subMng.close();
         }else if(this.type== "create"){
+            if(this.validationService.isBlank(this.subInfo.accessKey) || this.validationService.isBlank(this.subInfo.accessSecret)
+                || this.validationService.isBlank(this.subInfo.loginName)){
+                return;
+            }
+            if(this.testInfo != 'success'){
+                this.showAlert("测试成功才能保存");
+               // this.subMng.close();
+                return;
+            }
             let selectedDepart= this.departsList.find((p)=>{
                 return p.id == this.subInfo.departId;
             });
             this.subInfo.departmentName= selectedDepart && selectedDepart.departmentName || "";
-            this.layoutService.show();
-            this.service.create(this.Majorid, this.subInfo)
-                .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.getData();
-                            this.subMng.close();
-                        } else {
-                            this.showAlert("COMMON.OPERATION_ERROR");
-                        }
-                    }
-                )
-                .catch((e) => this.onRejected(e));
+            this.create();
         }else if(this.type== "edit"){
-            this.layoutService.show();
-            this.service.edit(this.id, this.subInfo)
-                .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.getData();
-                            this.subMng.close();
-                            console.log("edit后",this.subInfo);
-                        }else {
-                            this.showAlert("COMMON.OPERATION_ERROR");
-                        }
-                    }
-                )
-                .catch((e) => this.onRejected(e));
+            if(this.validationService.isBlank(this.subInfo.accessKey) || this.validationService.isBlank(this.subInfo.accessSecret)){
+                return;
+            }
+            if(this.testInfo != 'success'){
+                this.showAlert("测试成功才能保存");
+                //this.subMng.close();
+                return;
+            }
+            this.edit();
         }else{
-            this.layoutService.show();
-            this.service.editDepart(this.id, this.selectedDepartmentId)
-                .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.getData();
-                            this.distriDepart.close();
-                            console.log("editDepart",this.id, this.selectedDepartmentId);
-                        }else {
-                            this.showAlert("COMMON.OPERATION_ERROR");
-                        }
-                    }
-                )
-                .catch((e) => this.onRejected(e));
+            if(this.selectedDepartmentId != this.tempDepartmentId){
+                this.confirm.open("设置部门","部门发生改变,请确认");
+                this.confirm.ccf= ()=>{
+                    this.editDepart();
+                }
+            }else{
+                this.editDepart();
+            }
+
         }
     }
 
     checkForm(key?:string){
         const regs:ValidationRegs = {
+            loginName: [this.subInfo.loginName, [this.v.isBase, this.v.isUnBlank], "loginName不能为空"],
             accessKey: [this.subInfo.accessKey, [this.v.isUnBlank], "accessKey不能为空"],
             accessSecret: [this.subInfo.accessSecret, [this.v.isUnBlank], "accessSecret不能为空"],
-            loginName: [this.subInfo.loginName, [this.v.isBase, this.v.isUnBlank], "loginName不能为空"],
         }
-
         return this.v.check(key, regs);
     }
 

@@ -10,7 +10,6 @@ import { DepartList } from '../model/depart-list.model';
 
 //service
 import { AliSharedService } from '../service/ali-shared-list.service';
-import { AliSubService } from '../service/ali-sub-list.service';
 
 @Component({
     selector: 'ali-shared-list',
@@ -24,7 +23,6 @@ export class AliSharedListComponent implements OnInit{
     constructor(
         private router : Router,
         private service : AliSharedService,
-        private subservice : AliSubService,
         private layoutService : LayoutService
     ) {
 
@@ -36,6 +34,8 @@ export class AliSharedListComponent implements OnInit{
     notice: NoticeComponent;
     @ViewChild("distriDepart")
     distriDepart: PopupComponent;
+    @ViewChild('confirm')
+    confirm: ConfirmComponent;
 
     noticeTitle = "";
     noticeMsg = "";
@@ -45,7 +45,7 @@ export class AliSharedListComponent implements OnInit{
     selectedDepartment: string;
     selectedDepartmentId: string;
     id: string;
-    selectAll= false;
+    tempDepartmentId: string;
 
     ngOnInit (){
         console.log('init');
@@ -73,14 +73,15 @@ export class AliSharedListComponent implements OnInit{
         this.id= item.id;
         this.selectedDepartment= item.departmentName;
         this.selectedDepartmentId= "";
+        this.tempDepartmentId= item.departId;
         this.layoutService.show();
-        this.subservice.getDepartsList()
+        this.service.getDepartsList()
             .then(
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.departsList = response["resultContent"];
-                        console.log("departsList",this.departsList);
+                        console.log("departsharesList",this.departsList);
                         this.distriDepart.open("分配部门")
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -102,13 +103,14 @@ export class AliSharedListComponent implements OnInit{
     reset(){
         this.departsList.forEach((p) =>{
            p.selected= false;
+           p.visible= "true";
         });
         this.selectedDepartment= "";
         this.selectedDepartmentId= "";
-        this.selectAll= false;
-    }
 
-    operate(){
+    }
+    
+    editDepart(){
         this.layoutService.show();
         this.service.editDepart(this.id, this.selectedDepartmentId)
             .then(
@@ -117,8 +119,8 @@ export class AliSharedListComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         this.getData();
                         this.distriDepart.close();
-                        console.log("editDepart",this.id, this.selectedDepartmentId);
-                    }else {
+                        console.log("editDepart", this.id, this.selectedDepartmentId);
+                    } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
@@ -126,10 +128,20 @@ export class AliSharedListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
+    operate() {
+        if (this.selectedDepartmentId != this.tempDepartmentId) {
+            this.confirm.open("设置部门", "部门发生改变,请确认");
+            this.confirm.ccf = ()=> {
+                this.editDepart();
+            }
+        }else {
+            this.editDepart();
+        }
+    }
+
 
     showAlert(msg: string): void {
         this.layoutService.hide();
-
         this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();

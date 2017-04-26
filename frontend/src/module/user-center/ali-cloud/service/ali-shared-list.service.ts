@@ -38,4 +38,9 @@ export class AliSharedService {
             "commonString": departId
         });
     }
+
+    getDepartsList(): Promise<any>{
+        const api= this.restApiCfg.getRestApi("user-center.ali-cloud.departsharelist");
+        return this.restApi.request(api.method, api.url, null, null, null);
+    }
 }

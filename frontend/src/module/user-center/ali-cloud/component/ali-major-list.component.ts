@@ -34,6 +34,8 @@ export class AliMajorListComponent implements OnInit{
     pager: PaginationComponent;
     @ViewChild("notice")
     notice: NoticeComponent;
+    @ViewChild('confirm')
+    confirm: ConfirmComponent;
     @ViewChild("majorMng")
     majorMng: PopupComponent;
     @ViewChild("distriDepart")
@@ -50,6 +52,7 @@ export class AliMajorListComponent implements OnInit{
     departs: Array<DepartList>;
     selectedDepartment: string;
     selectedDepartmentId: string;
+    tempDepartmentId: string;
 
 
     ngOnInit (){
@@ -115,6 +118,24 @@ export class AliMajorListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
+    edit(){
+        this.layoutService.show();
+        this.service.edit(this.id, this.majorInfo)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getData();
+                        this.majorMng.close();
+                        console.log("edit后",this.majorInfo);
+                    }else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
     testMajor(){
         this.layoutService.show();
         this.service.testMajor(this.majorInfo)
@@ -136,6 +157,7 @@ export class AliMajorListComponent implements OnInit{
         this.type= "distribute";
         this.selectedDepartment= item.departmentName;
         this.selectedDepartmentId= "";
+        this.tempDepartmentId= item.departmentId;
         this.id= item.id;
         this.layoutService.show();
         this.service.departMajor()
@@ -165,9 +187,28 @@ export class AliMajorListComponent implements OnInit{
     reset(){
         this.departs.forEach((p) =>{
             p.selected= false;
+            p.visible= "true";
         });
         this.selectedDepartment= "";
         this.selectedDepartmentId= "";
+    }
+
+    editDepart(){
+        this.layoutService.show();
+        this.service.editDepart(this.id, this.selectedDepartmentId)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getData();
+                        this.distriDepart.close();
+                        console.log("editDepart",this.id, this.selectedDepartmentId);
+                    }else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     gotoSubMng(item){
@@ -175,43 +216,27 @@ export class AliMajorListComponent implements OnInit{
     }
 
     operate(){
-        if(this.validationService.isBlank(this.majorInfo.accessKey) || this.validationService.isBlank(this.majorInfo.accessSecret)){
-            return;
-        }
         if(this.type== "info"){
             this.majorMng.close();
         }else if(this.type== "edit"){
-            this.layoutService.show();
-            this.service.edit(this.id, this.majorInfo)
-                .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.getData();
-                            this.majorMng.close();
-                            console.log("edit后",this.majorInfo);
-                        }else {
-                            this.showAlert("COMMON.OPERATION_ERROR");
-                        }
-                    }
-                )
-                .catch((e) => this.onRejected(e));
+            if(this.validationService.isBlank(this.majorInfo.accessKey) || this.validationService.isBlank(this.majorInfo.accessSecret)){
+                return;
+            }
+            if(this.testInfo != 'success'){
+                this.showAlert("测试成功才能保存");
+                //this.majorMng.close();
+                return;
+            }
+            this.edit();
         }else{
-            this.layoutService.show();
-            this.service.editDepart(this.id, this.selectedDepartmentId)
-                .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.getData();
-                            this.distriDepart.close();
-                            console.log("editDepart",this.id, this.selectedDepartmentId);
-                        }else {
-                            this.showAlert("COMMON.OPERATION_ERROR");
-                        }
-                    }
-                )
-                .catch((e) => this.onRejected(e));
+            if(this.selectedDepartmentId != this.tempDepartmentId){
+                this.confirm.open("设置部门","部门发生改变,请确认");
+                this.confirm.ccf= ()=>{
+                    this.editDepart();
+                }
+            }else{
+                this.editDepart();
+            }
         }
     }
 
@@ -220,7 +245,6 @@ export class AliMajorListComponent implements OnInit{
             accessKey: [this.majorInfo.accessKey, [this.v.isUnBlank], "accessKey不能为空"],
             accessSecret: [this.majorInfo.accessSecret, [this.v.isUnBlank], "accessSecret不能为空"],
         }
-
         return this.v.check(key, regs);
     }
 

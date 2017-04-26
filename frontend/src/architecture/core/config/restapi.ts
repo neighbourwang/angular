@@ -1089,4 +1089,17 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/mmp/share/acct/depart/update/{id}"
     },
+    {
+        "desc": "共享账号部门列表",
+        "id": "user-center.ali-cloud.departsharelist",
+        "method": "GET",
+        "url": "alicloud/authsec/alicloud/mmp/share/sub/depart/list"
+    },
+    // 阿里云index账号管理
+    {
+        "desc": "导航",
+        "id": "user-center.ali-cloud.index",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/mmp/acct/type"
+    },
 ]

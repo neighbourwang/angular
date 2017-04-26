@@ -26,7 +26,7 @@
 
 <fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
 
-<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}"></fc-confirm>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CANCEL' | translate}}" ct="{{ 'COMMON.CONFIRM' | translate}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
 
 <fc-popup #distriDepart title="{{title}}" ot="{{'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="operate()">
@@ -46,11 +46,11 @@
                     <th class="text-center">选择 </th>
                     <th class="text-center">部门名称</th>
                 </tr>
-                <tr>
+<!--                <tr>
                     <td class="text-center"><input type='radio' name="radio" class="fox-cloud-radio" [checked]="selectAll" [(ngModel)]="selectAll"/></td>
                     <td class="text-center">所有部门</td>
-                </tr>
-                <tr *ngFor="let item of departsList">
+                </tr>-->
+                <tr *ngFor="let item of departsList" [hidden]="item.visible == 'false'" >
                     <td class="text-center"><input type='radio' name="radio" class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
                     <td class="text-center">{{item.departmentName}}</td>
                 </tr>

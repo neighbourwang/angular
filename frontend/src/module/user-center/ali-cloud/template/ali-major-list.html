@@ -25,7 +25,7 @@
             <td class="text-center">{{item.lastUpdate | formatDate}}</td>
             <td class="text-center">{{item.operator}}</td>
             <td class="text-center">
-                <span class="glyphicon glyphicon-edit font-green" style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);type= 'edit'"></span>
+                <span class="glyphicon glyphicon-edit font-green" style="margin-right : 10px ;cursor:pointer" (click)="editPage(item);type= 'edit';v.result.accessKey='';v.result.accessSecret='';"></span>
                 <span class="glyphicon glyphicon-user font-green" style="margin-right : 10px ;cursor:pointer" (click)="distriPage(item)"></span>
                 <span class="glyphicon glyphicon-cog font-green"  style="margin-right : 10px ;cursor:pointer" (click)="gotoSubMng(item)"></span>
             </td>
@@ -33,20 +33,20 @@
     </tbody>
 </table>
 
-<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}"></fc-confirm>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CANCEL' | translate}}" ct="{{ 'COMMON.CONFIRM' | translate}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
 
 <fc-popup #majorMng title="{{title}}" ot="{{type== 'info'? '关闭': 'DIALOG.SAVE' | translate }}" ct="{{ type== 'info'? '':'DIALOG.CANCEL' | translate }}" (of)="operate()">
     <div class="mgt10 border">
         <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
-            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>主账号登录名:</div>
+            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>主账号登录名：</div>
             <div class="col-md-8 no-padding">
                 <span style="line-height: 34px;">{{majorInfo.loginName}}</span>
             </div>
         </div>
         <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>Access Key ID:</div>
-            <div *ngIf="type== 'edit'" class="col-md-6 no-padding form-group">
+            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>Access Key ID：</div>
+            <div *ngIf="type== 'edit'" class="col-md-6 no-padding form-group" [ngClass]="{'has-error': v.result.accessKey}">
                 <input type="text" class="form-control" maxlength="50" [(ngModel)]="majorInfo.accessKey" (ngModelChange)="checkForm('accessKey')">
                 <span *ngIf="v.result.accessKey" class="glyphicon glyphicon-remove form-control-feedback"></span>
                 <div *ngIf="v.result.accessKey" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.accessKey | translate}}</div>
@@ -56,8 +56,8 @@
             </div>
         </div>
         <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>Access Key Secret:</div>
-            <div *ngIf="type== 'edit'" class="col-md-6 no-padding form-group">
+            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>Access Key Secret：</div>
+            <div *ngIf="type== 'edit'" class="col-md-6 no-padding form-group" [ngClass]="{'has-error': v.result.accessSecret}">
                 <input type="text" class="form-control" [(ngModel)]="majorInfo.accessSecret" (ngModelChange)="checkForm('accessSecret')">
                 <span *ngIf="v.result.accessSecret" class="glyphicon glyphicon-remove form-control-feedback"></span>
                 <div *ngIf="v.result.accessSecret" class="alert alert-danger" role="alert" style="height:34px;padding:0px;margin:0px;line-height:34px;padding-left:10px">{{v.result.accessSecret | translate}}</div>
@@ -72,14 +72,14 @@
                 <button class="btn btn-default button-gray-gradient" (click)="testMajor(); testInfo= '';">  测试  </button>
             </div>
             <div *ngIf="testInfo== 'success'" class="col-md-4 no-padding">
-                <span class="font-green" style="line-height: 34px;">提示:测试成功</span>
+                <span class="font-green" style="line-height: 34px;">提示：测试成功</span>
             </div>
             <div *ngIf="testInfo== 'failed'" class="col-md-4 no-padding">
-                <span class="font-orange" style="line-height: 34px;">提示:测试失败</span>
+                <span class="font-orange" style="line-height: 34px;">提示：测试失败</span>
             </div>
         </div>
         <div *ngIf="type== 'info'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>所属部门:</div>
+            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>所属部门：</div>
             <div class="col-md-8 no-padding">
                 <span style="line-height: 34px;">{{majorInfo.departmentName}}</span>
             </div>
@@ -104,8 +104,8 @@
                     <th class="text-center">选择 </th>
                     <th class="text-center">部门名称</th>
                 </tr>
-                <tr *ngFor="let item of departs" class="text-center">
-                    <td><input type='radio' class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
+                <tr *ngFor="let item of departs" [hidden]="item.visible == 'false'">
+                    <td class="text-center" ><input type='radio' class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
                     <td class="text-center">{{item.departmentName}}</td>
                 </tr>
                 </tbody>

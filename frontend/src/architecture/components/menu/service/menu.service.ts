@@ -213,21 +213,15 @@ export class MenuService {
 							"routing": "user-center/person-acc-mng/person-acc-mng"
 						},
                         {
-                            "label": "阿里云独享账号管理",
+                            "label": "阿里云账号管理",
                             "isOpen": false,
-                            "isShow": isOrgin,
-                            "routing": "user-center/ali-cloud/ali-major-list"
-                        },
-                        {
-                            "label": "阿里云共享账号管理",
-                            "isOpen": false,
-                            "isShow": isOrgin,
-                            "routing": "user-center/ali-cloud/ali-shared-list"
+                            "isShow": true,
+                            "routing": "user-center/ali-cloud/ali-index"
                         },
                         {
                             "label": "MENU.CASE_MNY",
                             "isOpen": false,
-                            "isShow": isOrgin,
+                            "isShow": true,
                             "routing": "user-center/case-mng/case-mng-list"
                         }
 

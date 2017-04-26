@@ -7,6 +7,7 @@ import { CommonComponentModule, PipeModule} from '../../../architecture';
 import { AliMajorListComponent } from './component/ali-major-list.component';
 import { AliSubListComponent } from './component/ali-sub-list.component';
 import { AliSharedListComponent } from './component/ali-shared-list.component';
+import { AliIndexComponent } from './component/index.component';
 
 // Routing
 import { AliMngRouting } from './ali-mng.routing';
@@ -15,6 +16,7 @@ import { AliMngRouting } from './ali-mng.routing';
 import { AliMajorService} from './service/ali-major-list.service';
 import { AliSubService} from './service/ali-sub-list.service';
 import { AliSharedService} from './service/ali-shared-list.service';
+import { AliIndexService } from './service/index.service';
 
 @NgModule({
     imports: [
@@ -25,17 +27,20 @@ import { AliSharedService} from './service/ali-shared-list.service';
     declarations: [
         AliMajorListComponent,
         AliSubListComponent,
-        AliSharedListComponent
+        AliSharedListComponent,
+        AliIndexComponent
     ],
     exports: [
         AliMajorListComponent,
         AliSubListComponent,
-        AliSharedListComponent
+        AliSharedListComponent,
+        AliIndexComponent
     ],
     providers: [
         AliMajorService,
         AliSubService,
-        AliSharedService
+        AliSharedService,
+        AliIndexService
     ]
 
 })
