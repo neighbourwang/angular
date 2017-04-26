@@ -278,7 +278,7 @@ export class AliCloudMainAccountListComponent implements OnInit{
     deleteAccount(){
         const account=this.accountList.find((e)=>{return e.isSelect});
         if(!account){
-            this.showAlert("请选择需要删除的账号！")
+            this.showAlert("请选择需要编辑的账号！")
             return ;
         }
          if(account.mainAccountType =="1" ){

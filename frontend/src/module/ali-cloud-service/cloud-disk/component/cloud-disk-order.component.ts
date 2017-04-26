@@ -136,6 +136,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
                     }
                     this.regions = result.Regions.Region;
                     console.log(this.regions, "this.regions!");
+                    this.selectRegion(this.regions[0]);
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -176,6 +177,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
 
             this.selectedRegion.selectedDisk = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories[0];
             console.log(this.selectedRegion.selectedDisk, "selected selectedDisk!");
+            if (this.selectedRegion.selectedDisk == undefined)  this.selectedRegion.selectedDisk = '';
             this.calculatePrice();
         }
     }
@@ -214,6 +216,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
 
                     this.selectedRegion.selectedDisk = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories[0];
                     console.log(this.selectedRegion.selectedDisk, "selected selectedDisk!");
+                    if (this.selectedRegion.selectedDisk == undefined)  this.selectedRegion.selectedDisk = '';
                     this.calculatePrice();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -247,6 +250,10 @@ export class AliCloudDiskOrderComponent implements OnInit {
             region.selectedArea.ZoneId = this.selectedRegion.selectedArea.ZoneId;
             region.selectedArea.AvailableDiskCategories = this.selectedRegion.selectedArea.AvailableDiskCategories;
             console.log(region, this.selectedRegion, "region, this.selectedRegion in AreaChanged()!");
+            
+            this.selectedRegion.selectedDisk = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories[0];
+            console.log(this.selectedRegion.selectedDisk, "selected selectedDisk!");
+            if (this.selectedRegion.selectedDisk == undefined)  this.selectedRegion.selectedDisk = '';
         }, 50); //window内的代码要延后50ms执行
     }
 
@@ -274,7 +281,15 @@ export class AliCloudDiskOrderComponent implements OnInit {
     }
 
     calculatePrice() {
-        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "" && parseInt(this.selectedRegion.diskCount) < 2001) {
+        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "") {
+            if (this.selectedRegion.selectedDisk == "cloud" && (parseInt(this.selectedRegion.diskCount) > 2000 || parseInt(this.selectedRegion.diskCount) < 5)) {
+                //this.showMsg("请选择正确的配置！");
+                return;
+            }
+            if ((this.selectedRegion.selectedDisk == "cloud_efficiency" || this.selectedRegion.selectedDisk == "cloud_ssd") && (parseInt(this.selectedRegion.diskCount) > 32768 || parseInt(this.selectedRegion.diskCount) < 20)) {
+                //this.showMsg("请选择正确的配置！");
+                return;
+            }
             this.selectedRegion.price = "计算中...";
             this.calculatetimer && window.clearTimeout(this.calculatetimer);
             this.calculatetimer = window.setTimeout(() => {
@@ -311,32 +326,45 @@ export class AliCloudDiskOrderComponent implements OnInit {
         this.diskorder.diskName = "";
         this.diskorder.size = this.selectedRegion.diskCount;
         this.diskorder.snapshotId = "";
+        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "") {
+            if (this.selectedRegion.selectedDisk == "cloud" && (parseInt(this.selectedRegion.diskCount) > 2000 || parseInt(this.selectedRegion.diskCount) < 5)) {
+                this.showMsg("请选择正确的配置！");
+                return;
+            }
+            if ((this.selectedRegion.selectedDisk == "cloud_efficiency" || this.selectedRegion.selectedDisk == "cloud_ssd") && (parseInt(this.selectedRegion.diskCount) > 32768 || parseInt(this.selectedRegion.diskCount) < 20)) {
+                this.showMsg("请选择正确的配置！");
+                return;
+            }
 
-        this.layoutService.show();
-        this.service.createDiskOrder(this.selectedRegion.RegionId, this.selectedRegion.selectedArea.ZoneId, this.diskorder)
-            .then(
-            response => {
-                this.layoutService.hide();
-                console.log(response, "response!");
-                if (response && 100 == response["resultCode"]) {
-                    let result;
-                    try {
-                        result = JSON.parse(response.resultContent);
-                    } catch (ex) {
-                        console.log(ex);
+            this.layoutService.show();
+            this.service.createDiskOrder(this.selectedRegion.RegionId, this.selectedRegion.selectedArea.ZoneId, this.diskorder)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    console.log(response, "response!");
+                    if (response && 100 == response["resultCode"]) {
+                        let result;
+                        try {
+                            result = JSON.parse(response.resultContent);
+                        } catch (ex) {
+                            console.log(ex);
+                        }
+                        console.log(result.DiskId, "result.DiskId was ordered!");
+                        this.showAlert("云硬盘订购成功！", () => {
+                            this.router.navigate([`ali-cloud-service/cloud-disk/cloud-disk-list`]);
+                        });
+                    } else {
+                        this.showMsg("COMMON.OPERATION_ERROR");
+                        return;
                     }
-                    console.log(result.DiskId, "result.DiskId was ordered!");
-                    this.showAlert("云硬盘订购成功！", () => {
-                        this.router.navigate([`ali-cloud-service/cloud-disk/cloud-disk-list`]);
-                    });
-                } else {
-                    this.showMsg("COMMON.OPERATION_ERROR");
-                    return;
-                }
-            })
-            .catch((e) => {
-                this.onRejected(e);
-            });
+                })
+                .catch((e) => {
+                    this.onRejected(e);
+                });
+
+        } else {
+            this.showMsg("请选择正确的配置！");
+        }
 
     }
 
@@ -367,7 +395,10 @@ export class AliCloudDiskOrderComponent implements OnInit {
 
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            numberRange: [this.selectedRegion.diskCount, [this.v.range(1, 2000)], "数字范围不对，必须1~2000"],
+            numberRange_cloud: [this.selectedRegion.diskCount, [this.v.range(5, 2000)], "数字范围不对，必须5~2000"],
+            numberRange_cloud_efficiency: [this.selectedRegion.diskCount, [this.v.range(20, 32768)], "数字范围不对，必须20~32768"],
+            numberRange_cloud_ssd: [this.selectedRegion.diskCount, [this.v.range(20, 32768)], "数字范围不对，必须20~32768"],
+            mustnull: [this.selectedRegion.diskCount, [this.v.equalTo("")], "请选择云硬盘类型"]
         }
         return this.v.check(key, regs);
     }

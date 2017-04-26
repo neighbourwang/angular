@@ -100,7 +100,15 @@ export class AliCloudSubAccountEnterpriseComponent implements OnInit{
         console.log("传的企业",entId,entName)
         if(this.account.tenantName != this.changeEntName){
             this.noticeTitle="设置企业";
-            this.noticeMsg="企业已从'"+this.account.tenantName+ "'变更为'"+entName+"'。 确认是否保存";
+            if(!this.account.tenantName){
+                this.noticeMsg="企业已变更为'"+entName+"'。 确认是否保存";
+            }
+            else if(this.changeEntName){
+                this.noticeMsg="企业已从'"+this.account.tenantName+ "'变更为'"+entName+"'。 确认是否保存";
+            }
+            else{
+                this.noticeMsg="企业已重置, 确认是否保存";
+            }         
         }
         this.confirm.ccf = () => {};
         this.confirm.cof = () => {

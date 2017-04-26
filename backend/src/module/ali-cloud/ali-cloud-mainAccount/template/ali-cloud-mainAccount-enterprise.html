@@ -22,19 +22,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of enterpriseList">
-                        <td><input type="radio" name="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);"></td>
-                        <td>{{item.tenantName}}</td>
-                        <td [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}"> 
-                            {{item.status| dict:service.dictStatus | async}}
-                        </td>
+                    <!--<tr *ngFor="let item of enterpriseList"  >                      
+                            <td ><input type="radio" name="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);"></td>
+                            <td>{{item.tenantName}}</td>
+                            <td [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}"> 
+                                {{item.status| dict:service.dictStatus | async}}
+                            </td>                       
+                    </tr>-->
+                    
+                    <tr *ngFor="let item of enterpriseList"  >
+                        <template  [ngIf]="item.visible == 'true'">
+                            <td ><input type="radio" name="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);"></td>
+                            <td>{{item.tenantName}}</td>
+                            <td [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}"> 
+                                {{item.status| dict:service.dictStatus | async}}
+                            </td>
+                         </template>
                     </tr>
+                                                          
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<div class="text-center">
+<div class="text-center mgt20">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="gotoAccountList();">
         <span class="icon-button-label">取消</span>
     </button>   

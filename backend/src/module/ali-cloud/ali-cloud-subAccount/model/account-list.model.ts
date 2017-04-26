@@ -20,6 +20,7 @@ export class EnterpriseModel{
     tenantId:string;
     tenantName:string;
     status:string;
+    visile:string;
     isSelect=false;
 }
 

@@ -87,25 +87,51 @@ export class AliCloudSubAccountEditComponent implements OnInit{
 
      //编辑账号
     editAccount(){
-        this.layoutService.hide();
-        this.service.editAccount(this.account)
-        .then(
-            response=>{ 
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
+        if(!this.account.accessKey){
+            this.showAlert("请填写Access Key ID!");
+            return;
+        }
+        if(!this.account.accessSecret){
+            this.showAlert("请填写Access Key Secret!");
+            return;
+        }
+        if(this.testResult=="0"){       
+            this.layoutService.hide();
+            this.service.editAccount(this.account)
+            .then(
+                response=>{ 
                     this.layoutService.hide();
-                    this.gotoAccountList();
-                } 
-                else {
-                    this.showAlert("COMMON.OPERATION_ERROR");
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.gotoAccountList();
+                    } 
+                    else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
                 }
-            }
-        )
-        .catch((e) => this.onRejected(e));
+            )
+            .catch((e) => this.onRejected(e));
+        }
+        else{
+            this.showAlert("Access Key信息错误！");
+            return false;
+        }
     }
 
     //添加账号
     createAccount(){
+        if(!this.account.loginName){
+            this.showAlert("请填写子账号登录名!");
+            return;
+        }
+        if(!this.account.accessKey){
+            this.showAlert("请填写Access Key ID!");
+            return;
+        }
+        if(!this.account.accessSecret){
+            this.showAlert("请填写Access Key Secret!");
+            return;
+        }
         this.layoutService.show();
         if (this.testResult=="1") {
             this.service.createAccount(this.account,this.mainAccountId)
@@ -124,7 +150,7 @@ export class AliCloudSubAccountEditComponent implements OnInit{
         .catch((e) => this.onRejected(e));
         }
         else{
-            this.showAlert("请填写主账号登录名");
+            this.showAlert("Access Key信息错误！");
             return false;
         }
     }

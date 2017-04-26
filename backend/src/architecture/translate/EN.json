@@ -1213,7 +1213,12 @@
     "ENTERPRISE_LIST_IS_EMPTY": "Enterprise list is empty",
     "RETURN_TO_PREVIOUS_STEP": "Go back to the previous step and reselect the platform",
     "RETURN_PRODUCT_LIST": "Return product list",
-    "PHYSICAL_PRODUCT":"physical product"
+    "PHYSICAL_PRODUCT":"physical product",
+    "MANAGER_SERVICE":"manager service",
+    "SERVE_OBJECT":"serve object",
+    "NOT_ALLOW_TO_DELETE_PRODUCT_CAT_WITH_PRODUCT":"bot allow delete a product service with product",
+    "SELECT_PRODUCT_CAT":"please select a product service"
+
 
   },
   "USER_CENTER": {

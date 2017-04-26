@@ -314,7 +314,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
         })
     }
     cancel() {
-        this.location.back;
+        this.location.back();
     }
 
 }
