@@ -410,6 +410,7 @@ export class cloudVmComponentOrder implements OnInit {
 				// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
 			}).catch(res => {
 				this.layoutService.hide();
+				this.showNotice("提示", "加入购物车失败")
 			})
 		});
 	}
@@ -512,6 +513,7 @@ export class cloudVmComponentOrder implements OnInit {
 				this.router.navigate(['cloud-host-service/cart-order/', JSON.stringify(res)]);
 			}).catch(error => {
 				this.layoutService.hide();
+				this.showNotice("提示", "提交订单失败")
 			})
 		})
 	}

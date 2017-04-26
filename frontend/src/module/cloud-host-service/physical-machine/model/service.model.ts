@@ -63,12 +63,14 @@ class PMImageBaseVO {
 }
 
 class ValuesType {
-	attrDisplayValue :string; //, optional),
-	attrValue :string; //, optional),
-	attrValueCode :string; //, optional),
-	attrValueId :string; //, optional),
-	platformIds :string[]; //[string], optional),
-	status :boolean; //, optional)
+	attrDisplayValue :string = ""; //, optional),
+	attrValue :string = ""; //, optional),
+	attrValueCode :string = ""; //, optional),
+	attrValueId :string = ""; //, optional),
+	platformIds? :string[]; //[string], optional),
+	status? :boolean; //, optional)
+	capacity?: number;
+	osType?: number;
 }
 
 class ResAttr {
@@ -80,33 +82,36 @@ class ResAttr {
 	relyAttrId : string ; //, optional),
 	relyType : string ; //, optional),
 	skuFlag : boolean ; //, optional),
-	valueList : Values[] = [] ; //[ProductAttributeValueItem], optional),
+	valueList : ValuesType[] = [] ; //[ProductAttributeValueItem], optional),
 	valueType : string ; //, optional): 0: Single Value -- 单值回传; 1: Multi Type --多值回传
 }
 class AttrList{
-	CPU:ResAttr = new ResAttr;  // "CPU",…}
-	PMID:ResAttr = new ResAttr;  // "物理机ID",…}
-	TIMELINEUNIT:ResAttr = new ResAttr;  // "时长单位",…}
-	PASSWORD:ResAttr = new ResAttr;  // "登录密码",…}
-	USERNAME:ResAttr = new ResAttr;  // "用户名",…}
-	INSTANCENAME:ResAttr = new ResAttr;  // "实例名称",…}
-	RESOURCEPOOL:ResAttr = new ResAttr;  // "资源池",…}
-	SECURITYGROUP:ResAttr = new ResAttr;  // "安全组",…}
-	SETTINGTYPE:ResAttr = new ResAttr;  // "设置方式",…}
-	NETWORKCARD:ResAttr = new ResAttr;  // "网卡",…}
-	DISK:ResAttr = new ResAttr;  // "硬盘",…}
-	REGION:ResAttr = new ResAttr;  // "区域",…}
-	MEM:ResAttr = new ResAttr;  // "内存", skuFlag: null,…}
+	CPU: ResAttr = new ResAttr; //attrDisplayName: "CPU",…}
+	MEM: ResAttr = new ResAttr; //attrDisplayName: "内存", skuFlag: null,…}
+	RESOURCEPOOL: ResAttr = new ResAttr; //attrDisplayName: "资源池",…}
+	NETWORK: ResAttr = new ResAttr; //attrDisplayName: "网络",…}
+	NETWORKCARD: ResAttr = new ResAttr; //attrDisplayName: "网卡",…}
+	PASSWORD: ResAttr = new ResAttr; //attrDisplayName: "登录密码",…}
+	SECURITYGROUP: ResAttr = new ResAttr; //attrDisplayName: "安全组",…}
+	TIMELINEUNIT: ResAttr = new ResAttr; //attrDisplayName: "时长单位",…}
+	DISK: ResAttr = new ResAttr; //attrDisplayName: "硬盘",…}
+	OSYSTEM: ResAttr = new ResAttr; //attrDisplayName: "操作系统",…}
+	TIMELINE: ResAttr = new ResAttr; //attrDisplayName: "购买时长",…}
+	USERNAME: ResAttr = new ResAttr; //attrDisplayName: "用户名",…}
+	REGION: ResAttr = new ResAttr; //attrDisplayName: "区域",…}
+	PMID: ResAttr = new ResAttr; //attrDisplayName: "物理机ID",…}
+	SETTINGTYPE: ResAttr = new ResAttr; //attrDisplayName: "设置方式",…}
+	INSTANCENAME: ResAttr = new ResAttr; //attrDisplayName: "实例名称",…}
 }
 
 class ValuesList {
-	PMID:ValuesType[] = [];  // "物理机ID",…}
 	TIMELINEUNIT:ValuesType[] = [];  // "时长单位",…}
 	PASSWORD:ValuesType[] = [];  // "登录密码",…}
 	USERNAME:ValuesType[] = [];  // "用户名",…}
 	INSTANCENAME:ValuesType[] = [];  // "实例名称",…}
 	RESOURCEPOOL:ValuesType[] = [];  // "资源池",…}
-	TIMELINE:ValuesType[] = [];  // "资源池",…}
+	OSYSTEM: ValuesType[] = []; //attrDisplayName: "操作系统",…}
+	TIMELINE: ValuesType[] = []; //attrDisplayName: "购买时长",…}
 }
 
 class Values {
@@ -116,7 +121,8 @@ class Values {
 	USERNAME:ValuesType = new ValuesType;  // "用户名",…}
 	INSTANCENAME:ValuesType = new ValuesType;  // "实例名称",…}
 	RESOURCEPOOL:ValuesType = new ValuesType;  // "资源池",…}
-	TIMELINE:ValuesType = new ValuesType;  // "资源池",…}
+	OSYSTEM: ValuesType = new ValuesType; //attrDisplayName: "操作系统",…}
+	TIMELINE: ValuesType = new ValuesType; //attrDisplayName: "购买时长",…}
 }
 
 export {
@@ -128,5 +134,6 @@ export {
 	PMImageBaseVO,
 	AttrList,
 	ValuesList,
+	ValuesType,
 	Values
 }
