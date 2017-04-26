@@ -20,4 +20,5 @@ export class EnterpriseModel{
     tenantName:string;
     status:string;
     isSelect=false;
+    visible:string;
 }

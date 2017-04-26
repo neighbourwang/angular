@@ -1922,6 +1922,20 @@
      "PLEASE_INPUT_ACCESS_KEY":"请填写Access Key ID!",
      "PLEASE_INPUT_ACCESS_SECRET":"请填写Access Key Secret!",
      "PLEASE_SELECT_ACCOUNT_TYPE":"请选择主账号类型!",
-     "PLEASE_TEST_ACCOUNT_INFO":"请测试账号信息！"
+     "ACCESS_INFO_ERROR":"Access Key信息错误！",
+
+     "SUB_ACCOUNT_MNG_TITLE":"阿里云子账号管理:主账号:",
+     "ADD_SU_ACCOUNT":"添加子账号",
+     "SUB_ACCOUNT_LOGIN_NAME":"子账号登录名",
+     "DEPARTMENT":"所属部门",
+     "SUB_ACCOUNT_SET_ENTERPRISE":"只有该子账号没有分配给全部部门或单一部门时，才能重新分配企业！",
+
+     "SUB_ACCOUNT_SET_ENT_TITLE":"子账号管理--分配企业",
+     "PRESENT_ENT_AND_DEPARTMENT":"当前所分配企业及部门",
+     "DEPARTMENT_NAME":"部门名称",
+
+     "EDIT_SUB_ACCOUNT":"编辑子账号",
+     "SUB_ACCOUNT_DETAIL":"子账号详情",
+     "PLEASE_INPUT_SUB_ACCOUNT_LOGIN_NAME":"请填写子账号登录名!"        
     }
 }
