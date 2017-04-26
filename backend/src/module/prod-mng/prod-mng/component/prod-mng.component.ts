@@ -245,15 +245,7 @@ export class ProdMngComponent implements OnInit {
     //编辑按钮
     edit() {
         console.log('edit');
-    }
-
-    //创建按钮
-    creation() {
-        //跳转
-        console.log('create');
-        this.router.navigateByUrl("prod-mng/prod-mng/prod-cre", { skipLocationChange: true });
-
-    }
+    }    
     //去编辑详情页面
     goDetail(item) {
         console.log(item);
@@ -297,7 +289,7 @@ export class ProdMngComponent implements OnInit {
         console.log(page);
         this.backend(page, this.pp, {});
     }
-
+    //创建按钮    
     createProd(){
         this.createPop.open('PROD_MNG.CREATE_PRODUCT')
     }
@@ -314,8 +306,9 @@ export class ProdMngComponent implements OnInit {
     otcreate(){
         if(this.prodDirTypeCre=='PHYMACHINE_SERVICE'){
             this.router.navigate(["prod-mng/physical-prod-mng/prod-mng-cre-step1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);            
-        }else{
-            this.router.navigate(["prod-mng/prod-mng/prod-mng-cre-1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);           
+        }else if(this.prodDirTypeCre=='VITRUALDISK_SERVICE'||this.prodDirTypeCre=='VITRUALMACHINE_SERVICE'){
+            this.router.navigate(["prod-mng/prod-mng/prod-mng-cre-1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);                       
+        }else if(this.prodDirTypeCre=='SUPERVISE_SERVICE'){
         }        
     }    
 }
