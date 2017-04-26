@@ -1581,7 +1581,9 @@
     "ADD":"添加",
     "PHYSICAL_PRODUCT":"物理机产品",
     "MANAGER_SERVICE":"管理服务",
-    "SERVE_OBJECT":"服务对象"
+    "SERVE_OBJECT":"服务对象",
+    "NOT_ALLOW_TO_DELETE_PRODUCT_CAT_WITH_PRODUCT":"不能删除已绑定产品的产品目录",
+    "SELECT_PRODUCT_CAT":"请选择产品目录"
   },
   "USER_CENTER": {
     "ACCOUNT": "帐号",
