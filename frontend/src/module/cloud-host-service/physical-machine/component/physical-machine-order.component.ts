@@ -196,7 +196,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 			attrValue: this.values.OSYSTEM.osType, 
 			attrDisplayName: this.values.OSYSTEM.osType == 0 ? "administrtor" : "root", 
 		}
-		this.setValueListAndValue("PMID", [ Object.assign(new ValuesType, userName) ])
+		this.setValueListAndValue("USERNAME", [ Object.assign(new ValuesType, userName) ])
 	}
 
 	/******获取物理机的价格等信息*******/
@@ -231,7 +231,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 	private setValueListAndValue(code, list?) {
 		this.valuesList[code] = list || this.attrList[code].valueList
 		this.values[code] = this.valuesList[code].length ? this.valuesList[code][0] : new ValuesType
-
+// if(code === "USERNAME") console.log("USERNAME", this.values["USERNAME"], this.valuesList["USERNAME"])
 		this.dux.dispatch(code)  //派发当前的code的subscriber
 	}
 
@@ -307,7 +307,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 		let payloadList = this.valuesListToPay(),
 			itemNo = this.makeItemNum(),
 			payLoad = {
-				skuId: "",
+				skuId: this.phyProduct.serviceSkuId,
 				productId: this.phyProduct.productId,
 				attrList: payloadList,
 				itemNo: itemNo,

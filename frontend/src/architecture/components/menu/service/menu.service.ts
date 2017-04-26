@@ -26,10 +26,10 @@ export class MenuService {
 					"icon": "icon-cloudhost",
 					"top2_menu": [
 						// {
-						// 	"label": "MENU.VIRTUAL_MACHINE_INSTANCE",
-						// 	"isOpen": true,
-						// 	"isShow": true,
-						// 	"routing": "cloud-host-service/cloud-host-detail"
+						//	"label": "MENU.VIRTUAL_MACHINE_INSTANCE",
+						//	"isOpen": true,
+						//	"isShow": true,
+						//	"routing": "cloud-host-service/cloud-host-detail"
 						// },
 						{
 							"label": "MENU.CLOUD_HOSTING_INSTANCE",
@@ -50,6 +50,12 @@ export class MenuService {
 							"routing": "image-mng/image-mng"
 						},
 						{
+							"label": "物理机订购",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "cloud-host-service/physical-machine-order"
+						},
+						{
 							"label": "阿里云主机",
 							"isOpen": true,
 							"isShow": true,
@@ -64,68 +70,68 @@ export class MenuService {
 					]
 				},
 				// {
-				// 	"label": "MENU.PHYSICAL_SERVERS",
-				// 	"isOpen": false,
-				// 	"isShow": true,
-				// 	"icon": "icon-machine",
-				// 	"top2_menu": [
-				// 		{
-				// 			"label": "MENU.ACCOUNT_MANAGEMENT",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		},
-				// 		{
-				// 			"label": "MENU.EXPENSE_CENTER",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		}
-				// 	]
+				//	"label": "MENU.PHYSICAL_SERVERS",
+				//	"isOpen": false,
+				//	"isShow": true,
+				//	"icon": "icon-machine",
+				//	"top2_menu": [
+				//		{
+				//			"label": "MENU.ACCOUNT_MANAGEMENT",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		},
+				//		{
+				//			"label": "MENU.EXPENSE_CENTER",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		}
+				//	]
 				// },
 				// {
-				// 	"label": "MENU.LOAD_BALANCER",
-				// 	"isOpen": false,
-				// 	"isShow": true,
-				// 	"icon": "icon-loadbalance",
-				// 	"top2_menu": [
-				// 		{
-				// 			"label": "MENU.ACCOUNT_MANAGEMENT",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		},
-				// 		{
-				// 			"label": "MENU.DEPARTMENT_MANAGENMENT",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		},
-				// 		{
-				// 			"label": "MENU.AUTHORITY_MANAGEMENT",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		},
-				// 		{
-				// 			"label": "MENU.PRICE_SET",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		},
-				// 		{
-				// 			"label": "MENU.QUOTA_MANAGEMENT",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		},
-				// 		{
-				// 			"label": "MENU.EXPENSE_CENTER",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		}
-				// 	]
+				//	"label": "MENU.LOAD_BALANCER",
+				//	"isOpen": false,
+				//	"isShow": true,
+				//	"icon": "icon-loadbalance",
+				//	"top2_menu": [
+				//		{
+				//			"label": "MENU.ACCOUNT_MANAGEMENT",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		},
+				//		{
+				//			"label": "MENU.DEPARTMENT_MANAGENMENT",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		},
+				//		{
+				//			"label": "MENU.AUTHORITY_MANAGEMENT",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		},
+				//		{
+				//			"label": "MENU.PRICE_SET",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		},
+				//		{
+				//			"label": "MENU.QUOTA_MANAGEMENT",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		},
+				//		{
+				//			"label": "MENU.EXPENSE_CENTER",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		}
+				//	]
 				// },
 				{
 					"label": "MENU.APPROVAL_CENTER",
