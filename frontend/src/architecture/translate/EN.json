@@ -106,6 +106,7 @@
     "RUNNING": "Running",
     "PENDING": "Suspending",
     "DELETED": "Deleted",
+    "DELETE": "Delete",
     "MIRROR": "Image",
     "CLOUD_HOSTING": "Cloud hosting",
     "CLOUD_HOST_NAME": "Cloud hostname",

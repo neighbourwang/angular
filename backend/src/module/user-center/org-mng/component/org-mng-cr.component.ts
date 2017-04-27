@@ -260,7 +260,7 @@ export class OrgMngCrComponent implements OnInit{
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            name: [this.org.name, [this.v.isInstanceName, this.v.isBase, this.v.isUnBlank], "机构名称输入格式不正确"],           
+            name: [this.org.name, [this.v.isBase, this.v.isUnBlank], "机构名称输入格式不正确"],           
            
             description: [this.org.description, [this.v.maxLength(68)], "描述输入错误"],
         }

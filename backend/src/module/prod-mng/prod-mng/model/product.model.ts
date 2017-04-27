@@ -9,6 +9,7 @@ class zone{
   "zoneId": string;
   "zoneName": string;
   "selected": boolean;
+  "disable":boolean;
   "displayName":string;
 }
 class platform {
@@ -16,11 +17,12 @@ class platform {
       "platformName": string;
       "zoneList": Array<zone>
 }
-class enterprise {
+class Enterprise {
     "id": string;
     "name": string;
     "selected" : boolean;
     "code" :string;
+    "disable":boolean;
 }
 class Product {
     "productId":string;
@@ -32,15 +34,15 @@ class Product {
     "extendCyclePrice": number;
     "name": string;
     "oneTimePrice": number;
-    "productEnterpiseReqs": Array<enterprise>;
+    "productEnterpiseReqs": Array<Enterprise>;
     "productPlatformReqs": Array<platform>;
-    "enterpriseListForSelect":Array<any>;
+    "enterpriseListForSelect":Array<Enterprise>;
     "serviceId": string;
     "unitPrice": number;
     "isSelected": boolean;
     "desc":string;
     constructor() {
-        this.productEnterpiseReqs = Array<enterprise>();
+        this.productEnterpiseReqs = Array<Enterprise>();
         this.productPlatformReqs=Array<platform>();
         this.billingCycleClick=false;
         this.name="";
@@ -49,5 +51,6 @@ class Product {
 }
 export {
     Product,
-    platform
+    platform,
+    Enterprise
 }

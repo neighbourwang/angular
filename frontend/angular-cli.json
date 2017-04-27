@@ -27,6 +27,7 @@
         "source": "./architecture/environments/environment.ts",
         "dev": "./architecture/environments/environment.dev.ts",
         "boe": "./architecture/environments/environment.boe.ts",
+        "oldtest": "./architecture/environments/environment.oldtest.ts",
         "boeprod": "./architecture/environments/environment.boeprod.ts",
         "test": "./architecture/environments/environment.test.ts"
       }

@@ -3,6 +3,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import { Validation, ValidationRegs } from '../../../../architecture';
 
 //model 
 
@@ -23,8 +24,12 @@ export class ProdMngCreStep1Component implements OnInit {
         private route: Router,
         private router: ActivatedRoute,
         private LayoutService: LayoutService,
-        private service: CreateProdStepService
-    ) { }
+        private service: CreateProdStepService,
+        private v:Validation
+
+    ) { 
+        this.v.result={}
+    }
 
 
     @ViewChild('notice')
@@ -48,13 +53,25 @@ export class ProdMngCreStep1Component implements OnInit {
         if (this.prodDirId) {
             if (this.prodDirType == '0') {
                 this.service.getVmProdDirDetail(this.prodDirId);
+                this.service.comparePlatIdList=[];                
             } else if (this.prodDirType == '1') {
                 // this.getVmProdDirDetail(this.prodDirId);
                 this.service.getDiskProdDirDetail(this.prodDirId);
+                this.service.comparePlatIdList=[];                
             }
         }
     }
+    //表单验证
+    checkForm(key?: string) {
+        let regs: ValidationRegs = {  //regs是定义规则的对象
+            productName: [this.service.product.name, [this.v.isBase, this.v.isUnBlank], "产品名称格式不正确"],
 
+            description: [this.service.product.desc, [this.v.maxLength(68)], "描述输入错误"],
+
+        }
+        console.log(this.v.check(key, regs));
+        return this.v.check(key, regs);
+    }
     // 下一步
     ccf() { }
     //获取platformRegionList
@@ -62,9 +79,8 @@ export class ProdMngCreStep1Component implements OnInit {
 
     next() {
         console.log(this.service.product.name);
-        if(!this.service.product.name){
-            this.notice.open('COMMON.OPERATION_ERROR','NET_MNG_OPENSTACK.NAME_EMPTY')
-            return}
+        let message = this.checkForm();
+        if (message) return;
         this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-2"]);
     }
     //取消

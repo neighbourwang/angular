@@ -33,11 +33,11 @@ export class cloudHostServiceList {
 
     getHostList(quiry:QuiryVmList) : Promise<any>{
         const api = this.restApiCfg.getRestApi("vm.search.page");
-        // return this.restApi.request(api.method, api.url, undefined, undefined, quiry);
+        return this.restApi.request(api.method, api.url, undefined, undefined, quiry);
         
-        return new Promise(next => {
-            next({"resultCode":"100","detailDescription":null,"resultContent":[{"itemId":"62dd9317-f5c9-456a-ab1d-0c133ccdeb1c","subinstanceNo":"20170330174924761","subInstanceId":"229e2277-628c-4bbc-9d2f-1b642bdec495","instanceName":"泪流满面_7VJ_VBD","osInfo":"rhel6.5","specification":"1核CPU, 2048M内存, 6G启动盘","platformId":"51645681-a728-45cb-a6eb-493e61ab6063","platformType":"2","networkType":"Net1","paymentType":"周期计费","description":null,"privateIP":"90041","publicIP":null,"regionZone":"前端云平台 Dev_Cluster","vmState":"1","diskCount":0,"snapshotCount":null,"expiryDate":null,"releaseDate":null,"createDate":null,"billingInfo":{"billingId":"2175a613-ffd1-4304-899e-b1c9fbe1138c","billingMode":0,"basePrice":45.0,"periodType":1,"basicPrice":3.0,"cyclePrice":23.0,"unitPrice":null,"unitType":null},"vcpus":0,"memoryMb":0,"rootGb":0,"serviceLevel":0,"useType":0,"runningMillionMeters":0,"uuid":"泪流满面_7VJ_VBD"}],"pageInfo":{"currentPage":1,"totalPage":1,"pageSize":20,"totalRecords":1}})
-        })
+        // return new Promise(next => {
+        //     next({"resultCode":"100","detailDescription":null,"resultContent":[{"itemId":"62dd9317-f5c9-456a-ab1d-0c133ccdeb1c","subinstanceNo":"20170330174924761","subInstanceId":"229e2277-628c-4bbc-9d2f-1b642bdec495","instanceName":"泪流满面_7VJ_VBD","osInfo":"rhel6.5","specification":"1核CPU, 2048M内存, 6G启动盘","platformId":"51645681-a728-45cb-a6eb-493e61ab6063","platformType":"2","networkType":"Net1","paymentType":"周期计费","description":null,"privateIP":"90041","publicIP":null,"regionZone":"前端云平台 Dev_Cluster","vmState":"1","diskCount":0,"snapshotCount":null,"expiryDate":null,"releaseDate":null,"createDate":null,"billingInfo":{"billingId":"2175a613-ffd1-4304-899e-b1c9fbe1138c","billingMode":0,"basePrice":45.0,"periodType":1,"basicPrice":3.0,"cyclePrice":23.0,"unitPrice":null,"unitType":null},"vcpus":0,"memoryMb":0,"rootGb":0,"serviceLevel":0,"useType":0,"runningMillionMeters":0,"uuid":"泪流满面_7VJ_VBD"}],"pageInfo":{"currentPage":1,"totalPage":1,"pageSize":20,"totalRecords":1}})
+        // })
     }
     
     postVmInfo(instanceId:string, postData:InstanceVMProfile) : Promise<any> {

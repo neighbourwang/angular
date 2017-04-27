@@ -17,7 +17,8 @@
 	<h2 style="text-align: center;">本地开发模式登录 - 前台</h2>
 	<div style="text-align: center;">
 		<label style="margin-right: 20px"  class="select-environment"><input type="radio" checked="666" value="dev" name="environment">登录到开发环境</label>
-		<label class="select-environment"><input type="radio" value="test" name="environment">登录到测试环境</label>
+		<label style="margin-right: 20px" class="select-environment"><input type="radio" value="test" name="environment">登录到新测试环境</label>
+		<label class="select-environment"><input type="radio" value="oldtest" name="environment">登录到老测试环境</label>
 	</div>
 	<div class="login-box">
 		<div class="main-center l-box">
@@ -34,18 +35,20 @@
 </div>
 <div class="envriment-tip">
 	<h2>线上环境</h2>
-	<h5>老测试环境(目前在用)</h5>
-	<p><a target="_blank" href="http://16.187.145.52:9998">http://16.187.145.52:9998</a></p>
-	<p><a target="_blank" href="http://16.187.145.52:9999">http://16.187.145.52:9999</a></p>
-	<h5>新开发环境(目前在用)</h5>
-	<p><a target="_blank" href="http://15.114.100.36:9001">http://15.114.100.36:9001</a></p>
-	<p><a target="_blank" href="http://15.114.100.36:9000">http://15.114.100.36:9000</a></p>
 	<h5>新测试环境</h5>
 	<p><a target="_blank" href="http://15.114.100.65:9998">http://15.114.100.65:9998</a></p>
 	<p><a target="_blank" href="http://15.114.100.65:9999">http://15.114.100.65:9999</a></p>
-	<h5>老开发环境(已弃用)</h5>
-	<p><a target="_blank" href="http://16.187.145.52:9001">http://16.187.145.52:9001</a></p>
-	<p><a target="_blank" href="http://16.187.145.52:9000">http://16.187.145.52:9000</a></p>
+	<h5>新开发环境</h5>
+	<p><a target="_blank" href="http://15.114.100.36:9001">http://15.114.100.36:9001</a></p>
+	<p><a target="_blank" href="http://15.114.100.36:9000">http://15.114.100.36:9000</a></p>
+	<h5>老测试环境</h5>
+	<p><a target="_blank" href="http://16.187.145.145:9998">http://16.187.145.145:9998</a></p>
+	<p><a target="_blank" href="http://16.187.145.145:9999">http://16.187.145.145:9999</a></p>
+	<div style="opacity: .3">
+		<h5>老开发环境(已弃用)</h5>
+		<p><a target="_blank" href="http://16.187.145.52:9001">http://16.187.145.52:9001</a></p>
+		<p><a target="_blank" href="http://16.187.145.52:9000">http://16.187.145.52:9000</a></p>
+	</div>
 </div>
 <script type="text/javascript">
 	/*! jQuery v3.1.1 | (c) jQuery Foundation | jquery.org/license */
@@ -113,6 +116,12 @@ const C = {
 		basePort : "30072"
 	},
 	test : {
+		publicPath : "/public",
+		imgPath : "/public/images",
+		baseIp : "15.114.102.62",
+		basePort : "31072"
+	},
+	oldtest : {
 		publicPath : "/public",
 		imgPath : "/public/images",
 		baseIp : "15.114.102.32",

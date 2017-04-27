@@ -1,58 +1,70 @@
-<div class="page-content cloud_host_list">
+<div class="page-content  cloud_host_order cloud_drive_order">
     <h1 class="page-content-header">阿里云主机实例列表</h1>
 
-    <div class="row mgb20">
-        <div class="col-md-2">区域列表</div>
-        <div class="col-md-10">
-            <div class="region-btn" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
-                <div class="regionName">{{region.LocalName}}</div>
-                <!--
-                <div class="regionArea">                    
-                    <span class="txt">{{(region.selectedArea && region.selectedArea.LocalName)||"随机分配"}}</span>
-                    
-                    <span class="caret"></span>
-                    <select [(ngModel)]="region.selectedArea">
-                        <option *ngFor="let item of region.areas" [ngValue]="item">
-                            {{item.LocalName}}
-                        </option>
-                    </select>
-                </div>
-                -->
+
+    {{queryObject.toString()}}<br />
+
+    <ul class="page-box" style="margin: 20px 0px;">
+        <li>
+            <div class="col-md-1 li-title" style="background: #f7f7f7; border-right: 1px solid #ddd; height: 100%">
+                <p>区域列表</p>
             </div>
-        </div>
-    </div>
+            <div class="col-md-12 li-content" style="padding: 20px 0px 20px !important;">
+                <div class="col-md-12">
+                    <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
+                        <div class="regionName">{{region.LocalName}}</div>
+
+                    </div>
+                </div>
+            </div>
+
+        </li>
+    </ul>
 
     <div class="col-md-12 no-padding mgb20">
         <div class="dropdown float-left mgr10">
-            <select [(ngModel)]="listqueryField" class="form-control">
-				<option>实例名称</option>
-				<option>即将到期</option>
+            <select [(ngModel)]="queryObject.criteria" class="form-control">
+				<option value="instance_name">实例名称</option>
+                <option value="instance_ids">实例IDs</option>
+                <option value="private_ips">私网IPs</option>
+                <option value="inner_ips">内网IPs</option>
+                <option value="public_ips">外网IPs</option>
+                <!--<option value="expire">即将到期</option>-->
+                <!--
+                <option value="image_id">镜像ID</option>
+                <option value="securitygroup_id">安全组ID</option>
+                <option value="instance_type">实例规格</option>
+                <option value="vpc_id">专有网络ID</option>
+				<option value="vswitch_id">虚拟交换机ID</option>
+                -->
 			</select>
         </div>
 
         <div class="input-group col-md-2 float-left mgr10">
-            <input type="text" class="form-control" [(ngModel)]="phynet_create" style="display: inline" />
-            <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
+            <input type="text" class="form-control" [(ngModel)]="queryObject.keyword" style="display: inline" />
+            <div class="input-group-addon" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
         </div>
 
         <div class="input-group float-left">
-            <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
+            <button class="btn button-gray-gradient" (click)="search();"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
         </div>
 
-        <div class="dropdown float-right  mgr5">
-            <button class="btn float-left mgr5 btn-success" (click)="goToInstanceOrder();"><i class="glyphicon glyphicon-plus"></i>创建云主机</button>
+        <div class="dropdown float-right">
+            <button class="btn float-left btn-success" (click)="goToInstanceOrder();"><!--<i class="glyphicon glyphicon-plus"></i>--><span class="icon_style icon-ali-create"></span>创建云主机</button>
+            <!--
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			更多操作
 			<span class="caret"></span>
 			</button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="javascript:">启动</a></li>
-                <li><a href="javascript:">停止</a></li>
-                <li><a href="javascript:">重启</a></li>
-                <li><a href="javascript:">绑定弹性IP</a></li>
+                <li><a href="javascript:" (click)="startInstance();">启动</a></li>
+                <li><a href="javascript:" (click)="stopInstance();">停止</a></li>
+                <li><a href="javascript:" (click)="reStartInstance();">重启</a></li>
+                <li><a href="javascript:" (click)="attachIPToInstance();">绑定弹性IP</a></li>
                 <li><a href="javascript:">远程连接</a></li>
                 <li><a href="javascript:" (click)="deleteInstance();">释放实例</a></li>
             </ul>
+            -->
         </div>
     </div>
 
@@ -66,57 +78,137 @@
             <th class="text-center">状态</th>
             <th class="text-center">配置</th>
             <th class="text-center">付费方式</th>
+            <th class="text-center">操作</th>
         </tr>
         <tr style="line-height: 65px;" *ngFor="let instance of instances; let i=index;">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list"></td>
-            <td class="text-center active" style="position: relative;width: 220px;"> {{instance.InstanceId}}
-                <!--<table-edit-name 
-					(nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])" 
-					[value]="vm.instanceName" 
-					(onChange)="changeName($event, vm)">
-                </table-edit-name>
-                -->
+            <td class="text-center">
+                <!-- <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list">-->{{(i+1)}}</td>
+            <td class="text-center active" style="position: relative;width: 220px;">
+                {{instance.InstanceId}}
+                <br /> {{instance.InstanceName}}
+                <span class="pull-right icon-edit2" (click)="instance.EnableEdit=true; onSelect(instance);" style="width: 30px; height: 18px; line-height: 30px;"></span>
+                <div *ngIf="instance.EnableEdit" class="popover fade bottom in" role="tooltip" id="popover316538" style="top:25px; left:150px; width:370px; max-width:1100px; display: block; z-index: 50;">
+                    <div class="arrow" style="left: 30%;"></div>
+                    <div class="popover-content">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">实例名称:</label>
+                                <div class="col-sm-8 float-left">
+                                    <!--<input type="text" class="form-control" [(ngModel)]="selecteddisk.DiskId" name="name">-->
+                                    <input type="text" class="form-control" name="diskname" [(ngModel)]="changedInstance.InstanceName">
+                                </div>
+                            </div>
+                        </form>
+                        <div class="pull-right" style="margin-bottom:10px;">
+                            <button class="btn button-gray-gradient" (click)="onSave();">保存</button>
+                            <button class="btn button-gray-gradient" (click)="instance.EnableEdit=false;">取消</button>
+                        </div>
+                    </div>
+
+                </div>
             </td>
             <td class="text-center">{{instance.ZoneId}}</td>
-            <td class="text-center">内网IP：{{instance.InnerIpAddress.IpAddress[0]}}<br />外网IP：{{instance.PublicIpAddress.IpAddress[0]}}</td>
+            <td class="text-left"><span style="display: block">内网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.EipAddress.IpAddress}}</span></td>
             <td class="text-center">{{instance.InstanceNetworkType}}</td>
             <td class="text-center">{{instance.Status}}</td>
-            <td class="text-center">CPU: {{instance.Cpu}}核 内存：{{instance.Memory}} MB (I/O优化)</td>
+            <td class="text-left"><span style="display: block">CPU: {{instance.Cpu}}核</span><span>内存：{{instance.Memory}} MB (I/O优化)</span></td>
             <td class="text-center">{{instance.InstanceChargeType}}<br /> {{instance.ExpiredTime}}</td>
-        </tr>
-        <!--
-        <tr style="line-height: 65px;" >
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
-            <td class="text-center active" style="position: relative;width: 220px;">adfadfadfadfadfasfdafaMyCentOS-VM-001
-                <!<table-edit-name 
-					(nameOnClick)="router.navigate(['cloud-host-service/cloud-host-detail/', vm.itemId])" 
-					[value]="vm.instanceName" 
-					(onChange)="changeName($event, vm)">
-                </table-edit-name>
-                >
+            <td class="text-center">
+                <span *ngIf="instance.Status=='Stopped'" class="icon_style icon-start" (click)="selectItem(i); startInstance();" name="startvm"></span>
+                <span *ngIf="instance.Status!='Stopped'" class="icon_style icon-stop" (click)="selectItem(i); stopInstance();" name="stopvm"></span>
+                <span class="icon_style icon-reboot" (click)="selectItem(i); reStartInstance();" name="restartvm"></span>
+                <span *ngIf="instance.EipAddress.IpAddress==''" class="icon_style icon-IPlock" (click)="selectItem(i); attachIPToInstance();" name="attachIP"></span>
+                <span *ngIf="instance.EipAddress.IpAddress!=''" class="icon_style icon-IPrelease" (click)="selectItem(i); detachIPToInstance();" name="detachIP"></span>
+                <span class="icon_style icon-remotelink" (click)="selectItem(i); remoteToInstance();" name="remotevm"></span>
+                <span class="icon_style icon-ali-delete3" (click)="selectItem(i); deleteInstance();" name="deletevm"></span>
             </td>
-            <td class="text-center">华东1 可用区E</td>
-            <td class="text-center">内网IP：10.1.1.10<br />外网IP：131.2.10.10</td>
-            <td class="text-center">经典网络</td>
-            <td class="text-center">运行中</td>
-            <td class="text-center">CPU: 1核 内存：1024 MB (I/O优化)</td>
-            <td class="text-center">包年包月<br /> 18-03-19 21:10到期</td>
-        </tr>        
-        <tr style="line-height: 65px;">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
-            <td class="text-center active" style="position: relative;width: 220px;">adfadfadfadfadfasfdafaMyCentOS-VM-002
-            </td>
-            <td class="text-center">华东1 可用区E</td>
-            <td class="text-center">内网IP：10.1.1.10<br />外网IP：131.2.10.10</td>
-            <td class="text-center">专有网络</td>
-            <td class="text-center">运行中</td>
-            <td class="text-center">CPU: 1核 内存：1024 MB (I/O优化)</td>
-            <td class="text-center">按量<br />17-03-19 21:10 创建</td>
         </tr>
-        -->
     </table>
-    <fc-pagination tp={{totalPage}} (pf)="changePage($event)"></fc-pagination>
+    <fc-pagination tp={{totalPage}} (pf)="getInstanceList($event)"></fc-pagination>
     <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
 </div>
-<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
+<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{modalOKTitle}}" ct="{{modalCancelTitle}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{modalOKTitle}}" (of)="okClicked(0)"></fc-notice>
+
+
+<fc-popup #allocateip ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="绑定弹性IP" (of)="acceptAttachIPToInstanceModify()" (cf)="cancelAttachIPToInstanceModify()">
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+
+                <div class="col-sm-12">
+                    <div class="col-sm-5 form-control-title">云主机实例：</div>
+                    <div class="col-sm-6">{{selectedInstance.InstanceId}}</div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>弹性IP：</div>
+                    <div class="col-sm-6">
+                        <select [(ngModel)]="selectedfreeip" (change)="freeIPChanged();">
+                        <option [ngValue]="defaultfreeip">请选择弹性IP</option>
+                        <option *ngFor="let ip of freeips;" [ngValue]="ip">{{ip.IpAddress}}</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</fc-popup>
+
+<fc-popup #unallocateip ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="解绑弹性IP" (of)="acceptDetachIPToInstanceModify()" (cf)="cancelDetachIPToInstanceModify()">
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+
+                <div class="col-sm-12">
+                    <div class="col-sm-5 form-control-title">云主机实例：</div>
+                    <div class="col-sm-6">{{selectedInstance.InstanceId}}</div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>弹性IP：</div>
+                    <div class="col-sm-6">
+                        <select [(ngModel)]="selectedvmip" (change)="vmIPChanged();">
+                        <option [ngValue]="defaultvmip">请选择弹性IP</option>
+                        <option *ngFor="let ip of vmips;" [ngValue]="ip">{{ip.IpAddress}}</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</fc-popup>
+
+
+<fc-popup #restartvm ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="重启实例" (of)="acceptRestartInstanceModify()" (cf)="cancelRestartInstanceModify()">
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-12 text-center mgb20">
+                    <i class="glyphicon glyphicon-trash"></i> 您所选的{{selectedInstance.InstanceId}}将执行重启操作，您是否确认操作？
+                </div>
+                <div class="col-sm-12 text-center">
+                    重启方式：
+                    <input type="radio" name="restart" [checked]="forcereboot==false" (click)="forcereboot=false; displayvalue();" />重启
+                    <input type="radio" name="forcerestart" [checked]="forcereboot==true" (click)="forcereboot=true; displayvalue();" />强制重启
+                </div>
+            </div>
+        </div>
+    </div>
+</fc-popup>
+
+<!--
+<fc-popup #remotecontrolvm ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="远程控制云主机" (of)="acceptRemoteInstanceModify()" (cf)="cancelRemoteInstanceModify()">
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-12 text-center mgb20">
+                    <a [routerLink]="remoteUrl">点击链接进行云主机访问</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</fc-popup>
+-->

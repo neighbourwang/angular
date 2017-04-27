@@ -44,7 +44,7 @@
 					<thead>
 						<tr>
 							<th class="text-center" >{{ 'SHOPPING_CART.PRODUCT_INFORMATION' | translate }}</th>
-							<th class="text-center">{{ 'SHOPPING_CART.PRODUCT_INFORMATION' | translate }}</th>
+							<th class="text-center">产品类型</th>
 							<th class="text-center">{{ 'COMMON.QUANTITY' | translate }}</th>
 							<th class="text-center">{{ 'ORDER_MNG.PURCHASE_CYCLE' | translate }}</th>
 							<th class="text-center">{{ 'COMMON.EXPENSE' | translate }}</th>
@@ -53,16 +53,17 @@
 					<tbody>
 						<tr *ngFor="let item of _detail.subInstanceList">
 							<td class="text-center" style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; width: 450px;">
-								<ul *ngIf="item.serviceType>1">
+								<!--<ul *ngIf="item.serviceType>1">
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}：&nbsp;&nbsp;{{spec.attrDisplayValue}}</li>
-								</ul>
-								<vm-view [values]="item.specList" *ngIf="item.serviceType==0"></vm-view>
+								</ul>-->
+								<vm-view [values]="item" *ngIf="item.serviceType==0"></vm-view>
 								<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view>
 							</td>
-							<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}<br><span *ngIf="item.showInstance">{{ 'VM_INSTANCE.INSTANCE_NAME' | translate }}: {{item.instanceName}}</span></td>
-							<td class="text-center">{{item.quantity}}</td>
-							<td class="text-center">{{item.period}}</td>
-							<td style="width: 200px;" class="text-center">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}: {{ 'COMMON.$' | translate }}{{item.oneTimePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}: {{ 'COMMON.$' | translate }}{{item.price}}<span *ngIf="item.serviceType==1">/GB</span><span>/{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
+							<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
+							<td class="text-center">{{item.quantity}}台</td>
+							<td class="text-center">{{item.period}}<span>{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
+							<td style="width: 200px;" class="text-center">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}: {{ 'COMMON.$' | translate }}{{item.oneTimePrice}}<br>{{ 'ORDER_MNG.EXPENSE_$' | translate }}: {{ 'COMMON.$' | translate }}{{item.price}}/
+							<span>{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
 						</tr>
 					</tbody>
 				</table>

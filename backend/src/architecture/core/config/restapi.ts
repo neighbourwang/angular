@@ -59,6 +59,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/platform"
     },
     {
+        "desc": "创建平台名称唯一性验证",
+        "id": "pf.cre.name.norepeat",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/name/{name}"
+    },
+    {
         "desc": "取得特定平台信息",
         "id": "pf.cre.paltform.get",
         "method": "GET",
@@ -789,6 +795,11 @@ export let RestApis: RestApiModel[] = [
         "id": "ent-mng.ent-est-mng.ent-mng-cre.check-name.post",
         "method": "POST",
         "url": "adminui/authsec/enterprise/query"
+    },{
+        "desc": "加载某平台下的可分配配额资源",
+        "id": "ent-mng.ent-est-mng.ent-mng.resouces.quotas.get",
+        "method": "GET",
+        "url": "adminui/authsec/platforms/{_platformId}/resouces/quotas"
     },
 
 
@@ -1136,6 +1147,56 @@ export let RestApis: RestApiModel[] = [
         "id": "prod-mng.prod-mng.editBasic",
         "method": "POST",
         "url": "adminui/authsec/enterprises/product/update/basic"
+    },
+    {
+        "desc": "编辑产品平台信息",
+        "id": "prod-mng.prod-mng.editPlatform",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/product/update/platform"
+    },
+    {
+        "desc": "编辑产品企业信息",
+        "id": "prod-mng.prod-mng.editEnterprise",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/product/update/enterprise"
+    },
+    //物理机产品相关
+    {
+        "desc": "获取部件列表",
+        "id": "physical-service-unitList.get",
+        "method": "GET",
+        "url": "adminui/authsec/pm/partsinfo/all"
+    },
+    {
+        "desc": "获取可用资源池列表",
+        "id": "physical-service-resourcepool.get",
+        "method": "GET",
+        "url": "adminui/authsec/service/areaResourcePool"
+    },
+    {
+        "desc": "获取物理机规格信息",
+        "id": "physical-service-flavorInfo.get",
+        "method": "GET",
+        "url": "adminui/authsec/service/phyMachineFlavor"
+    },
+    {
+        "desc": "创建物理机服务",
+        "id": "physical-service-create.post",
+        "method": "POST",
+        "url": "adminui/authsec/services/type/phymachine"
+    },
+    {
+        "desc": "获取物理机产品目录详情",
+        "id": "physical-service-detail.get",
+        "method": "GET",
+        "url": "adminui/authsec/services/pmservice/{id}"
+    },
+    //管理服务产品
+    {
+        "desc": "创建管理服务",
+        "id": "manager-serve-service-create.post",
+        "method": "POST",
+        "url": "servicemgmt/authsec/services/supervise"
     },
     //用户中心
     {
@@ -2149,7 +2210,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "查询物理机已有的部件和规格清单",
         "id": "physical-mng.physical.partList.get",
         "method": "GET",
-        "url": "pmresourcemgmt/noauth/pm/parts/specvaluelist"  
+        "url": "pmresourcemgmt/noauth/pm/parts/specvaluelist"
+    },
+    {
+        "desc": "编辑物理机部件",
+        "id": "physical-mng.physical.partList.edit",
+        "method": "POST",
+        "url": "pmresourcemgmt/noauth/pmpool/pm/{pm_id}/pmparts"
     },
 
     //物理机网络管理
@@ -2358,7 +2425,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取镜像的企业选择信息",
         "id":"phy-mng.phy-img-mng.phyimglist.getallolist",
         "method":"GET",
-        "url":"pmimagemgmt/noauth/pmimage/image/{pmImageId}/enterprise/show"
+        "url":"pmimagemgmt/authsec/pmimage/image/{pmImageId}/enterprise/show"
     },
     {
         "desc": "获取镜像的同步信息列表",
@@ -2487,6 +2554,18 @@ export let RestApis: RestApiModel[] = [
         "url":"maintenance/hyper/list"
      },
      {
+        "desc": "导出当前数据",
+        "id":"assign-mng.hyper.export.current",
+        "method":"POST",
+        "url":"maintenance/hyper/query/export/current"
+     },
+     {
+        "desc": "导出",
+        "id":"assign-mng.hyper.export",
+        "method":"POST",
+        "url":"maintenance/hyper/query/export/{type}"
+     },
+     {
         "desc": "获取hyper详情",
         "id":"assign-detail.hyper.info",
         "method":"GET",
@@ -2499,5 +2578,178 @@ export let RestApis: RestApiModel[] = [
         "method":"POST",
         "url":"maintenance/trend/general"
      },
+     {
+        "desc": "按CPU",
+        "id":"compute-trend.graph.cpu",
+        "method":"POST",
+        "url":"maintenance/trend/graph/cpu"
+     },
+     {
+        "desc": "按vm",
+        "id":"compute-trend.graph.vm",
+        "method":"POST",
+        "url":"maintenance/trend/graph/vm"
+     },
+     {
+        "desc": "按mem",
+        "id":"compute-trend.graph.mem",
+        "method":"POST",
+        "url":"maintenance/trend/graph/mem"
+     },
+     {
+        "desc": "导出当前数据",
+        "id":"compute-trend.export.current",
+        "method":"POST",
+        "url":"maintenance/trend/query/export/current"
+     },
+     {
+        "desc": "导出所有数据",
+        "id":"compute-trend.export.all",
+        "method":"GET",
+        "url":"maintenance/trend/query/export/current"
+     },
+     //阿里云账号管理
+     {
+        "desc": "获取主账号列表",
+        "id":"ali-mainAccount-list.get",
+        "method":"GET",
+        "url":"adminboe/authsec/alicloud/adm/main/list"
+     },
+     {
+        "desc": "添加主账号",
+        "id":"ali-mainAccount-create.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/addacct"
+     },
+    {
+        "desc": "查看主账号/编辑读取",
+        "id":"ali-mainAccount-view.get",
+        "method":"GET",
+        "url":"adminboe/authsec/alicloud/adm/main/acct/{id}"
+     },
+    {
+        "desc": "主账号更新",
+        "id":"ali-mainAccount-update.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/update"
+     },
+    {
+        "desc": "主账号类型变更",
+        "id":"ali-mainAccount-type-edit.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/updatetype/{id}"
+     },
+    {
+        "desc": "主账号启用",
+        "id":"ali-mainAccount-status-enable.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/enable/{id}"
+     },
+     {
+        "desc": "主账号禁用",
+        "id":"ali-mainAccount-status-disable.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/disable/{id}"
+     },
+     {
+        "desc": "删除主账号",
+        "id":"ali-mainAccount-delete.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/delete/{id}"
+     },
+      {
+        "desc": "获取主账号企业列表",
+        "id":"ali-mainAccount-enterprise-list.get",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/entlist"
+     },
+     {
+        "desc": "保存设置主账号企业",
+        "id":"ali-mainAccount-enterprise-set.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/main/ent/update/{id}"
+     },
+     {
+        "desc": "子账号列表",
+        "id":"ali-subAccount-list.get",
+        "method":"GET",
+        "url":"adminboe/authsec/alicloud/adm/sub/list/{id}"
+     },
+    {
+        "desc": "查看子账号",
+        "id":"ali-subAccount-view.get",
+        "method":"GET",
+        "url":"adminboe/authsec/alicloud/adm/sub/acct/{id}"
+     },
+     {
+        "desc": "子账号启用",
+        "id":"ali-subAccount-status-enable.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/enable/{id}"
+     },
+     {
+        "desc": "子账号禁用",
+        "id":"ali-subAccount-status-disable.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/disable/{id}"
+     },
+     {
+        "desc": "删除子账号",
+        "id":"ali-subAccount-delete.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/delete/{id}"
+     },
+     {
+        "desc": "获取子账号企业列表",
+        "id":"ali-subAccount-enterprise-list.get",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/entlist"
+     },
+     {
+        "desc": "保存设置子账号企业",
+        "id":"ali-subAccount-enterprise-set.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/ent/update/{id}"
+     },
+    {
+        "desc": "添加子账号",
+        "id":"ali-subAccount-create.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/addacct/{id}"
+     },
+       {
+        "desc": "更新子账号",
+        "id":"ali-subAccount-update.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/update"
+     },
+     {
+        "desc": "测试access信息",
+        "id":"ali-Account-accessInfo-test.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/test"
+     },
+
+    //管理服务
+    {
+        "desc": "企业列表",
+        "id": "mtc-center.mng-service.enterprise",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/simple"
+    },
+    {
+        "desc": "管理服务列表",
+        "id": "mtc-center.mng-service.list",
+        "method": "POST",
+        "url": "servicemgmt/authsec/services/supervise/operation/{page}/{size}"
+    },
+    {
+        "desc": "管理服务详情",
+        "id": "mtc-center.mng-service.list",
+        "method": "GET",
+        "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
+    },
+
+
 ]
 

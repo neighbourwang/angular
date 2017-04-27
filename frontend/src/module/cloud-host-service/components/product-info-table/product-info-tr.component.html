@@ -1,5 +1,5 @@
 <tr *ngFor="let items of itemList;">
-    <td style="text-align: center;vertical-align: middle;">
+    <td  *ngIf="hasSelect" style="text-align: center;vertical-align: middle;">
         <input type="checkbox" [disabled]="disabled" class="fox-cloud-checkbox" (click)='items.selected = !items.selected;selectedSubItem()' [(ngModel)]="items.selected">
     </td>
     <td style="width: 330px">
@@ -50,7 +50,9 @@
         </table>
     </td>
     <td class="text-center table-text-middle">
-        <font class="font-green">{{items.status | dict:service.orderStatus | async}}</font>
+
+        <font *ngIf="isorder" class="font-green">{{items.status | dict:service.orderStatus | async}}</font>
+        <font *ngIf="!isorder" class="font-green">{{items.status | dict:service.subinstanceStatus | async}}</font>
     </td>
     <td style="max-width: 100px" class="text-center table-text-middle">{{items.createDate}}</td>
     <td style="max-width: 100px" class="text-center table-text-middle">{{items.expireDate}}</td>

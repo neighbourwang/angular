@@ -58,6 +58,7 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
     //获取平台列表;
     getPlateForm() {
+        this.LayoutService.show();
         this.CreateProdDirService.getDiskPlateForms().then(
             response => {
                 console.log('PINGTAI', response);
@@ -88,8 +89,8 @@ export class ProdDirDiskCreComponent implements OnInit {
     }
 
     //获取启动盘信息
-    selectStorage(idx, idxx,idxxx) {
-        console.log(idx, idxx,idxxx)
+    selectStorage(idx, idxx, idxxx) {
+        console.log(idx, idxx, idxxx)
         // this._platformlist[idx].platformInfo[idxx].storageItem[idxxx].selected=!this._platformlist[idx].platformInfo[idxx].storageItem[idxxx].selected
         // for (let storage of this._platformlist[idx].platformInfo[idxxx].storageItem) {
         //     if (storage.storageId == id) {
@@ -100,6 +101,7 @@ export class ProdDirDiskCreComponent implements OnInit {
         // }
     }
     getProdDirDetail(id) {
+        this.LayoutService.show();
         this.ProdDirDetailService.getDiskProdDirDetail(id).then(
             response => {
                 console.log(response);
@@ -107,15 +109,25 @@ export class ProdDirDiskCreComponent implements OnInit {
                     console.log('diskdetail', response);
                     if (response.resultContent) {
                         this.prodDir = response.resultContent;
-                        this._platformlist = JSON.parse(JSON.stringify(this.prodDir.platformList)); 
-                        // this.prodDir.description =
-                            // this.prodDir.description == 'null' ? this.prodDir.description : '';
+                        this._platformlist = JSON.parse(JSON.stringify(this.prodDir.platformList));
+                        for (let platform of this._platformlist) {
+                            for (let zone of platform.platformInfo) {
+                                for (let storage of zone.storageItem) {
+                                    if (storage.selected) {
+                                        storage.disable = storage.selected;
+                                    } else {
+                                        storage.selected = false;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 this.LayoutService.hide();
             }
         ).catch(err => {
             console.error(err);
+            this.LayoutService.hide();            
         })
         console.log(this.prodDir);
     }
@@ -189,9 +201,8 @@ export class ProdDirDiskCreComponent implements OnInit {
     // }
     //表单验证
     checkForm(key?: string) {
-
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            serviceName: [this.prodDir.serviceName, [this.v.isInstanceName, this.v.isBase, this.v.isUnBlank], "产品目录名称格式不正确"],
+            serviceName: [this.prodDir.serviceName, [this.v.isBase, this.v.isUnBlank], "产品目录名称格式不正确"],
 
             description: [this.prodDir.description, [this.v.maxLength(68)], "描述输入错误"],
         }
@@ -206,25 +217,29 @@ export class ProdDirDiskCreComponent implements OnInit {
         //重新刷新选择平台
         let message = this.checkForm();
         if (message) return;
-        console.log(this.prodDir);
         if (this.prodDir.specification.maxSize == 0 || this.prodDir.specification.stepSize == 0) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_SPEC_ERROR'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_SPEC_ERROR=>产品规格数据设置错误 
             return;
         }
         this.prodDir.platformList = [];
-        this.prodDir.platformList = this._platformlist.filter(function (ele) {
+        this._platformlist.forEach(function (ele) {
             if (ele.platformInfo) {
                 for (let zone of ele.platformInfo) {
-                    for(let storage of zone.storageItem){
-                        if(storage.selected==true){
-                            zone.selected=true;
-                            ele.selected=true;
-                            return ele;
+                    for (let storage of zone.storageItem) {
+                        if (storage.selected == true) {
+                            zone.selected = true;
+                            ele.selected = true;
                         }
                     }
                 }
             }
         })
+        this.prodDir.platformList =this._platformlist.filter(ele=>{
+            if(ele.selected==true){
+                return ele;
+            }
+        });
+        console.log('产品目录',this.prodDir);        
         if (this.prodDir.platformList.length == 0) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PLATFORM'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PLATFORM=>请选择可用平台 
             return;
@@ -241,8 +256,8 @@ export class ProdDirDiskCreComponent implements OnInit {
             })
         } else {
             console.log(this.prodDir);
-            this.LayoutService.show();            
-            this.CreateProdDirService.editDiskProdDir(this.serviceId,this.prodDir).then(response => {
+            this.LayoutService.show();
+            this.CreateProdDirService.editDiskProdDir(this.serviceId, this.prodDir).then(response => {
                 console.log(response);
                 this.LayoutService.hide();
                 this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })

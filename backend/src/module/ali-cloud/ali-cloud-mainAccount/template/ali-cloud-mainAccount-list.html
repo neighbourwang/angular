@@ -1,0 +1,79 @@
+﻿<div class="page-content-header icon-content-header-ali-cloud">
+    阿里云账号管理
+</div>
+<div class="page-content">
+    <div style="margin-bottom:10px">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="createAccount();">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">添加主账号</span>
+        </button>
+        <div class="dropdown pull-right" style="margin-left:10px;">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                选择操作
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="javascript:void(0);" (click)="editAccountType();">编辑账号类型</a></li>
+                <li><a href="javascript:void(0);" (click)="enableAccount();">启用</a></li>
+                <li><a href="javascript:void(0);" (click)="disableAccount();">禁用</a></li>
+                <li><a href="javascript:void(0);" (click)="deleteAccount();">删除</a></li>
+            </ul>
+        </div>
+        <div class="pull-right mgl10">
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoSubAccountList();">管理子账号</button>
+        </div>
+        <div class="pull-right mgl10">
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="setEntprise();">分配企业</button>
+        </div>
+        <div class="pull-right">
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="editAccount();">编辑</button>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>主账号登录名</th>
+                <th>账号类型</th>
+                <th>所属企业</th>
+                <th>状态</th>
+                <th>最后更新时间</th>
+                <th>操作人</th>
+                <th>描述</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of accountList">
+                <td>
+                    <input type="radio" name="aliAccount" class="fox-cloud-radio" (change)="getSelectAccount(item);"[checked]="item.isSelect" />
+                </td>
+                <td><a href="javascript:void(0);" (click)="viewAccount(item);">{{item.loginName}}</a></td>
+                <td>{{item.mainAccountType | dict:service.dictType | async }}</td><!--| dict:service.dictType | async-->
+                <td>{{item.mainAccountType =="2"? "多个":item.tenantCross}}</td>
+                <td  [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}">
+                   {{item.status| dict:service.dictStatus | async}}  <!-- {{item.status}}-->
+                </td>
+                <td>{{item.lastUpdate| formatDate}}</td>
+                <td>{{item.operator}}</td>
+                <td>{{item.description}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}"></fc-notice> 
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'PHYSICAL_MNG.CONFIRM'|translate}}" ct="{{'PHYSICAL_MNG.CANCEL'|translate}}"  ></fc-confirm>
+ <fc-popup #editaccountType title="{{title}}" ot="保存"  ct="{{'PHYSICAL_MNG.CANCEL'|translate}}" (of)="confirmAccountType()" >
+    <div class="row row-line-height">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>变更类型:</div>
+            <div class="col-sm-4">
+                <select class="form-control" [(ngModel)]="selectAccountType">
+                    <option value="">请选择</option>
+                    <option *ngFor="let v of service.dictType | async" [value]="v.value">{{v.displayValue}}</option>
+                </select>
+            </div>
+        </div>
+    </div>  
+</fc-popup>

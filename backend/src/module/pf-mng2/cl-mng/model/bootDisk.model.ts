@@ -9,6 +9,7 @@ export class BootDiskModel{
     "storageDisplayName":Array<string>;
     "zoneId": string;
     "zoneName": string;
+    "selected":boolean;
     constructor(){
         this.storageId=[];
         this.storageName=[];

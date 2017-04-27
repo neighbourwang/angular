@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { DictService } from '../../../../architecture/core/service/dict-service';
+
+import { MyDatePicker  } from '../../../../architecture/components/date-picker/my-date-picker.component';
 import {
 	ListItem
 	, OrderMngParam
@@ -15,6 +17,7 @@ import {
 	, OrderDetailItem
 	, CancelParam
 	, AutoRenewItem
+	,UserInfo
 } from '../model'
 import * as _ from 'underscore';
 
@@ -28,6 +31,12 @@ import * as _ from 'underscore';
 export class OrderMngComponent implements OnInit {
 	@ViewChild("notice")
 	private _notice: NoticeComponent;
+
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
 
 	@ViewChild("renewDialog")
 	private _renewDialog: ModalComponent;
@@ -95,6 +104,9 @@ export class OrderMngComponent implements OnInit {
 	private autoRenewConfigItem: ItemLoader<any> = null;
 	private autoRenewSetting: ItemLoader<any> = null;
 
+	private userTypeLoader:ItemLoader<UserInfo>= null;
+	private isAdmin:boolean = false;
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -105,15 +117,63 @@ export class OrderMngComponent implements OnInit {
 		//类型
 		this._typeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
 
-		//订单详情加载
-		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "ORDER_MNG.ORDER_DETAILS_DATA_FAILED", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
+		this.userTypeLoader = new ItemLoader<UserInfo> (false,'用户类型加载出错','op-center.order-mng.ent-type.get',this.restApiCfg,this.restApi);
+	     this.userTypeLoader.MapFunc = (source:Array<any>, target:Array<UserInfo>)=>{
+                let obj = new UserInfo();
+                for(let item of source){
+                obj.enterpriseId = item.enterpriseId;
+				obj.enterpriseName = item.enterpriseName;
+				obj.organizationId = item.organizationId;
+				obj.organizationName = item.organizationName;
+                obj.roleName = item.roles[0].roleName;
+                }
+				
+                target.push(obj);
+			
+		}
+
+		// this.userTypeLoader.Trait = (target:Array<UserInfo>)=>{
+		
+		// }
+
+		//详情已购服务加载
+		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "已购服务详情加载失败！", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
 		this._orderDetailLoader.MapFunc = (source: Array<any>, target: Array<OrderDetailItem>) => {
 			for (let item of source) {
 				let obj: OrderDetailItem = _.extendOwn(new OrderDetailItem(), item)
 				target.push(obj);
+				
 			}
 		};
-
+		this._orderDetailLoader.Trait = (target:Array<OrderDetailItem>)=>{
+			
+			for(let item of target ){
+				//实例名称
+				if(item.itemList&&item.itemList[0].specList){
+					let getProperty = _.property("attrDisplayValue");
+					 if(item.productType==0){
+						item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+					}else{
+						item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
+					}
+				}
+				//匹配历史信息的实例名称
+				if(item.hisOrderList){
+					for(let hisItem of item.hisOrderList){
+						// item.hisOrderList[0].type=0;
+						// item.hisOrderList[1].type=0;0是订购单
+						let getProperty = _.property("attrDisplayValue");
+						if(hisItem.specList){
+							 if(hisItem.productType==0){
+								hisItem.instanceName = getProperty(hisItem.specList.find(n=>n.attrCode == 'INSTANCENAME'));
+							}else{
+								hisItem.instanceName = getProperty(hisItem.specList.find(n=>n.attrCode == 'DISKINSNAME'));
+							}
+						}
+					}
+				}
+			}
+		}
 
 		this._orderDetailLoader.FirstItem = new OrderDetailItem();
 
@@ -217,6 +277,11 @@ export class OrderMngComponent implements OnInit {
 					return false;
 				return true;
 			};
+			let canCancel: (item: SubInstanceItemResp) => boolean = (item: SubInstanceItemResp): boolean => {
+				if (item.status != "2" )//已激活的订单可退订
+					return false;
+				return true;
+			};
 
 			//只有周期计费可以自动续订
 			let canContinueRenew: (item: SubInstanceItemResp) => boolean = (item: SubInstanceItemResp): boolean => {
@@ -249,6 +314,11 @@ export class OrderMngComponent implements OnInit {
 						orderItem.canRenew = false;
 					else
 						orderItem.canRenew = true;
+						
+					if (orderItem.itemList.find(n => !canCancel(n)) != null)
+						orderItem.canCancel = false;
+					else
+						orderItem.canCancel = true;
 
 					if (orderItem.itemList.find(n => !canContinueRenew(n) != null))
 						orderItem.canContinueRenew = false;
@@ -272,82 +342,17 @@ export class OrderMngComponent implements OnInit {
 
 
 		};
-		/*
-				this._orderLoader.FakeDataFunc = (target:Array<SubInstanceResp>)=>{
-					let obj = new SubInstanceResp();
-					target.push(obj);
-		
-					obj.orderNo = "1234";
-					obj.purchaseDate = "2016-11-11";
-					let subItem = new SubInstanceItemResp();
-					obj.itemList = [];
-					obj.itemList.push(subItem);
-		
-					subItem.quantity = 1;
-		
-					subItem.specList = [];
-					let spec = new SubInstanceAttrPair();
-					subItem.specList.push(spec);
-					spec.attrDisplayName = "区域";
-					spec.attrDisplayValue = "东1111区";
-			 
-					let spec2 = new SubInstanceAttrPair();
-					subItem.specList.push(spec2);
-					spec2.attrDisplayName = '可用区';
-					spec2.attrDisplayValue = '可用区B';
-		
-					  let spec3 = new SubInstanceAttrPair();
-					subItem.specList.push(spec3);
-					spec3.attrDisplayName = '实例规格';
-					spec3.attrDisplayValue = 'CPU 2赫/内存 4GB/启动盘 70G';
-		
-					 let spec4 = new SubInstanceAttrPair();
-					subItem.specList.push(spec4);
-					spec4.attrDisplayName = 'IP地址';
-					spec4.attrDisplayValue = '10.1.1.1(内部) 192.168.1.1(外部)';
-		
-					let spec5 = new SubInstanceAttrPair();
-					subItem.specList.push(spec5);
-					spec5.attrDisplayName = '操作系统';
-					spec5.attrDisplayValue = '******';
-		
-					let spec6 = new SubInstanceAttrPair();
-					subItem.specList.push(spec6);
-					spec6.attrDisplayName = '密码';
-					spec6.attrDisplayValue = '已设置';
-		
-					let spec7 = new SubInstanceAttrPair();
-					subItem.specList.push(spec7);
-					spec7.attrDisplayName = '实例名称';
-					spec7.attrDisplayValue = 'abcabc';
-		
-		
-					subItem.billingInfo = new ProductBillingItem();
-					subItem.billingInfo.basePrice = 5;
-					subItem.billingInfo.basicPrice = 6;
-					subItem.billingInfo.billingMode = '包年包月';
-					
-					subItem.period = 1;
-					subItem.quantity = 1;
-					subItem.serviceType = '云主机';
-					subItem.statusName = '成功';
-					subItem.createDate = '2016-11-11';
-					subItem.expireDate = '2017-11-11';
-				};
-				*/
 
 	}
 	ngOnInit() {
 		this.layoutService.show();
-		this._orderStatusDic.Go()
+		
+		this._orderStatusDic.Go()	
 			.then(success => {
-				return this._productTypeLoader.Go();
-			})
+				this.loadUserType();
+			})	
 			.then(success => {
 				return this._typeDic.Go();
-			})
-			.then(success => {
-				return this._departmentLoader.Go(null, [{ key: "enterpriseId", value: this.restApi.getLoginInfo().userInfo.enterpriseId }]);
 			})
 			.then(success => {
 				return this._billinModeDic.Go();
@@ -359,15 +364,20 @@ export class OrderMngComponent implements OnInit {
 				return this._platformLoader.Go();
 			})
 			.then(success => {
-				this.layoutService.hide();
+				return this._productTypeLoader.Go();
 			})
 			.then(success => {
 				this.search();
+			})
+			.then(success => {
+				this.layoutService.hide();
 			})
 			.catch(err => {
 				this.layoutService.hide();
 				this.showMsg(err);
 			});
+
+			
 
 		this._param.enterpriseId = this.restApi.getLoginInfo().userInfo.enterpriseId;
 
@@ -489,6 +499,47 @@ export class OrderMngComponent implements OnInit {
 		this.AutoRenewDialog.showOt();
 	}
 
+	//判断用户是普通用户还是管理员
+    loadUserType(){
+        this.layoutService.show();
+        this.userTypeLoader.Go()
+            .then(sucess=>{
+				let item = this.userTypeLoader.FirstItem;
+				if(item.roleName&&item.roleName=='ENTERPRISE_ADMIN'){
+					this.isAdmin = true;
+					item.isAdmin = true;
+				}
+					
+				this._departmentLoader.Items.splice(0,this._departmentLoader.Items.length);
+				if(item.isAdmin){
+					this.layoutService.show();
+					// this.restApi.getLoginInfo().userInfo.enterpriseId;
+					this._departmentLoader.Go(null, [{ key: "enterpriseId", value: item.enterpriseId}])
+					.then(sucess=>{
+						this.layoutService.hide();
+					})
+					.catch(err=>{
+						this.layoutService.hide();
+						this.showMsg(err);
+					})
+				}else{
+					// let obj = new ListItem();
+					// obj.id = this.userTypeLoader.FirstItem.organizationId;
+					// obj.name = this.userTypeLoader.FirstItem.organizationName;
+					this._param.organization = item.organizationId;
+					this.loadBuyer();
+					// this._departmentLoader.Items.push(obj);
+				}
+                this.layoutService.hide();
+            })
+            .catch(err=>{
+                this.layoutService.hide();
+                this.showMsg(err);
+            })
+     
+        
+    }
+
 	//选择续订	
 	renewSelect(orderItem: SubInstanceResp) {
 		// 成功、即将过期:7的订单可以  续订  成功指已激活
@@ -500,7 +551,7 @@ export class OrderMngComponent implements OnInit {
 			let self = this;
 			let getRenewPrice: () => number = function () {
 				let item = self._renewPriceLoader.FirstItem;
-					return item.cyclePrice;
+					return item.basicPrice;
 
 				// return item.basePrice || item.basicPrice || item.cyclePrice || item.unitPrice;
 			};
@@ -518,7 +569,7 @@ export class OrderMngComponent implements OnInit {
 						n.renewPeriodType = this._renewPriceLoader.FirstItem.periodType;
 					});
 			this._renewSetting.onetimePrice = this._renewPriceLoader.FirstItem.basePrice;
-			this._renewSetting.price = this._renewPriceLoader.FirstItem.cyclePrice;
+			this._renewSetting.price = this._renewPriceLoader.FirstItem.basicPrice;
 			this._renewSetting.periodType = this._renewPriceLoader.FirstItem.periodType;
 			
 				})
@@ -540,28 +591,6 @@ export class OrderMngComponent implements OnInit {
 	}
 
 	search(pageNumber: number = 1) {
-
-		/*
-		参数
-		{
-		  "createDate": "2016-12-29T02:00:32.511Z",
-		  "enterpriseId": "string",
-		  "expireDate": "2016-12-29T02:00:32.511Z",
-		  "organization": "string",
-		  "pageParameter": {
-			"currentPage": 0,
-			"offset": 0,
-			"size": 0,
-			"sort": {},
-			"totalPage": 0
-		  },
-		  "platformId": "string",
-		  "searchText": "string",
-		  "serviceType": "string",
-		  "status": "string",
-		  "zoneId": "string"
-		}
-		*/
 		let param = _.extend({}, this._param);
 
 
@@ -616,66 +645,6 @@ export class OrderMngComponent implements OnInit {
 
 	//续订
 	renew() {
-		// 		[
-		//   {
-		//     "attrCode": "string",
-		//     "attrDisplayName": "string",
-		//     "attrDisplayValue": "string",
-		//     "attrId": "string",
-		//     "attrValue": "string",
-		//     "attrValueCode": "string",
-		//     "attrValueId": "string",
-		//     "description": "string",
-		//     "valueType": "string",
-		//     "valueUnit": "string"
-		//   }
-		// ]
-		// 		console.log('renew start');
-// 		示例：
-// {
-//   "attrList": [
-//     {
-//       "attrId": "de229819-a0f7-11e6-a18b-0050568a49fd",
-//       "attrCode": "TIMELINEUNIT",
-//       "attrDisplayValue": "按年",
-//       "attrDisplayName": "时长单位",
-//       "attrValueId": "bc5d2ca5-a1bb-11e6-a18b-0050568a49fd",
-//       "attrValue": "5",
-//       "attrValueCode": "c550ef3a-a099-4bc7-b23a-36e61609e15d"
-//     },
-//     {
-//       "attrId": "de227a98-a0f7-11e6-a18b-0050568a49fd",
-//       "attrCode": "TIMELINE",
-//       "attrDisplayValue": "",
-//       "attrDisplayName": "购买时长",
-//       "attrValueId": "",
-//       "attrValue": "1",
-//       "attrValueCode": ""
-//     }
-//   ]
-// }
-
-// [
-//   {
-//     "attrCode": "TIMELINEUNIT",
-//     "attrDisplayName": "时长单位",
-//     "attrValueCode": "cac86c31-30f3-493a-872e-37d8a84b3e19",
-//     "attrDisplayValue": "按月",
-//     "valueUnit": null,
-//     "attrOrderSeq": null,
-//     "description": null
-//   },
-//   {
-//     "attrCode": "TIMELINE",
-//     "attrDisplayName": "购买时长",
-//     "attrValueCode": "",
-//     "attrDisplayValue": "1",
-//     "valueUnit": null,
-//     "attrOrderSeq": null,
-//     "description": null
-//   }
-// ]
-		// let param = {"attrList":[]};
 
 		let list = this.selectedOrderItem.itemList[0].specList;
 
@@ -696,8 +665,8 @@ export class OrderMngComponent implements OnInit {
 				"attrCode": "TIMELINEUNIT",
 				"attrDisplayName":  "时长单位",
 				"attrDisplayValue": items[0].attrDisplayValue,
-				"attrId": this.selectedOrderItem.orderId,
-				"attrValue": "6",//1,2,3,4,5
+				"attrId": items[0].attrId,
+				"attrValue": items[0].attrValue,
 				"attrValueCode":  items[0].attrValueCode,
 				"attrValueId": "",
 				"description":items[0].description,
@@ -707,7 +676,7 @@ export class OrderMngComponent implements OnInit {
 				"attrCode": "TIMELINE",
 				"attrDisplayName":  "购买时长",
 				"attrDisplayValue": items[1].attrDisplayValue,
-				"attrId": this.selectedOrderItem.orderId,
+				"attrId": items[1].attrId,
 				"attrValue":this._renewSetting.value.toString(),
 				"attrValueCode":  items[1].attrValueCode,
 				"attrValueId": "",
@@ -877,8 +846,21 @@ export class OrderMngComponent implements OnInit {
 	//计算时长
 	calRenewDate(renewMode: string, renewLen: number): string {
 		let toDate: (date: Date) => string = function (date: Date): string {
-			return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-		};
+		// 	return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+		let hours:String=`${date.getHours()}`;
+			let minutes:string =`${date.getMinutes()}`;
+			let seconds:String=`${date.getSeconds()}`;;
+			if(hours=='0'){
+				hours='00';
+			}
+			if(minutes=='0'){
+				minutes='00';
+			}
+			if(seconds=='0'){
+				seconds='00';
+			}
+			return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} `+hours+':'+minutes+':'+seconds;
+	};
 
 		let handlerObj = {
 			"0": (len: number) => {
@@ -922,12 +904,15 @@ export class OrderMngComponent implements OnInit {
 		}
 
 
-
+        // let date ='2017-03-15 00:00:00';
+		// return toDate(handlerObj[renewMode](renewLen)(date));
 		return toDate(handlerObj[renewMode](renewLen)(this.selectedOrderItem.itemList[0].expireDate));
 	}
 
 	resetParam() {
 		this._buyerLoader.clear();
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
 		this._param.reset();
 	}
 

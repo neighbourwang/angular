@@ -41,7 +41,7 @@
         </select>
     </div>
 </div>
-<table class="table table-hover" style="table-layout:fixed">
+<table class="table table-hover">
     <tbody>
         <tr>
             <th class="text-center">{{ 'USER_CENTER.CASE_ID' | translate}}</th>
@@ -58,8 +58,8 @@
         <tr *ngFor="let item of data">
             <td class="text-center">{{item.id}}</td>
 <!--            <td class="text-center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100px;"><a href="javascript:void(0);" (click)="getDetail(item)" title="{{item.subject}}">{{item.subject}}</a></td>-->
-            <td style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100px;">
-                <static-tooltip [title]="item.subject"><a href="javascript:void(0);" (click)="getDetail(item)">{{item.subject | slice:0:8}}</a></static-tooltip>
+            <td class="text-center" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100px;">
+                <static-tooltip [title]="item.subject"><a href="javascript:void(0);" class="a-active" (click)="getDetail(item)">{{item.subject | slice:0:8}}</a></static-tooltip>
             </td>
             <td class="text-center">{{item.typeName}}</td>
             <td class="text-center">{{item.statusName}}</td>

@@ -9,11 +9,11 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;">
             <div class="mgb20">
-                <div style="width:50%;float: left"> 
-                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota||0}}</span> {{ 'COMMON.CORE' | translate }}
+                <div class="no-nowrap" style="width:50%;float: left"> 
+                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.cpuQuota||0">{{service.entResourceObj.cpuQuota||0}}</span> {{ 'COMMON.CORE' | translate }}
                 </div>
-                <div style="width:50%;float: left">
-                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.cpuQuota-service.entResourceObj.realUsedCpuQuota||0}}</span> {{ 'COMMON.CORE' | translate }}
+                <div class="no-nowrap" style="width:50%;float: left">
+                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.cpuQuota-service.entResourceObj.realUsedCpuQuota||0">{{service.entResourceObj.cpuQuota-service.entResourceObj.realUsedCpuQuota||0}}</span> {{ 'COMMON.CORE' | translate }}
                 </div>
                 <div style="clear : both">
                 </div>
@@ -33,11 +33,11 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
-                <div style="width:50%;float: left"> 
-                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota||0}}</span>G
+                <div class="no-nowrap" style="width:50%;float: left"> 
+                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.memQuota||0">{{service.entResourceObj.memQuota||0}}</span>G
                 </div>
-                <div style="width:50%;float: left">
-                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.memQuota-service.entResourceObj.realUsedMemQuota||0}}</span>G
+                <div class="no-nowrap" style="width:50%;float: left">
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.memQuota-service.entResourceObj.realUsedMemQuota||0">{{service.entResourceObj.memQuota-service.entResourceObj.realUsedMemQuota||0}}</span>G
                 </div>
                 <div style="clear : both">
                 </div>
@@ -55,11 +55,11 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
-                <div style="width:50%;float: left"> 
-                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota||0}}</span>
+                <div class="no-nowrap" style="width:50%;float: left"> 
+                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.physicalMachineQuota||0">{{service.entResourceObj.physicalMachineQuota||0}}</span>
                 </div>
-                <div style="width:50%;float: left">
-                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.physicalMachineQuota-service.entResourceObj.realUsedPhysicalMachineQuota||0}}</span>
+                <div class="no-nowrap" style="width:50%;float: left">
+                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.physicalMachineQuota-service.entResourceObj.realUsedPhysicalMachineQuota||0">{{service.entResourceObj.physicalMachineQuota-service.entResourceObj.realUsedPhysicalMachineQuota||0}}</span>
                 </div>
                 <div style="clear : both">
                 </div>
@@ -76,11 +76,11 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
-                <div style="width:50%;float: left"> 
-                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota||0}}</span>G
+                <div class="no-nowrap" style="width:50%;float: left"> 
+                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.storageQuota||0">{{service.entResourceObj.storageQuota||0}}</span>G
                 </div>
-                <div style="width:50%;float: left">
-                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.storageQuota-service.entResourceObj.realUsedStorageQuota||0}}</span>G
+                <div class="no-nowrap" style="width:50%;float: left">
+                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.storageQuota-service.entResourceObj.realUsedStorageQuota||0">{{service.entResourceObj.storageQuota-service.entResourceObj.realUsedStorageQuota||0}}</span>G
                 </div>
                 <div style="clear : both">
                 </div>
@@ -97,11 +97,11 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
-                <div style="width:50%;float: left"> 
-                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota||0}}</span>个
+                <div class="no-nowrap" style="width:50%;float: left"> 
+                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.snapshotQuota||0">{{service.entResourceObj.snapshotQuota||0}}</span>个
                 </div>
-                <div style="width:50%;float: left">
-                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.snapshotQuota-service.entResourceObj.realUsedSnapshotQuota||0}}</span>个
+                <div class="no-nowrap" style="width:50%;float: left">
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.snapshotQuota-service.entResourceObj.realUsedSnapshotQuota||0">{{service.entResourceObj.snapshotQuota-service.entResourceObj.realUsedSnapshotQuota||0}}</span>个
                 </div>
                 <div style="clear : both">
                 </div>
@@ -118,11 +118,11 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
-                <div style="width:50%;float: left"> 
-                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota||0}}</span>个
+                <div class="no-nowrap" style="width:50%;float: left"> 
+                    {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.imageQuota||0">{{service.entResourceObj.imageQuota||0}}</span>个
                 </div>
-                <div style="width:50%;float: left">
-                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.imageQuota-service.entResourceObj.realUsedImageQuota||0}}</span>个
+                <div class="no-nowrap" style="width:50%;float: left">
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.imageQuota-service.entResourceObj.realUsedImageQuota||0">{{service.entResourceObj.imageQuota-service.entResourceObj.realUsedImageQuota||0}}</span>个
                 </div>
                 <div style="clear : both">
                 </div>
@@ -139,11 +139,11 @@
         </div>
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
-                <div style="width:50%;float: left"> 
-                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota||0}}</span>个
+                <div class="no-nowrap" style="width:50%;float: left"> 
+                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.floatIpQuota||0">{{service.entResourceObj.floatIpQuota||0}}</span>个
                 </div>
-                <div style="width:50%;float: left">
-                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px">{{service.entResourceObj.floatIpQuota-service.entResourceObj.realUsedFloatIpQuota||0}}</span>个
+                <div class="no-nowrap" style="width:50%;float: left">
+                    {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.floatIpQuota-service.entResourceObj.realUsedFloatIpQuota||0">{{service.entResourceObj.floatIpQuota-service.entResourceObj.realUsedFloatIpQuota||0}}</span>个
                 </div>
                 <div style="clear : both">
                 </div>
@@ -160,7 +160,7 @@
 </div>
 
 <div class="mgb20" style="overflow : hidden">
-    <button class="btn button-confirm float-right" (click)="openCreate()">{{ 'IMAGE.CREATED_DEPARTMENT' | translate }}</button>
+    <button class="btn button-confirm float-right" (click)="openCreate()" id="openCreate">{{ 'IMAGE.CREATED_DEPARTMENT' | translate }}</button>
 </div>
 <table class="table table-hover mgb20">
 	<tbody><tr>
@@ -190,11 +190,11 @@
 		<td class="text-center">{{organ.description}}</td>
 		<td >
             <div style="margin:0 anto" class="text-left">
-                <span class="glyphicon glyphicon-edit font-green" (click)="statusChange(organ,'edit')" style="margin-right : 10px ; cursor:pointer"></span><!-- 编辑 -->
+                <span class="glyphicon glyphicon-edit font-green" (click)="statusChange(organ,'edit')" id="edit_{{organ.name}}" style="margin-right : 10px ; cursor:pointer"></span><!-- 编辑 -->
             <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
-            <span  *ngIf="!organ.isDefault&&organ.status!=1" class="glyphicon glyphicon-ok-circle font-green" (click)="statusChange(organ,'start')" style="margin-right : 10px; cursor:pointer"></span> <!-- 启用 -->
-            <span   *ngIf="!organ.isDefault&&organ.status!=3" class="glyphicon glyphicon-ban-circle font-orange" (click)="statusChange(organ,'disabled')" style="margin-right : 10px; cursor:pointer"></span> <!-- 禁用 -->
-            <span *ngIf="((organ.headCount==0&&organ.status=='3')||organ.status=='0')&&!organ.isDefault" class="glyphicon glyphicon-trash font-orange" (click)="statusChange(organ,'delete')" style="cursor:pointer"></span> <!-- 删除 -->
+            <span  *ngIf="!organ.isDefault&&organ.status!=1" class="glyphicon glyphicon-ok-circle font-green"  id="start_{{organ.name}}" (click)="statusChange(organ,'start')" style="margin-right : 10px; cursor:pointer"></span> <!-- 启用 -->
+            <span   *ngIf="!organ.isDefault&&organ.status!=3" class="glyphicon glyphicon-ban-circle font-orange" id="disabled_{{organ.name}}" (click)="statusChange(organ,'disabled')" style="margin-right : 10px; cursor:pointer"></span> <!-- 禁用 -->
+            <span *ngIf="((organ.headCount==0&&organ.status=='3')||organ.status=='0')&&!organ.isDefault" id="delete_{{organ.name}}" class="glyphicon glyphicon-trash font-orange" (click)="statusChange(organ,'delete')" style="cursor:pointer"></span> <!-- 删除 -->
             </div>            
         </td>
 	</tr>

@@ -67,6 +67,8 @@ class Account {
     "phone": string;
     "roles": Array<Role>;
     "userName": string;
+    "isMybody":boolean;
+    "isRoot":boolean;
     status:number;
     type: string;//0 本地 1 AD
     ldapId: string = "";

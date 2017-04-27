@@ -92,13 +92,17 @@ export class CloudHostSpecComponent implements OnInit {
     //VMware新建云主机规格
     createFlavor(){
         this.flavorObj=new FlavorObj();
+        this.nameRepeat=false;
         this.createSepc.open();
     }
     //确认创建
+    nameRepeat:boolean=false;
     otcreate(){
+        console.log(this.flavorObj);        
+        let reg=/(^[a-zA-Z\u4e00-\u9fa5-_\d]*$)/.test(this.flavorObj.name);
+        console.log(reg);
         this.flavorObj.platformId=this.platformId;
-        console.log(this.flavorObj);
-        if(!this.flavorObj.name){
+        if(!this.flavorObj.name||!reg){
             this.flavorObj.nameValid=false;
             return;
         };
@@ -117,9 +121,16 @@ export class CloudHostSpecComponent implements OnInit {
         this.layoutService.show();
         this.service.vmFlavorNew(this.flavorObj).then(res=>{
             console.log(res);
-            this.getFlavorList(this.platformId);
-            this.createSepc.close()
-            this.layoutService.hide();                        
+            if (res.resultCode == '10006001') {
+                this.layoutService.hide();
+                this.nameRepeat=true; 
+                // this.notice.open('COMMON.ERROR', "PF_MNG2.SPEC_NAME_EXISTS");
+                return;
+            }else{
+                this.getFlavorList(this.platformId);
+                this.createSepc.close()
+                this.layoutService.hide();  
+            }                                  
         }).catch(err=>{
             console.log(err);
             this.layoutService.hide();

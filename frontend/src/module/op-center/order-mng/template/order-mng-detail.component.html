@@ -25,20 +25,20 @@
 						<td>{{_orderDetail.createDate}}</td>
 					</tr>
 					<tr>
-						<td>{{ 'COMMON.CREATED_TIME' | translate}}</td>
+						<td>计费模式</td>
 						<td>{{_orderDetail.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async}}</td>	
 						<td>{{ 'COMMON.EXPIRE_DATE' | translate}}</td>
 						<td>{{_orderDetail.expireDate}}</td>
 					</tr>
 					<tr>
 						<td>{{ 'COMMON.ONE_TIME_COSTS' | translate}}</td>
-						<td>{{_orderDetail.oneTimePrice}}</td>	
+						<td>￥{{_orderDetail.oneTimePrice}}</td>	
 						<td>{{ 'COMMON.PURCHASER' | translate}}</td>
 						<td>{{_orderDetail.buyer}}</td>
 					</tr>
 					<tr>
 						<td>{{ 'COMMON.EXPENSE' | translate}}</td>	
-						<td>{{_orderDetail.price}}</td>
+						<td>￥{{_orderDetail.price}}/<span>{{_orderDetail.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
 						<td>{{ 'COMMON.DEPARTMENT' | translate}}</td>
 						<td>{{_orderDetail.department}}</td>
 					</tr>
@@ -103,8 +103,18 @@
 						<th>{{ 'COMMON.EXPLAIN' | translate}}</th>
 				</thead>
 				<tbody>
-					
-					<tr *ngFor="let item of _orderDetail.relatedOrderList">
+					<tr>
+						<td>{{_orderDetail.createDate}}</td>
+						<td>{{_orderDetail.instanceName}}</td>
+						<td>{{_orderDetail.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
+						<td>{{_orderDetail.specification}}</td>
+						<td>{{_orderDetail.buyer}}</td>
+						<td>{{_orderDetail.department}}</td>
+						<td>{{_orderDetail.expireDate}}
+						</td>
+						<td>{{_orderDetail.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
+					</tr>
+					<tr *ngFor="let item of _orderDetail.hisOrderList">
 						<td>{{item.createDate}}</td>
 						<td>{{item.instanceName}}</td>
 						<td>{{item.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
@@ -115,6 +125,7 @@
 						</td>
 						<td>{{item.type | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 					</tr>
+					
 				</tbody>
 			</table>
 		</div>				

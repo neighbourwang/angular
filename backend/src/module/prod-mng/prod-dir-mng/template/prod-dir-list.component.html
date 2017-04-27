@@ -1,25 +1,28 @@
-<div class="page-content-header icon-create-product">{{'PROD_MNG.PRODUCT_CAT_MANAGEMENT' | translate}}</div><!--产品目录管理-->
+<div class="page-content-header icon-create-product">{{'PROD_MNG.PRODUCT_CAT_MANAGEMENT' | translate}}</div>
+<!--产品目录管理-->
 
 <div class="page-content" style="min-height:300px;">
 	<div style="padding-bottom: 10px;">
 		<div class="dropdown pull-right" style="margin-left: 20px">
 			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="true">
+			 aria-expanded="true">
                 {{'HOST_OPENSTACK_MNG.MORE_OPERATION' | translate}}
                 <span class="caret"></span>
             </button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<!--<li><a href="#">{{'COMMON.MODIFY' | translate}}</a></li>-->
 				<!--<li><a (click)="edit();">{{'HOST_VMWARE_MNG.EDIT' | translate}}</a></li>-->
-				<li><a (click)="action('publish');">{{'COMMON.PUBLISH' | translate}}</a></li><!--发布-->
+				<li><a (click)="action('publish');">{{'COMMON.PUBLISH' | translate}}</a></li>
+				<!--发布-->
 
-				<li><a (click)="action('ccPublish');">{{'PROD_MNG.CANCEL_PUBLISH' | translate}}</a></li><!--取消发布-->
+				<li><a (click)="action('ccPublish');">{{'PROD_MNG.CANCEL_PUBLISH' | translate}}</a></li>
+				<!--取消发布-->
 
 				<li><a (click)="action('delete');">{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}</a></li>
 			</ul>
 		</div>
 		<button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;width:60px; margin-left: 20px"
-			(click)='onQuery()'>{{'COMMON.SEARCH' | translate}}</button>
+		 (click)='onQuery()'>{{'COMMON.SEARCH' | translate}}</button>
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 {{'PROD_MNG.ALL_PLATFORM' | translate}}
@@ -31,7 +34,8 @@
                  <option *ngFor="let item of platformsList;" [value]="item.id">{{item.name}}</option>
             </select>
 		</div>
-		<span class="pull-right" style="line-height: 34px;margin-left: 20px">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}：</span><!--平台-->
+		<span class="pull-right" style="line-height: 34px;margin-left: 20px">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}：</span>
+		<!--平台-->
 
 
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
@@ -45,7 +49,8 @@
                  <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
             </select>
 		</div>
-		<span class="pull-right" style="line-height: 34px">{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}：</span><!--产品目录类别-->
+		<span class="pull-right" style="line-height: 34px">{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}：</span>
+		<!--产品目录类别-->
 
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
             <span class="glyphicon glyphicon-edit"></span>
@@ -57,15 +62,19 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th class="check-box-col"><input class="fox-cloud-checkbox" type="checkbox" class="fox-cloud-checkbox" (click)="switchSelectAll();" />{{'COMMON.SELECT_ALL' | translate}}</th>
+					<th class="check-box-col"><input class="fox-cloud-checkbox" type="checkbox" class="fox-cloud-checkbox" (click)="switchSelectAll();" />{{'COMMON.SELECT_ALL'
+						| translate}}</th>
 					<th>
 						{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}
-					</th><!--产品目录名称-->
+					</th>
+					<!--产品目录名称-->
 
-					<th>{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}</th><!--产品目录类别-->
+					<th>{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}</th>
+					<!--产品目录类别-->
 
 					<th>{{'PROD_MNG.PRODUCT_SPEC' | translate}}</th>
-					<th>{{'ENT_MNG.PRODUCT_NUM' | translate}}</th><!--产品数量-->
+					<th>{{'ENT_MNG.PRODUCT_NUM' | translate}}</th>
+					<!--产品数量-->
 
 					<th>{{'NET_MNG_OPENSTACK.STATUS' | translate}}</th>
 					<th>{{'COMMON.DESCRIPTION' | translate}}</th>
@@ -73,8 +82,9 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let item of prodDirList; let idx = index;">
-					<td><input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)"/></td>
-					<td >
+					<td><input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)"
+						/></td>
+					<td>
 						<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{item.serviceName}}</a>
 					</td>
 					<td>{{item.serviceTemplateName}}</td>
@@ -99,30 +109,46 @@
 <fc-pagination #pagination tp={{tp}} (pf)="paging($event)"></fc-pagination>
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="nof()"></fc-notice>
 
-<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="deleteCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="publishCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="ccPublishCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-<fc-popup #createProdDir title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
+<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="deleteCof()" ct="HOST_OPENSTACK_MNG.CANCEL"
+ (cf)="ccf()"></fc-confirm>
+<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="publishCof()" ct="HOST_OPENSTACK_MNG.CANCEL"
+ (cf)="ccf()"></fc-confirm>
+<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="ccPublishCof()" ct="HOST_OPENSTACK_MNG.CANCEL"
+ (cf)="ccf()"></fc-confirm>
+<fc-popup #createProdDir title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL"
+ (cf)="ccf()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}:</div>
 			<div class="col-sm-6">
-				<select class="form-control" [(ngModel)]="prodDirTypeId">
-                    <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
+				<select class="form-control" [(ngModel)]="prodDirTypeCode">
+                    <option *ngFor="let item of prodDirTypeList;" [value]="item.code">{{item.name}}</option>
                 </select>
 			</div>
 		</div>
 	</div>
-	<div *ngIf="prodDirTypeId=='33f23ade-a0f8-11e6-a18b-0050568a49fd'">
+	<div *ngIf="prodDirTypeCode=='VITRUALMACHINE_SERVICE'">
 		<div class="row row-line-height">
-		<div class="form-group">
-			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SELECT_CLOUD_HOST_SPECIFICATIONS' | translate}}: </div>
-			<div class="col-sm-6">
-				<select class="form-control" [(ngModel)]="prodDirSpecIdx" (ngModelChange)="selectProDirSpec(prodDirSpecIdx)">
+			<div class="form-group">
+				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SELECT_CLOUD_HOST_SPECIFICATIONS' | translate}}: </div>
+				<div class="col-sm-6">
+					<select class="form-control" [(ngModel)]="prodDirSpecIdx" (ngModelChange)="selectProDirSpec(prodDirSpecIdx)">
                     <option *ngFor="let item of vmProdDirSpecList; let idx=index" [value]="idx">{{'COMMON.NAME' | translate}}: {{item.cpu+' CPU,'+(item.mem/1024)+' GB,'+item.bootStorageSize+' GB'}}</option>
                 </select>
+				</div>
 			</div>
 		</div>
 	</div>
-	</div>	
+	<div *ngIf="prodDirTypeCode=='SUPERVISE_SERVICE'">
+		<div class="row row-line-height">
+			<div class="form-group">
+				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SERVE_OBJECT' | translate}}: </div>
+				<div class="col-sm-6">
+					<select class="form-control" [(ngModel)]="servObjCode">
+                    <option *ngFor="let obj of service.dictServiceObjList | async; let idx=index" [value]="obj.code">{{obj.displayValue}}</option>
+                </select>
+				</div>
+			</div>
+		</div>
+	</div>
 </fc-popup>

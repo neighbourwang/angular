@@ -36,8 +36,8 @@ export class PhysicalModel {
     priIPAddr: string;
     pubIPAddr: string;
     image: string;
-    mainEndDate:string;  //维保结束时间
-    mainStartDate:string;  //维保开始时间
+    mainEndDate:string="";  //维保结束时间
+    mainStartDate:string="";  //维保开始时间
 
     // pmHardwareCPU:CPU; 
     // pmHardwareMemory:Memory;
@@ -49,7 +49,7 @@ export class PhysicalModel {
    partsList:Array<PartHardwareInfo>;
 
    //部件列表
-   partsEntitys:Array<PartsEntitys>;
+   partsEntitys:Array<PartsEntitys>=[];
  }
 
  export class PartHardwareInfo{
@@ -65,7 +65,7 @@ export class PhysicalModel {
     partsName: string;
     specId: string="";
     specName: string="";
-    specValue:string;
+    specValue:string="";
     isSelect=false;
 
  }
@@ -74,23 +74,25 @@ export class PhysicalModel {
    // id: string;
   partsId: string;
   partsName: string;
+  editable:number;
   specList: Array<Space>=[];
 }
 export class Space{
     specId: string;
     specName: string;
-    specValues:Array<String>;
+    editable:number;
+    specValues:Array<string>=[];
 }
-export class PartList{
-    partsId: string;
-    partsName: string;
-    specId: string="";
-    specName: string="";
-    specValue:string;
-    partsNum:number;
-    partsCap:string="";
-    isSelect=false;
-}
+// export class PartList{
+//     partsId: string;
+//     partsName: string;
+//     specId: string="";
+//     specName: string="";
+//     specValue:string="";
+//     partsNum:number;
+//     partsCap:string="";
+//     isSelect=false;
+// }
 
 
 

@@ -4,10 +4,11 @@
     resultContent: [
         {
             "platformName": "vmware_weiqi",
-            "platformId": "sdfasdfsaf-sfasfsdf",
+            "platformId": "weiqi",
             "region": [
                 {
                     "region": "region1",
+                    "regionId":"jakdjla-mmtwueijsj",
                     "zone": [
                         {
                             "zoneName": "nova",
@@ -17,6 +18,7 @@
                 },
                 {
                     "region": "vmware_region",
+                    "regionId":"jakdjla-mmtwueityr",
                     "zone": [
                         {
                             "zoneName": "ZWYWW-HA-01",
@@ -32,10 +34,11 @@
         },
         {
             "platformName": "openstack_gcy",
-            "platformId": "klkkllklsl-uiio",
+            "platformId": "gcy",
             "region": [
                 {
                     "region": "region1",
+                    "regionId":"jakdjla-mmtwueiert",
                     "zone": [
                         {
                             "zoneName": "ti",
@@ -45,6 +48,7 @@
                 },
                 {
                     "region": "vmware_region",
+                    "regionId":"jakdjla-mmtwueidfh",
                     "zone": [
                         {
                             "zoneName": "beijing",

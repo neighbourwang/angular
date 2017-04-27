@@ -6,7 +6,6 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LayoutService, ValidationService, NoticeComponent, CountBarComponent } from '../../../../architecture';
 import { Validation, ValidationRegs } from '../../../../architecture';
-
 //service
 import { ProdDirDetailService } from '../service/prod-dir-detail.service';
 import { CreateProdDirService } from '../service/prod-dir-new.service';
@@ -28,7 +27,9 @@ export class ProdDirCreComponent implements OnInit {
         private CreateProdDirService: CreateProdDirService,
         private LayoutService: LayoutService,
         private v: Validation
-    ) { }
+    ) {
+        this.v.result={};
+     }
 
     @ViewChild('notice')
     notice: NoticeComponent;
@@ -114,11 +115,14 @@ export class ProdDirCreComponent implements OnInit {
                     for(let platform of this._platformlist){
                         for(let zone of platform.zoneList){
                             if(zone.selected==true){
+                                zone.disable=true;
                                 platform.selected=true;
-                                break;
-                            }else{
-                                platform.selected=false;
+                                // break;
                             }
+                            if(!zone.storageId){
+                                zone.storageName='未设置启动盘';
+                                zone.disable=true;
+                            }                            
                         }
                     }
                 } else {
@@ -199,7 +203,7 @@ export class ProdDirCreComponent implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            serviceName: [this.prodDir.serviceName, [this.v.isInstanceName, this.v.isBase, this.v.isUnBlank], "产品目录名称格式不正确"],
+            serviceName: [this.prodDir.serviceName, [this.v.isBase, this.v.isUnBlank], "产品目录名称格式不正确"],
 
             description: [this.prodDir.description, [this.v.maxLength(68)], "描述输入错误"],
 

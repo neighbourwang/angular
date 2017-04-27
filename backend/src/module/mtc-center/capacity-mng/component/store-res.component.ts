@@ -39,6 +39,7 @@ export class StoreResComponent implements OnInit {
     ngOnInit() {
         this.selectedPf = this.serviceParam.selectedPlatform;   
         this.getStorageList();
+        console.log("status", this.service.statusDic);
     }
 
     getStorageList() {

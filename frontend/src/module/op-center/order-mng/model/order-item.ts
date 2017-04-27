@@ -6,7 +6,8 @@ export class SubInstanceResp {
   orderId: string = null;//, optional): 订单ID，不做显示，操作回传 ,
   orderNo: string = null;//, optional): 对应UI界面中的订单编号 ,
   purchaseDate: string = null;//, optional): 对应UI界面中的下单时间, 映射到后端的createDate
-  canRenew:boolean = true;
+  canRenew:boolean = true;//是否续订
+  canCancel:boolean = true;//是否退订
   canContinueRenew:boolean=true;//是否自动续订
   showInstance : boolean = true;//是否展示实例名称
   relySubinstanceId : number = null; //是否挂载了主机的标识
@@ -42,7 +43,10 @@ export class SubInstanceItemResp {
   serviceType: number = null;//, optional): 产品类型 ,
   specList: Array<SubInstanceAttrPair> = null;//[SubInstanceAttrPair], optional): 产品规格 ,
   status: string = null;//, optional): UI订单状态，需要查询数据字典
-
+platform:string;
+privateIp:string;
+publicIp:string;
+osType:string;
   get billingMode():number{//包装计费模式
     return this.billingInfo ? this.billingInfo.billingMode : null;
   }
@@ -101,6 +105,8 @@ export class ProductBillingItem {
 
 
 export class SubInstanceAttrPair {
+  attrId:string=null;
+  attrValue:string=null;
   attrCode: string = null;//, optional): 服务属性Code ,
   attrDisplayName: string = null;//, optional): 服务属性页面显示的名称 ,
   attrValueCode: string = null;//, optional): 服务属性值Code ,

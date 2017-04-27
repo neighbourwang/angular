@@ -22,12 +22,14 @@
 				</select>
 			</div>
 			<div  class="float-left">
-				<select class="form-control fix-width-120" [(ngModel)]="_param.month" (ngModelChange)="loadChart()" id="loadChart">
+				<select class="form-control fix-width-120" [(ngModel)]="_param.month" (ngModelChange)="loadLastDay()" id="loadChart">
 					<!--<option class="hands" [value]="null" >所有月份</option>-->
 					<option class="hands"  *ngFor="let item of _months" [value]="item.id" id="loadChart_{{item.id}}">{{item.name}}月</option>
 				</select>
 			</div>
-			
+			<div  class="float-left mgr20">
+				<button class="btn btn-default button-gray-gradient float-left mgl20" (click)="search_chart();">查询</button>
+			</div>
 			<div class="float-right">
 				<button class="btn button-gray-gradient" (click)="download()" id="download"><span>下载账单</span></button>
 			</div>
@@ -115,35 +117,45 @@
             </div>
 		</div><!--  下拉选项行 ending-->
 
-		<!--  表格行 -->
+			<!--  表格行 -->
 		<div class="thirdPanel" *ngIf="isAllService==1">
             <div class="table-container">
                 <table class="table table-hover table-all-boder">
-                        <tr>
-                            <th class="text-center">已购服务编号</th>
-                            <th class="text-center">产品名称</th>
+					<thead>
+						<tr>
+							<th class="text-center">已购服务编号</th>
+							<th class="text-center">产品名称</th>
 							<th class="text-center">购买数量</th>
 							<th class="text-center">费用类型</th>
-                            <th class="text-center">应付金额</th>
-                          
-                        </tr>
+							<th class="text-center">应付金额</th>
+										
+						</tr>
+					</thead>
+					<tbody>
                         <tr class="text-center" *ngFor="let item of allServiceLoader.Items;">
-                            <td class="vertical-center"><a (click)='showDetail(item.subinstanceCode)'>{{item.subinstanceCode}}</a></td>
-                            <td class="vertical-center">{{item.productName}}</td>
-                            <td class="vertical-center">{{item.num}}</td>
-                            <td class="vertical-center">
-								<ul *ngFor="let priceItem of item.priceDetails">
-									<li>{{priceItem.billName}}</li>
-								</ul>
-							</td>
-                            <td class="vertical-center">{{item.total_amount}}</td>
-                        </tr>               
+							<td colspan="5">
+								<table class="cart-info">
+									<tr  *ngFor="let priceItem of item.priceDetails">
+										<td class="vertical-center"><a (click)='showDetail(item)'>{{item.subinstanceCode}}</a></td>
+                            			<td class="vertical-center">{{item.productName}}</td>
+                            			<td class="vertical-center">{{item.num}}</td>
+										<td>
+											{{priceItem.billName}}
+										</td>
+										<td class="vertical-center"><span *ngIf="!priceItem.isShow" >&nbsp;&nbsp;￥{{priceItem.amount}}</span><span *ngIf="priceItem.isShow">&nbsp;&nbsp;￥{{item.total_amount}}</span></td>
+									</tr>
+									 
+								</table>
+							</td>		
+                    	</tr> 
+					</tbody>                  
                 </table>
             </div>
 		</div><!--  表格<div class="row row-line-height">-->
 		<div  class="thirdPanel" *ngIf="isAllService==2">
             <div class="table-container">
                 <table class="table table-hover table-all-boder">
+                    <thead>
                         <tr>
                             <th class="text-center">已购服务编号</th>
                             <th class="text-center">产品名称</th>
@@ -152,17 +164,25 @@
                             <th class="text-center">应付金额</th>
                           
                         </tr>
+                    </thead>
+                    <tbody>
                         <tr class="text-center" *ngFor="let item of increaseServiceLoader.Items;">
-                            <td class="vertical-center"><a (click)='showDetail(item.subinstanceCode)'>{{item.subinstanceCode}}</a></td>
-                            <td class="vertical-center">{{item.productName}}</td>
-                            <td class="vertical-center">{{item.num}}</td>
-                            <td class="vertical-center">
-								<ul *ngFor="let priceItem of item.priceDetails">
-									<li>{{priceItem.billName}}</li>
-								</ul>
-							</td>
-                            <td class="vertical-center">{{item.total_amount}}</td>
+                            <td colspan="5">
+								<table class="cart-info">
+									<tr *ngFor="let priceItem of item.priceDetails">
+										<td class="vertical-center"><a (click)='showDetail(item)'>{{item.subinstanceCode}}</a></td>
+                            			<td class="vertical-center">{{item.productName}}</td>
+                            			<td class="vertical-center">{{item.num}}</td>
+										<td>
+											{{priceItem.billName}}
+										</td>
+										<td class="vertical-center"><span *ngIf="!priceItem.isShow" >&nbsp;&nbsp;￥{{priceItem.amount}}</span><span *ngIf="priceItem.isShow">&nbsp;&nbsp;￥{{item.total_amount}}</span></td>
+									</tr>
+									 
+								</table>
+							</td>	
                         </tr>               
+                    </tbody>
                 </table>
             </div>
 		</div><!--  表格<div class="row row-line-height">-->
@@ -206,13 +226,13 @@
 													<th class="text-center">操作</th>
 												</tr>
 												<tr *ngFor="let item of downLoadItemLoader.Items;let i =index;">
-													<td>{{i+1}}</td>
-													<td>{{item.startTime}}至{{item.endTime}}</td>
-													<td>{{item.money}}</td>
-													<td>{{item.endDate}}</td>
-													<td>{{item.sentDate}}</td>
-													<td>{{item.status}}</td>
-													<td class="vertical-center"><button class="btn btn-default button-gray-gradient" (click)="acceptDownload(item)" id="acceptDownload_{{item.id}}">下载</button></td>
+													<td class="text-center">{{i+1}}</td>
+													<td class="text-center">{{item.startTime}}至{{item.endTime}}</td>
+													<td class="text-center" >{{item.money}}</td>
+													<td class="text-center">{{item.endDate}}</td>
+													<td class="text-center">{{item.sentDate}}</td>
+													<td class="text-center">{{item.status}}</td>
+													<td class="text-center vertical-center"><button class="btn btn-default button-gray-gradient" (click)="acceptDownload(item)" *ngIf="item.status==1" id="acceptDownload_{{item.id}}">下载</button></td>
 												</tr>               
 										</table>
 									</div>
@@ -225,5 +245,26 @@
 				  	</div>
 				
 		  	</div>
+		</div>
+	</div>
+
+
+	<!--已购服务详情-->
+
+	<div class="modal fade" id="orderDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document" style="width: 1200px!important;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate }} {{_orderDetailLoader.FirstItem.instanceCode}}</h4>
+				</div>
+				<div class="modal-body">
+					<order-mng-detail [orderDetail]="_orderDetailLoader.FirstItem"></order-mng-detail>
+				</div>
+
+				<div class="modal-footer">
+				</div>
+
+			</div>
 		</div>
 	</div>

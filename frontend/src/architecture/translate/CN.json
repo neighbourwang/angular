@@ -107,6 +107,7 @@
     "RUNNING": "运行中",
     "PENDING": "挂起",
     "DELETED": "已删除",
+    "DELETE": "删除",
     "MIRROR": "镜像",
     "CLOUD_HOSTING": "云主机",
     "CLOUD_HOST_NAME": "云主机名称",
@@ -295,7 +296,7 @@
     "ADD_HEAD": "一共可以增加",
     "ADD_MIDDLE": "块，还可以增加",
     "ADD_TAIL": "块",
-    "PHYSICAL_MACHINE_ORDER": "物理机订购",
+    "PHYSICAL_MACHINE_ORDER": "创建物理机",
     "SELECT_PHYSICAL_RES": "选择物理资源",
     "SELECT_FROM_POOL": "从物理资源池中选取",
     "SYSTEM_AUTO_IN": "如不填写，则系统自动生成",
@@ -552,7 +553,9 @@
     "EDIT_IMAGE": "编辑镜像",
     "ENABLE_SUCCESS":"启用成功",
     "DISENABLE_SUCCESS":"禁用成功",
-    "DELETE_SUCCESS":"删除成功"
+    "DELETE_SUCCESS":"删除成功",
+    "NOTICE1":"长度为2-68个字符,以大小写字母或中文开头,可包含数字,\".\",\"-\",\"_\"",
+    "NOTICE2":"长度为2-256个字符"
   },
   "CLOUD_HOST": {
     "CLOUD_HOST_LIST": "云主机列表",
@@ -729,6 +732,13 @@
     "TYPE_CANNOT_EMPTY": "类别不能为空",
     "EMERGENCY_CANNOT_EMPTY": "紧急程度不能为空",
     "CONTACTOR_WRONG": "联系人不能为空且不能包含特殊字符",
-    "CONTACNO_WRONG": "手机号码输入不正确"
+    "CONTACNO_WRONG": "手机号码输入不正确",
+    "ENABLE_ALIACCOUNT": "启用子帐号",
+    "DISABKE_ALIACCOUNT": "禁用子帐号",
+    "DELETE_ALIACCOUNT": "删除子帐号",
+    "YOU_SELECT_ENABLE_ALIACCOUNT": "您选择启用账号{{value_1}}，请确认",
+    "YOU_SELECT_DISABLE_ALIACCOUNT": "您选择禁用账号{{value_1}}，请确认，禁用后，该账户的所有信息都不再显示，部门将失去管理阿里云的权限",
+    "YOU_SELECT_DELETE_ALIACCOUNT": "您选择删除账号{{value_1}}，请确认"
+
   }
 }

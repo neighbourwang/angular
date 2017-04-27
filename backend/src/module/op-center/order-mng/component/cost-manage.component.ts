@@ -49,11 +49,12 @@ private selectedItem :CostManageItem = new CostManageItem();
 		private restApi:RestApi,
 		private service:OrderMngService){
 		this.currentYear = this.timeCaculater.getCurrentYear();
+		this._param.year = this.currentYear.toString(); 
 
 		this._enterpriseLoader = new ItemLoader<{id:string; name:string}>(false, 'COMMON.ENTPRISE_OPTIONS_DATA_ERROR', "op-center.order-mng.ent-list.get", this.restApiCfg, this.restApi);
 
-        this._statusTypeDic = new DicLoader(restApiCfg, restApi, "ORDER", "TYPE");
-		this._statusTypeDic.SourceName = "status";
+        this._statusTypeDic = new DicLoader(restApiCfg, restApi, "SUBINSTANCE", "REPORT_STATUS");
+		this._statusTypeDic.SourceName = "status";//0未出账,1已出账,2已发布
 		this._statusTypeDic.TargetName = "statusName";
 
 		this.costItemLoader = new ItemLoader<CostManageItem>(false,'账单管理列表加载失败','op-center.order-mng.cost-manage.post',restApiCfg,restApi);
@@ -62,6 +63,7 @@ private selectedItem :CostManageItem = new CostManageItem();
 				let obj = new CostManageItem();
 				target.push(obj);
 				obj.id=item.id;
+				obj.tenantId = item.tenantId;
 				obj.startTime = item.startTime;
 				obj.endTime = item.endTime;
 				obj.money = item.amount;
@@ -81,11 +83,14 @@ private selectedItem :CostManageItem = new CostManageItem();
         .then(success=>{
            return this._statusTypeDic.Go();
         })
+		.then(success=>{
+           this.search();
+		   this.layoutService.hide();
+        })
         .catch(err=>{
 			this.layoutService.hide();
 			this.showMsg(err);
 		});
-		this.layoutService.hide();
 	}
 
 	loadYears(){
@@ -95,10 +100,22 @@ private selectedItem :CostManageItem = new CostManageItem();
 		let param;
 		let endTime = this._param.year+'-12-31'+' 23:59:59';
 		let startTime = this._param.year+'-01-01'+' 00:00:00';
+		let ids = [];
+		if(this.isNullYear()){
+			this.showMsg("请选择年份！");
+			return;
+		}
+		if (this.isNullEnterprise()){
+			for(let item of this._enterpriseLoader.Items){
+				ids.push(item.id);
+			}
+		}else{
+			ids.push(this._param.enterpriseId)
+		}
 		param={
   			"billEndTime": endTime,
   			"billStartTime": startTime,
-  			"idList": [this._param.enterpriseId],
+  			"idList": ids,
 			"sendEndTime": null,
   			"sendStartTime": null
 		}
@@ -109,10 +126,10 @@ private selectedItem :CostManageItem = new CostManageItem();
 			this._statusTypeDic.UpdateWithDic(success);
 			this.layoutService.hide();
 		})
-	.catch(err=>{
-		this.layoutService.hide();
-		this.showMsg(err);
-	})
+		.catch(err=>{
+			this.layoutService.hide();
+			this.showMsg(err);
+		})
 }
 
 	//显示金额管理
@@ -166,22 +183,13 @@ private selectedItem :CostManageItem = new CostManageItem();
 		}
 
 	acceptDownload(item:CostManageItem){
-		let filename = 'testassbj';
+		let filename = '账单';
 		let endTime = this._param.year+'-12-31'+' 23:59:59';
 		let startTime = this._param.year+'-01-01'+' 00:00:00';
-		let ids =[];
-		if(this.isNullEnterprise()){    
-                for(let item of this._enterpriseLoader.Items){
-                    ids.push(item.id);
-                }       
-        }
-        else{
-                    ids.push(this._param.enterpriseId);
-        }
 		let param = {
 					"enterpiseSubinstanceSearchCondition": {
 						"endTime": endTime,
-						"idList": ids,
+						"idList": [item.tenantId],
 						"startTime": startTime
 					},
 					"id": item.id
@@ -237,5 +245,10 @@ private selectedItem :CostManageItem = new CostManageItem();
         return false;
         
     }
+	isNullYear(){
+		  if(this._param.year==null||this._param.year=='null')
+            return true;
+        return false;
+	}
 
 }

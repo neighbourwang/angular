@@ -1,7 +1,7 @@
 /**
  * Created by junjie on 16/10/18.
  */
-import { Component, ViewChild, OnInit, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -26,34 +26,11 @@ import { ClMngIdService } from '../service/cl-mng-id.service';
             background-color: #00a982;
             color : #fff
         }`
-    ],
-    animations: [
-        // trigger('heroState', [
-        //     state('inactive', style({
-        //         transform: 'rotateX(0);opacity: 1'
-        //     })),
-        //     state('active', style({
-        //         transform: 'rotateX(180deg);opacity: 0'
-        //     })),
-        //     transition('inactive => active', animate('500ms ease-in')),
-        //     transition('active => inactive', animate('500ms ease-out'))
-        // ])
-        trigger('flyInOut', [
-            state('in', style({ transform: 'rotateX(0)' })),
-            transition('void => *', [
-                style({ transform: 'rotateX(180deg)' }),
-                animate(100)
-            ]),
-            transition('* => void', [
-                animate(100, style({ transform: 'rotateX(180deg)' }))
-            ])
-        ])
-    ],
+    ],    
     providers: []
 })
 
 export class ClMngCreStep1Component implements OnInit {
-
     creStep1Model: CreStep1Model = new CreStep1Model();
     title: String;
     msg: String;
@@ -61,7 +38,6 @@ export class ClMngCreStep1Component implements OnInit {
     platformVersion: Array<any> = new Array<any>();
     regions: Array<any> = new Array<any>();
     platFormRegionList: Array<any> = new Array<any>();
-
     constructor(
         private router: Router,
         private service: ClMngCreStep1Service,
@@ -69,14 +45,11 @@ export class ClMngCreStep1Component implements OnInit {
         private idService: ClMngIdService,
         private commonService: ClMngCommonService
     ) { }
-
-
     @ViewChild('notice')
     notice: NoticeComponent;
 
     @ViewChild('regionSelect')
     regionSelect: PopupComponent;
-
     ngOnInit() {
         console.log('init');
         // this.layoutService.show();
@@ -111,7 +84,6 @@ export class ClMngCreStep1Component implements OnInit {
                 this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_INFO_ERROR');
             }
             )
-        // this.layoutService.hide();
         this.creStep1Model.supportChange = false;
     }
     // 下一步
@@ -129,7 +101,6 @@ export class ClMngCreStep1Component implements OnInit {
         console.log(data);
         return this.service.getPlatformRegionList(data)
     }
-    //
     otcreate() {
         this.layoutService.show();
         this.service.crPlatForm(this.creStep1Model).then(
@@ -145,44 +116,67 @@ export class ClMngCreStep1Component implements OnInit {
                 this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
             }
             )
+
     }
-    next() {
+    next() {        
         let message: String = this.checkValue();
         if (this.checkValue()) {
             this.notice.open('COMMON.ERROR', message);
-        } else if (this.creStep1Model.platformType == '0') {
-            this.layoutService.show();
-            this.getPlatformRegionList()
-                .then(
-                res => {
-                    console.log('platFormRegions', res);
-                    this.platFormRegionList = res.resultContent;
-                    this.creStep1Model.region = this.platFormRegionList[0].id;
-                    this.layoutService.hide();
-                    this.regionSelect.open('PF_MNG2.SELECT_REGION')
-                }
-                ).catch(
-                err => {
-                    console.error('err');
-                    this.layoutService.hide();
-                    this.notice.open('COMMON.ERROR', 'PF_MNG2.ERROR_GETTING_REGION');
-                }
-                )
         } else {
+            //验证平台名称唯一 
             this.layoutService.show();
-            this.service.crPlatForm(this.creStep1Model).then(
-                res => {
-                    this.idService.setPlatformId(res.resultContent);
-                    this.layoutService.hide();
-                    this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
+            this.service.platformNameNorepeate(this.creStep1Model.name).then(res => {
+                if (res.resultCode == 100) {
+                    console.log(res);
+                    if (res.resultContent.length == 0) {
+                        if (this.creStep1Model.platformType == '0') {
+                            this.getPlatformRegionList()
+                                .then(
+                                res => {
+                                    console.log('platFormRegions', res);
+                                    this.platFormRegionList = res.resultContent;
+                                    this.creStep1Model.region = this.platFormRegionList[0].id;
+                                    this.layoutService.hide();
+                                    this.regionSelect.open('PF_MNG2.SELECT_REGION')
+                                }
+                                ).catch(
+                                err => {
+                                    console.error('err');
+                                    this.layoutService.hide();
+                                    this.notice.open('COMMON.ERROR', 'PF_MNG2.ERROR_GETTING_REGION');
+                                }
+                                )
+                        } else {
+                            this.layoutService.show();
+                            this.service.crPlatForm(this.creStep1Model).then(
+                                res => {
+                                    this.layoutService.hide();
+                                    this.idService.setPlatformId(res.resultContent);
+                                    if(this.creStep1Model.platformType == '2'){
+                                        this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);                                        
+                                    }else{
+                                        this.router.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step2", { type: this.creStep1Model.platformType }]);
+                                    }
+                                }
+                            ).catch(
+                                err => {
+                                    this.layoutService.hide();
+                                    console.error('error');
+                                    this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
+                                }
+                                )
+                        }
+                    } else {
+                        this.layoutService.hide();
+                        // this.notice.open('COMMON.ERROR',"PF_MNG2.PLATFORM NAME"+" '"+this.creStep1Model.name+"' "+"PF_MNG2.EXISTS");
+                        this.notice.open('COMMON.ERROR', "PF_MNG2.PLATFORM_NAME_EXISTS");
+                    }
+                this.layoutService.hide();                    
                 }
-            ).catch(
-                err => {
-                    this.layoutService.hide();
-                    console.error('error');
-                    this.notice.open('COMMON.ERROR', 'PF_MNG2.CREATE_PLATFORM_ERROR');
-                }
-                )
+            }).catch(err => {
+                console.log(err);
+                this.layoutService.hide();
+            })
         }
     }
     //取消
@@ -190,18 +184,20 @@ export class ClMngCreStep1Component implements OnInit {
         this.router.navigateByUrl("pf-mng2/cl-mng/cl-mng");
     }
     // 选择平台类型
-    state: string = 'leave';
+    state: string = '6';
     choosePlatFormType(item, index) {
         for (let i = 0; i < this.platformTypes.length; i++) {
             this.platformTypes[i].isSelected = false;
         }
         this.platformTypes[index].isSelected = true;
         this.state =
-            index == 3 ? 'in' : 'leave';
+            index == 3 ? '4' : '6';
         this.creStep1Model.platformType = item.value;
         console.log(item);
+        item.code=
+            item.code=='Desktop Vmware'?"VMWARE_DESKTOP":item.code;
         this.creStep1Model.version = '';
-        index != 3 && this.commonService.getVersion(item.code).then(
+        index != 1 && this.commonService.getVersion(item.code).then(
             res => {
                 console.log(res);
                 this.platformVersion = res

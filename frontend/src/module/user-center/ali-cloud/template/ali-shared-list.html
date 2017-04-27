@@ -1,0 +1,65 @@
+<div class="page-content-header mgb20 ">
+    阿里云账号管理
+</div>
+<table class="table table-hover">
+    <tbody>
+        <tr>
+            <th class="text-center">编号 </th>
+            <th class="text-center">子账号登录名</th>
+            <th class="text-center">所属部门 </th>
+            <th class="text-center">最后更新时间</th>
+            <th class="text-center">操作人 </th>
+            <th class="text-center">操作 </th>
+        </tr>
+        <tr *ngFor="let item of data; let idx= index;">
+            <td class="text-center">{{idx+1}}</td>
+            <td class="text-center">{{item.loginName}}</td>
+            <td class="text-center">{{item.departmentName}}</td>
+            <td class="text-center">{{item.lastUpdate | formatDate}}</td>
+            <td class="text-center">{{item.operator}}</td>
+            <td class="text-center">
+                <span class="glyphicon glyphicon-user font-green" style="margin-right : 10px ;cursor:pointer" (click)="distriPage(item)"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<fc-pagination #pager tp={{totalPage}} (pf)="getData($event)"></fc-pagination>
+
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CANCEL' | translate}}" ct="{{ 'COMMON.CONFIRM' | translate}}"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
+
+<fc-popup #distriDepart title="{{title}}" ot="{{'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="operate()">
+    <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
+        <div class="col-md-1"></div>
+        <div class="col-md-4 content-title">当前所选部门：{{selectedDepartment}}</div>
+        <div class="col-md-2 no-padding form-group ">
+            <button class="btn button-gray-gradient" (click)="reset()"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+        </div>
+    </div>
+    <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <table class="table table-hover table-all-boder">
+                <tbody>
+                <tr>
+                    <th class="text-center">选择 </th>
+                    <th class="text-center">部门名称</th>
+                </tr>
+<!--                <tr>
+                    <td class="text-center"><input type='radio' name="radio" class="fox-cloud-radio" [checked]="selectAll" [(ngModel)]="selectAll"/></td>
+                    <td class="text-center">所有部门</td>
+                </tr>-->
+                <tr *ngFor="let item of departsList" [hidden]="item.visible == 'false'" >
+                    <td class="text-center"><input type='radio' name="radio" class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
+                    <td class="text-center">{{item.departmentName}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</fc-popup>
+
+
+
+

@@ -34,18 +34,18 @@
                     <td>{{storage.order}}</td>
                     <td><a (click)="gotoStoreDetail(storage)">{{storage.storageName}}</a></td>
                     <td>{{storage.displayName}}</td>
-                    <td>{{storage.storageType}}</td>
+                    <td>{{storage.storageType| dict:this.service.storageTypeDic | async}}</td>
                     <td>{{storage.capacity}}</td>
                     <td>{{storage.copy}}</td>
-                    <td>{{storage.peie}}</td>
+                    <td>{{storage.quota}}</td>
                     <td class="table-progress" > 
                         <div>                  
                         <div class="progress" >
                             <div class="progress-bar progress-bar-info"
-                                 [style.width.%]="storage.qurta">
+                                 [style.width.%]="storage.rate">
                             </div>
                         </div>
-                        <span class="progress-value">{{storage.qurta}}%</span>
+                        <span class="progress-value">{{storage.rate}}%</span>
                         </div>                     
                     </td>
                     <td class="table-progress" >   
@@ -58,7 +58,7 @@
                         <span class="progress-value">{{storage.usage}}%</span>
                         </div>                            
                      </td>
-                    <td class="font-green">{{storage.status}}</td>
+                    <td [ngClass]="storage.status==1?'font-green':'font-orange'">{{storage.status| dict:this.service.statusDic | async}}</td>
                 </tr>
                 
             </tbody>

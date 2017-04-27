@@ -58,19 +58,19 @@ export class CapacityMngComponent implements OnInit {
 
     getReport() {
         this.layoutService.show();
-        this.service.getReport()
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && "100" == response["resultCode"]) {
-                    console.log("get report success!");
+        this.service.getReport();
+            //.then(
+            //response => {
+            //    this.layoutService.hide();
+            //    if (response && "100" == response["resultCode"]) {
+            //        console.log("get report success!");
                    
-                } else {
-                    this.showAlert("COMMON.OPERATION_ERROR");
-                }
-            }
-            )
-            .catch((e) => this.onRejected(e));
+            //    } else {
+            //        this.showAlert("COMMON.OPERATION_ERROR");
+            //    }
+            //}
+            //)
+            //.catch((e) => this.onRejected(e));
     }
 
     selectPlatform(pf: PlatformModel) {

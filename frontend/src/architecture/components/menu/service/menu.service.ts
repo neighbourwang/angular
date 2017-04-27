@@ -26,10 +26,10 @@ export class MenuService {
 					"icon": "icon-cloudhost",
 					"top2_menu": [
 						// {
-						// 	"label": "MENU.VIRTUAL_MACHINE_INSTANCE",
-						// 	"isOpen": true,
-						// 	"isShow": true,
-						// 	"routing": "cloud-host-service/cloud-host-detail"
+						//	"label": "MENU.VIRTUAL_MACHINE_INSTANCE",
+						//	"isOpen": true,
+						//	"isShow": true,
+						//	"routing": "cloud-host-service/cloud-host-detail"
 						// },
 						{
 							"label": "MENU.CLOUD_HOSTING_INSTANCE",
@@ -48,72 +48,90 @@ export class MenuService {
 							"isOpen": true,
 							"isShow": true,
 							"routing": "image-mng/image-mng"
+						},
+						{
+							"label": "物理机订购",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "cloud-host-service/physical-machine-order"
+						},
+						{
+							"label": "阿里云主机",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "ali-cloud-service/cloud-vm/cloud-vm-list"
+						},
+						{
+							"label": "阿里云硬盘",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "ali-cloud-service/cloud-disk/cloud-disk-list"
 						}
 					]
 				},
 				// {
-				// 	"label": "MENU.PHYSICAL_SERVERS",
-				// 	"isOpen": false,
-				// 	"isShow": true,
-				// 	"icon": "icon-machine",
-				// 	"top2_menu": [
-				// 		{
-				// 			"label": "MENU.ACCOUNT_MANAGEMENT",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		},
-				// 		{
-				// 			"label": "MENU.EXPENSE_CENTER",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		}
-				// 	]
+				//	"label": "MENU.PHYSICAL_SERVERS",
+				//	"isOpen": false,
+				//	"isShow": true,
+				//	"icon": "icon-machine",
+				//	"top2_menu": [
+				//		{
+				//			"label": "MENU.ACCOUNT_MANAGEMENT",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		},
+				//		{
+				//			"label": "MENU.EXPENSE_CENTER",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		}
+				//	]
 				// },
 				// {
-				// 	"label": "MENU.LOAD_BALANCER",
-				// 	"isOpen": false,
-				// 	"isShow": true,
-				// 	"icon": "icon-loadbalance",
-				// 	"top2_menu": [
-				// 		{
-				// 			"label": "MENU.ACCOUNT_MANAGEMENT",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		},
-				// 		{
-				// 			"label": "MENU.DEPARTMENT_MANAGENMENT",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		},
-				// 		{
-				// 			"label": "MENU.AUTHORITY_MANAGEMENT",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		},
-				// 		{
-				// 			"label": "MENU.PRICE_SET",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		},
-				// 		{
-				// 			"label": "MENU.QUOTA_MANAGEMENT",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		},
-				// 		{
-				// 			"label": "MENU.EXPENSE_CENTER",
-				// 			"isOpen": false,
-				// 			"isShow": true,
-				// 			"routing": ""
-				// 		}
-				// 	]
+				//	"label": "MENU.LOAD_BALANCER",
+				//	"isOpen": false,
+				//	"isShow": true,
+				//	"icon": "icon-loadbalance",
+				//	"top2_menu": [
+				//		{
+				//			"label": "MENU.ACCOUNT_MANAGEMENT",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		},
+				//		{
+				//			"label": "MENU.DEPARTMENT_MANAGENMENT",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		},
+				//		{
+				//			"label": "MENU.AUTHORITY_MANAGEMENT",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		},
+				//		{
+				//			"label": "MENU.PRICE_SET",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		},
+				//		{
+				//			"label": "MENU.QUOTA_MANAGEMENT",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		},
+				//		{
+				//			"label": "MENU.EXPENSE_CENTER",
+				//			"isOpen": false,
+				//			"isShow": true,
+				//			"routing": ""
+				//		}
+				//	]
 				// },
 				{
 					"label": "MENU.APPROVAL_CENTER",
@@ -166,7 +184,7 @@ export class MenuService {
 						}, {
 							"label": "企业消费总览",
 							"isOpen": false,
-							"isShow": true,
+							"isShow": isOrgin,
 							"routing": "op-center/order-mng/cost-pandect"
 						}, {
 							"label": "部门消费总览",
@@ -201,9 +219,15 @@ export class MenuService {
 							"routing": "user-center/person-acc-mng/person-acc-mng"
 						},
                         {
+                            "label": "阿里云账号管理",
+                            "isOpen": false,
+                            "isShow": true,
+                            "routing": "user-center/ali-cloud/ali-index"
+                        },
+                        {
                             "label": "MENU.CASE_MNY",
                             "isOpen": false,
-                            "isShow": isOrgin,
+                            "isShow": true,
                             "routing": "user-center/case-mng/case-mng-list"
                         }
 

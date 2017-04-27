@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, NoticeComponent, RestApi, RestApiCfg, LayoutService, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { SubInstanceAttrPair, ProductBillingItem, SubInstanceResp, SubInstanceItemResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam,RenewSetting} from '../model'
 import * as _ from 'underscore';
-
+import {DictService} from '../../../../architecture/core/service/dict-service';
+import { MyDatePicker  } from '../../../../architecture/components/date-picker/my-date-picker.component';
 @Component({
 	selector: 'order-mng',
 	templateUrl: '../template/order-mng.component.html',
@@ -14,6 +15,11 @@ export class OrderMngComponent implements OnInit{
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
 
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
 	  
 	 @ViewChild("renewOrder")
      renewOrder: PopupComponent;
@@ -47,7 +53,8 @@ export class OrderMngComponent implements OnInit{
 		private layoutService: LayoutService,
 		private router: Router,
 		private restApiCfg:RestApiCfg,
-		private restApi:RestApi){
+		private restApi:RestApi,
+		private _dictServ:DictService){
 
 		this._billinModeDic = new DicLoader(restApiCfg, restApi, "BILLING_MODE", "TYPE");
 
@@ -362,13 +369,14 @@ export class OrderMngComponent implements OnInit{
 
 		
 		param.pageParameter = {
-			currentPage:pageNumber
+			currentPage:pageNumber-1//后台页码从0开始
 			,size:10
 		};
 		this._orderLoader.clear();//清空列表
 		this._orderLoader.TotalPages = 1;//清空页码
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
+			// alert(this._orderLoader.FirstItem.itemList[0].price);
 			this.layoutService.hide();
 
 			//翻译状态
@@ -506,7 +514,19 @@ export class OrderMngComponent implements OnInit{
 	//计算时长
 	calRenewDate(renewMode:string, renewLen:number):string{
 		let toDate:(date:Date)=>string = function(date:Date):string{
-			return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+			let hours:String=`${date.getHours()}`;
+			let minutes:string =`${date.getMinutes()}`;
+			let seconds:String=`${date.getSeconds()}`;;
+			if(hours=='0'){
+				hours='00';
+			}
+			if(minutes=='0'){
+				minutes='00';
+			}
+			if(seconds=='0'){
+				seconds='00';
+			}
+			return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} `+hours+':'+minutes+':'+seconds;
 		};
 
 		let handlerObj = {
@@ -558,6 +578,8 @@ export class OrderMngComponent implements OnInit{
 
 	resetParam(){
 		this._param.reset();
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
 		this._departmentLoader.clear();
 		this._buyerListLoader.clear();
 		this._subregionLoader.clear();

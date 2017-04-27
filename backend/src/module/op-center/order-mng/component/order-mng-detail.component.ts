@@ -44,10 +44,42 @@ export class OrderMngDetailComponent implements OnInit {
 			{
 				let obj:OrderDetailItem = _.extendOwn(new OrderDetailItem(), item)
 				target.push(obj);
+      
 			}
 		};
 
     this._detailLoader.FirstItem = new OrderDetailItem();
+
+    	this._detailLoader.Trait = (target:Array<OrderDetailItem>)=>{
+        
+			//匹配历史信息
+			for(let item of target ){
+
+        if(item.itemList&&item.itemList[0].specList){
+				      let getProperty = _.property("attrDisplayValue");
+          if(item.productType==0){
+          	  item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+          }else{
+              item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
+           }
+			
+				}
+				if(item.hisOrderList){
+					for(let hisItem of item.hisOrderList){
+						// item.hisOrderList[0].type=0;
+						// item.hisOrderList[1].type=0;0是订购单
+						let getProperty = _.property("attrDisplayValue");
+						if(hisItem.specList){
+							 if(hisItem.productType==0){
+								hisItem.instanceName = getProperty(hisItem.specList.find(n=>n.attrCode == 'INSTANCENAME'));
+							}else{
+								hisItem.instanceName = getProperty(hisItem.specList.find(n=>n.attrCode == 'DISKINSNAME'));
+							}
+						}
+					}
+				}
+			}
+		}
   }
   ngOnInit() {
     if(this.activatedRoute.snapshot.params["orderId"] as string)
@@ -70,6 +102,7 @@ export class OrderMngDetailComponent implements OnInit {
       this.layoutService.hide();
     })
     .catch(err=>{
+      this.showMsg(err);
       this.layoutService.hide();
     })
   }

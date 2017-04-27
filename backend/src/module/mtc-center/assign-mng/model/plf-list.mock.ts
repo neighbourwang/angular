@@ -8,6 +8,7 @@
             "region": [
                 {
                     "region": "region1",
+                    "regionId":"sfasdfasd-sdfasdf-sdfas",
                     "zone": [
                         {
                             "zoneName": "nova",
@@ -17,6 +18,7 @@
                 },
                 {
                     "region": "vmware_region",
+                    "regionId":"sfasdfasd-sdfasdf-sdvbn",
                     "zone": [
                         {
                             "zoneName": "ZWYWW-HA-01",
@@ -36,6 +38,7 @@
             "region": [
                 {
                     "region": "region1",
+                    "regionId":"sfasdfasd-sdfasdf-sdyui",
                     "zone": [
                         {
                             "zoneName": "ti",
@@ -45,6 +48,7 @@
                 },
                 {
                     "region": "vmware_region",
+                    "regionId":"sfasdfasd-sdfasdf-sddfg",
                     "zone": [
                         {
                             "zoneName": "beijing",

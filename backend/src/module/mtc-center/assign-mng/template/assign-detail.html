@@ -1,7 +1,7 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
-   云主机{{hyperInfo.name}}详情
+   <!--{{'ASSIGN_MNG.CLOUD_HOST_DETAIL^^^'+hyperInfo.name |translate}}-->云主机{{hyperInfo.name}}详情
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoAssignMng()">
-        返回云主机超分管理
+        {{'ASSIGN_MNG.BACK_TO_HYPER_MNG'|translate}}<!--返回云主机超分管理-->
     </button>
 </div>
 <div class="page-content">
@@ -9,14 +9,14 @@
         <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th>实例名称</th>
-                    <th>平台</th>
+                    <th>{{'ASSIGN_MNG.INSTANCE_NAME'|translate}}</th><!--实例名称-->
+                    <th>{{'ASSIGN_MNG.PLATFORM'|translate}}</th><!--平台-->
                     <th>Region/DC</th>
-                    <th>可用区</th>
-                    <th>企业</th>
-                    <th>部门</th>
-                    <th>申请人</th>
-                    <th>创建时间</th>
+                    <th>{{'ASSIGN_MNG.ZONE'|translate}}</th><!--可用区-->
+                    <th>{{'ASSIGN_MNG.ENT'|translate}}</th><!--企业-->
+                    <th>{{'ASSIGN_MNG.DEPT'|translate}}</th><!--部门-->
+                    <th>{{'ASSIGN_MNG.APPLICANT'|translate}}</th><!--申请人-->
+                    <th>{{'COMMON.CREATION_TIME'|translate}}</th><!--创建时间-->
                 </tr>
             </thead>
             <tbody>
@@ -37,35 +37,30 @@
     <div class="row mgt15" >
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="Period">
-            <option [value]="1">最近24小时</option>
-            <option [value]="7">最近7天</option>
-            <option [value]="30">最近30天</option>
-            <option [value]="90">最近90天</option>
-            <option [value]="180">最近180天</option>
-            <option [value]="360">最近360天</option>
+             <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
         </select>
         </div>
         <div class="col-md-2">
-            <button class="fox-cloud-button fox-cloud-button-white" (click)="refresh()">刷新</button>
+            <button class="fox-cloud-button fox-cloud-button-white" (click)="refresh()">{{'CAPACITY_MNG.REFRESH'|translate}}</button><!--刷新-->
         </div>       
     </div>
     <div class="mgt10" style="font-size:18px;">
         <div class="row row-line-height" style="margin:0;">
-            <div class="col-md-3">CPU平均使用率：{{hyperInfo.cpuAverage}}</div>
-            <div class="col-md-3">CPU峰值使用率：{{hyperInfo.cpuPeak}}</div>
-            <div class="col-md-6">CPU峰值记录时间：{{hyperInfo.cpuPeakTime}}</div>
+            <div class="col-md-3">{{'CAPACITY_MNG.CPU_AVERAGE_UTILIZATION'|translate}}：{{hyperInfo.cpu}}</div><!--CPU平均使用率-->
+            <div class="col-md-3">{{'CAPACITY_MNG.CPU_PEAK_VALUE_UTILIZATION'|translate}}：{{hyperInfo.cpuPeak}}</div><!--CPU峰值使用率-->
+            <div class="col-md-6">{{'CAPACITY_MNG.CPU_PEAK_TIME'|translate}}：{{hyperInfo.cpuTime}}</div><!--CPU峰值记录时间-->
         </div>
         <div class="row row-line-height" style="margin:0;">
-            <div class="col-md-3">内存平均使用率： {{hyperInfo.memoryAverage}}</div>
-            <div class="col-md-3">内存峰值使用率： {{hyperInfo.memoryPeak}}</div>
-            <div class="col-md-6">内存峰值记录时间： {{hyperInfo.memoryPeakTime}}</div>
+            <div class="col-md-3">{{'CAPACITY_MNG.MEMORY_AVERAGE_UTILIZATION'|translate}}： {{hyperInfo.mem}}</div><!--内存平均使用率-->
+            <div class="col-md-3">{{'CAPACITY_MNG.MEMORY_PECK_VALUE_UTILIZATION'|translate}}： {{hyperInfo.memPeak}}</div><!--内存峰值使用率-->
+            <div class="col-md-6">{{'CAPACITY_MNG.MEMORY_PEAK_TIME'|translate}}： {{hyperInfo.memTime}}</div><!--内存峰值记录时间-->
         </div>
     </div>
     <div class="row mgt15">
         <div class="col-md-6">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">CPU使用率</h3>
+                    <h3 class="panel-title">{{'CAPACITY_MNG.CPU_UTILIZATION'|translate}}</h3><!--CPU使用率-->
                 </div>
                 <div class="panel-body">
                     <canvas baseChart
@@ -81,7 +76,7 @@
         <div class="col-md-6">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">内存使用率</h3>
+                    <h3 class="panel-title">{{'CAPACITY_MNG.MEMORY_UTILIZATION'|translate}}</h3><!--内存使用率-->
                 </div>
                 <div class="panel-body">
                     <canvas baseChart

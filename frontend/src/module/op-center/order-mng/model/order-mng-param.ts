@@ -15,6 +15,7 @@ export class OrderMngParam{
   searchText:string = null;//快速搜索
 
   reset(){
+    this.queryParam = null;
     this.createDate = null;
     this.enterpriseId = null;
     this.expireDate = null;

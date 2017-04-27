@@ -9,8 +9,6 @@
                 <span class="caret"></span>
             </button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-				<!--<li><a href="#">{{'COMMON.MODIFY' | translate}}</a></li>-->
-				<!--<li><a (click)="editProd();">{{'HOST_VMWARE_MNG.EDIT' | translate}}</a></li>-->
 				<li><a (click)="action('publish');">{{'COMMON.PUBLISH' | translate}}</a></li><!--发布-->
 
 				<li><a (click)="action('ccPublish');">{{'PROD_MNG.CANCEL_PUBLISH' | translate}}</a></li><!--取消发布-->
@@ -20,11 +18,7 @@
 		</div>
 		<button class="pull-right fox-cloud-button-md fox-cloud-button-white " style="line-height:28px ;width:60px; margin-left: 20px" (click)="query()">{{'COMMON.SEARCH' | translate}}</button>
 		<div class="dropdown pull-right" style="margin-left: 20px;min-width: 120px">
-			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{'PROD_MNG.ALL_PLATFORM' | translate}}
-
-                <span class="caret"></span>
-            </button>-->
+			
 			<select class="form-control" [(ngModel)]="platformId">
 				 <option value="">--{{'PROD_MNG.SELECT_QUERY_CONDITION'| translate}}--</option> <!--选择查询条件-->  
                  <option *ngFor="let item of platformsList;" [value]="item?.id">{{item?.name}}</option>
@@ -33,11 +27,7 @@
 		<span class="pull-right" style="margin-left: 20px; line-height: 34px">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}：</span><!--平台-->
 
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
-			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{'HOST_VMWARE_MNG.ALL_ENTERPRISE' | translate}}
-
-                <span class="caret"></span>
-            </button>-->
+			
 			<select class="form-control" [(ngModel)]="enterpriseId">
 					<option value="">--{{'PROD_MNG.SELECT_QUERY_CONDITION'| translate}}--</option> <!--选择查询条件-->
                  <option *ngFor="let item of enterpriseList;" [value]="item?.id">{{item?.name}}</option>
@@ -46,12 +36,7 @@
 		<span class="pull-right" style="margin-left: 20px;line-height: 34px">{{'COMMON.ENTERPRISE' | translate}}：</span><!--企业-->
 
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
-			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="true">
-                {{'PROD_MNG.ALL_PRODUCT_CAT' | translate}}
-
-                <span class="caret"></span>
-            </button>-->
+			
 			<select class="form-control" [(ngModel)]="prodDirId">
 				<option value="">--{{'PROD_MNG.SELECT_QUERY_CONDITION'| translate}}--</option> <!--选择查询条件-->
                  <option *ngFor="let item of prodDirList;" [value]="item?.id">{{item?.name}}</option>
@@ -59,14 +44,10 @@
 		</div>
 		<span class="pull-right" style="line-height: 34px">{{'PROD_MNG.PRODUCT_CAT' | translate}}：</span><!--产品目录-->
 
-		<!--<button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
-            <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">{{'PROD_MNG.CREATE_PRODUCT' | translate}}</span>
-        </button>-->
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="createProd()">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">创建产品</span><!--创建产品2-->
-        </button>
+        </button>		
 	</div>
 	<div class="table-container">
 		<table class="table table-hover">
@@ -102,6 +83,7 @@
 						<span [ngSwitch]="item.serviceType"> 
 							<template ngSwitchCase="0">{{'COMMON.CLOUD_HOSTING' | translate}}</template>
 							<template ngSwitchCase="1">{{'COMMON.CLOUD_HARD_DISK' | translate}}</template><!--云硬盘-->
+							<template ngSwitchCase="4">{{'PROD_MNG.PHYSICAL_PRODUCT' | translate}}</template><!--云硬盘-->
 							<template ngSwitchDefault>Unknown</template>							
 						</span>
 					</td>

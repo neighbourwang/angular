@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
 import {HyperInfo_mock} from '../model/hyper-info-list.mock';
 import {HyperGraph_mock} from '../model/hyper-graph-list.mock';
@@ -9,8 +9,14 @@ export class AssignDetailService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) { }
+
+    peridDic = this.dict.get({
+        owner: "MAINTAIN",
+        field: "PERIOD"
+    });
 
      init(): void {
         this.restApiCfg.loadCfgData();

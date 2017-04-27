@@ -6,6 +6,7 @@ import {EntModel, DeptModel} from"../model/ent.model";
 import {PlfModel, RegionModel, ZoneModel} from"../model/plf.model";
 import {UsageState, ItemModel, PowerStatModel, FlavorModel,DoughnutChart}from "../model/usage-state.model";
 import {Hyper} from "../model/hyper.model";
+import {QueryModel} from "../model/query.model";
 //service
 import { AssignMngService } from "../service/assign-mng.service";
 
@@ -33,14 +34,17 @@ export class AssignMngComponent implements OnInit {
 
     noticeTitle = "";
     noticeMsg = "";
-    flag: boolean;
+    
 
+    queryOpt: QueryModel = new QueryModel();
+    
     defaultEnt:EntModel = new EntModel();
     selectedEnt: EntModel = this.defaultEnt;
     defaultDept: DeptModel = new DeptModel();
     selectedDept: DeptModel = this.defaultDept;
 
     defaultPlf: PlfModel = new PlfModel();
+    
     selectedPlf: PlfModel = this.defaultPlf;
     defaultRegion: RegionModel = new RegionModel();
     selectedRegion: RegionModel = this.defaultRegion;
@@ -49,18 +53,33 @@ export class AssignMngComponent implements OnInit {
 
     entList: Array<EntModel>;
     plfList: Array<PlfModel>;
+    cloudHostSpecList: Array<string>;
     
     cpuInfo: ItemModel = new ItemModel();
     memInfo: ItemModel = new ItemModel();
     powerStat: PowerStatModel = new PowerStatModel();
-    flavor:FlavorModel = new FlavorModel();
+    flavorList:Array<FlavorModel>;
     cpuChart: DoughnutChart = new DoughnutChart(); //cpu环形图
     memChart: DoughnutChart = new DoughnutChart(); //mem环形图
     hyperList: Array<Hyper>;
 
+    flag=1;
+    startDate: string;
+    endDate: string;
+    period="1";
+
     ngOnInit() {
+        this.defaultEnt.enterpriseId = 'all';
+        this.defaultDept.departmentId = 'all';
+        this.defaultPlf.platformId = 'all';
+        this.defaultRegion.regionId = 'all';
+        this.defaultZone.zoneId = 'all';
         this.getEntList();
         this.getPlfList();
+        this.getCloudHostSpec();
+        console.log('云主机状态', this.service.powerStatusDic);
+        console.log('period', this.service.peridDic);
+        this.reset();
         this.getUsageState();
         this.getHyperList();
     }
@@ -101,10 +120,27 @@ export class AssignMngComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    getCloudHostSpec() {
+        this.layoutService.show();
+        this.service.getCloudHostSpec()
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.cloudHostSpecList = response["resultContent"];
+                    console.log("云主机规格",this.cloudHostSpecList)
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
     //获取环形图
     getUsageState() {
         this.layoutService.show();
-        this.service.getUsageState()  //post 待完善
+        this.service.getUsageState(this.queryOpt)  //post 待完善
             .then(
             response => {
                 this.layoutService.hide();
@@ -112,7 +148,7 @@ export class AssignMngComponent implements OnInit {
                     this.cpuInfo = response["resultContent"].cpu;
                     this.memInfo = response["resultContent"].mem;
                     this.powerStat = response["resultContent"].powerStat;
-                    this.flavor = response["resultContent"].flavor;
+                    this.flavorList = response["resultContent"].flavor;
 
                     //数据处理
                     this.getGraphData(this.cpuChart, this.cpuInfo);
@@ -138,7 +174,7 @@ export class AssignMngComponent implements OnInit {
     //获取Hyper列表
     getHyperList() {
         this.layoutService.show();
-        this.service.getHyperList()  //post 待完善
+        this.service.getHyperList(this.queryOpt)  //post 待完善
             .then(
             response => {
                 this.layoutService.hide();
@@ -152,10 +188,52 @@ export class AssignMngComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
     }
-    
+
+    //确认
+    confirm() {
+        this.queryOpt.enterpriseID = this.selectedEnt.enterpriseId;
+        this.queryOpt.departmentId = this.selectedDept.departmentId;
+        this.queryOpt.platformId = this.selectedPlf.platformId;
+        this.queryOpt.regionId = this.selectedRegion.regionId;
+        this.queryOpt.zoneId = this.selectedZone.zoneId;
+        console.log("query", this.queryOpt);
+        this.getUsageState();
+        this.getHyperList();
+    }
+
+    reset() {
+        this.selectedEnt = this.defaultEnt;
+        this.selectedDept= this.defaultDept;
+        this.selectedPlf = this.defaultPlf;
+        this.selectedRegion= this.defaultRegion;
+        this.selectedZone = this.defaultZone;
+        
+        this.queryOpt.powerStatus = '0';
+        this.queryOpt.flaovarId = 'all';
+        this.queryOpt.rate = '1';
+        this.queryOpt.top = '1';
+        this.queryOpt.period = '1';
+    }
+
+    exportCurrent() {
+        this.layoutService.show();
+        this.service.exportCurrent(this.queryOpt)  //post 待完善
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    console.log('export current');
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
     exportAll() {
         this.exportAllData.open("导出所有数据");
     }
+
     gotoAssignDetail(HyperId:string) {
         this.router.navigate([`mtc-center/assign-mng/assign-detail`,
             {
@@ -163,6 +241,48 @@ export class AssignMngComponent implements OnInit {
             }
         ]);
     }
+
+    //弹出框“导出所有数据”中的相关函数
+    
+    StartDateChange($event) {
+        this.startDate=$event.formatted;
+    }
+
+    EndDateChange($event) {
+        this.endDate=$event.formatted;
+    }
+   
+    acceptExport() {
+        if (!this.flag) {
+            this.showAlert("请选择！");
+            return;
+        }
+        if (this.flag == 2) {
+            if ((!this.startDate) || (!this.endDate)) {
+                this.showAlert("请选择时间范围！");
+                return;
+            }
+            if (this.startDate >= this.endDate) {
+                this.showAlert("开始日期必须小于结束日期！");
+                return;
+            }
+        }
+        this.layoutService.show();
+        this.service.acceptExport(this.flag,this.startDate,this.endDate,this.period)  
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    console.log('export ');
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    
 
    onRejected(reason: any) {
         this.layoutService.hide();

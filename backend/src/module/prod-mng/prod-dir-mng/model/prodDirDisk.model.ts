@@ -4,6 +4,7 @@ class storageItem {
     "storageName": string;
     "displayName": string;
     "selected": boolean;
+    "disable":boolean;
     // "serviceSKUId": string;
     skuId:string;
 }

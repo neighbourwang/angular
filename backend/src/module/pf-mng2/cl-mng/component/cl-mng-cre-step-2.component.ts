@@ -38,35 +38,14 @@ export class ClMngCreStep2Component implements OnInit {
         let platFormId: string = this.idService.getPlatformId();
         //控制下一步disabled
         this.creStep2Model.isNext = false;
+        this.creStep2Model.isBack = false;
         console.log('init');
         //获取平台类型
         this.router.params.forEach((params: Params) => {
             this.platformType = params['type'];
             console.log(this.platformType);
         })
-        //可用区同步
-        //       this.service.zones(platFormId,this.platformType).then(
-        //         res => {
-        //             console.log(res);
-        //             this.creStep2Model.zones = 'ok';
-        //             this.creStep2Model.zonesStatus = true;
-        //             this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_COMP_SYNC_STORAGE';
-        //             this.creStep2Model.percentage = 20;
-        //             this.storages();
-        //         }
-        //     ).catch(
-        //         error => {
-        //             this.creStep2Model.zones = 'fail';
-        //             this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
-        //         }
-        //         //     function(){
-        //         //     this.creStep2Model.synchronize = 'fail';
-        //         //     this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
-        //         // }
-        //         )
-        // }
-
-
+        
         this.service.zones(platFormId).then(
             res => {
                 console.log('zone', res);
@@ -80,12 +59,8 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.zones = 'fail';
                 this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
-                this.creStep2Model.isNext = true;
-            }
-            //     function(){
-            //     this.creStep2Model.synchronize = 'fail';
-            //     this.creStep2Model.message = 'PF_MNG2.SYNC_ZONE_FAILED';
-            // }
+                this.creStep2Model.isBack = true;
+            }           
             )
 
         
@@ -121,7 +96,7 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.storages = 'fail';
                 this.creStep2Model.message = 'PF_MNG2.SYNC_STORAGE_FAILED';
-                this.creStep2Model.isNext = true;
+                this.creStep2Model.isBack = true;
             }
             )
     }
@@ -142,29 +117,13 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.flavors = 'fail';
                 this.creStep2Model.message = 'PF_MNG2.SYNC_SPEC_FAILED';
-                this.creStep2Model.isNext = true;
+                this.creStep2Model.isBack = true;
             }
             )
     }
 
     private images() {
         let platFormId: string = this.idService.getPlatformId();
-
-        // this.service.images(platFormId).then(
-        //     res => {
-        //         console.log(res);
-        //         this.creStep2Model.images = 'ok';
-        //         this.creStep2Model.imagesStatus = true;
-        //         this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_COMP_SYNC_HOST';
-        //         this.creStep2Model.percentage = 80;
-        //         this.hosts();
-        //     }
-        // ).catch(
-        //     error => {
-        //         this.creStep2Model.images = 'fail';
-        //         this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_FAILED';
-        //     }
-        //     )
         this.service.getImages(platFormId).then(
             res => {
                 // console.log(res.resultContent);
@@ -185,7 +144,7 @@ export class ClMngCreStep2Component implements OnInit {
                     error => {
                         this.creStep2Model.images = 'fail';
                         this.creStep2Model.message = 'PF_MNG2.SYNC_IMG_FAILED';
-                        this.creStep2Model.isNext = true;
+                        this.creStep2Model.isBack = true;
                     }
                     )
 
@@ -194,7 +153,7 @@ export class ClMngCreStep2Component implements OnInit {
             error => {
                 this.creStep2Model.images = 'fail';
                 this.creStep2Model.message = 'PF_MNG2.GET_IMG_FAILED';
-                this.creStep2Model.isNext = true;
+                this.creStep2Model.isBack = true;
             }
             )
     }
@@ -210,13 +169,13 @@ export class ClMngCreStep2Component implements OnInit {
                 this.creStep2Model.message = 'PF_MNG.SYNC_COMPLETE';
                 this.creStep2Model.percentage = 100;
                 this.creStep2Model.isNext = true;
-
+                this.creStep2Model.isBack = true;                
             }
         ).catch(
             error => {
                 this.creStep2Model.hosts = 'fail';
                 this.creStep2Model.message = 'PF_MNG2.SYNC_HOST_FAILED';
-                this.creStep2Model.isNext = true;
+                this.creStep2Model.isBack = true;
             }
             )
     }
@@ -224,10 +183,6 @@ export class ClMngCreStep2Component implements OnInit {
 
     next() {
         this.route.navigate(["pf-mng2/cl-mng/cre-step3", { type: this.platformType }]);
-    }
-
-    previous() {
-        this.route.navigateByUrl('pf-mng2/cl-mng/cre-step1');
     }
     cancel() {
         this.route.navigateByUrl("pf-mng2/cl-mng/cl-mng");

@@ -30,7 +30,7 @@
                     <td>{{pf.dataCenter}}</td>
                     <td>{{pf.platformType}}</td>
                     <td>{{pf.uri}}</td>
-                    <td>{{pf.status}}</td>
+                    <td [ngClass]="pf.status==1?'font-green':'font-orange'">{{pf.status| dict:this.service.statusDic | async}}</td>
                 </tr>
             </tbody>       
         </table>

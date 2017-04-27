@@ -1,6 +1,6 @@
-<table *ngIf="itemList.length" class="table table-all-boder mgb20">
+<table *ngIf="itemList && itemList.length" class="table table-all-boder mgb20">
     <tr>
-        <th class="text-center">选择</th>
+        <th *ngIf="hasSelect" class="text-center">选择</th>
         <th class="text-center">{{'SHOPPING_CART.PRODUCT_INFORMATION' | translate}}</th>
         <th class="text-center">{{'SHOPPING_CART.PRODUCT_TYPE' | translate}}</th>
         <th class="text-center">{{'COMMON.BILLING_MODE'| translate}}</th>
@@ -15,5 +15,7 @@
         [hasSelect]="hasSelect"
         [disabled]="disabled"
         (onSelect)="selectChange($event)"
+        (countPrice)="priceChange($event)"
+        [isorder]="isorder"
         [itemList]="itemList"></tbody>
 </table>

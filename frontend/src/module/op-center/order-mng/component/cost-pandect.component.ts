@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import {CostManageItem,TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import {OrderDetailItem,CostManageItem,TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { OrderMngService } from '../service/order-mng.service';
 import * as _ from 'underscore';
@@ -9,7 +9,7 @@ import * as _ from 'underscore';
 @Component({
 	selector: 'cost-pandect',
 	templateUrl: '../template/cost-pandect.component.html',
-	styleUrls: ['../style/cost-pandect.less'],
+	styleUrls: ['../style/cost-pandect.less','../style/order-mng-detail.less'],
 	providers: [OrderMngService]
 })
 export class CostPandectComponent implements OnInit{
@@ -61,6 +61,8 @@ private topIncreseConsumeDepartmentLoader:ItemLoader<BillInfo> = null;//TOP5消�
 private downLoadItemLoader:ItemLoader<CostManageItem> = null;//下载账单表格数据
 private downLoadHandler:ItemLoader<CostManageItem> = null;//下载账单表格数据
 
+	//已购服务详情加载
+	private _orderDetailLoader: ItemLoader<OrderDetailItem> = null;
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -107,25 +109,59 @@ private downLoadHandler:ItemLoader<CostManageItem> = null;//下载账单表格�
         this.allServiceLoader = new ItemLoader<CostPandectItem> (false,'消费总览所有服务列表加载错误','op-center.order-mng.cost-pandect.all-service.post',this.restApiCfg,this.restApi);
         this.increaseServiceLoader = new ItemLoader<CostPandectItem> (false,'消费总览新增服务列表加载错误','op-center.order-mng.cost-pandect.increase-service.post',this.restApiCfg,this.restApi);
 
-        this.allServiceLoader.MapFunc = (source:Array<any>, target:Array<CostPandectItem>)=>{
-			for(let item of source)
-			{
-				let obj=new CostPandectItem();
-				target.push(obj);
-
-                obj.subinstanceCode = item.subinstanceCode;
+        this.allServiceLoader.Trait = (target:Array<CostPandectItem>)=>{
+            for(let item of target){
                 if(item.priceDetails){
-                    for(let priceItem of item.priceDetails){
-                        obj.priceDetails.push(item);
-                    } 
+                    for(let priceDetailItem of item.priceDetails){
+                        if(priceDetailItem.billName=='一次性费用'){
+                            priceDetailItem.isShow = false;
+                           
+                            // priceDetailItem.amount = Number(priceDetailItem.amount.toFixed(2));
+                            item.total_amount=item.total_amount-priceDetailItem.amount;
+                            item.total_amount = Number(item.total_amount.toFixed(2));
+
+                        }else{    
+                            priceDetailItem.isShow = true;
+                        }
+                    }
                 }
+            } 
+        }
+        this.increaseServiceLoader.Trait = (target:Array<CostPandectItem>)=>{
+            for(let item of target){
+                if(item.priceDetails){
+                    for(let priceDetailItem of item.priceDetails){
+                        if(priceDetailItem.billName=='一次性费用'){
+                            priceDetailItem.isShow = false;
+                            item.total_amount=item.total_amount-priceDetailItem.amount;
+                            item.total_amount = Number(item.total_amount.toFixed(2));
+                        }else{                      
+                            priceDetailItem.isShow = true;
+                        }
+                    }
+                }
+            } 
+        }
 
+ //已购服务详情加载
+		this._orderDetailLoader = new ItemLoader<OrderDetailItem>(false, "ORDER_MNG.ORDER_DETAILS_DATA_FAILED", "op-center.order-mng.order-detail.get", restApiCfg, restApi);
+		this._orderDetailLoader.MapFunc = (source: Array<any>, target: Array<OrderDetailItem>) => {
+			for (let item of source) {
+				let obj: OrderDetailItem = _.extendOwn(new OrderDetailItem(), item)
+				target.push(obj);
+				if(item.itemList&&item.itemList[0].specList){
+					let getProperty = _.property("attrDisplayValue");
+					 if(item.productType==0){
+						obj.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+					}else{
+						obj.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
+					}
+				}
 			}
-		}
+		};
 
+    	this._orderDetailLoader.FirstItem = new OrderDetailItem();
 
-
-    
        	this.consumeLoader = new ItemLoader<ConsumeSum>(false, '消费概览加载失败', "op-center.order-mng.cost-pandect.consume.post", this.restApiCfg, this.restApi);
 
         // this.consumeLoader.MapFunc = (source:Array<any>, target:Array<ConsumeSum>)=>{
@@ -175,10 +211,10 @@ private downLoadHandler:ItemLoader<CostManageItem> = null;//下载账单表格�
         this.createTopBar2();
         this.loadUserType();
 	}
-loadChart(){
-    this.loadLastDay();
-    this.search_chart();
-}
+// loadChart(){
+//     this.loadLastDay();
+//     this.search_chart();
+// }
 isRootUser(){
     let item = this.userTypeLoader.FirstItem;
     if(item.roleName&&item.roleName=='ENTERPRISE_ADMIN')
@@ -221,9 +257,19 @@ isRootUser(){
      
         
     }
-showDetail(orderItemId:string){
-		this.router.navigateByUrl(`op-center/order-mng/order-mng-detail/${orderItemId}`);
-	}	
+    
+showDetail(item:CostPandectItem){
+     let orderItemId= item.id;
+     this._orderDetailLoader.Go(null, [{ key: "subinstanceCode", value: orderItemId }])
+			.then(success => {
+				this.layoutService.hide();
+				$('#orderDetail').modal('show');
+			})
+			.catch(err => {
+				this.layoutService.hide();
+				this.showMsg(err);
+			})
+    }		
 
 loadTopChart(){
     
@@ -461,51 +507,51 @@ createSumBar(){
                     }];
     this.d_chart.colors = [
             {
-                backgroundColor:["#08C895","#82B6B2","#6F7DC8","#2BD2C8"]
+                backgroundColor:["rgba(255,206,86,0.3)","rgba(255,99,132,0.3)","rgba(54,162,235,0.3)","rgba(43,210,200,0.3)"]
             }
         ];
 }
 
 createHstoryBar(){  
    this.b_chart.colors = [
-                {
-                    backgroundColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ],
-                    borderColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ]
-                },{
+               {
+                            backgroundColor: [
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                                'rgba(43,210,200,0.3)',
+                            ],
+                            borderColor: [
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                                'rgba(43,210,200,1)',
+                            ]
+                        },{
 
-                    backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "rgba(255, 99, 132, 1)",
-                    pointBorderColor: "rgba(255, 99, 132, 1)",
-                    pointBackgroundColor: "#fff",
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                }
+                            backgroundColor: "rgba(255,99,132, 0.3)",//标题框背景
+                            borderColor: "rgba(255,99,132, 1)",//标题框边框
+                            pointBorderColor: "rgba(255,99,132, 1)",
+                            pointBackgroundColor: "#fff",
+                            pointHoverBackgroundColor: "rgba(255,99,132, 1)",
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                        }
             ];
     this.b_chart.options = {
                 scales: {
@@ -553,21 +599,19 @@ createTopBar(){
      }];
         this.h_chart.colors  = [
                 {
-                    backgroundColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ],
-                    borderColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ]
-                }
+                        backgroundColor: [
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)'
+                        ],
+                        borderColor: [
+                           'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)'
+                        ]
+                    }
             ];
             this.h_chart.options={
                             scales: {
@@ -593,22 +637,20 @@ createTopBar2(){
      }];
 
              this.h_chart2.colors  = [
-                {
-                    backgroundColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ],
-                    borderColor: [
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8',
-                        '#2BD2C8'
-                    ]
-                }
+                    {
+                       backgroundColor: [
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)',
+                            'rgba(43,210,200,0.3)'
+                        ],
+                        borderColor: [
+                           'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)',
+                            'rgba(43,210,200,1)'
+                        ]
+                    }
             ];
             this.h_chart2.options={
                             scales: {
@@ -648,15 +690,9 @@ showMsg(msg: string)
     this.layoutService.show();
     let ids:Array<string>=[];
     let month = Number(this._param.month)>=10?this._param.month:'0'+this._param.month;
-
-        if(this.isNullEnterprise()){    
-                for(let item of this.enterpriseLoader.Items){
-                    ids.push(item.id);
-                }       
-        }
-        else{
-                    ids.push(this._param.enterpriseId);
-        }
+  
+    ids.push(this.userTypeLoader.FirstItem.enterpriseId);
+   
 
         let param =     {
         "endTime": this._param.year+'-'+month+'-'+this.lastDay+' 23:59:59',
@@ -734,13 +770,13 @@ showMsg(msg: string)
 }
 
 acceptDownload(item:CostManageItem){
-    let filename = 'testassbj';
+    let filename = '账单';
 	let endTime = this._param.year+'-12-31'+' 23:59:59';
 	let startTime = this._param.year+'-01-01'+' 00:00:00';
     let param = {
                 "enterpiseSubinstanceSearchCondition": {
                     "endTime": endTime,
-                    "idList": [this.userTypeLoader.FirstItem.enterpriseId],
+                    "idList": [this.userTypeLoader.FirstItem.enterpriseId],//或者[item.tenantId]
                     "startTime": startTime
                 },
                 "id": item.id

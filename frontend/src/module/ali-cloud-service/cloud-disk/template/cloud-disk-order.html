@@ -1,13 +1,13 @@
 <div class="page-content cloud_host_order cloud_drive_order">
-    <div class="col-md-12">
-        <h1 class="page-content-header" (click)="payLoadFormat()">云硬盘</h1>
+    <div class="col-md-9">
+        <h1 class="page-content-header">云硬盘</h1>
         <ul class="page-box" style="padding-left: 0;">
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-location"></span>地域：</p>
+                    <p><span class="icon-location"></span><br />地域：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12">
+                    <div class="col-md-12 no-padding">
                         <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}'>
                             <div class="regionName" (click)="selectRegion(region);">{{region.LocalName}}</div>
                             <div class="regionArea">
@@ -25,13 +25,14 @@
                     </div>
 
 
-                    <div class="col-md-12 text-tip">云盘只能挂载在同一可用区的ECS实例内，订购后不支持更换地域，请谨慎选择，<a href="javascript:void(0);">教我选择>></a><span class="glyphicon glyphicon-question-sign"></span></div>
+                    <div class="col-md-12 no-padding text-tip">云盘只能挂载在同一可用区的ECS实例内，订购后不支持更换地域，请谨慎选择!
+                        <!--，<a href="javascript:void(0);">教我选择>></a><span class="glyphicon glyphicon-question-sign"></span> --></div>
                 </div>
             </li>
 
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-configure"></span>云盘：</p>
+                    <p><span class="icon-disk"></span><br />云盘：</p>
                 </div>
                 <div class="col-md-12 li-content">
 
@@ -40,10 +41,35 @@
 							<option value="">请选择云盘</option>
                             <option *ngFor="let disktype of selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories" [value]="disktype">{{displayDiskType(disktype)}}</option>
 						</select>
-                        <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (change)="calculatePrice();" /> G
-                        <span class="text-tip">
-							用快照创建磁盘
-						</span>
+                        <div *ngIf="selectedRegion.selectedDisk=='cloud'" class="mgb20 has-feedback" [ngClass]="{'has-error':v.result.numberRange_cloud}" style="display: inline;">
+                            <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (ngModelChange)="checkForm('numberRange_cloud')" (change)="calculatePrice();" /> G
+                            <span class="text-tip">用快照创建磁盘</span>
+                            <div *ngIf="v.result.numberRange_cloud" style="display: inline;">
+                                <span class="alert alert-danger input_style" role="alert">{{v.result.numberRange_cloud}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="selectedRegion.selectedDisk=='cloud_efficiency'" class="mgb20 has-feedback" [ngClass]="{'has-error':v.result.numberRange_cloud_efficiency}" style="display: inline;">
+                            <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (ngModelChange)="checkForm('numberRange_cloud_efficiency')" (change)="calculatePrice();" /> G
+                            <span class="text-tip">用快照创建磁盘</span>
+                            <div *ngIf="v.result.numberRange_cloud_efficiency" style="display: inline;">
+                                <span class="alert alert-danger input_style" role="alert">{{v.result.numberRange_cloud_efficiency}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="selectedRegion.selectedDisk=='cloud_ssd'" class="mgb20 has-feedback" [ngClass]="{'has-error':v.result.numberRange_cloud_ssd}" style="display: inline;">
+                            <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (ngModelChange)="checkForm('numberRange_cloud_ssd')" (change)="calculatePrice();" /> G
+                            <span class="text-tip">用快照创建磁盘</span>
+                            <div *ngIf="v.result.numberRange_cloud_ssd" style="display: inline;">
+                                <span class="alert alert-danger input_style" role="alert">{{v.result.numberRange_cloud_ssd}}</span>
+                            </div>
+                        </div>
+
+                        <div *ngIf="selectedRegion.selectedDisk==''" class="mgb20 has-feedback" [ngClass]="{'has-error':v.result.mustnull}" style="display: inline;">
+                            <input class="select_input_size" [(ngModel)]="selectedRegion.diskCount" (ngModelChange)="checkForm('mustnull')" (change)="calculatePrice();" /> G
+                            <span class="text-tip">用快照创建磁盘</span>
+                            <div *ngIf="v.result.mustnull" style="display: inline;">
+                                <span class="alert alert-danger input_style" role="alert">{{v.result.mustnull}}</span>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -63,47 +89,61 @@
                 </div>
             </li>
             -->
-            <li class="li_line_backgroud">
-                <div class="col-md-1 li-title">
-                    <p><span></span>当前配置：</p>
-                </div>
-                <div class="col-md-12 li-content">
-                    <div class="col-md-12">
-                        <div class=" float-right">
-                            <a href="javascript: void(0);">购买须知>></a>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-4">
+        </ul>
+    </div>
+    <div class="col-md-3 right-box" style="min-height: 400px;">
+        <ul>
+            <li style="border-top: none">
+                <p><span></span>当前配置</p>
+            </li>
+            <li>
+                <div class="mgb20">
+                    <table>
+                        <tr>
                             <span>地域：</span>
-                            <span>{{selectedRegion.LocalName || ""}} ({{selectedRegion.selectedArea.LocalName || ""}})</span>
-                        </div>
-                        <div class="col-md-4">
+                            <span>{{selectedRegion.LocalName || ""}} 
+                                <span *ngIf="selectedRegion.selectedArea.LocalName!=''">(</span> {{(selectedRegion.selectedArea.LocalName) || ""}}
+                            <span *ngIf="selectedRegion.selectedArea.LocalName!=''">)</span>
+                            </span>
+                        </tr>
+                        <tr>
                             <span>云盘：</span>
                             <span>{{selectedRegion.diskCount || ""}}G {{selectedRegion.selectedDisk || ""}}</span>
-                        </div>
-                        <div class="col-md-4">
+                        </tr>
+                        <tr>
                             <span>数量：</span>
                             <span>{{selectedRegion.count || ""}}</span>
-                        </div>
-                    </div>
+                        </tr>
+                    </table>
+
                 </div>
             </li>
-        </ul>
-
-        <ul class="col-md-12 no-padding bottom-box">
             <li>
-                <div class="col-md-12" style="padding: 35px 20px 25px 40px;">
-                    <div class="float-left">
-                        <span>配置费用：</span>
-                        <!-- <span>￥{{selectedRegion.price}}/时</span> -->
-                        <span>{{selectedRegion.price}}</span>
-                    </div>
-                    <div class="float-right">
-                        <!-- <button (click)="buyNow()" class="btn button-orange-deep">加入清单</button> -->
-                        <button (click)="buyNow()" class="btn button-orange-light">立即购买</button>
-                    </div>
+                <div class="mgb20">
+                    <table>
+                        <!--
+                        <tr>
+                            <span>配置费用：</span>
+                            <span>
+                                <span *ngIf="selectedRegion.price!=''">￥　</span> {{(selectedRegion.price) || ""}}
+                            <span *ngIf="selectedRegion.price!=''">　时</span>
+                            </span>
+                        </tr>
+                        -->
+                        <tr>
+                            <span>费用总计：</span>
+                            <span>
+                                <span *ngIf="selectedRegion.price!=''">￥</span> {{(selectedRegion.price) || ""}}
+                            <span *ngIf="selectedRegion.price!=''"> /时</span>
+                            </span>
+                        </tr>
+                    </table>
                 </div>
+                <div>
+                    <!-- <button (click)="buyNow()" class="btn button-orange-deep">加入清单</button> -->
+                    <button (click)="buyNow()" style="width: 100%" class="btn button-orange-light">立即购买</button>
+                </div>
+
             </li>
         </ul>
     </div>

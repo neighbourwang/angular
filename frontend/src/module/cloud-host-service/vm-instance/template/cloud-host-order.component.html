@@ -1,6 +1,6 @@
 <div class="page-content cloud_host_order">
 	<div class="col-md-9">
-		<h1 (click)="checkQuota()" class="page-content-header">{{options.title | translate}}</h1>
+		<h1 (click)="payLoadFormat()" class="page-content-header">{{'VM_INSTANCE.ORDER_CLOUD_HOSTING' | translate}}</h1>
 		<ul class="left-box">
 			<li>
 				<div class="col-md-1 li-title">                  
@@ -9,8 +9,8 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">{{'COMMON.CLOUD_PLATFORM'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.platform.valueList;" id="location_{{value.attrValueCode}}" (click)="sendModule.platform = value;relyChanges('platform')" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
-							<input type="radio" name="location" autocomplete="off" > {{ value.attrDisplayValue }}
+						<label *ngFor="let value of valuesList.PLATFORM;" id="location_{{value.attrValueCode}}" (click)="values.PLATFORM = value;dux.dispatch('PLATFORM')" class="btn btn-default" [ngClass]="{'active': values.PLATFORM.attrValueId === value.attrValueId}">
+							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2"></div>
@@ -18,10 +18,10 @@
 					<div class="col-md-2 content-title">{{'COMMON.AVAILABLE_ZONE'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
-							*ngFor="let value of rely('zone')"
-							(click)="sendModule.zone = value;relyChanges('zone')"
-							class="btn btn-default" [ngClass]="{'active': sendModule.zone.attrValueId === value.attrValueId}">
-							<input type="radio" name="zone" autocomplete="off"  id="zone_{{value.attrValueCode}}"> {{ value.attrDisplayValue }}
+							*ngFor="let value of valuesList.ZONE"
+							(click)="values.ZONE = value;dux.dispatch('ZONE')"
+							class="btn btn-default" [ngClass]="{'active': values.ZONE.attrValueId === value.attrValueId}" id="zone_{{value.attrValueCode}}">
+							<input type="radio" name="zone" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 				</div>
@@ -33,9 +33,9 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.NET_TYPE'| translate}}</div>
 					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.networktype" class="form-control" id="networktype">
+						<select [(ngModel)]="values.NETWORKTYPE" class="form-control" id="networktype">
 							<option
-							 *ngFor="let value of networkList"
+							 *ngFor="let value of valuesList.NETWORKTYPE"
 							 [ngValue]="value" id="network_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
@@ -43,10 +43,10 @@
 					<div class="col-md-10 text-tip">{{'VM_INSTANCE.PLEASE_SELECT_SUBNET_YOU_NEED'| translate}}</div>
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.SECURITY_GROUP'| translate}}</div>
 					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.securitygroup" class="form-control" id="securitygroup">
+						<select [(ngModel)]="values.SECURITYGROUP" class="form-control" id="securitygroup">
 							<option
-							 *ngFor="let value of configs.securitygroup.valueList;"
-							 [ngValue]="value"  id="securitygroup_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
+							 *ngFor="let value of valuesList.SECURITYGROUP;"
+							 [ngValue]="value" id="securitygroup_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
 					<div class="col-md-2"></div>
@@ -61,20 +61,19 @@
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.CPU'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 
-						<label
-							*ngFor="let value of rely('cpu');"
-							(click)="sendModule.cpu = value;relyChanges('cpu');"
-							class="btn btn-default" [ngClass]="{'active': sendModule.cpu.attrValueId === value.attrValueId}" id="cpu_{{value.attrValue}}">
-							<input type="radio" name="cpu" autocomplete="off" > {{ value.attrDisplayValue }}
+						<label *ngFor="let value of valuesList.CPU;"
+							(click)="values.CPU = value;dux.dispatch('CPU');"
+							class="btn btn-default" [ngClass]="{'active': values.CPU?.attrValueId === value.attrValueId}" id="cpu_{{value.attrValue}}">
+							<input type="radio" name="cpu" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">{{'COMMON.RAM'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
-							*ngFor="let value of rely('mem')"
-							(click)="sendModule.mem = value;relyChanges('mem')"
-							class="btn btn-default" [ngClass]="{'active': sendModule.mem.attrValueId === value.attrValueId}"  id="mem_{{value.attrValue}}">
-							<input type="radio" name="mem" autocomplete="off" > {{ value.attrDisplayValue }}
+							*ngFor="let value of valuesList.MEM | filterPlatform: values.PLATFORM?.attrValueId"
+							(click)="values.MEM = value;dux.dispatch('MEM')"
+							class="btn btn-default" [ngClass]="{'active': values.MEM?.attrValueId === value.attrValueId}" id="mem_{{value.attrValue}}">
+							<input type="radio" name="mem" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 				</div>
@@ -86,10 +85,10 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.START_SOURCE'| translate}}</div>
 					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.startupsource" class="form-control" id="startupsource">
+						<select [(ngModel)]="values.STARTUPSOURCE" class="form-control" id="startupsource">
 							<option
-							 *ngFor="let value of rely('startupsource')"
-							 [ngValue]="value" id="startupsource_{{value.attrValue}}" >{{ value.attrDisplayValue }}</option>
+							 *ngFor="let value of valuesList.STARTUPSOURCE"
+							 [ngValue]="value" id="startupsource_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
 					<div class="col-md-2"></div>
@@ -97,16 +96,16 @@
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_TYPE'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
-							*ngFor="let value of rely('imagetype')"
-							(click)="sendModule.imagetype = value;relyChanges('imagetype')" id="imagetype_{{value.attrValue}}" class="btn btn-default" [ngClass]="{'active': sendModule.imagetype.attrValueId === value.attrValueId}">
-							<input type="radio" name="imagetype" autocomplete="off" > {{ value.attrDisplayValue }}
+							*ngFor="let value of valuesList.IMAGETYPE"
+							(click)="values.IMAGETYPE = value;dux.dispatch('IMAGETYPE')" id="imagetype_{{value.attrValue}}" class="btn btn-default" [ngClass]="{'active': values.IMAGETYPE?.attrValueId === value.attrValueId}">
+							<input type="radio" name="imagetype" autocomplete="off"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_LIST'| translate}}</div>
 					<div class="col-md-10">
-						<select [(ngModel)]="sendModule.os" class="form-control" id="os">
+						<select [(ngModel)]="values.OS" (ngModelChange)="dux.dispatch('OS')" id="os" class="form-control">
 							<option
-							 *ngFor="let value of imageList"
+							 *ngFor="let value of valuesList.OS"
 							 [ngValue]="value" id="os_{{value.attrValueCode}}">{{ value.attrDisplayValue }}</option>
 						</select>
 					</div>
@@ -124,25 +123,25 @@
 						<div class="col-md-10 no-padding">
 							<div class="col-md-3 no-padding">
 								<select
-									*ngIf="sendModule.zone.attrValueId"
-									[(ngModel)]="sendModule.bootstorage" class="form-control" id="bootstorage">
+									*ngIf="values.ZONE?.attrValueId"
+									[(ngModel)]="values.BOOTSTORAGE" class="form-control" id="bootstorage">
 										<option
-										*ngFor="let value of rely('bootstorage')"
+										*ngFor="let value of valuesList.BOOTSTORAGE"
 										[ngValue]="value" id="bootstorage_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>
 							<div class="col-md-1 content-title2">{{'COMMON.CAPATITY'| translate}}</div>
 							<div class="col-md-2 no-padding">
-								<select [(ngModel)]="sendModule.bootsize" class="form-control" id="bootsize">
+								<select [(ngModel)]="values.BOOTSIZE" class="form-control" id="bootsize">
 									<option
-									*ngFor="let value of oSfilterBootsize(rely('bootsize'));"
+									*ngFor="let value of oSfilterBootsize(valuesList.BOOTSIZE) | filterPlatform: values.PLATFORM?.attrValueId;"
 									[ngValue]="value" id="bootsize_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>
 							<div class="col-md-6 content-title2">{{'COMMON.GB'| translate}}</div>
 						</div>
 					</div>
-					<div style="display: none"><add-storage #storage (onChanges)="storageChange()" [sendModule]="sendModule" [configs]="rely('storage')"></add-storage></div>
+					<!-- <div style="display: none"><add-storage #storage (onChanges)="storageChange()" [values]="" [CONFIGS]="valuesList.STORAGE"></add-storage></div> -->
 				</div>
 			</li>
 			<li>
@@ -165,7 +164,7 @@
 
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">{{'VM_INSTANCE.USER_NAME'| translate}}</div>
-						<div class="col-md-10 user-root">root</div>
+						<div class="col-md-10 user-root">{{values.USERNAME?.attrValue}}</div>
 					</div>
 
 					<div class="col-md-12 no-padding mb20" *ngIf="setPassword">
@@ -173,7 +172,7 @@
 						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': v.result.password}">
 							<input type="password" 
 								(keyup) = "checkValue('password')"
-								[(ngModel)]="sendModule.password.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWORD'| translate}}" id="login_password">
+								[(ngModel)]="values.PASSWORD.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWORD'| translate}}" id="login_password">
 					        <span *ngIf="v.result.password" class="glyphicon glyphicon-remove form-control-feedback"></span>
 					        <div *ngIf="v.result.password" class="alert alert-danger" role="alert">{{v.result.password | translate}}</div>
 						</div>
@@ -193,8 +192,7 @@
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">{{'VM_INSTANCE.INSTANCE_NAME'| translate}}</div>
 						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': v.result.instancename }">
-							
-							<input type="text" [(ngModel)]="sendModule.instancename.attrValue" (keyup)="checkValue('instancename')" class="form-control" placeholder="{{'VM_INSTANCE.SYSTEM_AUTO_IN'| translate}}" id="login_insrance_name">
+							<input type="text" [(ngModel)]="values.INSTANCENAME.attrValue" (keyup)="checkValue('instancename')" class="form-control" placeholder="{{'VM_INSTANCE.SYSTEM_AUTO_IN'| translate}}" id="login_insrance_name">
 					        <span *ngIf="v.result.instancename" class="glyphicon glyphicon-remove form-control-feedback"></span>
 					        <div *ngIf="v.result.instancename" class="alert alert-danger" role="alert">{{v.result.instancename | translate}}</div>
 						</div>
@@ -210,16 +208,16 @@
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_DURATION'|translate}}</div>
 						<div class="col-md-2 no-padding mr10">
-							<select [disabled]="timeForever" [(ngModel)]="sendModule.timelineunit" (ngModelChange)="setVmPrice();" class="form-control" id="timelineunit">
+							<select [disabled]="timeForever" [(ngModel)]="values.TIMELINEUNIT" (ngModelChange)="dux.dispatch('SET_VMPRICE');" class="form-control" id="timelineunit">
 								<option
-								*ngFor="let value of this.configs.timelineunit.mapValueList[this.vmSku.skuId];"
+								*ngFor="let value of valuesList.TIMELINEUNIT;"
 								[ngValue]="value" id="timelineunit_{{value.attrValue}}">{{ value.attrDisplayValue | translate}}</option>
 							</select>
 						</div>
 						<div class="col-md-2 no-padding mr10 has-feedback" [ngClass]="{'has-error': v.result.timeline }">
 							<input [disabled]="timeForever" 
-								   (keyup)="checkValue('timeline');setVmPrice();setDiskPrice();" 
-								   [(ngModel)]="sendModule.timeline.attrValue" type="text" class="form-control" id="input_timeline">
+								   (keyup)="checkValue('timeline');dux.dispatch('SET_VMPRICE');" 
+								   [(ngModel)]="values.TIMELINE.attrValue" type="text" class="form-control" id="input_timeline">
 					        <span *ngIf="v.result.timeline" class="glyphicon glyphicon-remove form-control-feedback"></span>
 					        <div *ngIf="v.result.timeline" class="alert alert-danger" role="alert">{{v.result.timeline | translate}}</div>
 						</div>
@@ -233,12 +231,12 @@
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_AMOUNT'|translate}}</div>
 						<div class="col-md-2 no-padding mr10">
-							<select [(ngModel)]="payLoad.quality" (ngModelChange)="setVmPrice();setDiskPrice();"   class="form-control" id="pay_quality">
-								<option [ngValue]="1" id="pay_quality_1">{{'COMMON.ONE_SET'| translate}}</option>
-								<option [ngValue]="2" id="pay_quality_2">{{'COMMON.TWO_SET'| translate}}</option>
-								<option [ngValue]="3" id="pay_quality_3">{{'COMMON.THREE_SET'| translate}}</option>
-								<option [ngValue]="4" id="pay_quality_4">{{'COMMON.FOUR_SET'| translate}}</option>
-								<option [ngValue]="5" id="pay_quality_5">{{'COMMON.FIVE_SET'| translate}}</option>
+							<select [(ngModel)]="payLoad.quality" (ngModelChange)="dux.dispatch('SET_VMPRICE');"   class="form-control" id="pay_quality">
+								<option [ngValue]="1">{{'COMMON.ONE_SET'| translate}}</option>
+								<option [ngValue]="2">{{'COMMON.TWO_SET'| translate}}</option>
+								<option [ngValue]="3">{{'COMMON.THREE_SET'| translate}}</option>
+								<option [ngValue]="4">{{'COMMON.FOUR_SET'| translate}}</option>
+								<option [ngValue]="5">{{'COMMON.FIVE_SET'| translate}}</option>
 							</select>
 							<!--<div class="btn-group input-step-compontent">
 								<button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
@@ -254,67 +252,78 @@
 	</div>
 	 <!-- [ngClass]="{'right-fixed' : rightFixed}" (window:scroll)="onScroll($event)" -->
 	<div class="col-md-3 no-padding right-box">
-		<cart-button #cartButton></cart-button>
-		<div class="col-md-12 content-box">
-			<h3 class="boder-gray-bottom-title">{{'COMMON.CURRENT_CONFIGURATION'| translate}}</h3>
-			<h4 class="cloud-title font-green">{{'COMMON.AREA'| translate}}</h4>
-			<p class="cloud-p">{{'COMMON.CLOUD_PLATFORM'| translate}}: {{ sendModule.platform?.attrDisplayValue}}</p>
-			<p class="cloud-p">{{'COMMON.AVAILABLE_ZONE'| translate}}: {{ sendModule.zone?.attrDisplayValue}}</p>
-			<h4 class="cloud-title font-green">{{'VM_INSTANCE.NET'| translate}}</h4>
-			<p class="cloud-p">{{'VM_INSTANCE.NET_TYPE'| translate}}: {{ sendModule.networktype?.attrDisplayValue}}</p>
-			<p class="cloud-p">{{'VM_INSTANCE.SECURITY_GROUP'| translate}}: {{ sendModule.securitygroup?.attrDisplayValue}}</p>
-			<h4 class="cloud-title font-green">{{'VM_INSTANCE.INSTANCE_CONFIGURATION'| translate}}</h4>
-			<p class="cloud-p">{{'VM_INSTANCE.CPU'| translate}}: {{ sendModule.cpu?.attrDisplayValue}}</p>
-			<p class="cloud-p">{{'VM_INSTANCE.RAM'| translate}}: {{ sendModule.mem?.attrDisplayValue}}</p>
-			<h4 class="cloud-title font-green">{{'VM_INSTANCE.CLOUD_HOST_SOURCE'| translate}}</h4>
-			<p class="cloud-p">{{'VM_INSTANCE.START_SOURCE'| translate}}: {{ sendModule.startupsource?.attrDisplayValue}}</p>
-			<p class="cloud-p">{{'VM_INSTANCE.MIRROR_TYPE'| translate}}: {{ sendModule.imagetype?.attrDisplayValue}}</p>
-			<p class="cloud-p">{{'VM_INSTANCE.MIRROR_NAME'| translate}}: {{ sendModule.os?.attrDisplayValue}}</p>
-			<h4 class="cloud-title font-green">{{'VM_INSTANCE.STORE'| translate}}</h4>
-
-			<p class="cloud-p">{{'VM_INSTANCE.BOOT_DISK'| translate}}: {{ sendModule.bootstorage?.attrDisplayValue}} / {{ sendModule.bootsize?.attrValue}}GB</p>
-			<!-- <p class="cloud-p">数据盘: {{ sendModule.stroage ? sendModule.stroage.attrDisplayValue : "" }} / {{ sendModule.storagesize ? sendModule.storagesize.attrDisplayValue : "" }}</p> -->
-			<h4 class="cloud-title font-green">{{'COMMON.PURCHASE_AMOUNT'|translate}}</h4>
-			<p class="cloud-p">{{'COMMON.PURCHASE_DURATION'|translate}}: {{ sendModule.timelineunit.attrDisplayValue}} / {{ sendModule.timeline?.attrValue}}</p>
-
-			<p class="cloud-p">{{'COMMON.PURCHASE_AMOUNT'|translate}}: {{payLoad.quality}}台</p>
-			<div class="cloud-line"></div>
-
-			<h4 class="cloud-title font-green">{{'VM_INSTANCE.HOST_ONE_PRICE'|translate}}<!-- 云主机单价 --></h4>
-			<p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}}{{ vmProduct?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
-			<p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}<!-- 周期费用 -->: <font class="font-orange">{{'COMMON.$' | translate}}{{vmProduct?.billingInfo.basicPrice}} / {{ sendModule.timelineunit.attrDisplayValue }}</font></p>
-			<!-- <h4 class="cloud-title font-green">{{'VM_INSTANCE.CLOUD_HARD_DISK_COSTS'| translate}}</h4>
-			<p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{ diskBasePrice }}</font></p>
-			<p class="cloud-p">{{'VM_INSTANCE.BY_VOLUMN_COSTS'| translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{diskTotalPrice}} / {{ diskUnitType | dict:service.unitType | async }}</font></p> -->
-			<div class="cloud-p">
-				<p class="cloud-title">{{'VM_INSTANCE.TOTAL_COST'| translate}}：</p>
-	            <table style="width: 90%;line-height: 26px;">
-	                <tr>
-	                    <td>{{'COMMON.ONE_TIME_COSTS'|translate}}： </td>
-	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{vmBasePrice + diskBasePrice}}</font>{{'COMMON.YUAN' | translate}}</td>
-	                </tr>
-<!-- 	                <tr>
-	                    <td><font>{{'COMMON.TOTAL_EXPENSE'|translate}}： </font></td>
-	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ diskUnitType | dict:service.unitType | async }} <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
-	                </tr> -->
-	               <!--  <tr>
-	                    <td><font>{{'COMMON.TOTAL_EXPENSE'|translate}}： </font></td>
-	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ diskUnitType | dict:service.unitType | async }} <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
-	                </tr> -->
-	                <tr>
-	                    <td><font>{{'VM_INSTANCE.TOTAL_BILLINGARR'|translate}}<!-- 总周期费用 -->： </font></td>
-	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{vmTotalPrice}}</font>{{'COMMON.YUAN'|translate}}<span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
-	                </tr>
-	            </table>
-	                
-	            <p class="mgt20">{{'VM_INSTANCE.BILLINGARR_TEXT'|translate}}<!-- 以上为总费用估算，实际支付金额，请以每月账单为准。 --></p>
-			</div>
-			<div class="col-md-12 colud-order-button">
-				<div class="col-md-6"><button (click)="buyNow()" id="buy_now" class="btn button-orange-deep">{{'COMMON.BUY_NOW'|translate}}</button></div>
-				<div class="col-md-6"><button (click)="addCart()" id="add_to_cart" class="btn button-orange-light">{{'COMMON.ADD_TO_SHOPPING_CART'|translate}}</button></div>
-			</div>
-		</div>
-	</div>
+        <cart-button #cartButton></cart-button>
+        <div class="col-md-12 content-box">
+            <h3 class="boder-gray-bottom-title">{{'COMMON.CURRENT_CONFIGURATION'| translate}}</h3>
+            <h4 class="cloud-title font-green">{{'COMMON.AREA'| translate}}</h4>
+            <p class="cloud-p">{{'COMMON.CLOUD_PLATFORM'| translate}}: {{ values.PLATFORM?.attrDisplayValue}}</p>
+            <p class="cloud-p">{{'COMMON.AVAILABLE_ZONE'| translate}}: {{ values.ZONE?.attrDisplayValue}}</p>
+            <h4 class="cloud-title font-green">{{'VM_INSTANCE.NET'| translate}}</h4>
+            <p class="cloud-p">{{'VM_INSTANCE.NET_TYPE'| translate}}: {{ values.NETWORKTYPE?.attrDisplayValue}}</p>
+            <p class="cloud-p">{{'VM_INSTANCE.SECURITY_GROUP'| translate}}: {{ values.SECURITYGROUP?.attrDisplayValue}}</p>
+            <h4 class="cloud-title font-green">{{'VM_INSTANCE.INSTANCE_CONFIGURATION'| translate}}</h4>
+            <p class="cloud-p">{{'VM_INSTANCE.CPU'| translate}}: {{ values.CPU?.attrDisplayValue}}</p>
+            <p class="cloud-p">{{'VM_INSTANCE.RAM'| translate}}: {{ values.MEM?.attrDisplayValue}}</p>
+            <h4 class="cloud-title font-green">{{'VM_INSTANCE.CLOUD_HOST_SOURCE'| translate}}</h4>
+            <p class="cloud-p">{{'VM_INSTANCE.START_SOURCE'| translate}}: {{ values.STARTUPSOURCE?.attrDisplayValue}}</p>
+            <p class="cloud-p">{{'VM_INSTANCE.MIRROR_TYPE'| translate}}: {{ values.IMAGETYPE?.attrDisplayValue}}</p>
+            <p class="cloud-p">{{'VM_INSTANCE.MIRROR_NAME'| translate}}: {{ values.OS?.attrDisplayValue}}</p>
+            <h4 class="cloud-title font-green">{{'VM_INSTANCE.STORE'| translate}}</h4>
+            <p class="cloud-p">{{'VM_INSTANCE.BOOT_DISK'| translate}}: {{ values.BOOTSTORAGE?.attrDisplayValue}} / {{ values.BOOTSIZE?.attrValue}}GB</p>
+            <!-- <p class="cloud-p">数据盘: {{ values.STROAGE ? values.STROAGE.attrDisplayValue : "" }} / {{ values.STORAGESIZE ? values.STORAGESIZE.attrDisplayValue : "" }}</p> -->
+            <h4 class="cloud-title font-green">{{'COMMON.PURCHASE_AMOUNT'|translate}}</h4>
+            <p class="cloud-p">{{'COMMON.PURCHASE_DURATION'|translate}}: {{ values.TIMELINEUNIT.attrDisplayValue}} / {{ values.TIMELINE?.attrValue}}</p>
+            <p class="cloud-p">{{'COMMON.PURCHASE_AMOUNT'|translate}}: {{payLoad.quality}}台</p>
+            <div class="cloud-line"></div>
+            <h4 class="cloud-title font-green">{{'VM_INSTANCE.HOST_ONE_PRICE'|translate}}<!-- 云主机单价 --></h4>
+            <p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}:
+                <font class="font-orange">{{'COMMON.$' | translate}}{{ vmProduct?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+            <p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}
+                <!-- 周期费用 -->:
+                <font class="font-orange">{{'COMMON.$' | translate}}{{vmProduct?.billingInfo.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue }}</font>
+            </p>
+            <!-- <h4 class="cloud-title font-green">{{'VM_INSTANCE.CLOUD_HARD_DISK_COSTS'| translate}}</h4>
+    			<p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{ diskBasePrice }}</font></p>
+    			<p class="cloud-p">{{'VM_INSTANCE.BY_VOLUMN_COSTS'| translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{diskTotalPrice}} / {{ diskUnitType | dict:service.unitType | async }}</font></p> -->
+            <div class="cloud-p">
+                <p class="cloud-title">{{'VM_INSTANCE.TOTAL_COST'| translate}}：</p>
+                <table style="width: 90%;line-height: 26px;">
+                    <tr>
+                        <td>{{'COMMON.ONE_TIME_COSTS'|translate}}： </td>
+                        <td>
+                            <font class="font-orange">{{'COMMON.$' | translate}}{{vmBasePrice + diskBasePrice}}</font>{{'COMMON.YUAN' | translate}}</td>
+                    </tr>
+                    <!--	                <tr>
+    	                    <td><font>{{'COMMON.TOTAL_EXPENSE'|translate}}： </font></td>
+    	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ diskUnitType | dict:service.unitType | async }} <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
+    	                </tr> -->
+                    <!--  <tr>
+    	                    <td><font>{{'COMMON.TOTAL_EXPENSE'|translate}}： </font></td>
+    	                    <td><font class="font-orange">{{'COMMON.$' | translate}}{{diskTotalPrice}}</font>{{'COMMON.YUAN'|translate}} / {{ diskUnitType | dict:service.unitType | async }} <span class="float-right">{{'COMMON.BY_VOLUMN' | translate}}</span></td>
+    	                </tr> -->
+                    <tr>
+                        <td>
+                            <font>{{'VM_INSTANCE.TOTAL_BILLINGARR'|translate}}
+                                <!-- 总周期费用 -->： </font>
+                        </td>
+                        <td>
+                            <font class="font-orange">{{'COMMON.$' | translate}}{{vmTotalPrice}}</font>{{'COMMON.YUAN'|translate}}<span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
+                    </tr>
+                </table>
+                <p class="mgt20">{{'VM_INSTANCE.BILLINGARR_TEXT'|translate}}
+                    <!-- 以上为总费用估算，实际支付金额，请以每月账单为准。 -->
+                </p>
+            </div>
+            <div class="col-md-12 colud-order-button">
+                <div class="col-md-6">
+                    <button (click)="buyNow()" class="btn button-orange-deep" id="buy_now">{{'COMMON.BUY_NOW'|translate}}</button>
+                </div>
+                <div class="col-md-6">
+                    <button (click)="addCart()" class="btn button-orange-light" id="add_to_cart">{{'COMMON.ADD_TO_SHOPPING_CART'|translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>

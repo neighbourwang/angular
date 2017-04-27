@@ -1,32 +1,38 @@
 <div class="page-content cloud_host_order cloud_drive_order">
 
-    <div class="col-md-12">
-        <h1 class="page-content-header" (click)="payLoadFormat()">阿里云主机实例订购</h1>
-        <ul class="page-box" style="padding-left: 0;">
+    <div class="col-md-9">
+        <h1 class="page-content-header" (click)="payLoadFormat()">创建阿里云主机</h1>
+        <ul class="page-box">
             <!-- 计费方式 -->
-
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-configure"></span>计费方式：</p>
+                    <p><span class="icon-cost"></span><br />计费方式：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12">
-                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="0"}' (click)='selectedOrderVmPage.selectedChargeType="0";' style="display: inline">包年包月<sup style="width: 20px; height: 20px; color: orange;">惠</sup></button>
-                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="1"}' (click)='selectedOrderVmPage.selectedChargeType="1";' style="display: inline">按量付费</button>
-                        <span class="glyphicon glyphicon-question-sign"></span>
+                    <div class="col-md-12 no-padding">
+                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PrePaid"}' (click)='selectedOrderVmPage.selectedChargeType="PrePaid"; showAndSetInstanceChargeType();' style="display: inline">包年包月
+                            <sup style="width: 20px; height: 20px; color: orange;">惠</sup>
+                        </button>
+                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PostPaid"}' (click)='selectedOrderVmPage.selectedChargeType="PostPaid"; showAndSetInstanceChargeType();' style="display: inline">按量付费</button>
+                        <!--
+                        <static-tooltip [title]="tip_instanceChargeType" placement="right">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </static-tooltip>
+                        -->
+
                     </div>
+
                 </div>
             </li>
 
 
             <!-- 地域 -->
-
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-location"></span>地域：</p>
+                    <p><span class="icon-location"></span><br />地域：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12">
+                    <div class="col-md-12 no-padding">
                         <div class="region" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}'>
                             <div class="regionName" (click)="selectRegion(region);">{{region.LocalName}}</div>
                             <div class="regionArea">
@@ -41,7 +47,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 text-tip">不同地域的实例之间内网互不相通；选择靠近您客户的地域，可降低网络时延、提高您客户的访问速度，<a href="javascript:void(0);">教我选择>></a><span class="glyphicon glyphicon-question-sign"></span>
+                    <div class="col-md-12 no-padding text-tip">
+                        <!--不同地域的实例之间内网互不相通；选择靠近您客户的地域，可降低网络时延、提高您客户的访问速度，<a href="javascript:void(0);">教我选择>></a>-->
+                        云盘只能挂载在同一个可用区的云主机实例内，订购后不支持更换地域，请谨慎选择！
+                        <!--
+                        <static-tooltip [title]="tip_region" placement="left">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </static-tooltip>
+                        -->
                     </div>
 
                 </div>
@@ -50,97 +63,202 @@
             <!-- 网络 -->
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-configure"></span>网络</p>
+                    <p><span class="icon-network"></span><br />网络</p>
                 </div>
                 <div class="col-md-12 li-content">
 
-                    <div class="col-md-12 mgb20">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;" style="display: inline">经典网络</button>
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">专有网络</button>
-                        <span class="glyphicon glyphicon-question-sign"></span>
+                    <div class="col-md-12 no-padding mgb10">
+                        <button *ngIf="showClassicNetwork" class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="classic"}' (click)="SetClassicNetwork();" style="display: inline">经典网络</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedNetworkType=="vpc"}' (click)="SetVpcNetwork();">专有网络</button>
+                        <!--
+                        <static-tooltip [title]="tip_networkType" placement="right">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </static-tooltip>
+                        -->
                     </div>
-                    <div class="col-md-12 text-tip">
-                        <span> 购买后不能更换网络类型 </span>
+                    <div class="col-md-12 no-padding text-tip mgb20">
+                        <span>购买后不能更换网络类型 </span>
                     </div>
-                    <div class="col-md-12 mgb20">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;" style="display: inline">选择安全组</button>
-                        <span class="glyphicon glyphicon-question-sign"></span>
+
+                    <div class="col-md-12 no-padding mgb20 form-group" *ngIf="selectedOrderVmPage.selectedNetworkType=='vpc'">
+                        <select class="form-control select_style" [(ngModel)]="selectedVPC" (change)="VPCChanged();">
+                            <option [ngValue]="defaultVPC">请选择专有网络</option>
+                            <option *ngFor="let vpc of vpclist" [ngValue]="vpc">{{vpc.VpcName}}{{vpc.VpcId}}</option>
+                        </select>
+                        <select class="form-control select_style mgb10" [(ngModel)]="selectedVSwitch" (change)="VSwitchChanged();">
+                            <option [ngValue]="defaultVSwitch">请选择虚拟交换机</option>
+                            <option *ngFor="let vswitch of vswitchlist" [ngValue]="vswitch">{{vswitch.VSwitchId}}</option>
+                        </select>
+                        <!--
+                        <div class="col-md-12 no-padding">
+                            <input type="checkbox" class="fox-cloud-checkbox mgl10" (click)="allocatePublicIPOrNot();" />是否分配公网IP地址<span class="glyphicon glyphicon-question-sign"></span>
+                        </div>
+                        <div class="col-md-12 text-tip">
+                            <span>安全组类似防火墙功能，用于设置网络访问控制，您也可以到管理控制台 <a href="javascript:void(0);">新建安全组>></a> <a href="javascript:void(0);">教我选择>></a> </span>
+                        </div>
+                        -->
                     </div>
-                    <div class="col-md-12 text-tip">
-                        <span> 安全组类似防火墙功能，用于设置网络访问控制，您也可以到管理控制台 <a href="javascript:void(0);">新建安全组>></a> <a href="javascript:void(0);">教我选择>></a> </span>
+
+                    <div class="col-md-12 no-padding mgb20 form-group" *ngIf="securitygrouplist.length!=0">
+                        <div class="text-tip">
+                            <!--<span>安全组类似防火墙功能，用于设置网络访问控制，您也可以到管理控制台 <a href="javascript:void(0);">新建安全组>></a> <a href="javascript:void(0);">教我选择>></a> </span> -->
+                            <span>安全组类似防火墙功能，用于设置网络访问控制，您也可以到管理控制台新建安全组</span>
+                        </div>
+                        <select *ngIf="(selectedOrderVmPage.selectedNetworkType=='classic')" class="form-control select_style" [(ngModel)]="selectedsecgroup" (change)="SecurityGroupChanged();">
+                            <option [ngValue]="defaultsecgroup">请选择网络安全组</option>
+                            <option *ngFor="let secgroup of classicSecGrouplist" [ngValue]="secgroup">{{secgroup.SecurityGroupName}}</option>
+                        </select>
+                        <select *ngIf="(selectedOrderVmPage.selectedNetworkType=='vpc')" class="form-control select_style" [(ngModel)]="selectedsecgroup" (change)="SecurityGroupChanged();">
+                            <option [ngValue]="defaultsecgroup">请选择网络安全组</option>
+                            <option *ngFor="let secgroup of vpcSecGrouplist" [ngValue]="secgroup">{{secgroup.SecurityGroupName}}</option>
+                        </select>
                     </div>
 
                 </div>
             </li>
 
             <!-- 实例 -->
-            <li class="li_line_backgroud">
+            <li>
                 <div class="col-md-1 li-title">
-                    <p><span></span>实例：</p>
+                    <p><span class="icon-specifications"></span><br />实例：</p>
                 </div>
-                <div class="col-md-12 li-content">
-                    <div class="col-md-12 mgb20">
+                <div class="col-md-12 li-content" *ngIf="displayInstanceType">
+                    <div class="col-md-12 no-padding mgb5" style="display: inline">
+                        <div *ngFor="let gene of instancegenerations;" style="display: inline">
+                            <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedGeneration==gene.generation}' (click)="selectedOrderVmPage.selectedGeneration=gene.generation;
+                                     instancetypefamilies=gene.instancefamilyid;
+                                     instancetypes=instancetypefamilies[0].instanceTypeIDModelList;
+                                     selectedOrderVmPage.selectedInstanceFamily=instancetypefamilies[0].instancefamilyid;
+                                     selectedOrderVmPage.selectedInstanceType=instancetypes[0].InstanceTypeId;
+                                     setAndShowIO(); calculatePrice();" style="display: inline">{{gene.generation}}</button>
+                            <!-- 
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;" style="display: inline">系列 I</button>
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">系列 II</button>
-                        <span class="glyphicon glyphicon-question-sign"></span>
-                        <span class="mgl20">I/O实例优化</span>
-                        <span class="glyphicon glyphicon-question-sign"></span>
-                        <div class="text-tip">系列之间不能互相升降配</div>
-                        <div>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">系列 II</button> -->
                         </div>
+                    </div>
+                    <!--
+                    <static-tooltip [title]="tip_instanceType" placement="right">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                    </static-tooltip>
+                    
+                    <span class="mgl20">I/O实例优化</span>
+                    
+                    <static-tooltip [title]="tip_ioOptimized" placement="right">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                    </static-tooltip>
+                    -->
+                    <div class="text-tip mgb20">系列之间不能互相升降配</div>
+
+                    <div class="col-md-12 no-padding mgb20">
+                        <div *ngFor="let family of instancetypefamilies;" style="display: inline">
+                            <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceFamily==family.instancefamilyid}' (click)="selectedOrderVmPage.selectedInstanceFamily=family.instancefamilyid;
+                                     instancetypes=family.instanceTypeIDModelList;
+                                     selectedOrderVmPage.selectedInstanceType=instancetypes[0].InstanceTypeId; showInstanceType();" style="display: inline">{{family.instancefamilyid}}</button>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-12 no-padding mgb20">
+                        <div *ngFor="let type of instancetypes;" style="display: inline">
+                            <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceType==type.InstanceTypeId}' (click)="selectedOrderVmPage.selectedInstanceType=type.InstanceTypeId; showInstanceType();" style="display: inline">{{type.InstanceTypeId}}</button>
+                        </div>
+
                     </div>
                 </div>
             </li>
 
             <!-- 带宽 -->
-            <li class="li_line_backgroud">
+            <!--<li *ngIf="selectedOrderVmPage.AllocatePublicIP">-->
+            <li>
                 <div class="col-md-1 li-title">
-                    <p><span></span>带宽：</p>
+                    <p><span class="icon-wifi"></span><br />带宽：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">按固定带宽</button>
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">按使用流量</button>
-                        <span class="glyphicon glyphicon-question-sign"></span>
+                    <div class="col-md-12 no-padding">
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByBandwidth"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByBandwidth';showInternetChargeType();">按固定带宽</button>
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInternetChargeType=="PayByTraffic"}' (click)="selectedOrderVmPage.selectedInternetChargeType='PayByTraffic';showInternetChargeType();">按使用流量</button>
+                        <!--
+                        <static-tooltip [title]="tip_internetChargeType" placement="right">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </static-tooltip>
+                        -->
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 no-padding mgt10 mgb20">
                         预付费模式，带宽费用合并在ECS实例中收取
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 no-padding">
+                        <div class="col-md-6 no-padding">
 
-                        <div style="display: inline">
-                            <count-bar [step]="sendModulediskstepsizeattrValue" [max]="sendModulediskmaxsizeattrValue" [min]="sendModulediskinitialsizeattrValue" [stepCheck]=true [value]="sendModulediskinitialsizeattrValue" (output)="outputValue($event)">
-                            </count-bar>台
+                            <div class="col-md-12 no-padding">
+                                <table style="width: 100%" class="table_progress">
+                                    <tr>
+                                        <td colspan="4">
+                                            <div class="range_box">
+                                                <input type="range" min="1" max="200" [(ngModel)]="selectedOrderVmPage.selectedInternetMaxBandwidthOut" (input)="slide($event)" style="width: 100%;display: inline;" />
+                                                <!--
+                                                <div class="" [style.right]='(200-selectedOrderVmPage.selectedInternetMaxBandwidthOut)/2 + "%"' (click)="goBack($event)">
+                                                </div>
+                                                -->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr style="text-align: right;">
+                                        <td>
+                                            <span>50</span>
+                                        </td>
+                                        <td>
+                                            <span>100</span>
+                                        </td>
+                                        <td>
+                                            <span>150</span>
+                                        </td>
+                                        <td>
+                                            <span>200</span>
+                                        </td>
+                                    </tr>
+
+
+                                </table>
+                            </div>
+
                         </div>
-
+                        <div class="col-md-3  no-paddingmgl20">
+                            <count-bar [step]="1" [max]="200" [min]="0" [stepCheck]=true [value]="selectedOrderVmPage.selectedInternetMaxBandwidthOut" (output)="outputValue($event)">
+                            </count-bar>Mbps
+                        </div>
                     </div>
-                    <div class="col-md-12">
-                        系统会分配公网IP(不能解绑),若不需要分配公网IP,请选择带宽值0M。
-                    </div>
-                    <div class="col-md-12">
-                        阿里云免费提供最高5Gbps的恶意流量攻击防护，<a href="javascript: void(0);">了解更多>></a> <a href="javascript: void(0);">提升防护能力>></a>
+                    <div class="col-md-12 no-padding mgt20">
+                        系统会分配公网IP(不能解绑),若不需要分配公网IP或单独购买弹性公网IP访问公网,请选择带宽值0M。
                     </div>
                 </div>
             </li>
 
             <!-- 镜像 -->
+
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-amount"></span>镜像：</p>
+                    <p><span class="icon-image"></span><br />镜像：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12 mgb20 form-group">
+                    <div class="col-md-12  no-padding mgb20 form-group">
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">公共镜像</button>
+                        <!--
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">自定义镜像</button>
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">共享镜像</button>
-                        <span class="glyphicon glyphicon-question-sign"></span>
+                        -->
+                        <!--
+                        <static-tooltip [title]="tip_image" placement="right">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </static-tooltip>
+                        -->
                     </div>
-                    <div class="col-md-12 mgb20 form-group">
-                        <select class="form-control select_style">
-                            <option>请选择操作系统类别</option>
+                    <div class="col-md-12 no-padding mgb20 form-group">
+                        <select class="form-control select_style" [(ngModel)]="selectedImageFlatform" (change)="FormChanged();">
+                            <option [ngValue]="defaultImageFlatform">请选择操作系统类别</option>
+                            <option *ngFor="let imageplatform of images" [ngValue]="imageplatform">{{imageplatform.platformName}}</option>
                         </select>
-                        <select class="form-control select_style">
-                            <option>请选择版本</option>
+                        <select class="form-control select_style" [(ngModel)]="selectedImageItem" (change)="ImageChanged();">
+                            <option [ngValue]="defaultImageItem">请选择版本</option>
+                            <option *ngFor="let imageitem of selectedImageFlatform.images" [ngValue]="imageitem">{{imageitem.osname}}</option>
                         </select>
                         <a href="javascript:void(0);">
                         较我选择>>
@@ -152,18 +270,23 @@
             <!-- 存储 -->
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-amount"></span>存储：</p>
+                    <p><span class="icon-disk"></span><br />存储：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12 mgb20 form-group">
+                    <div class="col-md-12 no-padding mgb20 form-group">
                         <span>系统盘：</span>
-                        <select class="form-control select_style" [(ngModel)]="selectedOrderVmPage.selectedDisk" (change)="DiskChanged();">
-							<option value="">请选择云盘</option>
+                        <select class="form-control select_style" [(ngModel)]="selectedOrderVmPage.selectedDisk" (change)="DiskChanged();" style="display: inline;">
+							<option value="null">请选择云盘</option>
                             <option *ngFor="let disktype of selectedOrderVmPage.selectedArea.AvailableDiskCategories.DiskCategories" [value]="disktype">{{displayDiskType(disktype)}}</option>
 						</select>
-                        <input class="form-control input_style" [(ngModel)]="selectedOrderVmPage.diskCount" (change)="calculatePrice();" />G 1240 IOPS 系统盘设备名：/dev/xvda
+                        <div class="form-group has-feedback" [ngClass]="{'has-error':v.result.numberRange}" style="display: inline;">
+                            <input class="form-control input_style" [(ngModel)]="selectedOrderVmPage.diskCount" (ngModelChange)="checkForm('numberRange'); " (change)="DiskCountChanged();" />G 1240 IOPS 系统盘设备名：/dev/xvda
+                            <span *ngIf="v.result.numberRange" class="alert alert-danger" role="alert">{{v.result.numberRange}}</span>
+                        </div>
+                        <!--  
                         <br />
                         <span class="text-tip">如何选择SSD云盘/ 高效云盘/ 普通云盘，请看 <a href="javascript: void(0);">详细说明</a></span>
+                        -->
                     </div>
                     <!-- 
                     <div class="col-md-12 mgb20">
@@ -181,12 +304,12 @@
             </li>
 
             <!-- 购买量 -->
-            <li>
+            <li *ngIf="selectedOrderVmPage.selectedChargeType=='PrePaid'">
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-amount"></span>购买量：</p>
+                    <p><span class="icon-amount"></span><br />购买量：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12 mgb20">
+                    <div class="col-md-12 no-padding mgb20">
                         <div class="btn-chain" *ngFor="let mnum of this.service.quantity;" [ngClass]="{selected: selectedOrderVmPage.selectedQuantity==mnum.monthnum}" (click)="selectedOrderVmPage.selectedQuantity=mnum.monthnum; show(mnum);">
                             <div class="btn-content">
                                 {{mnum.displayValue}}
@@ -196,7 +319,12 @@
                             </span>
                             </div>
                         </div>
-                        <input type="checkbox" class="mgl10" />自动续费<span class="glyphicon glyphicon-question-sign"></span>
+                        <input type="checkbox" class="fox-cloud-checkbox mgl10" (click)="reNew();" />自动续费
+                        <!--
+                        <static-tooltip [title]="tip_renew" placement="right">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </static-tooltip>
+                        -->
 
                     </div>
                 </div>
@@ -205,78 +333,133 @@
             <!-- 安全设置 -->
             <li>
                 <div class="col-md-1 li-title">
-                    <p><span class="icon-amount"></span>安全设置：</p>
+                    <p><span class="icon-password"></span><br />安全设置：</p>
                 </div>
                 <div class="col-md-12 li-content">
-                    <div class="col-md-12 mgb20">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">设置密码
+                    <div class="col-md-12 no-padding mgb20">
+                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":true}' (click)="selectedOrderVmPage.selected=true;">设置密码
                         </button>
-                        <div class="text-tip">
+                        <div class="text-tip" style="display: inline-block;">
                             请牢记您所设置的密码，如遗忘可登陆ECS控制台重置密码
                         </div>
                     </div>
-                    <div class="col-md-12 mgb20">
-                        <div>
-                            <div class="form-group has-feedback" [ngClass]="{'has-error':v.result.password}">
-                                登陆密码：<input class="mgl20 form-control input_style" [(ngModel)]="selectedOrderVmPage.Password" (ngModelChange)="checkForm('password')" /> 8-30个字符，且同时包含三项(大写字母，小写字母，数字或特殊符号)
+                    <div class="col-md-12 no-padding mgb20">
+                        <div class="col-md-12 no-padding mgb20 has-feedback" [ngClass]="{'has-error':v.result.password}">
+                            <div style="min-width:65px;" style="display: inline;">登陆密码:</div>
+                            <input type="password" class="mgl20 input_style" [(ngModel)]="selectedOrderVmPage.Password" (ngModelChange)="checkForm('password')" /> 8-30个字符，且同时包含三项(大写字母，小写字母，数字或特殊符号)
+                        </div>
+                        <div class="col-md-12" *ngIf="v.result.password">
+                            <span class="alert alert-danger input_style" role="alert" style="margin-left:83px;">{{v.result.password}}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12 no-padding mgb20">
+                        <div class="has-feedback" [ngClass]="{'has-error':v.result.passwordCheck}">
+                            <div class="col-md-12 no-padding mgb20">
+                                <div style="min-width:65px;" style="display: inline;">确认密码: </div>
+                                <input type="password" class="mgl20 input_style" [(ngModel)]="selectedOrderVmPage.passwordCheck" (ngModelChange)="checkForm('passwordCheck')" />
                             </div>
-                            <div class="form-group has-feedback" [ngClass]="{'has-error':v.result.passwordCheck}">
-                                确认密码：<input class="mgl20 form-control input_style" [(ngModel)]="selectedOrderVmPage.passwordCheck" (ngModelChange)="checkForm('passwordCheck')" />
-                            </div>
-                            <div class="form-group has-feedback" [ngClass]="{'has-error':v.result.password}">
-                                实例名称：<input class="mgl20 form-control input_style" [(ngModel)]="selectedOrderVmPage.InstanceName" (ngModelChange)="checkForm('alicloud_instance')" placeholder="如不填写，系统自动默认生成" /> 长度为2-128个字符，以大小写字母或中文开头，可包含数字，".","_"或"-"
+                            <div class="col-md-12" *ngIf="v.result.passwordCheck">
+                                <span *ngIf="v.result.passwordCheck" class="alert alert-danger" role="alert" style="margin-left:83px;">{{v.result.passwordCheck}}</span>
                             </div>
                         </div>
-
                     </div>
-                </div>
-            </li>
+                    <div class="col-md-12 no-padding mgb20">
+                        <div class="has-feedback" [ngClass]="{'has-error':v.result.alicloud_instance}">
+                            <div class="col-md-12 no-padding mgb20">
+                                <div style="min-width:65px;" style="display: inline;">实例名称:</div>
+                                <input class="mgl20 input_style" [(ngModel)]="selectedOrderVmPage.InstanceName" (ngModelChange)="checkForm('alicloud_instance')" placeholder="如不填写，系统自动默认生成" /> 长度为2-128个字符，以大小写字母或中文开头，可包含数字，".","_"或"-"
+                            </div>
+                            <div class="col-md-12" *ngIf="v.result.alicloud_instance">
+                                <span *ngIf="v.result.alicloud_instance" class="alert alert-danger" role="alert" style="margin-left:83px;">{{v.result.alicloud_instance}}</span>
+                            </div>
+                        </div>
 
-            <li class="li_line_backgroud">
-                <div class="col-md-1 li-title">
-                    <p><span></span>当前配置：</p>
-                </div>
-                <div class="col-md-12 li-content">
-                    <div class="col-md-12">
-                        <div class=" float-right">
-                            <a href="javascript: void(0);">购买须知>></a>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-4">
-                            <span>地域：</span>
-                            <span>{{selectedOrderVmPageLocalName || ""}} ({{selectedOrderVmPageselectedAreaLocalName || ""}})</span>
-                        </div>
-                        <div class="col-md-4">
-                            <span>云盘：</span>
-                            <span>{{selectedOrderVmPagediskCount || ""}}G {{selectedOrderVmPageselectedDisk || ""}}</span>
-                        </div>
-                        <div class="col-md-4">
-                            <span>数量：</span>
-                            <span>{{selectedOrderVmPagecount || ""}}</span>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-        </ul>
-
-        <ul class="col-md-12 no-padding bottom-box">
-            <li>
-                <div class="col-md-12" style="padding: 35px 20px 25px 40px;">
-                    <div class="float-left">
-                        <span>配置费用：</span>
-                        <span>￥0.225/时</span>
-                    </div>
-                    <div class="float-right">
-                        <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true; buyNow();" class="btn button-orange-light">立即购买</button>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
 
+    <div class="col-md-3 right-box" style="min-height: 1900px;">
+        <ul>
+            <li style="border-top: none">
+                <p><span></span>当前配置</p>
+            </li>
+            <li>
+                <div class="li-content">
+                    <div class="mgb20">
+                        <table>
+                            <tr>
+                                <span>计费模式：</span>
+                                <span>{{selectedOrderVmPage.selectedChargeType || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>地域：</span>
+                                <span>{{selectedOrderVmPage.selectedArea.LocalName || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>实例规格：</span>
+                                <span>{{selectedOrderVmPage.selectedInstanceType || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>I/O优化：</span>
+                                <span>{{selectedOrderVmPage.ioOptimized_vm || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>网络：</span>
+                                <span>{{selectedOrderVmPage.selectedNetworkType || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>安全组：</span>
+                                <span>{{selectedOrderVmPage.SecurityGroupId || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>镜像：</span>
+                                <span>{{selectedOrderVmPage.selectedImage || ""}}</span>
+                            </tr>
+                            <tr>
+                                <span>系统盘：</span>
+                                <span>{{selectedOrderVmPage.selectedDisk || ""}}</span>
+                            </tr>
+                            <tr *ngIf="selectedOrderVmPage.selectedChargeType=='PrePaid'">
+                                <span>购买量：</span>
+                                <span>{{selectedOrderVmPage.selectedQuantity || ""}}</span>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div>
+                    <div class="mgb20">
+                        <table>
+                            <tr *ngIf="selectedOrderVmPage.price_traffic!=null">
+                                <span>公网流量费用：</span>
+                                <span *ngIf="selectedOrderVmPage.price_traffic!=''">￥</span> {{(selectedOrderVmPage.price_traffic) || ""}}
+                            </tr>
+                            <tr>
+                                <span>配置费用：</span>
+                                <span *ngIf="selectedOrderVmPage.price_instance!=''">￥</span> {{(selectedOrderVmPage.price_instance) || ""}}
+                            </tr>
+                            <!--
+                            <tr>
+                                <span>费用总计：</span>
+                                <span *ngIf="selectedOrderVmPage.price!=''">￥</span> {{(selectedOrderVmPage.price) || ""}}
+                            </tr>
+                            -->
+                        </table>
+                    </div>
+                    <div>
+                        <button style="width: 100%" class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true; buyNow();" class="btn button-orange-light">立即购买</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 
 </div>
-
-<fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="okClicked()"></fc-notice>
+<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{confirmCancelTitle}}" ct="{{confirmOKTitle}}"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{modalOKTitle}}" (of)="okClicked()"></fc-notice>

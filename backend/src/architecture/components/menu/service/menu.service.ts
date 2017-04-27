@@ -112,7 +112,7 @@ export class MenuService {
 						 	"label": "容量管理",
 						 	"isOpen": false,
 						 	"isActive": false,
-						 	"isShow": !isRoot,							
+						 	"isShow": !isRoot,
 						 	"routing": "mtc-center/capacity-mng/capacity-mng"
 						 }, {
 						 	"label": "超分管理",
@@ -149,6 +149,13 @@ export class MenuService {
 							"isShow": !isRoot,
 							"routing": "mtc-center/case-mng/case-list"
 						},
+                        {
+                            "label": "管理服务",
+                            "isOpen": false,
+                            "isActive": false,
+                            "isShow": !isRoot,
+                            "routing": "mtc-center/mng-service/mng-service-list"
+                        },
 					]
 				},
 				{
@@ -293,7 +300,7 @@ export class MenuService {
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
-							"routing": "ali-cloud/ali-cloud-mainAccount-list"
+							"routing": "ali-cloud/ali-cloud-mainAccount/ali-cloud-mainAccount-list"
 						}
 					]
 				},

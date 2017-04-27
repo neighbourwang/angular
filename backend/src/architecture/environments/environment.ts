@@ -12,9 +12,9 @@
 //      token ?　resolve(token) : reject("获取token失败！");
 //  });
 
-const isTest = window.localStorage["environment"] === "test" ;
-const baseIp = isTest ? "15.114.102.32" : "15.114.100.31";
-const basePort = isTest ? "31072" : "30072";
+const env = window.localStorage["environment"] ;
+const baseIp = env === "test" ? "15.114.102.62" : env === "oldtest" ? "15.114.102.32" : "15.114.100.31";
+const basePort = env === "test" || env === "oldtest" ? "31072" : "30072";
  
 export const environment = {
     production: true ,

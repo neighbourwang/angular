@@ -1,4 +1,4 @@
-import {SubInstanceItemResp} from "./";
+import {SubInstanceItemResp,SubInstanceAttrPair} from "./";
 
 
 //订单详情
@@ -26,7 +26,7 @@ export class OrderDetailItem {
   extendType:string;//自动续订方式
   period: number = null;//, optional): 购买周期 ,
   quantity: number = null;//, optional): 订购数量 ,
-
+  specList: Array<SubInstanceAttrPair> = null;
   isChecked:boolean = false;
 
   get isExtend():string{
@@ -83,8 +83,10 @@ export class OrderDetailItem {
     else
       return null;
   }
-
+  get periodType():number{//单位
+    return this.productBillingItem ? this.productBillingItem.periodType : null;
+  }
   relatedSubInstanceList:Array<OrderDetailItem> = [];
 
-  relatedOrderList:Array<OrderDetailItem> = [];
+  hisOrderList:Array<OrderDetailItem> = [];
 }

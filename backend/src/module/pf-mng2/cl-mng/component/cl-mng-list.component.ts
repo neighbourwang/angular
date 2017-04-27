@@ -337,7 +337,11 @@ export class ClMngListComponent implements OnInit {
     resetInit(item){
         console.log(item)
         this.idService.setPlatformId(item.id);
-        item.status=='0'&&this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: item.platformType }]);
+        if(item.platformType=='2'){
+            this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: item.platformType }]);
+        }else if(item.platformType=='3'){
+            this.router.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step2", { type: item.platformType }]);             
+        }
     }
 
     //管理启动盘
@@ -347,6 +351,8 @@ export class ClMngListComponent implements OnInit {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else if(platForm.status==0){
             this.notice.open('COMMON.OPERATION_ERROR','不能操作初始化初始化状态云平台，请先重置资源并启用平台');//不能操作初始化云平台
+        }else if(platForm.platformType=="3"){
+            this.notice.open('操作错误','桌面云暂不支持启动盘功能')
         }else{
             this.router.navigate(["pf-mng2/pf-mng-bootDisk", {id:platForm.id,type:platForm.platformType,name:platForm.name}]);
         }
@@ -359,7 +365,9 @@ export class ClMngListComponent implements OnInit {
             this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.SELECT_PLATFORM');
         } else if(platForm.status==0){
             this.notice.open('COMMON.OPERATION_ERROR','不能操作初始化初始化状态云平台，请先重置资源并启用平台');//不能操作初始化云平台
-        }else {
+        }else if(platForm.platformType=="3"){
+            this.notice.open('操作错误','桌面云暂不支持规格设置')
+        }else{
             this.router.navigate(["pf-mng2/pf-mng-cloudHostSpec", {id:platForm.id,type:platForm.platformType,name:platForm.name}]);
         }
     }

@@ -9,6 +9,8 @@ import { SearchOrderDetail, AdminListItem, DepartmentItem
 	, SubInstanceItemResp1} from '../model'
 import {DictService} from '../../../../architecture/core/service/dict-service';
 
+import { MyDatePicker  } from '../../../../architecture/components/date-picker/my-date-picker.component';
+
 import * as _ from 'underscore';
 @Component({
 	selector: 'order-mng-search',
@@ -20,6 +22,12 @@ export class OrderMngSearchComponent implements OnInit{
 
 	@ViewChild("notice")
   	private _notice: NoticeComponent;
+
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
 
 	private _param:OrderMngParam = new OrderMngParam();
 
@@ -60,18 +68,9 @@ export class OrderMngSearchComponent implements OnInit{
 				for(let i = 0; i < obj.subInstanceList.length; i++)
 				{
 					obj.subInstanceList[i] = _.extendOwn(new SubInstanceItemResp1(), item.subInstanceList[i]);
-					//费用总计-一次性费用：单价basePrice*数量
-					//obj.subInstanceList[i].oneTimePrice = obj.subInstanceList[i].billingInfo.basePrice*obj.subInstanceList[i].quantity;
-					
-					//费用总计-费用-云主机
-					// if(obj.subInstanceList[i].serviceType=='0'){
-					// 	obj.subInstanceList[i].price = obj.subInstanceList[i].billingInfo.basicPrice*obj.subInstanceList[i].quantity*obj.subInstanceList[i].period;
-					// }else if(obj.subInstanceList[i].serviceType=='1'){
-					// 	obj.subInstanceList[i].price = obj.subInstanceList[i].billingInfo.unitPrice*obj.subInstanceList[i].quantity;
-					// }
 				}
-			}
-		}
+		 	}
+	    }
 		this._orderDetailLoader.Trait = (items:Array<SearchOrderDetail>)=>{
 			let firstItem = this._orderDetailLoader.FirstItem;
 
@@ -134,8 +133,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 					if(item.billingInfo.billingMode == 0)//包月包年
 					{
-						obj.price = item.billingInfo.cyclePrice;
-						// obj.price = item.billingInfo.basicPrice + item.billingInfo.cyclePrice;
+						obj.price = item.billingInfo.basicPrice;
 					}	
 					else if(item.billingInfo.billingMode == 1)//按量
 					{
@@ -273,6 +271,8 @@ export class OrderMngSearchComponent implements OnInit{
 
 	resetParam(){
 		this._buyerLoader.clear();
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
 		this._param.reset();
 		
 	}

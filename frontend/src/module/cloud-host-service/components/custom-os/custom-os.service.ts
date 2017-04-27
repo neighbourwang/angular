@@ -20,7 +20,7 @@ export class CustomOsService {
 
         let handleData = {
             id: uuid,
-            actions: "createImage",
+            actions: "start",
             enterpriseIds : {
                 platformId,
                 enterpriseId : this.userInfo.enterpriseId

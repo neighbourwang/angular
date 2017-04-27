@@ -6,8 +6,8 @@ export class StorageModel {
     storageType: string;
     capacity: string;
     copy: number; //副本数
-    peie: string;
-    qurta: number;//分配率
+    quota: string;
+    rate: number;//分配率
     usage: number;//利用率
     status: string;
 }

@@ -4,7 +4,7 @@ import { RestApiCfg, RestApi } from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
-import { RegionModel, keysecretModel, diskOrderModel, diskListModel } from '../model/cloud-disk.model';
+import { RegionModel, keysecretModel, diskOrderModel, diskListModel, GetDisksSubmitModel, DiskQueryObject } from '../model/cloud-disk.model';
 
 @Injectable()
 export class AliCloudDiskService {
@@ -115,36 +115,57 @@ export class AliCloudDiskService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
-    getDiskList(pageIndex: number, pageSize: number, regionid: string): Promise<any> {
+    getDiskList(pageIndex: number, pageSize: number, regionid: string, queryObject: DiskQueryObject): Promise<any> {
         const pathParams = [
             {
                 key: "regionid",
                 value: regionid
             }
         ];
-        const body = {
-            "accessinfo": {
-                "accessId": this.keysecret.accessId,
-                "accessSecret": this.keysecret.accessSecret
-            },
-            "conditionModel": {
-                "pageNumber": pageIndex,
-                "pageSize": pageSize,
+        let body: GetDisksSubmitModel = new GetDisksSubmitModel();
+        body.accessinfo.accessId = this.keysecret.accessId;
+        body.accessinfo.accessSecret = this.keysecret.accessSecret;
+        body.conditionModel.pageNumber = pageIndex;
+        body.conditionModel.pageSize = pageSize;
+
+        if (queryObject.keyword != "") {
+            switch (queryObject.criteria) {
+                case "disk_name":
+                    body.conditionModel.diskName = queryObject.keyword;
+                    break;
+                case "disk_ids":
+                    let diskIds: Array<string> = [];
+                    diskIds = queryObject.keyword.replace(/\s+/g, "").split(",");
+                    console.log(diskIds);
+                    body.conditionModel.diskIds = diskIds;
+                    break;
+                case "instance_id":
+                    body.conditionModel.instanceId = queryObject.keyword;
+                    break;
+                case "snapshot_id":
+                    body.conditionModel.snapshotId = queryObject.keyword;
+                    break;
+                default:
+                    console.log("queryObject.keyword don't match any criteria");
             }
         }
+
         console.log(body, "body");
+        let str = JSON.stringify(body);
+        console.log(str);
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.disklist.get");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
-    attachDisk(diskItem: diskListModel): Promise<any> {
+    attachDisk(diskItem: diskListModel, instanceId: string, deletewithinstance: boolean): Promise<any> {
         const body = {
             "accessinfo": {
                 "accessId": this.keysecret.accessId,
                 "accessSecret": this.keysecret.accessSecret
             },
             "diskId": diskItem.DiskId,
-            "instanceId": ""//????????????????????
+            "instanceId": instanceId,
+            "deleteWithInstance": deletewithinstance
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.disk.attach");
@@ -158,7 +179,7 @@ export class AliCloudDiskService {
                 "accessSecret": this.keysecret.accessSecret
             },
             "diskId": diskItem.DiskId,
-            "instanceId": ""//????????????????????
+            "instanceId": diskItem.InstanceId
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.disk.detach");
@@ -178,6 +199,29 @@ export class AliCloudDiskService {
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.diskorder.delete");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    updateDisk(disk: diskListModel): Promise<any> {
+        const pathParams = [
+            {
+                key: "diskid",
+                value: disk.DiskId
+            }
+        ];
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "deleteAutoSnapshot": null,
+            "deleteWithInstance": null,
+            "description": null,
+            "diskName": disk.DiskName,
+            "enableAutoSnapshot": null
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-disk.property.modify");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 

@@ -92,6 +92,7 @@ export class AccountMngListComponent implements OnInit {
                 console.log(res);
                 this.accounts = res.resultContent;
                 this.tp = res.pageInfo.totalPage;
+                this.isMybody();
                 this.layoutService.hide();
             }
             )
@@ -101,6 +102,17 @@ export class AccountMngListComponent implements OnInit {
                 this.layoutService.hide();
             }
             );
+    }
+    //判断是否是本人账户
+    isMybody(){
+        let myId=JSON.parse(sessionStorage['userInfo']).userId;
+        console.log(myId);
+        for(let acc of this.accounts){
+            if(acc.id==myId){
+             acc.isMybody=true;
+             console.log(this.accounts);             
+            }
+        }
     }
 
     //获取角色列表0
@@ -160,6 +172,8 @@ export class AccountMngListComponent implements OnInit {
                 this.accounts = res.resultContent;
                 if(this.accounts.length==0){
                     this.notice.open('',"未找到跟 '"+this.keyword+"' 相关的账户信息");
+                }else{
+                    this.isMybody();                                    
                 }
                 this.tp = res.pageInfo.totalPage;
             }

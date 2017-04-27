@@ -1,3 +1,5 @@
+<fc-notice #notice ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
+
 <div class="CostPandect">	
 	<div class="page-content-header icon-operator-Blank">消费总览</div>
 	<div class="page-content">
@@ -89,7 +91,7 @@
                 <div class="col-sm-6">
                     <div class="console-box">
                         <div class="console-title" *ngIf='!this.isNullEnterprise()'>TOP5部门新增总额排名</div>
-						<div class="console-title" *ngIf='this.isNullEnterprise()'>TOP5企业消费总额排名</div>
+						<div class="console-title" *ngIf='this.isNullEnterprise()'>TOP5企业新增消费总额排名</div>
 						  <canvas baseChart
                           width="200" *ngIf="topIncreaseChart" height="70"
                           [datasets]="topIncreaseChart.datasets"
@@ -137,14 +139,14 @@
                         <tr class="text-center" *ngFor="let item of allServiceLoader.Items;">
 							<td colspan="5">
 								<table class="cart-info">
-									<tr *ngFor="let priceItem of item.priceDetails">
+									<tr  *ngFor="let priceItem of item.priceDetails">
 										<td class="vertical-center"><a (click)='showDetail(item)'>{{item.subinstanceCode}}</a></td>
                             			<td class="vertical-center">{{item.productName}}</td>
                             			<td class="vertical-center">{{item.num}}</td>
 										<td>
 											{{priceItem.billName}}
 										</td>
-										<td class="vertical-center">&nbsp;&nbsp;￥{{item.total_amount}}</td>
+										<td class="vertical-center"><span *ngIf="!priceItem.isShow" >&nbsp;&nbsp;￥{{priceItem.amount}}</span><span *ngIf="priceItem.isShow">&nbsp;&nbsp;￥{{item.total_amount}}</span></td>
 									</tr>
 									 
 								</table>
@@ -178,7 +180,7 @@
 										<td>
 											{{priceItem.billName}}
 										</td>
-										<td class="vertical-center">&nbsp;&nbsp;￥{{item.total_amount}}</td>
+										<td class="vertical-center"><span *ngIf="!priceItem.isShow" >&nbsp;&nbsp;￥{{priceItem.amount}}</span><span *ngIf="priceItem.isShow">&nbsp;&nbsp;￥{{item.total_amount}}</span></td>
 									</tr>
 									 
 								</table>

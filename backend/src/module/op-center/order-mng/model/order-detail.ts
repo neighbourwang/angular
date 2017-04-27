@@ -1,3 +1,4 @@
+import {SubInstanceItemResp,SubInstanceAttrPair} from "./";
 //订单详情
 export class OrderDetailItem {
   instanceId:string = null;//订单ID
@@ -20,6 +21,8 @@ export class OrderDetailItem {
   description:string;//说明,接口里无字段，之前用已有字段代替的
   billingModeName:string = null;//计费模式
   extendType : string;//自动续订方式
+  itemList:SubInstanceItemResp[] = [];
+  specList: Array<SubInstanceAttrPair> = null;
   get isExtend():string{
     if(this.extendType=='0')
       return '否';
@@ -33,7 +36,10 @@ export class OrderDetailItem {
     else
       return null;
   }
-
+  get periodType():number{//单位
+    return this.productBillingItem ? this.productBillingItem.periodType : null;
+  }
+  
   productBillingItem:{
     billingId:string;
     billingMode:number;
@@ -61,7 +67,7 @@ export class OrderDetailItem {
     {
       if(this.productBillingItem.billingMode == 0)//包年包月
       {
-        return this.productBillingItem.basicPrice + this.productBillingItem.cyclePrice;
+        return this.productBillingItem.basicPrice;
       }
       else if(this.productBillingItem.billingMode == 1)//一次性费用
       {
@@ -76,5 +82,5 @@ export class OrderDetailItem {
 
   relatedSubInstanceList:Array<OrderDetailItem> = [];//关联订单
 
-  relatedOrderList:Array<OrderDetailItem> = [];
+  hisOrderList:Array<OrderDetailItem> = [];
 }

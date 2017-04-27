@@ -13,8 +13,8 @@
 				<li><a (click)="isEditState = true" href="javascript:">{{'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | translate}}</a></li>
 
 				<li>
-				  <unsubscribe #unsubscribeVm [name]="vm?.instanceName" [id]="vm?.subInstanceId"></unsubscribe>
-				  <a (click)="unsubscribeVm.delectVm()" href="javascript:">{{'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | translate}}</a>
+				  <unsubscribe #unsubscribeVm title="云主机退订" [subid]="vm?.subInstanceId"></unsubscribe>
+				  <a (click)="unsubscribeVm.open()" href="javascript:">{{'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | translate}}</a>
 				</li>
 			</ul>
 		</div>
@@ -96,14 +96,14 @@
 						  <span *ngIf="!isEditState">{{vm?.serviceLevel | dict:service.serviceLevel | async}}</span>
 					  </div>
 					  <div class="line-box">
-					  	<div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.LABEL' | translate}}:</font></div>
-					  	<div class="col-md-10 no-padding" *ngIf="!isEditState">{{ postData.labelIds?.join(",") }}</div>
-					  	<div class="col-md-10 no-padding" *ngIf="isEditState">
-					  		<tag-input 
-					  			(onDatasChanged)="labelDatasChange($event)"
-					  			[datas]='postData.labelIds'>
-					  		</tag-input>
-					  	</div>
+						<div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.LABEL' | translate}}:</font></div>
+						<div class="col-md-10 no-padding" *ngIf="!isEditState">{{ postData.labelIds?.join(",") }}</div>
+						<div class="col-md-10 no-padding" *ngIf="isEditState">
+							<tag-input 
+								(onDatasChanged)="labelDatasChange($event)"
+								[datas]='postData.labelIds'>
+							</tag-input>
+						</div>
 					  </div>
 					  <div class="line-box">
 						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.DESCRIPTION' | translate}}:</font></div>    
@@ -142,6 +142,9 @@
 				</div>
 		   </div>
 		   
+		</div>
+		<div class="col-md-6 info-menu">
+			
 			  <div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingFourth" data-toggle="collapse" data-parent="#accordion" href="#collapseFourth" aria-expanded="true" aria-controls="collapseFourth">
 				  <h4 class="panel-title">
@@ -211,7 +214,7 @@
 				</div>
 		   </div>
 		</div>
-		<div class="col-md-6 info-menu">
+		<!-- <div class="col-md-6 info-menu">
 			<div class="host-detail-chart">
 				<div class="main-head">
 					<span class="icon-chart icon float-left"></span>
@@ -287,7 +290,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
 

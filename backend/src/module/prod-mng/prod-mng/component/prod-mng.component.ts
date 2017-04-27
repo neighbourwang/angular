@@ -4,7 +4,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent} from '../../../../architecture';
 //service
 import { ProdListService } from '../service/prodList.service';
 import { ProdDirListService } from '../service/prodDirList.service';
@@ -116,7 +116,6 @@ export class ProdMngComponent implements OnInit {
                     this.prodDirList.slice(i,1);
                 }
             }
-            console.log('filterparodlist',this.prodDirList);
         }).catch(err => {
             console.error(err)
         })
@@ -172,7 +171,7 @@ export class ProdMngComponent implements OnInit {
         this.prodList = this.getProduct();
         console.log(this.prodList);
         if (this.prodList.length < 1) {
-            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PRODUCT_CAT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PRODUCT_CAT=>请选择产品目录 
+            this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PRODUCT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PRODUCT_CAT=>请选择产品 
         } else {
             let message: string = '';
             for (let dir of this.prodList) {
@@ -246,19 +245,13 @@ export class ProdMngComponent implements OnInit {
     //编辑按钮
     edit() {
         console.log('edit');
-    }
-
-    //创建按钮
-    creation() {
-        //跳转
-        console.log('create');
-        this.router.navigateByUrl("prod-mng/prod-mng/prod-cre", { skipLocationChange: true });
-
-    }
+    }    
     //去编辑详情页面
     goDetail(item) {
         console.log(item);
-        this.router.navigate(["prod-mng/prod-mng/prod-detail", {id:item.id,type:item.serviceType}]);
+        if(item.serviceType=='0'||item.serviceType=='1'){
+            this.router.navigate(["prod-mng/prod-mng/prod-detail", {id:item.id,type:item.serviceType}]);            
+        }
     }
 
     backend(page: number, size: number, data: any) {
@@ -296,7 +289,7 @@ export class ProdMngComponent implements OnInit {
         console.log(page);
         this.backend(page, this.pp, {});
     }
-
+    //创建按钮    
     createProd(){
         this.createPop.open('PROD_MNG.CREATE_PRODUCT')
     }
@@ -310,7 +303,12 @@ export class ProdMngComponent implements OnInit {
             }
         })
     }
-    otcreate(){        
-         this.router.navigate(["prod-mng/prod-mng/prod-mng-cre-1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);
-    }
+    otcreate(){
+        if(this.prodDirTypeCre=='PHYMACHINE_SERVICE'){
+            this.router.navigate(["prod-mng/physical-prod-mng/prod-mng-cre-step1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);            
+        }else if(this.prodDirTypeCre=='VITRUALDISK_SERVICE'||this.prodDirTypeCre=='VITRUALMACHINE_SERVICE'){
+            this.router.navigate(["prod-mng/prod-mng/prod-mng-cre-1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);                       
+        }else if(this.prodDirTypeCre=='SUPERVISE_SERVICE'){
+        }        
+    }    
 }

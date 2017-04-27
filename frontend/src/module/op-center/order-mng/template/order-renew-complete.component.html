@@ -22,7 +22,7 @@
 								<ul *ngIf="prodItem.serviceType>1">
 									<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 								</ul>
-									<vm-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==0"></vm-view>
+									<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0"></vm-view>
 									<!-- 显示云主机 -->
 									<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view>
 							</td>
@@ -32,7 +32,7 @@
 							<td>{{prodItem.quantity}}台</td>
 							<td style="width: 100px;">
 								{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥0<br/>
-							<span>费用:￥{{prodItem.price}}/</span><span *ngIf="prodItem.serviceType==1">GB</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
+							<span>费用:￥{{prodItem.price}}/</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
 							</td>
 							<td class="font-green">审批中</td>
 							<td>{{prodItem.expireDate}}</td>

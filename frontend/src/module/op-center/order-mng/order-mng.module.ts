@@ -6,6 +6,8 @@ import { CommonComponentModule } from '../../../architecture';
 
 import { OrderCancleModule } from '../components/order-cancel/order-cancel.module';
 
+import { UnsubscribeModule } from '../../cloud-host-service/components/unsubscribe/unsubscribe.module';
+
 // Routing
 import { OrderMngRouting } from './order-mng.routing';
 
@@ -21,6 +23,7 @@ import {OrderMngDetailComponent, OrderMngComponent,OrderMngRenewComponent
         CommonComponentModule,
         OrderMngRouting,
         OrderCancleModule,
+        UnsubscribeModule,
         PipeModule
     ],
     declarations: [

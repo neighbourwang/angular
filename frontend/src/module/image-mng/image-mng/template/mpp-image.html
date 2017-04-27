@@ -1,5 +1,5 @@
 <div class="page-content cloud_mirror">
-    <div class="col-md-12">
+    <div class="col-md-12 no-padding">
         <h1 class="page-content-header">{{'COMMON.MIRROR' | translate}}</h1>
         <ul class="left-box-mirror" style="margin-bottom:20px;">
             <li>
@@ -9,7 +9,7 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 btn-group" data-toggle="buttons">
                         <label class="btn btn-default fix-width-140 mgt5" [ngClass]="{'active':queryOpt.areaList == ''}" (click)="queryOpt.areaId=''">
-                            <input type="radio" name="location" [checked]="queryOpt.areaList == ''" autocomplete="off"> 所有
+                            <input type="radio" name="location" [checked]="queryOpt.areaList == ''" autocomplete="off"> {{'COMMON.ALL' | translate}}
                         </label>
                         <label *ngFor="let area of areaList;" class="btn btn-default fix-width-140 mgt5" title="{{area.name}}" [ngClass]="{'active':queryOpt.areaId == area.id}" (click)="queryOpt.areaId = area.id;">
                             <input type="radio" name="location" autocomplete="off" [checked]="queryOpt.areaList == area.id">{{area.name}}
@@ -103,77 +103,73 @@
             -->
         </div>
         <table class="table table-hover mgb20">
-            <thead>
-                <tr>
-                    <th class="text-center" style="width:47px">{{'IMAGE.CHOOSE' | translate}}</th>
-                    <th class="text-center">{{'IMAGE.IMAGE_NAME' | translate}}</th>
-                    <!--<th class="text-center">{{'IMAGE.IMAGE_TYPE' | translate}}</th>-->
-                    <th class="text-center">{{'IMAGE.OPERATING_SYSTEM' | translate}}</th>
-                    <th class="text-center">{{'IMAGE.SYSTEM_BITS' | translate}}</th>
-                    <th class="text-center">{{'IMAGE.IMAGE_CAPACITY'| translate}}</th>  <!--新增镜像容量，删除状态列-->
-                    <th class="text-center">{{'IMAGE.FOUNDER'| translate}}</th>
-                    <th class="text-center">{{'IMAGE.CREATED_DEPARTMENT'| translate}}</th>
-                    <th class="text-center">{{'COMMON.CREATED_TIME'| translate}}</th>
-                    <th class="text-center">{{'IMAGE.STATUS'| translate}}</th>
-                    <th class="text-center"style="width:150px">{{'COMMON.DESCRIPTION'| translate}}</th>
-                    <th class="text-center">{{'COMMON.OPERATION'| translate}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let image of images">
-                    <td class="text-center">
-                        <input type="radio" class="fox-cloud-radio" name="group-image" [checked]="image.selected" (change)="image.selected = $event.target.checked" />
-                    </td>
-                    <!--<td class="text-center" style="word-wrap:break-word">{{image.name}} -->
-                    <td class="text-center" style="position:relative">{{image.name}} 
-                        <span class="pull-right icon-edit2" style="padding: 10px 10px" (click)="openEidtDisplayName(image);image.nameEditing=true;"></span>
-                        <div *ngIf="image.nameEditing"class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; left:10px; width:400px; max-width:1100px; display: block;z-index:50">
-                                <div class="arrow" style="left: 40%;"></div>
-                                <div class="popover-content">
-                                    <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label"style="font-weight:700">{{'IMAGE.IMAGE_NAME' | translate}}:</label>
-                                            <div class="col-sm-8 float-left">
-                                                <input type="text"  class="form-control"[(ngModel)]="temp2.name" name ="name">
-                                                <div>长度为2-68个字符,以大小写字母或中文开头,可包含数字,".","-","_"</div>
-                                            </div>
-                                            
+            <tr>
+                <th class="text-center" style="width:47px">{{'IMAGE.CHOOSE' | translate}}</th>
+                <th class="text-center">{{'IMAGE.IMAGE_NAME' | translate}}</th>
+                <!--<th class="text-center">{{'IMAGE.IMAGE_TYPE' | translate}}</th>-->
+                <th class="text-center">{{'IMAGE.OPERATING_SYSTEM' | translate}}</th>
+                <th class="text-center">{{'IMAGE.SYSTEM_BITS' | translate}}</th>
+                <th class="text-center">{{'IMAGE.IMAGE_CAPACITY'| translate}}</th>  <!--新增镜像容量，删除状态列-->
+                <th class="text-center">{{'IMAGE.FOUNDER'| translate}}</th>
+                <th class="text-center">{{'IMAGE.CREATED_DEPARTMENT'| translate}}</th>
+                <th class="text-center">{{'COMMON.CREATED_TIME'| translate}}</th>
+                <th class="text-center">{{'IMAGE.STATUS'| translate}}</th>
+                <th class="text-center"style="width:150px">{{'COMMON.DESCRIPTION'| translate}}</th>
+                <th class="text-center">{{'COMMON.OPERATION'| translate}}</th>
+            </tr>
+            <tr *ngFor="let image of images">
+                <td class="text-center">
+                    <input type="radio" class="fox-cloud-radio" name="group-image" [checked]="image.selected" (change)="image.selected = $event.target.checked" />
+                </td>
+                <!--<td class="text-center" style="word-wrap:break-word">{{image.name}} -->
+                <td class="text-center" style="position:relative">{{image.name}} 
+                    <span class="pull-right icon-edit2" style="padding: 10px 10px" (click)="openEidtDisplayName(image);image.nameEditing=true;"></span>
+                    <div *ngIf="image.nameEditing"class="popover fade bottom in" role="tooltip" style="position:absolute;top:30px; left:10px; width:400px; max-width:1100px; display: block;z-index:50">
+                            <div class="arrow" style="left: 40%;"></div>
+                            <div class="popover-content">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label"style="font-weight:700">{{'IMAGE.IMAGE_NAME' | translate}}:</label>
+                                        <div class="col-sm-8 float-left">
+                                            <input type="text"  class="form-control"[(ngModel)]="temp2.name" name ="name">
+                                            <div>{{'IMAGE.NOTICE1' | translate}}</div>
                                         </div>
-                                    </form>
-                                <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class="fox-cloud-button fox-cloud-button-white"(click)="image.nameEditing=false;">{{'DIALOG.CLOSE'|translate}}</button>
-                                    <button class=" fox-cloud-button fox-cloud-button-white"(click)="updateImageName()">{{'DIALOG.SAVE'|translate}}</button>
-                                
-                                </div>
-                                </div>
-                        </div>
-                    </td>
-                    <!--<td class="text-center">
-                        {{image.type | dict:this.service.typeDic | async}}
-                    </td>-->
-                    <td class="text-center">{{image.os | dict:this.service.osDic | async}}</td>
-                    <td class="text-center">
-                        {{image.bits | dict:this.service.bitDic | async}}
-                    </td>
-                    <td class="text-center">{{ image.capacity | formatCapacity}}</td>
-                    <td class="text-center" style="word-wrap:break-word">{{image.creatorName}}</td>
-                    <td class="text-center" style="word-wrap:break-word">{{image.orgName}}</td>
-                    <td class="text-center">{{image.createTime}} </td>
-                    <!--<td class="text-center">{{image.progress}}%</td>-->
-                    <td class="text-center" [ngClass]="{'font-green':image.status=='0','font-green':image.status=='1','font-orange':image.status=='2'}">
-                        {{image.status | dict:this.service.statusDic | async}} 
-                    </td>
-                    <td class="text-center " style="word-wrap:break-word">{{image.description}}</td>
-                    <td class="text-center">
-                        <!--<div *ngIf="image.type !=0">-->
-                            <span class="icon icon-edit2 pointer" (click)="openEidtPanel(image);" style="padding: 1px 10px"></span>
-                            <span class="icon icon-enable pointer" (click)="endisable(image,'1');"style="padding: 1px 10px"></span>
-                            <span class="icon icon-disable pointer" (click)="endisable(image,'2');"style="padding: 1px 10px"></span>
-                            <span class="icon icon-delete3 pointer" (click)="deleteImage(image);" style="padding: 1px 10px"></span>
-                        <!--</div>-->
-                    </td>
-                </tr>
-            </tbody>
+                                        
+                                    </div>
+                                </form>
+                            <div class="pull-right" style="margin-bottom:10px;">
+                                <button class="fox-cloud-button fox-cloud-button-white"(click)="image.nameEditing=false;">{{'DIALOG.CLOSE'|translate}}</button>
+                                <button class=" fox-cloud-button fox-cloud-button-white"(click)="updateImageName()">{{'DIALOG.SAVE'|translate}}</button>
+                            
+                            </div>
+                            </div>
+                    </div>
+                </td>
+                <!--<td class="text-center">
+                    {{image.type | dict:this.service.typeDic | async}}
+                </td>-->
+                <td class="text-center">{{image.os | dict:this.service.osDic | async}}</td>
+                <td class="text-center">
+                    {{image.bits | dict:this.service.bitDic | async}}
+                </td>
+                <td class="text-center">{{ image.capacity | formatCapacity}}</td>
+                <td class="text-center" style="word-wrap:break-word">{{image.creatorName}}</td>
+                <td class="text-center" style="word-wrap:break-word">{{image.orgName}}</td>
+                <td class="text-center">{{image.createTime}} </td>
+                <!--<td class="text-center">{{image.progress}}%</td>-->
+                <td class="text-center" [ngClass]="{'font-green':image.status=='0','font-green':image.status=='1','font-orange':image.status=='2'}">
+                    {{image.status | dict:this.service.statusDic | async}} 
+                </td>
+                <td class="text-center " style="word-wrap:break-word">{{image.description}}</td>
+                <td class="text-center">
+                    <!--<div *ngIf="image.type !=0">-->
+                        <span class="icon icon-edit2 pointer" (click)="openEidtPanel(image);" style="padding: 1px 10px"></span>
+                        <span class="icon icon-enable pointer" (click)="endisable(image,'1');"style="padding: 1px 10px"></span>
+                        <span class="icon icon-disable pointer" (click)="endisable(image,'2');"style="padding: 1px 10px"></span>
+                        <span class="icon icon-delete3 pointer" (click)="deleteImage(image);" style="padding: 1px 10px"></span>
+                    <!--</div>-->
+                </td>
+            </tr>
         </table>
         <div class="fox-cloud-pagination-container">
             <fc-pagination #pager tp={{totalPage}} (pf)="getImageList($event)"></fc-pagination>
@@ -226,7 +222,7 @@
             <div class="col-sm-4 form-control-title">{{'IMAGE.CUSTOM_IMAGE_DESCRIPTION'| translate}}:</div>
             <div class="col-sm-7">
                 <textarea class="form-control" rows="3" [(ngModel)]="editImage.description"></textarea>
-                <div>长度为2-256个字符 </div>
+                <div>{{'IMAGE.NOTICE2' | translate}}</div>
             </div>
         </div>
     </div>

@@ -2,13 +2,16 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
-import {PlfModel, RegionModel, ZoneModel} from"../model/plf.model";
-import {BasicModel, Percent}from "../model/basic.model";
-import {BarItem} from"../model/bar-item.model";
+import { PlfModel, RegionModel, ZoneModel } from "../model/plf.model";
+import { BasicModel, Percent } from "../model/basic.model";
+import {GrowthRate, DateRate} from "../model/growth-rate.model";
+import { Bar, ZoneBar, Item } from "../model/bar.model";
+import { ComputeQuery } from "../model/compute-query.model";
+import { GrowthRatelist_mock } from '../model/growth-rate-list.mock';
 //service
 import { ComputeTrendService } from "../service/compute-trend.service";
 const echarts = require('echarts');
-
+//git commit test
 @Component({
     selector: "compute-trend",
     templateUrl: "../template/compute-trend.html",
@@ -22,7 +25,7 @@ export class ComputeTrendComponent implements OnInit {
         private layoutService: LayoutService,
         private validationService: ValidationService
     ) {
-        
+
     }
 
     @ViewChild("notice")
@@ -31,8 +34,12 @@ export class ComputeTrendComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
 
-    analysisType = "1";
-    isSelected: boolean;
+
+    showType:number;
+    isSelected=false;
+    hostId: string;
+
+    queryOpt: ComputeQuery = new ComputeQuery();
     //平台联动列表
     defaultPlf: PlfModel = new PlfModel();
     selectedPlf: PlfModel = this.defaultPlf;
@@ -42,29 +49,38 @@ export class ComputeTrendComponent implements OnInit {
     selectedZone: ZoneModel = this.defaultZone;
 
     plfList: Array<PlfModel>;
+    cloudHostSpecList: Array<string>;
     basicList: Array<BasicModel>;
-    legendList: Array<string>;
-    cpuData: Array<BarItem>;
-    legendLen: number;
-    cpuLen: number;
+    growthRateList: Array<GrowthRate>;
+    //growthRateList=GrowthRatelist_mock.resultContent;
+
+    cpuData: Bar = new Bar();
+    vmData: Bar = new Bar();
+    memData: Bar = new Bar();
 
     ngOnInit() {
+        this.queryOpt.queryType = "1";
+        this.defaultPlf.platformId = 'all';
+        this.defaultRegion.regionId = 'all';
+        this.defaultZone.zoneId = 'all';
+        this.queryOpt.flaovarId = '';
         this.getPlfList();
-        this.getBasicList();
-        this.getLegend();
-        this.getCpuData();
+        this.getCloudHostSpec();
+        
+        console.log('Dic',this.service.queryTypeDic);
+        this.reset();
     }
 
     //获取平台联动列表
     getPlfList() {
         this.layoutService.show();
-        this.service.getPlfList()  
+        this.service.getPlfList()
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && "100" == response["resultCode"]) {
                     this.plfList = response["resultContent"];
-                   
+
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -73,10 +89,27 @@ export class ComputeTrendComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    //post 待完善
+    //获取云主机规格
+    getCloudHostSpec() {
+        this.layoutService.show();
+        this.service.getCloudHostSpec()
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.cloudHostSpecList = response["resultContent"];                   
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    //获取基本信息表格数据
     getBasicList() {
         this.layoutService.show();
-        this.service.getBasicList()  
+        this.service.getBasicList(this.queryOpt)
             .then(
             response => {
                 this.layoutService.hide();
@@ -90,36 +123,19 @@ export class ComputeTrendComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
     }
-    
 
-    getLegend() {
-        this.layoutService.show();
-        this.service.getLegend()  
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && "100" == response["resultCode"]) {
-                    this.legendList = response["resultContent"];
-                    console.log("legend", this.legendList);
-                    this.legendLen = this.legendList.length;
-                } else {
-                    this.showAlert("COMMON.OPERATION_ERROR");
-                }
-            }
-            )
-            .catch((e) => this.onRejected(e));
-    }
+    
 
     getCpuData() {
         this.layoutService.show();
-        this.service.getCpuData()  
+        this.service.getCpuData(this.hostId)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && "100" == response["resultCode"]) {
                     this.cpuData = response["resultContent"];
                     console.log("cpuData", this.cpuData);
-                    this.cpuLen = this.cpuData.length;
+                    this.showChart(this.cpuData, 1);
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -128,128 +144,252 @@ export class ComputeTrendComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    showChart() {
-        let ar = [[1, 23], [3, 4]];
-        
-        let cpuSeries= new Array<any>();
-        let finalData = new Array<any>();
-        
-        let cpuTemp = this.cpuData;
-        let final1 = new Array<any>();
-        let final2 = new Array<any>();
-        let final3 = new Array<any>();
-        let final4 = new Array<any>();
-        let final5 = new Array<any>();
-        let final6 = new Array<any>();
-        for (let i = 0; i < this.cpuLen; i++) {
-           
-            final1.push(cpuTemp[i]._2Core);
-            final2.push(cpuTemp[i]._4Core);           
-            final3.push(cpuTemp[i]._8Core);
-            final4.push(cpuTemp[i]._16Core);
-            final5.push(cpuTemp[i]._32Core);
-            final6.push(cpuTemp[i].Total);
+    
+
+    getMemData() {
+        this.layoutService.show();
+        this.service.getMemData(this.hostId)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.memData = response["resultContent"];
+                    console.log("memData", this.memData);
+                    this.showChart(this.memData, 3);
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    getDefaultflaovarId() {
+        if (this.queryOpt.queryType == "2") {
+            this.queryOpt.flaovarId = 'all';
         }
-        finalData[0] = final1;
-        finalData[1] = final2;
-        finalData[2]=final3;
-        finalData[3]=final4;
-        finalData[4] = final5;
-        finalData[5]=final6;
-        let j = 0;
-        for (; j < this.legendLen; j++) {
-            cpuSeries.push({
-                name: this.legendList[j],
-                type: 'bar',
-                stack: '广告',
-                data: finalData[j],
-                label: {
-                    normal: {
-                        show: true,
-                        formatter: function (value) {
-                            return (value.data * 100).toFixed(1) + "%"
+        else {
+            this.queryOpt.flaovarId = '';
+        }
+    }
+
+    confirm() {
+        this.queryOpt.platformId = this.selectedPlf.platformId;
+        this.queryOpt.regionId = this.selectedRegion.regionId;
+        this.queryOpt.zoneId = this.selectedZone.zoneId;
+        if (this.selectedZone == this.defaultZone) {
+            if (this.isSelected == false) {
+                this.hostId = 'all';
+            }
+            else {
+                this.hostId = 'each';
+            }
+        } else {
+            this.hostId = this.selectedZone.zoneId;
+        }
+                    
+
+        if (this.queryOpt.queryType == "1") {
+            this.showType = 1;
+            
+            this.getBasicList();
+            this.getCpuData();
+
+        } else if (this.queryOpt.queryType == "2") {
+            this.showType = 2;
+            this.layoutService.show();
+            Promise.all([this.service.getGrowthRateList(this.queryOpt), this.service.getVmData(this.hostId)])
+            .then((arr) =>{
+                this.layoutService.hide();
+                this.growthRateList= arr[0];
+                this.vmData = arr[1];
+                this.showChart(this.vmData, 2);
+            }).catch((e) => this.onRejected(e));
+            
+
+        } else if (this.queryOpt.queryType == "3") {
+            this.showType = 3;
+           
+            this.getBasicList();
+            this.getMemData();
+     
+        }
+    }
+
+    reset() {
+        
+        this.selectedPlf=this.defaultPlf;
+        this.selectedRegion=this.defaultRegion;
+        this.selectedZone = this.defaultZone;
+        
+        this.queryOpt.powerStatus = '0';
+       // this.queryOpt.flaovarId = 'all';
+        this.queryOpt.period = '1';
+    }
+
+    showChart(chartData: Bar, showType: number) {
+        let thx = chartData.thx;
+        let zonesData = chartData.zone;
+     
+
+        for (let m = 0; m < zonesData.length; m++) {
+            let sum = new Array<number>();
+            let TempSeries = new Array<any>();
+            let TempLegend = new Array<string>();
+            let chartId = '';
+            if (showType == 1) {
+                chartId = 'cpuchart' + m;
+            } else if (showType == 2) {
+                chartId = 'vmchart' + m;
+            } else if (showType == 3) {
+                chartId = 'memchart' + m;
+            }
+
+
+            //获取第m个可用区的series
+            let zoneSeries = zonesData[m].series;
+            let dataLength = zoneSeries[0].data.length;
+            //获取‘总计’数据
+            for (let i = 0; i < dataLength; i++) {
+                sum[i] = 0;
+                for (let j = 0; j < zoneSeries.length; j++) {
+                    sum[i] += zoneSeries[j].data[i];
+                }
+            }
+            console.log("sum", sum);
+
+            for (let k = 0; k < zoneSeries.length; k++) {
+                TempLegend.push(zoneSeries[k].name);
+                TempSeries.push({
+                    name: zoneSeries[k].name,
+                    type: 'bar',
+                    stack: '广告',
+                    data: zoneSeries[k].data,
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: function (value) {
+                                return (value.data * 100).toFixed(1) + "%"
+                            }
                         }
                     }
-                }
-            });
-   
-        }
-        cpuSeries.push({
+                });
+            }
+
+            TempSeries.push({
                 name: '总计',
                 type: 'line',
-                
-                data: finalData[j],
+
+                data: sum,
                 label: {
                     normal: {
                         show: true,
                         formatter: function (value) {
-                            return (value.data * 1000).toFixed(0) 
+                            
+                            return (value.data * zonesData[m].total[value.dataIndex]).toFixed(0);
                         },
                         textStyle: {
-                                color: "#000"
+                            color: "#000"
                         }
                     }
                 },
                 itemStyle: {
-                        normal: {
-                            color: "transparent"
-                        }
-                }
-        });
-
-        var myChart = echarts.init(document.getElementById('mychart'));
-        var option = {
-            tooltip: {
-                show: false,
-
-            },
-            legend: {
-                data: ['2Core', '4Core', '8Core','16Core','32Core']
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: [
-                {
-                    type: 'category',
-                    data: ['2017-01', '2017-02', '2017-03', '2017-04']
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'value',
-                    axisLabel: {
-                        formatter: function (value, index) {
-
-                            return value * 100 + "%"
-                        }
+                    normal: {
+                        color: "transparent"
                     }
                 }
-            ],
-            series:cpuSeries           
-        };
+            });
 
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+
+
+            let option = {
+                tooltip: {
+                    show: false,
+
+                },
+                legend: {
+                    data: TempLegend
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: thx
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: function (value, index) {
+
+                                return value * 100 + "%";
+                            }
+                        }
+                    }
+                ],
+                series: TempSeries
+            };
+
+           
+                window.setTimeout(() => {
+                    let myChart = echarts.init(document.getElementById(chartId));
+                        myChart.setOption(option);
+                    },
+                    10);
+          
+
+
+        }
+
+
     } //函数结尾
 
-    confirm() {
-        if (this.analysisType == "2") {
-        
-        this.showChart();
-        }
+    exportCurrent() {
+        this.layoutService.show();
+        this.service.exportCurrent(this.queryOpt);  
+            //.then(
+            //response => {
+            //    this.layoutService.hide();
+            //    if (response && 100 == response["resultCode"]) {
+            //        console.log('export current');
+            //    } else {
+            //        this.showAlert("COMMON.OPERATION_ERROR");
+            //    }
+            //}
+            //)
+            //.catch((e) => this.onRejected(e));
     }
+
+    exportAll() {
+        this.layoutService.show();
+        this.service.exportAll();  
+            //.then(
+            //response => {
+            //    this.layoutService.hide();
+            //    if (response && 100 == response["resultCode"]) {
+            //        console.log('export current');
+            //    } else {
+            //        this.showAlert("COMMON.OPERATION_ERROR");
+            //    }
+            //}
+            //)
+            //.catch((e) => this.onRejected(e));
+    }
+
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
         this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
     }
 
-     showAlert(msg: string): void {
+    showAlert(msg: string): void {
         this.layoutService.hide();
 
         this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";

@@ -7,6 +7,8 @@ import { MemSyncComponent} from '../components/mem-sync/mem-sync.component';
 import { StorageSyncComponent} from '../components/storage-sync/storage-sync.component';
 import { VtSyncComponent} from '../components/volumeType-sync/vt-sync.component';
 import { HostSyncComponent} from '../components/host-sync/host-sync.component';
+import { ProgressBarComponent } from '../components/progress-bar/progress.component'; 
+
 
 import { ZoneSyncService } from '../components/zone-sync/zone-sync.service'; 
 import { HostSyncService } from '../components/host-sync/host-sync.service'; 
@@ -24,16 +26,17 @@ import { VtSyncService } from '../components/volumeType-sync/vt-sync.service';
         HostSyncComponent,
         StorageSyncComponent,
         MemSyncComponent,
-        VtSyncComponent,
-
-        
+        VtSyncComponent, 
+        ProgressBarComponent       
     ],
     exports: [
         ZoneSyncComponent,
         HostSyncComponent,
         StorageSyncComponent,
         MemSyncComponent,
-        VtSyncComponent
+        VtSyncComponent,
+        ProgressBarComponent    
+       
     ],
     providers: [
         ZoneSyncService,

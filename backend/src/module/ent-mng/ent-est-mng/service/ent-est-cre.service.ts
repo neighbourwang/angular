@@ -230,11 +230,11 @@ export class EntEstCreService{
 					obj.entId = item.enterpriseId as string;
 					obj.name = item.name as string;
 					obj.category = item.serviceName as string;
-					obj.type = item.serviceType as string;
-					obj.spec = item.serviceSpedification;
-					obj.countCycle = item.billingCycle as string;
-					obj.cyclePrice = item.recurringPrice as number;
-					obj.oneTimePrice = item.basicPrice as number;
+					obj.type = item.serviceType as string;//产品类别
+					obj.spec = item.serviceSpecification;//产品规格
+					obj.countCycle = item.billingCycle as string;//计费周期
+					obj.cyclePrice = item.basicPrice as number;//周期价格
+					obj.oneTimePrice = item.onetimePrice  as number;//一次性费用
 					obj.status = item.status;
 					obj.description = item.description;
 				}
@@ -332,7 +332,7 @@ export class EntEstCreService{
 				,"msg": "ENT_MNG.INVALID_EMAIL"
 			},"integer":{ 
 				"func": val=>!this.validation.isInteger(val)
-				,"msg": "COMMON.CANNOT_BE_INTEGER"
+				,"msg": "为无效值！"
 			}
 		}
 

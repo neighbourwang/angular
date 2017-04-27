@@ -24,35 +24,35 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>{{"PF_MNG2.PLATFORM_RESOURCES" | translate}}</th>
-                        <th>{{"PF_MNG2.SYNC_STATE" | translate}}</th>
-                        <th></th>
+                        <th style="width:40%;line-height:35px;">{{"PF_MNG2.PLATFORM_RESOURCES" | translate}}</th>
+                        <th style="width:40%;line-height:35px;">{{"PF_MNG2.SYNC_STATE" | translate}}</th>
+                        <th style="width:20%"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>{{"COMMON.AVAILABLE_ZONE" | translate}}</td>
-                        <td>{{creStep2Model.zones}}</td>
+                        <td style="line-height:35px;">{{"COMMON.AVAILABLE_ZONE" | translate}}</td>
+                        <td style="line-height:35px;">{{creStep2Model.zones}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.zonesStatus"></span></td>
                     </tr>
                     <tr>
-                        <td>{{"COMMON.STORAGE" | translate}}</td>
-                        <td>{{creStep2Model.storages}}</td>
+                        <td style="line-height:35px;">{{"COMMON.STORAGE" | translate}}</td>
+                        <td style="line-height:35px;">{{creStep2Model.storages}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.storagesStatus"></span></td>
                     </tr>
                     <tr>
-                        <td>{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</td>
-                        <td>{{creStep2Model.flavors}}</td>
+                        <td style="line-height:35px;">{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</td>
+                        <td style="line-height:35px;">{{creStep2Model.flavors}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.flavorsStatus"></span></td>
                     </tr>
                     <tr>
-                        <td>{{"COMMON.IMAGE" | translate}}</td>
-                        <td>{{creStep2Model.images}}</td>
+                        <td style="line-height:35px;">{{"COMMON.IMAGE" | translate}}</td>
+                        <td style="line-height:35px;">{{creStep2Model.images}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.imagesStatus"></span></td>
                     </tr>
                     <tr>
-                        <td>{{"PF_MNG2.HOST" | translate}}</td>
-                        <td>{{creStep2Model.hosts}}</td>
+                        <td style="line-height:35px;">{{"PF_MNG2.HOST" | translate}}</td>
+                        <td style="line-height:35px;">{{creStep2Model.hosts}}</td>
                         <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.hostsStatus"></span></td>
                     </tr>
                     </tbody>
@@ -73,12 +73,9 @@
     </div>
 </div>
 <div class="text-center">
-    <button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancel();" [disabled]="!creStep2Model.isNext">
+    <button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancel();" [disabled]="!creStep2Model.isBack">
         <span class="icon-button-label">{{"COMMON.RETURN" | translate}}</span>
-    </button>
-    <!--<button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();" [disabled]="!creStep2Model.isNext">
-        <span class="icon-button-label">{{"COMMON.PREVIOUS" | translate}}</span>
-    </button>-->
+    </button>    
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20 btn" (click)="next();" [disabled]="!creStep2Model.isNext">
         <span class="icon-button-label">{{"COMMON.NEXT" | translate}}</span>
     </button>
@@ -87,4 +84,3 @@
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
 
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>

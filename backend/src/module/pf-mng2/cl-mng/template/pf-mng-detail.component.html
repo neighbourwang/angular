@@ -15,7 +15,7 @@
                 <div class="row row-line-height">
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">
-                            <span class="asterisk">*</span>{{ 'USER_CENTER.PLATFORM_NAME' | translate }}: 
+                            <span class="asterisk">*</span>{{ 'USER_CENTER.PLATFORM_NAME' | translate }}:
                         </div>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" [(ngModel)]="platform.name" placeholder="{{'PF_MNG2.PLATFORM_REQUIRED'|translate}}">
@@ -44,7 +44,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row row-line-height">
                     <div class="form-group">
 
@@ -70,10 +69,8 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row row-line-height">
                     <div class="form-group">
-
                         <div class="col-sm-4 form-control-title">
                             <span class="asterisk">*</span> {{'PF_MNG2.VERSION' | translate}}:
                         </div>
@@ -84,7 +81,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row row-line-height">
                     <div class="form-group">
 
@@ -96,10 +92,8 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row row-line-height">
                     <div class="form-group">
-
                         <div class="col-sm-4 form-control-title">
                             <span class="asterisk">*</span> {{'COMMON.PASSWORD' | translate}}:
                         </div>
@@ -114,8 +108,10 @@
                             <span class="asterisk">*</span> {{'PF_MNG2.SUPPORT_CLOUD_HOST_CHANGES' | translate}}:
                         </div>
                         <div class="col-sm-4">
-                            <input type="radio" class="fox-cloud-radio" [value]="1" [(ngModel)]="platform.support" name="support" style="margin-right:10px;">{{'PF_MNG2.SUPPORT' | translate}}
-                            <input type="radio" class="fox-cloud-radio" [value]="0" [(ngModel)]="platform.support" name="support" style="margin:0 10px 0 20px;">{{'PF_MNG2.NONSUPPORT' | translate}}
+                            <input type="radio" class="fox-cloud-radio" [value]="1" [(ngModel)]="platform.support" name="support" style="margin-right:10px;">{{'PF_MNG2.SUPPORT'
+                            | translate}}
+                            <input type="radio" class="fox-cloud-radio" [value]="0" [(ngModel)]="platform.support" name="support" style="margin:0 10px 0 20px;">{{'PF_MNG2.NONSUPPORT'
+                            | translate}}
                         </div>
                     </div>
                 </div>
@@ -132,7 +128,7 @@
     </div>
 </div>
 <div *ngIf="Tabels[1].active">
-    <div class="page-content">
+    <div class="page-content" *ngIf="platformType!='3'">
         <div style="padding-bottom: 10px;">
             <!--<button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
                 <span class="icon-button-label" (click)='updateResourcePop()'>同步计算资源</span>
@@ -189,9 +185,9 @@
                         </td>
                         <td [ngClass]="{'font-green':zone.status == '1' ,'font-orange':zone.status == '3'}">
                             <span [ngSwitch]="zone.status">
-                                <template [ngSwitchCase]="0">未启用</template>
-                                <template [ngSwitchCase]="1">已启用</template>
-                                <template [ngSwitchCase]="2">已禁用</template>
+                                <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="1">{{'COMMON.ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="2">{{'COMMON.UNABLED'| translate}}</template>
                                 <template ngSwitchDefault>Unknown</template>
                     	    </span>
                             <!--{{zone.status|dict:this.commonService.globalStatus|async}}-->
@@ -219,14 +215,106 @@
             </table>
         </div>
     </div>
-    <zone-sync #zoneSync [zoneList]="updateZoneList" (complete)=getZoneList()> </zone-sync>
+    <div class="page-content" *ngIf="platformType=='3'">
+        <div style="padding-bottom: 10px;">
+            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" *ngIf="false">
+                <span class="icon-button-label" (click)='autoSyncDeskSet()'>自动同步桌面设置</span>
+             </button>
+            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
+                <span class="icon-button-label" (click)='updateZone()'>{{'PF_MNG2.SYNC_AVAILABLE_ZONE' | translate}}</span>
+            </button>
+            <div style="clear:both"></div>
+        </div>
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <!--<th >#</th>-->
+                        <th class="check-box-col" style="width:6%">DC/Region</th>
+                        <th style="width:6%">{{'PF_MNG2.AVAILABLE_ZONE_NAME' | translate}}</th>
+                        <th style="width:8%">{{'CAPACITY_MNG.DISPLAY_NAME' | translate}}</th>
+                        <th style="width:15%">{{'PF_MNG2.HOST' | translate}}</th>
+                        <th style="width:8%">{{'CAPACITY_MNG.PHYSICAL_CPU_CORES' | translate}}</th>
+                        <th style="width:10%">{{'PF_MNG2.TOTAL_MEMORY' | translate}}(MB)</th>
+                        <th style="width:9%">{{'PF_MNG2.DESK_CLOUD_EXMAPLE_COUNTS' | translate}}</th>
+                        <th style="width:6%">{{'COMMON.STATUS' | translate}}</th>
+                        <th style="width:16%">{{'COMMON.COMMENT' | translate}}</th>
+                        <th style="width:18%">{{'COMMON.OPERATION' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let zone of zoneList;let idx=index">
+                        <!--<td>{{idx+1}}</td>-->
+                        <td>
+                            <p *ngFor="let dcOrRegion of zone.dcOrRegion" style="padding:0;margin-bottom: 0">{{dcOrRegion}}</p>
+                            <!--{{zone.dcOrRegion||'NULL'}}-->
+                        </td>
+                        <td>{{zone.name||'NULL'}}</td>
+                        <td>
+                            <span *ngIf="!zone.isEdit">{{zone.displayName||'NULL'}}</span>
+                            <input *ngIf="zone.isEdit" type="text" [(ngModel)]="zone.displayName" name="displayName">
+                        </td>
+                        <td>
+                            <p *ngFor="let host of zone.hosts">{{host||0}}</p>
+                        </td>
+                        <td>{{zone.vcpunum}}</td>
+                        <td>{{zone.memSize}}</td>
+                        <td>{{zone.vmNumbers||0}}</td>
+                        <td [ngClass]="{'font-green':zone.status == '1' ,'font-orange':zone.status == '3'}">
+                            <span [ngSwitch]="zone.status">
+                                <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="1">{{'COMMON.ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="2">{{'COMMON.UNABLED'| translate}}</template>
+                                <template ngSwitchDefault>Unknown</template>
+                    	    </span>
+                            <!--{{zone.status|dict:this.commonService.globalStatus|async}}-->
+                        </td>
+                        <td>
+                            <span *ngIf="!zone.isEdit">{{zone.description}}</span>
+                            <input *ngIf="zone.isEdit" type="text" class="form-control" [(ngModel)]="zone.description" style="display: inline;" name="description">
+                        </td>
+                        <td>
+                            <div *ngIf="!zone.isEdit">
+                                <button *ngIf="false" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone)">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="false" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone)">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editZone(zone,idx)">{{'COMMON.EDIT' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateHostPop(zone.id)">{{'PF_MNG2.SYNC_HOST' | translate}}</button>
+                            </div>
+
+                            <div *ngIf="zone.isEdit">
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveZone(zone,idx)">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEdit(zone,idx)">{{'COMMON.CANCEL' | translate}}</button>
+                            </div>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <fc-popup #syncDeskPop title="{{title}}" ot="COMMON.SAVE" (of)="otSaveSyncDesk()" ct="HOST_OPENSTACK_MNG.CANCEL"
+            (cf)="ccf()">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-6 form-control-title">{{'自动同步时间间隔'| translate}}:</div>
+                    <!--选择产品目录-->
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="col-sm-4 form-control-title" style="text-align:left">
+                        分钟
+                    </div>
+                </div>
+            </div>
+        </fc-popup>
+    </div>
+    <zone-sync #zoneSync [zoneList]="updateZoneList" [type]="platformType" (complete)=getZoneList()> </zone-sync>
     <host-sync #hostSync [zone]="hostList" (complete)=getZoneList()> </host-sync>
     <fc-confirm #enableZoneConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="enableZoneCof()" ct="HOST_VMWARE_MNG.CANCEL"
-    (cf)="ccf()"></fc-confirm>
-<fc-confirm #deleteZoneConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="deleteZoneCof()" ct="HOST_VMWARE_MNG.CANCEL"
-    (cf)="ccf()"></fc-confirm>
-<fc-confirm #suspendZoneConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="suspendZoneCof()" ct="HOST_VMWARE_MNG.CANCEL"
-    (cf)="ccf()"></fc-confirm>
+        (cf)="ccf()"></fc-confirm>
+    <fc-confirm #deleteZoneConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="deleteZoneCof()" ct="HOST_VMWARE_MNG.CANCEL"
+        (cf)="ccf()"></fc-confirm>
+    <fc-confirm #suspendZoneConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="suspendZoneCof()" ct="HOST_VMWARE_MNG.CANCEL"
+        (cf)="ccf()"></fc-confirm>
 </div>
 <div *ngIf="Tabels[2].active">
     <div class="page-content">
@@ -234,12 +322,14 @@
             <div style="font-size: 16px;padding-left: 0;float:left">
                 <span style="line-height: 34px;">后端存储( Backends )信息 :</span>
             </div>
+            <button class="fox-cloud-button-md fox-cloud-button-white mgl20" style="float:right" *ngIf="false">
+                <span class="icon-button-label" (click)='autoSyncCapacitySet()'>{{'自动同步存储容量设置' | translate}}</span>
+             </button>
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
                 <span class="icon-button-label" (click)='updateStorageListPop()'>{{'PF_MNG2.SYNC_STORAGE_BACKEND' | translate}}</span>
-             </button>
+             </button>             
             <div style="clear:both"></div>
         </div>
-        
         <div class="table-container" *ngIf="platformType==0">
             <table class="table table-hover">
                 <thead>
@@ -272,13 +362,14 @@
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
-                            <input *ngIf="storage.isEdit" type="number" class="form-control" min="0" max="100" [(ngModel)]="storage.quotaPercentDisplay" style="width: 100px; display: inline;">
+                            <input *ngIf="storage.isEdit" type="number" class="form-control" min="0" max="100" [(ngModel)]="storage.quotaPercentDisplay"
+                                style="width: 100px; display: inline;">
                         </td>
                         <td [ngClass]="{'font-green':zone?.status == '1' ,'font-orange':zone?.status == '3'}">
                             <span [ngSwitch]="storage.status">
-                                <template [ngSwitchCase]="0">未启用</template>
-                                <template [ngSwitchCase]="1">已启用</template>
-                                <template [ngSwitchCase]="2">已禁用</template>
+                                <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="1">{{'COMMON.ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="2">{{'COMMON.UNABLED'| translate}}</template>
                                 <template ngSwitchDefault>Unknown</template>
                     	    </span>
                             <!--{{storage.status|dict:this.commonService.globalStatus|async}}-->
@@ -304,7 +395,7 @@
             </table>
         </div>
         <div class="mgt30" style="padding-bottom: 10px;" *ngIf="platformType=='0'">
-            <div  style="font-size: 16px;padding-left: 0;float:left" >
+            <div style="font-size: 16px;padding-left: 0;float:left">
                 <span style="line-height: 34px;">卷类型( Volume Type )信息 :</span>
             </div>
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
@@ -312,7 +403,6 @@
              </button>
             <div style="clear:both"></div>
         </div>
-        
         <div class="table-container no-padding" *ngIf="platformType=='0'">
             <table class="table table-hover">
                 <thead>
@@ -332,19 +422,19 @@
                         <td>{{volumeType.name}}</td>
                         <td>
                             <span *ngIf="!volumeType.isEdit">{{volumeType.displayName||'NULL'}}</span>
-                            <input *ngIf="volumeType.isEdit" class="form-control"  [(ngModel)]="volumeType.displayName" style="display: inline;">
+                            <input *ngIf="volumeType.isEdit" class="form-control" [(ngModel)]="volumeType.displayName" style="display: inline;">
                         </td>
                         <td>{{volumeType.volumeBackendName}}</td>
                         <td>
                             <span [ngSwitch]="volumeType.status">
-                                <template [ngSwitchCase]="0">初始化</template>
-                                <template [ngSwitchCase]="1">已启用</template>
-                                <template [ngSwitchCase]="2">已禁用</template>
+                                <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="1">{{'COMMON.ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="2">{{'COMMON.UNABLED'| translate}}</template>
                                 <template ngSwitchDefault>Unknown</template>
                             </span>
                         </td>
                         <td>
-                            <span *ngIf="!volumeType.isEdit">{{volumeType.description||'NULL'}}</span>                            
+                            <span *ngIf="!volumeType.isEdit">{{volumeType.description||'NULL'}}</span>
                             <input *ngIf="volumeType.isEdit" class="form-control" [(ngModel)]="volumeType.description" style="display: inline;">
                         </td>
                         <td>
@@ -357,11 +447,10 @@
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveVolumeType(volumeType,idx)">{{'COMMON.SAVE' | translate}}</button>
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditVolumeType(volumeType,idx)">{{'COMMON.CANCEL' | translate}}</button>
                             </div>
-                        </td>                        
+                        </td>
                     </tr>
                 </tbody>
             </table>
-            
         </div>
         <div class="table-container" *ngIf="platformType==2">
             <table class="table table-hover">
@@ -398,14 +487,14 @@
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
-                            <input *ngIf="storage.isEdit" [class.border-error]="!storage.valid" type="number" min="0" max="100" class="form-control" [(ngModel)]="storage.quotaPercentDisplay"
-                                style="width: 100px; display: inline;" (blur)="keepSame(storage)">
+                            <input *ngIf="storage.isEdit" [class.border-error]="!storage.valid" type="number" min="0" max="100" class="form-control"
+                                [(ngModel)]="storage.quotaPercentDisplay" style="width: 100px; display: inline;" (blur)="keepSame(storage)">
                         </td>
                         <td [ngClass]="{'font-green':storage.status == '1' ,'font-orange':storage.status == '3'}">
                             <span [ngSwitch]="storage.status">
-                                <template [ngSwitchCase]="0">未启用</template>
-                                <template [ngSwitchCase]="1">已启用</template>
-                                <template [ngSwitchCase]="3">已禁用</template>
+                                <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="1">{{'COMMON.ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="2">{{'COMMON.UNABLED'| translate}}</template>
                                 <template ngSwitchDefault>Unknown</template>
                     	    </span>
                             <!--{{storage.status|dict:this.commonService.globalStatus | async}}-->
@@ -416,8 +505,8 @@
                         </td>
                         <td>
                             <div *ngIf="!storage.isEdit">
-                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage.id)">{{'COMMON.ENABLE' | translate}}</button>
-                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage.id)">{{'COMMON.DISABLE' | translate}}</button>
+                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage)">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage)">{{'COMMON.DISABLE' | translate}}</button>
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">{{'COMMON.EDIT' | translate}}</button>
                                 <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
                             </div>
@@ -430,22 +519,90 @@
                 </tbody>
             </table>
         </div>
-
+        <div class="table-container" *ngIf="platformType==3">
+            <table class="table table-hover mgt20">
+                <thead>
+                    <tr>
+                        <!--<th>#</th>                        -->
+                        <th>{{'COMMON.NAME' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.DISPLAY_NAME' | translate}}</th>
+                        <th>{{'CAPACITY_MNG.STORAGE_TYPE' | translate}}</th>
+                        <th>{{"PF_MNG2.AVAI_STORAGE" | translate}}</th>
+                        <th>{{"PF_MNG2.SURPLUS_STORAGE" | translate}}</th>
+                        <th style="width:100px">{{"PF_MNG2.OCCU_STORAGE" | translate}}</th>
+                        <th>{{'COMMON.STATUS' | translate}}</th>
+                        <th>{{'COMMON.COMMENT' | translate}}</th>
+                        <th style="width:15%">{{'COMMON.OPERATION' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let storage of storageList;let idx=index">
+                        <!--<td>1</td>-->
+                        <td>{{storage.name}}</td>
+                        <td>
+                            <span *ngIf="!storage.isEdit">{{storage.displayName||'NULL'}}</span>
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.displayName">
+                        </td>
+                        <td>{{storage.typeDisplayName}}</td>
+                        <td>{{storage.freeCapacity||0}}</td>
+                        <td>
+                            {{storage.uncommited||0}}
+                        </td>
+                        <td>
+                            {{storage.allocatedCapacity||0}}
+                        </td>
+                        <td [ngClass]="{'font-green':zone?.status == '1' ,'font-orange':zone?.status == '3'}">
+                            <span [ngSwitch]="storage.status">
+                                <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="1">{{'COMMON.ENABLED'| translate}}</template>
+                                <template [ngSwitchCase]="2">{{'COMMON.UNABLED'| translate}}</template>
+                                <template ngSwitchDefault>Unknown</template>
+                    	    </span>
+                            <!--{{storage.status|dict:this.commonService.globalStatus|async}}-->
+                        </td>
+                        <td>
+                            <span *ngIf="!storage.isEdit">{{storage.description||'NULL'}}</span>
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" style=" display: inline;">
+                        </td>
+                        <td>
+                            <div *ngIf="!storage.isEdit">
+                                <button *ngIf="false" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage)">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="false" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage)">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">{{'COMMON.EDIT' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
+                            </div>
+                            <div *ngIf="storage.isEdit">
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">{{'COMMON.CANCEL' | translate}}</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <fc-popup #syncCapacityPop title="{{title}}" ot="COMMON.SAVE" (of)="otSaveSyncCapacity()" ct="HOST_OPENSTACK_MNG.CANCEL"
+            (cf)="ccf()">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-6 form-control-title">{{'自动同步时间间隔'| translate}}:</div>
+                    <!--选择产品目录-->
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="col-sm-4 form-control-title" style="text-align:left">
+                        分钟
+                    </div>
+                </div>
+            </div>
+        </fc-popup>
+        </div>
         <storage-sync #storageSync [type]="platformType" [storageList]="updateStorageList" (complete)="getStorageList()"></storage-sync>
         <mem-sync #memSync [storage]="updateStorageMem" (complete)="getStorageList()"></mem-sync>
         <vt-sync #volumeTypeSync [volumeTypeList]="updateVolumeTypeList" (complete)="getVolumeTypeList()"></vt-sync>
-        <fc-confirm #enableStorageConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="enableStorageCof()" ct="HOST_VMWARE_MNG.CANCEL"
-    (cf)="ccf()"></fc-confirm>
-        <fc-confirm #suspendStorageConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="suspendStorageCof()" ct="HOST_VMWARE_MNG.CANCEL"
-    (cf)="ccf()"></fc-confirm>
+        <fc-confirm #enableStorageConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="enableStorageCof()"
+            ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+        <fc-confirm #suspendStorageConfirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="suspendStorageCof()"
+            ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
     </div>
 </div>
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
-
-
-
-
-    
-
-       

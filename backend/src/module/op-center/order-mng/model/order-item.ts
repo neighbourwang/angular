@@ -21,8 +21,11 @@ export class SubInstanceItemResp {
   specList: Array<SubInstanceAttrPair> = null;//[SubInstanceAttrPair], optional): 产品规格 ,
   status: string = null;//, optional): UI订单状态，需要查询数据字典
   buyer: string = null;//订购人
-  departmentName: string = null;//所属部门
-
+  departmentName: string = null;//所属部门platform:string;
+platform:string;
+privateIp:string;
+publicIp:string;
+osType:string;
   get billingMode():number{//包装计费模式
     return this.billingInfo ? this.billingInfo.billingMode : null;
   }
@@ -31,9 +34,26 @@ export class SubInstanceItemResp {
     return this.billingInfo ? this.billingInfo.basePrice : 0;
   }
 
-  get price():number{
-    return this.billingInfo ? this.billingInfo.price : 0;
+  get periodType():number{//单位
+    return this.billingInfo ? this.billingInfo.periodType : null;
   }
+  
+  get price():number{
+ 
+    if(this.billingInfo){
+      if(this.billingMode == 0)//云主机，包年包月
+      {
+        return this.billingInfo.basicPrice;//周期费用
+        // return this.billingInfo.basicPrice + this.billingInfo.cyclePrice;//周期费用+增量费用
+      }
+      else if(this.billingMode == 1)//按量计费
+      {
+        return this.billingInfo.unitPrice;
+      }
+      else
+        return 0;
+      }
+    } 
 
   statusName: string = null;//用于界面显示
   serviceTypeName: string = null;//产品类型名称
@@ -52,19 +72,6 @@ export class ProductBillingItem {
   unitPrice: number = null;//, optional): 流量计费-流量单价 ,
   unitType: number = null;//, optional): 流量计费-流量计费类型，需要查询数据字典
   periodType: number = null; //周期计费-周期类型，需要检索数据字典
-
-  get price():number{
-    if(this.billingMode == 0)//包年包月
-    {
-      return this.basicPrice + this.cyclePrice;
-    }
-    else if(this.billingMode == 1)//按量计费
-    {
-      return this.unitPrice;
-    }
-    else
-      return null;
-  }
 
 }
 

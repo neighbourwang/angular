@@ -29,9 +29,6 @@ export class cloudDriveListComponent implements OnInit {
 
 	@ViewChild('diskReconfig') diskReconfig;
 	
-	@ViewChild('popup')
-	private popup: PopupComponent;
-
 	@Input() options:ListOptions;
 
 	list : QuiryDistList = new QuiryDistList();
@@ -95,21 +92,6 @@ export class cloudDriveListComponent implements OnInit {
 		this.setDistList();
 	}
 
-	delectDisk() {  //退订云硬盘
-		if( !this.radioSelected.subInstanceId )  return this.showNotice("CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK", "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK");
-
-		this.popup.open("CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK");
-	}
-	popupCf(){}
-	popupOf(){
-		this.service.deleteDisk(this.radioSelected.subInstanceId).then(res => {
-			this.showNotice("CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK", "CLOUD_DRIVE_LIST.UNSUBSCRIBE_PROCESS");
-		}).catch(e => {
-			this.showNotice("CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK", "COMMON.FAILED");
-		})
-		this.popup.close();
-	}
-
 	//云硬盘的操作相关
 	handleDist(key:string ,dist:DistList, msg:string) {
 		this.layoutService.show();
@@ -137,6 +119,8 @@ export class cloudDriveListComponent implements OnInit {
 		this.serverId = vm.uuid;
 	};
 	confirmVm() {
+		if(!this.serverId) return this.showNotice("提示", "请选择要挂载的云主机")
+
 		this.handleDist("mount", this.mountDisk, "CLOUD_DRIVE_LIST.MOUNT_CLOUD_HOST");
 		this.vmDialog.close();
 	}

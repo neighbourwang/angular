@@ -66,7 +66,7 @@ export class CheckMngListComponent implements OnInit {
 		});
 
 		//拒绝
-		this._refuseHandler = new ItemLoader<any>(false, '同意/拒绝', "check-center.approve-refust.post", _restApiCfg, _restApi);
+		this._refuseHandler = new ItemLoader<any>(false, '审批失败!', "check-center.approve-refust.post", _restApiCfg, _restApi);
 
 
 		//列表数据加载
@@ -261,8 +261,11 @@ export class CheckMngListComponent implements OnInit {
 		this._selectedItem = item;
 		if(item.relyOrderNo)
 			this.showMsg("请先审批订单"+item.relyOrderNo+"!");
-		else
+		else{
+			this.refuseReason='';
 			this.refuseDialog.open();
+		}
+			
 	}
 
 	//确认拒绝
@@ -313,8 +316,11 @@ export class CheckMngListComponent implements OnInit {
 		this._selectedItem = item;
 		if(item.relyOrderNo)
 			this.showMsg("请先审批订单"+item.relyOrderNo+"!");		
-		else
+		else{
+			this.refuseReason='同意';
 			this._confirmAccept.open('CHECK_CENTER.APPROVAL_CONSENT', 'CHECK_CENTER.CONFIRM_TO_APPROVE_THE_ORDER');
+		}
+			
 	}
 
 	confirmAccept() {

@@ -7,6 +7,8 @@ import {
     PaginationComponent, PopupComponent, SystemDictionary
 } from "../../../../architecture";
 
+import { Validation, ValidationRegs } from '../../../../architecture';
+
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
@@ -15,6 +17,7 @@ import { RegionModel, keysecretModel, AreaModel, diskOrderModel } from "../model
 //Service
 import { AliCloudDiskService } from "../service/cloud-disk.service";
 import { AliCloudDiskDictService } from "../service/cloud-disk-dict.service";
+import { AliCloudVmService } from "../../cloud-vm/service/cloud-vm.service";
 
 
 @Component({
@@ -28,9 +31,12 @@ export class AliCloudDiskOrderComponent implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private service: AliCloudDiskService,
+        private vmService: AliCloudVmService,
         private dictService: AliCloudDiskDictService,
         private activatedRouter: ActivatedRoute,
+        private v: Validation,
     ) {
+        this.v.result = {};
     }
 
     @ViewChild("pager")
@@ -85,14 +91,14 @@ export class AliCloudDiskOrderComponent implements OnInit {
 
     ngOnInit(): void {
         this.dictService.diskCategoryDict
-        .then((items) => {
-            this.diskCategoryDictArray = items;
-            console.log(this.diskCategoryDictArray, "this.diskCategoryDictArray");
-        });
+            .then((items) => {
+                this.diskCategoryDictArray = items;
+                console.log(this.diskCategoryDictArray, "this.diskCategoryDictArray");
+            });
 
         this.getKeySecret();
 
-    } 
+    }
     getKeySecret(): void {
         this.layoutService.show();
         this.service.getKeySecret()
@@ -101,7 +107,8 @@ export class AliCloudDiskOrderComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.service.keysecret = response.resultContent;
-                    console.log(this.service.keysecret, "this.keysecret!");
+                    this.vmService.keysecret = response.resultContent;
+                    //console.log(this.service.keysecret, "this.keysecret!");
                     this.getAllRegions();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -114,13 +121,12 @@ export class AliCloudDiskOrderComponent implements OnInit {
     }
 
     getAllRegions(): void {
-
         this.layoutService.show();
         this.service.getAllRegions()
             .then(
             response => {
                 this.layoutService.hide();
-                console.log(response, "response!");
+                //console.log(response, "response!");
                 if (response && 100 == response["resultCode"]) {
                     let result;
                     try {
@@ -130,6 +136,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
                     }
                     this.regions = result.Regions.Region;
                     console.log(this.regions, "this.regions!");
+                    this.selectRegion(this.regions[0]);
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -167,6 +174,11 @@ export class AliCloudDiskOrderComponent implements OnInit {
                 region.selectedArea.AvailableDiskCategories.DiskCategories = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories;
             }
             console.log(this.selectedRegion, "this.selectedRegion!");
+
+            this.selectedRegion.selectedDisk = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories[0];
+            console.log(this.selectedRegion.selectedDisk, "selected selectedDisk!");
+            if (this.selectedRegion.selectedDisk == undefined)  this.selectedRegion.selectedDisk = '';
+            this.calculatePrice();
         }
     }
     //根据regionId获取可用区列表
@@ -201,6 +213,11 @@ export class AliCloudDiskOrderComponent implements OnInit {
                         region.selectedArea.AvailableDiskCategories.DiskCategories = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories;
                     }
                     console.log(this.selectedRegion, "this.selectedRegion!");
+
+                    this.selectedRegion.selectedDisk = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories[0];
+                    console.log(this.selectedRegion.selectedDisk, "selected selectedDisk!");
+                    if (this.selectedRegion.selectedDisk == undefined)  this.selectedRegion.selectedDisk = '';
+                    this.calculatePrice();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -233,10 +250,14 @@ export class AliCloudDiskOrderComponent implements OnInit {
             region.selectedArea.ZoneId = this.selectedRegion.selectedArea.ZoneId;
             region.selectedArea.AvailableDiskCategories = this.selectedRegion.selectedArea.AvailableDiskCategories;
             console.log(region, this.selectedRegion, "region, this.selectedRegion in AreaChanged()!");
+            
+            this.selectedRegion.selectedDisk = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories[0];
+            console.log(this.selectedRegion.selectedDisk, "selected selectedDisk!");
+            if (this.selectedRegion.selectedDisk == undefined)  this.selectedRegion.selectedDisk = '';
         }, 50); //window内的代码要延后50ms执行
     }
 
-    outputValue(e:number) {
+    outputValue(e: number) {
         this.selectedRegion.count = e;
         console.log(this.selectedRegion.count);
         this.calculatePrice();
@@ -248,8 +269,8 @@ export class AliCloudDiskOrderComponent implements OnInit {
         }, 50); //window内的代码要延后50ms执行
     }
 
-    displayDiskType(disktype: string):string {
-        let diskDict:Array<SystemDictionary> = this.diskCategoryDictArray.filter((item) => {
+    displayDiskType(disktype: string): string {
+        let diskDict: Array<SystemDictionary> = this.diskCategoryDictArray.filter((item) => {
             return item.value == disktype;
         });
         if (diskDict.length != 0) {
@@ -261,8 +282,16 @@ export class AliCloudDiskOrderComponent implements OnInit {
 
     calculatePrice() {
         if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "") {
+            if (this.selectedRegion.selectedDisk == "cloud" && (parseInt(this.selectedRegion.diskCount) > 2000 || parseInt(this.selectedRegion.diskCount) < 5)) {
+                //this.showMsg("请选择正确的配置！");
+                return;
+            }
+            if ((this.selectedRegion.selectedDisk == "cloud_efficiency" || this.selectedRegion.selectedDisk == "cloud_ssd") && (parseInt(this.selectedRegion.diskCount) > 32768 || parseInt(this.selectedRegion.diskCount) < 20)) {
+                //this.showMsg("请选择正确的配置！");
+                return;
+            }
             this.selectedRegion.price = "计算中...";
-            this.calculatetimer  && window.clearTimeout(this.calculatetimer);
+            this.calculatetimer && window.clearTimeout(this.calculatetimer);
             this.calculatetimer = window.setTimeout(() => {
 
                 this.layoutService.show();
@@ -271,13 +300,8 @@ export class AliCloudDiskOrderComponent implements OnInit {
                     response => {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
-                            let result;
-                            try {
-                                result = JSON.parse(response.resultContent);
-                            } catch (ex) {
-                                console.log(ex);
-                            }
-                            this.selectedRegion.price = "￥ " + result + " /时";
+                            console.log(response.resultContent);
+                            this.selectedRegion.price = response.resultContent[0].tradeAmount;
                             console.log(this.selectedRegion.price, "this.selectedRegion.price!");
                         } else {
                             this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -302,32 +326,45 @@ export class AliCloudDiskOrderComponent implements OnInit {
         this.diskorder.diskName = "";
         this.diskorder.size = this.selectedRegion.diskCount;
         this.diskorder.snapshotId = "";
+        if (this.selectedRegion.selectedDisk != "" && this.selectedRegion.diskCount != "") {
+            if (this.selectedRegion.selectedDisk == "cloud" && (parseInt(this.selectedRegion.diskCount) > 2000 || parseInt(this.selectedRegion.diskCount) < 5)) {
+                this.showMsg("请选择正确的配置！");
+                return;
+            }
+            if ((this.selectedRegion.selectedDisk == "cloud_efficiency" || this.selectedRegion.selectedDisk == "cloud_ssd") && (parseInt(this.selectedRegion.diskCount) > 32768 || parseInt(this.selectedRegion.diskCount) < 20)) {
+                this.showMsg("请选择正确的配置！");
+                return;
+            }
 
-        this.layoutService.show();
-        this.service.createDiskOrder(this.selectedRegion.RegionId, this.selectedRegion.selectedArea.ZoneId, this.diskorder)
-            .then(
-            response => {
-                this.layoutService.hide();
-                console.log(response, "response!");
-                if (response && 100 == response["resultCode"]) {
-                    let result;
-                    try {
-                        result = JSON.parse(response.resultContent);
-                    } catch (ex) {
-                        console.log(ex);
+            this.layoutService.show();
+            this.service.createDiskOrder(this.selectedRegion.RegionId, this.selectedRegion.selectedArea.ZoneId, this.diskorder)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    console.log(response, "response!");
+                    if (response && 100 == response["resultCode"]) {
+                        let result;
+                        try {
+                            result = JSON.parse(response.resultContent);
+                        } catch (ex) {
+                            console.log(ex);
+                        }
+                        console.log(result.DiskId, "result.DiskId was ordered!");
+                        this.showAlert("云硬盘订购成功！", () => {
+                            this.router.navigate([`ali-cloud-service/cloud-disk/cloud-disk-list`]);
+                        });
+                    } else {
+                        this.showMsg("COMMON.OPERATION_ERROR");
+                        return;
                     }
-                    console.log(result.DiskId, "result.DiskId was ordered!");
-                    this.showAlert("云硬盘订购成功！", () => {
-                        this.router.navigate([`ali-cloud-service/cloud-disk/cloud-disk-list`]);
-                    });
-                } else {
-                    this.showMsg("COMMON.GETTING_DATA_FAILED");
-                    return;
-                }
-            })
-            .catch((e) => {
-                this.onRejected(e);
-            });
+                })
+                .catch((e) => {
+                    this.onRejected(e);
+                });
+
+        } else {
+            this.showMsg("请选择正确的配置！");
+        }
 
     }
 
@@ -337,7 +374,7 @@ export class AliCloudDiskOrderComponent implements OnInit {
         this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 
-    showAlert(msg: string, of?:any): void {
+    showAlert(msg: string, of?: any): void {
         console.log(msg, "showAlert");
         this.layoutService.hide();
         this.noticeTitle = "COMMON.PROMPT";
@@ -346,14 +383,30 @@ export class AliCloudDiskOrderComponent implements OnInit {
         this.notice.nof = of;
     }
 
-    
+
     showMsg(msg: string) {
         console.log(msg, "showMsg");
         this.notice.open("COMMON.SYSTEM_PROMPT", msg);
-    }	
+    }
 
     showError(msg: any) {
         this.notice.open(msg.title, msg.desc);
+    }
+
+    checkForm(key?: string) {
+        let regs: ValidationRegs = {  //regs是定义规则的对象
+            numberRange_cloud: [this.selectedRegion.diskCount, [this.v.range(5, 2000)], "数字范围不对，必须5~2000"],
+            numberRange_cloud_efficiency: [this.selectedRegion.diskCount, [this.v.range(20, 32768)], "数字范围不对，必须20~32768"],
+            numberRange_cloud_ssd: [this.selectedRegion.diskCount, [this.v.range(20, 32768)], "数字范围不对，必须20~32768"],
+            mustnull: [this.selectedRegion.diskCount, [this.v.equalTo("")], "请选择云硬盘类型"]
+        }
+        return this.v.check(key, regs);
+    }
+
+    submitForm() {
+        var errorMessage = this.checkForm();
+        if (errorMessage) return alert(errorMessage);
+        console.log("通过！");
     }
 
 }

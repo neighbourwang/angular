@@ -11,10 +11,14 @@ import { orderCompleteService } from './order-complete.service';
 
 import { formatInfo } from './formatInfo'; 
 
+
+import { ProductInfoTableModule } from '../product-info-table/product-info-table.module';
+
 @NgModule({
     imports: [
         CommonComponentModule,
         PipeModule,
+        ProductInfoTableModule
     ],
     declarations: [
         orderCompleteComponent,
