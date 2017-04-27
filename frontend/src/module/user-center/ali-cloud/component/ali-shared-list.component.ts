@@ -10,7 +10,6 @@ import { DepartList } from '../model/depart-list.model';
 
 //service
 import { AliSharedService } from '../service/ali-shared-list.service';
-import { AliSubService } from '../service/ali-sub-list.service';
 
 @Component({
     selector: 'ali-shared-list',
@@ -24,7 +23,6 @@ export class AliSharedListComponent implements OnInit{
     constructor(
         private router : Router,
         private service : AliSharedService,
-        private subservice : AliSubService,
         private layoutService : LayoutService
     ) {
 
@@ -34,10 +32,10 @@ export class AliSharedListComponent implements OnInit{
     pager: PaginationComponent;
     @ViewChild("notice")
     notice: NoticeComponent;
-    @ViewChild("sharedMng")
-    sharedMng: PopupComponent;
     @ViewChild("distriDepart")
     distriDepart: PopupComponent;
+    @ViewChild('confirm')
+    confirm: ConfirmComponent;
 
     noticeTitle = "";
     noticeMsg = "";
@@ -45,6 +43,10 @@ export class AliSharedListComponent implements OnInit{
     data: Array<AliSharedList>;
     departsList: Array<DepartList>;
     selectedDepartment: string;
+    selectedDepartmentId: string;
+    id: string;
+    tempDepartmentId: string;
+    tempDepartsList: Array<DepartList>;
 
     ngOnInit (){
         console.log('init');
@@ -68,19 +70,21 @@ export class AliSharedListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
-    getDetail(item){
-        this.sharedMng.open("账号详情");
-    }
-
     distriPage(item){
+        this.id= item.id;
+        this.selectedDepartment= item.departmentName;
+        this.selectedDepartmentId= item.departId;
+        this.tempDepartmentId= item.departId;
         this.layoutService.show();
-        this.subservice.getDepartsList()
+        this.service.getDepartsList()
             .then(
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.departsList = response["resultContent"];
-                        console.log("departsList",this.departsList);
+                        this.tempDepartsList= this.departsList.reverse();
+                        console.log("departsharesList",this.departsList);
+                        console.log("tempDepartsList",this.tempDepartsList);
                         this.distriDepart.open("分配部门")
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -89,33 +93,58 @@ export class AliSharedListComponent implements OnInit{
             )
             .catch((e) => this.onRejected(e));
     }
-    
+
     selected(item: DepartList){
         this.departsList.forEach((p) =>{
             p.selected= false;
         });
         item.selected= true;
         this.selectedDepartment= item.departmentName;
+        this.selectedDepartmentId= item.id;
     }
 
     reset(){
         this.departsList.forEach((p) =>{
-           p.selected= false; 
+           p.selected= false;
+           p.visible= "true";
         });
         this.selectedDepartment= "";
+        this.selectedDepartmentId= "";
+
     }
 
-    close(){
-        this.sharedMng.close();
+    editDepart(){
+        this.layoutService.show();
+        this.service.editDepart(this.id, this.selectedDepartmentId)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getData();
+                        this.distriDepart.close();
+                        console.log("editDepart", this.id, this.selectedDepartmentId);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
-    operate(){
+    operate() {
+        if (this.selectedDepartmentId != this.tempDepartmentId) {
+            this.confirm.open("设置部门", "部门发生改变,请确认");
+            this.confirm.ccf = ()=> {
+                this.editDepart();
+            }
+        }else {
+            this.editDepart();
+        }
     }
 
 
     showAlert(msg: string): void {
         this.layoutService.hide();
-
         this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();

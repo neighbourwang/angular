@@ -16,7 +16,7 @@
                             </div>
                         </div>-->
                         <div class="col-md-8 no-padding mgr15 has-feedback" [ngClass]="{'has-error': v.result.userName }">
-							<input type="text" class="form-control" [(ngModel)]="account.userName" (ngModelChange)="checkValue('userName')" name="userName" placeholder="{{'USER_CENTER.PLEASE_ENTER_A_NAME' | translate}}">
+							<input type="text" class="form-control" [(ngModel)]="account.userName" id="ac_username" (ngModelChange)="checkValue('userName')" name="userName" placeholder="{{'USER_CENTER.PLEASE_ENTER_A_NAME' | translate}}">
 					        <span *ngIf="v.result.userName" class="glyphicon glyphicon-remove form-control-feedback"></span>
 					        <div *ngIf="v.result.userName" class="alert alert-danger normal-line-height" role="alert" >{{v.result.userName}}</div>
 						</div>
@@ -67,7 +67,7 @@
                             </div>
                         </div>-->
                         <div class="col-sm-8 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.phone}">
-                            <input type="text" [(ngModel)]="account.phone" (ngModelChange)="checkValue('phone')" name="phone" placeholder="{{'USER_CENTER.PLEASE_ENTER_A_PHONE' | translate}}" class="form-control">
+                            <input type="text" [(ngModel)]="account.phone" id="ac_phone" (ngModelChange)="checkValue('phone')" name="phone" placeholder="{{'USER_CENTER.PLEASE_ENTER_A_PHONE' | translate}}" class="form-control">
                             <span *ngIf="v.result.phone" class="glyphicon glyphicon-remove form-control-feedback"></span>
                             <div *ngIf="v.result.phone" class="alert alert-danger normal-line-height" role="alert">{{v.result.phone| translate}}</div>
                         </div>
@@ -78,7 +78,7 @@
                             <textarea class="form-control" rows="3" placeholder="{{ 'USER_CENTER.PLEASE_ENTER_THE_DESCRIPTION' | translate }}" [(ngModel)]="account.description" name="description"></textarea>
                         </div>-->
                         <div class="col-sm-8 no-padding" [ngClass]="{'has-error':v.result.description}">
-                            <textarea type="text" class="form-control" (ngModelChange)="checkValue('description')" placeholder="{{'USER_CENTER.PLEASE_ENTER_THE_DESCRIPTION' | translate}}" rows="3" [(ngModel)]="account.description"
+                            <textarea type="text" id="ac_description" class="form-control" (ngModelChange)="checkValue('description')" placeholder="{{'USER_CENTER.PLEASE_ENTER_THE_DESCRIPTION' | translate}}" rows="3" [(ngModel)]="account.description"
                                 name="description">
                             </textarea>
                         </div>
@@ -90,7 +90,7 @@
             <th class="col-md-1 col-xs-3 text-center">{{ 'USER_CENTER.BINDING_ROLE' | translate }}</th>
             <td>
                 <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px" *ngFor="let role of service.roles ;let idx=index ">
-                    <input type="checkbox" class="fox-cloud-checkbox"   value="role?.id" [checked]="role.selected" (click)="selectRole(idx)"> 
+                    <input type="checkbox" class="fox-cloud-checkbox"   value="role?.id" [checked]="role.selected" (click)="selectRole(idx)" id="role_{{role?.id}}"> 
                     <span>{{role?.name}}</span>
                 </label>
             </td>
@@ -99,7 +99,7 @@
             <th class="col-md-1 col-xs-3 text-center">{{ 'USER_CENTER.BINDING_DEPARTMENT' | translate }}</th>
             <td>
                 <label class="radio-inline" style="margin-right : 20px;margin-left: 0 !important;margin-bottom : 15px" *ngFor='let org of service.orgs;let idx=index'>
-                    <input type="radio" class="fox-cloud-radio" (click)='selectOrg(idx)' value="option1" [checked]='org.selected'> 
+                    <input type="radio" class="fox-cloud-radio" (click)='selectOrg(idx)' value="option1" [checked]='org.selected' id="orgs_{{idx}}"> 
                     <span>{{org.name}}</span>
                 </label>
                 <!--<div class="font-green float-right" style="margin-top : 10px">

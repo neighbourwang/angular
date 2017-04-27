@@ -58,6 +58,8 @@ export class MngServiceListComponent implements OnInit{
     keyWords: string;
     serviceStatus: string;
     data: Array<MngServiceList>;
+    followInfo: string;
+    serviceId: string;
 
     ngOnInit() {
         this.getData();
@@ -104,15 +106,38 @@ export class MngServiceListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
-    serviceUpdate(){
+    serviceUpdatePage(){
         this.type= "update";
         this.popUnit.open("服务状态更新");
     }
 
-    servicefollow(){
+    servicefollowPage(){
+        const selectedService= this.data.find((p) =>{
+            return p.selected;
+        });
+        if(!selectedService){
+            this.showAlert("请选择需要跟进的服务");
+        }
         this.type= "follow";
         this.popUnit.open("服务跟进");
     }
+
+/*    serviceFollow(){
+        this.layoutService.show();
+        this.service.serviceFollow()
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.enterpriseList = response["resultContent"];
+                        console.log("企业列表",this.enterpriseList);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }*/
 
     oneSet(){
         this.setUnit.open("一次性管理服务系统设置");

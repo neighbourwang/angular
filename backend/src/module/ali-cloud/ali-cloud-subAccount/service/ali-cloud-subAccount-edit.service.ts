@@ -80,7 +80,7 @@ export class AliCloudSubAccountEditService {
     }
     //获取子账号企业列表
     getEnterpriseList():Promise<any>{
-        const api = this.restApiCfg.getRestApi("ali-mainAccount-enterprise-list.get");
+        const api = this.restApiCfg.getRestApi("ali-subAccount-enterprise-list.get");
         return this.restApi.request(api.method, api.url,null, null,null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => EnterpriseList_mock);
     }

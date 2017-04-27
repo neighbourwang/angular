@@ -90,10 +90,10 @@ export class AliCloudMainAccountEditComponent implements OnInit{
 
     //编辑账号
     editAccount(){
-        if(!this.account.accessUrl){
-            this.showAlert("请填写阿里云访问地址!");
-            return;
-        }
+        // if(!this.account.accessUrl){
+        //     this.showAlert("请填写阿里云访问地址!");
+        //     return;
+        // }
         if(!this.account.accessKey){
             this.showAlert("请填写Access Key ID!");
             return;
@@ -102,21 +102,27 @@ export class AliCloudMainAccountEditComponent implements OnInit{
             this.showAlert("请填写Access Key Secret!");
             return;
         }
-        this.layoutService.hide();
-        this.service.editAccount(this.account)
-        .then(
-            response=>{ 
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
+        if(this.testResult=="1"  || this.changebt){      
+            this.layoutService.hide();
+            this.service.editAccount(this.account)
+            .then(
+                response=>{ 
                     this.layoutService.hide();
-                    this.gotoAccountList();
-                } 
-                else {
-                    this.showAlert("COMMON.OPERATION_ERROR");
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.gotoAccountList();
+                    } 
+                    else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
                 }
-            }
-        )
-        .catch((e) => this.onRejected(e));
+            )
+            .catch((e) => this.onRejected(e));
+        }
+        else{
+            this.showAlert("请测试access key信息！");
+            return;
+        }
     }
 
     //添加账号
@@ -125,10 +131,10 @@ export class AliCloudMainAccountEditComponent implements OnInit{
             this.showAlert("请填写主账号登录名!");
             return;
         }
-        if(!this.account.accessUrl){
-            this.showAlert("请填写阿里云访问地址!");
-            return;
-        }
+        // if(!this.account.accessUrl){
+        //     this.showAlert("请填写阿里云访问地址!");
+        //     return;
+        // }
         if(!this.account.accessKey){
             this.showAlert("请填写Access Key ID!");
             return;

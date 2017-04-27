@@ -8,21 +8,21 @@
 			<div class="secondPanel">
 				<ul>
 					<li>
-						<input type="radio" class="fox-cloud-radio mgr10"  [disabled]="isEdit" [ngClass]="{'active':isOpen}" [(ngModel)]="loadHandler.FirstItem.auditEnable" [value]="true">{{'CHECK_CENTER.OPEN' | translate}}
+						<input type="radio" class="fox-cloud-radio mgr10" id="approval_set_on"  [disabled]="isEdit" [ngClass]="{'active':isOpen}" [(ngModel)]="loadHandler.FirstItem.auditEnable" [value]="true">{{'CHECK_CENTER.OPEN' | translate}}
 					</li>
 					<li class="pdl20">
 						<span class="pdl5">{{'CHECK_CENTER.AUTO_APPROVAL_TIME_SET' | translate}}：</span ><span class="mgr5" *ngIf="isEdit"  > {{loadHandler.FirstItem.time}}</span>
-						<input *ngIf="!isEdit" type="number" class="form-control" [(ngModel)]="loadHandler.FirstItem.time">{{'CHECK_CENTER.MINUTE' | translate}}
+						<input *ngIf="!isEdit" type="number" class="form-control" [(ngModel)]="loadHandler.FirstItem.time" id="approval_set_minute" >{{'CHECK_CENTER.MINUTE' | translate}}
 					</li>
 					<li>
-						<input type="radio" class="fox-cloud-radio mgr10 "  [disabled]="isEdit" [ngClass]="{'active':!isOpen}" [(ngModel)]="loadHandler.FirstItem.auditEnable" [value]="false">{{'CHECK_CENTER.CLOSE' | translate}}
+						<input type="radio" class="fox-cloud-radio mgr10 "  id="approval_set_off" [disabled]="isEdit" [ngClass]="{'active':!isOpen}" [(ngModel)]="loadHandler.FirstItem.auditEnable" [value]="false">{{'CHECK_CENTER.CLOSE' | translate}}
 					</li>
 				</ul>
 				
 			</div>
 			
-			<button class="btn button-gray-gradient" *ngIf="isEdit" (click)="edit();"><span class="pdl10 pdr10">{{'CHECK_CENTER.EDIT' | translate}}</span></button>
-			<button class="btn fox-cloud-button-green" *ngIf="!isEdit" (click)="save();"><span class="pdl10 pdr10">{{'CHECK_CENTER.SAVE' | translate}}</span></button>
+			<button class="btn button-gray-gradient" *ngIf="isEdit" (click)="edit();" id="approval_set_edit"><span class="pdl10 pdr10">{{'CHECK_CENTER.EDIT' | translate}}</span></button>
+			<button class="btn fox-cloud-button-green" *ngIf="!isEdit" (click)="save();"id="approval_set_save" ><span class="pdl10 pdr10">{{'CHECK_CENTER.SAVE' | translate}}</span></button>
 		</div>
 			<!--<fc-pagination tp={{entEstMng.TotalPages}} (pf)="changePage($event)"></fc-pagination>-->
 		</div>

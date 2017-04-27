@@ -101,7 +101,7 @@ export class AliCloudMainAccountListComponent implements OnInit{
                         this.layoutService.hide();
                         console.log("修改后的账号类型",this.selectAccountType)
                           this.editType.close();   
-                        this. gotoAccountList();
+                        this. getAccountList();
                     } 
                     else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -176,70 +176,6 @@ export class AliCloudMainAccountListComponent implements OnInit{
         };
         this.confirm.open();    
     }
-    //修改账号状态    2禁用 1启用   
-    // changeAccountStatus(status:string){
-    //     const account=this.accountList.find((e)=>{return e.isSelect});
-    //     if(!account){
-    //         this.showAlert("请选择需要编辑的账号！");
-    //         return;
-    //     }
-    //     if(account.status==status){          
-    //         this.dictPipe.transform(account.status,this.service.dictStatus)
-    //         .then(
-    //             res=> {
-    //                // this.showAlert("PHYSICAL_MNG.PHYSICAL_STATUS^^^" + res);
-    //             this.showAlert("该账号已经是"+res+"状态!");
-    //             }) ;                 
-    //         return;
-    //     }
-    //     switch(status){
-    //         case "2":
-    //             this.noticeMsg="您选择禁用账号'"+account.loginName +"',请确认；如果确认，用户将不能够访问阿里云。";
-    //             this.noticeTitle="禁用阿里云主账号";
-    //             break;
-    //         case "1":
-    //             this.noticeMsg="您选择启用账号'"+account.loginName +"',请确认；如果确认，用户将能够访问阿里云。";
-    //             this.noticeTitle="启用阿里云主账号";
-    //             break;
-    //         // case "2":
-    //         //     if(account.mainAccountType =="1" ){
-    //         //         if( account.tenantCross=="" && account.status=="0"){
-    //         //              this.noticeMsg="您选择删除'"+account.loginName +"'阿里云主账号,请确认；如果确认，此阿里云账号数据(包括子账号)将不能恢复。";
-    //         //              this.noticeTitle="删除阿里云主账号";
-    //         //         }
-    //         //         else{
-    //         //             this.showAlert("独享主账号不属于任何企业且禁用状态时，才可以删除!");
-    //         //             return ;
-    //         //         }               
-    //         //     }             
-    //         //    else if(account.mainAccountType =="2" && account.hasSubAccount=="0" && account.status=="0"){
-    //         //         this.noticeMsg="您选择删除'"+account.loginName +"'阿里云主账号,请确认；如果确认，此阿里云账号数据(包括子账号)将不能恢复。";
-    //         //         this.noticeTitle="删除阿里云主账号";
-    //         //     }
-    //         //     else{
-    //         //         this.showAlert("共享主账号只有将所有子账号的企业或部门设置移除且禁用状态，才能删除该主账号！");
-    //         //         return;
-    //         //     }             
-    //     }
-    //     this.confirm.ccf = () => {};
-    //     this.confirm.cof = () => {
-    //         this.layoutService.show();
-    //         this.service.updateStatusAndDelete(account.id, status)
-    //             .then(
-    //                 response => {
-    //                     this.layoutService.hide();
-    //                     if (response && 100 == response["resultCode"]) {
-    //                         this.getAccountList();
-    //                     }
-    //                     else {
-    //                         this.showAlert("COMMON.OPERATION_ERROR");
-    //                     }
-    //                 }
-    //             )
-    //             .catch((e) => this.onRejected(e));
-    //     };
-    //     this.confirm.open();           
-    // }
 
     //分配企业 独享账号,才能点分配企业 1独享 2共享
     setEntprise(){
@@ -282,7 +218,7 @@ export class AliCloudMainAccountListComponent implements OnInit{
             return ;
         }
          if(account.mainAccountType =="1" ){
-            if( account.tenantCross==null  && account.status=="2"){
+            if( account.tenantCross==""  && account.status=="2"){
                     this.noticeMsg="您选择删除'"+account.loginName +"'阿里云主账号,请确认；如果确认，此阿里云账号数据(包括子账号)将不能恢复。";
                     this.noticeTitle="删除阿里云主账号";
             }
@@ -310,7 +246,8 @@ export class AliCloudMainAccountListComponent implements OnInit{
                 }
             )
            .catch((e) => this.onRejected(e))  
-        }      
+        }  
+      this.confirm.open();     
     }
 
     //跳转添加主账号

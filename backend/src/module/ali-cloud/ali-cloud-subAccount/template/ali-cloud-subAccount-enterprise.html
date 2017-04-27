@@ -22,13 +22,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of enterpriseList">
-                        <td><input type="radio" name="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);"></td>
-                        <td>{{item.tenantName}}</td>
-                        <td [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}"> 
-                            {{item.status| dict:service.dictStatus | async}}
-                        </td>
+                    <ng-container *ngFor="let item of enterpriseList "  >
+                        <tr *ngIf="item.visible == 'true'">
+                            <td >
+                                <input type="radio" name="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);">
+                            </td>
+                            <td>{{item.tenantName}}</td>
+                            <td [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}"> 
+                                {{item.status| dict:service.dictStatus | async}}
+                            </td>
+                        </tr>
+                    </ng-container>
+                     <!--<tr *ngFor="let item of enterpriseList"  >
+                        <template  [ngIf]="item.visible == 'true'">
+                            <td >
+                                <input type="radio" name="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);">
+                            </td>
+                            <td>{{item.tenantName}}</td>
+                            <td [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}"> 
+                                {{item.status| dict:service.dictStatus | async}}
+                            </td>
+                         </template>
                     </tr>
+                   -->
                 </tbody>
             </table>
         </div>

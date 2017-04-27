@@ -43,10 +43,10 @@
         </div>{{keyWords}}
         <button class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="reset()">重置</button>
 
-        <button class="fox-cloud-button fox-cloud-button-white pull-right mgl10" (click)="serviceUpdate()">
+        <button class="fox-cloud-button fox-cloud-button-white pull-right mgl10" (click)="serviceUpdatePage()">
             <span class="icon-button-label icon-left-button-label">服务状态更新</span>
         </button>
-        <button class="fox-cloud-button fox-cloud-button-white pull-right mgl10" (click)="servicefollow()">
+        <button class="fox-cloud-button fox-cloud-button-white pull-right mgl10" (click)="servicefollowPage()">
             <span class="icon-button-label icon-left-button-label">服务跟进</span>
         </button>
     </div>
@@ -71,13 +71,13 @@
                 <td><a href="javascript:void(0);" (click)="gotoDetail();">{{item.serviceName}}</a></td>
                 <td>{{item.serviceObjectCode | dict: this.service.typeDic | async}}</td>
                 <td>
-                    <ol>
-                        <li style="display: inline-block; padding: 2px 5px;">
+                    <ol class="no-padding">
+                        <li>
                             {{item.instance.instanceId}}
                         </li>
                     </ol>
-                    <ol>
-                        <li style="display: inline-block; padding: 2px 5px;">
+                    <ol class="no-padding">
+                        <li>
                             {{item.instance.instanceName}}
                         </li>
                     </ol>
@@ -107,7 +107,7 @@
        </div>
        <div class="row row-line-height">
            <div class="form-group mgl5">
-               <textarea class="form-control" rows="4" placeholder="必须输入内容才能保存"></textarea>
+               <textarea class="form-control" rows="4" placeholder="必须输入内容才能保存" [(ngModel)]="followInfo"></textarea>
            </div>
        </div>
    </div>

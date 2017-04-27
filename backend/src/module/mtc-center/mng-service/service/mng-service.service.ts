@@ -64,4 +64,18 @@ export class MngService {
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => ServiceList_mock);
 
     }
+
+    serviceFollow(serviceId: string, followInfo: string): Promise<any>{
+        const pathParams=[
+            {
+                key:"serviceId",
+                value: serviceId
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("mtc-center.mng-service.followservice");
+        return this.restApi.request(api.method, api.url, pathParams, null,
+            {
+                "followInfo": followInfo
+            });
+    }
 }

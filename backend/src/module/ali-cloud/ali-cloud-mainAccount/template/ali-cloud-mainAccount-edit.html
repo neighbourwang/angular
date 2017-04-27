@@ -17,18 +17,18 @@
             </div>
         </div>
     </div>
-    <div class="row row-line-height">
+    <!--<div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>阿里云访问地址:</div>
-            <!--<div class="col-sm-4 has-feedback no-padding" [ngClass]="{'has-error':v.result.url}">
+            <div class="col-sm-4 has-feedback no-padding" [ngClass]="{'has-error':v.result.url}">
                 <input type="text" class="form-control" *ngIf="editMode =='create'" [(ngModel)]="account.accessUrl" (ngModelChange)="checkForm('url')">
                 <input type="text" class="form-control" *ngIf="editMode =='edit'" [(ngModel)]="account.accessUrl" (ngModelChange)="checkForm('url')" [disabled]="changebt">
                 <span *ngIf="v.result.url" class="glyphicon glyphicon-remove form-control-feedback"></span>
                 <div *ngIf="v.result.url" class="alert alert-danger" role="alert">{{v.result.url}}</div>
                 <span style="line-height:34px" *ngIf="editMode =='view'">{{account.accessUrl}}</span>
-            </div>-->
+            </div>
             <div class="col-sm-4 ">
-                <!--<input type="text" class="form-control" *ngIf="editMode =='create'" [(ngModel)]="account.accessUrl" >-->
+                <input type="text" class="form-control" *ngIf="editMode =='create'" [(ngModel)]="account.accessUrl" >
                 <input type="text" class="form-control" *ngIf="editMode !='view'" [(ngModel)]="account.accessUrl"  [disabled]="editMode =='edit' && changebt">
                 <span style="line-height:34px" *ngIf="editMode =='view'">{{account.accessUrl}}</span>
             </div>
@@ -36,7 +36,7 @@
                 <span class="font-orange" style="line-height:34px">自行修改默认设置可能会造成无法连接阿里云</span>
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk" *ngIf="editMode !='view'">*</span>Access Key ID:</div>

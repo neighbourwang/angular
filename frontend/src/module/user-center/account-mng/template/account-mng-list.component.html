@@ -1,10 +1,10 @@
 <h1 class="page-content-header mgb20">{{ 'MENU.ACCOUNT_MANAGEMENT' | translate }}</h1>
 <div class="mgb20" style="overflow : hidden">
     <div class="input-group col-md-2 float-left">
-        <input class="form-control width-400" [(ngModel)]="keyword" (keyup.enter)="search()" placeholder="{{ 'USER_CENTER.ENTER_ACCOUNT_INFORMATION_TO_SEARCH_QUICKLY' | translate }}" type="text">
-        <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search" style="cursor:pointer"></span></div>
+        <input class="form-control width-400" id="account_search" [(ngModel)]="keyword" (keyup.enter)="search()" placeholder="{{ 'USER_CENTER.ENTER_ACCOUNT_INFORMATION_TO_SEARCH_QUICKLY' | translate }}" type="text">
+        <div class="input-group-addon" (click)="search()" id="account_search_go"><span class="glyphicon glyphicon-search" style="cursor:pointer"></span></div>
     </div>
-    <button class="btn button-confirm float-right" data-toggle="modal" (click)="create()">{{ 'USER_CENTER.CREATE_ACCOUNT' | translate }}</button>
+    <button class="btn button-confirm float-right" data-toggle="modal" (click)="create()" id="account_create">{{ 'USER_CENTER.CREATE_ACCOUNT' | translate }}</button>
 </div>
 <table class="table table-hover mgb20">
     <tbody>
@@ -35,11 +35,11 @@
                     	</span>
             </td>
             <td class="text-left">
-                <span title="{{'COMMON.EDIT'|translate}}" class="glyphicon glyphicon-edit font-green" (click)="edit(account,idx)" style="margin-right : 10px ;cursor:pointer"></span>
+                <span title="{{'COMMON.EDIT'|translate}}" class="glyphicon glyphicon-edit font-green" (click)="edit(account,idx)" id="ac_edit_{{account.userName}}" style="margin-right : 10px ;cursor:pointer"></span>
                 <!--<span class="glyphicon glyphicon-lock font-green" style="margin-right : 10px"></span>-->
-                <span title="{{'COMMON.ENABLE'|translate}}" *ngIf="!account.isMybody" class="glyphicon glyphicon-ok-circle font-green" (click)="enable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
-                <span title="{{'COMMON.DISENABLED'|translate}}" *ngIf="!account.isMybody" class="glyphicon glyphicon-ban-circle font-orange" (click)="disable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
-                <span title="{{'COMMON.DELETE'|translate}}" *ngIf="!account.isMybody" class="glyphicon glyphicon-trash font-orange" (click)="delete(account,idx)" style="cursor:pointer"></span>
+                <span title="{{'COMMON.ENABLE'|translate}}" *ngIf="!account.isMybody" class="glyphicon glyphicon-ok-circle font-green" id="ac_enable_{{account.userName}}" (click)="enable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
+                <span title="{{'COMMON.DISENABLED'|translate}}" *ngIf="!account.isMybody" class="glyphicon glyphicon-ban-circle font-orange" id="ac_disable_{{account.userName}}" (click)="disable(account,idx)" style="margin-right : 10px;cursor:pointer"></span>
+                <span title="{{'COMMON.DELETE'|translate}}" *ngIf="!account.isMybody" class="glyphicon glyphicon-trash font-orange" id="ac_delete_{{account.userName}}" (click)="delete(account,idx)" style="cursor:pointer"></span>
             </td>
         </tr>
     </tbody>

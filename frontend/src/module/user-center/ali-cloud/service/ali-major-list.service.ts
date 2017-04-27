@@ -65,6 +65,7 @@ export class AliMajorService {
          });
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => Success_mock);
     }
+    
     editDepart(id: string, departId: string): Promise<any>{
         const pathParams=[
             {
