@@ -439,10 +439,12 @@
                             <tr *ngIf="selectedOrderVmPage.price_traffic!=null">
                                 <span>公网流量费用：</span>
                                 <span *ngIf="selectedOrderVmPage.price_traffic!=''">￥</span> {{(selectedOrderVmPage.price_traffic) || ""}}
+                                <span *ngIf="selectedOrderVmPage.price_traffic!=''"> /时</span>
                             </tr>
                             <tr>
                                 <span>配置费用：</span>
                                 <span *ngIf="selectedOrderVmPage.price_instance!=''">￥</span> {{(selectedOrderVmPage.price_instance) || ""}}
+                                <span *ngIf="selectedOrderVmPage.price_instance!=''"> /时</span>
                             </tr>
                             <!--
                             <tr>
