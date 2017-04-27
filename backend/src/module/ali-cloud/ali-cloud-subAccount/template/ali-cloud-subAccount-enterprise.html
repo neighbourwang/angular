@@ -22,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let item of enterpriseList"  >
+                    <ng-container *ngFor="let item of enterpriseList "  >
                         <tr *ngIf="item.visible == 'true'">
                             <td >
                                 <input type="radio" name="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);">

@@ -133,7 +133,10 @@ export class AliCloudSubAccountEnterpriseComponent implements OnInit{
     changeEnt(){
         this.changeEntName="";
          const selectEnt=this.enterpriseList.find((e)=> {return e.isSelect});
-         selectEnt.isSelect=false;
+         if(selectEnt){
+            selectEnt.isSelect=false;
+         }
+        
         
     }
     
