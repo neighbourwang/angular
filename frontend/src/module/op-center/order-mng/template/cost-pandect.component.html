@@ -16,20 +16,20 @@
 		   <!--<span class="float-left  mgr5 mgt10">日期：</span> -->
 	       <div class="float-left"> <!--[(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()"
 		    *ngFor="let item of _departmentLoader.Items" [value]="item.id"-->
-				<select class="form-control fix-width-120" [(ngModel)]="_param.year" (ngModelChange)="loadMonths()">
+				<select class="form-control fix-width-120" [(ngModel)]="_param.year" (ngModelChange)="loadMonths()" id="loadMonths">
 					<!--<option class="hands" [value]="null">所有年份</option>-->
-					<option class="hands" *ngFor="let item of _years" [value]="item.id">{{item.name}}年</option>
+					<option class="hands" *ngFor="let item of _years" [value]="item.id" id="loadMonths_{{item.id}}">{{item.name}}年</option>
 				</select>
 			</div>
 			<div  class="float-left">
-				<select class="form-control fix-width-120" [(ngModel)]="_param.month" (ngModelChange)="loadChart()">
+				<select class="form-control fix-width-120" [(ngModel)]="_param.month" (ngModelChange)="loadChart()" id="loadChart">
 					<!--<option class="hands" [value]="null" >所有月份</option>-->
-					<option class="hands"  *ngFor="let item of _months" [value]="item.id">{{item.name}}月</option>
+					<option class="hands"  *ngFor="let item of _months" [value]="item.id" id="loadChart_{{item.id}}">{{item.name}}月</option>
 				</select>
 			</div>
 			
 			<div class="float-right">
-				<button class="btn button-gray-gradient" (click)="download()"><span>下载账单</span></button>
+				<button class="btn button-gray-gradient" (click)="download()" id="download"><span>下载账单</span></button>
 			</div>
 			<!--<div class="float-right">
 				<button class="fox-cloud-button-green">导出</button>
@@ -107,9 +107,9 @@
 
             <div class="float-left mgr20">
                 <span>服务类型</span>
-                <select class="form-control fix-width-120" [(ngModel)]="isAllService" (ngModelChange)="loadService()">
-                    <option class="hands" [value]="1">所有服务</option>
-					<option class="hands" [value]="2">新增服务</option>
+                <select class="form-control fix-width-120" [(ngModel)]="isAllService" (ngModelChange)="loadService()" id="loadService">
+                    <option class="hands" [value]="1" id="loadService_1">所有服务</option>
+					<option class="hands" [value]="2" id="loadService_2">新增服务</option>
                     <!--<option class="hands" *ngFor="let item of _orderTypeLoader.Items" [value]="item.id">{{item.name}}</option>-->
                 </select>
             </div>
@@ -185,8 +185,8 @@
 								<!--  下拉选项行 -->
 								<div class="firstPanel mgt20" style="height: 50px;">
 									<div class="float-left">
-										<select class="form-control fix-width-120" [(ngModel)]="_param.year" (ngModelChange)="showDownLoad()">
-											<option class="hands"  *ngFor="let item of _years" [value]="item.id">{{item.name}}</option>
+										<select class="form-control fix-width-120" [(ngModel)]="_param.year" (ngModelChange)="showDownLoad()" id="showDownLoad">
+											<option class="hands"  *ngFor="let item of _years" [value]="item.id" id="showDownLoad_{{item.id}}">{{item.name}}</option>
 											<!--<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">2016年</option>-->
 										</select>
 									</div>
@@ -212,7 +212,7 @@
 													<td>{{item.endDate}}</td>
 													<td>{{item.sentDate}}</td>
 													<td>{{item.status}}</td>
-													<td class="vertical-center"><button class="btn btn-default button-gray-gradient" (click)="acceptDownload(item)">下载</button></td>
+													<td class="vertical-center"><button class="btn btn-default button-gray-gradient" (click)="acceptDownload(item)" id="acceptDownload_{{item.id}}">下载</button></td>
 												</tr>               
 										</table>
 									</div>

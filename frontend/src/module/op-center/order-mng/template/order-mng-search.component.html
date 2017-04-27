@@ -5,11 +5,11 @@
 		<div class="table-container">
 			<div class="">
 				<div class="input-group col-md-2 float-left mgr20">
-   					 <input class="form-control width-400" placeholder="{{ 'ORDER_MNG.PLEASE_ENTER_THE_ORDER_NUMBER_FUZZY_QUERY' | translate }}" type="email" [(ngModel)]="_param.searchText">
-    				 <div class="input-group-addon pointer"><span class="glyphicon glyphicon-search" (click)="search()"></span></div>
+   					 <input class="form-control width-400" placeholder="{{ 'ORDER_MNG.PLEASE_ENTER_THE_ORDER_NUMBER_FUZZY_QUERY' | translate }}" id="enter_order_number" type="email" [(ngModel)]="_param.searchText">
+    				 <div class="input-group-addon pointer"><span class="glyphicon glyphicon-search" (click)="search()" id="order_number_search"></span></div>
 				</div>
 				<div  class="input-group float-left">
-					   <button class="btn button-gray-gradient" (click)="resetParam()"><span class="glyphicon glyphicon-repeat"></span> {{ 'ORDER_MNG.RESET' | translate}}</button>
+					   <button class="btn button-gray-gradient" (click)="resetParam()" id="order_number_reset"><span class="glyphicon glyphicon-repeat"></span> {{ 'ORDER_MNG.RESET' | translate}}</button>
         		</div>
 			</div>
 			<table class="table">
@@ -18,18 +18,18 @@
 						<td class="none-border">
 							<span class="float-left mgt7">{{ 'COMMON.DEPARTMENT' | translate }}: </span>
 							<div class="dropdown float-left">
-								<select class="form-control  fix-width-120" [(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()">
-									<option class="hands" [value]=null>{{ 'CHECK_CENTER.ALL_DEPARTMENTS' | translate }}</option>
-									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id">{{item.name}}</option>
+								<select class="form-control  fix-width-120" [(ngModel)]="_param.organization" (ngModelChange)="loadBuyer()" id="organization">
+									<option class="hands" [value]=null id="organization_null">{{ 'CHECK_CENTER.ALL_DEPARTMENTS' | translate }}</option>
+									<option class="hands" *ngFor="let item of _departmentLoader.Items" [value]="item.id" id="organization_{{item.id}}">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
 					 	<td class="none-border">
 							<span class="float-left mgl15 mgt7">{{ 'ORDER_MNG.SUBMITTER' | translate }}: </span>
 							<div class="dropdown float-left">
-								<select class="form-control  fix-width-120" [(ngModel)]="_param.buyerId">
-									<option class="hands" [value]="null">{{ 'ORDER_MNG.ALL_USERS' | translate }}</option>
-									<option class="hands" *ngFor = "let item of _buyerLoader.Items" [value] = "item.id">{{item.name}}</option>
+								<select class="form-control  fix-width-120" [(ngModel)]="_param.buyerId" id="buyerId">
+									<option class="hands" [value]="null" id="buyerId_null">{{ 'ORDER_MNG.ALL_USERS' | translate }}</option>
+									<option class="hands" *ngFor = "let item of _buyerLoader.Items" [value] = "item.id" id="buyerId_{{item.id}}">{{item.name}}</option>
 								</select>
 							</div>
 						</td>
@@ -37,11 +37,11 @@
 							<div class="mgt-10">
 								<span class="mgt15 float-left mgt7">{{ 'ORDER_MNG.SUBMISSION_TIME' | translate }}: </span>
 								<div class="dropdown float-left">			
-									<date-picker (dateChanged)="onCreateTimeChange($event)"></date-picker>
+									<date-picker (dateChanged)="onCreateTimeChange($event)" id="on_create_time"></date-picker>
 								</div>
 								<span class="mgl10 mgt15 float-left">—</span>
 								<div class="dropdown float-left">			
-									<date-picker (dateChanged)="onExpireTimeChange($event)"></date-picker>
+									<date-picker (dateChanged)="onExpireTimeChange($event)"  id="on_expire_time"></date-picker>
 								</div>
 							</div>
 						</td>
@@ -52,9 +52,9 @@
 							<span class="float-left mgt7" >
 							{{ 'ORDER_MNG.ORDER_STATUS' | translate }}：</span>
 							<div class="dropdown float-left">
-								<select class="form-control" [(ngModel)]="_param.status">
-									<option class="hands" [value]=null>{{ 'ORDER_MNG.ALL_STATUS' | translate }}</option>
-									<option class="hands" *ngFor="let item of _orderStatusDic.Items" [value]="item.value">{{item.displayValue}}</option>
+								<select class="form-control" [(ngModel)]="_param.status" id="orders_status">
+									<option class="hands" [value]=null id="orders_status_null">{{ 'ORDER_MNG.ALL_STATUS' | translate }}</option>
+									<option class="hands" *ngFor="let item of _orderStatusDic.Items" [value]="item.value" id="orders_status_{{item.value}}">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
@@ -62,9 +62,9 @@
 							<span class="float-left mgt7" >
 							{{ 'ORDER_MNG.PRODUCT_TYPE' | translate }}: </span>
 							<div class="dropdown float-left">
-								<select class="form-control" [(ngModel)]="_param.serviceType">
-									<option class="hands" [value]=null>{{'ORDER_MNG.ALL_TYPES' | translate }}</option>
-									<option class="hands" *ngFor="let item of _productTypeDic.Items" [value]="item.value">{{item.displayValue}}</option>
+								<select class="form-control" [(ngModel)]="_param.serviceType" id="serviceType">
+									<option class="hands" [value]=null id="serviceType_null">{{'ORDER_MNG.ALL_TYPES' | translate }}</option>
+									<option class="hands" *ngFor="let item of _productTypeDic.Items" [value]="item.value" id="serviceType_{{item.value}}">{{item.displayValue}}</option>
 								</select>
 							</div>
 						</td>
@@ -89,7 +89,7 @@
 					<th>{{ 'ORDER_MNG.DEPARTMENT' | translate }}</th>
 					<th>{{ 'ORDER_MNG.OPERATION' | translate }}</th>
 				</tr>			
-				<tr *ngFor="let item of _orderLoader.Items;let i = index;">
+				<tr *ngFor="let item of _orderLoader.Items;let i = index;" id="orderlist_{{item.orderId}}">
 					<td>{{i + 1}}</td>
 					<td>{{item.orderNo}}</td>
 					<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
@@ -102,9 +102,9 @@
 					<td>{{item.submitPeople}}</td>
 					<td>{{item.departmentName}}</td>
 					<td>
-						<button class="mgr20  button-gray-gradient" (click)="showDetail(item)">{{ 'ORDER_MNG.DETAILS' | translate }}</button>
+						<button class="mgr20  button-gray-gradient" (click)="showDetail(item)" id="order_detail_{{item.orderId}}">{{ 'ORDER_MNG.DETAILS' | translate }}</button>
 						<!--撤单-->
-						<button *ngIf="item.withDrawOrderFlag==1" class="button-gray-gradient" data-toggle="modal" (click)="selectItem(item)">{{ 'ORDER_MNG.CANCEL_THE_ORDER' | translate }}</button>
+						<button *ngIf="item.withDrawOrderFlag==1" class="button-gray-gradient" data-toggle="modal" (click)="selectItem(item)" id="cancel_order_{{item.orderId}}">{{ 'ORDER_MNG.CANCEL_THE_ORDER' | translate }}</button>
 						
 					</td>
 				</tr>
