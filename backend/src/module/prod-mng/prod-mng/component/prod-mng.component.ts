@@ -309,6 +309,7 @@ export class ProdMngComponent implements OnInit {
         }else if(this.prodDirTypeCre=='VITRUALDISK_SERVICE'||this.prodDirTypeCre=='VITRUALMACHINE_SERVICE'){
             this.router.navigate(["prod-mng/prod-mng/prod-mng-cre-1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);                       
         }else if(this.prodDirTypeCre=='SUPERVISE_SERVICE'){
+            this.router.navigate(["prod-mng/manager-serve/manager-serve-product-cre-step1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);            
         }        
     }    
 }
