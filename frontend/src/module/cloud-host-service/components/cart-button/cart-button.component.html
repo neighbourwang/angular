@@ -1,6 +1,6 @@
 <div class="col-md-12 no-padding title-box">
-    <div class="col-md-6"><button (click)="goTo('cloud-host-service/cart-list')" class="btn button-gray-gradient"><span class="icon-shopping"></span>{{'COMMON.CHECK_SHOPPING_CART' | translate}} {{cartLength}}</button></div>
-    <div class="col-md-6"><button (click)="delectAllCart()" class="btn button-gray-gradient"><span class="icon-delete"></span>{{'COMMON.EMPTY_SHOPPING_CART' | translate}}</button></div>
+    <div class="col-md-6"><button id="check_shopping_cart" (click)="goTo('cloud-host-service/cart-list')" class="btn button-gray-gradient"><span class="icon-shopping"></span>{{'COMMON.CHECK_SHOPPING_CART' | translate}} {{cartLength}}</button></div>
+    <div class="col-md-6"><button id="empty_shopping_cart" (click)="delectAllCart()" class="btn button-gray-gradient"><span class="icon-delete"></span>{{'COMMON.EMPTY_SHOPPING_CART' | translate}}</button></div>
 </div>
 
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalCANCEL()" ct="{{modalCancelTitle}}" (cf)="modalconfirm()"></fc-confirm>

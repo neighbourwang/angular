@@ -132,6 +132,12 @@ export class AliCloudSubAccountEnterpriseComponent implements OnInit{
     //点击重置按钮
     changeEnt(){
         this.changeEntName="";
+         const selectEnt=this.enterpriseList.find((e)=> {return e.isSelect});
+         if(selectEnt){
+            selectEnt.isSelect=false;
+         }
+        
+        
     }
     
     //选取企业

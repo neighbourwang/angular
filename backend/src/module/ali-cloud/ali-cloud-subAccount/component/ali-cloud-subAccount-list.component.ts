@@ -160,36 +160,28 @@ export class AliCloudSubAccountListComponent implements OnInit{
             this.showAlert("请选择需要删除的账号！")
             return ;
         }
-        //  if(account.mainAccountType =="1" ){
-        //     if( account.tenantCross=="" && account.status=="2"){
-        //             this.noticeMsg="您选择删除'"+account.loginName +"'阿里云主账号,请确认；如果确认，此阿里云账号数据(包括子账号)将不能恢复。";
-        //             this.noticeTitle="删除阿里云主账号";
-        //     }
-        //     else{
-        //         this.showAlert("独享主账号不属于任何企业且禁用状态时，才可以删除!");
-        //         return ;
-        //     }               
-        // }             
-        // else if(account.mainAccountType =="2" && account.isEditable=="0" && account.status=="2"){
-        //     this.noticeMsg="您选择删除'"+account.loginName +"'阿里云主账号,请确认；如果确认，此阿里云账号数据(包括子账号)将不能恢复。";
-        //     this.noticeTitle="删除阿里云主账号";
-        // }
-        // else{
-        //     this.showAlert("共享主账号只有将所有子账号的企业或部门设置移除且为禁用状态，才能删除该主账号！");
-        //     return;
-        // }             
-        // this.layoutService.hide();
-        // this.confirm.ccf = () => {};
-        // this.confirm.cof = () => {
-        //     this.service.deleteAccount(account.id)
-        //     .then(
-        //         response=>{
-        //             this.layoutService.hide();
-        //             this.getAccountList();
-        //         }
-        //     )
-        //    .catch((e) => this.onRejected(e))  
-        // }      
+        if( account.tenantName ==null && account.status=="2" && account.departName ==null){
+                this.noticeMsg="您选择删除'"+account.loginName +"'阿里云子账号,请确认；如果确认，此阿里云账号数据将不能恢复。";
+                this.noticeTitle="删除阿里云子账号";
+        }
+        else{
+            this.showAlert("子账号不属于任何企业和部门且为禁用状态时，才可以删除!");
+            return ;
+        }                            
+      
+        this.layoutService.hide();
+        this.confirm.ccf = () => {};
+        this.confirm.cof = () => {
+            this.service.deleteAccount(account.id)
+            .then(
+                response=>{
+                    this.layoutService.hide();
+                    this.getAccountList();
+                }
+            )
+           .catch((e) => this.onRejected(e))  
+        }  
+        this.confirm.open();       
     }
 
 

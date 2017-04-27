@@ -1,13 +1,13 @@
 <!-- 从未挂载盘列表 -->
 <div *ngIf="code==='1'" class="col-md-12 mgb15 no-padding">
-    <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select">
+    <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select" id="table_queryField">
         <option
          *ngFor="let v of service.diskQueryField | async; let i = index;"
-         [ngValue]="v.code" >{{ v.displayValue }}</option>
+         [ngValue]="v.code" id="table_queryField_{{v.code}}">{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
-        <input class="form-control width-300" [(ngModel)]="list.queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}">
-        <div (click)="setUnmountList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
+        <input class="form-control width-300" [(ngModel)]="list.queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}" id="table_queryFieldValue">
+        <div (click)="setUnmountList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search" id="table_setUnmountList"></span></div>
     </div>
 </div>
 <table *ngIf="code==='1'" class="table table-hover">
@@ -16,7 +16,7 @@
         <th class="text-center">{{'COMMON.STORAGE_TYPE' | translate}}</th>
         <th class="text-center">{{'COMMON.CAPACITY_GB' | translate}}</th>
     </tr>
-    <tr *ngFor="let unmount of unmountList; let i = index;" [ngClass]="{'active':activeNum === i}" class="cup" (click)="emit(unmount);activeNum = i">
+    <tr *ngFor="let unmount of unmountList; let i = index;" [ngClass]="{'active':activeNum === i}" class="cup" (click)="emit(unmount);activeNum = i" id="unmount_{{unmount.id}}">
         <td class="text-center">{{unmount.name}}</td>
         <td class="text-center">{{unmount.type}}</td> 
         <td class="text-center">{{unmount.size}}</td>
@@ -25,14 +25,14 @@
 
 <!-- 备份列表 -->
 <div *ngIf="code==='2'" class="col-md-12 mgb15 no-padding">
-    <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select">
+    <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select" id="table_queryField">
         <option
          *ngFor="let v of service.diskQueryField | async; let i = index;"
-         [ngValue]="v.code" >{{ v.displayValue }}</option>
+         [ngValue]="v.code" id="table_queryField_{{v.code}}">{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
-        <input class="form-control width-300" [(ngModel)]="list.queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}">
-        <div (click)="setBackupList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
+        <input class="form-control width-300" [(ngModel)]="list.queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}" id="table_queryFieldValue">
+        <div (click)="setBackupList()" class="input-group-addon cup"  id="table_setBackupList"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 </div>
 <table *ngIf="code==='2'" class="table table-hover">
@@ -42,7 +42,7 @@
         <th class="text-center">{{'SUB_TABLE_LIST.SOURCE_VIRTUAL_MACHINE_NAME' | translate}}</th>
         <th class="text-center">{{'COMMON.CAPACITY_GB' | translate}}</th>
     </tr>
-    <tr *ngFor="let backup of backupList; let i = index;" class="cup" [ngClass]="{'active':activeNum === i}" (click)="emit(backup); activeNum = i">
+    <tr *ngFor="let backup of backupList; let i = index;" class="cup" [ngClass]="{'active':activeNum === i}" (click)="emit(backup); activeNum = i" id="backup_{{backup.id}}">
         <td class="text-center">{{backup.id}}</td>
         <td class="text-center">{{backup.name}}</td> 
         <td class="text-center">{{backup.vmName}}</td>
@@ -52,14 +52,14 @@
 
 <!-- 云主机实例列表 -->
 <div *ngIf="code==='3'" class="col-md-12 mgb15 no-padding">
-    <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select">
+    <select [(ngModel)]="list.queryField" class="form-control mgr15 float-left drive-select" id="table_queryField">
         <option
          *ngFor="let v of service.vmQueryField | async; let i = index;"
-         [ngValue]="v.code" >{{ v.displayValue }}</option>
+         [ngValue]="v.code" id="table_queryField_{{v.code}}">{{ v.displayValue }}</option>
     </select>
     <div class="input-group float-left drive-search">
-        <input class="form-control width-300" [(ngModel)]="list.queryFieldValue" placeholder="{{'SUB_TABLE_LIST.ENTER_INFORMATION_TO_SEARCH' | translate}}">
-        <div (click)="setVmList()" class="input-group-addon cup"><span class="glyphicon glyphicon-search"></span></div>
+        <input class="form-control width-300" [(ngModel)]="list.queryFieldValue" placeholder="{{'SUB_TABLE_LIST.ENTER_INFORMATION_TO_SEARCH' | translate}}" id="table_queryFieldValue">
+        <div (click)="setVmList()" class="input-group-addon cup" id="table_setVmList"><span class="glyphicon glyphicon-search"></span></div>
     </div>
 </div>
 <table *ngIf="code==='3'" class="table table-hover">
@@ -70,7 +70,7 @@
         <th class="text-center">{{'SUB_TABLE_LIST.INTERNAL_IP' | translate}}</th>
         <th class="text-center">{{'SUB_TABLE_LIST.EXTERNAL_IP' | translate}}</th>
     </tr>
-    <tr *ngFor="let vm of vmList; let i = index;" class="cup" [ngClass]="{'active':activeNum === i}" (click)="emit(vm);activeNum = i">
+    <tr *ngFor="let vm of vmList; let i = index;" class="cup" [ngClass]="{'active':activeNum === i}" (click)="emit(vm);activeNum = i" id="vms_{{vm.itemId}}">
         <td class="text-center">{{vm.instanceName}}</td>
         <td class="text-center">{{vm.specification}}</td> 
         <td class="text-center">{{vm.osInfo}}</td>
