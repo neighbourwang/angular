@@ -24,10 +24,10 @@
     </table>
     <div class="col-md-12 no-padding mgb20">
         <div class="dropdown float-left mgr10">
-            <select [(ngModel)]="list.queryField" class="form-control">
+            <select [(ngModel)]="list.queryField" class="form-control" id="queryField">
                 <option
                  *ngFor="let v of service.queryField | async; let i = index;"
-                 [value]="v.code" >{{ v.displayValue }}</option>
+                 [value]="v.code" id="queryField_{{v.code}}">{{ v.displayValue }}</option>
             </select>
         </div>
 
@@ -40,8 +40,8 @@
             </select>
         </div>
         <div class="input-group col-md-2 float-left mgr10">
-            <input class="form-control" type="email" [(ngModel)]="list.queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}">
-            <div class="input-group-addon" (click)="search()"><span class="glyphicon glyphicon-search"></span></div>
+            <input class="form-control" type="email" [(ngModel)]="list.queryFieldValue" id="queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}">
+            <div class="input-group-addon" (click)="search()" id="queryFieldValue_search"><span class="glyphicon glyphicon-search"></span></div>
         </div>
         <!--         <div class="input-group float-left mgr10">
             <label class="btn btn-default button-gray-gradient" (click)="superSearch = !superSearch" [ngClass]="{'active': superSearch}">
@@ -49,16 +49,16 @@
             </label>
         </div> -->
         <div class="input-group float-left">
-            <button (click)="resetSearch()" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> {{'COMMON.RESET_SEARCH' | translate}} </button>
+            <button (click)="resetSearch()" id="reset_search" class="btn button-gray-gradient"><span class="glyphicon glyphicon-repeat"></span> {{'COMMON.RESET_SEARCH' | translate}} </button>
         </div>
 
     </div>
 
     <div class="col-md-12 no-padding mgb20">
         <div class="float-left">
-            <button class="btn float-left mgr5 btn-success" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i> {{'CLOUD_DRIVE_LIST.CREATE_CLOUD_HRAD_DISK' | translate}}</button>
-            <unsubscribe #unsubscribeVm title="云硬盘退订" [subid]="radioSelected?.subInstanceId"></unsubscribe>
-            <button (click)="unsubscribeVm.open()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK' | translate}}</button>
+            <button class="btn float-left mgr5 btn-success" id="create_cloud_disk" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i> {{'CLOUD_DRIVE_LIST.CREATE_CLOUD_HRAD_DISK' | translate}}</button>
+            <unsubscribe #unsubscribeVm title="云硬盘退订" id="unsubscribe_cloud_disk" [subid]="radioSelected?.subInstanceId"></unsubscribe>
+            <button (click)="unsubscribeVm.open()" id="un_cloud_disk" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK' | translate}}</button>
 
 
             <!--<div class="dropdown float-left  mgr5">
@@ -90,8 +90,8 @@
             <th class="text-center">{{'COMMON.TYPE' | translate}}</th>
             <th class="text-center">{{'CLOUD_DRIVE_LIST.OPERATE' | translate}}</th>
         </tr>
-        <tr *ngFor="let dist of distList;">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=dist;" name="disk-list"></td>
+        <tr *ngFor="let dist of distList;" id="dist_{{dist.id}}">
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=dist;" name="disk-list" id="dist_radio_{{dist.id}}"></td>
             <!-- <td class="text-center active" style="position: relative;width: 220px;">
                 <table-edit-name [value]="dist.name" (onChange)="changeName($event, dist)"></table-edit-name>
             </td> -->
@@ -108,14 +108,14 @@
             <td class="text-center">{{dist.sourceType | dict:service.dictSourceType | async}}</td>
             <td class="text-center">
                 <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="more_{{dist.id}}">
                     {{'COMMON.MORE_ACTIONS' | translate}}
                     <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " *ngIf="!dist.relyId"
-                                href="javascript:">{{'CLOUD_DRIVE_LIST.MOUNT' | translate}}</a></li>
-                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" *ngIf="dist.relyId" href="javascript:">{{'CLOUD_DRIVE_LIST.UNINSTALL' | translate}}</a></li>
+                                href="javascript:" id="mount_{{dist.id}}">{{'CLOUD_DRIVE_LIST.MOUNT' | translate}}</a></li>
+                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" id="uninstall_{{dist.id}}" *ngIf="dist.relyId" href="javascript:">{{'CLOUD_DRIVE_LIST.UNINSTALL' | translate}}</a></li>
                         <!-- <li><a (click)="handleDist('pause', vm, '暂停')" href="javascript:">暂停</a></li> -->
                         <!-- <li><a (click)="handleDist('unpause', vm , '开始')" href="javascript:">开始</a></li> -->
                         <!-- <li><a (click)="handleDist('resume', vm)" href="javascript:">恢复</a></li> -->
@@ -123,7 +123,7 @@
                         <!-- <li><a (click)="handleDist('softReboot', vm , '软重启')" href="javascript:">软重启</a></li> -->
                         <!-- <li><a (click)="handleDist('suspend', vm)" href="javascript:">挂起</a></li> -->
                         <li *ngIf="dist.relyId" role="separator" class="divider"></li>
-                        <li *ngIf="dist.relyId" ><a (click)="diskReconfig.open(dist)" href="javascript:">云硬盘扩容</a></li>
+                        <li *ngIf="dist.relyId" ><a (click)="diskReconfig.open(dist)" href="javascript:" id="open_{{dist.id}}">云硬盘扩容</a></li>
                     </ul>
                 </div>
             </td>

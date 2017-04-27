@@ -86,11 +86,12 @@ export class PhysicalMachineOrderComponent implements OnInit {
 	};
 
 	ngOnInit() {
+		this.v.result = {};
+		this.dux.reset()
+
 		this.makeSubscriber()
 		this.fetchRegion()
-
 		this.initDispatch()
-		this.v.result = {};
 	}
 
 	/****初始化派发事件***/
@@ -187,6 +188,10 @@ export class PhysicalMachineOrderComponent implements OnInit {
 				}
 
 				this.setValueListAndValue("OSYSTEM", list)
+			})
+			.catch(e => {
+				this.showNotice("提示", "获取操作系统列表失败")
+				this.setValueListAndValue("OSYSTEM", [])
 			})
 	}
 
