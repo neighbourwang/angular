@@ -46,6 +46,7 @@ export class AliSharedListComponent implements OnInit{
     selectedDepartmentId: string;
     id: string;
     tempDepartmentId: string;
+    tempDepartsList: Array<DepartList>;
 
     ngOnInit (){
         console.log('init');
@@ -81,7 +82,9 @@ export class AliSharedListComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.departsList = response["resultContent"];
+                        this.tempDepartsList= this.departsList.reverse();
                         console.log("departsharesList",this.departsList);
+                        console.log("tempDepartsList",this.tempDepartsList);
                         this.distriDepart.open("分配部门")
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -109,7 +112,7 @@ export class AliSharedListComponent implements OnInit{
         this.selectedDepartmentId= "";
 
     }
-    
+
     editDepart(){
         this.layoutService.show();
         this.service.editDepart(this.id, this.selectedDepartmentId)

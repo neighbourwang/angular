@@ -48,6 +48,7 @@ export class AliSubListComponent implements OnInit{
 
     noticeTitle = "";
     noticeMsg = "";
+    ot= "";
 
     name: string;
     type: string;
@@ -109,6 +110,7 @@ export class AliSubListComponent implements OnInit{
 
     getDetail(item){
         this.type= "info";
+        this.ot= "关闭";
         this.layoutService.show();
         this.service.getDetail(item.id)
             .then(
@@ -128,6 +130,7 @@ export class AliSubListComponent implements OnInit{
 
     crePage(){
         this.type= "create";
+        this.ot= "创建";
         this.testInfo= "";
         this.subInfo= new AliSubList();
         this.getDepartsList();
@@ -153,6 +156,7 @@ export class AliSubListComponent implements OnInit{
 
     editPage(item){
         this.type= "edit";
+        this.ot= "保存";
         this.id= item.id;
         this.testInfo= "";
         this.layoutService.show();
@@ -208,6 +212,7 @@ export class AliSubListComponent implements OnInit{
 
     distriPage(item){
         this.type= "distribute";
+        this.ot= "保存";
         this.selectedDepartment= item.departmentName;
         this.tempDepartmentId= item.departId;
         this.selectedDepartmentId= item.departId;
