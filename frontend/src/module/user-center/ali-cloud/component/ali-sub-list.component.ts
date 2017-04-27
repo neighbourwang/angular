@@ -210,7 +210,7 @@ export class AliSubListComponent implements OnInit{
         this.type= "distribute";
         this.selectedDepartment= item.departmentName;
         this.tempDepartmentId= item.departId;
-        this.selectedDepartmentId= "";
+        this.selectedDepartmentId= item.departId;
         this.id= item.id;
         this.layoutService.show();
         this.service.getDepartsList()

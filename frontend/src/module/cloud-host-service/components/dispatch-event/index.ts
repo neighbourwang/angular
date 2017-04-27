@@ -27,6 +27,9 @@ class DispatchEvent {
 	unsubscribe(name: string, callback: Function) {
 		this.removeEventPoll(name, callback)
 	}
+	reset() {
+		this.eventPoll = {}
+	}
 }
 
 export {

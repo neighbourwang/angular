@@ -156,7 +156,7 @@ export class AliMajorListComponent implements OnInit{
     distriPage(item){
         this.type= "distribute";
         this.selectedDepartment= item.departmentName;
-        this.selectedDepartmentId= "";
+        this.selectedDepartmentId= item.departmentId;
         this.tempDepartmentId= item.departmentId;
         this.id= item.id;
         this.layoutService.show();
