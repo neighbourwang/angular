@@ -1927,7 +1927,7 @@
      "PLEASE_INPUT_ACCESS_KEY":"请填写Access Key ID!",
      "PLEASE_INPUT_ACCESS_SECRET":"请填写Access Key Secret!",
      "PLEASE_SELECT_ACCOUNT_TYPE":"请选择主账号类型!",
-     "ACCESS_INFO_ERROR":"Access Key信息错误！",
+     "ACCESS_INFO_ERROR":"请测试access key信息！",
 
      "SUB_ACCOUNT_MNG_TITLE":"阿里云子账号管理:主账号:",
      "ADD_SU_ACCOUNT":"添加子账号",

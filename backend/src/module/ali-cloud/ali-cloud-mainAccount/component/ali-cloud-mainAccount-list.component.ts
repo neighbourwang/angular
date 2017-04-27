@@ -101,7 +101,7 @@ export class AliCloudMainAccountListComponent implements OnInit{
                         this.layoutService.hide();
                         console.log("修改后的账号类型",this.selectAccountType)
                           this.editType.close();   
-                        this. gotoAccountList();
+                        this. getAccountList();
                     } 
                     else {
                         this.showAlert("COMMON.OPERATION_ERROR");
