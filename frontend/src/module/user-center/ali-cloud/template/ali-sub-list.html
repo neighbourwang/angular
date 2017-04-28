@@ -43,10 +43,10 @@
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CANCEL' | translate}}" ct="{{ 'COMMON.CONFIRM' | translate}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
 
-<fc-popup #subMng title="{{title}}" ot="{{type== 'info'? '关闭': 'DIALOG.SAVE' | translate }}" ct="{{ type== 'info'? '':'DIALOG.CANCEL' | translate }}" (of)="operate()">
+<fc-popup #subMng title="{{title}}" ot="{{ ot }}" ct="{{ type== 'info'? '':'DIALOG.CANCEL' | translate }}" (of)="operate()">
     <div class="mgt10 border">
         <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
-            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>子账号登录名:</div>
+            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>子账号登录名：</div>
             <div *ngIf="type!= 'create'" class="col-md-8 no-padding">
                 <span style="line-height: 34px;">{{subInfo.loginName}}</span>
             </div>
@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>Access Key ID:</div>
+            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>Access Key ID：</div>
             <div *ngIf="type!= 'info'" class="col-md-6 no-padding form-group" [ngClass]="{'has-error': v.result.accessKey}">
                 <input [(ngModel)]="subInfo.accessKey" type="text" class="form-control" maxlength="50" (ngModelChange)="checkForm('accessKey')">
                 <span *ngIf="v.result.accessKey" class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>Access Key Secret:</div>
+            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>Access Key Secret：</div>
             <div *ngIf="type!= 'info'" class="col-md-6 no-padding form-group" [ngClass]="{'has-error': v.result.accessSecret}">
                 <input [(ngModel)]="subInfo.accessSecret" type="text" class="form-control" (ngModelChange)="checkForm('accessSecret')">
                 <span *ngIf="v.result.accessSecret" class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -84,14 +84,14 @@
                 <button class="btn btn-default button-gray-gradient" (click)="testSub();testInfo= '';">  测试  </button>
             </div>
             <div *ngIf="testInfo== 'success'" class="col-md-4 no-padding">
-                <span class="font-green" style="line-height: 34px;">提示:测试成功</span>
+                <span class="font-green" style="line-height: 34px;">提示：测试成功</span>
             </div>
             <div *ngIf="testInfo== 'failed'" class="col-md-4 no-padding">
-                <span class="font-orange" style="line-height: 34px;">提示:测试失败</span>
+                <span class="font-orange" style="line-height: 34px;">提示：测试失败</span>
             </div>
         </div>
         <div *ngIf="type== 'info' || type== 'create'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-            <div class="col-md-4 content-title" style="text-align : right">所属部门:</div>
+            <div class="col-md-4 content-title" style="text-align : right"><span *ngIf="type== 'info'" class="asterisk">*</span>所属部门：</div>
             <div *ngIf="type== 'info'" class="col-md-8 no-padding">
                 <span style="line-height: 34px;">{{subInfo.departmentName}}</span>
             </div>
@@ -105,7 +105,7 @@
     </div>
 </fc-popup>
 
-<fc-popup #distriDepart title="{{title}}" ot="{{'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="operate()">
+<fc-popup #distriDepart title="{{title}}" ot="{{'DIALOG.SAVE' | translate }}"  ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="operate()">
     <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
         <div class="col-md-1"></div>
         <div class="col-md-4 content-title">当前所选部门：{{selectedDepartment}}</div>

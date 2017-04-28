@@ -107,6 +107,7 @@ export class OrderMngComponent implements OnInit {
 	private userTypeLoader:ItemLoader<UserInfo>= null;
 	private isAdmin:boolean = false;
 
+    private currentPage:number = 1;//记录当前页码
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -563,7 +564,8 @@ export class OrderMngComponent implements OnInit {
 			this._renewPriceLoader.Go(null, [{ key: "_subId", value: orderItem.orderId }])
 				.then(success => {
 					this.layoutService.hide();
-
+					// alert('测试'+this._renewSetting.renewDate);
+					
 					orderItem.itemList.map(n => {
 						n.renewPrice = getRenewPrice();
 						n.renewPeriodType = this._renewPriceLoader.FirstItem.periodType;
@@ -617,8 +619,8 @@ export class OrderMngComponent implements OnInit {
 				this.showMsg(err);
 			})
 	}
-
 	changePage(pageNumber: number) {
+		this.currentPage = pageNumber;
 		this.search(pageNumber);
 	}
 
@@ -734,7 +736,6 @@ export class OrderMngComponent implements OnInit {
 			.then(success => {
 				this.layoutService.hide();
 				this._renewSetting.completed = true;
-				console.log('renew completed');
 			})
 			.catch(err => {
 				this.layoutService.hide();
@@ -834,7 +835,9 @@ export class OrderMngComponent implements OnInit {
 			&& !_.isEmpty(this.selectedOrderItem.itemList)
 			&& this.selectedOrderItem.itemList[0].billingInfo
 			&& _.isNumber([0, 1, 2, 3, 5].find(n => n == this.selectedOrderItem.itemList[0].billingInfo.periodType))) {
+			// alert(this._renewSetting.renewDate);
 			this._renewSetting.renewDate = this.calRenewDate(this.selectedOrderItem.itemList[0].billingInfo.periodType.toString(), this._renewSetting.value);
+			// alert(this._renewSetting.renewDate);
 			this._renewSetting.unit = this.selectedOrderItem.itemList[0].billingInfo.periodType;
 			this.selectedOrderItem.itemList[0].renewDate = this._renewSetting.renewDate;
 		}
@@ -847,17 +850,17 @@ export class OrderMngComponent implements OnInit {
 	calRenewDate(renewMode: string, renewLen: number): string {
 		let toDate: (date: Date) => string = function (date: Date): string {
 		// 	return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-		let hours:String=`${date.getHours()}`;
+			let hours:String=`${date.getHours()}`;
 			let minutes:string =`${date.getMinutes()}`;
 			let seconds:String=`${date.getSeconds()}`;;
-			if(hours=='0'){
-				hours='00';
+			if(Number(hours)<10){
+				hours='0'+hours;
 			}
-			if(minutes=='0'){
-				minutes='00';
+			if(Number(minutes)<10){
+				minutes='0'+minutes;
 			}
-			if(seconds=='0'){
-				seconds='00';
+			if(Number(seconds)<10){
+				seconds='0'+seconds;
 			}
 			return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} `+hours+':'+minutes+':'+seconds;
 	};
@@ -895,7 +898,7 @@ export class OrderMngComponent implements OnInit {
 			}
 			, "5": (len: number) => {
 				return function (expDate: string) {
-					let date: Date = new Date(expDate);
+					let date: Date = new Date(expDate);//expDate为null时，date为 1970-1-1 08:00:00
 					date.setFullYear(date.getFullYear() + len);
 					return date;
 				}
@@ -915,5 +918,10 @@ export class OrderMngComponent implements OnInit {
 		this.expireDatePicker.removeBtnClicked();
 		this._param.reset();
 	}
+  cancelSuccess($event){
+	  console.log($event);
+	  this.search(this.currentPage); 
+  }
 
+ 
 }

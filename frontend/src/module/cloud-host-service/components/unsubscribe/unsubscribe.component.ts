@@ -16,6 +16,7 @@ export class UnsubscribeComponent implements OnInit {
     @Input() title: string = "退订";
 
     @Output() onerror = new EventEmitter();
+    @Output() onSuccess = new EventEmitter();
 
     @ViewChild('notice')
     private noticeDialog: NoticeComponent;
@@ -123,6 +124,7 @@ export class UnsubscribeComponent implements OnInit {
                 this.layoutService.hide();
                 this.popup.open("退订成功");
                 this.state = "done";
+                this.onSuccess.emit(this)
 
                 this.orderList = res.map(r => r.itemList[0]);
             })

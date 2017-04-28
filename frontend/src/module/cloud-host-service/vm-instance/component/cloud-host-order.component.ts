@@ -97,6 +97,7 @@ export class cloudVmComponentOrder implements OnInit {
 		private service: cloudHostServiceOrder
 	) {
 		this.v.result = {};
+		this.dux.reset();
 	};
 
 	ngOnInit() {

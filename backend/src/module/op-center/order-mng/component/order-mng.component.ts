@@ -517,14 +517,14 @@ export class OrderMngComponent implements OnInit{
 			let hours:String=`${date.getHours()}`;
 			let minutes:string =`${date.getMinutes()}`;
 			let seconds:String=`${date.getSeconds()}`;;
-			if(hours=='0'){
-				hours='00';
+			if(Number(hours)<10){
+				hours='0'+hours;
 			}
-			if(minutes=='0'){
-				minutes='00';
+			if(Number(minutes)<10){
+				minutes='0'+minutes;
 			}
-			if(seconds=='0'){
-				seconds='00';
+			if(Number(seconds)<10){
+				seconds='0'+seconds;
 			}
 			return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} `+hours+':'+minutes+':'+seconds;
 		};
