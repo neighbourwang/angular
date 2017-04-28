@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService} from '../../../../architecture';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -10,7 +10,8 @@ export class ProdListService {
     constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private dict:SystemDictionaryService
     ) { }
 
     // 条件查询所有产品列表
@@ -26,4 +27,8 @@ export class ProdListService {
 
         return this.restApi.request(api.method, api.url,[], undefined,data);
     }
+    productTypeDic=this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise
+      owner : "GLOBAL",
+      field : "SERVICE_TYPE"    
+   })
 }

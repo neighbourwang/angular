@@ -55,7 +55,7 @@
 										<td>{{unit.specName}}</td>
 										<td>
 											{{unit.partsFlavorValue}}
-											<span *ngIf="unit.partsId=='2eeb0a38-167e-11e7-91af-0242ac110002'||unit.partsId=='35dc99bd-167e-11e7-91af-0242ac110002'">GB</span>
+											<span *ngIf="unit.partsName=='磁盘'||unit.partsName=='内存'">GB</span>
 										</td>
 										<td>{{unit.partFlavorNum}}</td>
 										<td>
@@ -159,7 +159,9 @@
                 </select>
 			</div>
 			<div class="cole-sm-2">
-				<span style="line-height:34px">GB</span>
+				<span *ngIf="selectedFlavor.partsName=='内存'||selectedFlavor.partsName=='磁盘'" style="line-height:34px">GB</span>
+				<span *ngIf="selectedFlavor.partsName=='CPU'" style="line-height:34px">核</span>
+				<span *ngIf="selectedFlavor.partsName=='网卡'" style="line-height:34px">个</span>
 			</div>
 		</div>
 	</div>
