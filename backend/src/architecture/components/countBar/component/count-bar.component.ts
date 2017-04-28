@@ -56,7 +56,6 @@ export class CountBarComponent implements OnInit{
         }      
     }
     valueChange(){
-        console.log(!this.decimal);
         this.value=this.value?this.value:this.min;
         if(!this.decimal)this.value=parseInt(this.value+'',10); //取整
         if(Number.isNaN(this.value))this.value=this.min;
@@ -65,7 +64,6 @@ export class CountBarComponent implements OnInit{
         this.value = +this.value > +this.max ? +this.max : +this.value < +this.min ? +this.min : +this.value;
         // if(!this.decimal)this.value=Math.ceil(this.value); //取整
         this.output.emit(this.value);  
-        console.log(!this.value);
              
     }
     unEdit(){
