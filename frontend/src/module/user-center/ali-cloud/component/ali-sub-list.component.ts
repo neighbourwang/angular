@@ -146,6 +146,8 @@ export class AliSubListComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         this.getData();
                         this.subMng.close();
+                    }else if(response && 90011 == response["resultCode"]){
+                        this.showAlert("测试成功才能创建");
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -186,6 +188,8 @@ export class AliSubListComponent implements OnInit{
                         this.getData();
                         this.subMng.close();
                         console.log("edit后",this.subInfo);
+                    }else if(response && 90011 == response["resultCode"]){
+                        this.showAlert("测试成功才能保存");
                     }else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -333,19 +337,13 @@ export class AliSubListComponent implements OnInit{
         }
     }
 
-
-    //待完善
+    
     operate(){
         if(this.type== "info"){
             this.subMng.close();
         }else if(this.type== "create"){
             if(this.validationService.isBlank(this.subInfo.accessKey) || this.validationService.isBlank(this.subInfo.accessSecret)
                 || this.validationService.isBlank(this.subInfo.loginName)){
-                return;
-            }
-            if(this.testInfo != 'success'){
-                this.showAlert("测试成功才能保存");
-               // this.subMng.close();
                 return;
             }
             let selectedDepart= this.departsList.find((p)=>{
@@ -355,11 +353,6 @@ export class AliSubListComponent implements OnInit{
             this.create();
         }else if(this.type== "edit"){
             if(this.validationService.isBlank(this.subInfo.accessKey) || this.validationService.isBlank(this.subInfo.accessSecret)){
-                return;
-            }
-            if(this.testInfo != 'success'){
-                this.showAlert("测试成功才能保存");
-                //this.subMng.close();
                 return;
             }
             this.edit();

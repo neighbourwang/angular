@@ -51,13 +51,13 @@ export class AliCloudMainAccountEditComponent implements OnInit{
             console.log(this.editMode);   
              switch (this.editMode) {
                 case "edit":
-                    this.title = "编辑主账号";
+                    this.title = "ALI_CLOUD.EDIT_MAIN_ACCOUNT";
                     break;
                 case "view":
-                    this.title = "主账号详情";
+                    this.title = "ALI_CLOUD.MAIN_ACCOUNT_DETAIL";
                     break;
                 case "create":
-                    this.title = "添加主账号";
+                    this.title = "ALI_CLOUD.CREATE_MAIN_ACCOUNT";
                     break;
             } 
         }); 
@@ -95,14 +95,14 @@ export class AliCloudMainAccountEditComponent implements OnInit{
         //     return;
         // }
         if(!this.account.accessKey){
-            this.showAlert("请填写Access Key ID!");
+            this.showAlert("ALI_CLOUD.PLEASE_INPUT_ACCESS_KEY");
             return;
         }
         if(!this.account.accessSecret){
-            this.showAlert("请填写Access Key Secret!");
+            this.showAlert("ALI_CLOUD.PLEASE_INPUT_ACCESS_SECRET");
             return;
         }
-        if(this.testResult=="1"  || this.changebt){      
+        if((!this.changebt &&this.testResult=="1")  || this.changebt){      
             this.layoutService.hide();
             this.service.editAccount(this.account)
             .then(
@@ -120,7 +120,7 @@ export class AliCloudMainAccountEditComponent implements OnInit{
             .catch((e) => this.onRejected(e));
         }
         else{
-            this.showAlert("请测试access key信息！");
+            this.showAlert("ALI_CLOUD.ACCESS_INFO_ERROR");
             return;
         }
     }
@@ -128,7 +128,7 @@ export class AliCloudMainAccountEditComponent implements OnInit{
     //添加账号
     createAccount(){
         if(!this.account.loginName){
-            this.showAlert("请填写主账号登录名!");
+            this.showAlert("ALI_CLOUD.PLEASE_INPUT_LOGIN_NAME");
             return;
         }
         // if(!this.account.accessUrl){
@@ -136,15 +136,15 @@ export class AliCloudMainAccountEditComponent implements OnInit{
         //     return;
         // }
         if(!this.account.accessKey){
-            this.showAlert("请填写Access Key ID!");
+            this.showAlert("ALI_CLOUD.PLEASE_INPUT_ACCESS_KEY");
             return;
         }
         if(!this.account.accessSecret){
-            this.showAlert("请填写Access Key Secret!");
+            this.showAlert("ALI_CLOUD.PLEASE_INPUT_ACCESS_SECRET");
             return;
         }
        if(!this.account.mainAccountType){
-            this.showAlert("请选择主账号类型!");
+            this.showAlert("ALI_CLOUD.PLEASE_SELECT_ACCOUNT_TYPE");
             return;
         }    
         this.layoutService.show();
@@ -165,7 +165,7 @@ export class AliCloudMainAccountEditComponent implements OnInit{
         .catch((e) => this.onRejected(e));
         }
         else{
-            this.showAlert("请测试账号信息！");
+            this.showAlert("ALI_CLOUD.ACCESS_INFO_ERROR");
             return;
         }
     }

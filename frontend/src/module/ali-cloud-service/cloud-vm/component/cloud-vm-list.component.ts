@@ -206,10 +206,8 @@ export class AliCloudVmListComponent implements OnInit {
         console.log(this.queryObject);
         if (this.choosenRegion == this.defaultRegion) {
             this.showMsg("请选择区域");
-        } else if(this.queryObject.keyword != "") {
-            this.getInstanceList(this.choosenRegion);
         } else {
-            console.log(this.queryObject.keyword, "queryObject.keyword is '' or please choose Region!");
+            this.getInstanceList(this.choosenRegion);
         }
     }
 
