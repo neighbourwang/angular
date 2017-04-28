@@ -107,6 +107,7 @@ export class OrderMngComponent implements OnInit {
 	private userTypeLoader:ItemLoader<UserInfo>= null;
 	private isAdmin:boolean = false;
 
+    private currentPage:number = 1;//记录当前页码
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -563,7 +564,7 @@ export class OrderMngComponent implements OnInit {
 			this._renewPriceLoader.Go(null, [{ key: "_subId", value: orderItem.orderId }])
 				.then(success => {
 					this.layoutService.hide();
-					alert('测试'+this._renewSetting.renewDate);
+					// alert('测试'+this._renewSetting.renewDate);
 					
 					orderItem.itemList.map(n => {
 						n.renewPrice = getRenewPrice();
@@ -618,8 +619,8 @@ export class OrderMngComponent implements OnInit {
 				this.showMsg(err);
 			})
 	}
-
 	changePage(pageNumber: number) {
+		this.currentPage = pageNumber;
 		this.search(pageNumber);
 	}
 
@@ -834,9 +835,9 @@ export class OrderMngComponent implements OnInit {
 			&& !_.isEmpty(this.selectedOrderItem.itemList)
 			&& this.selectedOrderItem.itemList[0].billingInfo
 			&& _.isNumber([0, 1, 2, 3, 5].find(n => n == this.selectedOrderItem.itemList[0].billingInfo.periodType))) {
-			alert(this._renewSetting.renewDate);
+			// alert(this._renewSetting.renewDate);
 			this._renewSetting.renewDate = this.calRenewDate(this.selectedOrderItem.itemList[0].billingInfo.periodType.toString(), this._renewSetting.value);
-			alert(this._renewSetting.renewDate);
+			// alert(this._renewSetting.renewDate);
 			this._renewSetting.unit = this.selectedOrderItem.itemList[0].billingInfo.periodType;
 			this.selectedOrderItem.itemList[0].renewDate = this._renewSetting.renewDate;
 		}
@@ -917,5 +918,10 @@ export class OrderMngComponent implements OnInit {
 		this.expireDatePicker.removeBtnClicked();
 		this._param.reset();
 	}
+  cancelSuccess($event){
+	  console.log($event);
+	  this.search(this.currentPage); 
+  }
 
+ 
 }
