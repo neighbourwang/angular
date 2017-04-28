@@ -119,6 +119,9 @@ export class AliMajorListComponent implements OnInit{
     }
 
     edit(){
+        if(this.validationService.isBlank(this.majorInfo.accessKey) || this.validationService.isBlank(this.majorInfo.accessSecret)){
+            return;
+        }
         this.layoutService.show();
         this.service.edit(this.id, this.majorInfo)
             .then(
@@ -128,6 +131,8 @@ export class AliMajorListComponent implements OnInit{
                         this.getData();
                         this.majorMng.close();
                         console.log("edit后",this.majorInfo);
+                    }else if(response && 90011 == response["resultCode"]){
+                        this.showAlert("测试成功才能保存");
                     }else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -219,14 +224,6 @@ export class AliMajorListComponent implements OnInit{
         if(this.type== "info"){
             this.majorMng.close();
         }else if(this.type== "edit"){
-            if(this.validationService.isBlank(this.majorInfo.accessKey) || this.validationService.isBlank(this.majorInfo.accessSecret)){
-                return;
-            }
-            if(this.testInfo != 'success'){
-                this.showAlert("测试成功才能保存");
-                //this.majorMng.close();
-                return;
-            }
             this.edit();
         }else{
             if(this.selectedDepartmentId != this.tempDepartmentId){
