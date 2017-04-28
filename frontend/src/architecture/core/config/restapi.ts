@@ -253,6 +253,25 @@ export let RestApis: RestApiModel[] = [
         "id": "phymachine.product.info",
         "url": "marketplace/authsec/shopping/product/phymachine/{phymachineId}"
     },
+    //管理服务部分
+    {
+        "desc": "获取管理服务产品",
+        "method": "GET",
+        "id": "mgmt-product-simple",
+        "url": "productmgmt/authsec/supervise/product/simple"
+    },
+    {
+        "desc": "根据产品信息里的serviceId来获取服务对象信息",
+        "method": "GET",
+        "id": "product-info-via-serviceId",
+        "url": "productmgmt/authsec/enterprises/product/{productId}"
+    },
+    {
+        "desc": "获取一个管理服务目录的基础信息",
+        "method": "GET",
+        "id": "product-list-via-serviceId",
+        "url": "productmgmt/authsec/services/supervise/{serviceId}"
+    },
     //镜像管理部分
     {
         "desc": "创建镜像",

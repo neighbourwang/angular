@@ -56,6 +56,12 @@ export class MenuService {
 							"routing": "cloud-host-service/physical-machine-order"
 						},
 						{
+							"label": "管理服务订购",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "cloud-host-service/management-services-order"
+						},
+						{
 							"label": "阿里云主机",
 							"isOpen": true,
 							"isShow": true,

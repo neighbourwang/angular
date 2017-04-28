@@ -1209,6 +1209,7 @@
     "ENTERPRISE_INFORMATION": "Enterprise information",
     "HISTORYCAL_PRICE": "History price",
     "PLEASE_SELECT_VALUATION_CYCLE": "Please select valuation cycle",
+    "PLEASE_SELECT_VALUATION_TYPE": "Please select valuation type",
     "PLATFORM_LIST_IS_EMPTY": "Platform list is empty",
     "ENTERPRISE_LIST_IS_EMPTY": "Enterprise list is empty",
     "RETURN_TO_PREVIOUS_STEP": "Go back to the previous step and reselect the platform",

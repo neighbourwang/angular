@@ -1,6 +1,3 @@
-/**
- * Created by wangyao on 2016/10/18.
- */
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService } from '../../../../architecture';

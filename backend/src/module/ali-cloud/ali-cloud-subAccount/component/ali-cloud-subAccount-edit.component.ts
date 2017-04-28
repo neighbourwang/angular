@@ -95,7 +95,7 @@ export class AliCloudSubAccountEditComponent implements OnInit{
             this.showAlert("请填写Access Key Secret!");
             return;
         }
-        if(this.testResult=="0"){       
+        if(this.testResult=="1" || this.changebt){       
             this.layoutService.hide();
             this.service.editAccount(this.account)
             .then(
@@ -113,7 +113,7 @@ export class AliCloudSubAccountEditComponent implements OnInit{
             .catch((e) => this.onRejected(e));
         }
         else{
-            this.showAlert("Access Key信息错误！");
+            this.showAlert("请测试access key信息！");
             return false;
         }
     }

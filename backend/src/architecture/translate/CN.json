@@ -1574,6 +1574,7 @@
     "ENTERPRISE_INFO": "企业信息",
     "HISTORYCAL_PRICE": "历史价格",
     "PLEASE_SELECT_VALUATION_CYCLE": "请选择计价周期",
+    "PLEASE_SELECT_VALUATION_TYPE": "请选择计价模式",
     "PLATFORM_LIST_IS_EMPTY": "平台列表为空",
     "ENTERPRISE_LIST_IS_EMPTY": "企业列表为空",
     "RETURN_TO_PREVIOUS_STEP": "返回上一步重新选择平台",
@@ -1927,7 +1928,7 @@
      "PLEASE_INPUT_ACCESS_KEY":"请填写Access Key ID!",
      "PLEASE_INPUT_ACCESS_SECRET":"请填写Access Key Secret!",
      "PLEASE_SELECT_ACCOUNT_TYPE":"请选择主账号类型!",
-     "ACCESS_INFO_ERROR":"Access Key信息错误！",
+     "ACCESS_INFO_ERROR":"请测试access key信息！",
 
      "SUB_ACCOUNT_MNG_TITLE":"阿里云子账号管理:主账号:",
      "ADD_SU_ACCOUNT":"添加子账号",
