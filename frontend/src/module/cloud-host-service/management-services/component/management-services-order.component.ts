@@ -7,9 +7,10 @@ import { ManagementServicesOrderService } from '../service/management-services-o
 
 import { DispatchEvent } from "../../components/dispatch-event"
 
-// import { Regions, PMOrderResponse, PMPartsEntity, PMNetworkVO, ResoucePolls, PMImageBaseVO, AttrList, ValuesList, ValuesType, Values } from '../model/service.model';
-import { SuperviseServiceDetailInfoItem, ProductNewProfile, ProductSimpleItem } from '../model/service.model';
+import { SuperviseProductItem, ProductSimpleItem, ShoppingCartProfile } from '../model/service.model';
 import { PostAttrList, PayLoad} from '../model/post.model';
+import { Values, ValuesAttr} from '../model/other.model';
+	
 
 @Component({
 	selector: 'management-services-order',
@@ -34,8 +35,11 @@ export class ManagementServicesOrderComponent implements OnInit {
 
 	productList: ProductSimpleItem[] = [];
 	product: ProductSimpleItem;
-	productInfo: ProductNewProfile;
+	productInfo: SuperviseProductItem;
 
+	postData: ShoppingCartProfile
+
+	values: Values = new Values;
 
 	check = {};
 
@@ -56,9 +60,9 @@ export class ManagementServicesOrderComponent implements OnInit {
 		this.v.result = {};
 		this.dux.reset()
 
-
 		this.makeSubscriber()
 		this.fetchServicesList()
+		this.fetchAttribute()
 		this.initDispatch()
 	}
 
@@ -69,7 +73,6 @@ export class ManagementServicesOrderComponent implements OnInit {
 
 	private makeSubscriber() {
 		this.dux.subscribe("PRODUCT", () => { this.fetchProductInfo() })
-		this.dux.subscribe("PRODUCT", () => { this.fetchProductCategory() })
 	}
 
 	/******获取管理服务列表 最上面的下拉框*****/
@@ -84,6 +87,14 @@ export class ManagementServicesOrderComponent implements OnInit {
 			})
 	}
 
+	/******************获取attribute******************/
+	private fetchAttribute() {
+		this.service.fetchAttribute()
+			.then(res => {
+				this.postData = res
+			})
+	}
+
 	/******获取管理服务产品详情*****/
 	private fetchProductInfo() {
 				console.log("fetchProductInfo")
@@ -93,15 +104,6 @@ export class ManagementServicesOrderComponent implements OnInit {
 				this.productInfo = res;
 			})
 	}
-
-	/******获取管理服务产品的产品目录*****/
-	private fetchProductCategory() {
-		this.service.fetchProductCategory( this.product.id )
-			.then(res => {
-				console.log("fetchProductCategory", res)
-			})
-	}
-
 
 
 	

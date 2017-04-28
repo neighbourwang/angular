@@ -261,17 +261,23 @@ export let RestApis: RestApiModel[] = [
         "url": "productmgmt/authsec/supervise/product/simple"
     },
     {
-        "desc": "根据产品信息里的serviceId来获取服务对象信息",
+        "desc": "获取管理服务产品详情",
         "method": "GET",
         "id": "product-info-via-serviceId",
-        "url": "productmgmt/authsec/enterprises/product/{productId}"
+        "url": "productmgmt/authsec/supervise/product/{productId}"
     },
     {
-        "desc": "获取一个管理服务目录的基础信息",
+        "desc": "获取管理服务的attribute",
         "method": "GET",
-        "id": "product-list-via-serviceId",
-        "url": "productmgmt/authsec/services/supervise/{serviceId}"
+        "id": "mngm-attribute",
+        "url": "productmgmt/authsec/supervise/product/attribute"
     },
+    // {
+    //     "desc": "获取一个管理服务目录的基础信息",
+    //     "method": "GET",
+    //     "id": "product-list-via-serviceId",
+    //     "url": "productmgmt/authsec/services/supervise/{serviceId}"
+    // },
     //镜像管理部分
     {
         "desc": "创建镜像",
