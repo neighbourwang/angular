@@ -202,7 +202,7 @@
 						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType > 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)" id="autoRenew_off_{{orderItem.orderId}}">取消自动续订</button>
 						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType == 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)" id="autoRenew_on_{{orderItem.orderId}}">自动续订</button>
 
-						<unsubscribe #unsubscribeVm title="{{ 'ORDER_MNG.ORDERS_UNSUBSCRIBE' | translate }}" [subid]="orderItem?.orderId"></unsubscribe>
+						<unsubscribe #unsubscribeVm title="{{ 'ORDER_MNG.ORDERS_UNSUBSCRIBE' | translate }}" [subid]="orderItem?.orderId" (onSuccess)='cancelSuccess($event)'></unsubscribe>
 						<button *ngIf="orderItem.canCancel" class="mgr2 pull-right button-gray-gradient" (click)="unsubscribeVm.open()" id="unsubscribeVm_{{orderItem.orderId}}">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
 
 						<button *ngIf="orderItem.canRenew" class="pull-right button-gray-gradient" (click)="renewSelect(orderItem)" id="renewSelect_{{orderItem.orderId}}">{{ 'COMMON.RENEW' | translate }}</button>
@@ -270,8 +270,9 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">已购服务续订：{{_orderDetailLoader.FirstItem.instanceCode}}</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" (click)="search(currentPage)">&times;</span></button>
+					<h4 *ngIf="!_renewSetting.completed" class="modal-title" id="myModalLabel">已购服务续订：{{selectedOrderItem.orderNo}}</h4>
+					<h4 *ngIf="_renewSetting.completed" class="modal-title" id="myModalLabel">续订完成</h4>
 				</div>
 				<div class="modal-body">
 					<!--<account-mng-cr-local></account-mng-cr-local>

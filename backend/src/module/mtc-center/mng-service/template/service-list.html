@@ -4,13 +4,22 @@
 <div class="page-content">
     <div class="mgt10">
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">服务状态：</span>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white checked-radio mgl5 " (click)="selecteding()" [ngClass]="{'selected':ingSelected}"><span class="icon-button-label">进行中 </span> </button>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white checked-radio mgl10" (click)="selectedover()" [ngClass]="{'selected':overSelected}"><span class="icon-button-label">已完成 </span> </button>
-    </div>{{ingSelected}} {{overSelected}}
+        <div class="btn-group" data-toggle="buttons">
+            <button class="btn btn-default active mgl5">
+                <input  type="radio">所有
+            </button>
+            <button class="btn btn-default mgl15">
+                <input type="radio">进行中
+            </button>
+            <button class="btn btn-default mgl15">
+                <input type="radio">已完成
+            </button>
+        </div>
+    </div>
     <div class="mgt15">
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>
         <div class="float-left pdr20 mgl5">
-            <select [(ngModel)]="enterpriseId" class="pdl10 form-control" style="width: 165px;">
+            <select [(ngModel)]="enterpriseId" class="pdl10 form-control" style="width: 137px;">
                 <option value="">所有企业</option>
                 <option *ngFor="let v of enterpriseList" [value]="v.id">{{v.name}}</option>
             </select>

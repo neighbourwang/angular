@@ -48,8 +48,6 @@ export class MngServiceListComponent implements OnInit{
     searchDic: Array<SystemDictionary>;
 
     type: string;
-    ingSelected= false;
-    overSelected= false;
     enterpriseList:Array<Enterprise>;
     enterpriseId= "";
     serviceName= "";
@@ -59,7 +57,7 @@ export class MngServiceListComponent implements OnInit{
     serviceStatus: string;
     data: Array<MngServiceList>;
     followInfo: string;
-    serviceId: string;
+    selectedServiceId: string;
 
     ngOnInit() {
         this.getData();
@@ -117,14 +115,16 @@ export class MngServiceListComponent implements OnInit{
         });
         if(!selectedService){
             this.showAlert("请选择需要跟进的服务");
+        }else{
+            this.type= "follow";
+            this.selectedServiceId= selectedService.serviceId;
+            this.popUnit.open("服务跟进");
         }
-        this.type= "follow";
-        this.popUnit.open("服务跟进");
     }
 
-/*    serviceFollow(){
+    serviceFollow(){
         this.layoutService.show();
-        this.service.serviceFollow()
+        this.service.serviceFollow(this.selectedServiceId, this.followInfo)
             .then(
                 response => {
                     this.layoutService.hide();
@@ -137,7 +137,7 @@ export class MngServiceListComponent implements OnInit{
                 }
             )
             .catch((e) => this.onRejected(e));
-    }*/
+    }
 
     oneSet(){
         this.setUnit.open("一次性管理服务系统设置");
@@ -145,15 +145,6 @@ export class MngServiceListComponent implements OnInit{
 
     gotoDetail(){
         this.router.navigate([`mtc-center/mng-service/mng-service-detail`]);
-    }
-
-    selecteding(){
-        this.overSelected= false;
-        this.ingSelected= !this.ingSelected;
-    }
-    selectedover(){
-        this.ingSelected= false;
-        this.overSelected= !this.overSelected;
     }
 
     reset(){
