@@ -131,7 +131,7 @@ export class AliCloudDiskService {
         if (queryObject.keyword != "") {
             switch (queryObject.criteria) {
                 case "disk_name":
-                    body.conditionModel.diskName = queryObject.keyword;
+                    body.conditionModel.diskName = "*" + queryObject.keyword + "*";
                     break;
                 case "disk_ids":
                     let diskIds: Array<string> = [];

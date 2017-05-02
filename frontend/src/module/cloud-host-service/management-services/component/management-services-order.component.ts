@@ -11,6 +11,18 @@ import { SuperviseProductItem, ProductSimpleItem, ShoppingCartProfile } from '..
 import { PostAttrList, PayLoad} from '../model/post.model';
 import { Values, ValuesAttr} from '../model/other.model';
 	
+const codeList = {
+	"0" : "VM",
+	"1" : "DISK",
+	"2" : "PHYSICAL",
+	"3" : "DATABASES",
+	"4" : "MIDDLEWARE",
+	"5" : "LOAD_BALANCE",
+	"6" : "ALI_VM",
+	"7" : "ALI_DISK",
+	"8" : "LOAD_BALANCE",
+	"9" : "NONE",
+}
 
 @Component({
 	selector: 'management-services-order',
@@ -40,6 +52,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 	postData: ShoppingCartProfile
 
 	values: Values = new Values;
+	code: string;
 
 	check = {};
 
@@ -53,7 +66,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 		private v: Validation,
 		private service: ManagementServicesOrderService
 	) {
-
+		this.v.result = {}
 	};
 
 	ngOnInit() {
@@ -73,6 +86,16 @@ export class ManagementServicesOrderComponent implements OnInit {
 
 	private makeSubscriber() {
 		this.dux.subscribe("PRODUCT", () => { this.fetchProductInfo() })
+		this.dux.subscribe("VM", () => { this.fetchVmlist() })  
+		this.dux.subscribe("DISK", () => { this.fetchDisklist() })
+		this.dux.subscribe("PHYSICAL", () => {})
+		this.dux.subscribe("DATABASES", () => {})
+		this.dux.subscribe("MIDDLEWARE", () => {})
+		this.dux.subscribe("LOAD_BALANCE", () => {})
+		this.dux.subscribe("ALI_VM", () => {})
+		this.dux.subscribe("ALI_DISK", () => {})
+		this.dux.subscribe("LOAD_BALANCE", () => {})
+		this.dux.subscribe("NONE", () => {})
 	}
 
 	/******获取管理服务列表 最上面的下拉框*****/
@@ -97,12 +120,23 @@ export class ManagementServicesOrderComponent implements OnInit {
 
 	/******获取管理服务产品详情*****/
 	private fetchProductInfo() {
-				console.log("fetchProductInfo")
 		this.service.fetchProductInfo( this.product.id )
 			.then(res => {
 				console.log("fetchProductInfo", res)
 				this.productInfo = res;
+				this.code = res.serviceObjectCode;
+				this.dux.dispatch(codeList[res.serviceObjectCode])
 			})
+	}
+
+	/******************获取云主机列表******************/
+	private fetchVmlist() {
+
+	}
+
+	/******************获取硬盘列表******************/
+	private fetchDisklist() {
+		
 	}
 
 
