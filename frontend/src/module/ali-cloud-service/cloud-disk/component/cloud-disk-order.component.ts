@@ -254,6 +254,8 @@ export class AliCloudDiskOrderComponent implements OnInit {
             this.selectedRegion.selectedDisk = this.selectedRegion.selectedArea.AvailableDiskCategories.DiskCategories[0];
             console.log(this.selectedRegion.selectedDisk, "selected selectedDisk!");
             if (this.selectedRegion.selectedDisk == undefined)  this.selectedRegion.selectedDisk = '';
+
+            this.calculatePrice();
         }, 50); //window内的代码要延后50ms执行
     }
 
