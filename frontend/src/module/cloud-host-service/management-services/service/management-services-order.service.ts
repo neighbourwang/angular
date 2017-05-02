@@ -5,6 +5,9 @@ import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../archit
 import { SuperviseProductItem, ProductSimpleItem, ShoppingCartProfile } from '../model/service.model';
 import { PostAttrList, PayLoad } from '../model/post.model';
 
+import { QuiryDistList, HandleDist } from '../../cloud-drive/model/dist-list.model';
+import { QuiryVmList } from '../../vm-instance/model/vm-list.model';
+
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -62,6 +65,16 @@ export class ManagementServicesOrderService {
                             });
         return request;
         // return Promise.resolve({"resultCode":"100","detailDescription":"100","resultContent":{"name":"我假装是管理服务","billingType":0,"billingCycle":5,"basicCyclePrice":10.0,"oneTimePrice":23.0,"unitPrice":null,"extendCyclePrice":34.0,"productPlatformReqs":null,"productEnterpiseReqs":[{"id":"f685215a-ff30-4759-b149-b939dbb98e40","name":"前端企业"}],"serviceId":"0d75b240-45e3-4809-a48a-512965842500","desc":"这是我的描述，我其实不是物理机的，我的真实的名字叫做---孙悟空","serviceSkuId":"f29320c2-05a3-416b-8126-665c80b7945d","phyMachineAreaPoolsProfile":null,"pmPartsBaseprises":null,"billingId":"d9c21c86-86e0-444a-9250-15abbb2b9ca7","productId":"c891289c-7270-4c51-bece-b65d1a06c814"}}.resultContent)
+    }
+
+    getHostList(quiry:QuiryVmList) : Promise<any>{
+        const api = this.restApiCfg.getRestApi("vm.search.page");
+        return this.restApi.request(api.method, api.url, undefined, undefined, quiry);
+    }
+
+    getDisKList(quiry:QuiryDistList) : Promise<any>{
+        const api = this.restApiCfg.getRestApi("disk.search.page");
+        return this.restApi.request(api.method, api.url, undefined, undefined, quiry);
     }
 
     saveOrder(payload: PayLoad[]): Promise<any> {
