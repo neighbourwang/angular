@@ -38,7 +38,7 @@
 					<div class="row row-line-height entdown">
 						<div class="col-sm-5 entBody">
 							<div style="position: relative;height:40px;" *ngFor="let ent1 of this.service.enterpriseListForSelect; let i=index">
-								<span class="span2" (click)="selectEnterprise(ent1,i)" style="width:80%">{{ent1.name}}</span>
+								<span class="span2" (click)="selectEnterprise(ent1,i)" style="width:80%" [title]="ent1.name">{{ent1.name}}</span>
 								<span class="icon-tick" style="margin-top:5px;left:80%" *ngIf="ent1.selected"></span>
 								<!--<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" ">-->
 								<div class="clear:both"></div>
@@ -51,7 +51,7 @@
 						<div class="col-sm-2"></div>
 						<div class="col-sm-5 entBody">
 							<div style="position: relative;height:40px;" *ngFor="let ent2 of service.managerServeProduct.productEnterpiseReqs;let ii=index">
-								<span class="span2" (click)='unSelected(ent2,ii)'>{{ent2.name}}</span>
+								<span class="span2" (click)='unSelected(ent2,ii)' [title]="ent2.name">{{ent2.name}}</span>
 								<div class="clear:both"></div>								
 							</div>
 						</div>

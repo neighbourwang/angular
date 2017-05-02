@@ -10,6 +10,11 @@
             background-color: #00a982;
             color : #fff
         }
+.no-nowrap{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 //产品规格
 .prodSpecific{
   span{
@@ -71,6 +76,7 @@
   }
   .secondDiv{
     text-align: right;
+    .no-nowrap
   }
   .inputLeft{
     text-align: left;
@@ -79,6 +85,9 @@
       margin-right:10px ;
       width: 85%;
       height: 30px;
+    }
+    p{
+      .no-nowrap
     }
   }
   .tabHeader{
@@ -92,6 +101,7 @@
           height:100%;
           line-height: 40px;
           vertical-align:middle;
+          .no-nowrap
         }
     }
   }
@@ -121,12 +131,14 @@
             padding-left: 20px;
             width:100%;
             float:left;
+            .no-nowrap
           } 
           .span2{
             width:100%;
             float:left;
             cursor: pointer;
             text-align: center;
+            .no-nowrap
           }        
           &>div:nth-of-type(even) {
             background-color: #EEF0EF;
