@@ -8,7 +8,7 @@ import { CommonComponentModule } from '../../../../architecture';
 import {DiskViewComponent} from './component/disk-view.component';
 import {OrderMngCancelComponent} from './component/order-mng-cancel.component';
 import {VmViewComponent} from './component/vm-view.component';
-
+import {MachineViewComponent} from './component/machine-view.component';
 import { OrderCancelService } from './service/order-cancel.service';
 
 @NgModule({
@@ -19,12 +19,14 @@ import { OrderCancelService } from './service/order-cancel.service';
     declarations: [
         VmViewComponent,
         OrderMngCancelComponent,
-        DiskViewComponent
+        DiskViewComponent,
+        MachineViewComponent
     ],
     exports: [
         OrderMngCancelComponent,
         VmViewComponent,
-        DiskViewComponent
+        DiskViewComponent,
+        MachineViewComponent
     ],
     providers: [
         OrderCancelService
