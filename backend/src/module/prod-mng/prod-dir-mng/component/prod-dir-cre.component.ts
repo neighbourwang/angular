@@ -47,7 +47,6 @@ export class ProdDirCreComponent implements OnInit {
                 this.prodDir.specification.vcpu = params['vcpu'];
                 this.prodDir.specification.mem = params['mem'];
                 this.prodDir.specification.startupDisk = params['startupDisk'];
-
             } else {
                 this.serviceId = params['id']
                 console.log(this.serviceId);
@@ -150,7 +149,7 @@ export class ProdDirCreComponent implements OnInit {
         console.log(this.selectAllZone);
         for (let plate of this._platformlist) {
             for (let zone of plate.zoneList) {
-                zone.selected = this.selectAllZone;
+                if(!zone.disable)zone.selected = this.selectAllZone;
                 // console.log(zone.storageList);
             }
         }

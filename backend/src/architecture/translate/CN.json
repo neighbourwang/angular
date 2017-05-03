@@ -1241,7 +1241,7 @@
     "PLATFORM_ALEADRY_ENABLED": "云平台状态已启用",
     "PLATFORM_ALEADRY_DISALED": "云平台状态已禁用",
     "PLATFORM_NAME_REQUIRED": "请输入云平台名称",
-    "PLATFORM_REQUIRED": "请输入云平台名称",
+    "PLATFORM_NAME_ERROR": "平台名称错误",
     "PLATFORM_TYPE_REQUIRED": "请选择云平台类型",
     "REGION_REQUIRED": "请选择所属地域",
     "RESOURCE_SYNC": "资源同步",

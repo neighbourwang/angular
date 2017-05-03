@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 // import { Location }               from '@angular/common';
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, CountBarComponent } from '../../../../architecture';
+import { Validation, ValidationRegs } from '../../../../architecture';
 
 //service
 import { GetProductService } from '../service/getProduct.service';
@@ -29,8 +30,11 @@ export class ProdDetailComponent implements OnInit {
         private layoutService: LayoutService,
         private location: Location,
         private service: ProductEditService,
-        private entListService: CreateProdStepService
-    ) { }
+        private entListService: CreateProdStepService,
+        private v:Validation
+    ) { 
+        this.v.result={}
+    }
 
     @ViewChild('notice')
     notice: NoticeComponent;
@@ -191,7 +195,25 @@ export class ProdDetailComponent implements OnInit {
     editBasicInfo: boolean = false;
     tempProductName: string;
     tempProductDesc: string;
+
+    //表单验证
+    checkForm(key?: string) {
+        let regs: ValidationRegs = {  //regs是定义规则的对象
+            productName: [this.tempProductName, [this.v.isBase, this.v.isUnBlank], "产品名称格式不正确"],
+            description: [this.tempProductDesc, [this.v.maxLength(68)], "描述输入错误"],
+        }
+        console.log(this.v.check(key, regs));
+        return this.v.check(key, regs);
+    }
+    cancelBasicEdit(){
+        this.tempProductName=this.product.name;
+        this.tempProductDesc=this.product.desc;
+        this.checkForm();
+        this.editBasicInfo = false;        
+    }
     saveBasic() {
+        let message = this.checkForm();
+        if (message) return;
         this.editBasicInfo = false;
         this.product.name = this.tempProductName;
         this.product.desc = this.tempProductDesc;
