@@ -47,7 +47,8 @@ export class CapacityMngComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.pfList = response["resultContent"];
-                   
+                    console.log("平台列表", this.pfList);
+                    
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }

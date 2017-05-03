@@ -43,9 +43,9 @@ export class HostDetailService {
             },
            
         ];
-        //const api = this.restApiCfg.getRestApi("host-detail.host.info");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => HostInfo_mock);
+        const api = this.restApiCfg.getRestApi("host-detail.host.info");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => HostInfo_mock);
      }
 
     //获取宿主机折线图
@@ -61,9 +61,9 @@ export class HostDetailService {
             },
            
         ];
-        //const api = this.restApiCfg.getRestApi("host-detail.host.graph");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => HostGraph_mock);
+        const api = this.restApiCfg.getRestApi("host-detail.host.graph");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => HostGraph_mock);
      }
 
 }
