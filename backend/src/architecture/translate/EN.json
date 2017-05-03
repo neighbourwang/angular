@@ -1025,7 +1025,7 @@
     "NO_SYNC_ZONES": "There is no sync available area information at this time",
     "PASSWORD_REQUIRED": "Please input the password",
     "PLATFORM_NAME_REQUIRED": "Please input the platform name",
-    "PLATFORM_REQUIRED": "Please input the platform",
+    "PLATFORM_NAME_ERROR": "platform name input error",
     "PLATFORM_TYPE_REQUIRED": "Please choose the platform type",
     "REGION_REQUIRED": "Please choose the region",
     "RESOURCE_SYNC": "Resource synchronization",

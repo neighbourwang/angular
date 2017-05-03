@@ -14,20 +14,23 @@
             <div class="col-md-12">
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">
+                        <div class="col-sm-5 form-control-title">
                             <span class="asterisk">*</span>{{ 'USER_CENTER.PLATFORM_NAME' | translate }}:
                         </div>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" [(ngModel)]="platform.name" placeholder="{{'PF_MNG2.PLATFORM_REQUIRED'|translate}}">
-                        </div>
+                        <div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.name}">
+						<input type="text" [(ngModel)]="platform.name" (ngModelChange)="checkForm('name')" name="name"
+						 placeholder="{{'PF_MNG2.PLATFORM_NAME_REQUIRED' | translate}}" class="form-control">
+						<span *ngIf="v.result.name" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						<div *ngIf="v.result.name" class="alert alert-danger" role="alert">{{v.result.name|translate}}</div>
+					</div>
                     </div>
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">
+                        <div class="col-sm-5 form-control-title">
                             <span class="asterisk">*</span> {{'USER_CENTER.REGION_WHICH_BELONG_TO' | translate}}:
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 no-padding">
                             <select class="form-control" [(ngModel)]="platform.regionId">
                             <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
                         </select>
@@ -36,21 +39,23 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">
+                        <div class="col-sm-5 form-control-title">
                             <span class="asterisk">*</span> {{'CAPACITY_MNG.DATA_CENTER_BELONG_TO' | translate}}:
                         </div>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" [(ngModel)]="platform.dataCenter" placeholder="{{'PF_MNG2.DATA_CENTER_REQUIRED' | translate}}">
-                        </div>
+                        <div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.dataCenter}">
+						<input type="text" [(ngModel)]="platform.dataCenter" (ngModelChange)="checkForm('dataCenter')" name="dataCenter"
+						 placeholder="{{'PF_MNG2.DATA_CENTER_REQUIRED' | translate}}" class="form-control">
+						<span *ngIf="v.result.dataCenter" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						<div *ngIf="v.result.dataCenter" class="alert alert-danger" role="alert">{{v.result.dataCenter|translate}}</div>
+					</div>
                     </div>
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-
-                        <div class="col-sm-4 form-control-title">
+                        <div class="col-sm-5 form-control-title">
                             <span class="asterisk">*</span> {{'USER_CENTER.PLATFORM_TYPE' | translate}}:
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 no-padding">
                             <div class="btn-group">
                                 <!--<button type="button" class="btn btn-default" disabled *ngFor="let item of platformTypes;let idx = index" (click)="choosePlatFormType(item,idx)"-->
                                 <button type="button" class="btn btn-default" *ngFor="let item of platformTypes;let idx = index" [ngClass]="{'btn-active': item.isSelected}">{{item.displayValue}}</button>
@@ -60,21 +65,20 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-
-                        <div class="col-sm-4 form-control-title">
+                        <div class="col-sm-5 form-control-title">
                             <span class="asterisk">*</span> {{'COMMON.PATH' | translate}}:
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 no-padding">
                             <input type="text" class="form-control" disabled [(ngModel)]="platform.uri" placeholder="{{'PF_MNG2.ADDRESS_REQUIRED' | translate}}">
                         </div>
                     </div>
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">
+                        <div class="col-sm-5 form-control-title">
                             <span class="asterisk">*</span> {{'PF_MNG2.VERSION' | translate}}:
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 no-padding">
                             <select class="form-control" [(ngModel)]="platform.version">
                             <option *ngFor="let item of platformVersion;" [value]="item.value">{{item.displayValue}}</option>
                         </select>
@@ -83,31 +87,30 @@
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-
-                        <div class="col-sm-4 form-control-title">
+                        <div class="col-sm-5 form-control-title">
                             <span class="asterisk">*</span> {{'COMMON.USERNAME' | translate}}:
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 no-padding">
                             <input type="text" class="form-control" disabled [(ngModel)]="platform.username" placeholder="{{'PF_MNG2.USERNAME_REQUIRED' | translate}}">
                         </div>
                     </div>
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">
+                        <div class="col-sm-5 form-control-title">
                             <span class="asterisk">*</span> {{'COMMON.PASSWORD' | translate}}:
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 no-padding">
                             <input type="password" class="form-control" disabled [(ngModel)]="platform.password" placeholder="{{'PF_MNG2.PASSWORD_REQUIRED' | translate}}">
                         </div>
                     </div>
                 </div>
                 <div class="row row-line-height">
                     <div class="form-group">
-                        <div class="col-sm-4 form-control-title">
+                        <div class="col-sm-5 form-control-title">
                             <span class="asterisk">*</span> {{'PF_MNG2.SUPPORT_CLOUD_HOST_CHANGES' | translate}}:
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 no-padding">
                             <input type="radio" class="fox-cloud-radio" [value]="1" [(ngModel)]="platform.support" name="support" style="margin-right:10px;">{{'PF_MNG2.SUPPORT'
                             | translate}}
                             <input type="radio" class="fox-cloud-radio" [value]="0" [(ngModel)]="platform.support" name="support" style="margin:0 10px 0 20px;">{{'PF_MNG2.NONSUPPORT'

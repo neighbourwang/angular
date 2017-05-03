@@ -6,6 +6,7 @@ export class PlatformModel {
     healthFlag: string;
     id: string;
     name: string;
+    password: string;
     platformType: string;
     regionId: string;
     regionName: string;
