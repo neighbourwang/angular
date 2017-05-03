@@ -161,8 +161,7 @@
                     <br />
                     <div class="col-md-12 no-padding mgb20">
                         <div *ngFor="let type of instancetypes;" style="display: inline">
-                            <button style="height: 68px !important;" class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceType==type.InstanceTypeId}' (click)="selectedOrderVmPage.selectedInstanceType=type.InstanceTypeId; showInstanceType();"
-                                style="display: inline">{{selectedOrderVmPage.selectedInstanceFamilyShowName}} {{type.CpuCoreCount}}GB<br />{{type.instanceShowName || type.InstanceTypeId}}</button>
+                            <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceType==type.InstanceTypeId}' (click)="selectedOrderVmPage.selectedInstanceType=type.InstanceTypeId; showInstanceType();" style="display: inline; height: 68px !important;">{{selectedOrderVmPage.selectedInstanceFamilyShowName}} {{type.CpuCoreCount}}GB<br />{{type.instanceShowName || type.InstanceTypeId}}</button>
                         </div>
 
                     </div>
