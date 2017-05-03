@@ -229,6 +229,58 @@ export class AliCloudDiskListComponent implements OnInit {
             });
 
     }
+/*
+    getVmwareImgList(pageIndex?): void {
+        this.pageIndex = pageIndex || this.pageIndex;
+        this.layoutService.show();
+        this.service.getVmwareImgList(this.platformId, this.realQueryOpt, this.pageIndex, this.pageSize)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {                    
+                    this.vmwareimgs = response.resultContent;
+                    console.log(this.vmwareimgs, "Imgs!!!");
+                    this.totalPage = response.pageInfo.totalPage;
+                } else {
+                    this.showAlert("HOST_VMWARE_MNG.GETTING_DATA_FAILED");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+    */
+
+    changePage(pageIndex?) {
+        this.pageIndex = pageIndex || this.pageIndex;
+        this.layoutService.show();
+        this.service.getDiskList(this.pageIndex, this.pageSize, this.choosenRegion.RegionId, this.queryObject)
+        .then(
+            response => {
+                this.layoutService.hide();
+                //console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.disks = result.Disks.Disk;
+                    this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
+                    console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
+                    for(let i=0; i<this.disks.length; i++) {
+                        console.log(this.disks[i].DiskId, " == ");
+                    }
+                    console.log(this.disks, "this.disks!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+        })
+        .catch((e) => {
+                this.onRejected(e);
+            });
+    }
 
     search() {
         console.log(this.queryObject);

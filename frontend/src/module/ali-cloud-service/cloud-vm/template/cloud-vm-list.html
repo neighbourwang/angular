@@ -13,7 +13,9 @@
                 <div class="col-md-12">
                     <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
                         <div class="regionName">{{region.LocalName}}</div>
-
+                    </div>
+                    <div class="region-btn" styple="height:40px !important">
+                        <div class="regionName">所有</div>
                     </div>
                 </div>
             </div>
