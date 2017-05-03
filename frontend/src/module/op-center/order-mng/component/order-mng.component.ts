@@ -152,7 +152,7 @@ export class OrderMngComponent implements OnInit {
 				//实例名称
 				if(item.itemList&&item.itemList[0].specList){
 					let getProperty = _.property("attrDisplayValue");
-					 if(item.productType==0){
+					 if(item.productType==0||item.productType==4){
 						item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
 					}else{
 						item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
@@ -165,7 +165,7 @@ export class OrderMngComponent implements OnInit {
 						// item.hisOrderList[1].type=0;0是订购单
 						let getProperty = _.property("attrDisplayValue");
 						if(hisItem.specList){
-							 if(hisItem.productType==0){
+							 if(hisItem.productType==0||item.productType==4){
 								hisItem.instanceName = getProperty(hisItem.specList.find(n=>n.attrCode == 'INSTANCENAME'));
 							}else{
 								hisItem.instanceName = getProperty(hisItem.specList.find(n=>n.attrCode == 'DISKINSNAME'));

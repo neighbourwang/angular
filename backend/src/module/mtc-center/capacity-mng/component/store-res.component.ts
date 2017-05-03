@@ -50,7 +50,7 @@ export class StoreResComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.storageList = response["resultContent"];
-                   
+                    console.log("存储列表",this.storageList);
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }

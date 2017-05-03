@@ -1941,7 +1941,7 @@
      "DELETE_ALI_CLOUD_SUB_ACCOUNT":"删除阿里云子账号",
      "CONFIRM_DELETE_SUB_ACCOUNT":"您选择删除'{{value_1}}'阿里云子账号,请确认；如果确认，此阿里云账号数据将不能恢复。",
      "SUB_ACCOUNT_SET_ENTERPRISE":"只有子账号没有分配给全部部门或单一部门时，才能重新分配企业！",
-     "SUB_ACCOUNT_HAS_NOENTERPRISE_CAN_DELETE":"子账号不属于任何企业和部门且为禁用状态时，才可以删除!",
+     "SUB_ACCOUNT_HAS_NOENTERPRISE_CAN_DELETE":"子账号不属于任何企业或部门且为禁用状态时，才可以删除!",
 
      "SUB_ACCOUNT_SET_ENT_TITLE":"子账号管理--分配企业",
      "PRESENT_ENT_AND_DEPARTMENT":"当前所分配企业及部门",
