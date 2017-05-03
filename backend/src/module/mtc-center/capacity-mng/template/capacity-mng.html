@@ -28,7 +28,7 @@
                     <td>{{pf.name}}</td>
                     <td>{{pf.regionName}}</td>
                     <td>{{pf.dataCenter}}</td>
-                    <td>{{pf.platformType}}</td>
+                    <td>{{pf.platformType| dict:this.service.pfDic | async}}</td>
                     <td>{{pf.uri}}</td>
                     <td [ngClass]="pf.status==1?'font-green':'font-orange'">{{pf.status| dict:this.service.statusDic | async}}</td>
                 </tr>

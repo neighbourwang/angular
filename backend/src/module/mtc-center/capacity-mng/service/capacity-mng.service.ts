@@ -16,6 +16,10 @@ export class CapacityMngService {
     ) { }
 
     selectedPlatform: PlatformModel;
+    pfDic = this.dict.get({
+        owner: "PLATFORM",
+        field: "TYPE"
+    });
     statusDic = this.dict.get({
         owner: "MAINTAIN",
         field: "STATUS"
@@ -35,9 +39,9 @@ export class CapacityMngService {
                 value: size
             }
         ];
-        //const api = this.restApiCfg.getRestApi("capacity-mng.platforms.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => PlatformList_mock);
+        const api = this.restApiCfg.getRestApi("capacity-mng.platforms.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => PlatformList_mock);
     }
 
     getReport(): Promise<any> {

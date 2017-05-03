@@ -210,6 +210,7 @@ export class instanceListModel {
 
     checked: boolean = false;
     EnableEdit: boolean = false;
+    instanceTimer: any = null;
 }
 export class EipAddressModel {
     AllocationId: string  = "";
