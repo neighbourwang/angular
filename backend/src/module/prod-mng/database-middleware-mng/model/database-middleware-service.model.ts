@@ -1,36 +1,30 @@
 class DatabaseMiddlewareServiceModel {
-    "description": string;
-    "platformList": Array<Platform>
-    "pmPoolList": Array<PmPool>;
-    "serviceId": string;
+    "desc": string;
+    "platformSimpleItemResp": Array<PlatformSimpleItem>;
+    "resourcPoolsProfiles": Array<ResourcPool>;
+    "serverType": string;
     "serviceName": string;
-    "serviceObjectCode": string
+    "serviceTemplateId": string;
+    "serviceTemplateName": string;
     constructor(){
-        this.description='';
-        this.serviceName='';
-        this.platformList=[];
-        this.pmPoolList=[];
+        this.serverType='';
+        this.platformSimpleItemResp=new Array<PlatformSimpleItem>();
+        this.resourcPoolsProfiles=new Array<ResourcPool>();
     }
 }
-class PmPool {
-    "dataCenter": string;
-    "description": string;
-    "pmPoolId": string;
-    "poolName": string;
-    "region": string;
-    "regionId": string;
-    selected:boolean;    
-}
-class Platform {
+class PlatformSimpleItem {
     "code": string;
+    "displayName": string;
     "id": string;
     "name": string;
+    "selected": boolean;
+    "skuID": string;
 }
-class PlatformObj {
-    "platformId": "string";
-    "platformName": "string";
-    "zoneId": string;
-    "zoneName": string;
-    selected:boolean;
+class ResourcPool {
+    "pmPoolId": string;
+    "poolName": string;
+    "resourcePoolDisplayName": string;
+    "selected": boolean;
+    "skuid": string;
 }
-export { DatabaseMiddlewareServiceModel,PmPool,Platform,PlatformObj}
+export { DatabaseMiddlewareServiceModel, ResourcPool, PlatformSimpleItem }
