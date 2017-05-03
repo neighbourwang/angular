@@ -12,10 +12,7 @@ export class StoreDetailService {
         private dict:SystemDictionaryService
     ) { }
 
-    storageTypeDic = this.dict.get({
-        owner: "MAINTAIN",
-        field: "STORAGETYPE"
-    });
+    
 
      statusDic = this.dict.get({
         owner: "MAINTAIN",
