@@ -229,26 +229,6 @@ export class AliCloudDiskListComponent implements OnInit {
             });
 
     }
-/*
-    getVmwareImgList(pageIndex?): void {
-        this.pageIndex = pageIndex || this.pageIndex;
-        this.layoutService.show();
-        this.service.getVmwareImgList(this.platformId, this.realQueryOpt, this.pageIndex, this.pageSize)
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {                    
-                    this.vmwareimgs = response.resultContent;
-                    console.log(this.vmwareimgs, "Imgs!!!");
-                    this.totalPage = response.pageInfo.totalPage;
-                } else {
-                    this.showAlert("HOST_VMWARE_MNG.GETTING_DATA_FAILED");
-                }
-            }
-            )
-            .catch((e) => this.onRejected(e));
-    }
-    */
 
     changePage(pageIndex?) {
         this.pageIndex = pageIndex || this.pageIndex;
