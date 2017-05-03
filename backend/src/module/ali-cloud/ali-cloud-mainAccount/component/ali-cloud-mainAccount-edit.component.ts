@@ -193,6 +193,7 @@ export class AliCloudMainAccountEditComponent implements OnInit{
                 console.log("测试结果",this.testResult)
             }
         )
+         .catch((e) => this.onRejected(e));
     }
 
     //跳转到账号列表
