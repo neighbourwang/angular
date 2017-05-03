@@ -75,7 +75,7 @@
                         <div class="col-sm-4 form-control-title">{{'PROD_MNG.BASIC_CYCLE_PRICE' | translate}}：</div>
                         <!--基础周期价格-->
                         <div class="col-sm-6">
-                            <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="service.product.basicCyclePrice||0" #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
+                            <count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=false [value]="service.product.basicCyclePrice||0" #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">{{'PROD_MNG.INCREMENT_CYCLE_PRICE' | translate}}：</div>
                         <div class="col-sm-6">
-                            <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="service.product.extendCyclePrice||0" #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
+                            <count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=false [value]="service.product.extendCyclePrice||0" #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                             <!--一次性价格-->
                         </div>
                         <div class="col-sm-6">
-                            <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="service.product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
+                            <count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=false [value]="service.product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
                         </div>
                     </div>
                 </div>

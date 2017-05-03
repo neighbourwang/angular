@@ -37,8 +37,8 @@
                     <tbody>
                         <tr *ngFor="let resourcePool of service.managerServeService.pmPoolList; let idx = index;">
                             <td>{{idx+1}}</td>
-                            <td class="no-nowrap">{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>
-                            <td class="no-nowrap">{{resourcePool.description}}</td>
+                            <td>{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>
+                            <td>{{resourcePool.description}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -70,7 +70,7 @@
                             <td>
                                 {{idx+1}}
                             </td>
-                            <td class="no-nowrap" [title]="plateform.name">{{plateform.name}}</td>
+                            <td>{{plateform.name}}</td>
                         </tr>
                     </tbody>
                 </table>

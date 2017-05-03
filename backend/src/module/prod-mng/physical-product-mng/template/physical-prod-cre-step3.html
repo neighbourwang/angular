@@ -45,8 +45,8 @@
                                 <input class="fox-cloud-checkbox" type="checkbox" [checked]="resourcePool.selected" [(ngModel)]="resourcePool.selected" (click)="selectResourcePool(idx)"
                                 />
                             </td>
-                            <td>{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>
-                            <td>{{resourcePool.description}}</td>
+                            <td class="no-nowrap">{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>
+                            <td class="no-nowrap">{{resourcePool.description}}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -8,6 +8,7 @@ import { ProdMngModule } from './prod-mng/prod-mng.module';
 import { PhysicalProdMngModule } from './physical-product-mng/physical-prod-mng.module';
 import { ProductMngComponents } from './components/product-mng.components.module'
 import { ManagerServeModule } from './manager-serve/manager-serve.module'
+import { DatabaseMiddlewareModule } from './database-middleware-mng/database-middleware.module'
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { ManagerServeModule } from './manager-serve/manager-serve.module'
         ProdMngModule,
         ProductMngComponents,
         PhysicalProdMngModule,
-        ManagerServeModule
+        ManagerServeModule,
+        DatabaseMiddlewareModule
     ],
     declarations: [],
     exports: [
@@ -23,7 +25,8 @@ import { ManagerServeModule } from './manager-serve/manager-serve.module'
         ProdMngModule,
         ProductMngComponents,
         PhysicalProdMngModule,
-        ManagerServeModule        
+        ManagerServeModule,
+        DatabaseMiddlewareModule        
     ],
     providers: []
 })

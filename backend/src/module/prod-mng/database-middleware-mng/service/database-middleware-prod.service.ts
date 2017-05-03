@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService,LayoutService} from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService} from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
-import { ManagerServeServiceModel, PmPool, Platform ,PlatformObj} from '../model/manager-serve-service.model';
-import { ManagerServeProductModel,Enterpise} from '../model/manager-serve-product.model'
+//model 
+import { DatabaseMiddlewareProductModel, Platform, Enterpise } from '../model/database-middleware-product.model'
+import { DatabaseMiddlewareServiceModel,PmPool,PlatformObj } from '../model/database-middleware-service.model'
 
 
 @Injectable()
-export class ManagerServeProdService {
+export class DatabaseMiddlewareProdService {
      constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
         private restApi: RestApi,
-        private dict:SystemDictionaryService,
-        private layoutService :LayoutService
+        private dict:SystemDictionaryService
     ) { }
 
-    managerServeProduct:ManagerServeProductModel;
-    managerServeService:ManagerServeServiceModel;
+    managerServeProduct:DatabaseMiddlewareProductModel;
+    managerServeService:DatabaseMiddlewareServiceModel;
     enterpriseListForSelect:Array<Enterpise>=new Array<Enterpise>();
     //获取管理服务详情
     getManagerServeServiceDetail(id:string) {
@@ -27,7 +27,6 @@ export class ManagerServeProdService {
     }
     //根据平台获取企业列表    
     getEnterpriseListById(list) {
-        this.layoutService.show();
         let api = this.restApiCfg.getRestApi("prod-mng.prod-enterprise.post");
         return this.restApi.request(api.method, api.url, [], undefined,list).then(res=>{
             console.log(res);
@@ -35,24 +34,20 @@ export class ManagerServeProdService {
                 this.enterpriseListForSelect=res.resultContent;                
             }
             this.managerServeProduct.platformSimpleItems=this.managerServeService.platformList;
-            this.layoutService.hide();
+
         }).catch(err=>{
             console.error(err);
-            this.layoutService.hide();
         });;
     }
     //获取企业列表    
     getEnterPriseList() {
-        this.layoutService.show();
         let api = this.restApiCfg.getRestApi("prod-mng.prod-enterprise.list");
         return this.restApi.request(api.method, api.url, [], undefined).then(res=>{
             if(res.resultContent){
                 this.enterpriseListForSelect=res.resultContent;                
             }
-            this.layoutService.hide();
         }).catch(err=>{
             console.error(err);
-            this.layoutService.hide();
         });
     }
     //获取管理服务对象列表
@@ -61,7 +56,7 @@ export class ManagerServeProdService {
       field : "TYPE"    
    });
    //创建管理服务产品   
-   postManagerServeProduct(data:ManagerServeProductModel) {
+   postManagerServeProduct(data:DatabaseMiddlewareProductModel) {
         let api = this.restApiCfg.getRestApi("manager-serve-product-create.post");
 
         return this.restApi.request(api.method, api.url, [], undefined,data);

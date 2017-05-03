@@ -19,11 +19,11 @@
             </div>
             <div class="row tabBody" *ngFor="let plateform of servicePlatformList; let idx=index">
                 <div class="col-sm-4 oneChild">
-                    <p>{{plateform.platformName}}</p>
+                    <p [title]="plateform.platformName">{{plateform.platformName}}</p>
                 </div>
                 <div class="col-sm-2 secondDiv">
                     <div class="row wyLine-height" *ngFor='let zone of plateform.zoneList'>
-                        <div class="col-sm-12">{{zone.zoneName}}</div>
+                        <div class="col-sm-12" [title]="zone.zoneName">{{zone.zoneName}}</div>
                     </div>
                 </div>
                 <div class="col-sm-2 thirdChild">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="row row-line-height inputLeft" *ngFor='let zone of plateform.zoneList;let idxxx=index'>
-                        <p style="text-align: center;line-height: 30px;">{{zone.storageName}}</p>
+                        <p style="text-align: center;line-height: 30px;" [title]="zone.storageName">{{zone.storageName}}</p>
                     </div>
                 </div>
             </div>
@@ -71,17 +71,17 @@
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of servicePlatformList; let idx=index">
 						<div class="col-sm-4 oneChild">
-							<p class="no-padding" style="line-height:34px">{{plateform.platformName}}</p>
+							<p class="no-padding" style="line-height:34px" [title]="plateform.platformName">{{plateform.platformName}}</p>
 						</div>
 						<div class="col-sm-8">
 							<div class="row wyLine-height" *ngFor='let zone of plateform.zoneList;let idxx=index'>
-								<div class="col-sm-4" style="line-height: 34px;text-align: left">{{zone.zoneName}}</div>
+								<div class="col-sm-4" style="line-height: 34px;text-align: left" [title]="zone.zoneName">{{zone.zoneName}}</div>
 								<div class="col-sm-3" style="line-height: 34px;text-align: left">
 									<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="zone.selected" [disabled]="zone.disable" name="zoneSelected" (change)="selectZone(idx,idxx,tempDiskProdDirPlatformList)">
 								</div>
 								<div class="col-md-5">
 									<div class="row" *ngFor="let storage of zone.storageList" style="line-height: 34px">
-										<div class="col-md-12">{{storage.storageName}}</div>										
+										<div class="col-md-12" [title]="storage.storageName">{{storage.storageName}}</div>										
 									</div>
 								</div>
 							</div>
