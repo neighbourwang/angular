@@ -105,6 +105,9 @@ export class AliCloudVmOrderComponent implements OnInit {
     instancetypefamilies: Array<instanceFamilyTreeIdModel> = [];
     instancetypes: Array<instanceFamilyTreeTypeIdModel> = [];
 
+    selectedinstancetypefamily: instanceFamilyTreeIdModel = new instanceFamilyTreeIdModel();
+
+
     //网络
     vpclist: Array<VPCModel> = [];
     vswitchlist: Array<VSwitchModel> = [];
