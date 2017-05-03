@@ -1891,7 +1891,7 @@
      "CAHNGE_TYPE":"变更类型",
      "PLEASE_SELECT":"请选择",
      "PLEASE_SELECT_ACCOUNT":"请选择需要编辑的账号!",
-     "PLEASE_MOVE_ENTERPRISE":"独享主账号分配给了企业后，不能改账号类型，请先移除其所分配的企业。",
+     "PLEASE_MOVE_ENTERPRISE":"独享主账号分配给了企业后，不能编辑账号类型，请先移除其所分配的企业。",
      "PLEASE_MOVE_SUB_ACCOUNT":"共享主账号中的任何子账号分配出去后，不能更改账号类型，请先将所有账号的所属都移除",
      "ACCOUNT_HAS_ENABLED":"该账号已经是启用状态!",
      "CONFIRM_ENABLE_ACCOUNT":"您选择启用账号'{{value_1}}',请确认；如果确认，用户将能够访问阿里云。",
@@ -1940,7 +1940,7 @@
      "DISABLE_ALI_CLOUD_SUB_ACCOUNT":"禁用阿里云子账号",
      "DELETE_ALI_CLOUD_SUB_ACCOUNT":"删除阿里云子账号",
      "CONFIRM_DELETE_SUB_ACCOUNT":"您选择删除'{{value_1}}'阿里云子账号,请确认；如果确认，此阿里云账号数据将不能恢复。",
-     "SUB_ACCOUNT_SET_ENTERPRISE":"只有该子账号没有分配给全部部门或单一部门时，才能重新分配企业！",
+     "SUB_ACCOUNT_SET_ENTERPRISE":"只有子账号没有分配给全部部门或单一部门时，才能重新分配企业！",
      "SUB_ACCOUNT_HAS_NOENTERPRISE_CAN_DELETE":"子账号不属于任何企业和部门且为禁用状态时，才可以删除!",
 
      "SUB_ACCOUNT_SET_ENT_TITLE":"子账号管理--分配企业",
