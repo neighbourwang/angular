@@ -181,8 +181,6 @@ export class ProdDirListComponent implements OnInit {
         let prodDirList: Array<Proddir> = this.getProddir();
         if (prodDirList.length < 1) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PRODUCT_CAT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PRODUCT_CAT=>请选择产品目录 
-
-
         } else {
             let message: string = '';
             for (let dir of prodDirList) {
@@ -194,20 +192,18 @@ export class ProdDirListComponent implements OnInit {
                 case 'delete':
                     if (prodDirList[0].status == '1') {
                         this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT=>不能删除状态为已发布的产品目录 
-
-
-                    } else {
+                    } else if(prodDirList[0].productNum>0){
+                        this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.NOT_ALLOW_TO_DELETE_PRODUCT_CAT_WITH_PRODUCT') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT=>不能删除状态为已发布的产品目录                         
+                    }else{
+                        console.log(prodDirList);
                         //PROD_MNG.DELETE_SELECTED_PRODUCT=>您选择删除{{value_1}}产品,请确认；如果确认，此产品目录的数据将不能恢复。
-                        this.deleteConfirm.open('PROD_MNG.REMOVE_PRODUCT_CAT', 'PROD_MNG.DELETE_SELECTED_PRODUCT^^^' + message)
-
+                        this.deleteConfirm.open('PROD_MNG.REMOVE_PRODUCT_CAT', 'PROD_MNG.DELETE_SELECTED_PRODUCT^^^' + message);
                     }
 
                     break;
                 case 'publish':
                     if (prodDirList[0].status == '1') {
                         this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_CAT_HAS_BEEN_PUBLISHED') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_CAT_HAS_BEEN_PUBLISHED=>产品目录状态为已发布 
-
-
                     } else {
                         this.publishConfirm.open('PROD_MNG.PUBLISH_PRODUCT_CAT', 'PROD_MNG.PUBLISH_SELECTED_PRODUCT^^^' + message) //PROD_MNG.PUBLISH_SELECTED_PRODUCT=>您选择发布{{value1}}产品,请确认。
 
@@ -316,9 +312,11 @@ export class ProdDirListComponent implements OnInit {
         } else if (this.prodDirTypeCode == 'SUPERVISE_SERVICE') {
             this.service.dictServiceObjList.then(arrs => {
                 if (!$.isArray(arrs)) return "";  //如果不是arr返回空
+                    console.log(arrs);                
                 arrs = arrs.filter(arr => arr.code == this.servObjCode); //过滤字典
                 if (arrs.length) {   //是否取到了值
-                    console.log(arrs[0].displayValue);
+                    console.log(arrs[0]);
+                    this.router.navigate(["prod-mng/manager-serve/manager-serve-service-cre", { type: 'new' ,code:arrs[0].value,objName:arrs[0].displayValue}]);                   
                 }
                 return "";
             });

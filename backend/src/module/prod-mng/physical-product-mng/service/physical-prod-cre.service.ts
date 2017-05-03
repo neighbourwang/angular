@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel } from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel ,LayoutService} from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -13,7 +13,8 @@ export class PhysicalProductService {
      constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
+        private layoutService:LayoutService
     ) { }
 
     product:PhysicalProductModel=new PhysicalProductModel();
@@ -22,6 +23,7 @@ export class PhysicalProductService {
     // unitList:FlatUnitObj;
     // 获取部件列表
     getUnitList() {
+        this.layoutService.show();
         let api = this.restApiCfg.getRestApi("physical-service-unitList.get");
         return this.restApi.request(api.method, api.url, [], undefined).then(res => {
             console.log('unitList', res);
@@ -32,20 +34,25 @@ export class PhysicalProductService {
                     ele.ajustmentPrice=ele.referencePrice;
                 })
             }
+            this.layoutService.hide();
         }).catch(err => {
+            this.layoutService.hide();
             console.log(err);
         })
     }
     //获取物理机产品目录详情
     getPhysicalService(id:string){
+        this.layoutService.show();
         this.product=new PhysicalProductModel();
         this.physicalService=new PhysicalService();
         let api = this.restApiCfg.getRestApi("physical-service-detail.get");
         return this.restApi.request(api.method, api.url, [{key:'id',value:id}], undefined).then(res=>{
             console.log(res);
             this.physicalService=res.resultContent;
+            this.layoutService.hide();
             this.product.serviceId=this.physicalService.serviceId;            
         }).catch(err=>{
+            this.layoutService.hide();
             console.error(err);
         });    
     }   
@@ -58,11 +65,14 @@ export class PhysicalProductService {
     }
     //获取企业列表    
     getEnterPriseList() {
+        this.layoutService.show();
         let api = this.restApiCfg.getRestApi("prod-mng.prod-enterprise.list");
         return this.restApi.request(api.method, api.url, [], undefined).then(res=>{
             console.log(res);
+            this.layoutService.hide();
             this.enterpriseListForSelect=res.resultContent;
         }).catch(err=>{
+            this.layoutService.hide();
             console.error(err);
         });    ;
     }

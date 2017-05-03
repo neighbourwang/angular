@@ -230,14 +230,44 @@ export class AliCloudDiskListComponent implements OnInit {
 
     }
 
+    changePage(pageIndex?) {
+        this.pageIndex = pageIndex || this.pageIndex;
+        this.layoutService.show();
+        this.service.getDiskList(this.pageIndex, this.pageSize, this.choosenRegion.RegionId, this.queryObject)
+        .then(
+            response => {
+                this.layoutService.hide();
+                //console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.disks = result.Disks.Disk;
+                    this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
+                    console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
+                    for(let i=0; i<this.disks.length; i++) {
+                        console.log(this.disks[i].DiskId, " == ");
+                    }
+                    console.log(this.disks, "this.disks!");
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+        })
+        .catch((e) => {
+                this.onRejected(e);
+            });
+    }
+
     search() {
         console.log(this.queryObject);
         if (this.choosenRegion == this.defaultRegion) {
             this.showMsg("请选择区域");
-        } else if(this.queryObject.keyword != "") {
-            this.getDiskList(this.choosenRegion);
         } else {
-            console.log(this.queryObject.keyword, "queryObject.keyword is '' or please choose Region!");
+            this.getDiskList(this.choosenRegion);
         }
     }
 

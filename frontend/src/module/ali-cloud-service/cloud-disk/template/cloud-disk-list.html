@@ -9,7 +9,9 @@
                 <div class="col-md-12">
                     <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
                         <div class="regionName">{{region.LocalName}}</div>
-
+                    </div>
+                    <div class="region-btn" styple="height:40px !important">
+                        <div class="regionName">所有</div>
                     </div>
                 </div>
             </div>
@@ -39,8 +41,7 @@
 
         <div class="dropdown float-right ">
             <button class="btn float-left btn-success" (click)="goToDiskOrder();"><!--<i class="glyphicon glyphicon-plus"></i>--><span class="icon_style icon-ali-create"></span>创建云硬盘</button>
-
-
+            <!--
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 更多操作
                 <span class="caret"></span>
@@ -48,7 +49,7 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li><a href="javascript:" (click)="deleteDisk();">删除</a></li>
             </ul>
-
+            -->
 
         </div>
     </div>

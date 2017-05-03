@@ -1,6 +1,3 @@
-/**
- * Created by wangyao on 2016/10/18.
- */
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService } from '../../../../architecture';
@@ -37,6 +34,6 @@ export class ProdDirListService {
     //获取管理服务对象列表
     dictServiceObjList = this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise
       owner : "SUPERVISE_SERVICE",
-      field : ""    
+      field : "TYPE"    
    });
 }

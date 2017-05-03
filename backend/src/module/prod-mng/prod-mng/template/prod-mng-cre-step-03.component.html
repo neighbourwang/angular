@@ -1,11 +1,11 @@
-<div class="page-content-header icon-create-product">创建产品</div>
+<div class="page-content-header icon-create-product">{{'PROD_MNG.CREATE_PRODUCT'| translate}}</div>
 <!--创建产品-->
 <div class="page-content fix-page-content">
 	<div class="row navigator-progress">
-		<div class="col-md-3"><span class="mark">1</span><span>基本信息<!--基本信息--></span><span class="icon-tick"></span></div>
-		<div class="col-md-3"><span class="mark">2</span><span>计价方式<!--资源同步--></span><span class="icon-tick"></span></div>
-		<div class="col-md-3 active"><span class="mark">3</span><span>选择平台</span></div>
-		<div class="col-md-3"><span class="mark">4</span><span>选择企业</span></div>
+		<div class="col-md-3"><span class="mark">1</span><span>{{'COMMON.BASIC_INFO'|translate}}<!--基本信息--></span><span class="icon-tick"></span></div>
+        <div class="col-md-3"><span class="mark">2</span><span>{{'PROD_MNG.COUNT_MODE'|translate}}<!--资源同步--></span><span class="icon-tick"></span></div>
+        <div class="col-md-3 active"><span class="mark">3</span><span>{{'PROD_MNG.PLATFORM_INFO'|translate}}</span></div>
+        <div class="col-md-3"><span class="mark">4</span><span>{{'NET_MNG_VM_DBT_PORT.SELECT_ENTERPRISE'|translate}}</span></div>
 	</div>
 	<div class="step-progress">
 		<div class="fox-cloud-progress-rectangle progress-striped">
@@ -42,11 +42,11 @@
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of tempVmProdDirPlatformList; let idx=index">
 						<div class="col-sm-4 oneChild">
-							<p>{{plateform.platformName}}</p>
+							<p [title]="plateform.platformName">{{plateform.platformName}}</p>
 						</div>
 						<div class="col-sm-3 secondChild wyLine-height">
 							<div class="row" *ngFor="let zone of plateform.zoneList">
-								<div class="col-sm-12">{{zone.zoneName}}</div>
+								<div class="col-sm-12 no-nowrap" [title]="zone.zoneName">{{zone.zoneName}}</div>
 							</div>
 						</div>
 						<div class="col-sm-2 thirdChild">
@@ -58,7 +58,7 @@
 						</div>
 						<div class="col-sm-3 secondChild wyLine-height">
 							<div class="row" *ngFor="let bootDisk of plateform.zoneList">
-								<div class="col-sm-12">{{bootDisk.storageName}}</div>
+								<div class="col-sm-12 no-nowrap" [title]="bootDisk.storageName">{{bootDisk.storageName}}</div>
 							</div>
 						</div>
 					</div>
@@ -97,17 +97,17 @@
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of tempDiskProdDirPlatformList; let idx=index">
 						<div class="col-sm-4 oneChild">
-							<p class="no-padding" style="line-height:34px">{{plateform.platformName}}</p>
+							<p class="no-padding" style="line-height:34px" [title]="plateform.platformName">{{plateform.platformName}}</p>
 						</div>
 						<div class="col-sm-8">
 							<div class="row wyLine-height" *ngFor='let zone of plateform.zoneList;let idxx=index'>
-								<div class="col-sm-4" style="line-height: 34px">{{zone.zoneName}}</div>
+								<div class="col-sm-4 no-nowrap" style="line-height: 34px" [title]="zone.zoneName">{{zone.zoneName}}</div>
 								<div class="col-sm-3" style="line-height: 34px">
 									<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="zone.selected" name="zoneSelected" (change)="selectZone(idx,idxx,tempDiskProdDirPlatformList)">
 								</div>
 								<div class="col-md-5">
 									<div class="row" *ngFor="let storage of zone.storageList" style="line-height: 34px">
-										<div class="col-md-12">{{storage.storageName}}</div>
+										<div class="col-md-12 no-nowrap" [title]="storage.storageName">{{storage.storageName}}</div>
 										<!--<div class="col-md-4">
 											<input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="storage.selected" name="storageSelected" (change)="storage.selected=!storage.selected">											
 										</div>-->

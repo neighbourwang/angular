@@ -2,7 +2,7 @@
  * Created by wangyao on 2016/10/21.
  */
 //use
-//<count-bar [stepCheck]=true [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 (output)="outputValue($event)></count-bar>
+//<count-bar [stepCheck]=true [step]=100 [max]=200000 [min]=0 [disabled]=false [value]=0 [decimal]=true (output)="outputValue($event)></count-bar>
 import {Component, Input, Output,EventEmitter,OnChanges,SimpleChange,OnInit} from '@angular/core';
 @Component({
     selector: 'count-bar',
@@ -35,7 +35,7 @@ export class CountBarComponent implements OnInit{
     @Input()
     valueError:boolean=false; //数据非法样式
     @Input()
-    decimal:boolean=false;//小数
+    decimal:boolean=false;//小数默认整数，输入true时四舍五入保留两位小数
     @Output()
     output=new EventEmitter();
 
@@ -56,16 +56,16 @@ export class CountBarComponent implements OnInit{
         }      
     }
     valueChange(){
-        console.log(!this.decimal);
         this.value=this.value?this.value:this.min;
         if(!this.decimal)this.value=parseInt(this.value+'',10); //取整
         if(Number.isNaN(this.value))this.value=this.min;
         const beyond = (this.value - this.min)%this.step;
         if(this.stepCheck && beyond !== 0)  this.value = (this.step/2 <= beyond) ? this.value - beyond + this.step : this.value - beyond;   //检测是否输入了非步长倍数的数字
         this.value = +this.value > +this.max ? +this.max : +this.value < +this.min ? +this.min : +this.value;
-        // if(!this.decimal)this.value=Math.ceil(this.value); //取整
-        this.output.emit(this.value);  
-        console.log(!this.value);
+        if(this.decimal){
+            this.value=Number((this.value).toFixed(2));
+        }; //取整
+        this.output.emit(this.value); 
              
     }
     unEdit(){

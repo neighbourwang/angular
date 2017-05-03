@@ -1191,6 +1191,26 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/services/pmservice/{id}"
     },
+    //管理服务产品
+    {
+        "desc": "创建管理服务",
+        "id": "manager-serve-service-create.post",
+        "method": "POST",
+        "url": "servicemgmt/authsec/services/supervise"
+    },
+    {
+        "desc": "获取管理服务详情",
+        "id": "manager-serve-service-detail.get",
+        "method": "GET",
+        "url": "servicemgmt/authsec/services/supervise/{id}"
+    },
+    {
+        "desc": "创建管理服务产品",
+        "id": "manager-serve-product-create.post",
+        "method": "POST",
+        "url": "productmgmt/authsec/supervise/product" 
+    },
+    
     //用户中心
     {
         "desc": "获取所有机构",
@@ -2741,6 +2761,12 @@ export let RestApis: RestApiModel[] = [
         "id": "mtc-center.mng-service.list",
         "method": "GET",
         "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
+    },
+    {
+        "desc": "服务跟进",
+        "id": "mtc-center.mng-service.followservice",
+        "method": "GET",
+        "url": "servicemgmt/authsec/services/supervise/followservice/{serviceId}"
     },
 
 

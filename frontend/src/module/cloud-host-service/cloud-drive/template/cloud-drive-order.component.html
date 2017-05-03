@@ -11,8 +11,8 @@
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">{{'COMMON.CLOUD_PLATFORM'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label *ngFor="let value of configs.platform.valueList;" (click)="sendModule.platform = value;setDiskPrice();" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
-							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
+						<label *ngFor="let value of configs.platform.valueList;" id="location_{{value.attrValueCode}}" (click)="sendModule.platform = value;setDiskPrice();" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
+							<input type="radio" name="location" autocomplete="off" > {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">{{'COMMON.AVAILABLE_ZONE'| translate}}</div>
@@ -20,8 +20,8 @@
 						<label 
 							*ngFor="let value of rely('zone')"
 							(click)="sendModule.zone = value;setDiskPrice();" 
-							class="btn btn-default" [ngClass]="{'active': sendModule.zone.attrValueId === value.attrValueId}">
-							<input type="radio" name="zone" autocomplete="off"> {{ value.attrDisplayValue }}
+							class="btn btn-default" [ngClass]="{'active': sendModule.zone.attrValueId === value.attrValueId}" id="zone_{{value.attrValueCode}}"> 
+							<input type="radio" name="zone" autocomplete="off" > {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2"></div>
@@ -46,19 +46,19 @@
 								{{value.attrDisplayValue}}
 							</button>
 
-							<popover-content #myPopover [closeOnClickOutside]="true" >
-								<table-list [code]="value.attrValue" [platformId]="sendModule.platform.attrValue"></table-list>
-							</popover-content>
-						</ng-container> -->
-					</div>	
+					                                                                                                 		<popover-content #myPopover [closeOnClickOutside]="true" >
+					                                                                                                 			<table-list [code]="value.attrValue" [platformId]="sendModule.platform.attrValue"></table-list>
+					                                                                                                 		</popover-content>
+					                                                                                                 	</ng-container> -->
+					</div>                                                                                           	
 					<div class="col-md-2 content-title">{{'CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_TYPE'| translate}}</div>	
 					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label 
-							*ngFor="let value of rely('storage')" 
-							(click)="sendModule.storage = value;setDiskPrice();" 
-							class="btn btn-default" [ngClass]="{'active': sendModule.storage.attrValueId === value.attrValueId}">
-							<input type="radio" name="storage" autocomplete="off"> {{ value.attrDisplayValue }}
-						</label>
+					      	<label 
+					      		*ngFor="let value of rely('storage')" 
+					      		(click)="sendModule.storage = value;setDiskPrice();" 
+					      		class="btn btn-default" [ngClass]="{'active': sendModule.storage.attrValueId === value.attrValueId}" id="storage_{{value.attrValue}}">
+					      		<input type="radio" name="storage" autocomplete="off">{{ value.attrDisplayValue }}
+					      	</label>
 					</div>	
 					<div class="col-md-12 no-padding mgb20">
 						<div class="col-md-2 content-title">{{'COMMON.CAPACITY_GB'| translate}}</div>	
@@ -68,7 +68,7 @@
 					            [max]="sendModule.diskmaxsize.attrValue" 
 					            [min]="sendModule.diskinitialsize.attrValue" 
 					            [stepCheck]=true
-					            [value]="sendModule.diskinitialsize.attrValue" (output)="outputValue($event)"></count-bar>
+					            [value]="sendModule.diskinitialsize.attrValue" (output)="outputValue($event)" id="disksize"></count-bar>
 						</div>	
 						<div class="col-md-7 disk-tip">{{'CLOUD_DRIVE_ORDER.BUY_HEAD'| translate}} {{sendModule.diskinitialsize.attrValue}}~{{sendModule.diskmaxsize.attrValue}}{{'CLOUD_DRIVE_ORDER.BUY_MID_FIRST'| translate}}{{sendModule.diskinitialsize.attrValue}}{{'CLOUD_DRIVE_ORDER.BUY_MID_SECOND'| translate}}{{sendModule.diskstepsize.attrValue}}{{'CLOUD_DRIVE_ORDER.BUY_TAIL'| translate}}</div>
 					</div>
@@ -76,22 +76,22 @@
 						<div class="col-md-2 content-title">{{'CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_INSTANCE_NAME'| translate}}</div>
 						<div class="col-md-4 no-padding mgr15 has-feedback"
 							[ngClass]="{'has-error': v.result.diskinsname }">
-							<input type="text" (keyup)="checkValue('diskinsname')" [(ngModel)]="sendModule.diskinsname.attrValue" class="form-control" placeholder="如不填写，则系统自动生成">
+							<input type="text" id="diskinsname" (keyup)="checkValue('diskinsname')" [(ngModel)]="sendModule.diskinsname.attrDisplayValue" class="form-control" placeholder="如不填写，则系统自动生成">
 					        <span *ngIf="v.result.diskinsname" class="glyphicon glyphicon-remove form-control-feedback"></span>
 					        <div *ngIf="v.result.diskinsname" class="alert alert-danger" role="alert">{{v.result.diskinsname | translate}}</div>
-						</div>
-						<div class="col-md-5 disk-tip no-padding">{{'COMMON.SET_NAME_FORMAT'| translate}}</div>
+					      	</div>
+					      	<div class="col-md-5 disk-tip no-padding">{{'COMMON.SET_NAME_FORMAT'| translate}}</div>
 					</div>	
 					<div class="col-md-12 content-title btn-group">
 						<span class="float-left mgr20 lh34">
-							<input type="checkbox" [(ngModel)]="isAttachVm" (click)="vmListClick()" name=""> 
+							<input type="checkbox" [(ngModel)]="isAttachVm" (click)="vmListClick()" name="" id="vm_list_click"> 
 							{{'CLOUD_DRIVE_ORDER.WHETHER_TO_AMOUNT_ON_CLOUD_HOST'| translate}}
 						</span>
 				        <button 
-				        	[popover]="popover_host" 
-				        	[ngClass]="{'active': popover_host.popover?.visible}" 
-				        	[disabled]="!isAttachVm" 
-				        	class="btn btn-default button-gray-gradient mgr20">{{'CLOUD_DRIVE_ORDER.CLOUD_HOST_INSTANCE_LIST'| translate}}</button>
+					[popover]="popover_host" 
+					[ngClass]="{'active': popover_host.popover?.visible}" 
+					[disabled]="!isAttachVm" 
+					class="btn btn-default button-gray-gradient mgr20" id="cloud_host_instance_list">{{'CLOUD_DRIVE_ORDER.CLOUD_HOST_INSTANCE_LIST'| translate}}</button>
 
 				        <popover-content #popover_host [closeOnClickOutside]="true" >
 							<table-list 
@@ -101,7 +101,7 @@
 						</popover-content>
 						
 						<span class="float-left mgr20 lh34" *ngIf="sendModule.diskmounthostname.attrValue">
-							<span class="float-left">{{'COMMON.CLOUD_HOST_NAME'| translate}}:</span>
+							<span class="float-left">{{'COMMON.CLOUD_HOST_NAME'| translate}}: </span>
 							<input type="text" style="width: 220px;" class="form-control float-left" disabled="ture" [(ngModel)]="sendModule.diskmounthostname.attrValue" name="" />
 						</span>
 					</div>
@@ -116,12 +116,12 @@
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_AMOUNT'| translate}}</div>
 						<div class="col-md-2 no-padding mr10">
-							<select [(ngModel)]="payLoad.quality" class="form-control">
-								<option [ngValue]="1">1</option>
-								<option [ngValue]="2">2</option>
-								<option [ngValue]="3">3</option>
-								<option [ngValue]="4">4</option>
-								<option [ngValue]="5">5</option>
+							<select [(ngModel)]="payLoad.quality" class="form-control" id="payLoad_quality">
+								<option [ngValue]="1" id="payLoad_quality_1">1</option>
+								<option [ngValue]="2" id="payLoad_quality_2">2</option>
+								<option [ngValue]="3" id="payLoad_quality_3">3</option>
+								<option [ngValue]="4" id="payLoad_quality_4">4</option>
+								<option [ngValue]="5" id="payLoad_quality_5">5</option>
 							</select>
 						</div>
 					</div>
@@ -161,8 +161,8 @@
 	            <p class="mgt20">{{'CLOUD_DRIVE_ORDER.ORDER_TEXT'| translate}}<!-- 云硬盘产品将根据您购买的容量按周期计费，实际支付金额，请以每月账单为准。 --></p>
 			</div>
 			<div class="col-md-12 colud-order-button">
-				<div class="col-md-6"><button (click)="buyNow()" class="btn button-orange-deep">{{'COMMON.BUY_NOW'| translate}}</button></div>
-				<div class="col-md-6"><button (click)="addCart()" class="btn button-orange-light">{{'COMMON.ADD_TO_SHOPPING_CART'| translate}}</button></div>
+				<div class="col-md-6"><button (click)="buyNow()" id="buy_now" class="btn button-orange-deep">{{'COMMON.BUY_NOW'| translate}}</button></div>
+				<div class="col-md-6"><button (click)="addCart()"  id="add_to_cart" class="btn button-orange-light">{{'COMMON.ADD_TO_SHOPPING_CART'| translate}}</button></div>
 			</div>
 		</div>
 	</div>

@@ -1,42 +1,42 @@
 <div class="page-content-header icon-content-header-ali-cloud">
-    阿里云子账号管理:主账号:{{mainLoginName}}
+     {{'ALI_CLOUD.SUB_ACCOUNT_MNG_TITLE' | translate}}:{{mainLoginName}}
 </div>
 <div class="page-content">
     <div style="margin-bottom:10px">
         <button class="fox-cloud-button fox-cloud-button-green" (click)="createAccount();">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">添加子账号</span>
+            <span class="icon-button-label icon-left-button-label">{{'ALI_CLOUD.ADD_SUB_ACCOUNT' | translate}}</span>
         </button>
         <div class="dropdown pull-right" style="margin-left:10px;">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                选择操作
+                {{'ALI_CLOUD.SELECT' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:void(0);" (click)="enableAccount();">启用</a></li>
-                <li><a href="javascript:void(0);" (click)="disableAccount();">禁用</a></li>
-                <li><a href="javascript:void(0);" (click)="deleteAccount();">删除</a></li>
+                <li><a href="javascript:void(0);" (click)="enableAccount();">{{'ALI_CLOUD.ENABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="disableAccount();">{{'ALI_CLOUD.DISABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="deleteAccount();">{{'ALI_CLOUD.DELETE' | translate}}</a></li>
             </ul>
         </div>
         <div class="pull-right mgl10">
-            <button class="fox-cloud-button fox-cloud-button-green" (click)="setEntprise();">分配企业</button>
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="setEntprise();">{{'ALI_CLOUD.SET_ENTERPRISE' | translate}}</button>
         </div>
         <div class="pull-right">
-            <button class="fox-cloud-button fox-cloud-button-green" (click)="editAccount();">编辑</button>
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="editAccount();">{{'ALI_CLOUD.EDIT' | translate}}</button>
         </div>
     </div>
     <div class="table-container">
         <table class="table table-hover">
             <thead>
               <tr>
-                  <th>选择</th>
-                  <th>子账号登录名</th>
-                  <th>所属企业</th>
-                  <th>所属部门</th>
-                  <th>状态</th>
-                  <th>最后更新时间</th>
-                  <th>操作人</th>
-                  <th>描述</th>
+                  <th>{{'ALI_CLOUD.SELECT_ACCOUNT' | translate}}</th>
+                  <th>{{'ALI_CLOUD.SUB_ACCOUNT_LOGIN_NAME' | translate}}</th>
+                  <th>{{'ALI_CLOUD.ENTERPRISE' | translate}}</th>
+                  <th>{{'ALI_CLOUD.DEPARTMENT' | translate}}</th>
+                  <th>{{'ALI_CLOUD.STATUS' | translate}}</th>
+                  <th>{{'ALI_CLOUD.LAST_UPDATE_TIME' | translate}}</th>
+                  <th>{{'ALI_CLOUD.OPERATOR' | translate}}</th>
+                  <th>{{'ALI_CLOUD.DESCRIPTION' | translate}}</th>
               </tr>
             </thead> 
             <tbody>

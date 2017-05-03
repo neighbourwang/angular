@@ -96,11 +96,11 @@
 				</div>
 				<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index">
 					<div class="col-sm-4 oneChild">
-						<p>{{plateform.platformName}}</p>
+						<p [title]="plateform.platformName">{{plateform.platformName}}</p>
 					</div>
 					<div class="col-sm-2 secondDiv">
 						<div class="row wyLine-height" *ngFor='let zone of plateform.zoneList'>
-							<div class="col-sm-12">{{zone.zoneName}}</div>
+							<div class="col-sm-12" [title]="zone.zoneName">{{zone.zoneName}}</div>
 						</div>
 					</div>
 					<div class="col-sm-2 thirdChild">
@@ -115,7 +115,7 @@
 							<!--<select class="form-control" [(ngModel)]="zone.storageId" (ngModelChange)="selectStorage($event,idx,idxxx)">
                                     <option *ngFor="let storage of zone.storageList;" [value]="storage.storageId">{{storage.displayName}}</option>
                                 </select>-->
-							<p style="text-align: center;line-height: 30px;">{{zone.storageList[0]?.storageName}}</p>								
+							<p style="text-align: center;line-height: 30px;" [title]="zone.storageList[0]?.storageName">{{zone.storageList[0]?.storageName}}</p>								
 						</div>
 					</div>
 				</div>
@@ -142,11 +142,11 @@
 				</div>
 				<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index">
 					<div class="col-sm-4 oneChild">
-						<p>{{plateform.platformName}}</p>
+						<p [title]="plateform.platformName">{{plateform.platformName}}</p>
 					</div>
 					<div class="col-sm-2 secondDiv">
 						<div class="row wyLine-height" *ngFor='let zone of plateform.zoneList'>
-							<div class="col-sm-12">{{zone.zoneName}}</div>
+							<div class="col-sm-12" [title]="zone.zoneName">{{zone.zoneName}}</div>
 						</div>
 					</div>
 					<div class="col-sm-2 thirdChild">
@@ -161,7 +161,7 @@
 							<!--<select class="form-control" [(ngModel)]="zone.storageId" (ngModelChange)="selectStorage($event,idx,idxxx)">
                                     <option *ngFor="let storage of zone.storageList;" [value]="storage.storageId">{{storage.displayName}}</option>
                                 </select>-->
-							<p style="text-align: center;line-height: 30px;">{{zone.storageName}}</p>								
+							<p style="text-align: center;line-height: 30px;" [title]="zone.storageName">{{zone.storageName}}</p>								
 						</div>
 					</div>
 				</div>

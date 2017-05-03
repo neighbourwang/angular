@@ -1,10 +1,10 @@
-<div class="page-content-header icon-create-product">创建产品</div><!--创建产品-->
+<div class="page-content-header icon-create-product">{{'PROD_MNG.CREATE_PRODUCT'| translate}}</div><!--创建产品-->
 <div class="page-content fix-page-content">
     <div class="row navigator-progress">
-        <div class="col-md-3 active"><span class="mark">1</span><span>基本信息<!--基本信息--></span></div>
-        <div class="col-md-3"><span class="mark">2</span><span>计价方式</span></div>
-        <div class="col-md-3"><span class="mark">3</span><span>选择平台</span></div>
-        <div class="col-md-3"><span class="mark">4</span><span>选择企业</span></div>
+        <div class="col-md-3 active"><span class="mark">1</span><span>{{'COMMON.BASIC_INFO'|translate}}<!--基本信息--></span></div>
+        <div class="col-md-3"><span class="mark">2</span><span>{{'PROD_MNG.COUNT_MODE'|translate}}</span></div>
+        <div class="col-md-3"><span class="mark">3</span><span>{{'PROD_MNG.PLATFORM_INFO'|translate}}</span></div>
+        <div class="col-md-3"><span class="mark">4</span><span>{{'NET_MNG_VM_DBT_PORT.SELECT_ENTERPRISE'|translate}}</span></div>
     </div>
     <div class="step-progress">
         <div class="fox-cloud-progress-rectangle progress-striped">
@@ -16,7 +16,7 @@
         <div class="col-md-12">
             <div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品名称：</div><!--产品名称-->					
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PROD_NAME'|translate}}：</div><!--产品名称-->					
 					<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.serviceName}">
 						<input type="text" [(ngModel)]="service.product.name" (ngModelChange)="checkForm('productName')" name="productName"
 						 placeholder="{{'PROD_MNG.PROD_NAME' | translate}}" class="form-control">
@@ -27,7 +27,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div><!--产品目录-->
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT'|translate}}：</div><!--产品目录-->
 					<div class="col-sm-4 no-padding">
 						<input type="text" class="form-control" disabled [(ngModel)]="this.service.productDir.serviceName">
 					</div>
@@ -36,7 +36,7 @@
 			<div *ngIf="prodDirType=='0'">
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title">产品规格：</div>
+						<div class="col-sm-4 form-control-title">{{'PROD_MNG.PRODUCT_SPEC'|translate}}：</div>
 						<div class="col-sm-4 row-line-child font-gray no-padding">
 							<div class="font-gray">CPU</div>
 							<div class="mid-line-child border-gray font-gray">{{this.service.productDir?.specification?.vcpu||0}}</div>
@@ -57,7 +57,7 @@
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"></div>
-						<div class="col-sm-4 row-line-child font-gray">
+						<div class="col-sm-4 row-line-child font-gray no-padding">
 							<div class="font-gray">{{'PROD_MNG.ROOT_DISK_SIZE' | translate}}</div><!--启动盘大小-->
 							<div class="mid-line-child border-gray font-gray">{{this.service.productDir?.specification?.startupDisk||0}}</div>
 							<div class="last-line-child font-gray">GB</div>
@@ -68,7 +68,7 @@
 			<div *ngIf="prodDirType=='1'">
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title">产品规格：</div>
+						<div class="col-sm-4 form-control-title">{{'PROD_MNG.PRODUCT_SPEC'|translate}}：</div>
 						<div class="col-sm-4 row-line-child font-gray no-padding">
 							<div class="font-gray">{{'PROD_MNG.INIT_SIZE' | translate}}</div><!--初始大小-->
 
@@ -113,7 +113,7 @@
 </div>
 <div class="text-center mgt20">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{'COMMON.CANCEL'|translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
         <span class="icon-button-label">下一步</span>

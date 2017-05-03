@@ -68,11 +68,25 @@ export const mainAccountList_mock = {
       "tenantName": "企业1",   
       "tenantId":"1",
       "status": "1",
+      "visible":"true"
     },
     {
       "tenantName": "企业2",
       "tenantId":"2",
       "status": "2",
-    }
+      "visible":"false",
+    },
+    {
+      "tenantName": "企业3",   
+      "tenantId":"1",
+      "status": "1",
+      "visible":"false"
+    },
+    {
+      "tenantName": "企业1",   
+      "tenantId":"1",
+      "status": "1",
+      "visible":"true"
+    },
   ]
   }

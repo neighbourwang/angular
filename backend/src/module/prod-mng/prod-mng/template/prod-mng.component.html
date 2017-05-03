@@ -78,15 +78,15 @@
 						<a (click)="goDetail(item)" style="cursor: pointer">{{item.name}}</a>	
 					</td>
 					<td>{{item.serviceName}}</td>
-					<td>
-						<!--{{item.serviceType}}-->
+					<!--<td>
 						<span [ngSwitch]="item.serviceType"> 
 							<template ngSwitchCase="0">{{'COMMON.CLOUD_HOSTING' | translate}}</template>
-							<template ngSwitchCase="1">{{'COMMON.CLOUD_HARD_DISK' | translate}}</template><!--云硬盘-->
-							<template ngSwitchCase="4">{{'PROD_MNG.PHYSICAL_PRODUCT' | translate}}</template><!--云硬盘-->
+							<template ngSwitchCase="1">{{'COMMON.CLOUD_HARD_DISK' | translate}}</template>
+							<template ngSwitchCase="4">{{'PROD_MNG.PHYSICAL_PRODUCT' | translate}}</template>
 							<template ngSwitchDefault>Unknown</template>							
 						</span>
-					</td>
+					</td>-->
+					<td>{{item.serviceType | dict:ProdListService.productTypeDic|async}}</td>								
 					<td>{{item.serviceSpecification}}</td>					
 					<td>
 						<span [ngSwitch]="item.billingCycle"> 

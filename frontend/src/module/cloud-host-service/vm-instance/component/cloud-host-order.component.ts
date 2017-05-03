@@ -97,16 +97,12 @@ export class cloudVmComponentOrder implements OnInit {
 		private service: cloudHostServiceOrder
 	) {
 		this.v.result = {};
+		this.dux.reset();
 	};
 
 	ngOnInit() {
 		this.makeSubscriber()
 		this.fetchConfig()
-	}
-
-	/****初始化派发事件***/
-	initDispatch() {
-		// this.dux.dispatch("spec")  //规格选取
 	}
 
 	private makeSubscriber() {
@@ -119,12 +115,6 @@ export class cloudVmComponentOrder implements OnInit {
 		this.dux.subscribe("FINDE_DISKSKU", () => { this.getSkuMap("disk") })
 		this.dux.subscribe("SET_TIME_UNIT", () => { this.setTimeUnit() })
 		this.dux.subscribe("SET_VMPRICE", () => { this.setVmPrice() })
-
-		// this.dux.subscribe("spec", () => { this.changedSpec() })
-		// this.dux.subscribe("resourcePoll", () => { this.changedSpec() })
-		// this.dux.subscribe("phsical", () => { this.phsicalChange() })
-		// this.dux.subscribe("phsical", () => { this.setOs() })
-		// this.dux.subscribe("phsical", () => { this.setPhysicalInfo() })
 	}
 
 	private fetchConfig() {
@@ -421,6 +411,7 @@ export class cloudVmComponentOrder implements OnInit {
 				// this.router.navigateByUrl("cloud-host-service/cloud-host-list");
 			}).catch(res => {
 				this.layoutService.hide();
+				this.showNotice("提示", "加入购物车失败")
 			})
 		});
 	}
@@ -523,6 +514,7 @@ export class cloudVmComponentOrder implements OnInit {
 				this.router.navigate(['cloud-host-service/cart-order/', JSON.stringify(res)]);
 			}).catch(error => {
 				this.layoutService.hide();
+				this.showNotice("提示", "提交订单失败")
 			})
 		})
 	}

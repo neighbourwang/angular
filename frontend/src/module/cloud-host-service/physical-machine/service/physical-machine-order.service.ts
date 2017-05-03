@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
 import { Regions, PMOrderResponse, PMPartsEntity, PMNetworkVO, ResoucePolls, PMImageBaseVO } from '../model/service.model';
+import { PostAttrList, PayLoad} from '../model/post.model';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -104,6 +105,29 @@ export class PhysicalMachineOrderService {
                 return res.resultContent;
             });
         return request;
+    }
+
+
+
+    saveOrder(payload: PayLoad[]): Promise<any> {
+        let api = this.restApiCfg.getRestApi('hosts.order.add');
+        return this.restApi.request(api.method, api.url, undefined, undefined, payload)
+                    .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "订购失败";
+                                }
+                                return res.resultContent;
+                            });
+    }
+    addCart(payload: PayLoad[]): Promise<any> {
+        let api = this.restApiCfg.getRestApi('shopping.cart.add');
+        return this.restApi.request(api.method, api.url, undefined, undefined, payload)
+                    .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "加入购物车失败";
+                                }
+                                return res.resultContent;
+                            });
     }
 
 

@@ -48,8 +48,6 @@ export class MngServiceListComponent implements OnInit{
     searchDic: Array<SystemDictionary>;
 
     type: string;
-    ingSelected= false;
-    overSelected= false;
     enterpriseList:Array<Enterprise>;
     enterpriseId= "";
     serviceName= "";
@@ -58,6 +56,8 @@ export class MngServiceListComponent implements OnInit{
     keyWords: string;
     serviceStatus: string;
     data: Array<MngServiceList>;
+    followInfo: string;
+    selectedServiceId: string;
 
     ngOnInit() {
         this.getData();
@@ -104,14 +104,39 @@ export class MngServiceListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
-    serviceUpdate(){
+    serviceUpdatePage(){
         this.type= "update";
         this.popUnit.open("服务状态更新");
     }
 
-    servicefollow(){
-        this.type= "follow";
-        this.popUnit.open("服务跟进");
+    servicefollowPage(){
+        const selectedService= this.data.find((p) =>{
+            return p.selected;
+        });
+        if(!selectedService){
+            this.showAlert("请选择需要跟进的服务");
+        }else{
+            this.type= "follow";
+            this.selectedServiceId= selectedService.serviceId;
+            this.popUnit.open("服务跟进");
+        }
+    }
+
+    serviceFollow(){
+        this.layoutService.show();
+        this.service.serviceFollow(this.selectedServiceId, this.followInfo)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.enterpriseList = response["resultContent"];
+                        console.log("企业列表",this.enterpriseList);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     oneSet(){
@@ -120,15 +145,6 @@ export class MngServiceListComponent implements OnInit{
 
     gotoDetail(){
         this.router.navigate([`mtc-center/mng-service/mng-service-detail`]);
-    }
-
-    selecteding(){
-        this.overSelected= false;
-        this.ingSelected= !this.ingSelected;
-    }
-    selectedover(){
-        this.ingSelected= false;
-        this.overSelected= !this.overSelected;
     }
 
     reset(){

@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary, PaginationComponent  } from '../../../../architecture';
+import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, SystemDictionary, PaginationComponent,  ValidationService ,Validation, ValidationRegs } from '../../../../architecture';
 
 //model
 import { AliMajorList } from '../model/ali-major-list.model';
@@ -23,7 +23,9 @@ export class AliMajorListComponent implements OnInit{
     constructor(
         private router : Router,
         private service : AliMajorService,
-        private layoutService : LayoutService
+        private layoutService : LayoutService,
+        private v:Validation,
+        private validationService: ValidationService
     ) {
 
     }
@@ -32,6 +34,8 @@ export class AliMajorListComponent implements OnInit{
     pager: PaginationComponent;
     @ViewChild("notice")
     notice: NoticeComponent;
+    @ViewChild('confirm')
+    confirm: ConfirmComponent;
     @ViewChild("majorMng")
     majorMng: PopupComponent;
     @ViewChild("distriDepart")
@@ -48,6 +52,7 @@ export class AliMajorListComponent implements OnInit{
     departs: Array<DepartList>;
     selectedDepartment: string;
     selectedDepartmentId: string;
+    tempDepartmentId: string;
 
 
     ngOnInit (){
@@ -95,6 +100,7 @@ export class AliMajorListComponent implements OnInit{
     editPage(item){
         this.type= "edit";
         this.id= item.id;
+        this.testInfo= "";
         this.layoutService.show();
         this.service.getDetail(this.id)
             .then(
@@ -105,6 +111,29 @@ export class AliMajorListComponent implements OnInit{
                         this.majorMng.open("编辑登录信息");
                         console.log("editInfo",this.majorInfo);
                     } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    edit(){
+        if(this.validationService.isBlank(this.majorInfo.accessKey) || this.validationService.isBlank(this.majorInfo.accessSecret)){
+            return;
+        }
+        this.layoutService.show();
+        this.service.edit(this.id, this.majorInfo)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getData();
+                        this.majorMng.close();
+                        console.log("edit后",this.majorInfo);
+                    }else if(response && 90011 == response["resultCode"]){
+                        this.showAlert("测试成功才能保存");
+                    }else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
                 }
@@ -131,6 +160,9 @@ export class AliMajorListComponent implements OnInit{
 
     distriPage(item){
         this.type= "distribute";
+        this.selectedDepartment= item.departmentName;
+        this.selectedDepartmentId= item.departmentId;
+        this.tempDepartmentId= item.departmentId;
         this.id= item.id;
         this.layoutService.show();
         this.service.departMajor()
@@ -160,8 +192,28 @@ export class AliMajorListComponent implements OnInit{
     reset(){
         this.departs.forEach((p) =>{
             p.selected= false;
+            p.visible= "true";
         });
         this.selectedDepartment= "";
+        this.selectedDepartmentId= "";
+    }
+
+    editDepart(){
+        this.layoutService.show();
+        this.service.editDepart(this.id, this.selectedDepartmentId)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getData();
+                        this.distriDepart.close();
+                        console.log("editDepart",this.id, this.selectedDepartmentId);
+                    }else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     gotoSubMng(item){
@@ -172,38 +224,25 @@ export class AliMajorListComponent implements OnInit{
         if(this.type== "info"){
             this.majorMng.close();
         }else if(this.type== "edit"){
-            this.layoutService.show();
-            this.service.edit(this.id, this.majorInfo)
-                .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.getData();
-                            this.majorMng.close();
-                            console.log("edit后",this.majorInfo);
-                        }else {
-                            this.showAlert("COMMON.OPERATION_ERROR");
-                        }
-                    }
-                )
-                .catch((e) => this.onRejected(e));
+            this.edit();
         }else{
-            this.layoutService.show();
-            this.service.editDepart(this.id, this.selectedDepartmentId)
-                .then(
-                    response => {
-                        this.layoutService.hide();
-                        if (response && 100 == response["resultCode"]) {
-                            this.getData();
-                            this.distriDepart.close();
-                            console.log("editDepart",this.id, this.selectedDepartmentId);
-                        }else {
-                            this.showAlert("COMMON.OPERATION_ERROR");
-                        }
-                    }
-                )
-                .catch((e) => this.onRejected(e));
+            if(this.selectedDepartmentId != this.tempDepartmentId){
+                this.confirm.open("设置部门","部门发生改变,请确认");
+                this.confirm.ccf= ()=>{
+                    this.editDepart();
+                }
+            }else{
+                this.editDepart();
+            }
         }
+    }
+
+    checkForm(key?:string){
+        const regs:ValidationRegs = {
+            accessKey: [this.majorInfo.accessKey, [this.v.isUnBlank], "accessKey不能为空"],
+            accessSecret: [this.majorInfo.accessSecret, [this.v.isUnBlank], "accessSecret不能为空"],
+        }
+        return this.v.check(key, regs);
     }
 
 

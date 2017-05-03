@@ -90,16 +90,17 @@ export class AliCloudSubAccountListComponent implements OnInit{
     enableAccount(){
         const account=this.accountList.find((e)=>{return e.isSelect});
         if(!account){
-            this.showAlert("请选择需要编辑的账号！");
+            this.showAlert("ALI_CLOUD.PLEASE_SELECT_ACCOUNT");
             return;
         }
         if(account.status=="1"){          
-            this.showAlert("该账号已经是启用状态!");                
+            this.showAlert("ALI_CLOUD.ACCOUNT_HAS_ENABLED");                
             return;
         }
         console.log(account)
-        this.noticeMsg="您选择启用账号'"+account.loginName +"',请确认；如果确认，用户将能够访问阿里云。";
-        this.noticeTitle="启用阿里云主账号";
+        //this.noticeMsg="您选择启用账号'"+account.loginName +"',请确认；如果确认，用户将能够访问阿里云。";
+        this.noticeMsg="ALI_CLOUD.CONFIRM_ENABLE_ACCOUNT^^^"+account.loginName;
+        this.noticeTitle="ENABLE_ALI_CLOUD_SUB_ACCOUNT";
         this.confirm.ccf = () => {};
         this.confirm.cof = () => {
             this.layoutService.show();
@@ -124,15 +125,15 @@ export class AliCloudSubAccountListComponent implements OnInit{
     disableAccount(){
         const account=this.accountList.find((e)=>{return e.isSelect});
         if(!account){
-            this.showAlert("请选择需要编辑的账号！");
+            this.showAlert("ALI_CLOUD.PLEASE_SELECT_ACCOUNT");
             return;
         }
         if(account.status=="2"){          
-            this.showAlert("该账号已经是禁用状态!");                
+            this.showAlert("ALI_CLOUD.ACCOUNT_HAS_DISABLED");                
             return;
         }
-        this.noticeMsg="您选择禁用账号'"+account.loginName +"',请确认；如果确认，用户将不能够访问阿里云。";
-        this.noticeTitle="禁用阿里云主账号";
+        this.noticeMsg="ALI_CLOUD.CONFIRM_DISABLE_ACCOUNT^^^"+account.loginName;
+        this.noticeTitle="ALI_CLOUD.DISABLE_ALI_CLOUD_SUB_ACCOUNT";
         this.confirm.ccf = () => {};
         this.confirm.cof = () => {
             this.layoutService.show();
@@ -157,39 +158,32 @@ export class AliCloudSubAccountListComponent implements OnInit{
     deleteAccount(){
         const account=this.accountList.find((e)=>{return e.isSelect});
         if(!account){
-            this.showAlert("请选择需要删除的账号！")
+            this.showAlert("ALI_CLOUD.PLEASE_SELECT_ACCOUNT")
             return ;
         }
-        //  if(account.mainAccountType =="1" ){
-        //     if( account.tenantCross=="" && account.status=="2"){
-        //             this.noticeMsg="您选择删除'"+account.loginName +"'阿里云主账号,请确认；如果确认，此阿里云账号数据(包括子账号)将不能恢复。";
-        //             this.noticeTitle="删除阿里云主账号";
-        //     }
-        //     else{
-        //         this.showAlert("独享主账号不属于任何企业且禁用状态时，才可以删除!");
-        //         return ;
-        //     }               
-        // }             
-        // else if(account.mainAccountType =="2" && account.isEditable=="0" && account.status=="2"){
-        //     this.noticeMsg="您选择删除'"+account.loginName +"'阿里云主账号,请确认；如果确认，此阿里云账号数据(包括子账号)将不能恢复。";
-        //     this.noticeTitle="删除阿里云主账号";
-        // }
-        // else{
-        //     this.showAlert("共享主账号只有将所有子账号的企业或部门设置移除且为禁用状态，才能删除该主账号！");
-        //     return;
-        // }             
-        // this.layoutService.hide();
-        // this.confirm.ccf = () => {};
-        // this.confirm.cof = () => {
-        //     this.service.deleteAccount(account.id)
-        //     .then(
-        //         response=>{
-        //             this.layoutService.hide();
-        //             this.getAccountList();
-        //         }
-        //     )
-        //    .catch((e) => this.onRejected(e))  
-        // }      
+        if( (account.tenantName ==null ||account.departName ==null) && account.status=="2"  ){
+                //this.noticeMsg="您选择删除'"+account.loginName +"'阿里云子账号,请确认；如果确认，此阿里云账号数据将不能恢复。";
+                this.noticeMsg="ALI_CLOUD.CONFIRM_DELETE_SUB_ACCOUNT^^^"+account.loginName ;
+                this.noticeTitle="ALI_CLOUD.DELETE_ALI_CLOUD_SUB_ACCOUNT";
+        }
+        else{
+            this.showAlert("ALI_CLOUD.SUB_ACCOUNT_HAS_NOENTERPRISE_CAN_DELETE");//子账号不属于任何企业和部门且为禁用状态时，才可以删除!
+            return ;
+        }                            
+      
+        this.layoutService.hide();
+        this.confirm.ccf = () => {};
+        this.confirm.cof = () => {
+            this.service.deleteAccount(account.id)
+            .then(
+                response=>{
+                    this.layoutService.hide();
+                    this.getAccountList();
+                }
+            )
+           .catch((e) => this.onRejected(e))  
+        }  
+        this.confirm.open();       
     }
 
 
@@ -208,6 +202,10 @@ export class AliCloudSubAccountListComponent implements OnInit{
     editAccount(){
         this.type="edit";
          const account=this.accountList.find((e)=>{return e.isSelect});
+          if(!account){
+            this.showAlert("ALI_CLOUD.PLEASE_SELECT_ACCOUNT")
+            return ;
+          }
          this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-edit`,{type:this.type,id:account.id,mainId:this.mainAccountId}])
     }
 
@@ -215,14 +213,14 @@ export class AliCloudSubAccountListComponent implements OnInit{
     setEntprise(){
          const account=this.accountList.find((e)=>{return e.isSelect});
           if(!account){
-            this.showAlert("请选择需要编辑的账号！")
+            this.showAlert("ALI_CLOUD.PLEASE_SELECT_ACCOUNT")
             return ;
         }
         if(account.departName==null){
           this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-setEnterprise`,{id:account.id,mainId:this.mainAccountId}])
         }
         else{
-            this.showAlert("只有该子账号没有分配给全部部门或单一部门时，才能重新分配企业！");
+            this.showAlert("ALI_CLOUD.SUB_ACCOUNT_SET_ENTERPRISE");//只有该子账号没有分配给全部部门或单一部门时，才能重新分配企业！
             return;
         }
     }

@@ -49,13 +49,13 @@ export class AliCloudSubAccountEditComponent implements OnInit{
             console.log(this.editMode);   
              switch (this.editMode) {
                 case "edit":
-                    this.title = "编辑子账号";
+                    this.title = "ALI_CLOUD.EDIT_SUB_ACCOUNT";
                     break;
                 case "view":
-                    this.title = "子账号详情";
+                    this.title = "ALI_CLOUD.SUB_ACCOUNT_DETAIL";
                     break;
                 case "create":
-                    this.title = "添加子账号";
+                    this.title = "ALI_CLOUD.ADD_SUB_ACCOUNT";
                     break;
             } 
         }); 
@@ -87,25 +87,51 @@ export class AliCloudSubAccountEditComponent implements OnInit{
 
      //编辑账号
     editAccount(){
-        this.layoutService.hide();
-        this.service.editAccount(this.account)
-        .then(
-            response=>{ 
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
+        if(!this.account.accessKey){
+             this.showAlert("ALI_CLOUD.PLEASE_INPUT_ACCESS_KEY");
+            return;
+        }
+        if(!this.account.accessSecret){
+            this.showAlert("ALI_CLOUD.PLEASE_INPUT_ACCESS_SECRET");
+            return;
+        }
+         if((!this.changebt &&this.testResult=="1")  || this.changebt){       
+            this.layoutService.hide();
+            this.service.editAccount(this.account)
+            .then(
+                response=>{ 
                     this.layoutService.hide();
-                    this.gotoAccountList();
-                } 
-                else {
-                    this.showAlert("COMMON.OPERATION_ERROR");
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.gotoAccountList();
+                    } 
+                    else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
                 }
-            }
-        )
-        .catch((e) => this.onRejected(e));
+            )
+            .catch((e) => this.onRejected(e));
+        }
+        else{
+            this.showAlert("ALI_CLOUD.ACCESS_INFO_ERROR");
+            return false;
+        }
     }
 
     //添加账号
     createAccount(){
+        if(!this.account.loginName){
+            this.showAlert("ALI_CLOUD.PLEASE_INPUT_SUB_ACCOUNT_LOGIN_NAME");
+            return;
+        }
+        if(!this.account.accessKey){
+             this.showAlert("ALI_CLOUD.PLEASE_INPUT_ACCESS_KEY");
+            return;
+        }
+        if(!this.account.accessSecret){
+           this.showAlert("ALI_CLOUD.PLEASE_INPUT_ACCESS_SECRET");
+            return;
+        }
         this.layoutService.show();
         if (this.testResult=="1") {
             this.service.createAccount(this.account,this.mainAccountId)
@@ -124,7 +150,7 @@ export class AliCloudSubAccountEditComponent implements OnInit{
         .catch((e) => this.onRejected(e));
         }
         else{
-            this.showAlert("请填写主账号登录名");
+             this.showAlert("ALI_CLOUD.ACCESS_INFO_ERROR");
             return false;
         }
     }

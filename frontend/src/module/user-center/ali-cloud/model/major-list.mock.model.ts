@@ -52,7 +52,16 @@ export const DepartList_mock= {
         {
             id: "2",
             departmentName: "开发部",  //部门名称
+        },
+        {
+            id: "3",
+            departmentName: "所有部门",  //部门名称
+        },
+        {
+            id: "3",
+            departmentName: "王室部门",  //部门名称
         }
+
     ]
 }
 
