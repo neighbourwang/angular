@@ -161,7 +161,7 @@ export class AliCloudSubAccountListComponent implements OnInit{
             this.showAlert("ALI_CLOUD.PLEASE_SELECT_ACCOUNT")
             return ;
         }
-        if( account.tenantName ==null && account.status=="2" && account.departName ==null){
+        if( (account.tenantName ==null ||account.departName ==null) && account.status=="2"  ){
                 //this.noticeMsg="您选择删除'"+account.loginName +"'阿里云子账号,请确认；如果确认，此阿里云账号数据将不能恢复。";
                 this.noticeMsg="ALI_CLOUD.CONFIRM_DELETE_SUB_ACCOUNT^^^"+account.loginName ;
                 this.noticeTitle="ALI_CLOUD.DELETE_ALI_CLOUD_SUB_ACCOUNT";

@@ -25,6 +25,7 @@ export class orderVmPageModel {
 
     selectedGeneration: string = null; //实例族
     selectedInstanceFamily: string = null;
+    selectedInstanceFamilyShowName: string = null;
     selectedInstanceType: string = null;
     ioOptimized_price: boolean = null;
     ioOptimized_vm: string = null;
