@@ -242,7 +242,6 @@ export class ProdDetailComponent implements OnInit {
         })
     }
     //编辑平台
-
     outputValue(e, num) {
         this[num] = e;
     }
@@ -276,7 +275,16 @@ export class ProdDetailComponent implements OnInit {
         });
         this.entListService.getEnterpriseList(list).then(res => {
             console.log('企业new', res);
-            if (!res.resultContent || res.resultContent.length == 0) {
+            if(this.product.productEnterpiseReqs.length==0){
+               this.service.editProductPlatform(this.updateProdPlatform).then(res => {
+                        console.log(res);
+                        this.getProductDetail(this.productId)
+                        this.layoutService.hide();
+                    }).catch(err => {
+                        console.log(err);
+                        this.layoutService.hide();
+                    }) 
+            }else if (!res.resultContent || res.resultContent.length == 0) {
                 this.notice.open('添加平台错误', "所选平台不是当前产品发布企业 '" + this.product.productEnterpiseReqs[0].name + "' 的可操作平台，请进入企业管理为 '" + this.product.productEnterpiseReqs[0].name + "' 企业添加相应平台后重新操作'");
             } else {
                 let newEntList = res.resultContent;
@@ -302,7 +310,7 @@ export class ProdDetailComponent implements OnInit {
                 }
             }
         }).catch(err => {
-            console.log(err);
+            console.error(err);
             this.layoutService.hide();
         })
     }

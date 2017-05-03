@@ -31,6 +31,7 @@ export class PlatformEditComponent implements OnInit {
 	) { }
     
     selectAllZone:boolean;
+    selectAllZoneDisabled:boolean=false;
 	ngOnInit() {
         console.log(this.type);
         //获取已选择平台可用区信息；
@@ -62,8 +63,8 @@ export class PlatformEditComponent implements OnInit {
                 }
             }                
         }
+        this.selectAllZoneDisabled=true;        
 	}
-
      //云主机
     //可用区全选 
     selectAllZones() {
@@ -71,7 +72,7 @@ export class PlatformEditComponent implements OnInit {
         for (let plate of this.servicePlatformList) {
             if (!plate) { continue }
             for (let zone of plate.zoneList) {
-                zone.selected = this.selectAllZone;
+                if(!zone.disable)zone.selected = this.selectAllZone;
                 // console.log(zone.storageList);
             }
         }
@@ -94,10 +95,8 @@ export class PlatformEditComponent implements OnInit {
                 }
             }
         })
-
         console.log(this.resultPlatformList);
         this.complete.emit(this.resultPlatformList);
-
         //判断是for可用区全选
         if(this.servicePlatformList.length != this.resultPlatformList.length){
             this.selectAllZone=false;
