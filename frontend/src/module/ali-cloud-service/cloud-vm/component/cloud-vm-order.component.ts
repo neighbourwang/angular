@@ -249,6 +249,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                         this.instancetypefamilies = this.instancegenerations[0].instancefamilyid;
                         this.instancetypes = this.instancetypefamilies[0].instanceTypeIDModelList;
                         this.selectedOrderVmPage.selectedInstanceFamily = this.instancetypefamilies[0].instancefamilyid;
+                        this.selectedOrderVmPage.selectedInstanceFamilyShowName = this.instancetypefamilies[0].instancefamilyShowName;
                         this.selectedOrderVmPage.selectedInstanceType = this.instancetypes[0].InstanceTypeId;
                         console.log(this.selectedOrderVmPage.selectedInstanceType, "selected InstanceType!");
                     } else {
@@ -351,6 +352,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                         this.instancetypefamilies = this.instancegenerations[0].instancefamilyid;
                         this.instancetypes = this.instancetypefamilies[0].instanceTypeIDModelList;
                         this.selectedOrderVmPage.selectedInstanceFamily = this.instancetypefamilies[0].instancefamilyid;
+                        this.selectedOrderVmPage.selectedInstanceFamilyShowName = this.instancetypefamilies[0].instancefamilyShowName;
                         this.selectedOrderVmPage.selectedInstanceType = this.instancetypes[0].InstanceTypeId;
                         console.log(this.selectedOrderVmPage.selectedInstanceType, "selected InstanceType!");
                     } else {
@@ -790,6 +792,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                         this.instancetypefamilies = this.instancegenerations[0].instancefamilyid;
                         this.instancetypes = this.instancetypefamilies[0].instanceTypeIDModelList;
                         this.selectedOrderVmPage.selectedInstanceFamily = this.instancetypefamilies[0].instancefamilyid;
+                        this.selectedOrderVmPage.selectedInstanceFamilyShowName = this.instancetypefamilies[0].instancefamilyShowName;
                         this.selectedOrderVmPage.selectedInstanceType = this.instancetypes[0].InstanceTypeId;
                     }
                     this.setAndShowIO();

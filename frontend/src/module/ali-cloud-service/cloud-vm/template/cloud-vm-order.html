@@ -419,11 +419,11 @@
                             </tr>
                             <tr>
                                 <span>镜像：</span>
-                                <span>{{selectedOrderVmPage.selectedImage || ""}}</span>
+                                <span>{{selectedImageItem.osname || ""}}</span>
                             </tr>
                             <tr>
                                 <span>系统盘：</span>
-                                <span>{{selectedOrderVmPage.selectedDisk || ""}}</span>
+                                <span>{{displayDiskType(selectedOrderVmPage.selectedDisk) || ""}}</span>
                             </tr>
                             <tr *ngIf="selectedOrderVmPage.selectedChargeType=='PrePaid'">
                                 <span>购买量：</span>
