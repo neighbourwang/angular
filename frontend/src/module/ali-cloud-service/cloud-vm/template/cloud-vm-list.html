@@ -11,10 +11,10 @@
             </div>
             <div class="col-md-12 li-content" style="padding: 20px 0px 20px !important;">
                 <div class="col-md-12">
-                    <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
+                    <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;disableSearch=false;">
                         <div class="regionName">{{region.LocalName}}</div>
                     </div>
-                    <div class="region-btn" styple="height:40px !important">
+                    <div class="region-btn" styple="height:40px !important" [ngClass]='{"selected":disableSearch}' (click)="clearRegion(); disableSearch=true;">
                         <div class="regionName">所有</div>
                     </div>
                 </div>
@@ -43,12 +43,13 @@
         </div>
 
         <div class="input-group col-md-2 float-left mgr10">
-            <input type="text" class="form-control" [(ngModel)]="queryObject.keyword" style="display: inline" />
-            <div class="input-group-addon" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
+            <input [disabled]="disableSearch==true" type="text" class="form-control" [(ngModel)]="queryObject.keyword" style="display: inline" />
+            <div [hidden]="true" class="input-group-addon" style="height: 34px; width: 34px;" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
+            <!--<button [disabled]="disableSearch==true" style="height: 34px; width: 34px;"><span class="glyphicon glyphicon-search"></span></button> -->
         </div>
 
         <div class="input-group float-left">
-            <button class="btn button-gray-gradient" (click)="search();"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
+            <button [disabled]="disableSearch==true" class="btn button-gray-gradient" (click)="search();"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
         </div>
 
         <div class="dropdown float-right">

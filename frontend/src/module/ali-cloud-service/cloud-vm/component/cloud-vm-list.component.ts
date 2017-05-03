@@ -72,6 +72,7 @@ export class AliCloudVmListComponent implements OnInit {
     pollInstance: VmQueryObject = new VmQueryObject();
 
     forcereboot: boolean = false;
+    disableSearch: boolean = false;
 
     queryObject: VmQueryObject = new VmQueryObject();
 
@@ -113,20 +114,6 @@ export class AliCloudVmListComponent implements OnInit {
 
     ngOnInit(): void {
         this.getKeySecret();
-
-        window.setInterval(() => {
-            if (this.choosenRegion != this.defaultRegion) {
-                this.selectRegion(this.choosenRegion);
-                if (this.instances.length != 0) {
-                    this.instances.map(
-                        (ins) => {
-                            ins.instanceTimer && window.clearTimeout(ins.instanceTimer);
-                        }
-                    );
-                }
-            }
-        }, 600000);
-
     }
 
     getKeySecret(): void {
@@ -187,6 +174,13 @@ export class AliCloudVmListComponent implements OnInit {
         this.queryObject.criteria = "instance_name";
         this.queryObject.keyword = "";
         this.getInstanceList(1); // 列出对应region的instance list
+    }
+
+    clearRegion() {
+        this.choosenRegion = this.defaultRegion;
+        this.regions.map((item) => {
+            item.selected = false;
+        });
     }
 
 
