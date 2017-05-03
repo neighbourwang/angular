@@ -9,23 +9,23 @@ import { DatabaseMiddlewareProdCreStep4Component } from './components/database-m
 
 export const  DatabaseMiddlewareRouting:ModuleWithProviders=RouterModule.forChild([
     {
-        path:'manager-serve/manager-serve-service-cre',
+        path:'database-middleware-mng/database-middleware-service-cre',
         component:DatabaseMiddlewareServiceCreComponent
     },
     {
-        path:'manager-serve/manager-serve-product-cre-step1',
+        path:'database-middleware-mng/database-middleware-product-cre-step1',
         component:DatabaseMiddlewareProdCreStep1Component
     },
     {
-        path:'manager-serve/manager-serve-product-cre-step2',
+        path:'database-middleware-mng/database-middleware-product-cre-step2',
         component:DatabaseMiddlewareProdCreStep2Component
     },
     {
-        path:'manager-serve/manager-serve-product-cre-step3',
+        path:'database-middleware-mng/database-middleware-product-cre-step3',
         component:DatabaseMiddlewareProdCreStep3Component
     },
     {
-        path:'manager-serve/manager-serve-product-cre-step4',
+        path:'database-middleware-mng/database-middleware-product-cre-step4',
         component:DatabaseMiddlewareProdCreStep4Component
     }
 ]);

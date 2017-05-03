@@ -21,7 +21,7 @@ export class CapacityMngService {
         field: "TYPE"
     });
     statusDic = this.dict.get({
-        owner: "MAINTAIN",
+        owner: "GLOBAL",
         field: "STATUS"
     });
     init(): void {
