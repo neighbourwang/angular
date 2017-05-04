@@ -7,10 +7,10 @@
             </div>
             <div class="col-md-12 li-content" style="padding: 20px 0px 20px !important;">
                 <div class="col-md-12">
-                    <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
+                    <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;disableSearch=false;">
                         <div class="regionName">{{region.LocalName}}</div>
                     </div>
-                    <div class="region-btn" styple="height:40px !important">
+                    <div class="region-btn" styple="height:40px !important" [ngClass]='{"selected":disableSearch}' (click)="clearRegion(); disableSearch=true;">
                         <div class="regionName">所有</div>
                     </div>
                 </div>
@@ -31,26 +31,16 @@
         </div>
 
         <div class="input-group col-md-2 float-left mgr10">
-            <input type="text" name="seachtext" class="form-control" [(ngModel)]="queryObject.keyword" style="display: inline" placeholder="输入云硬盘信息搜索" />
+            <input [disabled]="disableSearch==true" type="text" name="seachtext" class="form-control" [(ngModel)]="queryObject.keyword" style="display: inline" placeholder="输入云硬盘信息搜索" />
             <div class="input-group-addon" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
         </div>
 
         <div class="input-group float-left">
-            <button class="btn button-gray-gradient" (click)="search();"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
+            <button [disabled]="disableSearch==true" class="btn button-gray-gradient" (click)="search();"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
         </div>
 
         <div class="dropdown float-right ">
             <button class="btn float-left btn-success" (click)="goToDiskOrder();"><!--<i class="glyphicon glyphicon-plus"></i>--><span class="icon_style icon-ali-create"></span>创建云硬盘</button>
-            <!--
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                更多操作
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="javascript:" (click)="deleteDisk();">删除</a></li>
-            </ul>
-            -->
-
         </div>
     </div>
 

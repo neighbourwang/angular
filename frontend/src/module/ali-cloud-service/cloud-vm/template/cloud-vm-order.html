@@ -130,6 +130,7 @@
                                      instancetypes=instancetypefamilies[0].instanceTypeIDModelList;
                                      selectedOrderVmPage.selectedInstanceFamily=instancetypefamilies[0].instancefamilyid;
                                      selectedOrderVmPage.selectedInstanceType=instancetypes[0].InstanceTypeId;
+                                     selectedOrderVmPage.instanceShowName = instancetypes[0].instanceShowName;
                                      setAndShowIO(); calculatePrice();" style="display: inline">{{gene.generationShowName || gene.generation}}</button>
                             <!-- 
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;" style="display: inline">系列 I</button>
@@ -152,16 +153,17 @@
                     <div class="col-md-12 no-padding mgb20">
                         <div *ngFor="let family of instancetypefamilies;" style="display: inline">
                             <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceFamily==family.instancefamilyid}' (click)="selectedOrderVmPage.selectedInstanceFamily=family.instancefamilyid;
-                                     selectedOrderVmPage.selectedInstanceFamilyShowName=family.instancefamilyShowName ;
                                      instancetypes=family.instanceTypeIDModelList;
                                      selectedOrderVmPage.selectedInstanceType=instancetypes[0].InstanceTypeId;
+                                     selectedOrderVmPage.instanceShowName = instancetypes[0].instanceShowName;
                                      showInstanceType();" style="display: inline">{{family.instancefamilyShowName || family.instancefamilyid}}</button>
                         </div>
                     </div>
                     <br />
                     <div class="col-md-12 no-padding mgb20">
                         <div *ngFor="let type of instancetypes;" style="display: inline">
-                            <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceType==type.InstanceTypeId}' (click)="selectedOrderVmPage.selectedInstanceType=type.InstanceTypeId; showInstanceType();" style="display: inline; height: 68px !important;">{{selectedOrderVmPage.selectedInstanceFamilyShowName}} {{type.CpuCoreCount}}GB<br />{{type.instanceShowName || type.InstanceTypeId}}</button>
+                            <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceType==type.InstanceTypeId}' (click)="selectedOrderVmPage.selectedInstanceType=type.InstanceTypeId; selectedOrderVmPage.instanceShowName = type.instanceShowName; showInstanceType();"
+                                style="display: inline; height: 68px !important;">{{type.CpuCoreCount}}核 {{type.MemorySize}}GB<br />{{type.instanceShowName || type.InstanceTypeId}}</button>
                         </div>
 
                     </div>
@@ -395,7 +397,7 @@
                         <table>
                             <tr>
                                 <span>计费模式：</span>
-                                <span>{{selectedOrderVmPage.selectedChargeType || ""}}</span>
+                                <span>{{selectedOrderVmPage.selectedChargeType | dict:this.dictService.instanceChargeTypeDict | async}}</span>
                             </tr>
                             <tr>
                                 <span>地域：</span>
@@ -403,15 +405,16 @@
                             </tr>
                             <tr>
                                 <span>实例规格：</span>
-                                <span>{{selectedOrderVmPage.selectedInstanceType || ""}}</span>
+                                <!--<span>{{selectedOrderVmPage.selectedInstanceType || ""}}</span>-->
+                                <span>{{selectedOrderVmPage.instanceShowName || ""}}</span>
                             </tr>
                             <tr>
                                 <span>I/O优化：</span>
-                                <span>{{selectedOrderVmPage.ioOptimized_vm || ""}}</span>
+                                <span>{{selectedOrderVmPage.ioOptimized_vm | dict:this.dictService.ioOptimizedDict | async}}</span>
                             </tr>
                             <tr>
                                 <span>网络：</span>
-                                <span>{{selectedOrderVmPage.selectedNetworkType || ""}}</span>
+                                <span>{{selectedOrderVmPage.selectedNetworkType | dict:this.dictService.networkTypeDict | async}}</span>
                             </tr>
                             <tr>
                                 <span>安全组：</span>
@@ -448,12 +451,6 @@
                                 <span *ngIf="selectedOrderVmPage.price_instance!=''">￥</span> {{(selectedOrderVmPage.price_instance) || ""}}
                                 <span *ngIf="selectedOrderVmPage.price_instance!=''"> /时</span>
                             </tr>
-                            <!--
-                            <tr>
-                                <span>费用总计：</span>
-                                <span *ngIf="selectedOrderVmPage.price!=''">￥</span> {{(selectedOrderVmPage.price) || ""}}
-                            </tr>
-                            -->
                         </table>
                     </div>
                     <div>

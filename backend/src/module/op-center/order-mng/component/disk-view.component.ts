@@ -6,11 +6,15 @@ import * as _ from 'underscore';
 	selector:'disk-view'
 	,template:`
 	<ul>
-		<li>区域: {{_obj.platform}}</li>
-		<li>可用区: {{_obj.zone}}</li>
-		<li>云硬盘类型: {{_obj.storage}}</li>
-		<li>云硬盘容量: {{_obj.capacity}}</li>
-		<li>实例名称: {{_obj.instanceName}}</li>
+		<li  *ngIf="_obj.platform" >区域: {{_obj.platform}}</li>
+
+		<li  *ngIf="_obj.zone" >可用区: {{_obj.zone}}</li>
+
+		<li  *ngIf="_obj.storage" >云硬盘类型: {{_obj.storage}}</li>
+
+		<li  *ngIf="_obj.capacity" >云硬盘容量: {{_obj.capacity}}</li>
+
+		<li  *ngIf="_obj.instanceName" >实例名称: {{_obj.instanceName}}</li>
 	</ul>
 	`
 })

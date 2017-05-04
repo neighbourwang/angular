@@ -46,8 +46,9 @@
                         </div>
                     </td>
                     <td>{{hostInfo.instance}}</td>
-                    <td [ngClass]="hostInfo.running==1?'font-green':'font-orange'">{{hostInfo.running| dict:this.service.runningDic | async}}</td>
                     <td [ngClass]="hostInfo.status==1?'font-green':'font-orange'">{{hostInfo.status| dict:this.service.statusDic | async}}</td>
+                    <td [ngClass]="hostInfo.running==1?'font-green':'font-orange'">{{hostInfo.running| dict:this.service.runningDic | async}}</td>
+                    
                 </tr>
             </tbody>
         </table>
