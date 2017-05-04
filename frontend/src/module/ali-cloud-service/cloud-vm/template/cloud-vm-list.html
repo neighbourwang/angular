@@ -79,13 +79,14 @@
             <th class="text-center">网络类型</th>
             <th class="text-center">状态</th>
             <th class="text-center">配置</th>
+            <th class="text-center">创建时间</th>
             <th class="text-center">付费方式</th>
             <th class="text-center">操作</th>
         </tr>
         <tr style="line-height: 65px;" *ngFor="let instance of instances; let i=index;">
-            <td class="text-center">
+            <td class="text-center text-vertical-middle ">
                 <!-- <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list">-->{{(i+1)}}</td>
-            <td class="text-center active" style="position: relative;width: 220px;">
+            <td class="text-center text-vertical-middle active" style="position: relative;width: 220px;">
                 {{instance.InstanceId}}
                 <br /> {{instance.InstanceName}}
                 <span class="pull-right icon-edit2" (click)="instance.EnableEdit=true; onSelect(instance);" style="width: 30px; height: 18px; line-height: 30px;"></span>
@@ -109,13 +110,14 @@
 
                 </div>
             </td>
-            <td class="text-center">{{instance.ZoneId}}</td>
-            <td class="text-left"><span style="display: block">内网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.EipAddress.IpAddress}}</span></td>
-            <td class="text-center">{{instance.InstanceNetworkType}}</td>
-            <td class="text-center">{{instance.Status}}</td>
-            <td class="text-left"><span style="display: block">CPU: {{instance.Cpu}}核</span><span>内存：{{instance.Memory}} MB (I/O优化)</span></td>
-            <td class="text-center">{{instance.InstanceChargeType}}<br /> {{instance.ExpiredTime}}</td>
-            <td class="text-center">
+            <td class="text-center text-vertical-middle">{{instance.ZoneId}}</td>
+            <td class="text-left text-vertical-middle"><span style="display: block">内网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.EipAddress.IpAddress}}</span></td>
+            <td class="text-center text-vertical-middle">{{instance.InstanceNetworkType | dict:this.dictService.networkTypeDict | async}}</td>
+            <td class="text-center text-vertical-middle"><span class="icon-instance-starting"></span>{{instance.Status | dict:this.dictService.instanceStatusDict | async}}</td>
+            <td class="text-left text-vertical-middle"><span style="display: block">CPU: {{instance.Cpu}}核</span><span>内存：{{instance.Memory}} MB (I/O优化)</span></td>
+            <td class="text-center text-vertical-middle">{{instance.CreationTime}}</td>
+            <td class="text-center text-vertical-middle">{{instance.InstanceChargeType | dict:this.dictService.instanceChargeTypeDict | async}}<br /> {{instance.ExpiredTime}}</td>
+            <td class="text-center text-vertical-middle">
                 <span *ngIf="instance.Status=='Stopped'" class="icon_style icon-start" (click)="selectItem(i); startInstance();" name="startvm"></span>
                 <span *ngIf="instance.Status!='Stopped'" class="icon_style icon-stop" (click)="selectItem(i); stopInstance();" name="stopvm"></span>
                 <span class="icon_style icon-reboot" (click)="selectItem(i); reStartInstance();" name="restartvm"></span>
