@@ -144,4 +144,26 @@ export class CostManageItem{
 
     adjustReason:string;//调整项目
 }
-
+export class Chart1{
+     datasets:Array<any> = [];
+     labels:Array<any> = [];
+     colors:Array<any> = [];
+     chartType:string;
+     options:any;
+    creatChart(chartType,datasets?:Array<any>,labels?:Array<any>,colors?:Array<any>,options?:any){
+         this.chartType = chartType;
+         if(datasets){
+             this.datasets = datasets;
+         }
+         if(labels){
+             this.labels = labels;
+         }
+         if(colors){
+             this.colors = colors;
+         }
+         if(options){
+             this.options = options;
+         }
+        
+     };
+}
