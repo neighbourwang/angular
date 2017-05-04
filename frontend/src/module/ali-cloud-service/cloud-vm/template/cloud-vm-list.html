@@ -31,14 +31,6 @@
                 <option value="private_ips">私网IPs</option>
                 <option value="inner_ips">内网IPs</option>
                 <option value="public_ips">外网IPs</option>
-                <!--<option value="expire">即将到期</option>-->
-                <!--
-                <option value="image_id">镜像ID</option>
-                <option value="securitygroup_id">安全组ID</option>
-                <option value="instance_type">实例规格</option>
-                <option value="vpc_id">专有网络ID</option>
-				<option value="vswitch_id">虚拟交换机ID</option>
-                -->
 			</select>
         </div>
 
@@ -53,20 +45,6 @@
 
         <div class="dropdown float-right">
             <button class="btn float-left btn-success" (click)="goToInstanceOrder();"><!--<i class="glyphicon glyphicon-plus"></i>--><span class="icon_style icon-ali-create"></span>创建云主机</button>
-            <!--
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			更多操作
-			<span class="caret"></span>
-			</button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="javascript:" (click)="startInstance();">启动</a></li>
-                <li><a href="javascript:" (click)="stopInstance();">停止</a></li>
-                <li><a href="javascript:" (click)="reStartInstance();">重启</a></li>
-                <li><a href="javascript:" (click)="attachIPToInstance();">绑定弹性IP</a></li>
-                <li><a href="javascript:">远程连接</a></li>
-                <li><a href="javascript:" (click)="deleteInstance();">释放实例</a></li>
-            </ul>
-            -->
         </div>
     </div>
 
@@ -202,17 +180,3 @@
         </div>
     </div>
 </fc-popup>
-
-<!--
-<fc-popup #remotecontrolvm ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="远程控制云主机" (of)="acceptRemoteInstanceModify()" (cf)="cancelRemoteInstanceModify()">
-    <div class="dialogContent">
-        <div class="row row-line-height">
-            <div class="form-group">
-                <div class="col-sm-12 text-center mgb20">
-                    <a [routerLink]="remoteUrl">点击链接进行云主机访问</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</fc-popup>
--->

@@ -393,16 +393,18 @@ export class AliCloudVmListComponent implements OnInit {
                     .then(
                     response => {
                         this.layoutService.hide();
+                        /*
                         if (response && 100 == response["resultCode"]) {
                             this.showAlert("停止实例成功！");
                             //this.selectRegion(this.choosenRegion);
-                            this.selectedInstance.Status = "Stopping";
-                            this.oneInstancePoll(this.selectedInstance);
                         } else {
                             this.showAlert("停止实例失败！");
                         }
+                        */
                     })
                     .catch((e) => this.onRejected(e));
+                    this.selectedInstance.Status = "Stopping";
+                    this.oneInstancePoll(this.selectedInstance);
             }
             this.confirm.open();
         } else {

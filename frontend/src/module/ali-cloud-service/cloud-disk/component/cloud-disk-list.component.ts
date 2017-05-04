@@ -63,6 +63,8 @@ export class AliCloudDiskListComponent implements OnInit {
 
     //keysecret: keysecretModel = new keysecretModel();
 
+    disableSearch: boolean = false;
+
     queryObject: DiskQueryObject = new DiskQueryObject();
     vmqueryObject: VmQueryObject = new VmQueryObject();
 
@@ -181,6 +183,13 @@ export class AliCloudDiskListComponent implements OnInit {
             .catch((e) => {
                 this.onRejected(e);
             });
+    }
+
+    clearRegion() {
+        this.choosenRegion = this.defaultRegion;
+        this.regions.map((item) => {
+            item.selected = false;
+        });
     }
 
     selectRegion(region: RegionModel) {
