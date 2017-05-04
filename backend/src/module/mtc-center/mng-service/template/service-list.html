@@ -75,9 +75,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of data">
-                <td><input type="radio" class="fox-cloud-radio"/></td>
+                <td><input type="radio" class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
                 <td>{{item.serviceProductId}}</td>
-                <td><a href="javascript:void(0);" (click)="gotoDetail();">{{item.serviceName}}</a></td>
+                <td><a href="javascript:void(0);" (click)="gotoDetail(item);">{{item.serviceName}}</a></td>
                 <td>{{item.serviceObjectCode | dict: this.service.typeDic | async}}</td>
                 <td>
                     <ol class="no-padding">
@@ -107,7 +107,7 @@
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" ></fc-confirm>
 
-<fc-popup #popUnit title="{{title}}" ot="{{type== 'update'? '服务完成': 'COMMON.SAVE' | translate }}"  ct="{{ 'COMMON.CANCEL' | translate }}" (of)="creOredit()">
+<fc-popup #popUnit title="{{title}}" ot="{{type== 'update'? '服务完成': 'COMMON.SAVE' | translate }}"  ct="{{ 'COMMON.CANCEL' | translate }}" (of)="followOrupdate()">
    <div style="height: 150px;">
        <div *ngIf="type== 'update'" class="row">
            <div class="form-group">
@@ -116,7 +116,7 @@
        </div>
        <div class="row row-line-height">
            <div class="form-group mgl5">
-               <textarea class="form-control" rows="4" placeholder="必须输入内容才能保存" [(ngModel)]="followInfo"></textarea>
+               <textarea class="form-control" rows="4" placeholder="必须输入内容才能保存" [(ngModel)]="Info"></textarea>
            </div>
        </div>
    </div>

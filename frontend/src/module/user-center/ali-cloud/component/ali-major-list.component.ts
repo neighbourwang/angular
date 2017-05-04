@@ -194,7 +194,7 @@ export class AliMajorListComponent implements OnInit{
             p.selected= false;
             p.visible= "true";
         });
-        this.selectedDepartment= "";
+        this.selectedDepartment= ""; 
         this.selectedDepartmentId= "";
     }
 
@@ -208,6 +208,8 @@ export class AliMajorListComponent implements OnInit{
                         this.getData();
                         this.distriDepart.close();
                         console.log("editDepart",this.id, this.selectedDepartmentId);
+                    }else if(response && 90011 == response["resultCode"]){
+                        this.showAlert("无法分配到此部门");
                     }else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }

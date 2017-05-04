@@ -65,7 +65,7 @@ export class MngService {
 
     }
 
-    serviceFollow(serviceId: string, followInfo: string): Promise<any>{
+    serviceFollow(serviceId: string, Info: string): Promise<any>{
         const pathParams=[
             {
                 key:"serviceId",
@@ -73,9 +73,23 @@ export class MngService {
             }
         ];
         const api = this.restApiCfg.getRestApi("mtc-center.mng-service.followservice");
+        return this.restApi.request(api.method, api.url, pathParams, null,Info
+  /*          {
+                "followInfo": Info
+            }*/);
+    }
+
+    serviceUpdate(serviceId: string, Info: string): Promise<any>{
+        const pathParams=[
+            {
+                key:"serviceId",
+                value: serviceId
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("mtc-center.mng-service.updateservice");
         return this.restApi.request(api.method, api.url, pathParams, null,
             {
-                "followInfo": followInfo
+                "updateInfo": Info
             });
     }
 }
