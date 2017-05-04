@@ -110,7 +110,7 @@ export class AliSubListComponent implements OnInit{
 
     getDetail(item){
         this.type= "info";
-        this.ot= "关闭";
+        this.ot= "DIALOG.CLOSE";
         this.layoutService.show();
         this.service.getDetail(item.id)
             .then(
@@ -118,7 +118,7 @@ export class AliSubListComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.subInfo = response["resultContent"];
-                        this.subMng.open("子账号详情");
+                        this.subMng.open("USER_CENTER.SUB_DETAIL");
                         console.log("subInfo",this.subInfo);
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -130,11 +130,11 @@ export class AliSubListComponent implements OnInit{
 
     crePage(){
         this.type= "create";
-        this.ot= "创建";
+        this.ot= "COMMON.CREATE";
         this.testInfo= "";
         this.subInfo= new AliSubList();
         this.getDepartsList();
-        this.subMng.open("创建子账号");
+        this.subMng.open("USER_CENTER.CREATE_SUBACCOUNT");
     }
 
     create(){
@@ -147,7 +147,7 @@ export class AliSubListComponent implements OnInit{
                         this.getData();
                         this.subMng.close();
                     }else if(response && 90011 == response["resultCode"]){
-                        this.showAlert("测试成功才能创建");
+                        this.showAlert("USER_CENTER.SUCESSTEST_CAN_CREATE");
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -158,7 +158,7 @@ export class AliSubListComponent implements OnInit{
 
     editPage(item){
         this.type= "edit";
-        this.ot= "保存";
+        this.ot= "COMMON.SAVE";
         this.id= item.id;
         this.testInfo= "";
         this.layoutService.show();
@@ -168,7 +168,7 @@ export class AliSubListComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.subInfo = response["resultContent"];
-                        this.subMng.open("编辑子账号");
+                        this.subMng.open("USER_CENTER.EDIT_LOGININFO");
                         console.log("subInfo",this.subInfo);
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -189,7 +189,7 @@ export class AliSubListComponent implements OnInit{
                         this.subMng.close();
                         console.log("edit后",this.subInfo);
                     }else if(response && 90011 == response["resultCode"]){
-                        this.showAlert("测试成功才能保存");
+                        this.showAlert("USER_CENTER.SUCESSTEST_CAN_SAVE");
                     }else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -216,7 +216,7 @@ export class AliSubListComponent implements OnInit{
 
     distriPage(item){
         this.type= "distribute";
-        this.ot= "保存";
+        this.ot= "COMMON.SAVE";
         this.selectedDepartment= item.departmentName;
         this.tempDepartmentId= item.departId;
         this.selectedDepartmentId= item.departId;
@@ -228,7 +228,7 @@ export class AliSubListComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.departsList = response["resultContent"];
-                        this.distriDepart.open("分配部门")
+                        this.distriDepart.open("USER_CENTER.DISTRI_SUB_DEPARTMENT^^^"+item.loginName);
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -268,7 +268,7 @@ export class AliSubListComponent implements OnInit{
                         this.distriDepart.close();
                         console.log("editDepart",this.id, this.selectedDepartmentId);
                     }else if(response && 90011 == response["resultCode"]){
-                        this.showAlert("无法分配到此部门");
+                        this.showAlert("USER_CENTER.CANNOT_DISTRI_DEPARTMENT");
                     }else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -335,7 +335,7 @@ export class AliSubListComponent implements OnInit{
                     .catch((e) => this.onRejected(e));
             }
         }else{
-            this.showAlert("必须为禁用状态且未分配给任何部门时才能删除");
+            this.showAlert("USER_CENTER.DELETE_WARNINGINFO");
         }
     }
 
@@ -360,7 +360,7 @@ export class AliSubListComponent implements OnInit{
             this.edit();
         }else{
             if(this.selectedDepartmentId != this.tempDepartmentId){
-                this.confirm.open("设置部门","部门发生改变,请确认");
+                this.confirm.open("USER_CENTER.DISTRI_DEPARTMENT","USER_CENTER.DISTRI_DEPARTMENT_PROMOTINFO");
                 this.confirm.ccf= ()=>{
                     this.editDepart();
                 }
@@ -373,9 +373,9 @@ export class AliSubListComponent implements OnInit{
 
     checkForm(key?:string){
         const regs:ValidationRegs = {
-            loginName: [this.subInfo.loginName, [this.v.isBase, this.v.isUnBlank], "loginName不能为空"],
-            accessKey: [this.subInfo.accessKey, [this.v.isUnBlank], "accessKey不能为空"],
-            accessSecret: [this.subInfo.accessSecret, [this.v.isUnBlank], "accessSecret不能为空"],
+            loginName: [this.subInfo.loginName, [this.v.isBase, this.v.isUnBlank], "USER_CENTER.LOGINNAME_CANNOT_EMPTY"],
+            accessKey: [this.subInfo.accessKey, [this.v.isUnBlank], "USER_CENTER.ACCESSKEY_CANNOT_EMPTY"],
+            accessSecret: [this.subInfo.accessSecret, [this.v.isUnBlank], "USER_CENTER.ACCESSSECRET_CANNOT_EMPTY"],
         }
         return this.v.check(key, regs);
     }

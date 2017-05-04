@@ -225,7 +225,7 @@ export class MenuService {
 							"routing": "user-center/person-acc-mng/person-acc-mng"
 						},
                         {
-                            "label": "阿里云账号管理",
+                            "label": "MENU.ALI_ACCOUNT_MNG",
                             "isOpen": false,
                             "isShow": true,
                             "routing": "user-center/ali-cloud/ali-index"
