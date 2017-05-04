@@ -93,38 +93,20 @@
             <td class="text-center">{{disk.RegionId}} {{disk.ZoneId}}</td>
             <td class="text-center">{{disk.Type | dict:this.dictService.diskTypeDict | async}}</td>
             <td class="text-center">
-                <button (click)="selectItem(i); attachDisk();" style="display: inline;" class="btn button-gray-gradient">挂载
+                <button *ngIf="disk.Status!='In_use' && disk.Type!='system'" (click)="selectItem(i); attachDisk();" style="display: inline;" class="btn button-gray-gradient">挂载
                 </button>
-                <button (click)="selectItem(i); detachDisk();" class="btn button-gray-gradient">释放
+                <button *ngIf="disk.Status=='In_use' && disk.Type!='system'" (click)="selectItem(i); detachDisk();" style="display: inline;" class="btn button-gray-gradient">卸载
+                </button>
+
+                <button *ngIf="disk.Type!='system'" (click)="selectItem(i); deleteDisk();" class="btn button-gray-gradient">释放
+                </button>
+
+                <button *ngIf="disk.Type=='system'" [disabled]="disk.Type=='system'" class="btn button-gray-gradient">挂载
+                </button>
+                <button *ngIf="disk.Type=='system'" [disabled]="disk.Type=='system'" class="btn button-gray-gradient">释放
                 </button>
             </td>
         </tr>
-        <!--
-        <tr style="line-height: 65px;" >
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
-            <td class="text-center active" style="position: relative;width: 220px;">
-                d-bp1cwuop03pj6cn8hu1g
-            </td>
-            <td class="text-center">高效云盘</td>
-            <td class="text-center">使用中</td>
-            <td class="text-center">包年包月</td>
-            <td class="text-center">支持</td>
-            <td class="text-center">华南1 可用区B</td>
-            <td class="text-center">数据盘</td>
-        </tr>
-        <tr style="line-height: 65px;">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=vm;" name="host-list"></td>
-            <td class="text-center active" style="position: relative;width: 220px;">
-                d-bp1cwuop03pj6cn8hu2g
-            </td>
-            <td class="text-center">本地SSD盘</td>
-            <td class="text-center">挂在中</td>
-            <td class="text-center">按量付费</td>
-            <td class="text-center">不支持</td>
-            <td class="text-center">华南1 可用区A</td>
-            <td class="text-center">系统盘</td>
-        </tr>
-        -->
     </table>
     <fc-pagination tp={{totalPage}} (pf)="changePage($event)"></fc-pagination>
     <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
