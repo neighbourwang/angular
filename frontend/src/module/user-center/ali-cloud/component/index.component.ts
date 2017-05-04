@@ -45,11 +45,13 @@ export class AliIndexComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         if(response.resultContent == 2){
                             this.router.navigate([`user-center/ali-cloud/ali-shared-list`]);
-                        }else{
+                        }else if(response.resultContent == 1){
                             this.router.navigate([`user-center/ali-cloud/ali-major-list`]);
+                        }else{
+                            return;
                         }
                     } else {
-                        this.showAlert("COMMON.OPERATION_ERROR");
+                       return;
                     }
                 }
             ) .catch((e) => this.onRejected(e));
