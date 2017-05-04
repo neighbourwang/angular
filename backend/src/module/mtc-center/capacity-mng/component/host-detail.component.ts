@@ -73,7 +73,9 @@ export class HostDetailComponent implements OnInit {
 
     //获取宿主机折线图数据
     getHostGraph() {
-         this.layoutService.show();
+        this.layoutService.show();
+        this.cpuChart = new LineChart();
+        this.memChart = new LineChart();
         this.service.getHostGraph(this.HostId,this.Period)
             .then(
             response => {
@@ -81,8 +83,7 @@ export class HostDetailComponent implements OnInit {
                 if (response && "100" == response["resultCode"]) {
                     this.cpuList = response["resultContent"].cpu;
                     this.memList = response["resultContent"].memory;
-                    this.cpuChart = new LineChart();
-                    this.memChart = new LineChart();
+                    
                     this.cpuChart.SourceData = this.cpuList;
                     this.memChart.SourceData = this.memList;
                     
