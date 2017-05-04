@@ -57,7 +57,7 @@
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}：&nbsp;&nbsp;{{spec.attrDisplayValue}}</li>
 								</ul>-->
 								<machine-view  [values]="item" *ngIf="item.serviceType==4"></machine-view>
-								<a *ngIf="item.serviceType==2" class="hands" [popover]="popover">点击查看部件信息</a><!--物理机-->
+								<a *ngIf="item.serviceType==4" class="hands" [popover]="popover">点击查看部件信息</a><!--物理机-->
 								<popover-content #popover placement="right"[animation]="true" [closeOnClickOutside]="true">
 									<div class="table-container mgb20">
 										<table class="table table-bordered mgb20 text-center inner-table">
@@ -82,7 +82,7 @@
 						
 								</popover-content>
 
-								<a *ngIf="item.serviceType==4" class="hands" [popover]="osPopover">点击查看实例详情</a><!--管理服务-->
+								<a *ngIf="item.serviceType==2" class="hands" [popover]="osPopover">点击查看实例详情</a><!--管理服务-->
 								<popover-content #osPopover placement="right"[animation]="true" [closeOnClickOutside]="true">
 									<div class="table-container mgb20"><!--云主机-->
 										<table class="table table-bordered mgb20 text-center inner-table">
