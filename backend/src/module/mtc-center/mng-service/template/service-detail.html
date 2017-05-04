@@ -16,31 +16,31 @@
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title" style="margin-left:55px">管理服务名称:</div>
-                <div class="col-md-4"> <span style="line-height:34px">不能访问公司OA系统主机</span> </div>
+                <div class="col-md-4"> <span style="line-height:34px">{{serviceInfo.serviceBaseInfo.serviceName}}</span> </div>
             </div>
         </div>
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title" style="margin-left:55px">服务对象:</div>
-                <div class="col-md-4"> <span style="line-height:34px"> 云主机 </span></div>
+                <div class="col-md-4"> <span style="line-height:34px"> {{serviceInfo.serviceBaseInfo.serviceObjectCode | dict: this.mngservice.typeDic | async}} </span></div>
             </div>
         </div>
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title" style="margin-left:55px"> 实例ID:</div>
-                <div class="col-md-4"> <span style="line-height:34px">管华</span> </div>
+                <div class="col-md-4"> <span style="line-height:34px"> {{serviceInfo.serviceBaseInfo.instance.instanceId}}</span> </div>
             </div>
         </div>
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title" style="margin-left:55px">实例名称:</div>
-                <div class="col-md-4">  <span style="line-height:34px">02164223399</span> </div>
+                <div class="col-md-4">  <span style="line-height:34px">{{serviceInfo.serviceBaseInfo.instance.instanceName}}</span> </div>
             </div>
         </div>
         <div class="row row-line-height">
             <div class="form-group">
                 <div class="col-sm-4 form-control-title" style="margin-left:55px">所在区域:</div>
-                <div class="col-md-4"> <span style="line-height:34px"> 云主机 </span></div>
+                <div class="col-md-4"> <span style="line-height:34px"> {{serviceInfo.serviceBaseInfo.instance.instanceRegion}} </span></div>
             </div>
         </div>
     </div>
@@ -56,25 +56,25 @@
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title" style="margin-left:55px">服务类型:</div>
-            <div class="col-md-4"> <span style="line-height:34px"> 云主机 </span></div>
+            <div class="col-md-4"> <span style="line-height:34px"> {{serviceInfo.serviceBaseInfo.serviceType | dict: this.mngservice.typeDic | async}} </span></div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title" style="margin-left:55px">服务状态:</div>
-            <div class="col-md-4"> <span style="line-height:34px"> 云主机 </span></div>
+            <div class="col-md-4"> <span style="line-height:34px"> {{serviceInfo.serviceBaseInfo.serviceStatus}} </span></div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title" style="margin-left:55px">服务开始时间:</div>
-            <div class="col-md-4"> <span style="line-height:34px"> 云主机 </span></div>
+            <div class="col-md-4"> <span style="line-height:34px"> {{serviceInfo.startDate}} </span></div>
         </div>
     </div>
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title" style="margin-left:55px">服务结束时间:</div>
-            <div class="col-md-4"> <span style="line-height:34px"> 云主机 </span></div>
+            <div class="col-md-4"> <span style="line-height:34px"> {{serviceInfo.endDate}} </span></div>
         </div>
     </div>
 
@@ -88,8 +88,8 @@
     </div>
     <div class="row row-line-height">
         <div class="form-group">
-            <div class="col-sm-4 form-control-title" ></div>
-            <div class="col-md-4"> <span style="line-height:34px">XXXXXXX</span> </div>
+            <div class="col-sm-3 form-control-title" ></div>
+            <div class="col-md-4"> <span style="line-height:34px">{{serviceInfo.remarkInfo}}</span> </div>
         </div>
     </div>
 
@@ -99,6 +99,16 @@
         <div class="col-md-2" style="text-align:left">
             <span style="border:3px solid #00a982;border-radius:50px;"></span>
             <span style="font-size:18px;font-weight:700;padding-left:5px"> 服务跟进信息</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+            <ol *ngFor="let item of serviceInfo.followInfos">
+                <li style="display: inline-block; padding: 2px 5px;">{{item.followInfo}}</li>
+                <li style="display: inline-block; padding: 2px 5px;">{{item.creatorName}}</li>
+                <li style="display: inline-block; padding: 2px 5px;">{{item.date}}</li>
+            </ol>
         </div>
     </div>
 </div>

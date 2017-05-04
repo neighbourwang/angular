@@ -37,7 +37,7 @@
         <div class="col-md-8" style="letter-spacing:2px;font-size:16px;"> <!--style="letter-spacing:2px;font-size:16px;"-->
             <div class="row row-line-height" >
                 <div class="col-md-3 text-right" style="width:178px;">{{'CAPACITY_MNG.PHYSICAL_CPU_CORE_NUMBER'|translate}}：</div><!--物理CPU总核数-->
-                <div class="col-md-2">{{zoneResInfo.cpus}}&nbsp;{{'CAPACITY_MNG.CORE'|translate}}</div>               
+                <div class="col-md-2">{{zoneResInfo.cpu}}&nbsp;{{'CAPACITY_MNG.CORE'|translate}}</div>               
                 <div class="col-md-2 text-right">{{'CAPACITY_MNG.CPU_EXCEEDING_RATIO'|translate}}：</div><!--超分比-->
                 <div class="col-md-1">{{zoneResInfo.cpuOversubscription}}&nbsp;{{'CAPACITY_MNG.TIMES'|translate}}</div><!--倍-->
                  <div class="col-md-2 text-right">{{'CAPACITY_MNG.ASSIGNABLE_CPU'|translate}}：</div><!--可分配CPU-->
@@ -45,11 +45,11 @@
             </div>
             <div class="row row-line-height" >
                  <div class="col-md-3 text-right" style="width:178px;">{{'CAPACITY_MNG.TOTAL_MEMORY'|translate}}：</div><!--总内存-->
-                <div class="col-md-2">{{zoneResInfo.memory}}&nbsp;GB</div>
+                <div class="col-md-2">{{zoneResInfo.memory}}&nbsp;MB</div>
                 <div class="col-md-2 text-right">{{'CAPACITY_MNG.USABLE_QUOTA'|translate}}：</div><!--可用配额-->
                 <div class="col-md-1">{{zoneResInfo.cpuQurta}}%</div>
                 <div class="col-md-2 text-right">{{'CAPACITY_MNG.ASSIGNABLE_MEMORY'|translate}}：</div><!--可分配内存-->
-                <div class="col-md-2">{{zoneResInfo.memoryCapacity}}&nbsp;GB </div>
+                <div class="col-md-2">{{zoneResInfo.memoryCapacity}}&nbsp;MB </div>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@
                              [colors]="memAllocation.Colors">
                            </canvas>
                          </div>
-                        <div style="text-align:center;">{{resAllocationInfo.memory}}/{{resAllocationInfo.memoryTotal}} GB</div>
+                        <div style="text-align:center;">{{resAllocationInfo.memory}}/{{resAllocationInfo.memoryTotal}} MB</div>
                     </div>
                 </div>
             </div>
@@ -129,7 +129,7 @@
                              [colors]="memActual.Colors">
                             </canvas>
                         </div>
-                        <div style="text-align:center;">{{resActualInfo.memory}}/{{resActualInfo.memoryTotal}} GB</div>
+                        <div style="text-align:center;">{{resActualInfo.memory}}/{{resActualInfo.memoryTotal}} MB</div>
                     </div>
                 </div>
             </div>
@@ -168,7 +168,7 @@
                              [colors]="memUsed.Colors">
                             </canvas>
                         </div>
-                        <div style="text-align:center;">{{resUsedInfo.memory}}/{{resUsedInfo.memoryTotal}} GB</div>
+                        <div style="text-align:center;">{{resUsedInfo.memory}}/{{resUsedInfo.memoryTotal}} MB</div>
                     </div>
                 </div>
             </div>

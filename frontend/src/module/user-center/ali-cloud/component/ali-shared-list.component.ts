@@ -123,6 +123,8 @@ export class AliSharedListComponent implements OnInit{
                         this.getData();
                         this.distriDepart.close();
                         console.log("editDepart", this.id, this.selectedDepartmentId);
+                    }else if(response && 90011 == response["resultCode"]){
+                        this.showAlert("无法分配到此部门");
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }

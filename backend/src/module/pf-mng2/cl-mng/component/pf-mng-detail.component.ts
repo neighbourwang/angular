@@ -9,6 +9,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, dictPipe,PopupCompone
 import { PlatformDetailService } from '../service/pf-mng-detail.service';
 import { ZoneListService } from '../service/cl-mng-cre-step-3.service';
 import { StorageListService } from '../service/cl-mng-cre-step-4.service';
+import { Validation, ValidationRegs } from '../../../../architecture';
 
 
 import { ClMngCommonService } from '../service/cl-mng-common.service';
@@ -40,7 +41,9 @@ export class PfDetailComponent implements OnInit {
         private commonService: ClMngCommonService,
         private location: Location,
         private dictPipe: dictPipe,
+        private v:Validation
     ) {
+        this.v.result={}
     }
 
     @ViewChild('enableZoneConfirm')
@@ -323,7 +326,6 @@ export class PfDetailComponent implements OnInit {
                     } else {
                         this.notice.open('COMMON.PROMPT', 'PF_MNG2.NO_SYNC_HOST_INFO')
                     }
-
                 }
                 this.layoutService.hide();
             }
@@ -625,14 +627,25 @@ export class PfDetailComponent implements OnInit {
     goList() {
         this.route.navigate(['pf-mng2/cl-mng/cl-mng'])
     }
+    //表单验证
+    checkForm(key?: string) {
+        let regs: ValidationRegs = {  //regs是定义规则的对象
+            name: [this.platform.name, [this.v.isBase, this.v.isUnBlank,this.v.maxLength(50)], "PF_MNG2.PLATFORM_NAME_ERROR"],
+            dataCenter: [this.platform.dataCenter, [this.v.isUnBlank], "PF_MNG2.DATA_CENTER_REQUIRED"],
+        }
+        console.log(this.v.check(key, regs));
+        return this.v.check(key, regs);
+    }
     save() {
+        let message=this.checkForm();
+        if(message)return;
         console.log(this.platform);
-        if (!this.platform.name) {
-            return this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.PLATFORM_NAME_REQUIRED');
-        }
-        if (!this.platform.dataCenter) {
-            return this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.DATA_CENTER_REQUIRED');
-        }
+        // if (!this.platform.name) {
+        //     return this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.PLATFORM_NAME_REQUIRED');
+        // }
+        // if (!this.platform.dataCenter) {
+        //     return this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.DATA_CENTER_REQUIRED');
+        // }
         if (!this.platform.uri) {
             return this.notice.open('COMMON.OPERATION_ERROR', 'PF_MNG2.ADDRESS_REQUIRED');
         }

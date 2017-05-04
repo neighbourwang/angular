@@ -1208,9 +1208,9 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建管理服务产品",
         "id": "manager-serve-product-create.post",
         "method": "POST",
-        "url": "productmgmt/authsec/supervise/product" 
+        "url": "productmgmt/authsec/supervise/product"
     },
-    
+
     //用户中心
     {
         "desc": "获取所有机构",
@@ -2501,44 +2501,44 @@ export let RestApis: RestApiModel[] = [
      {
         "desc": "管理计算资源-获取平台信息",
         "id":"compute-res.platform.info",
-        "method":"GET",
-        "url":"maintenance/platform/{platformId}/info"
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/maintanance/platform/{platformId}/info"
      },
      {
         "desc": "获得可用区资源信息(包括环形图)",
         "id":"compute-res.zone.info",
-        "method":"GET",
-        "url":"maintenance/zone/{zoneId}/info"
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/zone/{zoneId}/info"
      },
      {
         "desc": "获取宿主机列表",
         "id":"compute-res.host.list",
-        "method":"GET",
-        "url":"maintenance/host/list/{zoneId}"
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/host/list/{zoneId}"
      },
      {
         "desc": "获取宿主机详情",
         "id":"host-detail.host.info",
-        "method":"GET",
-        "url":"maintenance/host/{hostId}/info/{period}"
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/host/{hostId}/info/{period}"
      },
      {
         "desc": "获取宿主机详情-折线图",
         "id":"host-detail.host.graph",
-        "method":"GET",
-        "url":"maintenance/host/{hostId}/graph/line/{period}"
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/host/{hostId}/graph/line/{period}"
      },
      {
         "desc": "存储列表",
         "id":"store-res.storage.list",
-        "method":"GET",
-        "url":"maintenance/storage/list/{platformId}"
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/storage/list/{platformId}"
      },
      {
         "desc": "存储详情",
         "id":"store-detail.storage.info",
-        "method":"GET",
-        "url":"maintenance/storage/info/{storageId}"
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/storage/info/{storageId}"
      },
 
      //超分管理
@@ -2767,6 +2767,18 @@ export let RestApis: RestApiModel[] = [
         "id": "mtc-center.mng-service.followservice",
         "method": "GET",
         "url": "servicemgmt/authsec/services/supervise/followservice/{serviceId}"
+    },
+    {
+        "desc": "服务更新",
+        "id": "mtc-center.mng-service.updateservice",
+        "method": "GET",
+        "url": "servicemgmt/authsec/services/supervise/updatestatus/{serviceId}"
+    },
+    {
+        "desc": "服务详情",
+        "id": "mtc-center.mng-detail.detail",
+        "method": "GET",
+        "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
     },
 
 

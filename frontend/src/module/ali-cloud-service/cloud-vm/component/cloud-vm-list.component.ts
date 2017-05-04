@@ -2,8 +2,10 @@ import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, } from "
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { NgForm } from "@angular/forms";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
-    PaginationComponent, PopupComponent } from "../../../../architecture";
+import {
+    LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
+    PaginationComponent, PopupComponent, SystemDictionary
+} from "../../../../architecture";
 
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
@@ -13,7 +15,8 @@ import { instanceListModel, VmQueryObject, FloatingIPAddressModel } from "../mod
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
-import { AliCloudDiskDictService } from "../../cloud-disk/service/cloud-disk-dict.service";
+//import { AliCloudDiskDictService } from "../../cloud-disk/service/cloud-disk-dict.service";
+import { AliCloudVMDictService } from "../service/cloud-vm-dict.service";
 import { AliCloudVmService } from "../service/cloud-vm.service";
 
 
@@ -28,15 +31,16 @@ export class AliCloudVmListComponent implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private service: AliCloudVmService,
+        private dictService: AliCloudVMDictService,
         private commonService: AliCloudDiskService,
-        private activatedRouter : ActivatedRoute,
+        private activatedRouter: ActivatedRoute,
 
     ) {
     }
 
     @ViewChild("pager")
     pager: PaginationComponent;
-    
+
     @ViewChild("notice")
     notice: NoticeComponent;
 
@@ -48,13 +52,13 @@ export class AliCloudVmListComponent implements OnInit {
 
     @ViewChild("allocateip")
     allocateip: PopupComponent;
-    
+
     @ViewChild("unallocateip")
     unallocateip: PopupComponent;
 
     @ViewChild("remotecontrolvm")
     remotecontrolvm: PopupComponent;
-    
+
 
     noticeTitle = "";
     noticeMsg = "";
@@ -65,8 +69,12 @@ export class AliCloudVmListComponent implements OnInit {
     pageIndex = 1;
     pageSize = 10;
     totalPage = 1;
+    listTimer = null;
+    instanceTimer: Array<any> = [];
+    pollInstance: VmQueryObject = new VmQueryObject();
 
     forcereboot: boolean = false;
+    disableSearch: boolean = false;
 
     queryObject: VmQueryObject = new VmQueryObject();
 
@@ -74,9 +82,9 @@ export class AliCloudVmListComponent implements OnInit {
 
     regions: Array<RegionModel> = [];
     defaultRegion: RegionModel = new RegionModel();
-    choosenRegion: RegionModel = this.defaultRegion;    
+    choosenRegion: RegionModel = this.defaultRegion;
 
-    instances: Array<instanceListModel> = []; 
+    instances: Array<instanceListModel> = [];
     selectedInstance: instanceListModel = new instanceListModel();
     changedInstance: instanceListModel = new instanceListModel();
 
@@ -87,6 +95,11 @@ export class AliCloudVmListComponent implements OnInit {
     vmips: Array<FloatingIPAddressModel> = [];
     defaultvmip: FloatingIPAddressModel = new FloatingIPAddressModel();
     selectedvmip: FloatingIPAddressModel = this.defaultvmip;
+
+    instanceStatusDictArray: Array<SystemDictionary> = [];
+    instanceChargeTypeDictArray: Array<SystemDictionary> = [];
+    ioOptimizedDictArray: Array<SystemDictionary> = [];
+    networkTypeDictArray: Array<SystemDictionary> = [];
 
     private okCallback: Function = null;
     okClicked() {
@@ -107,11 +120,30 @@ export class AliCloudVmListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
         this.getKeySecret();
-
+        
+        this.dictService.instanceStatusDict
+            .then((items) => {
+                this.instanceStatusDictArray = items;
+                console.log(this.instanceStatusDictArray, "this.instanceStatusDictArray");
+            });
+        this.dictService.instanceChargeTypeDict
+            .then((items) => {
+                this.instanceChargeTypeDictArray = items;
+                console.log(this.instanceChargeTypeDictArray, "this.instanceChargeTypeDictArray");
+            });
+        this.dictService.ioOptimizedDict
+            .then((items) => {
+                this.ioOptimizedDictArray = items;
+                console.log(this.ioOptimizedDictArray, "this.ioOptimizedDictArray");
+            });
+        this.dictService.networkTypeDict
+            .then((items) => {
+                this.networkTypeDictArray = items;
+                console.log(this.networkTypeDictArray, "this.networkTypeDictArray");
+            });
     }
-   
+
     getKeySecret(): void {
         this.layoutService.show();
         this.commonService.getKeySecret()
@@ -149,6 +181,8 @@ export class AliCloudVmListComponent implements OnInit {
                     }
                     this.regions = result.Regions.Region;
                     console.log(this.regions, "this.regions!");
+                    this.selectRegion(this.regions[0]);
+
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -160,53 +194,32 @@ export class AliCloudVmListComponent implements OnInit {
     }
 
     selectRegion(region: RegionModel) {
+        this.choosenRegion = region;
         this.regions.map((item) => {
             item.selected = false;
         });
         region.selected = true;
         this.queryObject.criteria = "instance_name";
         this.queryObject.keyword = "";
-        this.getInstanceList(region); // 列出对应region的instance list
+        this.getInstanceList(1); // 列出对应region的instance list
     }
 
-    getInstanceList(region: RegionModel) {
-        this.layoutService.show();
-        this.service.getInstanceList(this.pageIndex, this.pageSize, region.RegionId, this.queryObject)
-        .then(
-            response => {
-                this.layoutService.hide();
-                console.log(response, "response!");
-                if (response && 100 == response["resultCode"]) {
-                    let result;
-                    try {
-                        result = JSON.parse(response.resultContent);
-                        console.log(result, "result!");
-                    } catch (ex) {
-                        console.log(ex);
-                    }
-                    this.instances = result.Instances.Instance;
-                    this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
-                    console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
-                    for(let i=0; i<this.instances.length; i++) {
-                        console.log(this.instances[i].InstanceId, " == ");
-                    }
-                    console.log(this.instances, "this.instances!");
-                } else {
-                    this.showMsg("COMMON.GETTING_DATA_FAILED");
-                    return;
-                }
-        })
-        .catch((e) => {
-                this.onRejected(e);
-            });
-
+    clearRegion() {
+        this.choosenRegion = this.defaultRegion;
+        this.regions.map((item) => {
+            item.selected = false;
+        });
     }
 
-    changePage(pageIndex?) {
+
+    getInstanceList(pageIndex?) {
         this.pageIndex = pageIndex || this.pageIndex;
         this.layoutService.show();
+        this.clearInterval();
+        this.listTimer && window.clearInterval(this.listTimer);
+
         this.service.getInstanceList(this.pageIndex, this.pageSize, this.choosenRegion.RegionId, this.queryObject)
-        .then(
+            .then(
             response => {
                 this.layoutService.hide();
                 console.log(response, "response!");
@@ -219,20 +232,72 @@ export class AliCloudVmListComponent implements OnInit {
                         console.log(ex);
                     }
                     this.instances = result.Instances.Instance;
-                    this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
+                    this.totalPage = Math.ceil(result.TotalCount / this.pageSize);
                     console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
-                    for(let i=0; i<this.instances.length; i++) {
+                    for (let i = 0; i < this.instances.length; i++) {
                         console.log(this.instances[i].InstanceId, " == ");
                     }
                     console.log(this.instances, "this.instances!");
+                    if (this.instances.length != 0) {
+                        this.instancesPollOps();
+                    }
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
                 }
-        })
-        .catch((e) => {
+            })
+            .catch((e) => {
                 this.onRejected(e);
             });
+
+        this.listTimer = window.setInterval(() => {
+            this.service.getInstanceList(this.pageIndex, this.pageSize, this.choosenRegion.RegionId, this.queryObject)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    console.log(response, "response!");
+                    if (response && 100 == response["resultCode"]) {
+                        let result;
+                        try {
+                            result = JSON.parse(response.resultContent);
+                            console.log(result, "result!");
+                        } catch (ex) {
+                            console.log(ex);
+                        }
+                        this.instances = result.Instances.Instance;
+                        this.totalPage = Math.ceil(result.TotalCount / this.pageSize);
+                        console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
+                        for (let i = 0; i < this.instances.length; i++) {
+                            console.log(this.instances[i].InstanceId, " == ");
+                        }
+                        console.log(this.instances, "this.instances!");
+                        if (this.instances.length != 0) {
+                            this.instancesPollOps();
+                        }
+                    } else {
+                        this.showMsg("COMMON.GETTING_DATA_FAILED");
+                        return;
+                    }
+                })
+                .catch((e) => {
+                    this.onRejected(e);
+                });
+        },
+            60000);
+    }
+
+    instancesPollOps() {
+        console.log("=====================================================================");
+        this.instances.map((ins) => {
+            this.oneInstancePoll(ins);
+        });
+
+    }
+
+    clearInterval() {
+        this.instances.map((ins) => {
+            ins.instanceTimer && window.clearInterval(ins.instanceTimer);
+        });
     }
 
     search() {
@@ -240,12 +305,47 @@ export class AliCloudVmListComponent implements OnInit {
         if (this.choosenRegion == this.defaultRegion) {
             this.showMsg("请选择区域");
         } else {
-            this.getInstanceList(this.choosenRegion);
+            this.getInstanceList(1);
         }
     }
 
     goToInstanceOrder() {
         this.router.navigate([`ali-cloud-service/cloud-vm/cloud-vm-order`]);
+    }
+
+    oneInstancePoll(ins) {
+        ins.instanceTimer && window.clearTimeout(ins.instanceTimer);
+        if (ins.Status == "Pending" || ins.Status == "Starting" || ins.Status == "Stopping") {
+            ins.instanceTimer = window.setInterval(() => {
+                console.log(ins.Status);
+                this.pollInstance.criteria = "instance_ids";
+                this.pollInstance.keyword = ins.InstanceId;
+                this.service.getInstanceList(1, 10, this.choosenRegion.RegionId, this.pollInstance).then(
+                    response => {
+                        if (response && 100 == response["resultCode"]) {
+                            let result;
+                            try {
+                                result = JSON.parse(response.resultContent);
+                                console.log(result, "result!");
+                            } catch (ex) {
+                                console.log(ex);
+                            }
+                            ins.Status = result.Instances.Instance[0].Status;
+                            if (ins.Status != "Pending" && ins.Status != "Starting" && ins.Status != "Stopping") {
+                                ins.instanceTimer && window.clearInterval(ins.instanceTimer);
+                            }
+                            console.log(ins.Status);
+                        } else {
+                            console.log("getInstanceList in instancesPollOps failed!");
+                            return;
+                        }
+                    }
+
+                );
+
+            }, 5000);
+        }
+
     }
 
     startInstance() {
@@ -256,18 +356,23 @@ export class AliCloudVmListComponent implements OnInit {
             this.confirm.cof = () => { };
             this.confirm.ccf = () => {
                 this.layoutService.show();
+
                 this.service.startInstance(this.selectedInstance)
-                .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.showAlert("启动实例成功！");
-                        this.selectRegion(this.choosenRegion);
-                    } else {
-                        this.showAlert("启动实例失败！");
-                    }
-                })
-                .catch((e) => this.onRejected(e));
+                    .then(
+                    response => {
+                        this.layoutService.hide();
+                        //if (response && 100 == response["resultCode"]) {
+                        //    this.showAlert("启动实例成功！");
+                        //    //this.selectRegion(this.choosenRegion);
+                        //   
+                        //   
+                        //} else {
+                        //    this.showAlert("启动实例失败！");
+                        //}
+                    })
+                    .catch((e) => this.onRejected(e));
+                this.selectedInstance.Status = "Starting";
+                this.oneInstancePoll(this.selectedInstance);
             }
             this.confirm.open();
         } else {
@@ -285,17 +390,19 @@ export class AliCloudVmListComponent implements OnInit {
             this.confirm.ccf = () => {
                 this.layoutService.show();
                 this.service.stopInstance(this.selectedInstance)
-                .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.showAlert("停止实例成功！");
-                        this.selectRegion(this.choosenRegion);
-                    } else {
-                        this.showAlert("停止实例失败！");
-                    }
-                })
-                .catch((e) => this.onRejected(e));
+                    .then(
+                    response => {
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            this.showAlert("停止实例成功！");
+                            //this.selectRegion(this.choosenRegion);
+                            this.selectedInstance.Status = "Stopping";
+                            this.oneInstancePoll(this.selectedInstance);
+                        } else {
+                            this.showAlert("停止实例失败！");
+                        }
+                    })
+                    .catch((e) => this.onRejected(e));
             }
             this.confirm.open();
         } else {
@@ -326,7 +433,7 @@ export class AliCloudVmListComponent implements OnInit {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.showMsg("重启实例成功");
-                    this.getInstanceList(this.choosenRegion);
+                    this.getInstanceList();
                 } else {
                     this.showMsg("重启实例失败");
                     return;
@@ -355,29 +462,29 @@ export class AliCloudVmListComponent implements OnInit {
         if (this.selectedInstance) {
             this.layoutService.show();
             this.service.getFreeFloatingIps(this.selectedInstance.RegionId)
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    console.log("Got free floating ip!");
-                    let result;
-                    try {
-                        result = JSON.parse(response.resultContent);
-                        console.log(result, "result!");
-                    } catch (ex) {
-                        console.log(ex);
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        console.log("Got free floating ip!");
+                        let result;
+                        try {
+                            result = JSON.parse(response.resultContent);
+                            console.log(result, "result!");
+                        } catch (ex) {
+                            console.log(ex);
+                        }
+                        this.freeips = result.EipAddresses.EipAddress;
+                        console.log(this.freeips, "free ips!");
+                        this.allocateip.open();
+                    } else {
+                        this.showMsg("获取弹性IP失败");
+                        return;
                     }
-                    this.freeips = result.EipAddresses.EipAddress;
-                    console.log(this.freeips, "free ips!");
-                    this.allocateip.open();
-                } else {
-                    this.showMsg("获取弹性IP失败");
-                    return;
-                }
-            })
-            .catch((e) => {
-                this.onRejected(e);
-            });
+                })
+                .catch((e) => {
+                    this.onRejected(e);
+                });
         } else {
             this.showAlert("请选择实例");
             return;
@@ -386,7 +493,7 @@ export class AliCloudVmListComponent implements OnInit {
     }
 
     freeIPChanged() {
-        window.setTimeout(()=> {
+        window.setTimeout(() => {
 
         }, 50);
     }
@@ -400,7 +507,7 @@ export class AliCloudVmListComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.showMsg("绑定弹性IP到实例成功");
-                        this.getInstanceList(this.choosenRegion);
+                        this.getInstanceList();
                     } else {
                         this.showMsg("绑定弹性IP到实例失败");
                         return;
@@ -434,29 +541,29 @@ export class AliCloudVmListComponent implements OnInit {
         if (this.selectedInstance) {
             this.layoutService.show();
             this.service.getFloatingIpsInInstance(this.selectedInstance.RegionId, this.selectedInstance)
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    console.log("Got specific floating ip!");
-                    let result;
-                    try {
-                        result = JSON.parse(response.resultContent);
-                        console.log(result, "result!");
-                    } catch (ex) {
-                        console.log(ex);
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        console.log("Got specific floating ip!");
+                        let result;
+                        try {
+                            result = JSON.parse(response.resultContent);
+                            console.log(result, "result!");
+                        } catch (ex) {
+                            console.log(ex);
+                        }
+                        this.vmips = result.EipAddresses.EipAddress;
+                        console.log(this.vmips, "Instance ips!");
+                        this.unallocateip.open();
+                    } else {
+                        this.showMsg("获取弹性IP失败");
+                        return;
                     }
-                    this.vmips = result.EipAddresses.EipAddress;
-                    console.log(this.vmips, "Instance ips!");
-                    this.unallocateip.open();
-                } else {
-                    this.showMsg("获取弹性IP失败");
-                    return;
-                }
-            })
-            .catch((e) => {
-                this.onRejected(e);
-            });            
+                })
+                .catch((e) => {
+                    this.onRejected(e);
+                });
         } else {
             this.showAlert("请选择实例");
             return;
@@ -469,32 +576,32 @@ export class AliCloudVmListComponent implements OnInit {
     }
 
     acceptDetachIPToInstanceModify() {
-        if(this.selectedvmip != this.defaultvmip) {
-        this.layoutService.show();
-        this.service.unAllocateIPToInstane(this.selectedInstance, this.selectedvmip)
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    this.showMsg("从实例中解绑弹性IP成功");
-                    this.getInstanceList(this.choosenRegion);
-                } else {
-                    this.showMsg("从实例中解绑弹性IP失败");
-                    return;
-                }
-            })
-            .then(() => {
-                this.unallocateip.close();                
-            })
-            .catch(err => {
-                console.log('从实例中解绑弹性IP异常', err);
-                this.layoutService.hide();
-                this.unallocateip.close();
-                this.showMsg("从实例中解绑弹性IP异常");
-                this.okCallback = () => {
-                    this.unallocateip.open();
-                };
-            });
+        if (this.selectedvmip != this.defaultvmip) {
+            this.layoutService.show();
+            this.service.unAllocateIPToInstane(this.selectedInstance, this.selectedvmip)
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.showMsg("从实例中解绑弹性IP成功");
+                        this.getInstanceList();
+                    } else {
+                        this.showMsg("从实例中解绑弹性IP失败");
+                        return;
+                    }
+                })
+                .then(() => {
+                    this.unallocateip.close();
+                })
+                .catch(err => {
+                    console.log('从实例中解绑弹性IP异常', err);
+                    this.layoutService.hide();
+                    this.unallocateip.close();
+                    this.showMsg("从实例中解绑弹性IP异常");
+                    this.okCallback = () => {
+                        this.unallocateip.open();
+                    };
+                });
         } else {
             this.showMsg("请选择弹性IP");
         }
@@ -505,7 +612,7 @@ export class AliCloudVmListComponent implements OnInit {
         this.vmips = [];
         this.selectedvmip = new FloatingIPAddressModel();
     }
-    
+
     remoteToInstance() {
         this.selectedInstance = this.getSelected();
         if (this.selectedInstance) {
@@ -544,17 +651,17 @@ export class AliCloudVmListComponent implements OnInit {
             this.confirm.ccf = () => {
                 this.layoutService.show();
                 this.service.deleteInstance(this.selectedInstance)
-                .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.showAlert("释放实例成功！");
-                        this.selectRegion(this.choosenRegion);
-                    } else {
-                        this.showAlert("COMMON.GETTING_DATA_FAILED");
-                    }
-                })
-                .catch((e) => this.onRejected(e));
+                    .then(
+                    response => {
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            this.showAlert("释放实例成功！");
+                            this.selectRegion(this.choosenRegion);
+                        } else {
+                            this.showAlert("COMMON.GETTING_DATA_FAILED");
+                        }
+                    })
+                    .catch((e) => this.onRejected(e));
             };
             this.confirm.open();
         } else {
@@ -578,32 +685,32 @@ export class AliCloudVmListComponent implements OnInit {
         this.notice.open();
     }
 
-    
+
     showMsg(msg: string) {
         console.log(msg, "showMsg");
         this.notice.open("COMMON.SYSTEM_PROMPT", msg);
-    }	
+    }
 
     showError(msg: any) {
         this.notice.open(msg.title, msg.desc);
     }
 
     //选择行
-    selectItem(index:number): void {
-        this.instances.map(n=> {n.checked = false;});
+    selectItem(index: number): void {
+        this.instances.map(n => { n.checked = false; });
         this.instances[index].checked = true;
         this.selectedInstance = this.instances[index];
         console.log(this.selectedInstance, "this.selectedInstance!");
     }
 
     UnselectItem(): void {
-        this.instances.map(n=> {n.checked = false;});
-        if(this.selectedInstance) this.selectedInstance.checked = false;
+        this.instances.map(n => { n.checked = false; });
+        if (this.selectedInstance) this.selectedInstance.checked = false;
     }
 
     getSelected() {
         let item = this.instances.find((n) => n.checked) as instanceListModel;
-        if (item){
+        if (item) {
             return item;
         } else {
             this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -651,6 +758,11 @@ export class AliCloudVmListComponent implements OnInit {
 
     onCancel(instance: instanceListModel) {
         instance.EnableEdit = false;
+    }
+
+    ngOnDestroy() {
+        this.clearInterval();
+        this.listTimer && window.clearInterval(this.listTimer);
     }
 
 }

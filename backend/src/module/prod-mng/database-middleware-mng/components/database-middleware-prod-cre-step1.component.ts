@@ -8,7 +8,8 @@ import { Validation, ValidationRegs } from '../../../../architecture';
 
 //model 
 import { DatabaseMiddlewareProductModel, Platform, Enterpise } from '../model/database-middleware-product.model'
-import { DatabaseMiddlewareServiceModel,PmPool,PlatformObj } from '../model/database-middleware-service.model'
+import { DatabaseMiddlewareServiceModel, ResourcPool, PlatformSimpleItem } from '../model/database-middleware-service.model'
+
 // service;
 import { DatabaseMiddlewareProdService } from '../service/database-middleware-prod.service';
 

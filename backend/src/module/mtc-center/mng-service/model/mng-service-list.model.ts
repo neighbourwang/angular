@@ -4,8 +4,9 @@ export class MngServiceList{
     serviceId: string;
     serviceName: string;
     serviceObjectCode: string;
-    instance: InstanceList;
+    instance: InstanceList= new InstanceList();
     enterpriseId: string;
+    enterpriseName: string;
     serviceType: string;
     serviceStatus: string;
 

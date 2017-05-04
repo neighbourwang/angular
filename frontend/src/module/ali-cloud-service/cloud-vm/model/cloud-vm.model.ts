@@ -25,8 +25,9 @@ export class orderVmPageModel {
 
     selectedGeneration: string = null; //实例族
     selectedInstanceFamily: string = null;
-    selectedInstanceFamilyShowName: string = null;
+    //selectedInstanceFamilyShowName: string = null;
     selectedInstanceType: string = null;
+    instanceShowName: string = null;
     ioOptimized_price: boolean = null;
     ioOptimized_vm: string = null;
 
@@ -210,6 +211,7 @@ export class instanceListModel {
 
     checked: boolean = false;
     EnableEdit: boolean = false;
+    instanceTimer: any = null;
 }
 export class EipAddressModel {
     AllocationId: string  = "";

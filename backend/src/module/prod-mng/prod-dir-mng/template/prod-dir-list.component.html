@@ -151,4 +151,16 @@
 			</div>
 		</div>
 	</div>
+	<div *ngIf="prodDirTypeCode=='Database'||prodDirTypeCode=='MiddleWare'">
+		<div class="row row-line-height">
+			<div class="form-group">
+				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SERVE_OBJECT' | translate}}: </div>
+				<div class="col-sm-6">
+					<select class="form-control" [(ngModel)]="serverTypeCode">
+                    <option *ngFor="let obj of service.serverTypeDic | async; let idx=index" [value]="obj.code">{{obj.displayValue}}</option>
+                </select>
+				</div>
+			</div>
+		</div>
+	</div>	
 </fc-popup>

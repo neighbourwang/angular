@@ -5,7 +5,8 @@ import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService} from '../..
 import 'rxjs/add/operator/toPromise';
 //model 
 import { DatabaseMiddlewareProductModel, Platform, Enterpise } from '../model/database-middleware-product.model'
-import { DatabaseMiddlewareServiceModel,PmPool,PlatformObj } from '../model/database-middleware-service.model'
+import { DatabaseMiddlewareServiceModel, ResourcPool, PlatformSimpleItem } from '../model/database-middleware-service.model'
+
 
 
 @Injectable()
@@ -33,7 +34,7 @@ export class DatabaseMiddlewareProdService {
             if(res.resultContent){
                 this.enterpriseListForSelect=res.resultContent;                
             }
-            this.managerServeProduct.platformSimpleItems=this.managerServeService.platformList;
+            // this.managerServeProduct.platformSimpleItems=this.managerServeService.platformList;
 
         }).catch(err=>{
             console.error(err);

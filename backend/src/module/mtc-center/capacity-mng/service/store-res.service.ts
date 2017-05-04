@@ -13,11 +13,7 @@ export class StoreResService {
         private dict:SystemDictionaryService
     ) { }
 
-    storageTypeDic = this.dict.get({
-        owner: "MAINTAIN",
-        field: "STORAGETYPE"
-    });
-
+    
      statusDic = this.dict.get({
         owner: "MAINTAIN",
         field: "STATUS"
@@ -34,8 +30,8 @@ export class StoreResService {
             }
            
         ];
-        //const api = this.restApiCfg.getRestApi("store-res.storage.list");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => StorageList_mock);
+        const api = this.restApiCfg.getRestApi("store-res.storage.list");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => StorageList_mock);
     }
 }

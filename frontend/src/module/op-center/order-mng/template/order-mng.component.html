@@ -213,9 +213,11 @@
 				</tr>
 				<tr *ngFor="let prodItem of orderItem.itemList">
 					<td class="order-title">
-						<ul *ngIf="prodItem.serviceType>1">
+						<!--<ul *ngIf="prodItem.serviceType>1">
 							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
+						-->
+						<machine-view  [values]="prodItem" *ngIf="prodItem.serviceType==4"></machine-view>
 						<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0"></vm-view>
 						<!-- 显示云主机 -->
 						<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view>
