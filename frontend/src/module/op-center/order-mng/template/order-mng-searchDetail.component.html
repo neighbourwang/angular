@@ -84,14 +84,95 @@
 
 								<a *ngIf="item.serviceType==2" class="hands" [popover]="osPopover">点击查看实例详情</a><!--管理服务-->
 								<popover-content #osPopover placement="right"[animation]="true" [closeOnClickOutside]="true">
-									<div class="table-container mgb20">
+									<div class="table-container mgb20"><!--云主机-->
 										<table class="table table-bordered mgb20 text-center inner-table">
 											<thead>
-													<th>部件名称</th>
-													<th>规格</th>
-													<th>规格值</th>
-													<th>数量</th>
-													<th>总容量</th>
+													<th>平台</th>
+													<th>可用区</th>
+													<th>云主机名称</th>
+													<th>配置</th>
+													<th>镜像</th>
+													<th>内部IP</th>
+													<th>外部IP</th>
+													<th>所在区域及可用区</th>
+											</thead>
+											<tbody>
+												<tr>
+													<td>磁盘</td>
+													<td>SSD</td>
+													<td>100GB</td>
+													<td>2</td>
+													<td>128GB</td>
+													<td>100GB</td>
+													<td>2</td>
+													<td>128GB</td>
+												</tr>		
+											</tbody>
+										</table>
+									</div>
+									<div class="table-container mgb20"><!--云硬盘-->
+										<table class="table table-bordered mgb20 text-center inner-table">
+											<thead>
+													<th>平台</th>
+													<th>可用区</th>
+													<th>云硬盘名称</th>
+													<th>存储类型</th>
+													<th>容量（GB）</th>
+													<th>状态</th>
+													<th>挂载位置（云主机名称）</th>
+													<th>属性</th>
+													<th>所在区域及可用区</th>
+											</thead>
+											<tbody>
+												<tr>
+													<td>磁盘</td>
+													<td>SSD</td>
+													<td>100GB</td>
+													<td>2</td>
+													<td>128GB</td>
+													<td>100GB</td>
+													<td>2</td>
+													<td>128GB</td>
+													<td>128GB</td>
+												</tr>		
+											</tbody>
+										</table>
+									</div>
+									<div class="table-container mgb20"><!--物理机-->
+										<table class="table table-bordered mgb20 text-center inner-table">
+											<thead>
+													<th>地域</th>
+													<th>数据中心</th>
+													<th>物理机名称</th>
+													<th>配置</th>
+													<th>镜像</th>
+													<th>私网IP</th>
+													<th>公网IP</th>
+													<th>所在区域及可用区</th>
+											</thead>
+											<tbody>
+												<tr>
+													<td>磁盘</td>
+													<td>SSD</td>
+													<td>100GB</td>
+													<td>2</td>
+													<td>128GB</td>
+													<td>100GB</td>
+													<td>2</td>
+													<td>128GB</td>
+												</tr>		
+											</tbody>
+										</table>
+									</div>
+
+									<div class="table-container mgb20"><!--手工输入的信息-->
+										<table class="table table-bordered mgb20 text-center inner-table">
+											<thead>
+													<th>地域</th>
+													<th>可用区</th>
+													<th>实例类型</th>
+													<th>实例ID</th>
+													<th>实例名称</th>
 											</thead>
 											<tbody>
 												<tr>

@@ -85,7 +85,7 @@ export class AliSharedListComponent implements OnInit{
                         this.tempDepartsList= this.departsList.reverse();
                         console.log("departsharesList",this.departsList);
                         console.log("tempDepartsList",this.tempDepartsList);
-                        this.distriDepart.open("分配部门")
+                        this.distriDepart.open("USER_CENTER.DISTRI_SUB_DEPARTMENT^^^"+item.loginName);
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -123,6 +123,8 @@ export class AliSharedListComponent implements OnInit{
                         this.getData();
                         this.distriDepart.close();
                         console.log("editDepart", this.id, this.selectedDepartmentId);
+                    }else if(response && 90011 == response["resultCode"]){
+                        this.showAlert("USER_CENTER.CANNOT_DISTRI_DEPARTMENT");
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -133,7 +135,7 @@ export class AliSharedListComponent implements OnInit{
 
     operate() {
         if (this.selectedDepartmentId != this.tempDepartmentId) {
-            this.confirm.open("设置部门", "部门发生改变,请确认");
+            this.confirm.open("USER_CENTER.DISTRI_DEPARTMENT", "USER_CENTER.DISTRI_DEPARTMENT_PROMOTINFO");
             this.confirm.ccf = ()=> {
                 this.editDepart();
             }

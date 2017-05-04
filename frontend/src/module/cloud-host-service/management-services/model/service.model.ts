@@ -60,7 +60,7 @@ class ShoppingCartProfile {
 	attrList: ServiceResAttributePair[];  //[], optional): 订单属性列表 ,
 	itemNo: string;  //, optional): UI为每个服务产生UUID ,
 	productId: string;  //, optional): 产品ID，UI必回传字段 ,
-	quality: number;  //, optional): 订购产品的数量 ,
+	quality: number = 1;  //, optional): 订购产品的数量 ,
 	relyItemNo: string;  //, optional): 当前服务所依赖的服务ItemNo，单次提交多个服务的时候会用到 ,
 	relyType: string;  //, optional): 当前服务所依赖的服务的类型，单次提交多个服务的时候会用到 ,
 	serviceType: string;  //, optional): 服务/产品类型，需要去检索数据字典表 ,

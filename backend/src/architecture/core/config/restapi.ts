@@ -2798,6 +2798,18 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "servicemgmt/authsec/services/supervise/followservice/{serviceId}"
     },
+    {
+        "desc": "服务更新",
+        "id": "mtc-center.mng-service.updateservice",
+        "method": "GET",
+        "url": "servicemgmt/authsec/services/supervise/updatestatus/{serviceId}"
+    },
+    {
+        "desc": "服务详情",
+        "id": "mtc-center.mng-detail.detail",
+        "method": "GET",
+        "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
+    },
 
 
 ]

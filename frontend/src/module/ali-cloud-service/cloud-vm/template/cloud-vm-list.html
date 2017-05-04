@@ -11,10 +11,10 @@
             </div>
             <div class="col-md-12 li-content" style="padding: 20px 0px 20px !important;">
                 <div class="col-md-12">
-                    <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;">
+                    <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;disableSearch=false;">
                         <div class="regionName">{{region.LocalName}}</div>
                     </div>
-                    <div class="region-btn" styple="height:40px !important">
+                    <div class="region-btn" styple="height:40px !important" [ngClass]='{"selected":disableSearch}' (click)="clearRegion(); disableSearch=true;">
                         <div class="regionName">所有</div>
                     </div>
                 </div>
@@ -31,42 +31,20 @@
                 <option value="private_ips">私网IPs</option>
                 <option value="inner_ips">内网IPs</option>
                 <option value="public_ips">外网IPs</option>
-                <!--<option value="expire">即将到期</option>-->
-                <!--
-                <option value="image_id">镜像ID</option>
-                <option value="securitygroup_id">安全组ID</option>
-                <option value="instance_type">实例规格</option>
-                <option value="vpc_id">专有网络ID</option>
-				<option value="vswitch_id">虚拟交换机ID</option>
-                -->
 			</select>
         </div>
 
         <div class="input-group col-md-2 float-left mgr10">
-            <input type="text" class="form-control" [(ngModel)]="queryObject.keyword" style="display: inline" />
-            <div class="input-group-addon" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
+            <input [disabled]="disableSearch==true" type="text" class="form-control" [(ngModel)]="queryObject.keyword" style="display: inline" />
+            <div [hidden]="true" class="input-group-addon" style="height: 34px; width: 34px;" (click)="search();"><span class="glyphicon glyphicon-search"></span></div>
         </div>
 
         <div class="input-group float-left">
-            <button class="btn button-gray-gradient" (click)="search();"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
+            <button [disabled]="disableSearch==true" class="btn button-gray-gradient" (click)="search();"><span class="glyphicon glyphicon-repeat"></span>搜索</button>
         </div>
 
         <div class="dropdown float-right">
             <button class="btn float-left btn-success" (click)="goToInstanceOrder();"><!--<i class="glyphicon glyphicon-plus"></i>--><span class="icon_style icon-ali-create"></span>创建云主机</button>
-            <!--
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			更多操作
-			<span class="caret"></span>
-			</button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="javascript:" (click)="startInstance();">启动</a></li>
-                <li><a href="javascript:" (click)="stopInstance();">停止</a></li>
-                <li><a href="javascript:" (click)="reStartInstance();">重启</a></li>
-                <li><a href="javascript:" (click)="attachIPToInstance();">绑定弹性IP</a></li>
-                <li><a href="javascript:">远程连接</a></li>
-                <li><a href="javascript:" (click)="deleteInstance();">释放实例</a></li>
-            </ul>
-            -->
         </div>
     </div>
 
@@ -79,13 +57,14 @@
             <th class="text-center">网络类型</th>
             <th class="text-center">状态</th>
             <th class="text-center">配置</th>
+            <th class="text-center">创建时间</th>
             <th class="text-center">付费方式</th>
             <th class="text-center">操作</th>
         </tr>
         <tr style="line-height: 65px;" *ngFor="let instance of instances; let i=index;">
-            <td class="text-center">
+            <td class="text-center text-vertical-middle ">
                 <!-- <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list">-->{{(i+1)}}</td>
-            <td class="text-center active" style="position: relative;width: 220px;">
+            <td class="text-center text-vertical-middle active" style="position: relative;width: 220px;">
                 {{instance.InstanceId}}
                 <br /> {{instance.InstanceName}}
                 <span class="pull-right icon-edit2" (click)="instance.EnableEdit=true; onSelect(instance);" style="width: 30px; height: 18px; line-height: 30px;"></span>
@@ -109,13 +88,14 @@
 
                 </div>
             </td>
-            <td class="text-center">{{instance.ZoneId}}</td>
-            <td class="text-left"><span style="display: block">内网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.EipAddress.IpAddress}}</span></td>
-            <td class="text-center">{{instance.InstanceNetworkType}}</td>
-            <td class="text-center">{{instance.Status}}</td>
-            <td class="text-left"><span style="display: block">CPU: {{instance.Cpu}}核</span><span>内存：{{instance.Memory}} MB (I/O优化)</span></td>
-            <td class="text-center">{{instance.InstanceChargeType}}<br /> {{instance.ExpiredTime}}</td>
-            <td class="text-center">
+            <td class="text-center text-vertical-middle">{{instance.ZoneId}}</td>
+            <td class="text-left text-vertical-middle"><span style="display: block">内网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.EipAddress.IpAddress}}</span></td>
+            <td class="text-center text-vertical-middle">{{instance.InstanceNetworkType | dict:this.dictService.networkTypeDict | async}}</td>
+            <td class="text-center text-vertical-middle"><span class="icon-instance-starting"></span>{{instance.Status | dict:this.dictService.instanceStatusDict | async}}</td>
+            <td class="text-left text-vertical-middle"><span style="display: block">CPU: {{instance.Cpu}}核</span><span>内存：{{instance.Memory}} MB (I/O优化)</span></td>
+            <td class="text-center text-vertical-middle">{{instance.CreationTime}}</td>
+            <td class="text-center text-vertical-middle">{{instance.InstanceChargeType | dict:this.dictService.instanceChargeTypeDict | async}}<br /> {{instance.ExpiredTime}}</td>
+            <td class="text-center text-vertical-middle">
                 <span *ngIf="instance.Status=='Stopped'" class="icon_style icon-start" (click)="selectItem(i); startInstance();" name="startvm"></span>
                 <span *ngIf="instance.Status!='Stopped'" class="icon_style icon-stop" (click)="selectItem(i); stopInstance();" name="stopvm"></span>
                 <span class="icon_style icon-reboot" (click)="selectItem(i); reStartInstance();" name="restartvm"></span>
@@ -200,17 +180,3 @@
         </div>
     </div>
 </fc-popup>
-
-<!--
-<fc-popup #remotecontrolvm ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="远程控制云主机" (of)="acceptRemoteInstanceModify()" (cf)="cancelRemoteInstanceModify()">
-    <div class="dialogContent">
-        <div class="row row-line-height">
-            <div class="form-group">
-                <div class="col-sm-12 text-center mgb20">
-                    <a [routerLink]="remoteUrl">点击链接进行云主机访问</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</fc-popup>
--->

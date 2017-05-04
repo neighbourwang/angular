@@ -87,7 +87,7 @@ export class AliMajorListComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.majorInfo = response["resultContent"];
-                        this.majorMng.open("主账号详情");
+                        this.majorMng.open("USER_CENTER.MAJOR_DETAIL");
                         console.log("majorInfo",this.majorInfo);
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -108,7 +108,7 @@ export class AliMajorListComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.majorInfo = response["resultContent"];
-                        this.majorMng.open("编辑登录信息");
+                        this.majorMng.open("USER_CENTER.EDIT_LOGININFO");
                         console.log("editInfo",this.majorInfo);
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -132,7 +132,7 @@ export class AliMajorListComponent implements OnInit{
                         this.majorMng.close();
                         console.log("edit后",this.majorInfo);
                     }else if(response && 90011 == response["resultCode"]){
-                        this.showAlert("测试成功才能保存");
+                        this.showAlert("USER_CENTER.SUCESSTEST_CAN_SAVE");
                     }else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -171,7 +171,7 @@ export class AliMajorListComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.departs= response["resultContent"];
-                        this.distriDepart.open("分配部门");
+                        this.distriDepart.open("USER_CENTER.DISTRI_MAJOR_DEPARTMENT^^^"+item.loginName);
                     }else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -208,6 +208,8 @@ export class AliMajorListComponent implements OnInit{
                         this.getData();
                         this.distriDepart.close();
                         console.log("editDepart",this.id, this.selectedDepartmentId);
+                    }else if(response && 90011 == response["resultCode"]){
+                        this.showAlert("USER_CENTER.CANNOT_DISTRI_DEPARTMENT");
                     }else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -227,7 +229,7 @@ export class AliMajorListComponent implements OnInit{
             this.edit();
         }else{
             if(this.selectedDepartmentId != this.tempDepartmentId){
-                this.confirm.open("设置部门","部门发生改变,请确认");
+                this.confirm.open('USER_CENTER.DISTRI_DEPARTMENT','USER_CENTER.DISTRI_DEPARTMENT_PROMOTINFO');
                 this.confirm.ccf= ()=>{
                     this.editDepart();
                 }
@@ -239,8 +241,8 @@ export class AliMajorListComponent implements OnInit{
 
     checkForm(key?:string){
         const regs:ValidationRegs = {
-            accessKey: [this.majorInfo.accessKey, [this.v.isUnBlank], "accessKey不能为空"],
-            accessSecret: [this.majorInfo.accessSecret, [this.v.isUnBlank], "accessSecret不能为空"],
+            accessKey: [this.majorInfo.accessKey, [this.v.isUnBlank], "USER_CENTER.ACCESSKEY_CANNOT_EMPTY"],
+            accessSecret: [this.majorInfo.accessSecret, [this.v.isUnBlank], "USER_CENTER.ACCESSSECRET_CANNOT_EMPTY"],
         }
         return this.v.check(key, regs);
     }

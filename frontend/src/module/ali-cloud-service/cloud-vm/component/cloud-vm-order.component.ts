@@ -23,6 +23,7 @@ import {
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
 import { AliCloudDiskDictService } from "../../cloud-disk/service/cloud-disk-dict.service";
+import { AliCloudVMDictService } from "../service/cloud-vm-dict.service";
 import { AliCloudVmService } from "../service/cloud-vm.service";
 
 
@@ -38,7 +39,8 @@ export class AliCloudVmOrderComponent implements OnInit {
         private router: Router,
         private commonService: AliCloudDiskService,
         private service: AliCloudVmService,
-        private dictService: AliCloudDiskDictService,
+        private dictDiskService: AliCloudDiskDictService,
+        private dictService: AliCloudVMDictService,
         private activatedRouter: ActivatedRoute,
         private v: Validation,
 
@@ -123,6 +125,10 @@ export class AliCloudVmOrderComponent implements OnInit {
     vpcSecGrouplist: Array<securityGroupModel> = [];
 
     diskCategoryDictArray: Array<SystemDictionary> = [];
+    instanceStatusDictArray: Array<SystemDictionary> = [];
+    instanceChargeTypeDictArray: Array<SystemDictionary> = [];
+    ioOptimizedDictArray: Array<SystemDictionary> = [];
+    networkTypeDictArray: Array<SystemDictionary> = [];
 
     private okCallback: Function = null;
     okClicked() {
@@ -144,10 +150,31 @@ export class AliCloudVmOrderComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.dictService.diskCategoryDict
+        this.dictDiskService.diskCategoryDict
             .then((items) => {
                 this.diskCategoryDictArray = items;
                 console.log(this.diskCategoryDictArray, "this.diskCategoryDictArray");
+            });
+
+        this.dictService.instanceStatusDict
+            .then((items) => {
+                this.instanceStatusDictArray = items;
+                console.log(this.instanceStatusDictArray, "this.instanceStatusDictArray");
+            });
+        this.dictService.instanceChargeTypeDict
+            .then((items) => {
+                this.instanceChargeTypeDictArray = items;
+                console.log(this.instanceChargeTypeDictArray, "this.instanceChargeTypeDictArray");
+            });
+        this.dictService.ioOptimizedDict
+            .then((items) => {
+                this.ioOptimizedDictArray = items;
+                console.log(this.ioOptimizedDictArray, "this.ioOptimizedDictArray");
+            });
+        this.dictService.networkTypeDict
+            .then((items) => {
+                this.networkTypeDictArray = items;
+                console.log(this.networkTypeDictArray, "this.networkTypeDictArray");
             });
 
         this.getKeySecret();
@@ -250,6 +277,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                         this.instancetypes = this.instancetypefamilies[0].instanceTypeIDModelList;
                         this.selectedOrderVmPage.selectedInstanceFamily = this.instancetypefamilies[0].instancefamilyid;
                         this.selectedOrderVmPage.selectedInstanceType = this.instancetypes[0].InstanceTypeId;
+                        this.selectedOrderVmPage.instanceShowName = this.instancetypes[0].instanceShowName;
                         console.log(this.selectedOrderVmPage.selectedInstanceType, "selected InstanceType!");
                     } else {
                         console.log("this.instancegenerations.length = 0");
@@ -352,6 +380,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                         this.instancetypes = this.instancetypefamilies[0].instanceTypeIDModelList;
                         this.selectedOrderVmPage.selectedInstanceFamily = this.instancetypefamilies[0].instancefamilyid;
                         this.selectedOrderVmPage.selectedInstanceType = this.instancetypes[0].InstanceTypeId;
+                        this.selectedOrderVmPage.instanceShowName = this.instancetypes[0].instanceShowName;
                         console.log(this.selectedOrderVmPage.selectedInstanceType, "selected InstanceType!");
                     } else {
                         console.log("this.instancegenerations.length = 0");
@@ -791,6 +820,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                         this.instancetypes = this.instancetypefamilies[0].instanceTypeIDModelList;
                         this.selectedOrderVmPage.selectedInstanceFamily = this.instancetypefamilies[0].instancefamilyid;
                         this.selectedOrderVmPage.selectedInstanceType = this.instancetypes[0].InstanceTypeId;
+                        this.selectedOrderVmPage.instanceShowName = this.instancetypes[0].instanceShowName;
                     }
                     this.setAndShowIO();
                 } else {

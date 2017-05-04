@@ -161,7 +161,7 @@ export class AliCloudSubAccountListComponent implements OnInit{
             this.showAlert("ALI_CLOUD.PLEASE_SELECT_ACCOUNT")
             return ;
         }
-        if( (account.tenantName ==null ||account.departName ==null) && account.status=="2"  ){
+        if( account.tenantName ==null && account.status=="2"  ){
                 //this.noticeMsg="您选择删除'"+account.loginName +"'阿里云子账号,请确认；如果确认，此阿里云账号数据将不能恢复。";
                 this.noticeMsg="ALI_CLOUD.CONFIRM_DELETE_SUB_ACCOUNT^^^"+account.loginName ;
                 this.noticeTitle="ALI_CLOUD.DELETE_ALI_CLOUD_SUB_ACCOUNT";
@@ -216,11 +216,11 @@ export class AliCloudSubAccountListComponent implements OnInit{
             this.showAlert("ALI_CLOUD.PLEASE_SELECT_ACCOUNT")
             return ;
         }
-        if(account.departName==null){
+        if(account.departName==null && account.status=="2"){
           this.route.navigate([`ali-cloud/ali-cloud-subAccount/ali-cloud-subAccount-setEnterprise`,{id:account.id,mainId:this.mainAccountId}])
         }
         else{
-            this.showAlert("ALI_CLOUD.SUB_ACCOUNT_SET_ENTERPRISE");//只有该子账号没有分配给全部部门或单一部门时，才能重新分配企业！
+            this.showAlert("ALI_CLOUD.SUB_ACCOUNT_SET_ENTERPRISE");//只有该子账号没有分配给全部部门或单一部门且为禁用状态时，才能重新分配企业！
             return;
         }
     }
