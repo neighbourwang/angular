@@ -18,35 +18,25 @@ export class AliCloudVMDictService{
         this.restApiCfg.loadCfgData();
     }
     
-    diskCategoryDict = this.dict.get({
+    instanceStatusDict = this.dict.get({
         owner: "ALICLOUD",
-        field: "CLOUD_DISK"
+        field: "INSTANCE_STATUS"
     });
 
-    diskStatusDict = this.dict.get({
+    instanceChargeTypeDict = this.dict.get({
         owner: "ALICLOUD",
-        field: "CLOUD_DISK_STATUS"
+        field: "INSTANCE_CHARGE_TYPE"
     });
 
-    diskChargeTypeDict = this.dict.get({
+    ioOptimizedDict = this.dict.get({
         owner: "ALICLOUD",
-        field: "CLOUD_DISK_CHARGE_TYPE"
+        field: "IO_OPTIMIZED"
     });
 
-    diskTypeDict = this.dict.get({
+    networkTypeDict = this.dict.get({
         owner: "ALICLOUD",
-        field: "CLOUD_DISK_TYPE"
+        field: "NETWORK_TYPE"
     });
 
-    diskBoolDict = this.dict.get({
-        owner: "ALICLOUD",
-        field: "CLOUD_DISK_BOOL"
-    });
-
-    /*
-    ipstatusDict = this.dict.get({  //IP地址状态
-        owner: "PM_NETWORK",
-        field: "IP_STATUS"
-    });
-    */
+    
 }
