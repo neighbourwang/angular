@@ -1209,8 +1209,38 @@ export let RestApis: RestApiModel[] = [
         "id": "manager-serve-product-create.post",
         "method": "POST",
         "url": "productmgmt/authsec/supervise/product" 
+    },    
+    //数据库中间件产品管理
+    {
+        "desc": "获取中间件服务模板列表",
+        "id": "middleware-serve-template.get",
+        "method": "GET",
+        "url": "adminui/authsec/services/middleWare/templates"
     },
-    
+    {
+        "desc": "获取数据库服务模板列表",
+        "id": "database-serve-template.get",
+        "method": "GET",
+        "url": "adminui/authsec/services/database/templates"
+    },
+    {
+        "desc": "获取数据库中间件平台信息",
+        "id": "prod-mng.prod-disk-dir.plateforms",
+        "method": "GET",
+        "url": "adminui/authsec/services/platforms"
+    },
+    {
+        "desc": "创建中间件服务产品",
+        "id": "database-middleware-service-create.post",
+        "method": "POST",
+        "url": "adminui/authsec/services/type/middleware" 
+    },
+    {
+        "desc": "获取中间件数据库服务目录详情",
+        "id": "database-serve-template.get",
+        "method": "GET",
+        "url": "adminui/authsec/services/database/templates"
+    },
     //用户中心
     {
         "desc": "获取所有机构",
