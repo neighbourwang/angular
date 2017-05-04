@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 import { LayoutService, ValidationService, NoticeComponent, PopupComponent } from '../../../../architecture';
 import { Validation, ValidationRegs } from '../../../../architecture';
 //model 
-import { DatabaseMiddlewareServiceModel, ResourcPool, PlatformSimpleItem } from '../model/database-middleware-service.model'
+import { DatabaseMiddlewareServiceModel, ResourcPool, PlatformSimpleItem, ServiceTemplat} from '../model/database-middleware-service.model'
 // service;
 import { DatabaseMiddlewareService } from '../service/database-middleware-service.service';
 
@@ -21,56 +21,86 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
         private router: ActivatedRoute,
         private route: Router,
         private service: DatabaseMiddlewareService,
-        private LayoutService: LayoutService,
+        private layoutService: LayoutService,
         private location: Location
     ) {
         this.v.result = {}
     }
-
     @ViewChild('notice')
     notice: NoticeComponent;
-
-    serviceType: string;
-    servcieTitle:string;
+    //PrivateCloud   
+    serviceType: string;//服务类型
+    servcieTitle: string;//创建服务器标题
     resourcePooList: Array<ResourcPool>;
     _platformlist: Array<PlatformSimpleItem>;
-    databaseMiddlewareService: DatabaseMiddlewareServiceModel = new DatabaseMiddlewareServiceModel();
+    serviceTemplatList: Array<ServiceTemplat>;
+    databaseMiddlewareService: DatabaseMiddlewareServiceModel = new DatabaseMiddlewareServiceModel();//数据库中间件服务
     ngOnInit() {
         this.router.params.forEach((params: Params) => {
             this.serviceType = params['type'];
-            this.servcieTitle=
-                this.serviceType=='MiddleWare'?'中间件服务器':'数据库服务器';
+            this.servcieTitle =
+                this.serviceType == 'MiddleWare' ? '中间件服务器' : '数据库服务器';
             this.databaseMiddlewareService.serverType = params['code'];
         });
-        console.log(this.serviceType,this.databaseMiddlewareService.serverType);
-
-        // if (this.databaseMiddlewareService.serviceObjectCode == '2') {
-        //     this.getResourcePoolList();
-        // } else if (this.databaseMiddlewareService.serviceObjectCode != '8') {
-        //     this.getPlateForm();
-        // }
+        console.log(this.serviceType, this.databaseMiddlewareService.serverType);
+        (this.serviceType == 'Database') && this.getDatabaseServeTemplateList();
+        (this.serviceType == 'MiddleWare') && this.getMiddleWareServeTemplateList();
+        (this.databaseMiddlewareService.serverType == 'PhyMachine') && this.getResourcePoolList();
+        (this.databaseMiddlewareService.serverType != 'PhyMachine') && this.getPlateForm();
+    }
+    //获取中间件服务模板列表
+    getMiddleWareServeTemplateList() {
+        this.layoutService.show()
+        this.service.getMiddleWareServeTemplateList().then(res => {
+            console.log(res);
+            if (res && res.resultCode == "100") {
+                this.serviceTemplatList = res.resultContent;
+                this.databaseMiddlewareService.serviceTemplateId=this.serviceTemplatList[0].serviceTemplateId;
+                this.databaseMiddlewareService.serviceTemplateName=this.serviceTemplatList[0].serviceTemplateName;
+                this.layoutService.hide();
+            }
+        }).catch(err => {
+            console.error(err);
+            this.layoutService.hide();
+        })
+    }
+    //获取数据库服务模板列表
+    getDatabaseServeTemplateList() {
+        this.layoutService.show()
+        this.service.getDatabaseServeTemplateList().then(res => {
+            console.log(res);
+            if (res && res.resultCode == "100") {
+                this.serviceTemplatList = res.resultContent;
+                this.databaseMiddlewareService.serviceTemplateId=this.serviceTemplatList[0].serviceTemplateId;
+                this.databaseMiddlewareService.serviceTemplateName=this.serviceTemplatList[0].serviceTemplateName;                
+                this.layoutService.hide();
+            }
+        }).catch(err => {
+            console.error(err);
+            this.layoutService.hide();
+        })
     }
     //获取资源池列表
     getResourcePoolList() {
-        this.LayoutService.show();        
+        this.layoutService.show();
         this.service.getResourcePoolList().then(res => {
             console.log('resourcepool', res);
             if (res.resultCode == '100') {
                 this.resourcePooList = res.resultContent;
                 this.resourcePooList.forEach(ele => ele.selected = false);
-                // this.resourcePooList.sort((ele1, ele2) => {
-                //     // return Number(ele1.regionId) - Number(ele2.regionId)
-                // })
-                this.LayoutService.hide();                
+                this.resourcePooList.sort((ele1, ele2) => {
+                    return Number(ele1.regionId) - Number(ele2.regionId)
+                })
+                this.layoutService.hide();
             }
         }).catch(err => {
             console.log(err);
-                this.LayoutService.hide();            
+            this.layoutService.hide();
         })
     }
     //获取平台列表;
     getPlateForm() {
-        this.LayoutService.show();
+        this.layoutService.show();
         this.service.getDiskPlateForms().then(
             response => {
                 console.log('PINGTAI', response);
@@ -84,24 +114,22 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
                 } else {
 
                 }
-                this.LayoutService.hide();
+                this.layoutService.hide();
             }
         ).catch(err => {
             console.error(err);
-            this.LayoutService.hide();
+            this.layoutService.hide();
         })
     }
 
     //选择全部资源池或平台
     allSelected: boolean = false;
     selectAll(list) {
-        console.log(list);
         this.allSelected = !this.allSelected;
         list.forEach(ele => ele.selected = this.allSelected);
     }
     //选择资源池或平台
-    selectOne(idx,list) {
-        console.log(list);
+    selectOne(idx, list) {
         list[idx].selected = !list[idx].selected;
         for (let ele of list) {
             if (ele.selected == false) {
@@ -127,40 +155,50 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
         console.log(this.databaseMiddlewareService);
         let message = this.checkForm();
         if (message) return;
-        // if (this.databaseMiddlewareService.serviceObjectCode == '2') {
-        //     this.databaseMiddlewareService.pmPoolList=[];
-        //     this.databaseMiddlewareService.pmPoolList = this.resourcePooList.filter(ele => {
-        //         if (ele.selected) { return ele; }
-        //     })
-        //     if(this.databaseMiddlewareService.pmPoolList.length==0){
-        //         this.notice.open('COMMON.OPERATION_ERROR','请选择资源池信息')
-        //         return 
-        //     }
-        // } else if (this.databaseMiddlewareService.serviceObjectCode != '8') {
-        //     this.databaseMiddlewareService.platformList=[];
-        //     this._platformlist.forEach(ele => {
-        //         if (ele.selected) {
-        //             this.databaseMiddlewareService.platformList.push({
-        //                 "code": ele.platformName,
-        //                 "id": ele.platformId,
-        //                 "name": ele.platformName,
-        //             })
-        //         }
-        //     })
-        //      if(this.databaseMiddlewareService.platformList.length==0){
-        //         this.notice.open('COMMON.OPERATION_ERROR','请选择平台信息')
-        //         return 
-        //     }
-        // }
+        //获取模板名称
+        this.serviceTemplatList.forEach(tem=>{            
+            if(this.databaseMiddlewareService.serviceTemplateId==tem.serviceTemplateId) {
+                this.databaseMiddlewareService.serviceTemplateName=tem.serviceTemplateName;
+                this.databaseMiddlewareService.serviceType=tem.serviceTemplatType;
+            } 
+        });
+        if (this.databaseMiddlewareService.serverType == 'PhyMachine') {
+            this.databaseMiddlewareService.resourcPoolsProfiles = [];
+            this.databaseMiddlewareService.resourcPoolsProfiles = this.resourcePooList.filter(ele => {
+                if (ele.selected) { return ele; }
+            })
+            if (this.databaseMiddlewareService.resourcPoolsProfiles.length == 0) {
+                this.notice.open('COMMON.OPERATION_ERROR', '请选择资源池信息')
+                return
+            }
+        } else if (this.databaseMiddlewareService.serverType != 'PhyMachine') {
+            this.databaseMiddlewareService.platformSimpleItemResp = [];
+            this._platformlist.forEach(ele => {
+                if (ele.selected) {
+                    this.databaseMiddlewareService.platformSimpleItemResp.push({
+                        "code": ele.code,
+                        "displayName": ele.displayName,
+                        "id": ele.id,
+                        "name": ele.name,
+                        "selected": ele.selected,
+                        "skuID": ele.skuID
+                    })
+                }
+            })
+            if (this.databaseMiddlewareService.platformSimpleItemResp.length == 0) {
+                this.notice.open('COMMON.OPERATION_ERROR', '请选择平台信息')
+                return
+            }
+        }
         console.log(this.databaseMiddlewareService);
-        this.LayoutService.show(); 
+        this.layoutService.show(); 
         this.service.postDatabaseMiddlewareService(this.databaseMiddlewareService).then(res=>{
             console.log(res);
-            this.LayoutService.hide();
+            this.layoutService.hide();
             this.location.back();            
         }).catch(err=>{
             console.error(err);
-            this.LayoutService.hide();            
+            this.layoutService.hide();            
         })       
     }
     cancel() {
