@@ -56,7 +56,7 @@ export class MngServiceListComponent implements OnInit{
     keyWords: string;
     serviceStatus: string;
     data: Array<MngServiceList>;
-    followInfo: string;
+    Info: string;
     selectedServiceId: string;
 
     ngOnInit() {
@@ -105,8 +105,16 @@ export class MngServiceListComponent implements OnInit{
     }
 
     serviceUpdatePage(){
-        this.type= "update";
-        this.popUnit.open("服务状态更新");
+        const selectedService= this.data.find((p) =>{
+            return p.selected;
+        });
+        if(!selectedService){
+            this.showAlert("请选择需要跟进的服务");
+        }else{
+            this.type= "update";
+            this.selectedServiceId= selectedService.serviceId;
+            this.popUnit.open("服务状态更新");
+        }
     }
 
     servicefollowPage(){
@@ -124,13 +132,12 @@ export class MngServiceListComponent implements OnInit{
 
     serviceFollow(){
         this.layoutService.show();
-        this.service.serviceFollow(this.selectedServiceId, this.followInfo)
+        this.service.serviceFollow(this.selectedServiceId, this.Info)
             .then(
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.enterpriseList = response["resultContent"];
-                        console.log("企业列表",this.enterpriseList);
+                        this.getData();
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -139,16 +146,50 @@ export class MngServiceListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
+    serviceUpdate(){
+        this.layoutService.show();
+        this.service.serviceUpdate(this.selectedServiceId, this.Info)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.getData();
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    followOrupdate(){
+        switch (this.type) {
+            case "follow":
+                this.serviceFollow();
+                break;
+            case "update":
+                this.serviceUpdate();
+                break;
+        }
+    }
+
     oneSet(){
         this.setUnit.open("一次性管理服务系统设置");
     }
 
-    gotoDetail(){
-        this.router.navigate([`mtc-center/mng-service/mng-service-detail`]);
+    gotoDetail(item){
+        this.router.navigate([`mtc-center/mng-service/mng-service-detail`,{"serviceId":item.serviceId}]);
     }
 
     reset(){
         this.keyWords= "";
+    }
+
+    selected(item: MngServiceList){
+        this.data.forEach((p) =>{
+            p.selected= false;
+        });
+        item.selected= true;
     }
 
     showAlert(msg: string): void {

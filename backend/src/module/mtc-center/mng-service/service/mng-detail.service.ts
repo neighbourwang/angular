@@ -22,37 +22,15 @@ export class MngDetailService {
     }
 
 
-    //获取企业下拉列表
-    getEnterprises(): Promise<any>{
-        const api = this.restApiCfg.getRestApi("mtc-center.mng-service.enterprise");
-        console.log("searchDic",this.searchDic);
-        return this.restApi.request(api.method, api.url, null, null,null  );
-    }
-
-    getData(pageIndex: number, pageSize: number, serviceStatus: string, enterpriseId: string, serviceName: string, serviceObjectCode: string,
-            searchTypeCode: string, keyWords: string): Promise<any>{
+    getInfo(serviceId: string): Promise<any>{
         const pathParams=[
             {
-                key:"page",
-                value: pageIndex
-            },
-            {
-                key:"size",
-                value: pageSize
+                key:"serviceId",
+                value: serviceId
             }
         ];
-/*        const api= this.restApiCfg.getRestApi("user-center.case-mng.list");
-        return this.restApi.request(api.method, api.url, pathParams, null,
-            {
-                "serviceStatus": serviceStatus,
-                "enterpriseId":enterpriseId,
-                "serviceName": serviceName,
-                "serviceObjectCode": serviceObjectCode,
-                "searchTypeCode": searchTypeCode,
-                "keyWords": keyWords
-
-            });*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => ServiceList_mock);
-
+        const api = this.restApiCfg.getRestApi("mtc-center.mng-detail.detail");
+        return this.restApi.request(api.method, api.url, pathParams, null,null  );
     }
+
 }
