@@ -1,8 +1,11 @@
 import {Component, ViewChild, OnInit } from "@angular/core";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, PaginationComponent, SystemDictionary, ValidationService} from "../../../../architecture";
 
+import { MngServiceDetail } from "../model/mng-service-detail.model";
+import { MngServiceList } from "../model/mng-service-list.model";
 
+import { MngDetailService } from '../service/mng-detail.service';
 import { MngService } from '../service/mng-service.service';
 
 @Component({
@@ -15,8 +18,10 @@ import { MngService } from '../service/mng-service.service';
 export class MngServiceDetailComponent implements OnInit{
     constructor(
         private router : Router,
-        //private service : MngService,
+        private service : MngDetailService,
+        private mngservice : MngService,
         private layoutService : LayoutService,
+        private activatedRouter : ActivatedRoute,
         private validationService: ValidationService
     ){
 
@@ -37,13 +42,37 @@ export class MngServiceDetailComponent implements OnInit{
     totalPage= 1;
 
     type: string;
+    serviceId: string;
+    serviceInfo: MngServiceDetail= new MngServiceDetail();
 
     ngOnInit() {
-
+        this.activatedRouter.params.forEach((params: Params) =>{
+            this.serviceId= params["serviceId"];
+        });
+        console.log(this.serviceId,"this.serviceId");
+        this.getInfo();
     }
 
     goBack(){
         this.router.navigate([`mtc-center/mng-service/mng-service-list`]);
+    }
+
+    getInfo(){
+        this.layoutService.show();
+        this.service.getInfo(this.serviceId)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.serviceInfo= response["resultContent"];
+                        console.log("serviceInfo",this.serviceInfo);
+                        console.log("serviceBaseInfo",this.serviceInfo.serviceBaseInfo);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
 

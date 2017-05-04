@@ -10,6 +10,7 @@ import { AliCloudVmOrderComponent } from './component/cloud-vm-order.component';
 
 //service 
 import { AliCloudVmService } from "./service/cloud-vm.service";
+import { AliCloudVMDictService } from "./service/cloud-vm-dict.service";
 import { AliCloudDiskService } from "../cloud-disk/service/cloud-disk.service";
 import { AliCloudDiskDictService } from "../cloud-disk/service/cloud-disk-dict.service";
 
@@ -34,7 +35,8 @@ import { AliCloudVmRouting } from './cloud-vm.routing';
     providers: [
         AliCloudDiskService,
         AliCloudDiskDictService,
-        AliCloudVmService
+        AliCloudVmService,
+        AliCloudVMDictService
     ]
 
 })

@@ -4,7 +4,7 @@ import { NgForm } from "@angular/forms";
 
 import {
     LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent,
-    PaginationComponent, PopupComponent
+    PaginationComponent, PopupComponent, SystemDictionary
 } from "../../../../architecture";
 
 //import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
@@ -15,7 +15,8 @@ import { instanceListModel, VmQueryObject, FloatingIPAddressModel } from "../mod
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
-import { AliCloudDiskDictService } from "../../cloud-disk/service/cloud-disk-dict.service";
+//import { AliCloudDiskDictService } from "../../cloud-disk/service/cloud-disk-dict.service";
+import { AliCloudVMDictService } from "../service/cloud-vm-dict.service";
 import { AliCloudVmService } from "../service/cloud-vm.service";
 
 
@@ -30,6 +31,7 @@ export class AliCloudVmListComponent implements OnInit {
         private layoutService: LayoutService,
         private router: Router,
         private service: AliCloudVmService,
+        private dictService: AliCloudVMDictService,
         private commonService: AliCloudDiskService,
         private activatedRouter: ActivatedRoute,
 
@@ -94,6 +96,11 @@ export class AliCloudVmListComponent implements OnInit {
     defaultvmip: FloatingIPAddressModel = new FloatingIPAddressModel();
     selectedvmip: FloatingIPAddressModel = this.defaultvmip;
 
+    instanceStatusDictArray: Array<SystemDictionary> = [];
+    instanceChargeTypeDictArray: Array<SystemDictionary> = [];
+    ioOptimizedDictArray: Array<SystemDictionary> = [];
+    networkTypeDictArray: Array<SystemDictionary> = [];
+
     private okCallback: Function = null;
     okClicked() {
         console.log('okClicked');
@@ -114,6 +121,27 @@ export class AliCloudVmListComponent implements OnInit {
 
     ngOnInit(): void {
         this.getKeySecret();
+        
+        this.dictService.instanceStatusDict
+            .then((items) => {
+                this.instanceStatusDictArray = items;
+                console.log(this.instanceStatusDictArray, "this.instanceStatusDictArray");
+            });
+        this.dictService.instanceChargeTypeDict
+            .then((items) => {
+                this.instanceChargeTypeDictArray = items;
+                console.log(this.instanceChargeTypeDictArray, "this.instanceChargeTypeDictArray");
+            });
+        this.dictService.ioOptimizedDict
+            .then((items) => {
+                this.ioOptimizedDictArray = items;
+                console.log(this.ioOptimizedDictArray, "this.ioOptimizedDictArray");
+            });
+        this.dictService.networkTypeDict
+            .then((items) => {
+                this.networkTypeDictArray = items;
+                console.log(this.networkTypeDictArray, "this.networkTypeDictArray");
+            });
     }
 
     getKeySecret(): void {
@@ -365,16 +393,18 @@ export class AliCloudVmListComponent implements OnInit {
                     .then(
                     response => {
                         this.layoutService.hide();
+                        /*
                         if (response && 100 == response["resultCode"]) {
                             this.showAlert("停止实例成功！");
                             //this.selectRegion(this.choosenRegion);
-                            this.selectedInstance.Status = "Stopping";
-                            this.oneInstancePoll(this.selectedInstance);
                         } else {
                             this.showAlert("停止实例失败！");
                         }
+                        */
                     })
                     .catch((e) => this.onRejected(e));
+                    this.selectedInstance.Status = "Stopping";
+                    this.oneInstancePoll(this.selectedInstance);
             }
             this.confirm.open();
         } else {
