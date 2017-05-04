@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService} from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService,LayoutService} from '../../../../architecture';
 
 import 'rxjs/add/operator/toPromise';
 import { ManagerServeServiceModel, PmPool, Platform ,PlatformObj} from '../model/manager-serve-service.model';
@@ -13,7 +13,8 @@ export class ManagerServeProdService {
         private http: Http,
         private restApiCfg: RestApiCfg,
         private restApi: RestApi,
-        private dict:SystemDictionaryService
+        private dict:SystemDictionaryService,
+        private layoutService :LayoutService
     ) { }
 
     managerServeProduct:ManagerServeProductModel;
@@ -26,6 +27,7 @@ export class ManagerServeProdService {
     }
     //根据平台获取企业列表    
     getEnterpriseListById(list) {
+        this.layoutService.show();
         let api = this.restApiCfg.getRestApi("prod-mng.prod-enterprise.post");
         return this.restApi.request(api.method, api.url, [], undefined,list).then(res=>{
             console.log(res);
@@ -33,20 +35,24 @@ export class ManagerServeProdService {
                 this.enterpriseListForSelect=res.resultContent;                
             }
             this.managerServeProduct.platformSimpleItems=this.managerServeService.platformList;
-
+            this.layoutService.hide();
         }).catch(err=>{
             console.error(err);
+            this.layoutService.hide();
         });;
     }
     //获取企业列表    
     getEnterPriseList() {
+        this.layoutService.show();
         let api = this.restApiCfg.getRestApi("prod-mng.prod-enterprise.list");
         return this.restApi.request(api.method, api.url, [], undefined).then(res=>{
             if(res.resultContent){
                 this.enterpriseListForSelect=res.resultContent;                
             }
+            this.layoutService.hide();
         }).catch(err=>{
             console.error(err);
+            this.layoutService.hide();
         });
     }
     //获取管理服务对象列表

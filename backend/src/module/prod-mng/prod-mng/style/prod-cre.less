@@ -10,6 +10,16 @@
             background-color: #00a982;
             color : #fff
         }
+.no-nowrap{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.even-bgcolor{
+    &>div:nth-of-type(even) {
+      background-color: #fff;
+    }
+}
 //产品规格
 .prodSpecific{
   span{
@@ -20,7 +30,6 @@
     width:80px;
   }
   span:nth-child(2){
-    width:100px;
   }
   span:last-child{
     width:100px;
@@ -71,6 +80,7 @@
   }
   .secondDiv{
     text-align: right;
+    .no-nowrap
   }
   .inputLeft{
     text-align: left;
@@ -79,6 +89,9 @@
       margin-right:10px ;
       width: 85%;
       height: 30px;
+    }
+    p{
+      .no-nowrap
     }
   }
   .tabHeader{
@@ -90,8 +103,10 @@
           text-align: left;
           width:100%;
           height:100%;
-          line-height: 40px;
+          line-height: 50px;
           vertical-align:middle;
+          margin-bottom:0;
+          .no-nowrap
         }
     }
   }
@@ -121,12 +136,14 @@
             padding-left: 20px;
             width:100%;
             float:left;
+            .no-nowrap
           } 
           .span2{
             width:100%;
             float:left;
             cursor: pointer;
             text-align: center;
+            .no-nowrap
           }        
           &>div:nth-of-type(even) {
             background-color: #EEF0EF;

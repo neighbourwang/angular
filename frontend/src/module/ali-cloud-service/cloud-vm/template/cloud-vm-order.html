@@ -130,7 +130,7 @@
                                      instancetypes=instancetypefamilies[0].instanceTypeIDModelList;
                                      selectedOrderVmPage.selectedInstanceFamily=instancetypefamilies[0].instancefamilyid;
                                      selectedOrderVmPage.selectedInstanceType=instancetypes[0].InstanceTypeId;
-                                     setAndShowIO(); calculatePrice();" style="display: inline">{{gene.generation}}</button>
+                                     setAndShowIO(); calculatePrice();" style="display: inline">{{gene.generationShowName || gene.generation}}</button>
                             <!-- 
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;" style="display: inline">系列 I</button>
                         <button class="btn button-gray-gradient btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selected}' (click)="selectedOrderVmPage.selected=true;">系列 II</button> -->
@@ -152,14 +152,16 @@
                     <div class="col-md-12 no-padding mgb20">
                         <div *ngFor="let family of instancetypefamilies;" style="display: inline">
                             <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceFamily==family.instancefamilyid}' (click)="selectedOrderVmPage.selectedInstanceFamily=family.instancefamilyid;
+                                     selectedOrderVmPage.selectedInstanceFamilyShowName=family.instancefamilyShowName ;
                                      instancetypes=family.instanceTypeIDModelList;
-                                     selectedOrderVmPage.selectedInstanceType=instancetypes[0].InstanceTypeId; showInstanceType();" style="display: inline">{{family.instancefamilyid}}</button>
+                                     selectedOrderVmPage.selectedInstanceType=instancetypes[0].InstanceTypeId;
+                                     showInstanceType();" style="display: inline">{{family.instancefamilyShowName || family.instancefamilyid}}</button>
                         </div>
                     </div>
                     <br />
                     <div class="col-md-12 no-padding mgb20">
                         <div *ngFor="let type of instancetypes;" style="display: inline">
-                            <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceType==type.InstanceTypeId}' (click)="selectedOrderVmPage.selectedInstanceType=type.InstanceTypeId; showInstanceType();" style="display: inline">{{type.InstanceTypeId}}</button>
+                            <button class="btn button-gray-gradient btn-green btn-selected-green" [ngClass]='{"selected":selectedOrderVmPage.selectedInstanceType==type.InstanceTypeId}' (click)="selectedOrderVmPage.selectedInstanceType=type.InstanceTypeId; showInstanceType();" style="display: inline; height: 68px !important;">{{selectedOrderVmPage.selectedInstanceFamilyShowName}} {{type.CpuCoreCount}}GB<br />{{type.instanceShowName || type.InstanceTypeId}}</button>
                         </div>
 
                     </div>
@@ -417,11 +419,11 @@
                             </tr>
                             <tr>
                                 <span>镜像：</span>
-                                <span>{{selectedOrderVmPage.selectedImage || ""}}</span>
+                                <span>{{selectedImageItem.osname || ""}}</span>
                             </tr>
                             <tr>
                                 <span>系统盘：</span>
-                                <span>{{selectedOrderVmPage.selectedDisk || ""}}</span>
+                                <span>{{displayDiskType(selectedOrderVmPage.selectedDisk) || ""}}</span>
                             </tr>
                             <tr *ngIf="selectedOrderVmPage.selectedChargeType=='PrePaid'">
                                 <span>购买量：</span>

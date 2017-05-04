@@ -36,4 +36,9 @@ export class ProdDirListService {
       owner : "SUPERVISE_SERVICE",
       field : "TYPE"    
    });
+   //获取数据库中间件服务器类型列表
+   serverTypeDic=this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise
+      owner : "GLOBAL",
+      field : "SERVER_TYPE"    
+   })
 }

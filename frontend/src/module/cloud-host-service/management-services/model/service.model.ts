@@ -2,27 +2,25 @@ class ProductSimpleItem {
 	id: string; //, optional): 产品id ,
 	name: string; //, optional): 产品name
 }
-class ProductNewProfile {
-	basicCyclePrice: number; //, optional): 周期价格 ,
-	billingCycle: string; //, optional): 付费周期，类型为数字，不要输入成string了 ,
+
+class SuperviseProductItem {
+	billingCycleType: string; //, optional): 付费周期，0---小时，1---天，2---周，3---月，5---年 ,
 	billingId: string; //, optional),
-	billingType: string; //, optional): 付费方式类型为数字，不要输入成string了 ,
+	billingType: string; //, optional): 付费方式类型为数字，0为包年包月、3为按次 ,
+	cyclePrice: number; //, optional): 周期价格 ,
 	desc: string; //, optional): 产品描述 ,
-	extendCyclePrice: number; //, optional): 增量价格 ,
-	name: string; //, optional),
 	oneTimePrice: number; //, optional),
-	phyMachineAreaPoolsProfile: PhyMachineAreaPoolsProfile[]; //, optional): 区域和资源池信息 ,
-	pmPartsBaseprises: PMPartsBase[]; //, optional): 附加组件及价格信息 ,
-	productEnterpiseReqs: ProductEnterpiseReq[]; //, optional): 选中企业 ,
+	phyMachineAreaPoolsProfile: PhyMachineAreaPoolsProfile[]; //[PhyMachineAreaPoolsProfile], optional): 资源池信息（没有区域信息） ,
 	productId: string; //, optional),
-	productPlatformReqs: ProductPlatformReq[]; //, optional): 选中平台及区域 ,
+	productName: string; //, optional),
+	productPlatformReqs: ProductPlatformReq[]; //[ProductPlatformReq], optional): 选中的平台（没有区域信息） ,
 	serviceId: string; //, optional): 服务目录ID ,
-	serviceSkuId: string; //, optional),
-	unitPrice: number; //, optional): 单位价格
+	serviceObjectCode: string; //, optional): 服务对象code ,
+	serviceSkuId: string; //, optional)
 }
 class PhyMachineAreaPoolsProfile {
 	areaDisplayName: string; //, optional): 资源池区域显示名 ,
-	phyMachineResourcPoolsProfile: PhyMachineResourcPoolsProfile[]; //, optional): 资源池 ,
+	phyMachineResourcPoolsProfile: PhyMachineResourcPoolsProfile[]; //[PhyMachineResourcPoolsProfile], optional): 资源池 ,
 	pmPoolId: string; //, optional): 资源池区域ID ,
 	poolName: string; //, optional): 资源池区域名称 ,
 	region: string; //, optional): 资源池区域名称 ,
@@ -31,25 +29,10 @@ class PhyMachineAreaPoolsProfile {
 	selected: boolean; //, optional): 资源池是否被选中 ,
 	skuid: string; //, optional): SkuId
 }
-class PMPartsBase {
-	ajustmentPrice: number; //, optional),
-	id: string; //, optional),
-	operationType: string; //, optional),
-	partsId: string; //, optional),
-	partsName: string; //, optional),
-	referencePrice: number; //, optional),
-	specId: string; //, optional),
-	specName: string; //, optional),
-	specValue: string; //, optional)
-}
-class ProductEnterpiseReq {
-	id: string; //, optional): 企业id ,
-	name: string; //, optional): 企业名称
-}
 class ProductPlatformReq {
 	platformId: string; //, optional): 平台id ,
 	platformName: string; //, optional): 平台名称 ,
-	zoneList: ProductServiceZoneReq[]; //, optional): 选中的可用区
+	zoneList: ProductServiceZoneReq[]; //[ProductServiceZoneReq], optional): 选中的可用区
 }
 class PhyMachineResourcPoolsProfile {
 	pmPoolId: string; //, optional): 资源池区域ID ,
@@ -61,7 +44,7 @@ class PhyMachineResourcPoolsProfile {
 class ProductServiceZoneReq {
 	selected: boolean; //, optional): 是否选取了zone ,
 	skuId: string; //, optional): 可用区所属SKU 的ID ,
-	storageList: PlatformDiskZoneStorageItem[]; //, optional),
+	storageList: PlatformDiskZoneStorageItem[]; //[PlatformDiskZoneStorageItem], optional),
 	zoneId: string; //, optional): 可用区ID ,
 	zoneName: string; //, optional): 可用区名称
 }
@@ -73,39 +56,38 @@ class PlatformDiskZoneStorageItem {
 	storageName: string; //, optional)
 }
 
-class SuperviseServiceDetailInfoItem {
-	description: string; //, optional): 服务描述 ,
-	platformList: PlatformSimpleItem[]; //, optional): 管理服务目录平台列表 ,
-	pmPoolList: PMResourcePool[]; //, optional): 管理服务目录物理机资源池列表 ,
-	serviceId: string; //, optional): 服务目录id ,
-	serviceName: string; //, optional): 服务目录名字 ,
-	serviceObjectCode: string; //, optional): 服务对象code
+class ShoppingCartProfile {
+	attrList: ServiceResAttributePair[];  //[], optional): 订单属性列表 ,
+	itemNo: string;  //, optional): UI为每个服务产生UUID ,
+	productId: string;  //, optional): 产品ID，UI必回传字段 ,
+	quality: number;  //, optional): 订购产品的数量 ,
+	relyItemNo: string;  //, optional): 当前服务所依赖的服务ItemNo，单次提交多个服务的时候会用到 ,
+	relyType: string;  //, optional): 当前服务所依赖的服务的类型，单次提交多个服务的时候会用到 ,
+	serviceType: string;  //, optional): 服务/产品类型，需要去检索数据字典表 ,
+	skuId: string;  //, optional): 产品SKUID，UI必回传字段 ,
+	totalPrice: number;  //, optional): 订单总价
 }
-class PlatformSimpleItem {
-	code: string; //, optional),
-	id: string; //, optional),
-	name: string; //, optional)
-}
-class PMResourcePool {
-	dataCenter: string; //, optional),
-	description: string; //, optional),
-	pmPoolId: string; //, optional),
-	poolName: string; //, optional),
-	region: string; //, optional),
-	regionId: string; //, optional)
+class ServiceResAttributePair {
+	attrCode: string;  //, optional): 服务属性Code ,
+	attrDisplayName: string;  //, optional): 服务属性页面显示的名称 ,
+	attrDisplayValue: string;  //, optional): 服务属性值显示值 ,
+	attrId: string;  //, optional): 服务属性ID ,
+	attrValue: string;  //, optional): 服务属性实际值 ,
+	attrValueCode: string;  //, optional): 服务属性值Code ,
+	attrValueId: string;  //, optional): 服务属性值ID ,
+	description: string;  //, optional): 其他描述性内容，非不要 ,
+	valueType: string;  //, optional): 0: Single Value -- 单值回传; 1: Multi Type --多值回传 ,
+	valueUnit: string;  //, optional): 服务属性值的单位
 }
 
 export {
 	ProductSimpleItem,
-	ProductNewProfile,
+	SuperviseProductItem,
 	PhyMachineAreaPoolsProfile,
-	PMPartsBase,
-	ProductEnterpiseReq,
 	ProductPlatformReq,
 	PhyMachineResourcPoolsProfile,
 	ProductServiceZoneReq,
 	PlatformDiskZoneStorageItem,
-	SuperviseServiceDetailInfoItem,
-	PlatformSimpleItem,
-	PMResourcePool
+	ShoppingCartProfile,
+	ServiceResAttributePair
 }

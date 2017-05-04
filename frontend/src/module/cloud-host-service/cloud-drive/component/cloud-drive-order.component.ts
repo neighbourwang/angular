@@ -138,16 +138,18 @@ export class cloudDriveComponentOrder implements OnInit {
 	//把payLoad转换成提交的post对象
 	private payLoadFormat(): PayLoad[] {
 
+		this.sendModule.diskinsname.attrValue = (window as any).escape(this.sendModule.diskinsname.attrDisplayValue).toLocaleLowerCase().replace(/%u/gi,'\\u');
+
 		let payloadList = [];
 		for (let v in this.sendModule) {
 			payloadList.push({
-				attrId: this.configs[v].attrId,   	//服务属性ID
-				attrCode: this.configs[v].attrCode,  	//服务属性CODE
-				attrDisplayValue: this.sendModule[v].attrDisplayValue, 	//服务属性Name
-				attrDisplayName: this.configs[v].attrDisplayName, 	//服务属性Name
-				attrValueId: this.sendModule[v].attrValueId,     	//服务属性值ID
-				attrValue: this.sendModule[v].attrValue, 	//服务属性值
-				attrValueCode: this.sendModule[v].attrValueCode, 	//服务属性值
+				attrId: this.configs[v].attrId,                       	//服务属性ID
+				attrCode: this.configs[v].attrCode,                   	//服务属性CODE
+				attrDisplayValue: this.sendModule[v].attrDisplayValue,	//服务属性Name
+				attrDisplayName: this.configs[v].attrDisplayName,     	//服务属性Name
+				attrValueId: this.sendModule[v].attrValueId,          	//服务属性值ID
+				attrValue: this.sendModule[v].attrValue,              	//服务属性值
+				attrValueCode: this.sendModule[v].attrValueCode,      	//服务属性值
 			});
 		};
 
@@ -251,7 +253,7 @@ export class cloudDriveComponentOrder implements OnInit {
 			zone: [this.sendModule.zone.attrValue, [this.v.isUnBlank], "CLOUD_DRIVE_ORDER.PLEASE_SELECT_AVAILABLE_ZONE"],
 			disktype: [this.sendModule.disktype.attrValue, [this.v.isUnBlank], "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK"],
 			storage: [this.sendModule.storage.attrValue, [this.v.isUnBlank], "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK_TYPE"],
-			diskinsname: [this.sendModule.diskinsname.attrValue, [this.v.isInstanceName, this.v.isBase], "CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_NAME_FORMAT_IS_NOT_CORRECT"]
+			diskinsname: [this.sendModule.diskinsname.attrDisplayValue, [this.v.isInstanceName, this.v.isBase], "CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_NAME_FORMAT_IS_NOT_CORRECT"]
 		}
 
 		return this.v.check(key, regs);

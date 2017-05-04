@@ -73,7 +73,7 @@ export class HostDetailComponent implements OnInit {
 
     //获取宿主机折线图数据
     getHostGraph() {
-         this.layoutService.show();
+        this.layoutService.show();
         this.service.getHostGraph(this.HostId,this.Period)
             .then(
             response => {
@@ -81,11 +81,16 @@ export class HostDetailComponent implements OnInit {
                 if (response && "100" == response["resultCode"]) {
                     this.cpuList = response["resultContent"].cpu;
                     this.memList = response["resultContent"].memory;
+                
                     this.cpuChart.SourceData = this.cpuList;
                     this.memChart.SourceData = this.memList;
+                    
                     this.getGraphData(this.cpuChart);
                     this.getGraphData(this.memChart);
-                    
+                    console.log("cpu_value", this.cpuChart.DataSets);
+                    console.log("cpu_time", this.cpuChart.Labels);
+                    console.log("mem_value", this.memChart.DataSets);
+                    console.log("mem_time", this.memChart.Labels);
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -105,7 +110,7 @@ export class HostDetailComponent implements OnInit {
         })
         chart._data = temp_value;
         chart.Labels = temp_time;
-
+        
         let _label="";
         if (chart == this.cpuChart) {
             _label = "CPU使用率";
@@ -115,7 +120,7 @@ export class HostDetailComponent implements OnInit {
 
         chart.DataSets = [{
 
-            data: this.cpuChart._data,
+            data: chart._data,
             label:_label,
             fill: true,
             lineTension: 0.1,
@@ -144,6 +149,7 @@ export class HostDetailComponent implements OnInit {
                 pointHoverBorderColor: '#6fdcd6'
             }
         ];
+     
     }
     
 

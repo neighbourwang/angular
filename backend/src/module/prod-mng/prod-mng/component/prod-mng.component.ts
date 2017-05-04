@@ -1,6 +1,3 @@
-/**
- * Created by wangyao on 2016/10/18.
- */
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -72,7 +69,8 @@ export class ProdMngComponent implements OnInit {
         this.backend(1, this.pp, {})
         this.getActivePlatform()
         this.getEnterpriseList()
-        this.getServiceList()
+        this.getServiceList();
+        this.ProdListService.productTypeDic.then(res=>console.log(res));
     }
     //获得激活云平台数据
     getActivePlatform(){

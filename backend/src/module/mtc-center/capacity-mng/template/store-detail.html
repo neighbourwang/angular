@@ -25,10 +25,10 @@
                     <td>{{storeInfo.order}}</td>
                     <td>{{storeInfo.storageName}}</td>
                     <td>{{storeInfo.displayName}}</td>
-                    <td>{{storeInfo.storageType| dict:this.service.storageTypeDic | async}}</td>
+                    <td>{{storeInfo.storageType}}</td>
                     <td>{{storeInfo.total}}</td>
                     <td>{{storeInfo.copy}}</td>
-                    <td>{{storeInfo.quota}}</td>
+                    <td>{{storeInfo.qurota}}</td>
                     <td [ngClass]="storeInfo.status==1?'font-green':'font-orange'">{{storeInfo.status| dict:this.service.statusDic | async}}</td>
                 </tr>
             </tbody>

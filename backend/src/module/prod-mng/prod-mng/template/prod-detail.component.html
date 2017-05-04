@@ -16,19 +16,20 @@
 			<div class="col-md-12">
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PROD_NAME' | translate}}：</div>
-						<!--产品名称-->
-
-						<div class="col-sm-4 form-control-title font-gray" style="text-align: left">
-							<input type="text" class="form-control" [disabled]="!editBasicInfo" [(ngModel)]="tempProductName" placeholder="{{'PROD_MNG.PROD_NAME' | translate}}">
-						</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PROD_NAME' | translate}}：</div>						
+						<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.productName}">
+						<input type="text" [(ngModel)]="tempProductName" [disabled]="!editBasicInfo" (ngModelChange)="checkForm('productName')" name="productName"
+						 placeholder="{{'PROD_MNG.PROD_NAME' | translate}}" class="form-control">
+						<span *ngIf="v.result.productName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						<div *ngIf="v.result.productName" class="alert alert-danger" role="alert">{{v.result.productName}}</div>
+					</div>
 					</div>
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
 						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT' | translate}}：</div>
 						<!--产品目录-->
-						<div class="col-sm-4 form-control-title font-gray" style="text-align: left">
+						<div class="col-sm-4 form-control-title font-gray no-padding" style="text-align: left">
 							{{prodDir.serviceName}}
 						</div>
 					</div>
@@ -37,7 +38,7 @@
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray">
+							<div class="col-sm-4 row-line-child font-gray no-padding">
 								<div class="font-gray">CPU</div>
 								<div class="last-line-child font-gray">{{prodDir?.specification?.vcpu||0}}</div>
 								<div class="last-line-child font-gray">{{'COMMON.CORE' | translate}}（vCPU）</div>
@@ -47,7 +48,7 @@
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray">
+							<div class="col-sm-4 row-line-child font-gray no-padding">
 								<div class="font-gray">{{'COMMON.RAM' | translate}}</div>
 								<div class="last-line-child font-gray">{{prodDir?.specification?.mem||0}}</div>
 								<div class="last-line-child font-gray">{{'COMMON.MB' | translate}}（MB）</div>
@@ -57,7 +58,7 @@
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray">
+							<div class="col-sm-4 row-line-child font-gray no-padding">
 								<div class="font-gray">{{'PROD_MNG.ROOT_DISK_SIZE' | translate}}</div>
 								<!--启动盘大小-->
 
@@ -71,7 +72,7 @@
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray">
+							<div class="col-sm-4 row-line-child font-gray no-padding">
 								<div class="font-gray">{{'PROD_MNG.INIT_SIZE' | translate}}</div>
 								<!--初始大小-->
 
@@ -83,7 +84,7 @@
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray">
+							<div class="col-sm-4 row-line-child font-gray no-padding">
 								<div class="font-gray">{{'COMMON.STEP' | translate}}</div>
 								<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.stepSize||0}}</div>
 								<div class="last-line-child font-gray">GB</div>
@@ -93,7 +94,7 @@
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray">
+							<div class="col-sm-4 row-line-child font-gray no-padding">
 								<div class="font-gray">{{'COMMON.MAX' | translate}}</div>
 								<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.maxSize||0}}</div>
 								<div class="last-line-child font-gray">GB</div>
@@ -103,11 +104,12 @@
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>
-						<div class="col-sm-4">
-							<textarea class="form-control font-gray" rows="4" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}" [(ngModel)]="tempProductDesc"
-							 [disabled]="!editBasicInfo"></textarea>
-						</div>
+						<div class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>						
+						<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
+						<textarea [disabled]="!editBasicInfo"  type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
+						 rows="3" [(ngModel)]="tempProductDesc" name="description">
+                            </textarea>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -122,7 +124,7 @@
     </button>
 	</div>
 	<div class="text-center" *ngIf="editBasicInfo">
-		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="this.tempProductName=this.product.name;this.tempProductDesc=this.product.desc;this.editBasicInfo=false;">
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancelBasicEdit()">
         <span class="icon-button-label">{{'COMMON.CANCEL' | translate}}</span>
     </button>
 		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="saveBasic();" style="margin-left:40px;">
@@ -200,11 +202,7 @@
 							<!--基础周期价格-->
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
 								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempBasicCyclePrice">
-							</div>
-							<!--<div class="col-sm-6">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempbBasicCyclePrice||0" #basicCyclePrice
-									(output)="outputValue($event,'basicCyclePrice')"></count-bar>
-							</div>-->
+							</div>							
 						</div>
 					</div>
 					<div class="row row-line-height">
@@ -212,11 +210,7 @@
 							<div class="col-sm-4 form-control-title">{{'PROD_MNG.INCREMENT_CYCLE_PRICE' | translate}}：</div>
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
 								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempExtendCyclePrice">
-							</div>
-							<!--<div class="col-sm-6">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempExtendCyclePrice||0" #extendCyclePrice
-									(output)="outputValue($event,'tempExtendCyclePrice')"></count-bar>
-							</div>-->
+							</div>							
 						</div>
 					</div>
 					<div class="row row-line-height">
@@ -228,10 +222,6 @@
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
 								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempOneTimePrice">
 							</div>
-							<!--<div class="col-sm-6">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempOneTimePrice||0" #oneTimePrice
-									(output)="outputValue($event,'tempOneTimePrice')"></count-bar>
-							</div>-->
 						</div>
 					</div>
 				</div>
@@ -244,11 +234,7 @@
 							</div>
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
 								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempOneTimePrice">
-							</div>
-							<!--<div class="col-sm-6">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempOneTimePrice||0" #oneTimePrice
-									(output)="outputValue($event,'tempOneTimePrice')"></count-bar>
-							</div>-->
+							</div>							
 						</div>
 					</div>
 					<div class="row row-line-height">
@@ -258,10 +244,7 @@
 							</div>
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
 								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempUnitPrice">
-							</div>
-							<!--<div class="col-sm-6">
-								<count-bar [default]=0 [step]=10 [max]=200000 [min]=0  [value]="tempUnitPrice||0" #unitPrice (output)="outputValue($event,'tempUnitPrice')"></count-bar>
-							</div>-->
+							</div>							
 						</div>
 					</div>
 				</div>

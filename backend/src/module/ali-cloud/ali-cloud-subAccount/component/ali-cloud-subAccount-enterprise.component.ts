@@ -99,15 +99,17 @@ export class AliCloudSubAccountEnterpriseComponent implements OnInit{
         }
         console.log("传的企业",entId,entName)
         if(this.account.tenantName != this.changeEntName){
-            this.noticeTitle="设置企业";
+             this.noticeTitle="ALI_CLOUD.ENTERPRISE_SET";
             if(!this.account.tenantName){
-                this.noticeMsg="企业已变更为'"+entName+"'。 确认是否保存";
+               // this.noticeMsg="企业已变更为'"+entName+"'。 确认是否保存";
+               this.noticeMsg="ALI_CLOUD.ENTERPRISE_NAME_NULL_CHANGE^^^"+entName;
             }
             else if(this.changeEntName){
-                this.noticeMsg="企业已从'"+this.account.tenantName+ "'变更为'"+entName+"'。 确认是否保存";
+               // this.noticeMsg="企业已从'"+this.account.tenantName+ "'变更为'"+entName+"'。 确认是否保存";
+                this.noticeMsg="ALI_CLOUD.ENTERPRISE_NAME_NOT_NULL_CHANGE^^^"+this.account.tenantName +'^^^'+ entName;
             }
             else{
-                this.noticeMsg="企业已重置, 确认是否保存";
+                this.noticeMsg="ALI_CLOUD.ENTERPRISE_NAME_CHANGE_NULL";//企业已重置, 确认是否保存
             }         
         }
         this.confirm.ccf = () => {};

@@ -1,0 +1,117 @@
+<div class="page-content-header icon-create-product">{{'PROD_MNG.CREATE_PRODUCT_CAT' | translate}}: {{servcieTitle | translate}}</div>
+<!--创建产品目录-->
+<div class="page-content">
+	<div class="row" style="padding-top: 30px;">
+		<div class="col-md-12">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}:</div>
+					<!--产品目录名称-->
+					<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.serviceName}">
+						<input type="text" [(ngModel)]="databaseMiddlewareService.serviceName" (ngModelChange)="checkForm('serviceName')" name="serviceName"
+						 placeholder="{{'PROD_MNG.INPUT_PRODUCT_CAT' | translate}}" class="form-control">
+						<span *ngIf="v.result.serviceName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						<div *ngIf="v.result.serviceName" class="alert alert-danger" role="alert">{{v.result.serviceName}}</div>
+					</div>
+				</div>
+			</div>
+            <div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SERVE_OBJECT' | translate}}:</div>
+					<div class="col-sm-4 form-group has-feedback no-padding">
+						<input type="text" [(ngModel)]="serveObjName"  name="serveObjName" class="form-control" disabled>						
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div for="firstname" class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}:</div>
+					<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
+						<textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
+						 rows="3" [(ngModel)]="databaseMiddlewareService.desc" name="description">
+                            </textarea>
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height" *ngIf="databaseMiddlewareService.serverType=='2'">
+				<div class="form-group">
+					<div for="firstname" class="col-sm-4 form-control-title" style="cursor:pointer;">{{'选择可用资源池' | translate}}:</div>
+					<div class="col-sm-4">
+					</div>
+				</div>
+			</div>
+			<div class="row" *ngIf="databaseMiddlewareService.serverType=='2'">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-5 no-padding">
+					<div style="border:1px solid #cfd8e7">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th class="check-box-col">
+										<input class="fox-cloud-checkbox" type="checkbox" [checked]="allSelected" (click)="selectAll(resourcePooList)" />
+										{{'COMMON.SELECT_ALL'| translate}}</th>
+									<th>{{'资源池' | translate}}</th>
+									<th>{{'描述' | translate}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let resourcePool of resourcePooList; let idx = index;">
+									<td>
+										<input class="fox-cloud-checkbox" type="checkbox" [checked]="resourcePool.selected" [(ngModel)]="resourcePool.selected" (click)="selectOne(idx,resourcePooList)"
+										/>
+									</td>
+									<td>{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>
+									<td>{{resourcePool.description}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+            <div class="row row-line-height" *ngIf="databaseMiddlewareService.serverType!='PrivateCloud'">
+				<div class="form-group">
+					<div for="firstname" class="col-sm-4 form-control-title" style="cursor:pointer;">{{'选择可用平台' | translate}}:</div>
+					<div class="col-sm-4">
+					</div>
+				</div>
+			</div>
+            <div class="row" *ngIf="">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-5 no-padding">
+					<div style="border:1px solid #cfd8e7">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th class="check-box-col">
+										<input class="fox-cloud-checkbox" type="checkbox" [checked]="allSelected" (click)="selectAll(_platformlist)" />
+										{{'COMMON.SELECT_ALL'| translate}}</th>
+									<th>{{'平台名称' | translate}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr  *ngFor="let plateform of _platformlist; let idx=index">
+									<td>
+										<input class="fox-cloud-checkbox" type="checkbox" [checked]="plateform.selected" [(ngModel)]="plateform.selected" (click)="selectOne(idx,_platformlist)"
+										/>
+									</td>
+									<td>{{plateform.platformName}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="text-center mgt30">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">{{'NET_MNG_OPENSTACK.CNACLE' | translate}}</span>
+    </button>
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onCreateService();" style="margin-left:20px">
+        <span class="icon-button-label">{{'PHY_MNG_POOL.CREATE' | translate}}</span><!--创建-->
+    </button>
+</div>
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>

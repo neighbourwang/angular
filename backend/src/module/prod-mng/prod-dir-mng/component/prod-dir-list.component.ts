@@ -294,6 +294,7 @@ export class ProdDirListComponent implements OnInit {
     }
 
     servObjCode: string = 'MAINFRAME';//服务对象code值;
+    serverTypeCode:string='PrivateCloud';//服务器类型code
     otcreate() {
         if (this.prodDirTypeCode == 'VITRUALMACHINE_SERVICE') {
             if (this.prodDirSpec.cpu) {
@@ -312,14 +313,18 @@ export class ProdDirListComponent implements OnInit {
         } else if (this.prodDirTypeCode == 'SUPERVISE_SERVICE') {
             this.service.dictServiceObjList.then(arrs => {
                 if (!$.isArray(arrs)) return "";  //如果不是arr返回空
-                    console.log(arrs);                
+                    // console.log(arrs);                
                 arrs = arrs.filter(arr => arr.code == this.servObjCode); //过滤字典
                 if (arrs.length) {   //是否取到了值
-                    console.log(arrs[0]);
+                    // console.log(arrs[0]);
                     this.router.navigate(["prod-mng/manager-serve/manager-serve-service-cre", { type: 'new' ,code:arrs[0].value,objName:arrs[0].displayValue}]);                   
                 }
                 return "";
             });
+        }else if(this.prodDirTypeCode=='Database'||this.prodDirTypeCode=='MiddleWare'){
+            console.log(this.serverTypeCode);
+            console.log(this.service.serverTypeDic);
+            this.router.navigate(['prod-mng/database-middleware-mng/database-middleware-service-cre',{type:this.prodDirTypeCode,code:this.serverTypeCode}])
         }
     }
     //去编辑详情
@@ -331,7 +336,6 @@ export class ProdDirListComponent implements OnInit {
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre", { id: item.serviceId, type: 'edit' }]);
         }
     }
-
     //获取列表数据
     backend(data) {
         this.layoutService.show();

@@ -1025,7 +1025,7 @@
     "NO_SYNC_ZONES": "There is no sync available area information at this time",
     "PASSWORD_REQUIRED": "Please input the password",
     "PLATFORM_NAME_REQUIRED": "Please input the platform name",
-    "PLATFORM_REQUIRED": "Please input the platform",
+    "PLATFORM_NAME_ERROR": "platform name input error",
     "PLATFORM_TYPE_REQUIRED": "Please choose the platform type",
     "REGION_REQUIRED": "Please choose the region",
     "RESOURCE_SYNC": "Resource synchronization",
@@ -1218,7 +1218,8 @@
     "MANAGER_SERVICE":"manager service",
     "SERVE_OBJECT":"serve object",
     "NOT_ALLOW_TO_DELETE_PRODUCT_CAT_WITH_PRODUCT":"bot allow delete a product service with product",
-    "SELECT_PRODUCT_CAT":"please select a product service"
+    "SELECT_PRODUCT_CAT":"please select a product service",
+    "SELECT_RESOURCE_POOL":"please select a resource pool"
 
 
   },

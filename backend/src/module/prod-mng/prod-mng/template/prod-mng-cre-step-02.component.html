@@ -1,11 +1,11 @@
-<div class="page-content-header icon-create-product">创建产品</div>
+<div class="page-content-header icon-create-product">{{'PROD_MNG.CREATE_PRODUCT'| translate}}</div>
 <!--创建产品-->
 <div class="page-content fix-page-content">
     <div class="row navigator-progress">
-        <div class="col-md-3"><span class="mark">1</span><span>基本信息<!--基本信息--></span><span class="icon-tick"></span></div>
-        <div class="col-md-3 active"><span class="mark">2</span><span>计价方式<!--资源同步--></span></div>
-        <div class="col-md-3"><span class="mark">3</span><span>选择平台</span></div>
-        <div class="col-md-3"><span class="mark">4</span><span>选择企业</span></div>
+        <div class="col-md-3"><span class="mark">1</span><span>{{'COMMON.BASIC_INFO'|translate}}<!--基本信息--></span><span class="icon-tick"></span></div>
+        <div class="col-md-3 active"><span class="mark">2</span><span>{{'PROD_MNG.COUNT_MODE'|translate}}<!--资源同步--></span></div>
+        <div class="col-md-3"><span class="mark">3</span><span>{{'PROD_MNG.PLATFORM_INFO'|translate}}</span></div>
+        <div class="col-md-3"><span class="mark">4</span><span>{{'NET_MNG_VM_DBT_PORT.SELECT_ENTERPRISE'|translate}}</span></div>
     </div>
     <div class="step-progress">
         <div class="fox-cloud-progress-rectangle progress-striped">
@@ -80,7 +80,7 @@
                     <div class="col-sm-4 form-control-title">{{'PROD_MNG.BASIC_CYCLE_PRICE' | translate}}：</div>
                     <!--基础周期价格-->
                     <div class="col-sm-6">
-                        <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.basicCyclePrice||0" #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
+                        <count-bar [default]=0 [decimal]=true [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.basicCyclePrice||0" #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'PROD_MNG.INCREMENT_CYCLE_PRICE' | translate}}：</div>
                     <div class="col-sm-6">
-                        <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.extendCyclePrice||0" #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
+                        <count-bar [default]=0 [decimal]=true [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.extendCyclePrice||0" #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@
                         <!--一次性价格-->
                     </div>
                     <div class="col-sm-6">
-                        <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
+                        <count-bar [default]=0 [decimal]=true [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                         <!--一次性价格-->
                     </div>
                     <div class="col-sm-6">
-                        <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
+                        <count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
                     </div>
                 </div>
             </div>
@@ -122,7 +122,7 @@
                         <!--单位价格-->
                     </div>
                     <div class="col-sm-6">
-                        <count-bar [default]=0 [step]=10 [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.unitPrice||0" #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
+                        <count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=false [value]="this.service.product.unitPrice||0" #unitPrice (output)="outputValue($event,'unitPrice')"></count-bar>
                     </div>
                 </div>
             </div>

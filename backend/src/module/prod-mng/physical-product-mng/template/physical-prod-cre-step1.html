@@ -1,10 +1,10 @@
-<div class="page-content-header icon-create-product">创建产品</div><!--创建产品-->
+<div class="page-content-header icon-create-product">{{'PROD_MNG.CREATE_PRODUCT'| translate}}</div><!--创建产品-->
 <div class="page-content fix-page-content">
     <div class="row navigator-progress">
-        <div class="col-md-3 active"><span class="mark">1</span><span>基本信息<!--基本信息--></span></div>
-        <div class="col-md-3"><span class="mark">2</span><span>计费方式</span></div>
-        <div class="col-md-3"><span class="mark">3</span><span>选择资源池</span></div>
-        <div class="col-md-3"><span class="mark">4</span><span>选择企业</span></div>
+        <div class="col-md-3 active"><span class="mark">1</span><span>{{'COMMON.BASIC_INFO'|translate}}<!--基本信息--></span></div>
+        <div class="col-md-3"><span class="mark">2</span><span>{{'PROD_MNG.COUNT_MODE'|translate}}</span></div>
+        <div class="col-md-3"><span class="mark">3</span><span>{{'PROD_MNG.SELECT_RESOURCE_POOL' | translate}}</span></div>
+        <div class="col-md-3"><span class="mark">4</span><span>{{'NET_MNG_VM_DBT_PORT.SELECT_ENTERPRISE'|translate}}</span></div>
     </div>
     <div class="step-progress">
         <div class="fox-cloud-progress-rectangle progress-striped">
@@ -16,7 +16,7 @@
         <div class="col-md-12">
             <div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品名称：</div><!--产品名称-->
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PROD_NAME'|translate}}：</div><!--产品名称-->
 					<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.serviceName}">
 						<input type="text" [(ngModel)]="service.product.name" (ngModelChange)="checkForm('productName')" name="productName"
 						 placeholder="{{'PROD_MNG.PROD_NAME' | translate}}" class="form-control">
@@ -27,7 +27,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>产品目录：</div><!--产品目录-->
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT'|translate}}：</div><!--产品目录-->
 					<div class="col-sm-4 no-padding">
 						<input type="text" class="form-control" disabled [(ngModel)]="service.physicalService.serviceName">
 					</div>
@@ -58,7 +58,7 @@
 										<td>{{unit.specName}}</td>
 										<td>
 											{{unit.partsFlavorValue}}
-											<span *ngIf="unit.partsId=='2eeb0a38-167e-11e7-91af-0242ac110002'||unit.partsId=='35dc99bd-167e-11e7-91af-0242ac110002'">GB</span>
+											<span *ngIf="unit.partsName=='磁盘'||unit.partsName=='内存'">GB</span>
 										</td>
 										<td>{{unit.partFlavorNum}}</td>
 										<td>

@@ -15,6 +15,7 @@ import { ClMngCreStep1Service } from '../service/cl-mng-cre-step-1.service';
 import { ClMngCommonService } from '../service/cl-mng-common.service';
 
 import { ClMngIdService } from '../service/cl-mng-id.service';
+import { Validation, ValidationRegs } from '../../../../architecture';
 
 
 @Component({
@@ -26,7 +27,7 @@ import { ClMngIdService } from '../service/cl-mng-id.service';
             background-color: #00a982;
             color : #fff
         }`
-    ],    
+    ],
     providers: []
 })
 
@@ -43,8 +44,11 @@ export class ClMngCreStep1Component implements OnInit {
         private service: ClMngCreStep1Service,
         private layoutService: LayoutService,
         private idService: ClMngIdService,
-        private commonService: ClMngCommonService
-    ) { }
+        private commonService: ClMngCommonService,
+        private v: Validation
+    ) {
+        this.v.result = {}
+    }
     @ViewChild('notice')
     notice: NoticeComponent;
 
@@ -86,7 +90,6 @@ export class ClMngCreStep1Component implements OnInit {
             )
         this.creStep1Model.supportChange = false;
     }
-    // 下一步
     ccf() { }
     //获取platformRegionList
     // platFormRegionList:;
@@ -118,7 +121,19 @@ export class ClMngCreStep1Component implements OnInit {
             )
 
     }
-    next() {        
+    //表单验证
+    checkForm(key?: string) {
+        let regs: ValidationRegs = {  //regs是定义规则的对象
+            name: [this.creStep1Model.name, [this.v.isBase, this.v.isUnBlank,this.v.maxLength(50)], "PF_MNG2.PLATFORM_NAME_ERROR"],
+            dataCenter: [this.creStep1Model.dataCenter, [this.v.isUnBlank], "PF_MNG2.DATA_CENTER_REQUIRED"],
+        }
+        console.log(this.v.check(key, regs));
+        return this.v.check(key, regs);
+    }
+    // 下一步    
+    next() {
+        let nameValid = this.checkForm();
+        if (nameValid) return;
         let message: String = this.checkValue();
         if (this.checkValue()) {
             this.notice.open('COMMON.ERROR', message);
@@ -152,9 +167,9 @@ export class ClMngCreStep1Component implements OnInit {
                                 res => {
                                     this.layoutService.hide();
                                     this.idService.setPlatformId(res.resultContent);
-                                    if(this.creStep1Model.platformType == '2'){
-                                        this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);                                        
-                                    }else{
+                                    if (this.creStep1Model.platformType == '2') {
+                                        this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: this.creStep1Model.platformType }]);
+                                    } else {
                                         this.router.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step2", { type: this.creStep1Model.platformType }]);
                                     }
                                 }
@@ -171,7 +186,7 @@ export class ClMngCreStep1Component implements OnInit {
                         // this.notice.open('COMMON.ERROR',"PF_MNG2.PLATFORM NAME"+" '"+this.creStep1Model.name+"' "+"PF_MNG2.EXISTS");
                         this.notice.open('COMMON.ERROR', "PF_MNG2.PLATFORM_NAME_EXISTS");
                     }
-                this.layoutService.hide();                    
+                    this.layoutService.hide();
                 }
             }).catch(err => {
                 console.log(err);
@@ -194,8 +209,8 @@ export class ClMngCreStep1Component implements OnInit {
             index == 3 ? '4' : '6';
         this.creStep1Model.platformType = item.value;
         console.log(item);
-        item.code=
-            item.code=='Desktop Vmware'?"VMWARE_DESKTOP":item.code;
+        item.code =
+            item.code == 'Desktop Vmware' ? "VMWARE_DESKTOP" : item.code;
         this.creStep1Model.version = '';
         index != 1 && this.commonService.getVersion(item.code).then(
             res => {
@@ -214,12 +229,12 @@ export class ClMngCreStep1Component implements OnInit {
     // 验证字段
     checkValue(): String {
         console.log(this.creStep1Model);
-        if (!this.creStep1Model.name) {
-            return 'PF_MNG2.PLATFORM_NAME_REQUIRED';
-        }
-        if (!this.creStep1Model.dataCenter) {
-            return 'PF_MNG2.DATA_CENTER_REQUIRED';
-        }
+        // if (!this.creStep1Model.name) {
+        //     return 'PF_MNG2.PLATFORM_NAME_REQUIRED';
+        // }
+        // if (!this.creStep1Model.dataCenter) {
+        //     return 'PF_MNG2.DATA_CENTER_REQUIRED';
+        // }
         if (!this.creStep1Model.regionId) {
             return 'PF_MNG2.REGION_REQUIRED';
         }

@@ -99,14 +99,14 @@
 					</div>
 					<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index">
 						<div class="col-sm-4 oneChild">
-							<p class="no-padding" style="line-height:34px">{{plateform.platformName}}</p>
+							<p class="no-padding" style="line-height:34px" [title]="plateform.platformName">{{plateform.platformName}}</p>
 						</div>
 						<div class="col-sm-8">
 							<div class="row wyLine-height"  *ngFor='let zone of plateform.platformInfo'>
-								<div class="col-sm-4" style="line-height: 34px">{{zone.zoneName}}</div>
+								<div class="col-sm-4 no-nowrap" style="line-height: 34px" [title]="zone.zoneName">{{zone.zoneName}}</div>
 								<div class="col-md-8">
 									<div class="row" *ngFor="let storage of zone.storageItem" style="line-height: 34px">
-										<div class="col-md-8">{{storage.storageName}}</div>
+										<div class="col-md-8 no-nowrap" [title]="storage.storageName">{{storage.storageName}}</div>
 										<div class="col-md-4">
 											<input type="checkbox" class="fox-cloud-checkbox"  [(ngModel)]="storage.selected" [disabled]="storage.disable" name="storageSelected" (change)="storage.selected=!storage.selected">											
 										</div>

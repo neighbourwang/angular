@@ -56,8 +56,60 @@
 								<!--<ul *ngIf="item.serviceType>1">
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}：&nbsp;&nbsp;{{spec.attrDisplayValue}}</li>
 								</ul>-->
-								<vm-view [values]="item" *ngIf="item.serviceType==0"></vm-view>
-								<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view>
+								<machine-view  [values]="item" *ngIf="item.serviceType==4"></machine-view>
+								<a *ngIf="item.serviceType==4" class="hands" [popover]="popover">点击查看部件信息</a><!--物理机-->
+								<popover-content #popover placement="right"[animation]="true" [closeOnClickOutside]="true">
+									<div class="table-container mgb20">
+										<table class="table table-bordered mgb20 text-center inner-table">
+											<thead>
+													<th>部件名称</th>
+													<th>规格</th>
+													<th>规格值</th>
+													<th>数量</th>
+													<th>总容量</th>
+											</thead>
+											<tbody>
+												<tr>
+													<td>磁盘</td>
+													<td>SSD</td>
+													<td>100GB</td>
+													<td>2</td>
+													<td>128GB</td>
+												</tr>		
+											</tbody>
+										</table>
+									</div>
+						
+								</popover-content>
+
+								<a *ngIf="item.serviceType==2" class="hands" [popover]="osPopover">点击查看实例详情</a><!--管理服务-->
+								<popover-content #osPopover placement="right"[animation]="true" [closeOnClickOutside]="true">
+									<div class="table-container mgb20">
+										<table class="table table-bordered mgb20 text-center inner-table">
+											<thead>
+													<th>部件名称</th>
+													<th>规格</th>
+													<th>规格值</th>
+													<th>数量</th>
+													<th>总容量</th>
+											</thead>
+											<tbody>
+												<tr>
+													<td>磁盘</td>
+													<td>SSD</td>
+													<td>100GB</td>
+													<td>2</td>
+													<td>128GB</td>
+												</tr>		
+											</tbody>
+										</table>
+									</div>
+						
+								</popover-content>
+								<span *ngIf="item.serviceType==2">备注信息：显示购买时的备注信息</span>
+
+								<vm-view [values]="item" *ngIf="item.serviceType==0"></vm-view><!--云主机-->
+								<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view><!--云硬盘-->
 							</td>
 							<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 							<td class="text-center">{{item.quantity}}台</td>
