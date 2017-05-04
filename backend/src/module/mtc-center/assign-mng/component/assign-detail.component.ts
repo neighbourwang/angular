@@ -112,7 +112,7 @@ export class AssignDetailComponent implements OnInit {
 
         chart.DataSets = [{
 
-            data: this.cpuChart._data,
+            data: chart._data,
             label:_label,
             fill: true,
             lineTension: 0.1,
