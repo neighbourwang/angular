@@ -6,13 +6,22 @@ import * as _ from 'underscore';
 	selector:'vm-view'
 	,template:`
 	<ul>		
-		<li>区域: {{_obj.platform}}</li>
-		<li>{{ 'COMMON.AVAILABLE_ZONE' | translate }}: {{_obj.zone}}</li>
-		<li>实例规格: CPU:{{_obj.cpu}}/内存：{{_obj.mem}}/启动盘：{{_obj.bootstorage}}</li>
-		<li>IP地址: {{_obj.privateIp}}{{_obj.publicIp}}</li>
-		<li>操作系统:{{_obj.osType}}</li>
-		<li>密码: {{_obj.password}}</li>
-		<li>实例名称: {{_obj.instanceName}}</li>
+		<li *ngIf="_obj.platform">区域: {{_obj.platform}}</li>
+
+		<li *ngIf="_obj.zone">{{ 'COMMON.AVAILABLE_ZONE' | translate }}: {{_obj.zone}}</li>
+
+		<li *ngIf="_obj.cpu&&_obj.mem&&_obj.bootstorage">实例规格: 
+		<span *ngIf="_obj.cpu">CPU:{{_obj.cpu}}/</span> 
+		<span *ngIf="_obj.mem">内存：{{_obj.mem}}/</span> 
+		<span *ngIf="_obj.bootstorage">启动盘：{{_obj.bootstorage}}</span></li>
+
+		<li *ngIf="_obj.privateIp||_obj.publicIp">IP地址:{{_obj.privateIp}} {{_obj.publicIp}}</li>
+
+		<li *ngIf="_obj.osType">操作系统:{{_obj.osType}}</li>
+
+		<li *ngIf="_obj.password">密码: {{_obj.password}} </li>
+		
+		<li *ngIf="_obj.instanceName">实例名称: {{_obj.instanceName}}</li>
 	</ul>
 	`
 })
