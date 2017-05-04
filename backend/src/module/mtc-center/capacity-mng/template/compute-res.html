@@ -35,7 +35,7 @@
     <div class="row row-line-height" >
         <div class="col-md-2 form-control-title">{{'CAPACITY_MNG.AVAILABLE_ZONE_INFO'|translate}}:</div><!--可用区信息-->
         <div class="col-md-8" style="letter-spacing:2px;font-size:16px;"> <!--style="letter-spacing:2px;font-size:16px;"-->
-            <div class="row row-line-height" >
+            <div class="row row-line-height" style="margin-top:-4px;">
                 <div class="col-md-3 text-right" style="width:178px;">{{'CAPACITY_MNG.PHYSICAL_CPU_CORE_NUMBER'|translate}}：</div><!--物理CPU总核数-->
                 <div class="col-md-2">{{zoneResInfo.cpu}}&nbsp;{{'CAPACITY_MNG.CORE'|translate}}</div>               
                 <div class="col-md-2 text-right">{{'CAPACITY_MNG.CPU_EXCEEDING_RATIO'|translate}}：</div><!--超分比-->
@@ -216,8 +216,9 @@
                             <span class="progress-value">{{host.memPercent}}%</span>
                         </div>
                     </td>
-                    <td [ngClass]="host.running==1?'font-green':'font-orange'">{{host.running| dict:this.service.runningDic | async}}</td>
                     <td [ngClass]="host.status==1?'font-green':'font-orange'">{{host.status| dict:this.service.statusDic | async}}</td>
+                    <td [ngClass]="host.running==1?'font-green':'font-orange'">{{host.running| dict:this.service.runningDic | async}}</td>
+                    
                 </tr>
             </tbody>
         </table>
