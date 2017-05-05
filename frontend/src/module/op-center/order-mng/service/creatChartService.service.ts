@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestApiCfg, RestApi } from '../../../../architecture';
 import { RestApiModel } from '../../../../architecture/core/model/rest';
-import { Chart1 } from '../model';
+import { Chart } from '../model';
 import { LayoutService, ValidationService, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import 'rxjs/add/operator/toPromise';
 import * as _ from 'underscore';
@@ -9,10 +9,10 @@ import * as _ from 'underscore';
 @Injectable()
 export class CreatChartService{
 
-    private sumchart = new Chart1();
-    private historychart = new Chart1();
-    private topchart = new Chart1();
-    private topIncreasechart = new Chart1();
+    private sumchart = new Chart();
+    private historychart = new Chart();
+    private topchart = new Chart();
+    private topIncreasechart = new Chart();
 	constructor(
 		private restApiCfg:RestApiCfg,
 		private restApi:RestApi,
@@ -23,7 +23,7 @@ export class CreatChartService{
 		
 	}
     creatSumChart(){
-        let sumchart = new Chart1();
+        let sumchart = new Chart();
         let type = 'doughnut';
         let datasets = [{
                         data: [100,200,400,500,250],
@@ -204,7 +204,7 @@ export class CreatChartService{
 
 
 
-    toSumDatas(source:any,target:Chart1){
+    toSumDatas(source:any,target:Chart){
         let datas:Array<number>=[];
         let labels:Array<string>=[];
         if(source){
@@ -229,7 +229,7 @@ export class CreatChartService{
   }
 
   
-    toHistoryData(source:Array<any>,_source:Array<any>,target:Chart1){
+    toHistoryData(source:Array<any>,_source:Array<any>,target:Chart){
         let datas:Array<number>=[];
         let _datas:Array<number>=[];
         let labels :Array<string>=[];
@@ -265,7 +265,7 @@ export class CreatChartService{
         target.labels = labels;
     }
 
-    topToDatas(source:Array<any>,target:Chart1){
+    topToDatas(source:Array<any>,target:Chart){
         let datas:Array<number> = [];
         let labels:Array<string>=[];
         if(source.length>0){

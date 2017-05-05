@@ -2,7 +2,7 @@
 import { Input,Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent, DicLoader,ItemLoader,RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { SearchOrderDetail, AdminListItem, DepartmentItem
+import { PhysicalMachine,SearchOrderDetail, AdminListItem, DepartmentItem
 	, Platform, ProductType, SubRegion
 	, OrderMngParam,SubInstanceResp
 	,SearchOrderItem
@@ -68,6 +68,7 @@ export class OrderMngSearchComponent implements OnInit{
 				for(let i = 0; i < obj.subInstanceList.length; i++)
 				{
 					obj.subInstanceList[i] = _.extendOwn(new SubInstanceItemResp1(), item.subInstanceList[i]);
+					
 				}
 		 	}
 	    }
@@ -79,6 +80,11 @@ export class OrderMngSearchComponent implements OnInit{
 
 			this._productTypeDic.UpdateWithDic([firstItem], 'productTypeName', 'productType');
 			this._productTypeDic.UpdateWithDic(firstItem.subInstanceList, 'serviceTypeName', 'serviceType');
+
+			for(let item of firstItem.subInstanceList[0].pmEntity.partsEntitys){
+				if(item.partsName=='磁盘'||item.partsName=='内存')
+					item.capacity = Number(item.number)*Number(item.specValue);
+			}
 
 		}
 		this._orderDetailLoader.FirstItem = new SearchOrderDetail();

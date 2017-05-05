@@ -12,7 +12,7 @@
 					<div class="col-md-2 content-title">{{'COMMON.CLOUD_PLATFORM'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label *ngFor="let value of configs.platform.valueList;" id="location_{{value.attrValueCode}}" (click)="sendModule.platform = value;setDiskPrice();" class="btn btn-default" [ngClass]="{'active': sendModule.platform.attrValueId === value.attrValueId}">
-							<input type="radio" name="location" autocomplete="off" > {{ value.attrDisplayValue }}
+							<input type="radio" name="location" autocomplete="off" value="{{value.attrValueCode}}"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">{{'COMMON.AVAILABLE_ZONE'| translate}}</div>
@@ -21,7 +21,7 @@
 							*ngFor="let value of rely('zone')"
 							(click)="sendModule.zone = value;setDiskPrice();" 
 							class="btn btn-default" [ngClass]="{'active': sendModule.zone.attrValueId === value.attrValueId}" id="zone_{{value.attrValueCode}}"> 
-							<input type="radio" name="zone" autocomplete="off" > {{ value.attrDisplayValue }}
+							<input type="radio" name="zone" autocomplete="off" value="{{value.attrValueCode}}"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2"></div>
@@ -37,7 +37,7 @@
 					<div class="col-md-2 content-title">{{'COMMON.CLOUD_HARD_DISK'| translate}}</div>
 					<div class="col-md-10 btn-group" id="cloud-desk">
 						
-						<button class="btn btn-default active">{{'CLOUD_DRIVE_ORDER.BLANK_DISK'| translate}}</button>
+						<button class="btn btn-default active" id="black_desk">{{'CLOUD_DRIVE_ORDER.BLANK_DISK'| translate}}</button>
 						<!-- <ng-container *ngFor="let value of configs.disktype.valueList;">
 							<button 
 								[popover]="value.attrValue=='0' ? null : myPopover"
@@ -57,7 +57,7 @@
 					      		*ngFor="let value of rely('storage')" 
 					      		(click)="sendModule.storage = value;setDiskPrice();" 
 					      		class="btn btn-default" [ngClass]="{'active': sendModule.storage.attrValueId === value.attrValueId}" id="storage_{{value.attrValue}}">
-					      		<input type="radio" name="storage" autocomplete="off">{{ value.attrDisplayValue }}
+					      		<input type="radio" name="storage" autocomplete="off" value="{{value.attrValue}}">{{ value.attrDisplayValue }}
 					      	</label>
 					</div>	
 					<div class="col-md-12 no-padding mgb20">

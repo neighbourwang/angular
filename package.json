@@ -15,7 +15,12 @@
     "release:all:oldqa" : "npm run release:backend:oldqa && npm run release:frontend:oldqa",
     "release:all": "npm run release:all:oldqa && npm run release:all:qa && npm run release:all:dev",
 
+    "release:frontend:WH": "cd frontend  && npm run build && cd ../frontend-portal && npm run build && fis3 release frontendWHDev -f ../fis-conf.js",
+    "release:backend:WH": "cd backend  && npm run build && cd ../backend-portal && npm run build && fis3 release backendWHDev -f ../fis-conf.js",
+    "release:all:WH" : "npm run release:backend:WH && npm run release:frontend:WH",
+
     "release:test": "fis3 release frontendOldTest -f ./fis-conf.js",
+
 
     "build:frontend:boeprod": "cd frontend  && npm run build:boeprod  && cd ../frontend-portal && npm run build:boeprod && fis3 release frontendBoeProd -f ../fis-conf.js",
     "build:backend:boeprod": "cd backend  && npm run build:boeprod  && cd ../backend-portal && npm run build:boeprod && fis3 release backendBoeprod -f ../fis-conf.js",

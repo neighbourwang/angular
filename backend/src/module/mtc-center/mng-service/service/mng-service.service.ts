@@ -31,10 +31,19 @@ export class MngService {
         field: "SEARCH"
     });
 
+    statusDic= this.dict.get({
+        owner: "SUPERVISE_SERVICE",
+        field: "STATUS"
+    });
+
     //获取企业下拉列表
     getEnterprises(): Promise<any>{
         const api = this.restApiCfg.getRestApi("mtc-center.mng-service.enterprise");
-        console.log("searchDic",this.searchDic);
+        return this.restApi.request(api.method, api.url, null, null,null  );
+    }
+
+    getServiceNameList(): Promise<any>{
+        const api = this.restApiCfg.getRestApi("mtc-center.mng-service.servicename");
         return this.restApi.request(api.method, api.url, null, null,null  );
     }
 
@@ -65,30 +74,20 @@ export class MngService {
 
     }
 
-    serviceFollow(serviceId: string, Info: string): Promise<any>{
-        const pathParams=[
-            {
-                key:"serviceId",
-                value: serviceId
-            }
-        ];
+    serviceFollow(productId: string, Info: string): Promise<any>{
         const api = this.restApiCfg.getRestApi("mtc-center.mng-service.followservice");
-        return this.restApi.request(api.method, api.url, pathParams, null,Info
-  /*          {
-                "followInfo": Info
-            }*/);
+        return this.restApi.request(api.method, api.url, null, null,
+            {
+                "productId": productId,
+                "updateInfo": Info
+            });
     }
 
-    serviceUpdate(serviceId: string, Info: string): Promise<any>{
-        const pathParams=[
-            {
-                key:"serviceId",
-                value: serviceId
-            }
-        ];
+    serviceUpdate(productId: string, Info: string): Promise<any>{
         const api = this.restApiCfg.getRestApi("mtc-center.mng-service.updateservice");
-        return this.restApi.request(api.method, api.url, pathParams, null,
+        return this.restApi.request(api.method, api.url, null, null,
             {
+                "productId": productId,
                 "updateInfo": Info
             });
     }
