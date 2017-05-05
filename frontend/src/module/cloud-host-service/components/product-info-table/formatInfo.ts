@@ -73,7 +73,7 @@ export class formatInfo implements PipeTransform {
 			let {iloIPAddress, priIPAddr} = obj.pmEntity
 			let getValue = (code, unit = "") => {
 				let values = obj.pmEntity.partsEntitys.filter(parts=> parts.partsName === code)
-				return values.length ? `${values[0].specName} ${values[0].specValue}${unit}*${values[0].number}` : ""
+				return values.length ? values.map( valuse => `${valuse.specName} ${valuse.specValue}${unit}*${valuse.number}`).join("<br />") : ""
 			}
 			arr = [
 				{
