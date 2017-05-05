@@ -2751,6 +2751,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/enterprises/simple"
     },
     {
+        "desc": "管理服务名称下拉框",
+        "id": "mtc-center.mng-service.servicename",
+        "method": "GET",
+        "url": "servicemgmt/authsec/services/supervise/operation/simple"
+    },
+    {
         "desc": "管理服务列表",
         "id": "mtc-center.mng-service.list",
         "method": "POST",
@@ -2765,14 +2771,14 @@ export let RestApis: RestApiModel[] = [
     {
         "desc": "服务跟进",
         "id": "mtc-center.mng-service.followservice",
-        "method": "GET",
-        "url": "servicemgmt/authsec/services/supervise/followservice/{serviceId}"
+        "method": "POST",
+        "url": "productmgmt/authsec/services/supervise/followservice"
     },
     {
         "desc": "服务更新",
         "id": "mtc-center.mng-service.updateservice",
-        "method": "GET",
-        "url": "servicemgmt/authsec/services/supervise/updatestatus/{serviceId}"
+        "method": "POST",
+        "url": "productmgmt/authsec/services/supervise/updatestatus"
     },
     {
         "desc": "服务详情",
