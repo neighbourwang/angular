@@ -34,6 +34,11 @@ releaseServer("frontendTest", "/root/nginx/foxcloud/frontend", RegFrontend, "15.
 releaseServer("frontendOldTest", "/etc/nginx/foxcloud/frontend", RegFrontend, "16.187.145.145:8999");
 
 
+// 发布到武汉环境
+releaseServer("frontendWHDev", "/etc/nginx/foxcloud/mpp", RegFrontend, "16.187.145.153:8999");
+releaseServer("backendWHDev", "/etc/nginx/foxcloud/adm", RegBackend, "16.187.145.153:8999");
+
+
 //boe开发环境发布到本地
 releaseToLocal("backendBoeprod", '../foxcloud-dist/boeprod/backend', RegBackend);
 releaseToLocal("frontendBoeProd", '../foxcloud-dist/boeprod/frontend', RegFrontend);
