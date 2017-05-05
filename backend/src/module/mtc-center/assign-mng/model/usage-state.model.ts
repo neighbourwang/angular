@@ -6,7 +6,7 @@ export class UsageState {
     flavor: Array<FlavorModel>;
 }
 export class ItemModel {
-    number: string;
+    num: string;
     level1: string;
     level2: string;
     level3: string;
@@ -16,6 +16,7 @@ export class PowerStatModel {
     active: string;
     shutoff: string;
     reboot: string;
+    pause: string;
 }
 
 export class FlavorModel {

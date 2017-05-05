@@ -79,9 +79,10 @@ export class AssignMngComponent implements OnInit {
         this.getCloudHostSpec();
         console.log('云主机状态', this.service.powerStatusDic);
         console.log('period', this.service.peridDic);
+        console.log('top', this.service.topDic);
         this.reset();
-        this.getUsageState();
-        this.getHyperList();
+        //this.getUsageState();
+        //this.getHyperList();
     }
 
     //获取企业联动列表
@@ -148,7 +149,7 @@ export class AssignMngComponent implements OnInit {
                     this.cpuInfo = response["resultContent"].cpu;
                     this.memInfo = response["resultContent"].mem;
                     this.powerStat = response["resultContent"].powerStat;
-                    this.flavorList = response["resultContent"].flavor;
+                    //this.flavorList = response["resultContent"].flavor;
 
                     //数据处理
                     this.getGraphData(this.cpuChart, this.cpuInfo);
@@ -191,7 +192,7 @@ export class AssignMngComponent implements OnInit {
 
     //确认
     confirm() {
-        this.queryOpt.enterpriseID = this.selectedEnt.enterpriseId;
+        this.queryOpt.enterpriseId = this.selectedEnt.enterpriseId;
         this.queryOpt.departmentId = this.selectedDept.departmentId;
         this.queryOpt.platformId = this.selectedPlf.platformId;
         this.queryOpt.regionId = this.selectedRegion.regionId;
@@ -211,7 +212,7 @@ export class AssignMngComponent implements OnInit {
         this.queryOpt.powerStatus = '0';
         this.queryOpt.flaovarId = 'all';
         this.queryOpt.rate = '1';
-        this.queryOpt.top = '1';
+        this.queryOpt.top = 'all';
         this.queryOpt.period = '1';
     }
 

@@ -26,6 +26,10 @@ export class AssignMngService {
         owner: "MAINTAIN",
         field: "RATE"
     });
+    topDic = this.dict.get({
+        owner: "MAINTAIN",
+        field: "TOP"
+    });
     peridDic = this.dict.get({
         owner: "MAINTAIN",
         field: "PERIOD"
@@ -36,34 +40,34 @@ export class AssignMngService {
     }
 
     getEntList(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("assign-mng.ent.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => EntList_mock);
+        const api = this.restApiCfg.getRestApi("query.ent.list");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => EntList_mock);
     }
 
     getPlfList(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("assign-mng.plf.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => PlfList_mock );
+        const api = this.restApiCfg.getRestApi("query.plf.list");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => PlfList_mock );
     }
 
     getCloudHostSpec(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("assign-mng.plf.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => CloudHostSpec_mock);
+        const api = this.restApiCfg.getRestApi("query.flavor");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => CloudHostSpec_mock);
     }
   
     getUsageState(query:QueryModel): Promise<any> {   
-        //const api = this.restApiCfg.getRestApi("assign-mng.usagestate.info");
-        //return this.restApi.request(api.method, api.url, null, null, query);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => UsageState_mock);
+        const api = this.restApiCfg.getRestApi("assign-mng.usagestate.info");
+        return this.restApi.request(api.method, api.url, null, null, query);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => UsageState_mock);
     }
 
     
     getHyperList(query:QueryModel): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("assign-mng.hyper.list");
-        //return this.restApi.request(api.method, api.url, null, null, query);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => HyperList_mock);
+        const api = this.restApiCfg.getRestApi("assign-mng.hyper.list");
+        return this.restApi.request(api.method, api.url, null, null, query);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => HyperList_mock);
     }
 
     exportCurrent(query:QueryModel): Promise<any> {

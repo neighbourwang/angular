@@ -68,11 +68,7 @@
         <div class="col-md-2 form-control-title" >TOP：</div>
         <div class="col-md-2">
             <select class="form-control" [(ngModel)]="queryOpt.top">              
-                <option [value]="1">TOP10</option>
-                <option [value]="2">TOP20</option>
-                <option [value]="3">TOP50</option>
-                <option [value]="4">TOP100</option>
-                <option [value]="all">所有</option>
+                <option *ngFor="let top of service.topDic | async" [value]="top.value">{{top.displayValue}}</option>     
             </select>
         </div>
         <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.PERIOD'|translate}}：</div><!--时间范围-->
@@ -83,7 +79,7 @@
         </div>
     </div>
     </div>
-    <div>{{queryOpt.enterpriseID}},{{queryOpt.departmentId}}</div>
+    <div>{{queryOpt.enterpriseId}},{{queryOpt.departmentId}}</div>
     <div>{{queryOpt.platformId}},{{queryOpt.regionId}},{{queryOpt.zoneId}}</div>
     <div>{{queryOpt.powerStatus}},{{queryOpt.flaovarId}}</div>
     <div>{{queryOpt.rate}},{{queryOpt.top}},{{queryOpt.period}}</div>
@@ -105,7 +101,7 @@
                         <div class="col-md-6">
                             <div style="position:relative;">
                                 <div class="circle-mask"></div>
-                                <div class="circle-text">293个</div>
+                                <div class="circle-text">{{cpuInfo.num}}个</div>
                                  <canvas baseChart
                                  *ngIf="cpuChart.DataSets"
                                  [datasets]="cpuChart.DataSets "
@@ -145,7 +141,7 @@
                         <div class="col-md-6">
                             <div style="position:relative;">
                                 <div class="circle-mask"></div>
-                                <div class="circle-text">293个</div>
+                                <div class="circle-text">{{memInfo.num}}个</div>
                                  <canvas baseChart
                                  *ngIf="memChart.DataSets"
                                  [datasets]="memChart.DataSets "

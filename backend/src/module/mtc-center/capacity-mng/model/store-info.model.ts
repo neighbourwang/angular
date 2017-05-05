@@ -6,7 +6,7 @@ export class StoreInfoModel{
     storageType: string;
     total: number;
     copy: number;
-    quota: number; //Åä¶î
+    qurota: number; //Åä¶î
     rate: number;  //·ÖÅäÂÊ
     usage: number;
     status: string;
