@@ -3,6 +3,7 @@ class DatabaseMiddlewareServiceModel {
     "platformSimpleItemResp": Array<PlatformSimpleItem>;
     "resourcPoolsProfiles": Array<ResourcPool>;
     "serverType": string;
+    "serviceType":string;
     "serviceName": string;
     "serviceTemplateId": string;
     "serviceTemplateName": string;
@@ -26,5 +27,24 @@ class ResourcPool {
     "resourcePoolDisplayName": string;
     "selected": boolean;
     "skuid": string;
+    "region":string;
+    "regionId":string;
 }
-export { DatabaseMiddlewareServiceModel, ResourcPool, PlatformSimpleItem }
+class ServiceTemplat{
+      "serviceTemplatCode": string;
+      "serviceTemplatDesc": string;
+      "serviceTemplatType": string;
+      "serviceTemplatTypeName": string;
+      "serviceTemplateId": string;
+      "serviceTemplateName": string;
+      "status":string;
+    }
+ class Platform{
+    "code": string;
+    "displayName": string;
+    "platformId": string;
+    "platformName": string;
+    "selected": boolean;
+    "skuID": string;
+}   
+export { DatabaseMiddlewareServiceModel, ResourcPool, PlatformSimpleItem ,ServiceTemplat,Platform}

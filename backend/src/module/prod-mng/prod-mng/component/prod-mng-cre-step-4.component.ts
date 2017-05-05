@@ -31,10 +31,7 @@ export class ProdMngCreStep4Component implements OnInit {
 
     @ViewChild('notice')
     notice: NoticeComponent;
-
-    @ViewChild('confirm')
-    confirm:ConfirmComponent;
-
+    
     platformIdList = new Array();
     //平台列表是否发生改变
     isPlatformChange: boolean=false;

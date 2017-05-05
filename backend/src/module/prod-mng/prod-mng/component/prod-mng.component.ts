@@ -251,7 +251,6 @@ export class ProdMngComponent implements OnInit {
             this.router.navigate(["prod-mng/prod-mng/prod-detail", {id:item.id,type:item.serviceType}]);            
         }
     }
-
     backend(page: number, size: number, data: any) {
         this.layoutService.show();
         this.tp = 0;
@@ -302,12 +301,16 @@ export class ProdMngComponent implements OnInit {
         })
     }
     otcreate(){
+        console.log(this.prodDirTypeCre);
         if(this.prodDirTypeCre=='PHYMACHINE_SERVICE'){
             this.router.navigate(["prod-mng/physical-prod-mng/prod-mng-cre-step1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);            
         }else if(this.prodDirTypeCre=='VITRUALDISK_SERVICE'||this.prodDirTypeCre=='VITRUALMACHINE_SERVICE'){
             this.router.navigate(["prod-mng/prod-mng/prod-mng-cre-1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);                       
         }else if(this.prodDirTypeCre=='SUPERVISE_SERVICE'){
             this.router.navigate(["prod-mng/manager-serve/manager-serve-product-cre-step1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);            
+        }else if(this.prodDirTypeCre=='MiddleWare'){
+            this.router.navigate(["prod-mng/database-middleware-mng/database-middleware-product-cre-step1",{'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);             
         }        
-    }    
+    }
+       
 }

@@ -21,14 +21,14 @@
                     <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.COUNT_MODE' | translate}}：</div>
                     <div class="col-sm-6 row-inline-radio">
                         <div class="row">
-                            <div class="col-sm-3">
+                            <!--<div class="col-sm-3">
                                 <label class="radio-inline row-inline-radio2 font-gray">
-                            		<input type="radio" name="billingTypeRadios" value='3' class="fox-cloud-radio" [(ngModel)]="service.managerServeProduct.billingType" (ngModelChange)="billByTimes()"> {{'按次' | translate}}<!--按次-->
+                            		<input type="radio" name="billingTypeRadios" value='3' class="fox-cloud-radio" [(ngModel)]="service.databaseMiddlewareProduct.billingType" (ngModelChange)="billByTimes()"> {{'按次' | translate}}
                        			</label>
-                            </div>
+                            </div>-->
                             <div class="col-sm-3">
                                 <label class="radio-inline row-inline-radio2 font-gray">
-                            		<input type="radio" name="billingTypeRadios" value='0' class="fox-cloud-radio" [(ngModel)]="service.managerServeProduct.billingType" (ngModelChange)="billByYear()"> {{'PROD_MNG.BY_YEAR_BY_MONTH' | translate}}<!--包年包月-->
+                            		<input type="radio" name="billingTypeRadios" value='0' class="fox-cloud-radio" [(ngModel)]="service.databaseMiddlewareProduct.billingType" (ngModelChange)="billByYear()"> {{'PROD_MNG.BY_YEAR_BY_MONTH' | translate}}<!--包年包月-->
                        			</label>
                             </div>
                         </div>
@@ -45,12 +45,12 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption" [disabled]="service.managerServeProduct.billingType!='0'"  value="5" class="fox-cloud-radio" [(ngModel)]="service.managerServeProduct.billingCycle" > {{'COMMON.BY_YEAR' | translate}}<!--包年-->
+                           				<input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="service.databaseMiddlewareProduct.billingCycle" > {{'COMMON.BY_YEAR' | translate}}<!--包年-->
                        				</label>
                                     </div>
                                     <div class="col-sm-6">
                                         <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  value="3" [disabled]="service.managerServeProduct.billingType!='0'" class="fox-cloud-radio" [(ngModel)]="service.managerServeProduct.billingCycle"> {{'COMMON.BY_MONTH' | translate}}<!--包月-->
+                           				<input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="service.databaseMiddlewareProduct.billingCycle"> {{'COMMON.BY_MONTH' | translate}}<!--包月-->
                        				</label>
                                     </div>
                                 </div>
@@ -59,12 +59,12 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption" [disabled]="service.managerServeProduct.billingType!='0'"  value="1" class="fox-cloud-radio" [(ngModel)]="service.managerServeProduct.billingCycle"> {{'COMMON.BY_DAY' | translate}}
+                           				<input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="service.databaseMiddlewareProduct.billingCycle"> {{'COMMON.BY_DAY' | translate}}
                        				</label>
                                     </div>
                                     <div class="col-sm-6">
                                         <label class="radio-inline row-inline-radio4 font-gray" style="width:100%">
-                           				<input type="radio" name="inlineRadioOption" [disabled]="service.managerServeProduct.billingType!='0'" value="0" class="fox-cloud-radio" [(ngModel)]="service.managerServeProduct.billingCycle"> {{'COMMON.BY_HOUR' | translate}}
+                           				<input type="radio" name="inlineRadioOption" value="0" class="fox-cloud-radio" [(ngModel)]="service.databaseMiddlewareProduct.billingCycle"> {{'COMMON.BY_HOUR' | translate}}
                        				</label>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                         <div class="col-sm-4 form-control-title">{{'PROD_MNG.BASIC_CYCLE_PRICE' | translate}}：</div>
                         <!--基础周期价格-->
                         <div class="col-sm-6">
-                            <count-bar [default]=0 [step]=10 [decimal]=true [disabled]="service.managerServeProduct.billingType=='3'" [max]=200000 [min]=0 [disabled]=false [value]="service.managerServeProduct.basicCyclePrice||0" #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
+                            <count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=false [value]="service.databaseMiddlewareProduct.basicCyclePrice||0" #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
                         </div>
                     </div>
                 </div>                
@@ -90,7 +90,7 @@
                             <!--一次性价格-->
                         </div>
                         <div class="col-sm-6">
-                            <count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=false [value]="service.managerServeProduct.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
+                            <count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=false [value]="service.databaseMiddlewareProduct.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
                         </div>
                     </div>
                 </div>
@@ -100,18 +100,13 @@
 </div>
 <div class="text-center mgt20">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{'COMMON.CANCEL'|translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();">
-        <span class="icon-button-label">上一步</span>
+        <span class="icon-button-label">{{'COMMON.PREVIOUS'|translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
-        <span class="icon-button-label">下一步</span>
+        <span class="icon-button-label">{{'COMMON.NEXT'|translate}}</span>
     </button>
 </div>
-
-
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
-
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL"
-    (cf)="ccf()"></fc-confirm>

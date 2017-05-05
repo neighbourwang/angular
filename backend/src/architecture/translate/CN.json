@@ -1585,7 +1585,9 @@
     "SERVE_OBJECT":"服务对象",
     "NOT_ALLOW_TO_DELETE_PRODUCT_CAT_WITH_PRODUCT":"不能删除已绑定产品的产品目录",
     "SELECT_PRODUCT_CAT":"请选择产品目录",
-    "SELECT_RESOURCE_POOL":"选择资源池"
+    "SELECT_RESOURCE_POOL":"选择资源池",
+    "SERVE_TEMPLATE":"服务模板",
+    "SERVE_DESCRIPTION":"服务描述"
   },
   "USER_CENTER": {
     "ACCOUNT": "帐号",

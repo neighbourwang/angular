@@ -1,5 +1,5 @@
 <div class="page-content-header mgb20 ">
-    阿里云账号管理
+    {{ 'MENU.ALI_ACCOUNT_MNG' | translate}}
 </div>
 <!--<div class="mgb20" style="height:30px;">
     <button class="btn button-confirm  pull-right" (click)="gotoSubMng();">
@@ -9,13 +9,13 @@
 <table class="table table-hover">
     <tbody>
         <tr>
-            <th class="text-center">编号 </th>
-            <th class="text-center">主账号登录名</th>
-            <th class="text-center">所属部门 </th>
-            <th class="text-center">子账号数量</th>
-            <th class="text-center">最后更新时间</th>
-            <th class="text-center">操作人 </th>
-            <th class="text-center">操作 </th>
+            <th class="text-center">{{ 'USER_CENTER.ALI_ID' | translate}} </th>
+            <th class="text-center">{{ 'USER_CENTER.MAJOR_LOGINNAME' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.DEPARTMENT_OWNED' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.SUB_NUMBER' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.LASTUPDATE_TIME' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.OPERATOR' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.OPERATION' | translate}}</th>
         </tr>
         <tr *ngFor="let item of data; let idx= index;">
             <td class="text-center">{{idx+1}}</td>
@@ -36,10 +36,10 @@
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CANCEL' | translate}}" ct="{{ 'COMMON.CONFIRM' | translate}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{ 'COMMON.CONFIRM' | translate}}"></fc-notice>
 
-<fc-popup #majorMng title="{{title}}" ot="{{type== 'info'? '关闭': 'DIALOG.SAVE' | translate }}" ct="{{ type== 'info'? '':'DIALOG.CANCEL' | translate }}" (of)="operate()">
+<fc-popup #majorMng title="{{title}}" ot="{{type== 'info'? 'DIALOG.CLOSE': 'DIALOG.SAVE' | translate }}" ct="{{ type== 'info'? '':'DIALOG.CANCEL' | translate }}" (of)="operate()">
     <div class="mgt10 border">
         <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
-            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>主账号登录名：</div>
+            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.MAJOR_LOGINNAME' | translate}}：</div>
             <div class="col-md-8 no-padding">
                 <span style="line-height: 34px;">{{majorInfo.loginName}}</span>
             </div>
@@ -69,17 +69,17 @@
         <div *ngIf="type== 'edit'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">
             <div class="col-md-4"></div>
             <div class="col-md-2 no-padding form-group ">
-                <button class="btn btn-default button-gray-gradient" (click)="testMajor(); testInfo= '';">  测试  </button>
+                <button class="btn btn-default button-gray-gradient" (click)="testMajor(); testInfo= '';">  {{ 'USER_CENTER.TEST' | translate}}  </button>
             </div>
             <div *ngIf="testInfo== 'success'" class="col-md-4 no-padding">
-                <span class="font-green" style="line-height: 34px;">提示：测试成功</span>
+                <span class="font-green" style="line-height: 34px;">{{ 'DIALOG.PROMPT' | translate}}：{{ 'USER_CENTER.TEST_SUCCESS' | translate}}</span>
             </div>
             <div *ngIf="testInfo== 'failed'" class="col-md-4 no-padding">
-                <span class="font-orange" style="line-height: 34px;">提示：测试失败</span>
+                <span class="font-orange" style="line-height: 34px;">{{ 'DIALOG.PROMPT' | translate}}：{{ 'USER_CENTER.TEST_FAIL' | translate}}</span>
             </div>
         </div>
         <div *ngIf="type== 'info'" class="col-md-12 no-padding mgb15" style=" line-height : 35px">
-            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>所属部门：</div>
+            <div class="col-md-4 content-title" style="text-align : right"><span class="asterisk">*</span>{{ 'USER_CENTER.DEPARTMENT_OWNED' | translate}}：</div>
             <div class="col-md-8 no-padding">
                 <span style="line-height: 34px;">{{majorInfo.departmentName}}</span>
             </div>
@@ -90,9 +90,9 @@
 <fc-popup #distriDepart title="{{title}}" ot="{{'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="operate()">
     <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
         <div class="col-md-1"></div>
-        <div class="col-md-4 content-title">当前所选部门：{{selectedDepartment}}</div>
+        <div class="col-md-4 content-title">{{ 'USER_CENTER.CURRENT_SELECTED_DEPARTMENT' | translate}}：{{selectedDepartment}}</div>
         <div class="col-md-2 no-padding form-group ">
-            <button class="btn button-gray-gradient" (click)="reset()"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+            <button class="btn button-gray-gradient" (click)="reset()"><span class="glyphicon glyphicon-repeat"></span>{{ 'USER_CENTER.RESET' | translate}}</button>
         </div>
     </div>
     <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
@@ -101,8 +101,8 @@
             <table class="table table-hover table-all-boder">
                 <tbody>
                 <tr>
-                    <th class="text-center">选择 </th>
-                    <th class="text-center">部门名称</th>
+                    <th class="text-center">{{ 'USER_CENTER.ALI_SELECT' | translate}} </th>
+                    <th class="text-center">{{ 'USER_CENTER.DEPARTMENT_NAME' | translate}}</th>
                 </tr>
                 <tr *ngFor="let item of departs" [hidden]="item.visible == 'false'">
                     <td class="text-center" ><input type='radio' class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>

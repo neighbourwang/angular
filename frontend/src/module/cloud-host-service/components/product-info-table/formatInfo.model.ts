@@ -32,6 +32,8 @@ class Info {
 	ZONE:attrList = new attrList;
 	DISKSIZE:attrList = new attrList;
 	DISKINSNAME:attrList = new attrList;
+	RESOURCEPOOL:attrList = new attrList;
+	OSYSTEM: attrList = new attrList;
 }
 export {
     Info,

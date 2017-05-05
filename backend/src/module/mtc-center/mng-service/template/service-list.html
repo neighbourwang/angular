@@ -5,14 +5,14 @@
     <div class="mgt10">
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">服务状态：</span>
         <div class="btn-group" data-toggle="buttons">
-            <button class="btn btn-default active mgl5">
-                <input  type="radio">所有
+            <button class="btn btn-default active mgl5" (click)="selectAll()">
+                <input type="radio">{{all}}
             </button>
-            <button class="btn btn-default mgl15">
-                <input type="radio">进行中
+            <button class="btn btn-default mgl15" (click)="selectProgress()">
+                <input type="radio">{{progress}}
             </button>
-            <button class="btn btn-default mgl15">
-                <input type="radio">已完成
+            <button class="btn btn-default mgl15" (click)="selectComplete()">
+                <input type="radio">{{complete}}
             </button>
         </div>
     </div>
@@ -26,9 +26,9 @@
         </div>{{enterpriseId}}
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">管理服务名称：</span>
         <div class="float-left pdr20 mgl5">
-            <select [(ngModel)]="serviceName" class="pdl10 form-control">
+            <select [(ngModel)]="serviceId" class="pdl10 form-control">
                 <option value="">所有</option>
-                <option>服务名称1</option>
+                <option *ngFor="let v of serviceNames" [value]="v.serviceId">{{v.serviceName}}</option>
             </select>
         </div>
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">服务对象：</span>

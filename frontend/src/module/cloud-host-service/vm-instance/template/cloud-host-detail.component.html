@@ -141,9 +141,6 @@
 				  </div>
 				</div>
 		   </div>
-		   
-		</div>
-		<div class="col-md-6 info-menu">
 			
 			  <div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingFourth" data-toggle="collapse" data-parent="#accordion" href="#collapseFourth" aria-expanded="true" aria-controls="collapseFourth">
@@ -214,24 +211,24 @@
 				</div>
 		   </div>
 		</div>
-		<!-- <div class="col-md-6 info-menu">
+		<div class="col-md-6 info-menu">
 			<div class="host-detail-chart">
 				<div class="main-head">
 					<span class="icon-chart icon float-left"></span>
 					<span class="title float-left">监控图表</span>
-					<select class="form-control float-right mgt5 mgr5">
-						<option value="1">最近6小时</option>
-						<option value="2">最近12小时</option>
-						<option value="3">最近24小时</option>
+					<select [(ngModel)]="hours" (ngModelChange)="setCpuGraph();setMemGraph()" class="form-control float-right mgt5 mgr5">
+						<option value="6">最近6小时</option>
+						<option value="12">最近12小时</option>
+						<option value="24">最近24小时</option>
 					</select>
-					<button class="btn button-gray-gradient mgt5 mgr5 float-right ">
+					<button (click)="fetchCpuMum()" class="btn button-gray-gradient mgt5 mgr5 float-right ">
 						<span class="icon-reset button-icon" ></span>刷新
 					</button>
-					<button class="float-right switch off" id='test_switch'>
+					<!-- <button class="float-right switch off" id='test_switch'>
 						<span></span>
-					</button>
+					</button> -->
 					
-					<span class="title float-right">实时数据</span>
+					<!-- <span class="title float-right">实时数据</span> -->
 				</div>
 				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation" class="active"><a href="#detail_chart_a" role="tab" data-toggle="tab" aria-controls="detail_chart_a" aria-expanded="true">CPU使用率</a></li>
@@ -290,7 +287,7 @@
 					</div>
 				</div>
 			</div>
-		</div> -->
+		</div>
 	</div>
 </div>
 

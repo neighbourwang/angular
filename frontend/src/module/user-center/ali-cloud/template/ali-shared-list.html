@@ -1,15 +1,15 @@
 <div class="page-content-header mgb20 ">
-    阿里云账号管理
+    {{ 'MENU.ALI_ACCOUNT_MNG' | translate}}
 </div>
 <table class="table table-hover">
     <tbody>
         <tr>
-            <th class="text-center">编号 </th>
-            <th class="text-center">子账号登录名</th>
-            <th class="text-center">所属部门 </th>
-            <th class="text-center">最后更新时间</th>
-            <th class="text-center">操作人 </th>
-            <th class="text-center">操作 </th>
+            <th class="text-center">{{ 'USER_CENTER.ALI_ID' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.SUB_LOGINNAME' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.DEPARTMENT_OWNED' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.LASTUPDATE_TIME' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.OPERATOR' | translate}}</th>
+            <th class="text-center">{{ 'USER_CENTER.OPERATION' | translate}}</th>
         </tr>
         <tr *ngFor="let item of data; let idx= index;">
             <td class="text-center">{{idx+1}}</td>
@@ -32,9 +32,9 @@
 <fc-popup #distriDepart title="{{title}}" ot="{{'DIALOG.SAVE' | translate }}" ct="{{ 'DIALOG.CANCEL' | translate }}" (of)="operate()">
     <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
         <div class="col-md-1"></div>
-        <div class="col-md-4 content-title">当前所选部门：{{selectedDepartment}}</div>
+        <div class="col-md-4 content-title">{{ 'USER_CENTER.CURRENT_SELECTED_DEPARTMENT' | translate}}：{{selectedDepartment}}</div>
         <div class="col-md-2 no-padding form-group ">
-            <button class="btn button-gray-gradient" (click)="reset()"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+            <button class="btn button-gray-gradient" (click)="reset()"><span class="glyphicon glyphicon-repeat"></span>{{ 'USER_CENTER.RESET' | translate}}</button>
         </div>
     </div>
     <div class="col-md-12 no-padding mgb15 mgt15" style=" line-height : 35px">
@@ -43,8 +43,8 @@
             <table class="table table-hover table-all-boder">
                 <tbody>
                 <tr>
-                    <th class="text-center">选择 </th>
-                    <th class="text-center">部门名称</th>
+                    <th class="text-center">{{ 'USER_CENTER.ALI_SELECT' | translate}}</th>
+                    <th class="text-center">{{ 'USER_CENTER.DEPARTMENT_NAME' | translate}}</th>
                 </tr>
 <!--                <tr>
                     <td class="text-center"><input type='radio' name="radio" class="fox-cloud-radio" [checked]="selectAll" [(ngModel)]="selectAll"/></td>

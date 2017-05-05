@@ -37,7 +37,7 @@ export class DatabaseMiddlewareProdCreStep4Component implements OnInit {
     selectEnterprise(ent, index) {
         ent.selected = !ent.selected;
         console.log(ent);
-        this.service.managerServeProduct.productEnterpiseReqs = this.service.enterpriseListForSelect.filter((ele) => {
+        this.service.databaseMiddlewareProduct.productEnterpiseReqs = this.service.enterpriseListForSelect.filter((ele) => {
             if (ele.selected == true) {
                 return ele;
             }
@@ -50,19 +50,19 @@ export class DatabaseMiddlewareProdCreStep4Component implements OnInit {
                 ele.selected = false;
             }
         })
-        this.service.managerServeProduct.productEnterpiseReqs.splice(index, 1);
+        this.service.databaseMiddlewareProduct.productEnterpiseReqs.splice(index, 1);
     }
     // 下一步
     ccf() { }
     //获取platformRegionList
     // platFormRegionList:;
     previous() {
-        this.route.navigate(["prod-mng/manager-serve/manager-serve-product-cre-step3"]);
+        this.route.navigate(["database-middleware-mng/database-middleware-product-cre-step3"]);
     }
     next() {
-        console.log(this.service.managerServeProduct);                
+        console.log(this.service.databaseMiddlewareProduct);                
         this.LayoutService.show();
-        this.service.postManagerServeProduct(this.service.managerServeProduct).then(res=>{
+        this.service.postDatabaseMiddlewareProduct(this.service.databaseMiddlewareProduct).then(res=>{
             this.LayoutService.hide();
             this.route.navigate(["prod-mng/prod-mng/prod-mng"]);            
         }).catch(err=>{

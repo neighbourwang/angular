@@ -7,17 +7,27 @@ import * as _ from 'underscore';
 	selector:'machine-view'
 	,template:`
 	<ul>		
-		<li>区域: {{_obj.platform}}</li>
-		<li>资源池: {{_obj.resourcePool}}</li>
-		<li>CPU:{{_obj.cpu}}</li>
-		<li>内存: {{_obj.mem}}</li>
-		<li>磁盘信息:{{_obj.disk}}</li>
-		<li>网卡: {{_obj.networkCard}}</li>
-		<li>其他: {{_obj.otherInfo}}</li>
-        <li>IP地址:  {{_obj.privateIp}}{{_obj.publicIp}}</li>
-        <li>操作系统: {{_obj.osType}}</li>
-        <li>密码: {{_obj.password}}</li>
-		<li>实例名称: {{_obj.instanceName}}</li>
+		<li  *ngIf="_obj.platform" >区域: {{_obj.platform}}</li>
+
+		<li  *ngIf="_obj.resourcePool" >资源池: {{_obj.resourcePool}}</li>
+
+		<li  *ngIf="_obj.cpu" >CPU:{{_obj.cpu}}</li>
+
+		<li  *ngIf="_obj.mem" >内存: {{_obj.mem}}</li>
+
+		<li  *ngIf="_obj.disk" >磁盘信息:{{_obj.disk}}</li>
+
+		<li  *ngIf="_obj.networkCard" >网卡: {{_obj.networkCard}}</li>
+
+		<li  *ngIf="_obj.otherInfo" >其他: {{_obj.otherInfo}}</li>
+
+        <li  *ngIf="_obj.privateIp" >IP地址:  {{_obj.privateIp}}{{_obj.publicIp}}</li>
+
+        <li  *ngIf="_obj.osType" >操作系统: {{_obj.osType}}</li>
+
+        <li  *ngIf="_obj.password" >密码: {{_obj.password}}</li>
+
+		<li  *ngIf="_obj.instanceName" >实例名称: {{_obj.instanceName}}</li>
 	</ul>
 	`
 })

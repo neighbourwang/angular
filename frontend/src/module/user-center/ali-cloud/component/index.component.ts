@@ -29,6 +29,7 @@ export class AliIndexComponent implements OnInit{
 
     noticeTitle = "";
     noticeMsg = "";
+    type: string;
 
     ngOnInit (){
         console.log('init');
@@ -43,11 +44,14 @@ export class AliIndexComponent implements OnInit{
                     this.layoutService.hide();
                     console.log(response);
                     if (response && 100 == response["resultCode"]) {
+                        this.type= "2";
                         if(response.resultContent == 2){
                             this.router.navigate([`user-center/ali-cloud/ali-shared-list`]);
                         }else{
                             this.router.navigate([`user-center/ali-cloud/ali-major-list`]);
                         }
+                    }else if(response && 90011 == response["resultCode"]){
+                        this.type= "1";
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }

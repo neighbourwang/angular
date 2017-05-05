@@ -10,7 +10,7 @@
 					<div class="col-md-2 content-title">{{'COMMON.CLOUD_PLATFORM'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label *ngFor="let value of valuesList.PLATFORM;" id="location_{{value.attrValueCode}}" (click)="values.PLATFORM = value;dux.dispatch('PLATFORM')" class="btn btn-default" [ngClass]="{'active': values.PLATFORM.attrValueId === value.attrValueId}">
-							<input type="radio" name="location" autocomplete="off"> {{ value.attrDisplayValue }}
+							<input type="radio" name="location" autocomplete="off" value="{{value.attrValueCode}}"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2"></div>
@@ -21,7 +21,7 @@
 							*ngFor="let value of valuesList.ZONE"
 							(click)="values.ZONE = value;dux.dispatch('ZONE')"
 							class="btn btn-default" [ngClass]="{'active': values.ZONE.attrValueId === value.attrValueId}" id="zone_{{value.attrValueCode}}">
-							<input type="radio" name="zone" autocomplete="off"> {{ value.attrDisplayValue }}
+							<input type="radio" name="zone" autocomplete="off" value="{{value.attrValueCode}}"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 				</div>
@@ -64,7 +64,7 @@
 						<label *ngFor="let value of valuesList.CPU;"
 							(click)="values.CPU = value;dux.dispatch('CPU');"
 							class="btn btn-default" [ngClass]="{'active': values.CPU?.attrValueId === value.attrValueId}" id="cpu_{{value.attrValue}}">
-							<input type="radio" name="cpu" autocomplete="off"> {{ value.attrDisplayValue }}
+							<input type="radio" name="cpu" autocomplete="off" value="{{value.attrValue}}"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">{{'COMMON.RAM'| translate}}</div>
@@ -73,7 +73,7 @@
 							*ngFor="let value of valuesList.MEM | filterPlatform: values.PLATFORM?.attrValueId"
 							(click)="values.MEM = value;dux.dispatch('MEM')"
 							class="btn btn-default" [ngClass]="{'active': values.MEM?.attrValueId === value.attrValueId}" id="mem_{{value.attrValue}}">
-							<input type="radio" name="mem" autocomplete="off"> {{ value.attrDisplayValue }}
+							<input type="radio" name="mem" autocomplete="off"  value="{{value.attrValue}}"> {{ value.attrDisplayValue }}
 						</label>
 					</div>
 				</div>
@@ -98,7 +98,7 @@
 						<label
 							*ngFor="let value of valuesList.IMAGETYPE"
 							(click)="values.IMAGETYPE = value;dux.dispatch('IMAGETYPE')" id="imagetype_{{value.attrValue}}" class="btn btn-default" [ngClass]="{'active': values.IMAGETYPE?.attrValueId === value.attrValueId}">
-							<input type="radio" name="imagetype" autocomplete="off"> {{ value.attrDisplayValue }}
+							<input type="radio" name="imagetype" autocomplete="off"  value="{{value.attrValue}}" > {{ value.attrDisplayValue }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_LIST'| translate}}</div>

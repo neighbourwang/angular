@@ -5,6 +5,7 @@ import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, Pagi
 //model
 import { Enterprise } from "../model/enterprise.model";
 import { MngServiceList } from "../model/mng-service-list.model";
+import { ServiceNameList } from "../model/servicename-list.model";
 
 //service
 import { MngService } from '../service/mng-service.service';
@@ -46,31 +47,45 @@ export class MngServiceListComponent implements OnInit{
 
     typeDic: Array<SystemDictionary>;
     searchDic: Array<SystemDictionary>;
+    statusDic: Array<SystemDictionary>;
 
     type: string;
     enterpriseList:Array<Enterprise>;
     enterpriseId= "";
-    serviceName= "";
+    serviceId= "";
     serviceObjectCode= "";
     searchTypeCode: string;
     keyWords: string;
     serviceStatus: string;
     data: Array<MngServiceList>;
     Info: string;
-    selectedServiceId: string;
+    selectedProductId: string;
+    all: string;
+    progress: string;
+    complete: string;
+    serviceNames: Array<ServiceNameList>;
 
     ngOnInit() {
-        this.getData();
-        this.getEnterprises();
         this.service.searchDic.then(res =>{
             this.searchTypeCode= res[0].value
         });
+        this.service.statusDic.then(res =>{
+            this.serviceStatus= res[0].value;
+            this.all= res[0].displayValue;
+            this.progress= res[1].displayValue;
+            this.complete= res[2].displayValue;
+        });
+        this.getEnterprises();
+        this.getServiceNameList();
+        this.getData();
     }
 
     getData(pageIndex?) {
+        console.log("serviceStatus",this.serviceStatus);
+        console.log("searchTypeCode",this.searchTypeCode);
         this.pageIndex= pageIndex || this.pageIndex;
         this.layoutService.show();
-        this.service.getData(this.pageIndex, this.pageSize, this.serviceStatus, this.enterpriseId, this.serviceName, this.serviceObjectCode,
+        this.service.getData(this.pageIndex, this.pageSize, this.serviceStatus, this.enterpriseId, this.serviceId, this.serviceObjectCode,
             this.searchTypeCode, this.keyWords)
             .then(
                 response => {
@@ -104,6 +119,38 @@ export class MngServiceListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
+    getServiceNameList(){
+        this.layoutService.show();
+        this.service.getServiceNameList()
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.serviceNames = response["resultContent"];
+                        console.log("管理服务下拉框",this.serviceNames);
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    selectAll(){
+        this.serviceStatus= "0";
+        this.getData();
+    }
+
+    selectProgress(){
+        this.serviceStatus= "1";
+        this.getData();
+    }
+
+    selectComplete(){
+        this.serviceStatus= "2";
+        this.getData();
+    }
+
     serviceUpdatePage(){
         const selectedService= this.data.find((p) =>{
             return p.selected;
@@ -112,7 +159,7 @@ export class MngServiceListComponent implements OnInit{
             this.showAlert("请选择需要跟进的服务");
         }else{
             this.type= "update";
-            this.selectedServiceId= selectedService.serviceId;
+            this.selectedProductId= selectedService.serviceProductId;
             this.popUnit.open("服务状态更新");
         }
     }
@@ -125,14 +172,14 @@ export class MngServiceListComponent implements OnInit{
             this.showAlert("请选择需要跟进的服务");
         }else{
             this.type= "follow";
-            this.selectedServiceId= selectedService.serviceId;
+            this.selectedProductId= selectedService.serviceProductId;
             this.popUnit.open("服务跟进");
         }
     }
 
     serviceFollow(){
         this.layoutService.show();
-        this.service.serviceFollow(this.selectedServiceId, this.Info)
+        this.service.serviceFollow(this.selectedProductId, this.Info)
             .then(
                 response => {
                     this.layoutService.hide();
@@ -148,7 +195,7 @@ export class MngServiceListComponent implements OnInit{
 
     serviceUpdate(){
         this.layoutService.show();
-        this.service.serviceUpdate(this.selectedServiceId, this.Info)
+        this.service.serviceUpdate(this.selectedProductId, this.Info)
             .then(
                 response => {
                     this.layoutService.hide();

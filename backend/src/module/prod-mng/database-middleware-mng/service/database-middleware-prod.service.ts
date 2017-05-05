@@ -4,7 +4,7 @@ import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService} from '../..
 
 import 'rxjs/add/operator/toPromise';
 //model 
-import { DatabaseMiddlewareProductModel, Platform, Enterpise } from '../model/database-middleware-product.model'
+import { DatabaseMiddlewareProductModel, Platform, Enterprise } from '../model/database-middleware-product.model'
 import { DatabaseMiddlewareServiceModel, ResourcPool, PlatformSimpleItem } from '../model/database-middleware-service.model'
 
 
@@ -18,12 +18,12 @@ export class DatabaseMiddlewareProdService {
         private dict:SystemDictionaryService
     ) { }
 
-    managerServeProduct:DatabaseMiddlewareProductModel;
-    managerServeService:DatabaseMiddlewareServiceModel;
-    enterpriseListForSelect:Array<Enterpise>=new Array<Enterpise>();
-    //获取管理服务详情
-    getManagerServeServiceDetail(id:string) {
-        let api = this.restApiCfg.getRestApi("manager-serve-service-detail.get");
+    databaseMiddlewareProduct:DatabaseMiddlewareProductModel;
+    databaseMiddlewareService:DatabaseMiddlewareServiceModel;
+    enterpriseListForSelect:Array<Enterprise>=new Array<Enterprise>();
+    //获取数据库中间件服务目录详情
+    getDatabaseMiddlewareServiceDetail(id:string) {
+        let api = this.restApiCfg.getRestApi("database-middleware-service-detail.get");
         return this.restApi.request(api.method, api.url, [{key:'id',value:id}], undefined)
     }
     //根据平台获取企业列表    
@@ -35,7 +35,6 @@ export class DatabaseMiddlewareProdService {
                 this.enterpriseListForSelect=res.resultContent;                
             }
             // this.managerServeProduct.platformSimpleItems=this.managerServeService.platformList;
-
         }).catch(err=>{
             console.error(err);
         });;
@@ -51,14 +50,9 @@ export class DatabaseMiddlewareProdService {
             console.error(err);
         });
     }
-    //获取管理服务对象列表
-    dictServiceObjList = this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise
-      owner : "SUPERVISE_SERVICE",
-      field : "TYPE"    
-   });
-   //创建管理服务产品   
-   postManagerServeProduct(data:DatabaseMiddlewareProductModel) {
-        let api = this.restApiCfg.getRestApi("manager-serve-product-create.post");
+   //创建数据库中间件产品   
+   postDatabaseMiddlewareProduct(data:DatabaseMiddlewareProductModel) {
+        let api = this.restApiCfg.getRestApi("database-middleware-product-create.post");
 
         return this.restApi.request(api.method, api.url, [], undefined,data);
     }
