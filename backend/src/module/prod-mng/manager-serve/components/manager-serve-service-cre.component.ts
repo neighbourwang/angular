@@ -125,7 +125,8 @@ export class ManagerServeServiceCreComponent implements OnInit {
         if (this.managerServeService.serviceObjectCode == '2') {
             this.managerServeService.pmPoolList=[];
             this.managerServeService.pmPoolList = this.resourcePooList.filter(ele => {
-                if (ele.selected) { return ele; }
+                if (ele.selected) { 
+                    return ele; }
             })
             if(this.managerServeService.pmPoolList.length==0){
                 this.notice.open('COMMON.OPERATION_ERROR','请选择资源池信息')

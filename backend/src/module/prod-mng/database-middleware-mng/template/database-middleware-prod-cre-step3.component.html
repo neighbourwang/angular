@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <div class="row" *ngIf="service.databaseMiddlewareService.serviceObjectCode=='2'">
+    <div class="row" *ngIf="service.databaseMiddlewareService.platformType=='1'">
          <div class="col-md-12">
             <div class="row row-line-height">
                 <div class="form-group">
@@ -35,9 +35,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let resourcePool of service.databaseMiddlewareService.pmPoolList; let idx = index;">
+                        <tr *ngFor="let resourcePool of this.service.databaseMiddlewareProduct.resourcPoolsProfiles; let idx = index;">
                             <td>{{idx+1}}</td>
-                            <td>{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>
+                            <td>{{resourcePool.poolName}}</td>
                             <td>{{resourcePool.description}}</td>
                         </tr>
                     </tbody>
@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="service.databaseMiddlewareService.serviceObjectCode!='2'&&service.databaseMiddlewareService.serviceObjectCode!='8'">
+    <div class="row" *ngIf="service.databaseMiddlewareService.platformType=='0'">
          <div class="col-md-12">
             <div class="row row-line-height">
                 <div class="form-group">
@@ -66,7 +66,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let plateform of service.databaseMiddlewareService.platformList; let idx=index">
+                        <tr *ngFor="let plateform of service.databaseMiddlewareProduct.platformSimpleItemResp; let idx=index">
                             <td>
                                 {{idx+1}}
                             </td>

@@ -39,10 +39,10 @@ export class DatabaseMiddlewareProdCreStep3Component implements OnInit {
     //获取platformRegionList
     // platFormRegionList:;
     previous() {
-        this.route.navigate(["prod-mng/manager-serve/manager-serve-product-cre-step2"]);
+        this.route.navigate(["prod-mng/database-middleware-mng/database-middleware-product-cre-step2"]);
     }
     next() {
-        this.route.navigate(["prod-mng/manager-serve/manager-serve-product-cre-step4"]);
+        this.route.navigate(["prod-mng/database-middleware-mng/database-middleware-product-cre-step4"]);
     }
     //取消
     cancel() {

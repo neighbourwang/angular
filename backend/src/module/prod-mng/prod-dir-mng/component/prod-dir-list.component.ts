@@ -311,6 +311,7 @@ export class ProdDirListComponent implements OnInit {
             //物理机
             this.router.navigate(["prod-mng/physical-prod-mng/prod-dirPhsical-cre", { type: 'new' }]);
         } else if (this.prodDirTypeCode == 'SUPERVISE_SERVICE') {
+            //管理服务
             this.service.dictServiceObjList.then(arrs => {
                 if (!$.isArray(arrs)) return "";  //如果不是arr返回空
                     // console.log(arrs);                
@@ -322,6 +323,7 @@ export class ProdDirListComponent implements OnInit {
                 return "";
             });
         }else if(this.prodDirTypeCode=='Database'||this.prodDirTypeCode=='MiddleWare'){
+            //中间件
             console.log(this.serverTypeCode);
             console.log(this.service.serverTypeDic);
             this.router.navigate(['prod-mng/database-middleware-mng/database-middleware-service-cre',{type:this.prodDirTypeCode,code:this.serverTypeCode}])

@@ -39,4 +39,12 @@ class ServiceTemplat{
       "serviceTemplateName": string;
       "status":string;
     }
-export { DatabaseMiddlewareServiceModel, ResourcPool, PlatformSimpleItem ,ServiceTemplat}
+ class Platform{
+    "code": string;
+    "displayName": string;
+    "platformId": string;
+    "platformName": string;
+    "selected": boolean;
+    "skuID": string;
+}   
+export { DatabaseMiddlewareServiceModel, ResourcPool, PlatformSimpleItem ,ServiceTemplat,Platform}

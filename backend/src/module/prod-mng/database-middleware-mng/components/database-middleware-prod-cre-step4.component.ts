@@ -57,7 +57,7 @@ export class DatabaseMiddlewareProdCreStep4Component implements OnInit {
     //获取platformRegionList
     // platFormRegionList:;
     previous() {
-        this.route.navigate(["prod-mng/manager-serve/manager-serve-product-cre-step3"]);
+        this.route.navigate(["database-middleware-mng/database-middleware-product-cre-step3"]);
     }
     next() {
         console.log(this.service.databaseMiddlewareProduct);                

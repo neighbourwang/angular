@@ -1,29 +1,52 @@
 class DatabaseMiddlewareProductModel {
     "basicCyclePrice": number;
     "billingCycle": string;
+    "billingCycleValid":boolean;
     "billingType": string;
-    "description": string;
+    "desc": string;
     "extendCyclePrice": number;
     "name": string;
     "oneTimePrice": number;
-    "platformSimpleItems": Array<Platform>;
-    "productEnterpiseReqs": Array<Enterprise>
+    "platformSimpleItemResp": Array<Platform>;
+    "productEnterpiseReqs": Array<Enterprise>;
+    "resourcPoolsProfiles":Array<ResourcPool>;
     "productId": string;
     "serviceId": string;
     "unitPrice": number;
+    "serverType":string;
+    "serviceSkuId":string;
+    "billingId": string;
+    "platformType":string;//平台类型、私有云、公有云、物理机    
     constructor(){
         this.productEnterpiseReqs=new Array<Enterprise>();
-        this.platformSimpleItems=new Array<Platform>();
+        this.platformSimpleItemResp=new Array<Platform>();
+        this.resourcPoolsProfiles=new Array<ResourcPool>();
+        this.name='';
+        this.desc="";
+        this.billingType='0';
+        this.billingCycle='null';
+        this.basicCyclePrice=0;
+        this.oneTimePrice=0;
     }
 }
 class Platform {
     "code": string;
     "id": string;
-    "name": string
+    "name": string;
+    "selected": boolean;
+    "displayName":string;    
+    "skuID": string
 }
 class Enterprise {
     "id": string;
     "name": string;
     selected:boolean;
 }
-export { DatabaseMiddlewareProductModel,Platform,Enterprise}
+class ResourcPool{
+    "pmPoolId": string;
+    "poolName": string;
+    "resourcePoolDisplayName": string;
+    "selected": boolean;
+    "skuid": string;
+}
+export { DatabaseMiddlewareProductModel,Platform,Enterprise,ResourcPool}

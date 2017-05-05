@@ -8,7 +8,6 @@ import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent,CountB
 // service;
 import { DatabaseMiddlewareProdService } from '../service/database-middleware-prod.service';
 
-
 @Component({
     templateUrl: '../template/database-middleware-prod-cre-step2.component.html',
     styleUrls: [],
@@ -36,15 +35,6 @@ export class DatabaseMiddlewareProdCreStep2Component implements OnInit {
         //     this.basicCyclePrice.unEdit();
         //     // this.billByTimes();
         // }
-    }
-    //按次计费
-    billByTimes(){
-        this.service.databaseMiddlewareProduct.billingCycle=null;
-        this.basicCyclePrice.unEdit();
-    }
-    //包年包月计费
-    billByYear(){
-        this.basicCyclePrice.editable();        
     }    
     //同步counterBar
     outputValue(e, num) {
@@ -53,14 +43,10 @@ export class DatabaseMiddlewareProdCreStep2Component implements OnInit {
     // 下一步
     ccf() { }
     previous(){
-        this.route.navigate(["prod-mng/manager-serve/manager-serve-product-cre-step1"]);        
+        this.route.navigate(["prod-mng/database-middleware-mng/database-middleware-product-cre-step1"]);        
     }
-    next() {
-        if(!this.service.databaseMiddlewareProduct.billingType){
-            this.notice.open('COMMON.OPERATION_ERROR','PROD_MNG.PLEASE_SELECT_VALUATION_TYPE');
-            return;
-        }
-        if(this.service.databaseMiddlewareProduct.billingType=='0'&&!this.service.databaseMiddlewareProduct.billingCycle){
+    next() {        
+        if(this.service.databaseMiddlewareProduct.billingCycle=='null'){
             this.notice.open('COMMON.OPERATION_ERROR','PROD_MNG.PLEASE_SELECT_VALUATION_CYCLE');
             return;
         }
@@ -68,7 +54,7 @@ export class DatabaseMiddlewareProdCreStep2Component implements OnInit {
             this.service.databaseMiddlewareProduct.basicCyclePrice?this.service.databaseMiddlewareProduct.basicCyclePrice:0;        
         this.service.databaseMiddlewareProduct.oneTimePrice=
             this.service.databaseMiddlewareProduct.oneTimePrice?this.service.databaseMiddlewareProduct.oneTimePrice:0;       
-        this.route.navigate(["prod-mng/manager-serve/manager-serve-product-cre-step3"]);
+        this.route.navigate(["prod-mng/database-middleware-mng/database-middleware-product-cre-step3"]);
     }
     //取消
     cancel() {

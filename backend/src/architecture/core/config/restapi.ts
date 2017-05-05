@@ -1230,7 +1230,7 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/services/platforms"
     },
     {
-        "desc": "创建中间件服务产品",
+        "desc": "创建中间件服务目录",
         "id": "database-middleware-service-create.post",
         "method": "POST",
         "url": "adminui/authsec/services/type/middleware" 
@@ -1239,7 +1239,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取中间件数据库服务目录详情",
         "id": "database-middleware-service-detail.get",
         "method": "GET",
-        "url": "adminui/authsec/services/database/templates"
+        "url": "adminui/authsec/services/middleWare/{id}"
+    },
+    {
+        "desc": "创建中间件服务产品",
+        "id": "database-middleware-product-create.post",
+        "method": "POST",
+        "url": "adminui/authsec/product/middeware" 
     },
     //用户中心
     {

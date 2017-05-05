@@ -35,10 +35,10 @@
 			</div>								
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">{{'PROD_MNG.DESCRIPTION'|translate}}：</div>
+					<div class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION'|translate}}：</div>
 					<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
 						<textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
-						 rows="3" [(ngModel)]="service.databaseMiddlewareProduct.description" name="description">
+						 rows="3" [(ngModel)]="service.databaseMiddlewareProduct.desc" name="description">
                             </textarea>
 					</div>
 				</div>
