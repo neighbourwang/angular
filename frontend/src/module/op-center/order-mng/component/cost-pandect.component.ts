@@ -208,18 +208,8 @@ private downLoadHandler:ItemLoader<CostManageItem> = null;//下载账单表格�
         this.loadYears();
         this.loadMonths();
         this.loadLastDay();
-      
-        // this.loadEnterprise();
-        // this.createSumBar();
-        // this.createHstoryBar();
-        // this.createTopBar();
-        // this.createTopBar2();
         this.loadUserType();
 	}
-// loadChart(){
-//     this.loadLastDay();
-//     this.search_chart();
-// }
 isRootUser(){
     let item = this.userTypeLoader.FirstItem;
     if(item.roleName&&item.roleName=='ENTERPRISE_ADMIN')
@@ -361,17 +351,6 @@ increaseConsumeLoad(param:any){
 }
 topConsumeLoad(param:any){
     this.layoutService.show();
-    // if(this.isRoot){
-    //     this.topConsumeLoader.Go(null,null,param)
-    //     .then(success=>{
-    //         this.chartService.topToDatas(this.topConsumeLoader.Items,this.topChart);
-    //         this.layoutService.hide();
-    //     })
-    //     .catch(err=>{
-    //         this.layoutService.hide();
-    //         this.showMsg(err);
-    //     })
-    // }else{
         this.topConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
             this.chartService.topToDatas(this.topConsumeDepartmentLoader.Items,this.topChart);
@@ -380,23 +359,11 @@ topConsumeLoad(param:any){
         .catch(err=>{
             this.layoutService.hide();
             this.showMsg(err);
-        }) 
-    
-      
+        })      
 }
 
 topIncreseConsumeLoad(param:any){
     this.layoutService.show();
-    //   if(this.isRoot){
-    //     this.topIncreseConsumeLoader.Go(null,null,param)
-    //     .then(success=>{
-    //          this.chartService.topToDatas(this.topIncreseConsumeLoader.Items,this.topIncreaseChart);
-    //     })
-    //     .catch(err=>{
-    //         this.layoutService.hide();
-    //         this.showMsg(err);
-    //     })
-    // }else{
         this.topIncreseConsumeDepartmentLoader.Go(null,null,param)
         .then(success=>{
                  this.chartService.topToDatas(this.topIncreseConsumeDepartmentLoader.Items,this.topIncreaseChart);
@@ -405,10 +372,7 @@ topIncreseConsumeLoad(param:any){
         .catch(err=>{
             this.layoutService.hide();
             this.showMsg(err);
-        }) 
-
-    
-    
+        })    
 }
 
 search_chart(){
