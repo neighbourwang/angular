@@ -315,6 +315,7 @@ showMsg(msg: string)
             this.allServiceLoader.Go(null,null,param)
                 .then(success=>{    
                     this.layoutService.hide();
+                    console.log(this.increaseServiceLoader);
                 })
                 .catch(err=>{
                     this.layoutService.hide();
