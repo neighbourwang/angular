@@ -7,7 +7,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent} from 
 import { Validation, ValidationRegs } from '../../../../architecture';
 
 //model 
-import { ManagerServeProductModel, Platform, Enterpise } from '../model/manager-serve-product.model'
+import { ManagerServeProductModel, Platform, Enterprise } from '../model/manager-serve-product.model'
 import { ManagerServeServiceModel,PmPool,PlatformObj } from '../model/manager-serve-service.model'
 // service;
 import { ManagerServeProdService } from '../service/manager-serve-prod.service';
