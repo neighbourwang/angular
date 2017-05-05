@@ -200,7 +200,8 @@
     "OVERVIEW": "概览",
     "ORDER": "订购",
     "INSTANCE_LIST": "实例列表",
-    "CASE_MNY": "工单管理"
+    "CASE_MNY": "工单管理",
+     "ALI_ACCOUNT_MNG":"阿里云账号管理"
   },
   "VM_INSTANCE": {
     "CHOOSE_HOST_UN": "请选择要退订的主机",
@@ -737,8 +738,39 @@
     "DISABKE_ALIACCOUNT": "禁用子帐号",
     "DELETE_ALIACCOUNT": "删除子帐号",
     "YOU_SELECT_ENABLE_ALIACCOUNT": "您选择启用账号{{value_1}}，请确认",
-    "YOU_SELECT_DISABLE_ALIACCOUNT": "您选择禁用账号{{value_1}}，请确认，禁用后，该账户的所有信息都不再显示，部门将失去管理阿里云的权限",
-    "YOU_SELECT_DELETE_ALIACCOUNT": "您选择删除账号{{value_1}}，请确认"
-
+    "YOU_SELECT_DISABLE_ALIACCOUNT": "您选择禁用账号{{value_1}}，请确认，禁用后，部门将失去管理阿里云的权限",
+    "YOU_SELECT_DELETE_ALIACCOUNT": "您选择删除账号{{value_1}}，请确认",
+    "ALI_ID":"编号",
+    "MAJOR_LOGINNAME":"主账号登录名",
+    "SUB_NUMBER":"子账号数量",
+    "LASTUPDATE_TIME":"最后更新时间",
+    "OPERATOR":"操作人",
+    "TEST":"测试",
+    "TEST_SUCCESS":"测试成功",
+    "TEST_FAIL":"测试失败",
+    "RESET":"重置",
+    "CURRENT_SELECTED_DEPARTMENT":"当前所属部门",
+    "ALI_SELECT":"选择",
+    "DEPARTMENT_NAME":"部门名称",
+    "MAJOR_DETAIL":"主账号详情",
+    "EDIT_LOGININFO":"编辑登录信息",
+    "EDIT_SUBACCOUNT":"编辑子账号",
+    "SUCESSTEST_CAN_SAVE":"测试成功才能保存",
+    "SUCESSTEST_CAN_CREATE":"测试成功才能创建",
+    "DISTRI_DEPARTMENT":"分配部门",
+    "DISTRI_MAJOR_DEPARTMENT":"分配部门：主账号-{{value_1}}",
+    "DISTRI_SUB_DEPARTMENT":"分配部门：子账号-{{value_1}}",
+    "CANNOT_DISTRI_DEPARTMENT":"无法分配到此部门",
+    "DISTRI_DEPARTMENT_PROMOTINFO":"部门发生改变,请确认",
+    "ACCESSKEY_CANNOT_EMPTY":"accessKey不能为空",
+    "ACCESSSECRET_CANNOT_EMPTY":"accessSecret不能为空",
+    "ALICLOUD_SUBMNG":"阿里云子账号管理",
+    "RETURN_ALI_ACCOUNT_MNG":"返回阿里云账号管理",
+    "CREATE_SUBACCOUNT":"创建子账号",
+    "SUB_LOGINNAME":"子账号登录名",
+    "SUB_DETAIL":"子账号详情",
+    "DELETE_WARNINGINFO":"必须为禁用状态且未分配给任何部门时才能删除",
+    "LOGINNAME_CANNOT_EMPTY":"loginName不能为空",
+    "CANNOT_MNG_ALIACCOUNT":"您没有管理阿里云账号的权限"
   }
 }

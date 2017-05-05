@@ -11,7 +11,7 @@ export class ManagerServeServiceService {
      constructor(
         private http: Http,
         private restApiCfg: RestApiCfg,
-        private restApi: RestApi
+        private restApi: RestApi,
     ) { }
 
     //获取可用资源池列表

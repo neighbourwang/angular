@@ -1,55 +1,132 @@
 <div class="page-content mngm_service_order cloud_host_order">
-	<div class="col-md-9">
-		<h1 (click)="payLoadFormat()" class="page-content-header">订购管理服务</h1>
-		<ul class="left-box">
-			<li>
-				<div class="col-md-1 li-title">
-					<p>服务名称</p>
-				</div>
-				<div class="col-md-12 li-content">
-					<div class="col-md-3">
-						<select [(ngModel)]="product" (ngModelChange)="dux.dispatch('PRODUCT');" class="form-control">
-							<option *ngFor="let value of productList;" [ngValue]="value">{{ value.name }}</option>
-						</select>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="col-md-1 li-title">
-					<p>服务描述</p>
-				</div>
-				<div class="col-md-12 li-content">
-					<div class="col-md-10 pdl15">
-						{{productInfo?.desc}}
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="col-md-1 li-title">
-					<p>实例选择</p>
-				</div>
-				<div class="col-md-12 li-content">
-					<div class="col-md-10 pdl15">
-						{{productInfo?.desc}}
-					</div>
-				</div>
-			</li>
-			
-		</ul>
-	</div>
-	<div class="col-md-3 no-padding right-box">
-		<cart-button #cartButton></cart-button>
-		<div class="col-md-12 content-box">
-		
-			<div class="col-md-12 colud-order-button">
-				<div class="col-md-6">
-					<button (click)="buyNow()" class="btn button-orange-deep">{{'COMMON.BUY_NOW'|translate}}</button>
-				</div>
-				<div class="col-md-6">
-					<button (click)="addCart()" class="btn button-orange-light">{{'COMMON.ADD_TO_SHOPPING_CART'|translate}}</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="col-md-9">
+        <h1 (click)="payLoadFormat()" class="page-content-header">订购管理服务</h1>
+        <ul class="left-box">
+            <li>
+                <div class="col-md-1 li-title">
+                    <p>服务名称</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-3">
+                        <select [(ngModel)]="product" (ngModelChange)="dux.dispatch('PRODUCT');" class="form-control">
+                            <option *ngFor="let value of productList;" [ngValue]="value">{{ value.name }}</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="col-md-1 li-title">
+                    <p>服务描述</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-10 pdl15">
+                        {{productInfo?.desc}}
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="col-md-1 li-title">
+                    <p>实例选择</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-12 no-padding">
+                        <platform-zone #platformZone (onClick)="diskPlatformClick($event)"></platform-zone>
+                    </div>
+			        <div class="input-group col-md-4 pdl15 pdr15 pdt15 pdb15">
+			            <input class="form-control" type="email" [(ngModel)]="quiryDiskList.queryFieldValue" id="queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HARD_DISK_INFORMATION_TO_SEARCH' | translate}}">
+			            <div class="input-group-addon" (click)="reFetchDiskList()" id="queryFieldValue_search">
+							<span class="glyphicon glyphicon-search"></span>
+						</div>
+			        </div>
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tr>
+                                <th style="width: 5%;" class="text-center">选择</th>
+                                <th style="width: 15%;" class="text-center">{{'CLOUD_DRIVE_LIST.CLOUD_HRAD_DISK_NAME' | translate}}</th>
+                                <th style="width: 10%;" class="text-center">{{'COMMON.STORAGE_TYPE' | translate}}</th>
+                                <th style="width: 10%;" class="text-center">{{'COMMON.CAPACITY_GB'| translate}}</th>
+                                <th style="width: 10%;" class="text-center">{{'COMMON.STATUS' | translate}}</th>
+                                <th style="width: 18%;" class="text-center">{{'CLOUD_DRIVE_LIST.MOUNT_LOCATION_CLOUD_HOST_NAME' | translate}}</th>
+                                <th style="width: 10%;" class="text-center">{{'CLOUD_DRIVE_LIST.ATTRIBUTE' | translate}}</th>
+                                <th style="width: 22%;" class="text-center">所在区域及可用区</th>
+                            </tr>
+                        </table>
+                        <div class="table-scroll mgb20" (scroll)="scrollChange($event, diskNextPage)">
+                            <table class="table table-hover table-boder-top-none table-all-boder">
+                                <ng-container *ngFor="let disk of diskList;let i = index">
+                                    <tr>
+                                        <td style="width: 5%; text-align: center;">
+				                            <input type="checkbox"
+													class="fox-cloud-checkbox fox-cloud-checkbox-white" 
+													name="networkRequirements" 
+													[checked]="disk.isSelected" 
+													(change)="disk.isSelected = !disk.isSelected; diskSelect()">
+                                        </td>
+                                        <td style="width: 15%;" class="text-center">{{disk.name}}</td>
+                                        <td style="width: 10%;" class="text-center">{{disk.type}}</td>
+                                        <td style="width: 10%;" class="text-center">{{disk.size}}</td>
+                                        <td style="width: 10%;" class="text-center">{{disk.status | dict:diskService.computeStatus | async}}</td>
+                                        <td style="width: 18%;" class="text-center">{{disk.relyName}}</td>
+                                        <td style="width: 10%;" class="text-center">{{disk.useType}}</td>
+                                        <td style="width: 22%;" class="text-center">{{disk.platformName}} {{disk.zoneName}}</td>
+                                    </tr>
+                                </ng-container>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="col-md-1 li-title">
+                    <p>服务类型</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-10 pdl15">
+                        {{productInfo?.billingType == 0 ? "包年包月" : "按次计费"}}
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="col-md-1 li-title">
+                    <p>备注信息</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-9 form-group has-feedback" style="padding-right: 0!important;" [ngClass]="{'has-error':v.result.description}">
+                        <textarea style=" height: 120px;" class="form-control" [(ngModel)]="values.REMARK.attrValue" (keyup)="checkValue('description')" placeholder="" rows="3"></textarea>
+                        <span *ngIf="v.result.description" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <div class="tip-text mgt15" role="alert">最多支持300个中文字符。</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="col-md-1 li-title">
+                    <p>购买量</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-8 pdl15">
+                        <div class="col-md-1 no-padding pdt5 mr10">{{productInfo?.billingType == 0 ? "按" : "按次"}}{{productInfo?.billingCycleType | dict: service.unitType | async}}</div>
+                        <div class="col-md-3 no-padding mr10 has-feedback" [ngClass]="{'has-error': v.result.quality }">
+                            <input [disabled]="productInfo?.billingType == 3" (keyup)="checkValue('quality');" [(ngModel)]="postData.quality" type="text" class="form-control">
+                            <span *ngIf="v.result.quality" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="v.result.quality" class="alert alert-danger" role="alert">{{v.result.quality | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3 no-padding right-box">
+        <cart-button #cartButton></cart-button>
+        <div class="col-md-12 content-box">
+            <div class="col-md-12 colud-order-button">
+                <div class="col-md-6">
+                    <button (click)="buyNow()" class="btn button-orange-deep">{{'COMMON.BUY_NOW'|translate}}</button>
+                </div>
+                <div class="col-md-6">
+                    <button (click)="addCart()" class="btn button-orange-light">{{'COMMON.ADD_TO_SHOPPING_CART'|translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>

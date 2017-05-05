@@ -43,58 +43,62 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="console-box">
-		                <div class="console-title">企业消费概览</div>
+		                <div class="console-title" *ngIf='!this.isNullEnterprise()'>部门消费概览</div>
+						<div class="console-title" *ngIf='this.isNullEnterprise()'>消费概览</div>						
 		                <div class="ues-content">
-							 <canvas baseChart *ngIf="ent_dht" 
+							 <canvas baseChart *ngIf="sumChart" 
                           width="200" height="70"
-                          [datasets]="ent_dht"
+                          [datasets]="sumChart.datasets"
                           chartType="doughnut"
-                          [colors]="d_chart.colors"
-						  [labels]="d_chart.labels"></canvas>
+                          [colors]="sumChart.colors"
+						  [labels]="sumChart.labels"></canvas>
 		                </div>
 		            </div>
 				</div>
                 <div class="col-sm-6">
                     <div class="console-box">
-                        <div class="console-title">企业消费趋势</div>
+                        <div class="console-title" *ngIf='!this.isNullEnterprise()'>部门消费趋势</div>
+						<div class="console-title" *ngIf='this.isNullEnterprise()'>消费趋势</div>
                         <div class="ues-content">
-							 <canvas baseChart *ngIf="ent_bar"
+							 <canvas baseChart *ngIf="historyChart"
                           width="200" height="70"
-                          [datasets]="ent_bar" 
+                          [datasets]="historyChart.datasets" 
                           chartType="bar"
-                          [colors]="b_chart.colors"
-                          [labels]="b_chart.labels"
-                          [options]="b_chart.options"></canvas>
+                          [colors]="historyChart.colors"
+                          [labels]="historyChart.labels"
+                          [options]="historyChart.options"></canvas>
                         </div>     
                     </div>
                 </div>
 			</div>
-            <div class="row" *ngIf="isRoot">
+            <div class="row">
                 <div class="col-sm-6">
                     <div class="console-box">
-                        <div class="console-title">TOP5部门消费总额排名</div>
+                        <div class="console-title" *ngIf='!this.isNullEnterprise()'>TOP5部门消费总额排名</div>
+						<div class="console-title" *ngIf='this.isNullEnterprise()'>TOP5企业消费总额排名</div>
                         <div class="ues-content">
                             <!--<canvas id="h_bar_chart" width="200" height="70"></canvas>-->
 							 <canvas baseChart
-                          width="200" *ngIf="ent_hbar" height="70"
-                          [datasets]="ent_hbar"
-                          [labels]="h_chart.labels"
-                          [colors]="h_chart.colors"
+                          width="200" *ngIf="topChart" height="70"
+                          [datasets]="topChart.datasets"
+                          [labels]="topChart.labels"
+                          [colors]="topChart.colors"
                           chartType="horizontalBar"
-                          [options]="h_chart.options"></canvas>
+                          [options]="topChart.options"></canvas>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="console-box">
-                        <div class="console-title">TOP5部门新增总额排名</div>
-						 <canvas *ngIf="ent_hbar2" baseChart
-                          width="200" height="70"
-                          [datasets]="ent_hbar2"
-                          [labels]="h_chart2.labels"
-                          [colors]="h_chart2.colors "
+                        <div class="console-title" *ngIf='!this.isNullEnterprise()'>TOP5部门新增总额排名</div>
+						<div class="console-title" *ngIf='this.isNullEnterprise()'>TOP5企业新增消费总额排名</div>
+						  <canvas baseChart
+                          width="200" *ngIf="topIncreaseChart" height="70"
+                          [datasets]="topIncreaseChart.datasets"
+                          [labels]="topIncreaseChart.labels"
+                          [colors]="topIncreaseChart.colors"
                           chartType="horizontalBar"
-                          [options]="h_chart2.options"></canvas>
+                          [options]="topIncreaseChart.options"></canvas>
                         <div class="ues-content">
                             <!--<canvas id="h_bar_chart2" width="200" height="70"></canvas>-->
                         </div>     

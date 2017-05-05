@@ -1249,9 +1249,54 @@ export class AliCloudVmOrderComponent implements OnInit {
         //*/
     }
 
+    validateBuyParam(): boolean {
+        if (this.selectedOrderVmPage.selectedImage != null)
+        {
+            console.log(this.selectedOrderVmPage.selectedImage);
+        } else {
+            return false;
+        }
+
+        if (this.selectedOrderVmPage.selectedQuantity != null || this.selectedOrderVmPage.selectedChargeType == 'PostPaid')
+        {
+            console.log(this.selectedOrderVmPage.selectedQuantity, this.selectedOrderVmPage.selectedChargeType);
+        } else {
+            return false;
+        }
+
+        if (this.selectedOrderVmPage.selectedNetworkType == "classic" || this.selectedOrderVmPage.selectedVswitchId != null)
+        {
+            console.log(this.selectedOrderVmPage.selectedNetworkType, this.selectedOrderVmPage.selectedVpcId, this.selectedOrderVmPage.selectedVswitchId);
+        } else {
+            return false;
+        }
+
+        if (this.selectedOrderVmPage.selectedDisk != "null" && this.selectedOrderVmPage.selectedDisk != null && this.selectedOrderVmPage.diskCount != null)
+        {
+            console.log(this.selectedOrderVmPage.selectedDisk, this.selectedOrderVmPage.diskCount);
+        } else {
+            return false;
+        }
+
+        if (this.selectedOrderVmPage.selectedGeneration != null &&
+            this.selectedOrderVmPage.selectedInstanceFamily != null &&
+            this.selectedOrderVmPage.selectedInstanceType != null)
+        {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     buyNow() {
         console.log(this.selectedOrderVmPage, "selectedOrderVmPage Finally!!!");
         //this.calculatePrice();
+
+        if(!this.validateBuyParam()) {
+            this.showMsg("配置不正确！");
+            return;
+        }
 
         this.layoutService.show();
         this.service.createInstanceOrder(this.selectedOrderVmPage)

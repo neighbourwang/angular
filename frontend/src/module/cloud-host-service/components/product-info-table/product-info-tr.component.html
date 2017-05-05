@@ -4,7 +4,7 @@
     </td>
     <td style="width: 330px">
         <table class="cart-info">
-            <tr *ngFor="let attr of (items.attrList || items.specList || []) | formatInfo:items.serviceType;">
+            <tr *ngFor="let attr of (items.attrList || items.specList || []) | formatInfo:items.serviceType:items;">
                 <td style="width: 100px">{{attr.attrDisplayName}} : </td>
                 <td>{{attr.attrDisplayValue}}</td>
             </tr>
