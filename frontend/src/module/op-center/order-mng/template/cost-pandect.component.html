@@ -132,10 +132,10 @@
 						</tr>
 					</thead>
 					<tbody>
-                        <tr class="text-center" *ngFor="let item of allServiceLoader.Items;">
+                        <tr class="text-center" *ngFor="let item of allServiceLoader.Items;" id="allServiceLoader_{{item.id}}">
 							<td colspan="5">
 								<table class="cart-info">
-									<tr  *ngFor="let priceItem of item.priceDetails">
+									<tr  *ngFor="let priceItem of item.priceDetails;let i=index" id="allServiceLoader_{{item.id}}_{{i}}">
 										<td class="vertical-center"><a (click)='showDetail(item)'>{{item.subinstanceCode}}</a></td>
                             			<td class="vertical-center">{{item.productName}}</td>
                             			<td class="vertical-center">{{item.num}}</td>
@@ -166,10 +166,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center" *ngFor="let item of increaseServiceLoader.Items;">
+                        <tr class="text-center" *ngFor="let item of increaseServiceLoader.Items;" id="allServiceLoader_{{item.id}}">
                             <td colspan="5">
 								<table class="cart-info">
-									<tr *ngFor="let priceItem of item.priceDetails">
+									<tr *ngFor="let priceItem of item.priceDetails;let i=index" id="allServiceLoader_{{item.id}}_{{i}}">
 										<td class="vertical-center"><a (click)='showDetail(item)'>{{item.subinstanceCode}}</a></td>
                             			<td class="vertical-center">{{item.productName}}</td>
                             			<td class="vertical-center">{{item.num}}</td>
