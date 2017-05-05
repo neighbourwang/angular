@@ -58,7 +58,7 @@
 								</ul>-->
 								<machine-view  [values]="item" *ngIf="item.serviceType==4"></machine-view>
 								<a *ngIf="item.serviceType==4" class="hands" [popover]="popover">点击查看部件信息</a><!--物理机-->
-								<popover-content #popover placement="right"[animation]="true" [closeOnClickOutside]="true">
+								<popover-content #popover placement="right"[animation]="true" [closeOnClickOutside]="true" >
 									<div class="table-container mgb20">
 										<table class="table table-bordered mgb20 text-center inner-table">
 											<thead>
@@ -69,12 +69,12 @@
 													<th>总容量</th>
 											</thead>
 											<tbody>
-												<tr>
-													<td>磁盘</td>
-													<td>SSD</td>
-													<td>100GB</td>
-													<td>2</td>
-													<td>128GB</td>
+												<tr *ngFor="let physicalMachineItem of _detail.subInstanceList[0].pmEntity.partsEntitys">
+													<td>{{physicalMachineItem.partsName}}</td>
+													<td>{{physicalMachineItem.specName}}</td>
+													<td>{{physicalMachineItem.specValue}}</td>
+													<td>{{physicalMachineItem.number}}</td>
+													<td>{{physicalMachineItem.capacity}}</td>
 												</tr>		
 											</tbody>
 										</table>
