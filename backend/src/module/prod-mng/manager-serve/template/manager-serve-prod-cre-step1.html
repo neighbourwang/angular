@@ -36,7 +36,7 @@
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">服务对象：</div><!--产品目录-->
+					<div class="col-sm-4 form-control-title">{{'PROD_MNG.SERVE_OBJECT'|translate}}：</div><!--产品目录-->
 					<div class="col-sm-4 no-padding form-control-title font-gray font-left">
 						{{service.managerServeService.serviceObjectCode | dict:service.dictServiceObjList | async}}
 					</div>
@@ -44,7 +44,7 @@
 			</div>						
 			<div class="row row-line-height">
 				<div class="form-group">
-					<div class="col-sm-4 form-control-title">服务描述：</div>
+					<div class="col-sm-4 form-control-title">{{'PROD_MNG.SERVE_DESCRIPTION'|translate}}：</div>
 					<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
 						<textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
 						 rows="3" [(ngModel)]="service.managerServeProduct.description" name="description">
@@ -55,16 +55,13 @@
         </div>
     </div>
 </div>
-<div class="text-center mgt20">
+<div class="text-center mgt30">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{'COMMON.CANCEL'|translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
-        <span class="icon-button-label">下一步</span>
+        <span class="icon-button-label">{{'COMMON.NEXT'|translate}}</span>
     </button>
 </div>
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
-
-
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>

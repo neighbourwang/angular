@@ -5,7 +5,7 @@ import { RestApiCfg, RestApi, RestApiModel ,LayoutService} from '../../../../arc
 import 'rxjs/add/operator/toPromise';
 
 //model 
-import { PhysicalProductModel,ProductEnterpiseReqs } from '../model/physical-product.model';
+import { PhysicalProductModel,ProductEnterpriseReqs } from '../model/physical-product.model';
 import { PhysicalService, FlatResourcePool, ResourcePoolObj, PartsFlavor, UnitObj, Spec,FlatUnitObj } from '../model/physical-prod-service.model'
 
 @Injectable()
@@ -19,7 +19,7 @@ export class PhysicalProductService {
 
     product:PhysicalProductModel=new PhysicalProductModel();
     physicalService:PhysicalService=new PhysicalService();
-    enterpriseListForSelect:Array<ProductEnterpiseReqs>;
+    enterpriseListForSelect:Array<ProductEnterpriseReqs>;
     // unitList:FlatUnitObj;
     // 获取部件列表
     getUnitList() {
