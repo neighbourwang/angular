@@ -1,4 +1,7 @@
-<div class="mgb20" style="font-size:20px;">
-    {{ 'COMMON.PROMPT' | translate}}：
+<div *ngIf="type== 1">
+    <div class="mgb20" style="font-size:20px;">
+        {{ 'COMMON.PROMPT' | translate}}：
+    </div>
+    <div class="col-md-11" style="text-align:center;">{{ 'USER_CENTER.CANNOT_MNG_ALIACCOUNT' | translate}}</div>
 </div>
-<div class="col-md-11" style="text-align:center;">{{ 'USER_CENTER.CANNOT_MNG_ALIACCOUNT' | translate}}</div>
+
