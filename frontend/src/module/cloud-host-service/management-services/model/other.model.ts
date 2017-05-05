@@ -13,7 +13,15 @@ class Values {
 	SERVICEOBJECTCODE: ValuesAttr = new ValuesAttr;
 }
 
+class Selected {
+	REGION: ValuesAttr = new ValuesAttr;
+	ZONE: ValuesAttr = new ValuesAttr;
+	INSTANCEID: ValuesAttr = new ValuesAttr;
+	INSTANCENAME: ValuesAttr = new ValuesAttr;
+}
+
 export {
 	ValuesAttr,
-	Values
+	Values,
+	Selected
 }

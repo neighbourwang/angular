@@ -4,7 +4,7 @@ import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService,LayoutServic
 
 import 'rxjs/add/operator/toPromise';
 import { ManagerServeServiceModel, PmPool, Platform ,PlatformObj} from '../model/manager-serve-service.model';
-import { ManagerServeProductModel,Enterpise} from '../model/manager-serve-product.model'
+import { ManagerServeProductModel,Enterprise} from '../model/manager-serve-product.model'
 
 
 @Injectable()
@@ -19,7 +19,7 @@ export class ManagerServeProdService {
 
     managerServeProduct:ManagerServeProductModel;
     managerServeService:ManagerServeServiceModel;
-    enterpriseListForSelect:Array<Enterpise>=new Array<Enterpise>();
+    enterpriseListForSelect:Array<Enterprise>=new Array<Enterprise>();
     //获取管理服务详情
     getManagerServeServiceDetail(id:string) {
         let api = this.restApiCfg.getRestApi("manager-serve-service-detail.get");

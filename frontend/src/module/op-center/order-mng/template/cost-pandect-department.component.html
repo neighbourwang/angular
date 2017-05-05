@@ -1,5 +1,5 @@
 <div class="CostPandect">	
-	<div class="page-content-header">部门消费总览</div>
+	<div class="page-content-header">消费总览</div>
 	<div class="page-content">
 
 		<!--<div class="firstPanel">
@@ -37,12 +37,12 @@
 					<div class="console-box">
 		                <div class="console-title">部门消费概览</div>
 		                <div class="ues-content">
-							 <canvas baseChart *ngIf="ent_dht" 
+							 <canvas baseChart *ngIf="sumChart" 
                           width="200" height="70"
-                          [datasets]="ent_dht"
+                          [datasets]="sumChart.datasets"
                           chartType="doughnut"
-                          [colors]="d_chart.colors"
-						  [labels]="d_chart.labels"></canvas>
+                          [colors]="sumChart.colors"
+						  [labels]="sumChart.labels"></canvas>
 		                </div>
 		            </div>
 				</div>
@@ -50,13 +50,13 @@
                     <div class="console-box">
                         <div class="console-title">部门消费趋势</div>
                         <div class="ues-content">
-							 <canvas baseChart *ngIf="ent_bar"
+							 <canvas baseChart *ngIf="historyChart"
                           width="200" height="70"
-                          [datasets]="ent_bar" 
+                          [datasets]="historyChart.datasets" 
                           chartType="bar"
-                          [colors]="b_chart.colors"
-                          [labels]="b_chart.labels"
-                          [options]="b_chart.options"></canvas>
+                          [colors]="historyChart.colors"
+                          [labels]="historyChart.labels"
+                          [options]="historyChart.options"></canvas>
                         </div>     
                     </div>
                 </div>
@@ -92,10 +92,10 @@
 						</tr>
 					</thead>
 					<tbody>
-                        <tr class="text-center" *ngFor="let item of allServiceLoader.Items;">
+                        <tr class="text-center" *ngFor="let item of allServiceLoader.Items;" id="increaseServiceLoader_{{item.id}}">
 							<td colspan="5">
 								<table class="cart-info">
-									<tr  *ngFor="let priceItem of item.priceDetails">
+									<tr  *ngFor="let priceItem of item.priceDetails;let i= index"  id="priceDetails_{{item.id}}_{{i}}">
 										<td class="vertical-center"><a (click)='showDetail(item)'>{{item.subinstanceCode}}</a></td>
                             			<td class="vertical-center">{{item.productName}}</td>
                             			<td class="vertical-center">{{item.num}}</td>
@@ -126,10 +126,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center" *ngFor="let item of increaseServiceLoader.Items;">
+                        <tr class="text-center" *ngFor="let item of increaseServiceLoader.Items;" id="increaseServiceLoader_{{item.id}}">
                             <td colspan="5">
 								<table class="cart-info">
-									<tr *ngFor="let priceItem of item.priceDetails">
+									<tr *ngFor="let priceItem of item.priceDetails;let i= index" id="priceDetails_{{item.id}}_{{i}}">
 										<td class="vertical-center"><a (click)='showDetail(item)'>{{item.subinstanceCode}}</a></td>
                             			<td class="vertical-center">{{item.productName}}</td>
                             			<td class="vertical-center">{{item.num}}</td>

@@ -84,16 +84,13 @@
         </div>
     </div>
 </div>
-<div class="text-center mgt20">
+<div class="text-center mgt30">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{'COMMON.CANCEL'|translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
-        <span class="icon-button-label">下一步</span>
+        <span class="icon-button-label">{{'COMMON.NEXT'|translate}}</span>
     </button>
 </div>
 
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>
-
-
-<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM" (of)="cof()" ct="HOST_VMWARE_MNG.CANCEL" (cf)="ccf()"></fc-confirm>

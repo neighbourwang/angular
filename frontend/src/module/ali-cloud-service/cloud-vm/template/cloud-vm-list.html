@@ -52,6 +52,7 @@
         <tr>
             <th class="text-center">选择</th>
             <th class="text-center">实例ID/名称</th>
+            <th class="text-center">区域</th>
             <th class="text-center">可用区</th>
             <th class="text-center">IP地址</th>
             <th class="text-center">网络类型</th>
@@ -88,10 +89,14 @@
 
                 </div>
             </td>
+            <td class="text-center text-vertical-middle">{{instance.RegionId}}</td>
             <td class="text-center text-vertical-middle">{{instance.ZoneId}}</td>
             <td class="text-left text-vertical-middle"><span style="display: block">内网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0]}}</span><span>外网IP：{{instance.EipAddress.IpAddress}}</span></td>
             <td class="text-center text-vertical-middle">{{instance.InstanceNetworkType | dict:this.dictService.networkTypeDict | async}}</td>
-            <td class="text-center text-vertical-middle"><span class="icon-instance-starting"></span>{{instance.Status | dict:this.dictService.instanceStatusDict | async}}</td>
+            <td class="text-center text-vertical-middle">
+                <img *ngIf="instance.Status=='Pending'||instance.Status=='Starting'||instance.Status=='Stopping'" src="../../../../../architecture/assets/images/icon_instance_starting.gif" /> {{instance.Status | dict:this.dictService.instanceStatusDict
+                | async}}
+            </td>
             <td class="text-left text-vertical-middle"><span style="display: block">CPU: {{instance.Cpu}}核</span><span>内存：{{instance.Memory}} MB (I/O优化)</span></td>
             <td class="text-center text-vertical-middle">{{instance.CreationTime}}</td>
             <td class="text-center text-vertical-middle">{{instance.InstanceChargeType | dict:this.dictService.instanceChargeTypeDict | async}}<br /> {{instance.ExpiredTime}}</td>

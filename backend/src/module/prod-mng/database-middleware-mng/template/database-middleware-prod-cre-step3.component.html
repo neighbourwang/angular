@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <div class="row" *ngIf="service.managerServeService.serviceObjectCode=='2'">
+    <div class="row" *ngIf="service.databaseMiddlewareService.serviceObjectCode=='2'">
          <div class="col-md-12">
             <div class="row row-line-height">
                 <div class="form-group">
@@ -35,7 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let resourcePool of service.managerServeService.pmPoolList; let idx = index;">
+                        <tr *ngFor="let resourcePool of service.databaseMiddlewareService.pmPoolList; let idx = index;">
                             <td>{{idx+1}}</td>
                             <td>{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>
                             <td>{{resourcePool.description}}</td>
@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="service.managerServeService.serviceObjectCode!='2'&&service.managerServeService.serviceObjectCode!='8'">
+    <div class="row" *ngIf="service.databaseMiddlewareService.serviceObjectCode!='2'&&service.databaseMiddlewareService.serviceObjectCode!='8'">
          <div class="col-md-12">
             <div class="row row-line-height">
                 <div class="form-group">
@@ -66,7 +66,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let plateform of service.managerServeService.platformList; let idx=index">
+                        <tr *ngFor="let plateform of service.databaseMiddlewareService.platformList; let idx=index">
                             <td>
                                 {{idx+1}}
                             </td>
@@ -78,17 +78,15 @@
         </div>
     </div>
 </div>
-<div class="text-center mgt20">
+<div class="text-center mgt30">
     <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{'COMMON.CANCEL'|translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();">
-        <span class="icon-button-label">上一步</span>
+        <span class="icon-button-label">{{'COMMON.PREVIOUS'|translate}}</span>
     </button>
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
-        <span class="icon-button-label">下一步</span>
+        <span class="icon-button-label">{{'COMMON.NEXT'|translate}}</span>
     </button>
 </div>
-
-
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_VMWARE_MNG.CONFIRM"></fc-notice>

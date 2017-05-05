@@ -26,91 +26,6 @@ export class cloudHostDetailComponent implements OnInit {
 
     isEditState:boolean = false;
 
-	a_labels = ["7:00", "8:00", "9:00", "10:00", "11:00", "12:00"];
-	a_datasets = [
-		{
-			label: "CUP使用率 %",
-			fill: false,
-			lineTension: 0.2,
-			backgroundColor: "#ffffff",
-			borderColor: "rgba(75,192,192,1)",
-			borderCapStyle: 'butt',
-			borderDash: [],
-			borderDashOffset: 0.0,
-			borderJoinStyle: 'miter',
-			pointBorderColor: "rgba(75,192,192,1)",
-			pointBackgroundColor: "#fff",
-			pointBorderWidth: 1,
-			pointHoverRadius: 5,
-			pointHoverBackgroundColor: "rgba(75,192,192,1)",
-			pointHoverBorderColor: "rgba(220,220,220,1)",
-			pointHoverBorderWidth: 1,
-			pointRadius: 1,
-			pointHitRadius: 10,
-			data: [30, 45, 80, 41, 56, 55, 20],
-			spanGaps: false,
-		}
-	];
-	a_options = {
-		scales: {
-			yAxes: [{
-				ticks: {
-					beginAtZero:true,
-					max: 100
-				}
-			}],
-		},
-		legend: {
-			position: 'bottom',
-			display: true,
-			labels: {
-				boxWidth: 24
-			}
-		}
-	}
-
-	b_labels= ["7:00", "8:00", "9:00", "10:00", "11:00", "12:00"];
-	b_datasets= [
-		{
-			label: "内存使用率 %",
-			fill: false,
-			lineTension: 0.2,
-			backgroundColor: "#ffffff",
-			borderColor: "#FF6633",
-			borderCapStyle: 'butt',
-			borderDash: [],
-			borderDashOffset: 0.0,
-			borderJoinStyle: 'miter',
-			pointBorderColor: "#FF6633",
-			pointBackgroundColor: "#fff",
-			pointBorderWidth: 1,
-			pointHoverRadius: 5,
-			pointHoverBackgroundColor: "#FF6633",
-			pointHoverBorderColor: "rgba(220,220,220,1)",
-			pointHoverBorderWidth: 1,
-			pointRadius: 1,
-			pointHitRadius: 10,
-			data: [10, 73, 37, 42, 52, 30, 40],
-			spanGaps: false,
-		}
-	];
-	b_options= {
-		scales: {
-			yAxes: [{
-				ticks: {
-					beginAtZero:true,
-					max: 100
-				}
-			}],
-		},
-		legend: {
-			position: 'bottom',
-			display: true,
-			labels: {
-				boxWidth: 24
-			}
-		}
-	}
 
 	c_labels= ["2", "4", "6", "8", "16", "32", "64", "128"];
 	c_datasets= [
@@ -244,14 +159,133 @@ export class cloudHostDetailComponent implements OnInit {
 		}
 	}
 
+	hours = 24;
+
+	a_labels;
+	a_datasets;
+	a_options;
+	cpuLabels = [];
+	cpuData = [];
+
+	b_labels;
+	b_datasets;
+	b_options;
+	memLabels = [];
+	memData = [];
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private route: ActivatedRoute,
 		private service: cloudHostDetailService
 	) {
-
+		this.setCpuGraph()
+		this.setMemGraph()
 	}
+
+    setCpuGraph() {
+		let length = this.cpuLabels.length - this.hours
+		let labels = this.cpuLabels.filter((label, i) => i >= length)
+		let datas = this.cpuData.filter((cpu, i) => i >= length)
+
+		let datasets = [
+				{
+					label: "CPU使用率 %",
+					fill: false,
+					lineTension: 0.2,
+					backgroundColor: "#ffffff",
+					borderColor: "rgba(75,192,192,1)",
+					borderCapStyle: 'butt',
+					borderDash: [],
+					borderDashOffset: 0.0,
+					borderJoinStyle: 'miter',
+					pointBorderColor: "rgba(75,192,192,1)",
+					pointBackgroundColor: "#fff",
+					pointBorderWidth: 1,
+					pointHoverRadius: 5,
+					pointHoverBackgroundColor: "rgba(75,192,192,1)",
+					pointHoverBorderColor: "rgba(220,220,220,1)",
+					pointHoverBorderWidth: 1,
+					pointRadius: 1,
+					pointHitRadius: 10,
+					data: datas,
+					spanGaps: false,
+				}
+			],
+			options = {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true,
+							max: 100
+						}
+					}],
+				},
+				legend: {
+					position: 'bottom',
+					display: true,
+					labels: {
+						boxWidth: 24
+					}
+				}
+			}
+		
+		this.a_labels = labels
+		this.a_datasets = datasets
+		this.a_options = options
+    }
+
+    setMemGraph() {
+		let length = this.memLabels.length - this.hours
+		let labels = this.memLabels.filter((label, i) => i >= length)
+		let datas = this.memData.filter((mem, i) => i >= length)
+
+		let datasets = [
+				{
+					label: "内存使用率 %",
+					fill: false,
+					lineTension: 0.2,
+					backgroundColor: "#ffffff",
+					borderColor: "rgba(75,192,192,1)",
+					borderCapStyle: 'butt',
+					borderDash: [],
+					borderDashOffset: 0.0,
+					borderJoinStyle: 'miter',
+					pointBorderColor: "rgba(75,192,192,1)",
+					pointBackgroundColor: "#fff",
+					pointBorderWidth: 1,
+					pointHoverRadius: 5,
+					pointHoverBackgroundColor: "rgba(75,192,192,1)",
+					pointHoverBorderColor: "rgba(220,220,220,1)",
+					pointHoverBorderWidth: 1,
+					pointRadius: 1,
+					pointHitRadius: 10,
+					data: datas,
+					spanGaps: false,
+				}
+			],
+			options = {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true,
+							max: 100
+						}
+					}],
+				},
+				legend: {
+					position: 'bottom',
+					display: true,
+					labels: {
+						boxWidth: 24
+					}
+				}
+			}
+		
+		this.b_labels = labels
+		this.b_datasets = datasets
+		this.b_options = options
+    }
 
 	get convertTimeDiff() {
 		var msec = this.diff;
@@ -269,6 +303,7 @@ export class cloudHostDetailComponent implements OnInit {
 
 	ngOnInit() {
 		this.fetchDetailAndFill();
+		this.fetchCpuMum();
 	}
 
 	private labelDatasChange(datas){
@@ -312,6 +347,28 @@ export class cloudHostDetailComponent implements OnInit {
         }).catch(error => {
             this.layoutService.hide();
         })
+    }
+
+    fetchCpuMum() {
+		this.layoutService.show();
+
+		this.route.params.subscribe(params => {
+			this.service.getVmCpuMemGraph(params["itemId"]).then(res => {
+				this.layoutService.hide();
+				let {cpu, memory} = res
+
+				this.cpuLabels = cpu.map(c => c.time)
+				this.cpuData = cpu.map(c => c.value)
+				this.memLabels = memory.map(c => c.time)
+				this.memData = memory.map(c => c.value)
+
+				this.setCpuGraph()
+				this.setMemGraph()
+				console.log(res)
+			}).catch(error => {
+	            this.layoutService.hide();
+	        })
+		})
     }
 
 

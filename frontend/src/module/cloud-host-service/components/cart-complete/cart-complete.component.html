@@ -19,9 +19,9 @@
     <tr>
         <td style="width: 500px">
             <table class="cart-info">
-                <tr *ngFor="let attr of cart.attrList | formatInfo:cart.serviceType;">
-                    <td style="width: 150px">{{attr.attrDisplayName}} : </td>
-                    <td>{{attr.attrDisplayValue}}</td>
+                <tr *ngFor="let attr of cart.attrList | formatInfo:cart.serviceType:cart;">
+                    <td style="width: 150px;vertical-align: top;">{{attr.attrDisplayName}} : </td>
+                    <td [innerHTML]="attr.attrDisplayValue"></td>
                 </tr>
             </table>
         </td>

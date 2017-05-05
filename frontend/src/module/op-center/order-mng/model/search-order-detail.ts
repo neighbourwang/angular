@@ -1,4 +1,7 @@
 //订单查询详情
+
+import { PhysicalMachine } from './';
+
 export class SearchOrderDetail{
 	billingPerson: string = null;//, optional): 提交者 ,
 	billingPersonId: string = null;//, optional): 提交者ID ,
@@ -61,6 +64,8 @@ export class SubInstanceItemResp1{
 	}];//[SubInstanceAttrPair], optional): 产品规格 ,
 	status: string;//, optional): UI订单状态，需要查询数据字典
 
+
+ pmEntity:PhysicalMachine= new PhysicalMachine();
   //一次性费用
   get oneTimePrice():number{
     if(this.billingInfo)
@@ -156,17 +161,17 @@ export class DiskMachine{//云硬盘
 		mount:string;//挂载位置
 		property:string;//属性
 }
-export class PhysicalMachine{//物理机
-		region:string//地域
-		dataCenter:string;//数据中心
-		instanceName:string;//物理机名称
-		cpu:string;//配置（cpu,内存,磁盘信息）
-		mem:string;	
-		diskInfo:string;
-		image:string;//镜像
-		privateIp:string;//私网IP
-		publicIp:string;//公网IP
-}
+// export class PhysicalMachine{//物理机
+// 		region:string//地域
+// 		dataCenter:string;//数据中心
+// 		instanceName:string;//物理机名称
+// 		cpu:string;//配置（cpu,内存,磁盘信息）
+// 		mem:string;	
+// 		diskInfo:string;
+// 		image:string;//镜像
+// 		privateIp:string;//私网IP
+// 		publicIp:string;//公网IP
+// }
 /*
 
 OrderDetailItem {
