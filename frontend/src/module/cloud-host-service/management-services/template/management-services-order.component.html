@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </li>
-            <li>
+            <li *ngIf="['1'].indexOf(code) > -1">
                 <div class="col-md-1 li-title">
                     <p>实例选择</p>
                 </div>
@@ -69,6 +69,59 @@
                                         <td style="width: 18%;" class="text-center">{{disk.relyName}}</td>
                                         <td style="width: 10%;" class="text-center">{{disk.useType}}</td>
                                         <td style="width: 22%;" class="text-center">{{disk.platformName}} {{disk.zoneName}}</td>
+                                    </tr>
+                                </ng-container>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li *ngIf="['0','3','4'].indexOf(code) > -1">
+                <div class="col-md-1 li-title">
+                    <p>实例选择</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-12 no-padding">
+                        <platform-zone #platformZone (onClick)="vmPlatformClick($event)"></platform-zone>
+                    </div>
+                    <div class="input-group col-md-4 pdl15 pdr15 pdt15 pdb15">
+                        <input class="form-control" type="email" [(ngModel)]="quiryVmList.queryFieldValue" id="queryFieldValue" placeholder="{{'COMMON.ENTER_CLOUD_HOST_INFORMATION_TO_SEARCH' | translate}}">
+                        <div class="input-group-addon" (click)="reFetchVmList()" id="queryFieldValue_search">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tr>
+                                <th style="width: 5%;" class="text-center">选择</th>
+                                <th style="width: 17%;" class="text-center">{{'COMMON.CLOUD_HOST_NAME'| translate}}</th>
+                                <th style="width: 25%;" class="text-center">{{'COMMON.CONFIGURATION'| translate}}</th>
+                                <th style="width: 13%;" class="text-center">{{'VM_INSTANCE.MIRROR' | translate}}</th>
+                                <th style="width: 12%;" class="text-center">{{'VM_INSTANCE.INTERNAL_IP' | translate}}</th> 
+                                <th style="width: 12%;" class="text-center">{{'VM_INSTANCE.EXTERNA_IP' | translate}}</th>
+                                <th style="width: 15%;" class="text-center">{{'COMMON.REGION_AND_AVAILABLE_AREA' | translate}}</th>
+                                <!-- <th class="text-center">{{'COMMON.STATUS'| translate}}</th> -->
+                            </tr>
+                        </table>
+                        <div class="table-scroll mgb20" (scroll)="scrollChange($event, vmNextPage)">
+                            <table class="table table-hover table-boder-top-none table-all-boder">
+                                <ng-container *ngFor="let vm of vmList;let i = index">
+                                    <tr>
+                                        <td style="width: 5%; text-align: center;">
+                                            <input type="checkbox"
+                                                    class="fox-cloud-checkbox fox-cloud-checkbox-white" 
+                                                    name="networkRequirements" 
+                                                    [checked]="vm.isSelected" 
+                                                    (change)="vm.isSelected = !vm.isSelected; vmSelect()">
+                                        </td>
+                                        <td style="width: 17%;" class="text-center">{{vm.instanceName}}</td>
+                                        <td style="width: 25%;" class="text-center">{{vm.specification}}</td>
+                                        <td style="width: 13%;" class="text-center">{{vm.osInfo}}</td>
+                                        <td style="width: 12%;" class="text-center">{{vm.privateIP}}</td> 
+                                        <td style="width: 12%;" class="text-center">{{vm.publicIP}}</td>
+                                        <td style="width: 15%;" class="text-center">{{vm.regionZone}}</td>
+                                        <!-- <td class="text-center">{{vm.vmState | dict:vmService.computeStatus | async}}</td> -->
                                     </tr>
                                 </ng-container>
                             </table>
