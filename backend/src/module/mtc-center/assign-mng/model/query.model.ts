@@ -1,5 +1,5 @@
 ﻿export class QueryModel {
-    enterpriseID: string;
+    enterpriseId: string;
     departmentId: string;
     platformId: string;
     regionId: string;

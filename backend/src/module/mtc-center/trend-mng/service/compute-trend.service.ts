@@ -34,15 +34,15 @@ export class ComputeTrendService {
     }
 
     getPlfList(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("assign-mng.plf.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => PlfList_mock );
+        const api = this.restApiCfg.getRestApi("query.plf.list");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => PlfList_mock );
     }
 
     getCloudHostSpec(): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("assign-mng.plf.list");
-        //return this.restApi.request(api.method, api.url, null, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => CloudHostSpec_mock);
+        const api = this.restApiCfg.getRestApi("query.plf.list");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => CloudHostSpec_mock);
     }
 
     getBasicList(query: ComputeQuery): Promise<any> {
@@ -69,7 +69,7 @@ export class ComputeTrendService {
 
     getCpuData(hostId:string): Promise<any> {
         //const api = this.restApiCfg.getRestApi("compute-trend.graph.cpu");
-        //return this.restApi.request(api.method, api.url, pathParams, null, hostId);
+        //return this.restApi.request(api.method, api.url, null, null, hostId);
         return new Promise(resovle => setTimeout(resovle, 10)).then(() => CpuData_mock);
     }
 
