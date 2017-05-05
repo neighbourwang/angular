@@ -103,29 +103,29 @@ num:string;//在消费中心中，作为月份 ,
 value:String;
 
 }
-export class  Chart{
+// export class  Chart{
  
-    datas:Array<number> = [];
-    datas2:Array<number> = [];//复合统计图的第二个数据，简单统计图不需要
-    colors:Array<any> = [];
-    labels:Array<any> = [];
-    options:any;
-    // setAllDatas(datas:Array<number>,colors:Array<any>,labels:Array<any>,options?:any){
-    //     this.datas = datas;
-    //     this.colors = colors;
-    //     this.labels = labels;
-    //     if(options){
-    //         this.options = options;
-    //     }
-    // }
-    clear(){
-        this.datas = [];
-        this.datas2 = [];
-        this.colors = [];
-        this.labels = [];
-        this.options = null;
-    }
-}
+//     datas:Array<number> = [];
+//     datas2:Array<number> = [];//复合统计图的第二个数据，简单统计图不需要
+//     colors:Array<any> = [];
+//     labels:Array<any> = [];
+//     options:any;
+//     // setAllDatas(datas:Array<number>,colors:Array<any>,labels:Array<any>,options?:any){
+//     //     this.datas = datas;
+//     //     this.colors = colors;
+//     //     this.labels = labels;
+//     //     if(options){
+//     //         this.options = options;
+//     //     }
+//     // }
+//     clear(){
+//         this.datas = [];
+//         this.datas2 = [];
+//         this.colors = [];
+//         this.labels = [];
+//         this.options = null;
+//     }
+// }
 
 export class CostManageItem{
 
@@ -144,7 +144,7 @@ export class CostManageItem{
 
     adjustReason:string;//调整项目
 }
-export class Chart1{
+export class Chart{
      datasets:Array<any> = [];
      labels:Array<any> = [];
      colors:Array<any> = [];

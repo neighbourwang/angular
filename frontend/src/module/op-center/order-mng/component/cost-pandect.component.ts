@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import {Chart1,OrderDetailItem,CostManageItem,TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import {OrderDetailItem,CostManageItem,TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { OrderMngService,CreatChartService} from '../service';
 import * as _ from 'underscore';
@@ -14,13 +14,13 @@ import * as _ from 'underscore';
 })
 export class CostPandectComponent implements OnInit{
 	//企业消费概览
-    sumChart =new Chart1();
+    sumChart =new Chart();
 
-    historyChart=new Chart1();
+    historyChart=new Chart();
 
-    topChart =new Chart1();
+    topChart =new Chart();
 
-    topIncreaseChart =new Chart1();
+    topIncreaseChart =new Chart();
 
 @ViewChild("notice")
   	private _notice: NoticeComponent;

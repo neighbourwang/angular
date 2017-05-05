@@ -1,7 +1,7 @@
 import { Input, Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoticeComponent,DicLoader,ItemLoader, RestApi, RestApiCfg, LayoutService, ConfirmComponent } from '../../../../architecture';
-import { Chart1,OrderDetailItem,TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
+import { OrderDetailItem,TimeCaculater,UserInfo,CostPandectItem, CommonKeyValue,BillInfo,ConsumeSum,Time,Chart,CostPandectParam,SubInstanceResp, AdminListItem, DepartmentItem, Platform, ProductType, SubRegion, OrderMngParam} from '../model'
 import {CreatChartService} from '../service';
 import * as _ from 'underscore';
 
@@ -12,9 +12,9 @@ import * as _ from 'underscore';
 	providers: [CreatChartService]
 })
 export class CostPandectDepartmentComponent implements OnInit{
-    sumChart =new Chart1();
+    sumChart =new Chart();
 
-    historyChart=new Chart1();
+    historyChart=new Chart();
 @ViewChild("notice")
   	private _notice: NoticeComponent;
 size:number=12; 
