@@ -10,14 +10,14 @@ class PhysicalProductModel {
     "oneTimePrice": number;
     "phyMachineAreaPoolsProfile": Array<PhyMachineAreaPoolsProfile>;
     "pmPartsBaseprises": Array<PmPartsBaseprises>;
-    "productEnterpiseReqs": Array<ProductEnterpiseReqs>;
+    "productEnterpiseReqs": Array<ProductEnterpriseReqs>;
     "productId": string;
     "serviceId": string;
     "serviceSkuId": string;
     constructor(){
         this.phyMachineAreaPoolsProfile=new Array<PhyMachineAreaPoolsProfile>();
         this.pmPartsBaseprises=new Array<PmPartsBaseprises>();
-        this.productEnterpiseReqs=new Array<ProductEnterpiseReqs>();
+        this.productEnterpiseReqs=new Array<ProductEnterpriseReqs>();
     }
 }
 class PhyMachineAreaPoolsProfile {
@@ -46,9 +46,9 @@ class PmPartsBaseprises {
         this.ajustmentPrice=0;
     }
 }
-class ProductEnterpiseReqs {
+class ProductEnterpriseReqs {
     "id": string;
     "name": string;
     "selected":boolean;
 }
-export{ PhysicalProductModel,ProductEnterpiseReqs}
+export{ PhysicalProductModel,ProductEnterpriseReqs}

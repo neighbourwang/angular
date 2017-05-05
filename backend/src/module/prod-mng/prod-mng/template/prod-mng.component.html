@@ -1,5 +1,4 @@
 <div class="page-content-header icon-create-product">{{'PROD_MNG.PRODUCT_MANAGEMENT' | translate}}</div><!--产品管理-->
-
 <div class="page-content" style="min-height:300px;">
 	<div style="padding-bottom: 10px;">
 		<div class="dropdown pull-right" style="margin-left: 20px;">
@@ -43,8 +42,11 @@
             </select>
 		</div>
 		<span class="pull-right" style="line-height: 34px">{{'PROD_MNG.PRODUCT_CAT' | translate}}：</span><!--产品目录-->
-
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="createProd()">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="icon-button-label icon-left-button-label">创建产品</span><!--创建产品-->
+        </button>
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="temCreateProd()">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">创建产品</span><!--创建产品2-->
         </button>		

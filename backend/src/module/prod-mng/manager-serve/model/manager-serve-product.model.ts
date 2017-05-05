@@ -7,12 +7,12 @@ class ManagerServeProductModel {
     "name": string;
     "oneTimePrice": number;
     "platformSimpleItems": Array<Platform>;
-    "productEnterpiseReqs": Array<Enterpise>
+    "productEnterpiseReqs": Array<Enterprise>
     "productId": string;
     "serviceId": string;
     "unitPrice": number;
     constructor(){
-        this.productEnterpiseReqs=new Array<Enterpise>();
+        this.productEnterpiseReqs=new Array<Enterprise>();
         this.platformSimpleItems=new Array<Platform>();
     }
 }
@@ -21,9 +21,9 @@ class Platform {
     "id": string;
     "name": string
 }
-class Enterpise {
+class Enterprise {
     "id": string;
     "name": string;
     selected:boolean;
 }
-export { ManagerServeProductModel,Platform,Enterpise}
+export { ManagerServeProductModel,Platform,Enterprise}
