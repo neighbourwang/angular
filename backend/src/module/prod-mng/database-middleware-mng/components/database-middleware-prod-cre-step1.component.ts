@@ -7,7 +7,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent} from 
 import { Validation, ValidationRegs } from '../../../../architecture';
 
 //model 
-import { DatabaseMiddlewareProductModel, Platform, Enterpise } from '../model/database-middleware-product.model'
+import { DatabaseMiddlewareProductModel, Platform, Enterprise } from '../model/database-middleware-product.model'
 import { DatabaseMiddlewareServiceModel, ResourcPool, PlatformSimpleItem } from '../model/database-middleware-service.model'
 
 // service;
@@ -45,14 +45,14 @@ export class DatabaseMiddlewareProdCreStep1Component implements OnInit {
             console.log(this.prodDirId);
         })
         if (this.prodDirId) {
-            this.service.managerServeService=new DatabaseMiddlewareServiceModel();
-            this.service.managerServeProduct=new DatabaseMiddlewareProductModel();
+            this.service.databaseMiddlewareService=new DatabaseMiddlewareServiceModel();
+            this.service.databaseMiddlewareProduct=new DatabaseMiddlewareProductModel();
             this.LayoutService.show();
-            this.service.managerServeProduct = new DatabaseMiddlewareProductModel();
-            this.service.getManagerServeServiceDetail(this.prodDirId).then(res => {
+            this.service.databaseMiddlewareProduct = new DatabaseMiddlewareProductModel();
+            this.service.getDatabaseMiddlewareServiceDetail(this.prodDirId).then(res => {
                 console.log(res);
-                this.service.managerServeService = res.resultContent;
-                this.service.managerServeProduct.serviceId = res.resultContent.serviceId;
+                this.service.databaseMiddlewareService = res.resultContent;
+                this.service.databaseMiddlewareProduct.serviceId = res.resultContent.serviceId;
                 if(res.resultContent.serviceObjectCode=='2'||res.resultContent.serviceObjectCode=='8'){
                     this.service.getEnterPriseList();
                 }else{
@@ -71,9 +71,9 @@ export class DatabaseMiddlewareProdCreStep1Component implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            productName: [this.service.managerServeProduct.name, [this.v.isBase, this.v.isUnBlank], "产品名称格式不正确"],
+            productName: [this.service.databaseMiddlewareProduct.name, [this.v.isBase, this.v.isUnBlank], "产品名称格式不正确"],
 
-            description: [this.service.managerServeProduct.description, [this.v.maxLength(68)], "描述输入错误"],
+            description: [this.service.databaseMiddlewareProduct.description, [this.v.maxLength(68)], "描述输入错误"],
 
         }
         console.log(this.v.check(key, regs));

@@ -31,7 +31,7 @@ export class DatabaseMiddlewareProdCreStep3Component implements OnInit {
     prodDirType: string = "";
     prodDirId: string = "";
     ngOnInit() {
-            console.log(this.service.managerServeProduct)
+            console.log(this.service.databaseMiddlewareProduct)
     }
 
     // 下一步

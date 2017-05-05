@@ -31,15 +31,15 @@ export class DatabaseMiddlewareProdCreStep2Component implements OnInit {
     basicCyclePrice:CountBarComponent;
 
     ngOnInit() {
-        console.log(this.service.managerServeProduct);
-        // if(this.service.managerServeProduct.billingType=='3'){
+        console.log(this.service.databaseMiddlewareProduct);
+        // if(this.service.databaseMiddlewareProduct.billingType=='3'){
         //     this.basicCyclePrice.unEdit();
         //     // this.billByTimes();
         // }
     }
     //按次计费
     billByTimes(){
-        this.service.managerServeProduct.billingCycle=null;
+        this.service.databaseMiddlewareProduct.billingCycle=null;
         this.basicCyclePrice.unEdit();
     }
     //包年包月计费
@@ -48,7 +48,7 @@ export class DatabaseMiddlewareProdCreStep2Component implements OnInit {
     }    
     //同步counterBar
     outputValue(e, num) {
-        this.service.managerServeProduct[num] = e;
+        this.service.databaseMiddlewareProduct[num] = e;
     }
     // 下一步
     ccf() { }
@@ -56,18 +56,18 @@ export class DatabaseMiddlewareProdCreStep2Component implements OnInit {
         this.route.navigate(["prod-mng/manager-serve/manager-serve-product-cre-step1"]);        
     }
     next() {
-        if(!this.service.managerServeProduct.billingType){
+        if(!this.service.databaseMiddlewareProduct.billingType){
             this.notice.open('COMMON.OPERATION_ERROR','PROD_MNG.PLEASE_SELECT_VALUATION_TYPE');
             return;
         }
-        if(this.service.managerServeProduct.billingType=='0'&&!this.service.managerServeProduct.billingCycle){
+        if(this.service.databaseMiddlewareProduct.billingType=='0'&&!this.service.databaseMiddlewareProduct.billingCycle){
             this.notice.open('COMMON.OPERATION_ERROR','PROD_MNG.PLEASE_SELECT_VALUATION_CYCLE');
             return;
         }
-        this.service.managerServeProduct.basicCyclePrice=
-            this.service.managerServeProduct.basicCyclePrice?this.service.managerServeProduct.basicCyclePrice:0;        
-        this.service.managerServeProduct.oneTimePrice=
-            this.service.managerServeProduct.oneTimePrice?this.service.managerServeProduct.oneTimePrice:0;       
+        this.service.databaseMiddlewareProduct.basicCyclePrice=
+            this.service.databaseMiddlewareProduct.basicCyclePrice?this.service.databaseMiddlewareProduct.basicCyclePrice:0;        
+        this.service.databaseMiddlewareProduct.oneTimePrice=
+            this.service.databaseMiddlewareProduct.oneTimePrice?this.service.databaseMiddlewareProduct.oneTimePrice:0;       
         this.route.navigate(["prod-mng/manager-serve/manager-serve-product-cre-step3"]);
     }
     //取消

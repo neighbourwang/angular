@@ -1237,7 +1237,7 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "获取中间件数据库服务目录详情",
-        "id": "database-serve-template.get",
+        "id": "database-middleware-service-detail.get",
         "method": "GET",
         "url": "adminui/authsec/services/database/templates"
     },
