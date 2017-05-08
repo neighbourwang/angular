@@ -190,12 +190,25 @@ export class AliMajorListComponent implements OnInit{
     }
 
     reset(){
-        this.departs.forEach((p) =>{
+/*        this.departs.forEach((p) =>{
             p.selected= false;
             p.visible= "true";
-        });
+        });*/
         this.selectedDepartment= "";
         this.selectedDepartmentId= "";
+        this.layoutService.show();
+        this.service.departMajor()
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.departs= response["resultContent"];
+                    }else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     editDepart(){

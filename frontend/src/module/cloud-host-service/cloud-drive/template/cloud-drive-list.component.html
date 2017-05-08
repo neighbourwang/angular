@@ -57,7 +57,7 @@
     <div class="col-md-12 no-padding mgb20">
         <div class="float-left">
             <button class="btn float-left mgr5 btn-success" id="create_cloud_disk" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i> {{'CLOUD_DRIVE_LIST.CREATE_CLOUD_HRAD_DISK' | translate}}</button>
-            <unsubscribe #unsubscribeVm title="云硬盘退订" id="unsubscribe_cloud_disk" [subid]="radioSelected?.subInstanceId"></unsubscribe>
+            <unsubscribe #unsubscribeVm (onSuccess)="setDistList()" title="云硬盘退订" id="unsubscribe_cloud_disk" [subid]="radioSelected?.subInstanceId"></unsubscribe>
             <button (click)="unsubscribeVm.open()" id="un_cloud_disk" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK' | translate}}</button>
 
 
@@ -99,7 +99,10 @@
             <td class="text-center">{{dist.type}}</td>
             <td class="text-center">{{dist.size}}</td>
             <td class="text-center">{{dist.relyName}}</td>
-            <td class="text-center">{{dist.status | dict:service.computeStatus | async}}</td>
+            <td class="text-center">
+                <div *ngIf="isMiddleState(dist.status)" class="loading-icon"></div>
+                {{dist.status | dict:service.computeStatus | async}}
+            </td>
             <td class="text-center">{{dist.expireDate | formatDate}}</td>
             <!--<td class="text-center">{{dist.unloadAble}}</td>-->
             <td class="text-center">{{dist.platformName}}</td>
@@ -116,12 +119,6 @@
                         <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " *ngIf="!dist.relyId"
                                 href="javascript:" id="mount_{{dist.id}}">{{'CLOUD_DRIVE_LIST.MOUNT' | translate}}</a></li>
                         <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" id="uninstall_{{dist.id}}" *ngIf="dist.relyId" href="javascript:">{{'CLOUD_DRIVE_LIST.UNINSTALL' | translate}}</a></li>
-                        <!-- <li><a (click)="handleDist('pause', vm, '暂停')" href="javascript:">暂停</a></li> -->
-                        <!-- <li><a (click)="handleDist('unpause', vm , '开始')" href="javascript:">开始</a></li> -->
-                        <!-- <li><a (click)="handleDist('resume', vm)" href="javascript:">恢复</a></li> -->
-                        <!-- <li><a (click)="handleDist('hardReboot', vm , '硬重启')" href="javascript:">硬重启</a></li> -->
-                        <!-- <li><a (click)="handleDist('softReboot', vm , '软重启')" href="javascript:">软重启</a></li> -->
-                        <!-- <li><a (click)="handleDist('suspend', vm)" href="javascript:">挂起</a></li> -->
                         <li *ngIf="dist.relyId" role="separator" class="divider"></li>
                         <li *ngIf="dist.relyId" ><a (click)="diskReconfig.open(dist)" href="javascript:" id="open_{{dist.id}}">云硬盘扩容</a></li>
                     </ul>
@@ -139,5 +136,5 @@
     (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
 
-<disk-reconfig #diskReconfig></disk-reconfig>
+<disk-reconfig (onSuccess)="setDistList()" #diskReconfig></disk-reconfig>
 
