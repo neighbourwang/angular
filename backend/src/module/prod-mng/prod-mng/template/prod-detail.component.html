@@ -34,7 +34,7 @@
 						</div>
 					</div>
 				</div>
-				<div *ngIf="vmProdDir">
+				<div *ngIf="productType == '0'">
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title"></div>
@@ -68,7 +68,7 @@
 						</div>
 					</div>
 				</div>
-				<div *ngIf="!vmProdDir">
+				<div *ngIf="productType == '1'">
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title"></div>
@@ -141,13 +141,13 @@
 						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.COUNT_MODE' | translate}}：</div>
 						<div class="col-sm-6 row-inline-radio">
 							<div class="row">
-								<div class="col-sm-6" *ngIf="vmProdDir">
+								<div class="col-sm-6" *ngIf="productType == '0'">
 									<label class="radio-inline row-inline-radio2 font-gray">
                             		<input type="radio" name="billingTypeRadios" checked=true class="fox-cloud-radio" > {{'PROD_MNG.BY_YEAR_BY_MONTH' | translate}}<!--包年包月-->
 
                        			</label>
 								</div>
-								<div class="col-sm-6" *ngIf="!vmProdDir">
+								<div class="col-sm-6" *ngIf="productType == '1'">
 									<label class="radio-inline row-inline-radio2 font-gray">
                             		<input type="radio" name="billingTypeRadios" checked=true class="fox-cloud-radio" > {{'COMMON.BY_VOLUMN' | translate}}
                        			</label>
@@ -195,7 +195,7 @@
 						</div>
 					</div>
 				</div>
-				<div *ngIf="vmProdDir">
+				<div *ngIf="productType == '0'">
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title">{{'PROD_MNG.BASIC_CYCLE_PRICE' | translate}}：</div>
@@ -225,7 +225,7 @@
 						</div>
 					</div>
 				</div>
-				<div *ngIf="!vmProdDir">
+				<div *ngIf="productType == '1'">
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title">
@@ -279,7 +279,6 @@
         <span class="icon-button-label">{{'PROD_MNG.ADD' | translate}}</span>
     </button>
 	</div>
-
 </div>
 <div *ngIf="Tabels[3].active">
 	<div class="page-content fix-page-content">
@@ -337,7 +336,7 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
 				<div class="table-container">
-					<table class="table table-hover" *ngIf="vmProdDir">
+					<table class="table table-hover" *ngIf="productType == '0'">
 						<thead>
 							<tr>
 								<th>创建时间</th>
@@ -381,7 +380,7 @@
 								<tr>
 						</tbody>
 					</table>
-					<table class="table table-hover" *ngIf="!vmProdDir">
+					<table class="table table-hover" *ngIf="productType == '1'">
 						<thead>
 							<tr>
 								<th>创建时间</th>
