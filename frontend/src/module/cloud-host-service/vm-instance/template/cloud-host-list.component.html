@@ -113,7 +113,10 @@
 			<td class="text-center">{{vm.privateIP}}</td> 
 			<td class="text-center">{{vm.publicIP}}</td>
 			<td class="text-center">{{vm.regionZone}}</td>
-			<td class="text-center">{{vm.vmState | dict:service.computeStatus | async}}</td>
+			<td class="text-center"> 
+				<div class="loader-icon-circle"><span class="loader-inner"></span></div>
+				{{vm.vmState | dict:service.computeStatus | async}}
+			</td>
 			<td class="text-center">{{vm.expiryDate}}</td>
 			<!--<td class="text-center">{{vm.diskCount}}</td> -->
 			<!--<td class="text-center">{{vm.snapshotCount}}</td>-->

@@ -216,12 +216,12 @@
 				<div class="main-head">
 					<span class="icon-chart icon float-left"></span>
 					<span class="title float-left">监控图表</span>
-					<select [(ngModel)]="hours" (ngModelChange)="setCpuGraph();setMemGraph()" class="form-control float-right mgt5 mgr5">
+					<select [(ngModel)]="hours" (ngModelChange)="setGraph()" class="form-control float-right mgt5 mgr5">
 						<option value="6">最近6小时</option>
 						<option value="12">最近12小时</option>
 						<option value="24">最近24小时</option>
 					</select>
-					<button (click)="fetchCpuMum()" class="btn button-gray-gradient mgt5 mgr5 float-right ">
+					<button (click)="fetchGraphData()" class="btn button-gray-gradient mgt5 mgr5 float-right ">
 						<span class="icon-reset button-icon" ></span>刷新
 					</button>
 					<!-- <button class="float-right switch off" id='test_switch'>
@@ -283,7 +283,11 @@
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="detail_chart_d" aria-labelledby="dropdown2-tab">
-
+						<canvas baseChart class="chart-canvas"
+								chartType="line"
+								[labels]="e_labels"
+								[datasets]="e_datasets"
+								[options]="e_options" ></canvas>
 					</div>
 				</div>
 			</div>
