@@ -104,12 +104,26 @@ export class AliSharedListComponent implements OnInit{
     }
 
     reset(){
-        this.departsList.forEach((p) =>{
+/*        this.departsList.forEach((p) =>{
            p.selected= false;
            p.visible= "true";
-        });
+        });*/
         this.selectedDepartment= "";
         this.selectedDepartmentId= "";
+        this.layoutService.show();
+        this.service.getDepartsList()
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.departsList = response["resultContent"];
+                        this.tempDepartsList= this.departsList.reverse();
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
 
     }
 
