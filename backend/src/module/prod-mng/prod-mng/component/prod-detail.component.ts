@@ -41,7 +41,6 @@ export class ProdDetailComponent implements OnInit {
 
     product: Product;
     prodDir: ProductDir;
-    vmProdDir: boolean;
     productId: string;
     productType: string;
     servicePlatformList: Array<Platform>
@@ -70,15 +69,12 @@ export class ProdDetailComponent implements OnInit {
         this.router.params.forEach((params: Params) => {
             this.productId = params['id'];
             this.productType = params['type'];
-            console.log(this.productId);
-            (this.productType == '0') && (this.vmProdDir = true);
-            (this.productType == '1') && (this.vmProdDir = false);
         })
         this.getProductDetail(this.productId)
             .then(() => {
-                if (this.vmProdDir) {
+                if (this.productType == '0') {
                     this.getVmProdDirDetail(this.product.serviceId);
-                } else {
+                } else if(this.productType == '1') {
                     console.log('cc')
                     this.getDiskProdDirDetail(this.product.serviceId);
                 }
