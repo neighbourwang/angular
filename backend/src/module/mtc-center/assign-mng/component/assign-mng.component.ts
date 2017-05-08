@@ -4,7 +4,7 @@ import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, Po
 
 import {EntModel, DeptModel} from"../model/ent.model";
 import {PlfModel, RegionModel, ZoneModel} from"../model/plf.model";
-import {UsageState, ItemModel, PowerStatModel, FlavorModel,DoughnutChart}from "../model/usage-state.model";
+import {UsageState, ItemModel, PowerStatModel, DoughnutChart}from "../model/usage-state.model";
 import {Hyper} from "../model/hyper.model";
 import {QueryModel} from "../model/query.model";
 //service
@@ -58,7 +58,9 @@ export class AssignMngComponent implements OnInit {
     cpuInfo: ItemModel = new ItemModel();
     memInfo: ItemModel = new ItemModel();
     powerStat: PowerStatModel = new PowerStatModel();
-    flavorList:Array<FlavorModel>;
+    flavor: Object = new Object();
+    flavorName: Array<string>=new Array<string>();
+    flavorValue: Array<number>=new Array<number>();
     cpuChart: DoughnutChart = new DoughnutChart(); //cpu环形图
     memChart: DoughnutChart = new DoughnutChart(); //mem环形图
     hyperList: Array<Hyper>;
@@ -149,8 +151,12 @@ export class AssignMngComponent implements OnInit {
                     this.cpuInfo = response["resultContent"].cpu;
                     this.memInfo = response["resultContent"].mem;
                     this.powerStat = response["resultContent"].powerStat;
-                    //this.flavorList = response["resultContent"].flavor;
-
+                    this.flavor = response["resultContent"].flavor;
+                    let flv = this.flavor;
+                    for (var f in flv) {
+                        this.flavorName.push(f);
+                        this.flavorValue.push(flv[f]);
+                    }
                     //数据处理
                     this.getGraphData(this.cpuChart, this.cpuInfo);
                     this.getGraphData(this.memChart, this.memInfo);
@@ -238,7 +244,7 @@ export class AssignMngComponent implements OnInit {
     gotoAssignDetail(HyperId:string) {
         this.router.navigate([`mtc-center/assign-mng/assign-detail`,
             {
-                "wm_Id":HyperId
+                "vm_Id":HyperId
             }
         ]);
     }

@@ -128,7 +128,7 @@ export class ComputeTrendComponent implements OnInit {
 
     getCpuData() {
         this.layoutService.show();
-        this.service.getCpuData(this.hostId)
+        this.service.getCpuData(this.queryOpt)
             .then(
             response => {
                 this.layoutService.hide();
@@ -148,7 +148,7 @@ export class ComputeTrendComponent implements OnInit {
 
     getMemData() {
         this.layoutService.show();
-        this.service.getMemData(this.hostId)
+        this.service.getMemData(this.queryOpt)
             .then(
             response => {
                 this.layoutService.hide();
@@ -176,16 +176,16 @@ export class ComputeTrendComponent implements OnInit {
     confirm() {
         this.queryOpt.platformId = this.selectedPlf.platformId;
         this.queryOpt.regionId = this.selectedRegion.regionId;
-        this.queryOpt.zoneId = this.selectedZone.zoneId;
+        
         if (this.selectedZone == this.defaultZone) {
             if (this.isSelected == false) {
-                this.hostId = 'all';
+                this.queryOpt.zoneId = 'all';
             }
             else {
-                this.hostId = 'each';
+                this.queryOpt.zoneId = 'each';
             }
         } else {
-            this.hostId = this.selectedZone.zoneId;
+            this.queryOpt.zoneId = this.selectedZone.zoneId;
         }
                     
 
@@ -198,7 +198,7 @@ export class ComputeTrendComponent implements OnInit {
         } else if (this.queryOpt.queryType == "2") {
             this.showType = 2;
             this.layoutService.show();
-            Promise.all([this.service.getGrowthRateList(this.queryOpt), this.service.getVmData(this.hostId)])
+            Promise.all([this.service.getGrowthRateList(this.queryOpt), this.service.getVmData(this.queryOpt)])
             .then((arr) =>{
                 this.layoutService.hide();
                 this.growthRateList= arr[0];
@@ -230,7 +230,10 @@ export class ComputeTrendComponent implements OnInit {
     showChart(chartData: Bar, showType: number) {
         let thx = chartData.thx;
         let zonesData = chartData.zone;
-     
+        if (zonesData[0].series.length==0) {
+                this.showAlert("没有数据！");
+                return;
+            }
 
         for (let m = 0; m < zonesData.length; m++) {
             let sum = new Array<number>();
@@ -248,6 +251,7 @@ export class ComputeTrendComponent implements OnInit {
 
             //获取第m个可用区的series
             let zoneSeries = zonesData[m].series;
+            
             let dataLength = zoneSeries[0].data.length;
             //获取‘总计’数据
             for (let i = 0; i < dataLength; i++) {

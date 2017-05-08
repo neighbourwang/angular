@@ -2623,33 +2623,39 @@ export let RestApis: RestApiModel[] = [
      {
         "desc": "获取hyper详情",
         "id":"assign-detail.hyper.info",
-        "method":"GET",
-        "url":"maintenance/hyper/{vmid}/info/{period}"
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/hyper/{vmid}/info/{period}"
+     },
+     {
+        "desc": "获取hyper详情图表",
+        "id":"assign-detail.hyper.graph",
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/hyper/{vmid}/graph/line/{period}"
      },
      //趋势管理
      {
         "desc": "计算资源-基本信息",
         "id":"compute-trend.basic.info",
         "method":"POST",
-        "url":"maintenance/trend/general"
+        "url":"maintenancemgmt/noauth/trend/general"
      },
      {
         "desc": "按CPU",
         "id":"compute-trend.graph.cpu",
         "method":"POST",
-        "url":"maintenance/trend/graph/cpu"
+        "url":"maintenancemgmt/noauth/trend/graph/cpu"
      },
      {
         "desc": "按vm",
         "id":"compute-trend.graph.vm",
         "method":"POST",
-        "url":"maintenance/trend/graph/vm"
+        "url":"maintenancemgmt/noauth/trend/graph/vm"
      },
      {
         "desc": "按mem",
         "id":"compute-trend.graph.mem",
         "method":"POST",
-        "url":"maintenance/trend/graph/mem"
+        "url":"maintenancemgmt/noauth/trend/graph/mem"
      },
      {
         "desc": "导出当前数据",

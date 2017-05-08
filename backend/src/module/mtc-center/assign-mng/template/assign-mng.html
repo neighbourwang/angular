@@ -180,37 +180,22 @@
                     <table class="table table-hover" >
                         <tbody>
                             <tr>
-                                <td>运行中：</td>
-                                <td>99</td>
+                                <td>shutoff：</td>
+                                <td>{{powerStat.shutoff}}</td>
                             </tr>
                             <tr>
-                                <td>关闭：</td>
-                                <td>12</td>
+                                <td>reboot：</td>
+                                <td>{{powerStat.reboot}}</td>
                             </tr>
                             <tr>
-                                <td>运行中：</td>
-                                <td>99</td>
+                                <td>startup：</td>
+                                <td>{{powerStat.startup}}</td>
                             </tr>
                             <tr>
-                                <td>关闭：</td>
-                                <td>12</td>
+                                <td>pause：</td>
+                                <td>{{powerStat.pause}}</td>
                             </tr>
-                            <tr>
-                                <td>运行中：</td>
-                                <td>99</td>
-                            </tr>
-                            <tr>
-                                <td>关闭：</td>
-                                <td>12</td>
-                            </tr>
-                            <tr>
-                                <td>运行中：</td>
-                                <td>99</td>
-                            </tr>
-                            <tr>
-                                <td>关闭：</td>
-                                <td>12</td>
-                            </tr>
+                            
                         </tbody>
                     </table>                    
                 </div>
@@ -224,9 +209,9 @@
                 <div class="panel-body" style="padding: 0; height: 216px; overflow-y: scroll;">
                     <table class="table table-hover">
                         <tbody>
-                            <tr *ngFor="let flavor of flavorList">                              
-                                <td>{{flavor.name}}：</td>
-                                <td>{{flavor.value}}</td>
+                            <tr *ngFor="let f of flavorName let i=index">                              
+                                <td>{{f}}：</td>
+                                <td>{{flavorValue[i]}}</td>
                             </tr>                           
                         </tbody>
                     </table>     
