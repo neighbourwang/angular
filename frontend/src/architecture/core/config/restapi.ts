@@ -1008,6 +1008,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/describeinstancevncurl/regionid/{regionid}/instanceid/{instanceid}"
     },
+    { //显示所有区域的阿里云主机列表
+        "desc": "Get all region instances",
+        "id": "al-cloud.cloud-vm.allregion.instances",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/all/instances"
+    },
 
     // 阿里云主账号管理
     {
