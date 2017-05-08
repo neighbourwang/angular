@@ -16,6 +16,7 @@ import { ServiceRespAttributePair, ProductAttributeValueItem, SerivceConfigChang
 export class HostReconfigComponent implements OnInit {
 
 	@Output() complete=new EventEmitter();
+	@Output() onSuccess=new EventEmitter();
 
 	@ViewChild('notice')
 	private noticeDialog: NoticeComponent;
@@ -135,6 +136,7 @@ export class HostReconfigComponent implements OnInit {
 			// this.complete.emit();
 			this.ot = "";
 			this.orderId = "[\""+res+"\"]";
+			this.onSuccess.emit();
 			this.state = "done";
 		}).catch(error => {
 			this.ot = "";

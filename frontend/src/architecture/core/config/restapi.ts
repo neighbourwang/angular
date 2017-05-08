@@ -103,6 +103,12 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/shopping/instance/vm/{instanceId}/update"
     },
     {
+        "desc": "获取主机实例状态",
+        "method": "GET",
+        "id": "featch.vm.state",
+        "url": "/marketplace/authsec/subinstance/vm/{id}/state"
+    },
+    {
         "desc": "提交变更云硬盘配置",
         "method": "POST",
         "id": "submit.disk.config",

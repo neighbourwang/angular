@@ -188,6 +188,7 @@
 						
 								</popover-content>
 								<span *ngIf="item.serviceType==2">备注信息：显示购买时的备注信息</span>
+							
 
 								<vm-view [values]="item" *ngIf="item.serviceType==0"></vm-view><!--云主机-->
 								<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view><!--云硬盘-->

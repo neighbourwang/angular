@@ -1,4 +1,4 @@
-﻿import {ProductItem } from './'
+﻿import {ProductItem,PhysicalMachine } from './'
 
 //订单
 export class SubInstanceResp {
@@ -43,10 +43,13 @@ export class SubInstanceItemResp {
   serviceType: number = null;//, optional): 产品类型 ,
   specList: Array<SubInstanceAttrPair> = null;//[SubInstanceAttrPair], optional): 产品规格 ,
   status: string = null;//, optional): UI订单状态，需要查询数据字典
-platform:string;
-privateIp:string;
-publicIp:string;
-osType:string;
+  platform:string;
+  privateIp:string;
+  publicIp:string;
+  osType:string;
+
+  pmEntity:PhysicalMachine= new PhysicalMachine();
+  showSpecList:boolean = false;//已购服务配置和订单查询配置不一致
   get billingMode():number{//包装计费模式
     return this.billingInfo ? this.billingInfo.billingMode : null;
   }
