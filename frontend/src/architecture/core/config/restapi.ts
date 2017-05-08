@@ -103,6 +103,12 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/shopping/instance/vm/{instanceId}/update"
     },
     {
+        "desc": "获取主机实例状态",
+        "method": "GET",
+        "id": "featch.vm.state",
+        "url": "/marketplace/authsec/subinstance/vm/{id}/state"
+    },
+    {
         "desc": "提交变更云硬盘配置",
         "method": "POST",
         "id": "submit.disk.config",
@@ -1007,6 +1013,12 @@ export let RestApis: RestApiModel[] = [
         "id": "al-cloud.cloud-vm.remotecontrol",
         "method": "POST",
         "url": "alicloud/authsec/alicloud/ecs/action/describeinstancevncurl/regionid/{regionid}/instanceid/{instanceid}"
+    },
+    { //显示所有区域的阿里云主机列表
+        "desc": "Get all region instances",
+        "id": "al-cloud.cloud-vm.allregion.instances",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/all/instances"
     },
 
     // 阿里云主账号管理

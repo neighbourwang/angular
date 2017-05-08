@@ -81,9 +81,19 @@ export class OrderMngSearchComponent implements OnInit{
 			this._productTypeDic.UpdateWithDic([firstItem], 'productTypeName', 'productType');
 			this._productTypeDic.UpdateWithDic(firstItem.subInstanceList, 'serviceTypeName', 'serviceType');
 
+			
+
 			for(let item of firstItem.subInstanceList[0].pmEntity.partsEntitys){
-				if(item.partsName=='磁盘'||item.partsName=='内存')
-					item.capacity = Number(item.number)*Number(item.specValue);
+				if(item.partsName=='磁盘'||item.partsName=='内存'){
+					item.capacity = Number(item.number)*Number(item.specValue)+'GB';//只有磁盘和内存计算总容量
+					item.specValue+='GB';		
+				}		
+				if(item.partsName=='CPU'){
+					item.specValue=item.specValue.replace('Ghz','GHZ');
+				}
+				if(item.partsName=='网卡'){
+					item.specValue+='M';
+				}
 			}
 
 		}

@@ -76,6 +76,7 @@ export class cloudHostListComponent implements OnInit {
 			
 		}).then(list => {
 			this.vmList = list;
+			// this.checkListMiddleState();
 		}).catch(error => {
 			// this.layoutService.hide();
 		});
@@ -109,6 +110,20 @@ export class cloudHostListComponent implements OnInit {
 		this.setHostList();
 	}
 
+	checkListMiddleState() {
+		let mkPromise = (vm) => this.isMiddleState(vm.vmState) ? this.service.fetchVmState(vm.itemId) : false
+		let fecthMiddleStateList = this.vmList.map(mkPromise)
+
+		if(!fecthMiddleStateList.filter(l => l).length) return false;   //如果没有中间状态了 则不再循环
+
+		Promise.all(fecthMiddleStateList).then(res => {
+			res.forEach((vm, i) => {
+				if(vm) this.vmList[i].vmState = vm.vmState
+			})
+			setTimeout(this.checkListMiddleState.bind(this) , 10 * 1000)
+		})
+	}
+
 
 	//云主机的操作相关
 	handleVm(key: string, vm: VmList ,msg) {
@@ -124,9 +139,7 @@ export class cloudHostListComponent implements OnInit {
 			// alert(msg+"成功！");
 			this.showNotice("COMMON.CLOUD_HOST_OPERATION" ,"COMMON.SUCCESS");
 
-			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
-				this.setHostList();
-			},5000)
+			this.setHostList();
 		}).catch(error => {
 			this.layoutService.hide();
 		})
@@ -170,6 +183,10 @@ export class cloudHostListComponent implements OnInit {
 	}
 	nameClick(){
 		console.log("222")
+	}
+
+	isMiddleState(state) {
+		return !!['1', '5', '20', '22', '25', '26', '27', '28', '29'].filter(v => v==state).length
 	}
 
 	//分页

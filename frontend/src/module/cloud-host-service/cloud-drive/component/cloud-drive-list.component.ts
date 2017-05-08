@@ -74,6 +74,7 @@ export class cloudDriveListComponent implements OnInit {
 			return res.resultContent;
 		}).then(list => {
 			this.distList = list;
+			// this.checkListMiddleState();
 		}).catch(error => {
 			// this.layoutService.hide();
 		});
@@ -107,13 +108,31 @@ export class cloudDriveListComponent implements OnInit {
 			// alert(msg+"成功！");
 			this.showNotice("CLOUD_DRIVE_LIST.CLOUD_DISK_OPERATION" ,"COMMON.SUCCESS");
 
-			setTimeout(() => {   //延迟4秒执行 因为后端4秒同步一次状态
-				this.setDistList();
-			},5000)
+			this.setDistList();
 		}).catch(error => {
 			this.layoutService.hide();
 		})
 	}
+
+
+	isMiddleState(state) {
+		return !!['3', '4', '5', '6', '8', '9', '11', '13'].filter(v => v==state).length
+	}
+
+	checkListMiddleState() {
+		let mkPromise = (disk) => this.isMiddleState(disk.status) ? this.service.fetchDiskState(disk.itemId) : false
+		let fecthMiddleStateList = this.distList.map(mkPromise)
+
+		if(!fecthMiddleStateList.filter(l => l).length) return false;   //如果没有中间状态了 则不再循环
+
+		Promise.all(fecthMiddleStateList).then(res => {
+			res.forEach((disk, i) => {
+				if(disk) this.distList[i].status = disk.status
+			})
+			setTimeout(this.checkListMiddleState.bind(this) , 10 * 1000)
+		})
+	}
+
 
 	vmListClick(vm) {
 		this.serverId = vm.uuid;

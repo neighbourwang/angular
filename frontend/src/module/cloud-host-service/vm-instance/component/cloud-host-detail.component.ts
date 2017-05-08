@@ -27,138 +27,7 @@ export class cloudHostDetailComponent implements OnInit {
     isEditState:boolean = false;
 
 
-	c_labels= ["2", "4", "6", "8", "16", "32", "64", "128"];
-	c_datasets= [
-		{
-			label: "读取",
-			fill: false,
-			lineTension: 0,
-			backgroundColor: "#ffffff",
-			borderColor: "#66CC99",
-			borderCapStyle: 'butt',
-			borderDash: [],
-			borderDashOffset: 0.0,
-			borderJoinStyle: 'miter',
-			pointBorderColor: "#66CC99",
-			pointBackgroundColor: "#fff",
-			pointBorderWidth: 1,
-			pointHoverRadius: 5,
-			pointHoverBackgroundColor: "#66CC99",
-			pointHoverBorderColor: "rgba(220,220,220,1)",
-			pointHoverBorderWidth: 1,
-			pointRadius: 1,
-			pointHitRadius: 10,
-			data: [3200, 6200, 5500, 3329, 2200, 3200, 3790, 5902],
-			spanGaps: false,
-		},
-		{
-			label: "读入",
-			fill: false,
-			lineTension: 0,
-			backgroundColor: "#ffffff",
-			borderColor: "#FFCC33",
-			borderCapStyle: 'butt',
-			borderDash: [],
-			borderDashOffset: 0.0,
-			borderJoinStyle: 'miter',
-			pointBorderColor: "#FFCC33",
-			pointBackgroundColor: "#fff",
-			pointBorderWidth: 1,
-			pointHoverRadius: 5,
-			pointHoverBackgroundColor: "#FFCC33",
-			pointHoverBorderColor: "rgba(220,220,220,1)",
-			pointHoverBorderWidth: 1,
-			pointRadius: 1,
-			pointHitRadius: 10,
-			data: [1200, 7200, 4500, 5329, 2700, 3700, 2790, 4902],
-			spanGaps: false,
-		},
-	]
-	c_options= {
-		scales: {
-			yAxes: [{
-				ticks: {
-					beginAtZero:true,
-					max: 10000
-				}
-			}],
-		},
-		legend: {
-			position: 'bottom',
-			display: true,
-			labels: {
-				boxWidth: 24,
-				padding: 20
-			}
-		}
-	}
-
-	d_labels= ["2", "4", "6", "8", "16", "32", "64", "128"];
-	d_datasets= [
-		{
-			label: "读取",
-			fill: false,
-			lineTension: 0,
-			backgroundColor: "#ffffff",
-			borderColor: "#FF9966",
-			borderCapStyle: 'butt',
-			borderDash: [],
-			borderDashOffset: 0.0,
-			borderJoinStyle: 'miter',
-			pointBorderColor: "#FF9966",
-			pointBackgroundColor: "#fff",
-			pointBorderWidth: 1,
-			pointHoverRadius: 5,
-			pointHoverBackgroundColor: "#FF9966",
-			pointHoverBorderColor: "rgba(220,220,220,1)",
-			pointHoverBorderWidth: 1,
-			pointRadius: 1,
-			pointHitRadius: 10,
-			data: [3200, 6200, 5500, 3329, 2200, 3200, 3790, 5902],
-			spanGaps: false,
-		},
-		{
-			label: "读入",
-			fill: false,
-			lineTension: 0,
-			backgroundColor: "#ffffff",
-			borderColor: "#9966FF",
-			borderCapStyle: 'butt',
-			borderDash: [],
-			borderDashOffset: 0.0,
-			borderJoinStyle: 'miter',
-			pointBorderColor: "#9966FF",
-			pointBackgroundColor: "#fff",
-			pointBorderWidth: 1,
-			pointHoverRadius: 5,
-			pointHoverBackgroundColor: "#9966FF",
-			pointHoverBorderColor: "rgba(220,220,220,1)",
-			pointHoverBorderWidth: 1,
-			pointRadius: 1,
-			pointHitRadius: 10,
-			data: [1200, 7200, 4500, 5329, 2700, 3700, 2790, 4902],
-			spanGaps: false,
-		},
-	];
-	d_options= {
-		scales: {
-			yAxes: [{
-				ticks: {
-					beginAtZero:true,
-					max: 10000
-				}
-			}],
-		},
-		legend: {
-			position: 'bottom',
-			display: true,
-			labels: {
-				boxWidth: 24,
-				padding: 20
-			}
-		}
-	}
-
+	
 	hours = 24;
 
 	a_labels;
@@ -173,14 +42,34 @@ export class cloudHostDetailComponent implements OnInit {
 	memLabels = [];
 	memData = [];
 
+	c_labels;
+	c_datasets;
+	c_options;
+	diskIOPSRead  = []; 
+	diskIOPSWrite  = []; 
+	diskIOPSLabels  = []; 
+
+	d_labels;
+	d_datasets;
+	d_options;
+	diskIORead  = []; 
+	diskIOWrite  = []; 
+	diskIOLabels  = []; 
+
+	e_labels;
+	e_datasets;
+	e_options;
+	networkIn  = []; 
+	networkOut  = []; 
+	networkLables  = []; 
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
 		private route: ActivatedRoute,
 		private service: cloudHostDetailService
 	) {
-		this.setCpuGraph()
-		this.setMemGraph()
+		this.setGraph()
 	}
 
     setCpuGraph() {
@@ -287,6 +176,235 @@ export class cloudHostDetailComponent implements OnInit {
 		this.b_options = options
     }
 
+    diskIOPS() {
+		let length = this.diskIOPSLabels.length - this.hours
+		let labels = this.diskIOPSLabels.filter((label, i) => i >= length)
+		let data1 = this.diskIOPSRead.filter((disk, i) => i >= length)
+		let data2 = this.diskIOPSWrite.filter((disk, i) => i >= length)
+
+		let datasets= [
+			{
+				label: "读取",
+				fill: false,
+				lineTension: 0,
+				backgroundColor: "#ffffff",
+				borderColor: "#66CC99",
+				borderCapStyle: 'butt',
+				borderDash: [],
+				borderDashOffset: 0.0,
+				borderJoinStyle: 'miter',
+				pointBorderColor: "#66CC99",
+				pointBackgroundColor: "#fff",
+				pointBorderWidth: 1,
+				pointHoverRadius: 5,
+				pointHoverBackgroundColor: "#66CC99",
+				pointHoverBorderColor: "rgba(220,220,220,1)",
+				pointHoverBorderWidth: 1,
+				pointRadius: 1,
+				pointHitRadius: 10,
+				data: data1,
+				spanGaps: false,
+			},
+			{
+				label: "读入",
+				fill: false,
+				lineTension: 0,
+				backgroundColor: "#ffffff",
+				borderColor: "#FFCC33",
+				borderCapStyle: 'butt',
+				borderDash: [],
+				borderDashOffset: 0.0,
+				borderJoinStyle: 'miter',
+				pointBorderColor: "#FFCC33",
+				pointBackgroundColor: "#fff",
+				pointBorderWidth: 1,
+				pointHoverRadius: 5,
+				pointHoverBackgroundColor: "#FFCC33",
+				pointHoverBorderColor: "rgba(220,220,220,1)",
+				pointHoverBorderWidth: 1,
+				pointRadius: 1,
+				pointHitRadius: 10,
+				data: data2,
+				spanGaps: false,
+			},
+		]
+		let options= {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero:true,
+						max: 100
+					}
+				}],
+			},
+			legend: {
+				position: 'bottom',
+				display: true,
+				labels: {
+					boxWidth: 24,
+					padding: 20
+				}
+			}
+		}
+		
+		this.c_labels = labels
+		this.c_datasets = datasets
+		this.c_options = options
+    }
+
+    diskIO() {
+		let length = this.diskIOLabels.length - this.hours
+		let labels = this.diskIOLabels.filter((label, i) => i >= length)
+		let data1 = this.diskIORead.filter((disk, i) => i >= length)
+		let data2 = this.diskIOWrite.filter((disk, i) => i >= length)
+
+		let datasets= [
+			{
+				label: "读取",
+				fill: false,
+				lineTension: 0,
+				backgroundColor: "#ffffff",
+				borderColor: "#66CC99",
+				borderCapStyle: 'butt',
+				borderDash: [],
+				borderDashOffset: 0.0,
+				borderJoinStyle: 'miter',
+				pointBorderColor: "#66CC99",
+				pointBackgroundColor: "#fff",
+				pointBorderWidth: 1,
+				pointHoverRadius: 5,
+				pointHoverBackgroundColor: "#66CC99",
+				pointHoverBorderColor: "rgba(220,220,220,1)",
+				pointHoverBorderWidth: 1,
+				pointRadius: 1,
+				pointHitRadius: 10,
+				data: data1,
+				spanGaps: false,
+			},
+			{
+				label: "读入",
+				fill: false,
+				lineTension: 0,
+				backgroundColor: "#ffffff",
+				borderColor: "#FFCC33",
+				borderCapStyle: 'butt',
+				borderDash: [],
+				borderDashOffset: 0.0,
+				borderJoinStyle: 'miter',
+				pointBorderColor: "#FFCC33",
+				pointBackgroundColor: "#fff",
+				pointBorderWidth: 1,
+				pointHoverRadius: 5,
+				pointHoverBackgroundColor: "#FFCC33",
+				pointHoverBorderColor: "rgba(220,220,220,1)",
+				pointHoverBorderWidth: 1,
+				pointRadius: 1,
+				pointHitRadius: 10,
+				data: data2,
+				spanGaps: false,
+			},
+		]
+		let options= {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero:true,
+						max: 100
+					}
+				}],
+			},
+			legend: {
+				position: 'bottom',
+				display: true,
+				labels: {
+					boxWidth: 24,
+					padding: 20
+				}
+			}
+		}
+		
+		this.d_labels = labels
+		this.d_datasets = datasets
+		this.d_options = options
+    }
+
+    network() {
+
+		let length = this.networkLables.length - this.hours
+		let labels = this.networkLables.filter((label, i) => i >= length)
+		let data1 = this.networkOut.filter((disk, i) => i >= length)
+		let data2 = this.networkIn.filter((disk, i) => i >= length)
+
+		let datasets= [
+			{
+				label: "读取",
+				fill: false,
+				lineTension: 0,
+				backgroundColor: "#ffffff",
+				borderColor: "#66CC99",
+				borderCapStyle: 'butt',
+				borderDash: [],
+				borderDashOffset: 0.0,
+				borderJoinStyle: 'miter',
+				pointBorderColor: "#66CC99",
+				pointBackgroundColor: "#fff",
+				pointBorderWidth: 1,
+				pointHoverRadius: 5,
+				pointHoverBackgroundColor: "#66CC99",
+				pointHoverBorderColor: "rgba(220,220,220,1)",
+				pointHoverBorderWidth: 1,
+				pointRadius: 1,
+				pointHitRadius: 10,
+				data: data1,
+				spanGaps: false,
+			},
+			{
+				label: "读入",
+				fill: false,
+				lineTension: 0,
+				backgroundColor: "#ffffff",
+				borderColor: "#FFCC33",
+				borderCapStyle: 'butt',
+				borderDash: [],
+				borderDashOffset: 0.0,
+				borderJoinStyle: 'miter',
+				pointBorderColor: "#FFCC33",
+				pointBackgroundColor: "#fff",
+				pointBorderWidth: 1,
+				pointHoverRadius: 5,
+				pointHoverBackgroundColor: "#FFCC33",
+				pointHoverBorderColor: "rgba(220,220,220,1)",
+				pointHoverBorderWidth: 1,
+				pointRadius: 1,
+				pointHitRadius: 10,
+				data: data2,
+				spanGaps: false,
+			},
+		]
+		let options= {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero:true,
+						max: 100
+					}
+				}],
+			},
+			legend: {
+				position: 'bottom',
+				display: true,
+				labels: {
+					boxWidth: 24,
+					padding: 20
+				}
+			}
+		}
+		
+		this.e_labels = labels
+		this.e_datasets = datasets
+		this.e_options = options
+    }
+
 	get convertTimeDiff() {
 		var msec = this.diff;
 		var dd = Math.floor(msec / 1000 / 60 / 60 / 24);
@@ -303,7 +421,7 @@ export class cloudHostDetailComponent implements OnInit {
 
 	ngOnInit() {
 		this.fetchDetailAndFill();
-		this.fetchCpuMum();
+		this.fetchGraphData();
 	}
 
 	private labelDatasChange(datas){
@@ -349,26 +467,45 @@ export class cloudHostDetailComponent implements OnInit {
         })
     }
 
-    fetchCpuMum() {
+    fetchGraphData() {
 		this.layoutService.show();
 
 		this.route.params.subscribe(params => {
 			this.service.getVmCpuMemGraph(params["itemId"]).then(res => {
 				this.layoutService.hide();
-				let {cpu, memory} = res
+				let {cpu, memory, diskIOPSRead, diskIOPSWrite, diskIORead, diskIOWrite, networkIn, networkOut } = res
+
 
 				this.cpuLabels = cpu.map(c => c.time)
 				this.cpuData = cpu.map(c => c.value)
 				this.memLabels = memory.map(c => c.time)
 				this.memData = memory.map(c => c.value)
 
-				this.setCpuGraph()
-				this.setMemGraph()
-				console.log(res)
+				this.diskIOPSRead = diskIOPSRead.map( c => c.value)
+				this.diskIOPSWrite = diskIOPSWrite.map( c => c.value)
+				this.diskIOPSLabels = diskIOPSWrite.map( c => c.time)
+
+				this.diskIORead = diskIORead.map( c => c.value)
+				this.diskIOWrite = diskIOWrite.map( c => c.value)
+				this.diskIOLabels = diskIOWrite.map( c => c.time)
+
+				this.networkIn = networkIn.map( c => c.value)
+				this.networkOut = networkOut.map( c => c.value)
+				this.networkLables = networkIn.map( c => c.time)
+
+				this.setGraph()
 			}).catch(error => {
 	            this.layoutService.hide();
 	        })
 		})
+    }
+
+    setGraph() {
+		this.setCpuGraph()
+		this.setMemGraph()
+		this.diskIOPS()
+		this.diskIO()
+		this.network()
     }
 
 
