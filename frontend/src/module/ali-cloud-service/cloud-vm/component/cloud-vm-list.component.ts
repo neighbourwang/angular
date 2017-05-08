@@ -67,7 +67,7 @@ export class AliCloudVmListComponent implements OnInit {
     confirmMsg = "";
 
     pageIndex = 1;
-    pageSize = 10;
+    pageSize = 2;
     totalPage = 1;
     listTimer = null;
     instanceTimer: Array<any> = [];
@@ -765,6 +765,89 @@ export class AliCloudVmListComponent implements OnInit {
     ngOnDestroy() {
         this.clearInterval();
         this.listTimer && window.clearInterval(this.listTimer);
+    }
+
+    getAllRegionInstances() {
+        this.layoutService.show();
+        this.clearInterval();
+        this.listTimer && window.clearInterval(this.listTimer);
+
+        this.service.getAllRegionInstances()
+            .then(
+            response => {
+                this.layoutService.hide();
+                console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                        console.log(result, "result!");
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.instances = result.Instances.Instance;
+                    //this.totalPage = Math.ceil(result.TotalCount / this.pageSize);
+                    //console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
+                    for (let i = 0; i < this.instances.length; i++) {
+                        console.log(this.instances[i].InstanceId, " == ");
+                    }
+                    console.log(this.instances, "this.instances!");
+                    /*
+                    if (this.instances.length != 0) {
+                        this.instancesPollOps();
+                    }*/
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+            /*
+
+        this.listTimer = window.setInterval(() => {
+            this.service.getAllRegionInstances()
+                .then(
+                response => {
+                    this.layoutService.hide();
+                    console.log(response, "response!");
+                    if (response && 100 == response["resultCode"]) {
+                        let result;
+                        try {
+                            result = JSON.parse(response.resultContent);
+                            console.log(result, "result!");
+                        } catch (ex) {
+                            console.log(ex);
+                        }
+                        this.instances = result.Instances.Instance;
+                        //this.totalPage = Math.ceil(result.TotalCount / this.pageSize);
+                        //console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
+                        for (let i = 0; i < this.instances.length; i++) {
+                            console.log(this.instances[i].InstanceId, " == ");
+                        }
+                        console.log(this.instances, "this.instances!");
+                        if (this.instances.length != 0) {
+                            this.instancesPollOps();
+                        }
+                    } else {
+                        this.showMsg("COMMON.GETTING_DATA_FAILED");
+                        return;
+                    }
+                })
+                .catch((e) => {
+                    this.onRejected(e);
+                });
+        },
+            60000);
+            */
+
+    }
+
+    changePage(pageIndex?) {
+        this.pageIndex = pageIndex || this.pageIndex;
+        this.layoutService.show();
+        this.getInstanceList(this.pageIndex);
     }
 
 }

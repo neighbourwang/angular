@@ -70,6 +70,33 @@ export class cloudDriveServiceList {
         return request;
     }
 
+
+    fetchDiskState(vmid): Promise<any> {
+        // const api = this.restApiCfg.getRestApi("featch.vm.state");
+
+        // let pathParams = [
+        //     {
+        //         key: 'id',
+        //         value: vmid
+        //     }
+        // ];
+
+        // const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
+        //                     .then(res => {
+        //                         if(res.resultCode !== "100"){
+        //                             throw "";
+        //                         }
+        //                         return res.resultContent;
+        //                     });
+        // return request;
+
+        return new Promise(next => {
+            setTimeout(() => {
+                next({"resultCode":"100","detailDescription":null,"resultContent":{"id":null,"status":""+Math.round(Math.random()*13),"uuid":"都得_GvH_34E"}}.resultContent)
+            },500)
+        })
+
+    }
     changeDiskName(name:string, id:string) {
         
         const api = this.restApiCfg.getRestApi("change.disk.info");

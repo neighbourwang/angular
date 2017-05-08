@@ -14,6 +14,7 @@ import { QuiryDistList,HandleDist , DistList } from '../../cloud-drive/model/dis
 export class DiskReconfigComponent implements OnInit {
 
 	@Output() complete=new EventEmitter();
+	@Output() onSuccess=new EventEmitter();
 
 	state:"change"|"done" = "change";
 
@@ -105,6 +106,7 @@ export class DiskReconfigComponent implements OnInit {
 		}
 		this.service.submitConfig("disk", this.disk.id, postData).then(res => {
 			// this.complete.emit();
+			this.onSuccess.emit();
 			this.ot = "";
 			this.orderId = "[\""+res+"\"]";
 			this.state = "done";

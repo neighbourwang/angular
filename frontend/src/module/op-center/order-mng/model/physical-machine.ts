@@ -15,7 +15,7 @@ export class PhysicalMachinePart{
     specId:string;
     specName:string;//规格
     specValue:string;//规格值
-    capacity:number;//只有磁盘和内存才有总容量
+    capacity:string;//只有磁盘和内存才有总容量
   
 }
 

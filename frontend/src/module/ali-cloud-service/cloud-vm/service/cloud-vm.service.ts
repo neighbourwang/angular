@@ -720,7 +720,16 @@ export class AliCloudVmService {
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.remotecontrol");
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
-
+    
+    getAllRegionInstances(): Promise<any> {
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.allregion.instances");
+        return this.restApi.request(api.method, api.url, null, null, body);
+    }
 
 
 }
