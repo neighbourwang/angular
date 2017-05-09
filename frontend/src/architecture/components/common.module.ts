@@ -29,8 +29,9 @@ import { Validation } from './validators';
 
 import { SharedModule } from '../shared/shared.module';
 
-//import { MsgBellComponent } from './msg/component/msg-bell.component';
+import { MsgBellComponent } from "./msg/component/msg-bell.component";
 
+import {  MsgMngService } from "./msg/service/msg-mng.service";
 
 
 // import { DonutChart } from './donutChart/component/chart.component';
@@ -63,7 +64,7 @@ import { SharedModule } from '../shared/shared.module';
         // DonutChart,
         // LineChart
 
-        //MsgBellComponent
+        MsgBellComponent
     ],
     exports: [
         CommonModule,
@@ -88,11 +89,12 @@ import { SharedModule } from '../shared/shared.module';
         // DonutChart,
         // LineChart
 
-        //MsgBellComponent
+        MsgBellComponent
     ],
     providers : [
         DialogTranslate,
-        Validation
+        Validation,
+        MsgMngService
     ]
 })
 export class CommonComponentModule { }

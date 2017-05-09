@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi } from '../../../../architecture';
-
+import { RestApiCfg } from '../../../../architecture/core/service/restapicfg.service';
+import { RestApi } from '../../../../architecture/core/service/restapi.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()

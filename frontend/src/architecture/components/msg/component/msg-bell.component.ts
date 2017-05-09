@@ -1,8 +1,6 @@
-import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, } from "@angular/core";
+import { Component, OnInit, ViewChild, } from "@angular/core";
 import { Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
-
-import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent } from "../../../../architecture";
 
 //Model
 import { MsgAlertModel, MsgModel } from "../model/msg-bell.model";
@@ -20,7 +18,6 @@ import { MsgMngService } from "../service/msg-mng.service";
 })
 export class MsgBellComponent implements OnInit {
     constructor(
-        private layoutService: LayoutService,
         private router: Router,
         private service: MsgMngService,
 
@@ -39,7 +36,7 @@ export class MsgBellComponent implements OnInit {
         this.getMsgAlert();
         //unreadnumber.num = this.msgAlert.edge;
         //console.log(unreadnumber.num, "unreadnumber.num");
-        
+
         window.setInterval(() => {
             this.getMsgAlert();
             //unreadnumber.num = this.msgAlert.edge;
@@ -48,7 +45,7 @@ export class MsgBellComponent implements OnInit {
     }
 
     offClickHandler(event) {
-        if (!this.container.nativeElement.contains(event.target)){ 
+        if (!this.container.nativeElement.contains(event.target)) {
             this.expand = false;
         }
     }
@@ -58,7 +55,7 @@ export class MsgBellComponent implements OnInit {
     }
 
     getMsgAlert(): void {
-        this.service.getMsgListStatus(1,4,'0')
+        this.service.getMsgListStatus(1, 4, '0')
             .then(
             response => {
                 console.log(response, "msgAlert response");
