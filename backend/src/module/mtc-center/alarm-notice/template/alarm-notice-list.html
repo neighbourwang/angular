@@ -1,0 +1,34 @@
+﻿<div class="page-content-header icon-content-header-operation-center">
+    告警通知列表
+</div>
+<div class="page-content">
+    <div class="mgt5">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoSet()">设置</button>
+    </div>
+    <div class="table-container mgt15">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>告警项</th>
+                <th>阀值</th>
+                <th>告警开关</th>
+                <th>告警方式</th>
+                <th>描述</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="radio"class="fox-cloud-radio"/></td>
+                <td>Host CPU平均利用率</td>
+                <td>条件1:>70 条件2:>80</td>
+                <td>打开</td>
+                <td>email</td>
+                <td>云平台宿主机CPU平均使用率</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
