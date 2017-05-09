@@ -150,6 +150,13 @@ export class MenuService {
 				 			]
                          },
                         {
+                            "label": "告警通知",
+                            "isOpen": false,
+                            "isActive": false,
+                            "isShow": !isRoot,
+                            "routing": "mtc-center/alarm-notice/alarm-notice-list"
+                        },
+                        {
 							"label": "工单管理",
 							"isOpen": false,
 							"isActive": false,

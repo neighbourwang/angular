@@ -5,13 +5,15 @@ import { AssignMngModule } from './assign-mng/assign-mng.module';
 import { CaseMngModule } from './case-mng/case-mng.module';
 import { TrendMngModule} from './trend-mng/trend-mng.module';
 import { MngServiceModule} from './mng-service/mng-service.module';
+import { AlarmNoticeModule} from './alarm-notice/alarm-notice.module';
 @NgModule({
     imports: [
         CaseMngModule,
         CapacityMngModule,
         AssignMngModule,
         TrendMngModule,
-        MngServiceModule
+        MngServiceModule,
+        AlarmNoticeModule
     ],
     declarations: [],
     exports: [
@@ -19,7 +21,8 @@ import { MngServiceModule} from './mng-service/mng-service.module';
         CapacityMngModule,
         AssignMngModule,
         TrendMngModule,
-        MngServiceModule
+        MngServiceModule,
+        AlarmNoticeModule
     ],
     providers: [
         
