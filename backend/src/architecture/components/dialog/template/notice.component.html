@@ -4,7 +4,7 @@
         {{ showMsg | translate:param }}
     </modal-body>
     <modal-footer class="fox-cloud-modal-footer">
-        <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="nof()"style="margin-left: 30px">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="nof()" name="nof_{{title}}" style="margin-left: 30px">
             <span class="icon-button-label">{{ot || 'COMMON.CONFIRM' | translate}}</span>
         </button>
     </modal-footer>
