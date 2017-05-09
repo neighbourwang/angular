@@ -2618,7 +2618,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "导出",
         "id":"assign-mng.hyper.export",
         "method":"POST",
-        "url":"maintenance/hyper/query/export/{type}"
+        "url":"maintenancemgmt/noauth/hyper/query/export/{type}"
      },
      {
         "desc": "获取hyper详情",

@@ -26,8 +26,7 @@ const codeList = {
 	"5" : "LOAD_BALANCE",
 	"6" : "ALI_VM",
 	"7" : "ALI_DISK",
-	"8" : "LOAD_BALANCE",
-	"9" : "NONE",
+	"8" : "NONE"
 }
 
 @Component({
@@ -115,11 +114,10 @@ export class ManagementServicesOrderComponent implements OnInit {
 		this.dux.subscribe("PHYSICAL", () => {})
 		this.dux.subscribe("DATABASES", () => { this.fetchVmlist() })
 		this.dux.subscribe("MIDDLEWARE", () => { this.fetchVmlist() })
-		this.dux.subscribe("LOAD_BALANCE", () => { this.fetchVmlist() })
-		this.dux.subscribe("ALI_VM", () => {})
-		this.dux.subscribe("ALI_DISK", () => {})
-		this.dux.subscribe("LOAD_BALANCE", () => {})
-		this.dux.subscribe("NONE", () => {})
+		this.dux.subscribe("ALI_VM", () => { this.customInput() })
+		this.dux.subscribe("ALI_DISK", () => { this.customInput() })
+		this.dux.subscribe("LOAD_BALANCE", () => { this.customInput() })
+		this.dux.subscribe("NONE", () => { this.customInput() })
 	}
 
 	/******获取管理服务列表 最上面的下拉框*****/
@@ -155,11 +153,14 @@ export class ManagementServicesOrderComponent implements OnInit {
 
 	/******************确定产品后，把postData外层的信息填充了******************/
 	private initPostData() {
-		this.postData.quality = 1;
 		this.postData.skuId = this.productInfo.serviceSkuId
 		this.postData.productId = this.productInfo.productId
 		this.postData.serviceType = "11"
+		this.postData.totalPrice = 1
+		this.postData.quality = 1
 		this.values.SERVICEOBJECTCODE.attrValue = this.productInfo.serviceObjectCode	
+		this.values.TIMELINE.attrValue = "1";
+		this.checkValue("timeline")
 	}
 
 	/******************计算价格******************/
@@ -265,6 +266,11 @@ export class ManagementServicesOrderComponent implements OnInit {
 		console.log(this.selectedList)
 	}
 
+	/******************自定义表单******************/
+	private customInput() {
+
+	}
+
 
 	private scrollChange(event, fn) {
 		let { scrollTop, scrollHeight, clientHeight} = event.target
@@ -275,10 +281,14 @@ export class ManagementServicesOrderComponent implements OnInit {
 
 	
 	private checkValue(key?:string){
-
 		const regs:ValidationRegs = {
 			description: [this.values.REMARK.attrValue, [this.v.maxLength(300)], "备注信息填写有误"],
-			quality: [this.postData.quality, [this.v.isUnBlank, this.v.isInteger, this.v.min(1)], "购买量填写有误"]
+			timeline: [this.postData.quality, [this.v.isUnBlank, this.v.isInteger, this.v.min(1)], "购买周期填写有误"],
+			region: [ this.values.REGION.attrValue, [this.v.isUnBlank, this.v.isBase], "区域填写有误"],
+			zone: [this.values.ZONE.attrValue, [this.v.isUnBlank, this.v.isBase], "可用区填写有误"],
+			intanceType: [this.values.INSTANCETYPE.attrValue, [this.v.isUnBlank, this.v.isBase], "请选择实例类型"],
+			intanceId: [this.values.INSTANCEID.attrValue, [this.v.isUnBlank, this.v.isBase], "实例ID填写有误"],
+			instanceName: [this.values.INSTANCENAME.attrValue, [this.v.isUnBlank, this.v.isBase], "实例名称填写有误"],
 		}
 
 		return this.v.check(key, regs);
@@ -292,6 +302,11 @@ export class ManagementServicesOrderComponent implements OnInit {
 		return true;
 	}
 
+
+	private itemNum:number = 0;
+	private makeItemNum():string {
+		return new Date().getTime() + "" + (this.itemNum++);
+	}
 	private payLoadFormat() {
 		let valuesList:Values[] = []
 
@@ -305,10 +320,38 @@ export class ManagementServicesOrderComponent implements OnInit {
 		this.postDataList = valuesList.map(values => {
 			let { attrList } = this.postData
 			attrList = attrList.map(attr => Object.assign({}, attr, values[attr.attrCode]))
-			return Object.assign({}, this.postData, { attrList })
+			return Object.assign({}, this.postData, { attrList }, { itemNo: this.makeItemNum() })
 		})
 
 		console.log(this.postDataList)
+	}
+
+	addCart() {   //加入购物车
+		// if (!this.checkInput()) return;
+		this.payLoadFormat();   //获取最新的的payload的对象
+		this.layoutService.show();
+		this.service.addCart(this.postDataList).then(res => {
+			this.layoutService.hide();
+			this.noticeDialog.open("","CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
+			this.cartButton.setCartList();
+		}).catch(res => {
+			this.layoutService.hide();
+			this.showNotice("提示", "加入购物车失败")
+		})
+	}
+
+
+	buyNow() {
+		// if (!this.checkInput()) return;
+		this.payLoadFormat();   //获取最新的的payload的对象
+		this.layoutService.show();
+		this.service.saveOrder(this.postDataList).then(res => {
+			this.layoutService.hide();
+			this.router.navigate(['cloud-host-service/cart-order/', JSON.stringify(res)]);
+		}).catch(error => {
+			this.layoutService.hide();
+			this.showNotice("提示", "提交订单失败")
+		})
 	}
 	
 	// 警告框相关
