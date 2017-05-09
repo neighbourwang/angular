@@ -2618,7 +2618,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "导出",
         "id":"assign-mng.hyper.export",
         "method":"POST",
-        "url":"maintenance/hyper/query/export/{type}"
+        "url":"maintenancemgmt/noauth/hyper/query/export/{type}"
      },
      {
         "desc": "获取hyper详情",
@@ -2661,13 +2661,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "导出当前数据",
         "id":"compute-trend.export.current",
         "method":"POST",
-        "url":"maintenance/trend/query/export/current"
+        "url":"maintenancemgmt/noauth/trend/query/export/current"
      },
      {
         "desc": "导出所有数据",
         "id":"compute-trend.export.all",
-        "method":"GET",
-        "url":"maintenance/trend/query/export/current"
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/trend/query/export"
      },
      //阿里云账号管理
      {

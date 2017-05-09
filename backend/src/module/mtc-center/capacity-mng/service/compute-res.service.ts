@@ -14,6 +14,10 @@ export class ComputeResService {
         private dict:SystemDictionaryService
     ) { }
 
+    pfDic = this.dict.get({
+        owner: "PLATFORM",
+        field: "TYPE"
+    });
     zoneStatusDic = this.dict.get({
         owner: "MAINTAIN",
         field: "ZONESTATUS"

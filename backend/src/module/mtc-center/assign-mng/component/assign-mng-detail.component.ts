@@ -213,14 +213,19 @@ export class AssignMngDetailComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    //确认
-    confirm() {
-        this.queryOpt.enterpriseId = this.selectedEnt.enterpriseId;
+    //获取当前查询条件
+    getQuery() {
+       this.queryOpt.enterpriseId = this.selectedEnt.enterpriseId;
         this.queryOpt.departmentId = this.selectedDept.departmentId;
         this.queryOpt.platformId = this.selectedPlf.platformId;
         this.queryOpt.regionId = this.selectedRegion.regionId;
         this.queryOpt.zoneId = this.selectedZone.zoneId;
         console.log("query", this.queryOpt);
+    }
+
+    //确认
+    confirm() {
+        this.getQuery();
         this.getUsageState();
         this.getHyperList();
     }
@@ -241,8 +246,9 @@ export class AssignMngDetailComponent implements OnInit {
 
     //导出当前数据
     exportCurrent() {
+        this.getQuery();
         this.layoutService.show();
-        this.service.exportCurrent(this.queryOpt)  //post 待完善
+        this.service.exportCurrent(this.queryOpt)  
             //.then(
             //response => {
             //    this.layoutService.hide();

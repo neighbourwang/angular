@@ -356,7 +356,10 @@ export class ComputeTrendComponent implements OnInit {
     } //函数结尾
 
     exportCurrent() {
-        this.layoutService.show();
+        this.queryOpt.platformId = this.selectedPlf.platformId;
+        this.queryOpt.regionId = this.selectedRegion.regionId;
+
+        //this.layoutService.show();
         this.service.exportCurrent(this.queryOpt);  
             //.then(
             //response => {

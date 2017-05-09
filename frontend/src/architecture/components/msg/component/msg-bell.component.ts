@@ -7,7 +7,7 @@ import { MsgAlertModel, MsgModel } from "../model/msg-bell.model";
 
 //Service
 import { MsgMngService } from "../service/msg-mng.service";
-//import { unreadnumber } from "../service/msg-number.service";
+import { unreadnumber } from "../../../../module/user-center/msg-mng/service/msg-number.service";
 
 
 @Component({
@@ -34,13 +34,13 @@ export class MsgBellComponent implements OnInit {
     expand: boolean = false;
     ngOnInit(): void {
         this.getMsgAlert();
-        //unreadnumber.num = this.msgAlert.edge;
-        //console.log(unreadnumber.num, "unreadnumber.num");
+        unreadnumber.num = this.msgAlert.edge;
+        console.log(unreadnumber.num, "unreadnumber.num");
 
         window.setInterval(() => {
             this.getMsgAlert();
-            //unreadnumber.num = this.msgAlert.edge;
-            //console.log(unreadnumber.num, "unreadnumber.num");
+            unreadnumber.num = this.msgAlert.edge;
+            console.log(unreadnumber.num, "unreadnumber.num");
         }, 30000);
     }
 
@@ -76,6 +76,6 @@ export class MsgBellComponent implements OnInit {
     }
 
     openMsgListPage() {
-        //this.router.navigate([`user-center/msg-mng/msg-list`]);
+        this.router.navigate([`user-center/msg-mng/msg-list`]);
     }
 }

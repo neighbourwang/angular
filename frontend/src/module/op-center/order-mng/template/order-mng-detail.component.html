@@ -29,7 +29,7 @@
 						<td><span *ngIf="_orderDetail.productType==0||_orderDetail.productType==1||_orderDetail.productType==2">{{_orderDetail.specification}}</span><!--云主机云硬盘，数据库中间件-->
 							<a *ngIf="_orderDetail.productType==4" class="hands" [popover]="popover">点击查看部件信息</a><!--物理机-->
 							<popover-content #popover placement="right"[animation]="true" [closeOnClickOutside]="true">
-								<div class="table-container mgb20">
+								<div *ngIf="_orderDetail.productType==4"  class="table-container mgb20">
 									<table class="table table-bordered mgb20 text-center inner-table">
 										<thead>
 												<th>部件名称</th>
@@ -38,14 +38,14 @@
 												<th>数量</th>
 												<th>总容量</th>
 										</thead>
-										<tbody>
-											<tr>
-												<td>磁盘</td>
-												<td>SSD</td>
-												<td>100GB</td>
-												<td>2</td>
-												<td>128GB</td>
-											</tr>		
+										<tbody *ngIf="_orderDetail.itemList[0].pmEntity.partsEntitys">
+											<tr *ngFor="let physicalMachineItem of _orderDetail.itemList[0].pmEntity.partsEntitys">
+													<td>{{physicalMachineItem.partsName}}</td>
+													<td>{{physicalMachineItem.specName}}</td>
+													<td>{{physicalMachineItem.specValue}}</td>
+													<td>{{physicalMachineItem.number}}</td>
+													<td>{{physicalMachineItem.capacity}}</td>
+												</tr>		
 										</tbody>
 									</table>
 								</div>
