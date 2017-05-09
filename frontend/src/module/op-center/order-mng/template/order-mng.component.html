@@ -217,6 +217,7 @@
 							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
 						</ul>
 						-->
+						<service-view  [values]="prodItem" *ngIf="prodItem.serviceType==11"></service-view>
 						<machine-view  [values]="prodItem" *ngIf="prodItem.serviceType==4"></machine-view>
 						<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0"></vm-view>
 						<!-- 显示云主机 -->

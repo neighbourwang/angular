@@ -12,7 +12,7 @@
                 <span style="line-height:34px" *ngIf="editMode !='create'">{{account.loginName}}</span>
             </div>-->
             <div class="col-sm-4 " >
-                <input type="text" class="form-control" *ngIf="editMode =='create'" [(ngModel)]="account.loginName">
+                <input type="text" class="form-control" *ngIf="editMode =='create'" [(ngModel)]="account.loginName" id="loginName">
                 <span style="line-height:34px" *ngIf="editMode !='create'">{{account.loginName}}</span>
             </div>
         </div>
@@ -49,7 +49,7 @@
             </div>-->
             <div class="col-sm-4 ">
                 <!--<input type="text" class="form-control" *ngIf="editMode =='create'" [(ngModel)]="account.accessKey" >-->
-                <input type="text" class="form-control" *ngIf="editMode !='view'" [(ngModel)]="account.accessKey"  [disabled]="editMode =='edit' && changebt">
+                <input type="text" id="accessKey" class="form-control" *ngIf="editMode !='view'" [(ngModel)]="account.accessKey"  [disabled]="editMode =='edit' && changebt">
                 <span style="line-height:34px" *ngIf="editMode =='view'">{{account.accessKey}}</span>
             </div>
         </div>
@@ -66,14 +66,14 @@
             </div>-->
             <div class="col-sm-4 " >
                 <!--<input type="text" class="form-control" *ngIf="editMode =='create'" [(ngModel)]="account.accessSecret" >-->
-                <input type="text" class="form-control" *ngIf="editMode !='view'" [(ngModel)]="account.accessSecret" [disabled]="editMode =='edit' && changebt">
+                <input type="text" class="form-control" id="accessSecret" *ngIf="editMode !='view'" [(ngModel)]="account.accessSecret" [disabled]="editMode =='edit' && changebt">
                <span style="line-height:34px" *ngIf="editMode =='view'">{{account.accessSecret}}</span>
             </div>
             <div class="col-sm-4" *ngIf="editMode !='view'">
-                <button class="fox-cloud-button fox-cloud-button-white " *ngIf="editMode =='edit'" (click)="changebtn();">
+                <button class="fox-cloud-button fox-cloud-button-white " id="changebtn" *ngIf="editMode =='edit'" (click)="changebtn();">
                      {{'ALI_CLOUD.CHANGE_LOGIN_INFO'|translate}}
                 </button>
-                <button class="fox-cloud-button fox-cloud-button-white " (click)="testAccessInfo();">
+                <button class="fox-cloud-button fox-cloud-button-white " id="testAccessInfo" (click)="testAccessInfo();">
                     {{'ALI_CLOUD.TEST'|translate}}<span class="glyphicon glyphicon-menu-right "></span>
                     <span class="glyphicon glyphicon-menu-right"></span>
                 </button>
@@ -93,9 +93,9 @@
                 <div *ngIf="v.result.type" class="alert alert-danger" role="alert">{{v.result.type}}</div>
             </div>-->
             <div class="col-sm-4 ">
-                <select class="form-control" [disabled]="editMode !='create'" [(ngModel)]="account.mainAccountType" >
-                    <option value="">{{'ALI_CLOUD.PLEASE_SELECT'|translate}}</option>
-                    <option *ngFor="let v of service.dictType | async" [value]="v.value">{{v.displayValue}}</option>
+                <select class="form-control" [disabled]="editMode !='create'" [(ngModel)]="account.mainAccountType" id="mainAccountType">
+                    <option value="" id="allAccountType">{{'ALI_CLOUD.PLEASE_SELECT'|translate}}</option>
+                    <option *ngFor="let v of service.dictType | async" [value]="v.value" id="dictType_v.value" >{{v.displayValue}}</option>
                 </select>
             </div>
         </div>
@@ -110,23 +110,23 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">{{'ALI_CLOUD.DESCRIPTION'|translate}}:</div>
             <div class="col-sm-4 ">
-                <textarea rows="3"  class="form-control" maxlength="200" [(ngModel)]="account.description"[disabled]="editMode =='view'"></textarea>
+                <textarea rows="3"  class="form-control" maxlength="200" id="description" [(ngModel)]="account.description"[disabled]="editMode =='view'"></textarea>
             </div>
         </div>
     </div>
     <div class="col-sm-offset-4" *ngIf="editMode !='view'">{{'ALI_CLOUD.NO_MORE_THAN_200_WORDS'|translate}}</div>
 </div>
 <div class="text-center ">
-    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode !='view'" (click)="gotoAccountList();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode !='view'" id="gotoAccountList" (click)="gotoAccountList();">
         <span class="icon-button-label">{{'ALI_CLOUD.CANCEL'|translate}}</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='create'" (click)="createAccount();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='create'" id="createAccount" (click)="createAccount();">
         <span class="icon-button-label">{{'ALI_CLOUD.CREATE'|translate}}</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='edit'" (click)="editAccount();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='edit'" id="editAccount" (click)="editAccount();">
         <span class="icon-button-label">{{'ALI_CLOUD.SAVE'|translate}}</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='view'" (click)="gotoAccountList();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="editMode =='view'" id="gotoAccountList" (click)="gotoAccountList();">
         <span class="icon-button-label">{{'ALI_CLOUD.CLOSE'|translate}}</span>
     </button>
 </div>

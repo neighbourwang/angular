@@ -11,8 +11,9 @@
         <table class="table table-hover">
             <thead>
               <tr>
-                  <th>{{'CAPACITY_MNG.NUMBER'|translate}}</th><!--编号-->
                   <th>{{'COMMON.CHOOSE'|translate }}</th><!--选择-->
+                  <th>{{'CAPACITY_MNG.NUMBER'|translate}}</th><!--编号-->
+                  
                   <th>{{'CAPACITY_MNG.PLATFORM_NAME'|translate }}</th><!--平台名称-->
                   <th>{{'CAPACITY_MNG.REGION_BELONG_TO'|translate }}</th><!--所属地域-->
                   <th>{{'CAPACITY_MNG.DATA_CENTER_BELONG_TO'|translate }}</th><!--所属数据中心-->
@@ -23,8 +24,8 @@
             </thead> 
             <tbody>
                 <tr *ngFor="let pf of pfList let i=index">
-                    <td>{{(page-1)*size+i+1}}</td>
                     <td><input type="radio" name="pf" class="fox-cloud-radio" [checked]="pf.selected" (change)="selectPlatform(pf)"/></td>
+                    <td>{{(page-1)*size+i+1}}</td>                   
                     <td>{{pf.name}}</td>
                     <td>{{pf.regionName}}</td>
                     <td>{{pf.dataCenter}}</td>

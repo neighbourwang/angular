@@ -127,7 +127,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 	/****资源池*****/
 	private fetchResourcePoll() {
 		this.service.fetchResourcePoll(this.region.id).then(res => {
-			if(!res.length) return
+			if(!res.length) return this.resourcePolls = []
 
 			this.resourcePolls = res;
 			this.resourcePoll = this.resourcePolls[0]

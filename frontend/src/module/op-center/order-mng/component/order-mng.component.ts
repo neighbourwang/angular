@@ -153,7 +153,7 @@ export class OrderMngComponent implements OnInit {
 				if(item.itemList&&item.itemList[0].specList){
 				
 					let getProperty = _.property("attrDisplayValue");
-					 if(item.productType==0||item.productType==4){
+					 if(item.productType==0||item.productType==4||item.productType==11){
 						item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
 					}else{
 						item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
