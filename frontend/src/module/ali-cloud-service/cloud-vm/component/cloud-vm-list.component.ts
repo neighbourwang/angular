@@ -67,7 +67,7 @@ export class AliCloudVmListComponent implements OnInit {
     confirmMsg = "";
 
     pageIndex = 1;
-    pageSize = 10;
+    pageSize = 2;
     totalPage = 1;
     listTimer = null;
     instanceTimer: Array<any> = [];
@@ -84,6 +84,7 @@ export class AliCloudVmListComponent implements OnInit {
     defaultRegion: RegionModel = new RegionModel();
     choosenRegion: RegionModel = this.defaultRegion;
 
+    allinstances: Array<instanceListModel> = [];
     instances: Array<instanceListModel> = [];
     selectedInstance: instanceListModel = new instanceListModel();
     changedInstance: instanceListModel = new instanceListModel();
@@ -201,6 +202,8 @@ export class AliCloudVmListComponent implements OnInit {
         region.selected = true;
         this.queryObject.criteria = "instance_name";
         this.queryObject.keyword = "";
+        this.pageIndex = 1;
+        this.pager.render(1);
         this.getInstanceList(1); // 列出对应region的instance list
     }
 
@@ -218,7 +221,7 @@ export class AliCloudVmListComponent implements OnInit {
         this.clearInterval();
         this.listTimer && window.clearInterval(this.listTimer);
 
-        this.service.getInstanceList(this.pageIndex, this.pageSize, this.choosenRegion.RegionId, this.queryObject)
+        this.service.getInstanceList(this.pageIndex, 100, this.choosenRegion.RegionId, this.queryObject)  //这个不应该给出pageIndex和pageSize
             .then(
             response => {
                 this.layoutService.hide();
@@ -231,9 +234,16 @@ export class AliCloudVmListComponent implements OnInit {
                     } catch (ex) {
                         console.log(ex);
                     }
-                    this.instances = result.Instances.Instance;
-                    this.totalPage = Math.ceil(result.TotalCount / this.pageSize);
-                    console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
+                    this.allinstances = result.Instances.Instance;
+                    this.totalPage = Math.ceil(this.allinstances.length / this.pageSize);
+                    console.log(this.allinstances.length, this.totalPage, "TotalCount, this.totalPage!");
+                    this.pageIndex = 1;
+                    this.pager.render(1);
+                    this.instances = this.allinstances.slice(0,this.pageIndex*this.pageSize);
+                    console.log(this.instances, "instances!");
+                    //this.instances = result.Instances.Instance;
+                    //this.totalPage = Math.ceil(result.TotalCount / this.pageSize);
+                    //console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
                     for (let i = 0; i < this.instances.length; i++) {
                         console.log(this.instances[i].InstanceId, " == ");
                     }
@@ -251,7 +261,7 @@ export class AliCloudVmListComponent implements OnInit {
             });
 
         this.listTimer = window.setInterval(() => {
-            this.service.getInstanceList(this.pageIndex, this.pageSize, this.choosenRegion.RegionId, this.queryObject)
+            this.service.getInstanceList(this.pageIndex, 100, this.choosenRegion.RegionId, this.queryObject)  //这个不应该给出pageIndex和pageSize
                 .then(
                 response => {
                     this.layoutService.hide();
@@ -264,9 +274,16 @@ export class AliCloudVmListComponent implements OnInit {
                         } catch (ex) {
                             console.log(ex);
                         }
-                        this.instances = result.Instances.Instance;
-                        this.totalPage = Math.ceil(result.TotalCount / this.pageSize);
-                        console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
+                        this.allinstances = result.Instances.Instance;
+                        this.totalPage = Math.ceil(this.allinstances.length / this.pageSize);
+                        console.log(this.allinstances.length, this.totalPage, "TotalCount, this.totalPage!");
+                        this.pageIndex = 1;
+                        this.pager.render(1);
+                        this.instances = this.allinstances.slice(0,this.pageIndex*this.pageSize);
+                        console.log(this.instances, "instances!");
+                        //this.instances = result.Instances.Instance;
+                        //this.totalPage = Math.ceil(result.TotalCount / this.pageSize);
+                        //console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
                         for (let i = 0; i < this.instances.length; i++) {
                             console.log(this.instances[i].InstanceId, " == ");
                         }
@@ -785,7 +802,13 @@ export class AliCloudVmListComponent implements OnInit {
                     } catch (ex) {
                         console.log(ex);
                     }
-                    this.instances = result.Instances.Instance;
+                    this.allinstances = result.Instances.Instance;
+                    this.totalPage = Math.ceil(this.allinstances.length / this.pageSize);
+                    console.log(this.allinstances.length, this.totalPage, "TotalCount, this.totalPage!");
+                    this.pageIndex = 1;
+                    this.instances = this.allinstances.slice(0,this.pageIndex*this.pageSize);
+                    console.log(this.instances, "instances!");
+                    //this.instances = result.Instances.Instance;
                     //this.totalPage = Math.ceil(result.TotalCount / this.pageSize);
                     //console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
                     for (let i = 0; i < this.instances.length; i++) {
@@ -846,8 +869,12 @@ export class AliCloudVmListComponent implements OnInit {
 
     changePage(pageIndex?) {
         this.pageIndex = pageIndex || this.pageIndex;
-        this.layoutService.show();
-        this.getInstanceList(this.pageIndex);
+        console.log(this.pageIndex);
+        if(this.pageIndex>this.totalPage) return;
+        //this.layoutService.show();
+        //this.getInstanceList(this.pageIndex);
+        this.instances = this.allinstances.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize);
+        console.log(this.instances, "instances!");
     }
 
 }
