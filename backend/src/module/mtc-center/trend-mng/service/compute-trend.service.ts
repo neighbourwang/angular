@@ -96,9 +96,9 @@ export class ComputeTrendService {
      }
 
     exportCurrent(query:ComputeQuery): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("compute-trend.export.current");
-        //return this.restApi.request(api.method, api.url, null, null, query);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => BasicList_mock );
+        const api = this.restApiCfg.getRestApi("compute-trend.export.current");
+        return this.restApi.request(api.method, api.url, null, null, query);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => BasicList_mock );
      }
 
     exportAll(): Promise<any> {
