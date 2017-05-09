@@ -2531,8 +2531,8 @@ export let RestApis: RestApiModel[] = [
      {
         "desc": "生成报告",
         "id":"capacity-mng.report",
-        "method":"GET",
-        "url":"maintenance/report"
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/report"
     },
      {
         "desc": "管理计算资源-获取平台信息",
@@ -2612,7 +2612,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "导出当前数据",
         "id":"assign-mng.hyper.export.current",
         "method":"POST",
-        "url":"maintenance/hyper/query/export/current"
+        "url":"maintenancemgmt/noauth/hyper/query/export/current"
      },
      {
         "desc": "导出",
