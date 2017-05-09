@@ -46,9 +46,9 @@ export class ComputeTrendService {
     }
 
     getBasicList(query: ComputeQuery): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("compute-trend.basic.info");
-        //return this.restApi.request(api.method, api.url, null, null, query);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => BasicList_mock );
+        const api = this.restApiCfg.getRestApi("compute-trend.basic.info");
+        return this.restApi.request(api.method, api.url, null, null, query);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => BasicList_mock );
     }
 
     getGrowthRateList(query: ComputeQuery): Promise<any> {
@@ -67,38 +67,38 @@ export class ComputeTrendService {
         
     }
 
-    getCpuData(hostId:string): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("compute-trend.graph.cpu");
-        //return this.restApi.request(api.method, api.url, null, null, hostId);
-        return new Promise(resovle => setTimeout(resovle, 10)).then(() => CpuData_mock);
+    getCpuData(query:ComputeQuery): Promise<any> {
+        const api = this.restApiCfg.getRestApi("compute-trend.graph.cpu");
+        return this.restApi.request(api.method, api.url, null, null, query);
+        //return new Promise(resovle => setTimeout(resovle, 10)).then(() => CpuData_mock);
     }
 
-     getVmData(hostId:string): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("compute-trend.graph.vm");
-        //return this.restApi.request(api.method, api.url, pathParams, null, hostId).then(
-        //    res =>{
-        //        if (res && 100 == res["resultCode"]) {
-        //            return res.resultContent;
-        //        } else {
-        //            throw "error";
-        //        }
-        //    }
-        //);
-          return new Promise(resovle => setTimeout(resovle, 10)).then(() => VmData_mock.resultContent);
+     getVmData(query:ComputeQuery): Promise<any> {
+        const api = this.restApiCfg.getRestApi("compute-trend.graph.vm");
+        return this.restApi.request(api.method, api.url, null, null, query).then(
+            res =>{
+                if (res && 100 == res["resultCode"]) {
+                    return res.resultContent;
+                } else {
+                    throw "error";
+                }
+            }
+        );
+        // return new Promise(resovle => setTimeout(resovle, 10)).then(() => VmData_mock.resultContent);
         
             
     }
 
-     getMemData(hostId:string): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("compute-trend.graph.mem");
-        //return this.restApi.request(api.method, api.url, pathParams, null, hostId);
-        return new Promise(resovle => setTimeout(resovle, 10)).then(() => MemData_mock);
+     getMemData(query:ComputeQuery): Promise<any> {
+        const api = this.restApiCfg.getRestApi("compute-trend.graph.mem");
+        return this.restApi.request(api.method, api.url, null, null, query);
+        //return new Promise(resovle => setTimeout(resovle, 10)).then(() => MemData_mock);
      }
 
     exportCurrent(query:ComputeQuery): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("compute-trend.export.current");
-        //return this.restApi.request(api.method, api.url, null, null, query);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => BasicList_mock );
+        const api = this.restApiCfg.getRestApi("compute-trend.export.current");
+        return this.restApi.request(api.method, api.url, null, null, query);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => BasicList_mock );
      }
 
     exportAll(): Promise<any> {

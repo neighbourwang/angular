@@ -3,9 +3,9 @@
 </div>
 <div class="page-content">
     <div style="margin-bottom:10px">
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="createAccount();">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="createAccount();" id="createAccount">
             <span class="glyphicon glyphicon-edit"></span>
-            <span class="icon-button-label icon-left-button-label">{{'ALI_CLOUD.ADD_MAIN_ACCOUNT'|translate}}</span>
+            <span class="icon-button-label icon-left-button-label" >{{'ALI_CLOUD.ADD_MAIN_ACCOUNT'|translate}}</span>
         </button>
         <div class="dropdown pull-right" style="margin-left:10px;">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -13,20 +13,20 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:void(0);" (click)="editAccountType();">{{'ALI_CLOUD.EDIT_ACCOUNT_TYPE'|translate}}</a></li>
-                <li><a href="javascript:void(0);" (click)="enableAccount();">{{'ALI_CLOUD.ENABLE'|translate}}</a></li>
-                <li><a href="javascript:void(0);" (click)="disableAccount();">{{'ALI_CLOUD.DISABLE'|translate}}</a></li>
-                <li><a href="javascript:void(0);" (click)="deleteAccount();">{{'ALI_CLOUD.DELETE'|translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="editAccountType();" id="editAccountType">{{'ALI_CLOUD.EDIT_ACCOUNT_TYPE'|translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="enableAccount();" id="enableAccount">{{'ALI_CLOUD.ENABLE'|translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="disableAccount();" id="disableAccount">{{'ALI_CLOUD.DISABLE'|translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="deleteAccount();" id="deleteAccount">{{'ALI_CLOUD.DELETE'|translate}}</a></li>
             </ul>
         </div>
         <div class="pull-right mgl10">
-            <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoSubAccountList();">{{'ALI_CLOUD.SUB_ACCOUNT_MNG'|translate}}</button>
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoSubAccountList();" id="gotoSubAccountList">{{'ALI_CLOUD.SUB_ACCOUNT_MNG'|translate}}</button>
         </div>
         <div class="pull-right mgl10">
-            <button class="fox-cloud-button fox-cloud-button-green" (click)="setEntprise();">{{'ALI_CLOUD.SET_ENTERPRISE'|translate}}</button>
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="setEntprise();" id="setEntprise">{{'ALI_CLOUD.SET_ENTERPRISE'|translate}}</button>
         </div>
         <div class="pull-right">
-            <button class="fox-cloud-button fox-cloud-button-green" (click)="editAccount();">{{'ALI_CLOUD.EDIT'|translate}}</button>
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="editAccount();" id="editAccount">{{'ALI_CLOUD.EDIT'|translate}}</button>
         </div>
     </div>
     <div class="table-container">
@@ -44,7 +44,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of accountList">
+            <tr *ngFor="let item of accountList" id="accountList_{{item.id}}">
                 <td>
                     <input type="radio" name="aliAccount" class="fox-cloud-radio" (change)="getSelectAccount(item);"[checked]="item.isSelect" />
                 </td>

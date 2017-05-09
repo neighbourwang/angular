@@ -12,7 +12,7 @@
     </td>
     <td class="text-center table-text-middle">{{items.serviceType | dict:service.dictProductType | async}}</td>
     <td class="text-center table-text-middle">{{items.billingInfo.billingMode | dict:service.packageBilling | async}}</td>
-    <td *ngIf="items.billingPeriod || items.period" class="text-center table-text-middle">{{'COMMON.$' | translate}}{{items.billingPeriod || items.period}}/{{items.billingInfo.periodType | dict:service.weekly | async}}</td>
+    <td *ngIf="items.billingPeriod || items.period" class="text-center table-text-middle">{{items.billingPeriod || items.period}}{{items.billingInfo.periodType | dict:service.weekly | async}}</td>
     <td *ngIf="!(items.billingPeriod || items.period)" class="text-center table-text-middle"></td>
 
     <td class="text-center table-text-middle">

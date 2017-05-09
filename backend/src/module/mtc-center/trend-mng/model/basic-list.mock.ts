@@ -4,8 +4,8 @@ export const BasicList_mock = {
     resultContent: {
         "zones": [
             {
-                "zonename": "zone1",
-                "cpus": 1348,
+                "zoneName": "zone1",
+                "cpu": 1348,
                 "memory": 1024,
                 "cpuOversubscription": 4,//CPU≥¨∑÷
                 "cpuQurta": 80, //≈‰∂Ó
@@ -37,8 +37,8 @@ export const BasicList_mock = {
                 }
             },
             { 
-                "zonename": "zone2",
-                "cpus": 1348,
+                "zoneName": "zone2",
+                "cpu": 1348,
                 "memory": 1024,
                 "cpuOversubscription": 4,//CPU≥¨∑÷
                 "cpuQurta": 80, //≈‰∂Ó

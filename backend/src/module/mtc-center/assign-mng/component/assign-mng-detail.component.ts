@@ -10,16 +10,21 @@ import {QueryModel} from "../model/query.model";
 //service
 import { AssignMngService } from "../service/assign-mng.service";
 
+//详情页
+import {HyperInfo} from "../model/hyper-info.model";
+import {HyperGraph,GraphItem,LineChart}from "../model/hyper-graph.model";
+import { AssignDetailService } from "../service/assign-detail.service";
 
 @Component({
-    selector: "assign-mng",
-    templateUrl: "../template/assign-mng.html",
+    selector: "assign-mng-detail",
+    templateUrl: "../template/assign-mng-detail.html",
     styleUrls: ["../style/assign-mng.less"],
     providers: []
 })
-export class AssignMngComponent implements OnInit {
+export class AssignMngDetailComponent implements OnInit {
     constructor(
         private service: AssignMngService,
+        private service2: AssignDetailService,
         private router: Router,
         private layoutService: LayoutService,
         private validationService: ValidationService
@@ -61,14 +66,26 @@ export class AssignMngComponent implements OnInit {
     flavor: Object = new Object();
     flavorName: Array<string>=new Array<string>();
     flavorValue: Array<number>=new Array<number>();
-    cpuChart: DoughnutChart = new DoughnutChart(); //cpu环形图
-    memChart: DoughnutChart = new DoughnutChart(); //mem环形图
+    cpuCircle: DoughnutChart = new DoughnutChart(); //cpu环形图
+    memCircle: DoughnutChart = new DoughnutChart(); //mem环形图
     hyperList: Array<Hyper>;
 
     flag=1;
     startDate: string;
     endDate: string;
-    period="1";
+    period = "1";
+
+    showFirst=true;//切换两个页面
+    //详情页变量
+    Period="1";
+    vmId: string;
+    hyperInfo: HyperInfo = new HyperInfo();
+    hyperGraph: HyperGraph = new HyperGraph();
+
+    cpuList: Array<GraphItem>;
+    memList: Array<GraphItem>;
+    cpuLine = new LineChart();
+    memLine = new LineChart();
 
     ngOnInit() {
         this.defaultEnt.enterpriseId = 'all';
@@ -158,8 +175,8 @@ export class AssignMngComponent implements OnInit {
                         this.flavorValue.push(flv[f]);
                     }
                     //数据处理
-                    this.getGraphData(this.cpuChart, this.cpuInfo);
-                    this.getGraphData(this.memChart, this.memInfo);
+                    this.getGraphData(this.cpuCircle, this.cpuInfo);
+                    this.getGraphData(this.memCircle, this.memInfo);
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -196,14 +213,19 @@ export class AssignMngComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    //确认
-    confirm() {
-        this.queryOpt.enterpriseId = this.selectedEnt.enterpriseId;
+    //获取当前查询条件
+    getQuery() {
+       this.queryOpt.enterpriseId = this.selectedEnt.enterpriseId;
         this.queryOpt.departmentId = this.selectedDept.departmentId;
         this.queryOpt.platformId = this.selectedPlf.platformId;
         this.queryOpt.regionId = this.selectedRegion.regionId;
         this.queryOpt.zoneId = this.selectedZone.zoneId;
         console.log("query", this.queryOpt);
+    }
+
+    //确认
+    confirm() {
+        this.getQuery();
         this.getUsageState();
         this.getHyperList();
     }
@@ -222,31 +244,32 @@ export class AssignMngComponent implements OnInit {
         this.queryOpt.period = '1';
     }
 
+    //导出当前数据
     exportCurrent() {
+        this.getQuery();
         this.layoutService.show();
-        this.service.exportCurrent(this.queryOpt)  //post 待完善
-            .then(
-            response => {
-                this.layoutService.hide();
-                if (response && 100 == response["resultCode"]) {
-                    console.log('export current');
-                } else {
-                    this.showAlert("COMMON.OPERATION_ERROR");
-                }
-            }
-            )
-            .catch((e) => this.onRejected(e));
+        this.service.exportCurrent(this.queryOpt)  
+            //.then(
+            //response => {
+            //    this.layoutService.hide();
+            //    if (response && 100 == response["resultCode"]) {
+            //        console.log('export current');
+            //    } else {
+            //        this.showAlert("COMMON.OPERATION_ERROR");
+            //    }
+            //}
+            //)
+            //.catch((e) => this.onRejected(e));
     }
     exportAll() {
         this.exportAllData.open("导出所有数据");
     }
 
-    gotoAssignDetail(HyperId:string) {
-        this.router.navigate([`mtc-center/assign-mng/assign-detail`,
-            {
-                "vm_Id":HyperId
-            }
-        ]);
+    gotoAssignDetail(HyperId: string) {
+        this.vmId = HyperId;
+        this.showFirst = false;
+        this.getHyperInfo();
+        this.getHyperGraph();
     }
 
     //弹出框“导出所有数据”中的相关函数
@@ -289,7 +312,110 @@ export class AssignMngComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
+    //超分管理详情相关函数
+     getHyperInfo() {
+        this.layoutService.show();
+        this.service2.getHyperInfo(this.vmId, this.Period)  
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {
+                    this.hyperInfo = response["resultContent"];
+                   
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    //获取超分管理详情折线图数据
+    getHyperGraph() {
+         this.layoutService.show();
+        this.service2.getHyperGraph(this.vmId,this.Period)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.cpuList = response["resultContent"].cpu;
+                    this.memList = response["resultContent"].memory;
+                    this.cpuLine.SourceData = this.cpuList;
+                    this.memLine.SourceData = this.memList;
+                    this.getLineGraph(this.cpuLine);
+                    this.getLineGraph(this.memLine);
+                   
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    //将源数据转化成折线图数据格式
+    getLineGraph(chart: LineChart) {
+        let temp_value = new Array<number>();
+        let temp_time = new Array<any>();
+        chart.SourceData.forEach((s)=>{
+            temp_value.push(s.value);
+            temp_time.push(s.time);
+        })
+        chart._data = temp_value;
+        chart.Labels = temp_time;
+
+        let _label="";
+        if (chart == this.cpuLine) {
+            _label = "CPU使用率";
+        } else {
+            _label = "内存使用率";
+        }
+
+        chart.DataSets = [{
+
+            data: chart._data,
+            label:_label,
+            fill: true,
+            lineTension: 0.1,
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderWidth: 2,
+            pointHoverRadius: 5,
+            pointHoverBorderWidth: 2,
+            pointRadius: 4,
+            pointHitRadius: 10,
+            spanGaps: false,
+        }
+        ];
+
+        chart.ChartType= "line";
+        
+        chart.Colors = [
+            { // grey
+                backgroundColor: '#f9f9fb',
+                borderColor: '#2bd2c8',
+                pointBackgroundColor: '#f1f3f2',
+                pointBorderColor: '#2cd2c8',
+                pointHoverBackgroundColor: '#e8f0f2',
+                pointHoverBorderColor: '#6fdcd6'
+            }
+        ];
+    }
     
+   
+
+    refresh() {
+        this.getHyperInfo();
+        this.getHyperGraph();
+        
+    }
+
+    BacktoAssignMng() {
+        this.showFirst = true;  
+    }
+
 
    onRejected(reason: any) {
         this.layoutService.hide();
@@ -297,11 +423,11 @@ export class AssignMngComponent implements OnInit {
         this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
     }
 
-     showAlert(msg: string): void {
-        this.layoutService.hide();
+    showAlert(msg: string): void {
+    this.layoutService.hide();
 
-        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
-        this.noticeMsg = msg;
-        this.notice.open();
-    }
+    this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
+    this.noticeMsg = msg;
+    this.notice.open();
+   }
 }

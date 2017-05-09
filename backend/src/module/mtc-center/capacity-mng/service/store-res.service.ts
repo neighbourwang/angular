@@ -13,8 +13,11 @@ export class StoreResService {
         private dict:SystemDictionaryService
     ) { }
 
-    
-     statusDic = this.dict.get({
+    pfDic = this.dict.get({
+        owner: "PLATFORM",
+        field: "TYPE"
+    });
+    statusDic = this.dict.get({
         owner: "MAINTAIN",
         field: "STATUS"
     });

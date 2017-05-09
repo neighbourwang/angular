@@ -53,10 +53,6 @@ import * as _ from 'underscore';
 	`
 })
 
-
-
-
-
 export class MachineViewComponent implements OnInit{
 	@Input()
 	private values:any;//SubInstanceItemResp1
@@ -108,19 +104,8 @@ export class MachineViewComponent implements OnInit{
 			this._obj.networkCard=this.values.pmEntity.partsEntitys.filter(item=>item.partsName=='网卡')
 			this._obj.otherInfo=this.values.pmEntity.partsEntitys.filter(item=>item.partsName=='HBA')
 		}
+		// this._obj.cpu=[{'specName':'Xeon E5 2560','specValue':'2GHZ','number':'2'}];
 		   
-		// if(this.values&&this.values.pmEntity){
-		// 	this._obj.cpu = this.values.pmEntity.partsEntitys.find(item=>item.partsName=='CPU').specValue;
-
-			// this._obj.disk =  this.values.pmEntity.partsEntitys.filter(item=>item.partsName=='磁盘');
-			
-		
-		// }
-		// if(this._obj.otherInfo.length==0){
-		// 	alert("00000");
-	    //     this._obj.otherInfo.push({'specName':'test','specValue':'test'});
-		// }
-		
 		if(this._obj.password&&this._obj.password!=null){
 			this._obj.password='已设置';
 		}else{

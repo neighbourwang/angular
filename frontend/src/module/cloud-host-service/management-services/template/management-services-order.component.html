@@ -129,6 +129,53 @@
                     </div>
                 </div>
             </li>
+            <li *ngIf="isCustomInput()">
+                <div class="col-md-1 li-title">
+                    <p>实例选择</p>
+                </div>
+                <div class="col-md-12 li-content customInput">
+                    <div class="col-md-6">
+                        <div class="col-md-2 no-padding">区域</div> 
+                        <div class="col-md-6 no-padding has-feedback" [ngClass]="{'has-error': v.result.region }">
+                            <input (keyup)="customCheckValue('region');" [(ngModel)]="values.REGION.attrValue" type="text" class="form-control">
+                            <span *ngIf="v.result.region" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="v.result.region" class="alert alert-danger" role="alert">{{customV.result.region | translate}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-2 no-padding">可用区</div> 
+                        <div class="col-md-6 no-padding has-feedback" [ngClass]="{'has-error': customV.result.zone }">
+                            <input (keyup)="customCheckValue('zone');" [(ngModel)]="values.ZONE.attrValue" type="text" class="form-control">
+                            <span *ngIf="customV.result.zone" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="customV.result.zone" class="alert alert-danger" role="alert">{{customV.result.zone | translate}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-2 no-padding">实例类型</div> 
+                        <div class="col-md-6 no-padding">
+                            <select [(ngModel)]="values.INSTANCETYPE.attrValue" class="form-control">
+                                <option *ngFor="let value of service.instanceList | async;" [ngValue]="value.value">{{ value.displayValue }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-2 no-padding">实例ID</div> 
+                        <div class="col-md-6 no-padding has-feedback" [ngClass]="{'has-error': customV.result.intanceId }">
+                            <input (keyup)="customCheckValue('intanceId');" [(ngModel)]="values.instanceId" type="text" class="form-control">
+                            <span *ngIf="customV.result.intanceId" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="customV.result.intanceId" class="alert alert-danger" role="alert">{{customV.result.intanceId | translate}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-2 no-padding">实例名称</div> 
+                        <div class="col-md-6 no-padding has-feedback" [ngClass]="{'has-error': customV.result.instanceName }">
+                            <input (keyup)="customCheckValue('instanceName');" [(ngModel)]="values.INSTANCENAME.attrValue" type="text" class="form-control">
+                            <span *ngIf="customV.result.instanceName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="customV.result.instanceName" class="alert alert-danger" role="alert">{{customV.result.instanceName | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
             <li>
                 <div class="col-md-1 li-title">
                     <p>服务类型</p>
@@ -158,10 +205,10 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-8 pdl15">
                         <div class="col-md-1 no-padding pdt5 mr10">{{productInfo?.billingType == 0 ? "按" : "按次"}}{{productInfo?.billingCycleType | dict: service.unitType | async}}</div>
-                        <div class="col-md-3 no-padding mr10 has-feedback" [ngClass]="{'has-error': v.result.quality }">
-                            <input [disabled]="productInfo?.billingType == 3" (keyup)="checkValue('quality');" [(ngModel)]="postData.quality" type="text" class="form-control">
-                            <span *ngIf="v.result.quality" class="glyphicon glyphicon-remove form-control-feedback"></span>
-                            <div *ngIf="v.result.quality" class="alert alert-danger" role="alert">{{v.result.quality | translate}}</div>
+                        <div class="col-md-3 no-padding mr10 has-feedback" [ngClass]="{'has-error': v.result.timeline }">
+                            <input [disabled]="productInfo?.billingType == 3" (keyup)="checkValue('timeline');" [(ngModel)]="values.TIMELINE.attrValue" type="text" class="form-control">
+                            <span *ngIf="v.result.timeline" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="v.result.timeline" class="alert alert-danger" role="alert">{{v.result.timeline | translate}}</div>
                         </div>
                     </div>
                 </div>
@@ -171,6 +218,45 @@
     <div class="col-md-3 no-padding right-box">
         <cart-button #cartButton></cart-button>
         <div class="col-md-12 content-box">
+            <h3 class="boder-gray-bottom-title">{{'COMMON.CURRENT_CONFIGURATION'| translate}}</h3>
+            <h4 class="cloud-title font-green">服务</h4>
+            <p class="cloud-p">服务名称: {{product?.name}}</p>
+            <p class="cloud-p">服务类型: {{productInfo?.billingType == 0 ? "包年包月" : "按次计费"}}</p>
+            <h4 class="cloud-title font-green">实例</h4>
+            <p class="cloud-p">实例类型: {{ values.INSTANCETYPE.attrValue | dict: service.instanceList | async }} {{ productInfo?.serviceObjectCode  | dict: service.instanceList | async }}
+            </p>
+            <p class="cloud-p">实例数量: {{selectLength}}</p>
+            <h4 class="cloud-title font-green">购买量</h4>
+            <p class="cloud-p">{{productInfo?.billingType == 0 ? "按" : "按次"}}{{productInfo?.billingCycleType | dict: service.unitType | async}}: {{values.TIMELINE.attrValue}}</p>
+
+            
+            <h4 class="cloud-title font-green">管理服务单价<!-- 云主机单价 --></h4>
+            <p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}:
+                <font class="font-orange">{{'COMMON.$' | translate}}{{ productInfo?.oneTimePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+                <p  *ngIf="productInfo?.billingType == 0" class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}
+                <font *ngIf="productInfo?.billingType == 0" class="font-orange">{{'COMMON.$' | translate}}{{ productInfo?.cyclePrice}} / 按{{productInfo?.billingCycleType | dict: service.unitType | async}}</font>
+            </p>
+            <div class="cloud-p">
+                <p class="cloud-title">{{'VM_INSTANCE.TOTAL_COST'| translate}}：</p>
+                <table style="width: 90%;line-height: 26px;">
+                    <tr>
+                        <td>{{'COMMON.ONE_TIME_COSTS'|translate}}： </td>
+                        <td>
+                            <font class="font-orange">{{'COMMON.$' | translate}}{{ productInfo?.oneTimePrice * selectLength}}</font>{{'COMMON.YUAN' | translate}}</td>
+                    </tr>
+                    <tr *ngIf="productInfo?.billingType == 0">
+                        <td>
+                            <font>{{'VM_INSTANCE.TOTAL_BILLINGARR'|translate}}
+                                <!-- 总周期费用 -->： </font>
+                        </td>
+                        <td>
+                            <font class="font-orange">{{'COMMON.$' | translate}}{{ productInfo?.cyclePrice  * values.TIMELINE.attrValue * selectLength }}</font>{{'COMMON.YUAN'|translate}}<span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
+                    </tr>
+                </table>
+                <p class="mgt20">{{'VM_INSTANCE.BILLINGARR_TEXT'|translate}}
+                    <!-- 以上为总费用估算，实际支付金额，请以每月账单为准。 -->
+                </p>
+            </div>
             <div class="col-md-12 colud-order-button">
                 <div class="col-md-6">
                     <button (click)="buyNow()" class="btn button-orange-deep">{{'COMMON.BUY_NOW'|translate}}</button>

@@ -18,6 +18,8 @@ import {
 	, CancelParam
 	, AutoRenewItem
 	,UserInfo
+	,PhysicalMachinePart
+	,PhysicalMachine
 } from '../model'
 import * as _ from 'underscore';
 
@@ -150,14 +152,51 @@ export class OrderMngComponent implements OnInit {
 			
 			for(let item of target ){
 				//实例名称
-				if(item.itemList&&item.itemList[0].specList){
-				
-					let getProperty = _.property("attrDisplayValue");
-					 if(item.productType==0||item.productType==4){
-						item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+				if(item.itemList){
+					if(item.itemList[0].pmEntity){
+						for(let partItem of item.itemList[0].pmEntity.partsEntitys){
+							if(partItem.partsName=='磁盘'||partItem.partsName=='内存'){
+								partItem.capacity = Number(partItem.number)*Number(partItem.specValue)+'GB';//只有磁盘和内存计算总容量
+								partItem.specValue+='GB';		
+							}		
+							if(partItem.partsName=='CPU'){
+								partItem.specValue=partItem.specValue.replace('Ghz','GHZ');
+							}
+							if(partItem.partsName=='网卡'){
+								partItem.specValue+='M';
+							}
+						}
 					}else{
-						item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
+						// Mock数据
+						item.itemList[0].pmEntity = new PhysicalMachine();
+						let _item = new PhysicalMachinePart();
+						_item.partsName = 'CPU';
+						_item.specName = 'Xeon E5 2560';
+						_item.specValue = '2Ghz';
+						_item.number = '3';
+						_item.capacity = '4';
+						item.itemList[0].pmEntity.partsEntitys[0] = _item;
+						for(let partItem of item.itemList[0].pmEntity.partsEntitys){
+							if(partItem.partsName=='磁盘'||partItem.partsName=='内存'){
+								partItem.capacity = Number(partItem.number)*Number(partItem.specValue)+'GB';//只有磁盘和内存计算总容量
+								partItem.specValue+='GB';		
+							}		
+							if(partItem.partsName=='CPU'){
+								partItem.specValue=partItem.specValue.replace('Ghz','GHZ');
+							}
+							if(partItem.partsName=='网卡'){
+								partItem.specValue+='M';
+							}
+						}
 					}
+					if(item.itemList[0].specList){
+						let getProperty = _.property("attrDisplayValue");
+						if(item.productType==0||item.productType==4||item.productType==11){
+							item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+						}else{
+							item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
+						}
+					}	
 				}
 				//匹配历史信息的实例名称
 				if(item.hisOrderList){

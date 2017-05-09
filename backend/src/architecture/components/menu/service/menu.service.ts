@@ -126,7 +126,7 @@ export class MenuService {
 						 	"isOpen": false,
 						 	"isActive": false,
 						 	"isShow": !isRoot,
-						 	"routing": "mtc-center/assign-mng/assign-mng"
+						 	"routing": "mtc-center/assign-mng/assign-mng-detail"
                          },
                            {
 						 	"label": "趋势管理",

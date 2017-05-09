@@ -45,8 +45,8 @@ export class CapacityMngService {
     }
 
     getReport(): Promise<any> {
-         //const api = this.restApiCfg.getRestApi("maintenance/report");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => PlatformList_mock);
+        const api = this.restApiCfg.getRestApi("capacity-mng.report");
+        return this.restApi.request(api.method, api.url, null, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => PlatformList_mock);
     }
 }

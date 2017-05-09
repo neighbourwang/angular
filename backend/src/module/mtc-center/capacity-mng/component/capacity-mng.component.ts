@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
+import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PaginationComponent,PopupComponent } from "../../../../architecture";
 
 import {PlatformModel} from "../model/platform.model";
 
@@ -27,11 +27,15 @@ export class CapacityMngComponent implements OnInit {
     @ViewChild("notice")
     notice: NoticeComponent;
 
+    @ViewChild("pager")
+    pager: PaginationComponent;
+
     noticeTitle = "";
     noticeMsg = "";
 
     page = 1;
     size = 10;
+    totalPage = 1;
     pfList: Array<PlatformModel>;
 
 
@@ -39,14 +43,16 @@ export class CapacityMngComponent implements OnInit {
         this.getPlatformList();
     }
 
-    getPlatformList() {
+    getPlatformList(pageIndex?) {
         this.layoutService.show();
+        this.page= pageIndex || this.page;
         this.service.getPlatformList(this.page, this.size)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
                     this.pfList = response["resultContent"];
+                    this.totalPage = response.pageInfo.totalPage;
                     console.log("平台列表", this.pfList);
                     
                 } else {
@@ -58,17 +64,17 @@ export class CapacityMngComponent implements OnInit {
     }
 
     getReport() {
-        this.layoutService.show();
+        //this.layoutService.show();
         this.service.getReport();
             //.then(
             //response => {
             //    this.layoutService.hide();
-            //    if (response && "100" == response["resultCode"]) {
-            //        console.log("get report success!");
+            ////    if (response && "100" == response["resultCode"]) {
+            ////        console.log("get report success!");
                    
-            //    } else {
-            //        this.showAlert("COMMON.OPERATION_ERROR");
-            //    }
+            ////    } else {
+            ////        this.showAlert("COMMON.OPERATION_ERROR");
+            ////    }
             //}
             //)
             //.catch((e) => this.onRejected(e));

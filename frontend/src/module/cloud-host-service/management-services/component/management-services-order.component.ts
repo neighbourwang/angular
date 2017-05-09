@@ -26,8 +26,7 @@ const codeList = {
 	"5" : "LOAD_BALANCE",
 	"6" : "ALI_VM",
 	"7" : "ALI_DISK",
-	"8" : "LOAD_BALANCE",
-	"9" : "NONE",
+	"8" : "NONE"
 }
 
 @Component({
@@ -79,11 +78,13 @@ export class ManagementServicesOrderComponent implements OnInit {
 		private router: Router,
 		private dux: DispatchEvent,
 		private v: Validation,
+		private customV: Validation,
 		private service: ManagementServicesOrderService,
 		private diskService: cloudDriveServiceList,
 		private vmService: cloudHostServiceList
 	) {
 		this.v.result = {}
+		this.customV.result = {}  //自定义表单的一些验证
 
 		// this.quiryVmList.pageParameter.size = 2
 		this.quiryDiskList.queryField = "name"
@@ -115,11 +116,10 @@ export class ManagementServicesOrderComponent implements OnInit {
 		this.dux.subscribe("PHYSICAL", () => {})
 		this.dux.subscribe("DATABASES", () => { this.fetchVmlist() })
 		this.dux.subscribe("MIDDLEWARE", () => { this.fetchVmlist() })
-		this.dux.subscribe("LOAD_BALANCE", () => { this.fetchVmlist() })
-		this.dux.subscribe("ALI_VM", () => {})
-		this.dux.subscribe("ALI_DISK", () => {})
-		this.dux.subscribe("LOAD_BALANCE", () => {})
-		this.dux.subscribe("NONE", () => {})
+		this.dux.subscribe("ALI_VM", () => { this.customInput() })
+		this.dux.subscribe("ALI_DISK", () => { this.customInput() })
+		this.dux.subscribe("LOAD_BALANCE", () => { this.customInput() })
+		this.dux.subscribe("NONE", () => { this.customInput() })
 	}
 
 	/******获取管理服务列表 最上面的下拉框*****/
@@ -132,6 +132,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				this.product = res[0]
 				this.dux.dispatch("PRODUCT")
 			})
+			.catch(e => this.layoutService.hide())
 	}
 
 	/******************获取attribute******************/
@@ -140,6 +141,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 			.then(res => {
 				this.postData = res
 			})
+			.catch(e => this.layoutService.hide())
 	}
 
 	/******获取管理服务产品详情*****/
@@ -151,15 +153,21 @@ export class ManagementServicesOrderComponent implements OnInit {
 				this.dux.dispatch(codeList[res.serviceObjectCode])
 				this.dux.dispatch("PRODUCT_INFO")
 			})
+			.catch(e => this.layoutService.hide())
 	}
 
 	/******************确定产品后，把postData外层的信息填充了******************/
 	private initPostData() {
-		this.postData.quality = 1;
 		this.postData.skuId = this.productInfo.serviceSkuId
 		this.postData.productId = this.productInfo.productId
 		this.postData.serviceType = "11"
+		this.postData.totalPrice = 1
+		this.postData.quality = 1
 		this.values.SERVICEOBJECTCODE.attrValue = this.productInfo.serviceObjectCode	
+		this.values.TIMELINE.attrValue = "1";
+		this.checkValue("timeline")
+
+		this.selectedList = []
 	}
 
 	/******************计算价格******************/
@@ -208,7 +216,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				let returnData = new Selected;
 				returnData.REGION.attrValue = disk.platformName
 				returnData.ZONE.attrValue = disk.zoneName
-				returnData.INSTANCEID.attrValue = disk.uuid
+				returnData.instanceId = disk.uuid
 				returnData.INSTANCENAME.attrValue = disk.name
 
 				return returnData
@@ -257,12 +265,17 @@ export class ManagementServicesOrderComponent implements OnInit {
 				let [region, zone] = vm.regionZone.split(" ")
 				returnData.REGION.attrValue = region
 				returnData.ZONE.attrValue = zone
-				returnData.INSTANCEID.attrValue = vm.itemId
+				returnData.instanceId = vm.itemId
 				returnData.INSTANCENAME.attrValue = vm.instanceName
 
 				return returnData
 			})
 		console.log(this.selectedList)
+	}
+
+	/******************自定义表单******************/
+	private customInput() {
+
 	}
 
 
@@ -275,40 +288,93 @@ export class ManagementServicesOrderComponent implements OnInit {
 
 	
 	private checkValue(key?:string){
-
 		const regs:ValidationRegs = {
 			description: [this.values.REMARK.attrValue, [this.v.maxLength(300)], "备注信息填写有误"],
-			quality: [this.postData.quality, [this.v.isUnBlank, this.v.isInteger, this.v.min(1)], "购买量填写有误"]
+			timeline: [this.values.TIMELINE.attrValue, [this.v.isUnBlank, this.v.isInteger, this.v.min(1)], "购买周期填写有误"],
 		}
 
 		return this.v.check(key, regs);
 	}
+	
+	private customCheckValue(key?:string){
+		const regs:ValidationRegs = {
+			region: [ this.values.REGION.attrValue, [this.v.isUnBlank, this.v.isBase], "区域填写有误"],
+			zone: [this.values.ZONE.attrValue, [this.v.isUnBlank, this.v.isBase], "可用区填写有误"],
+			intanceType: [this.values.INSTANCETYPE.attrValue, [this.v.isUnBlank, this.v.isBase], "请选择实例类型"],
+			intanceId: [this.values.instanceId, [this.v.isUnBlank, this.v.isBase], "实例ID填写有误"],
+			instanceName: [this.values.INSTANCENAME.attrValue, [this.v.isUnBlank, this.v.isBase], "实例名称填写有误"],
+		}
+
+		return this.customV.check(key, regs);
+	}
+
 
 	private checkInput(): boolean {
 		const al = value => !!this.showNotice("提示",value);
 
-		const value = this.checkValue();
+		let value = this.checkValue();
 		if (value) return al(value);
+
+		if(this.isCustomInput()) {
+			value = this.customCheckValue()
+			if (value) return al(value);
+		}
+
 		return true;
 	}
 
+
+	private itemNum:number = 0;
+	private makeItemNum():string {
+		return new Date().getTime() + "" + (this.itemNum++);
+	}
 	private payLoadFormat() {
 		let valuesList:Values[] = []
 
 		if(this.selectedList.length) {   //如果是选择型的
 			valuesList = this.selectedList.map(select => Object.assign({} ,this.values, select))
 		}else {
-			if ( !this.values.INSTANCEID ) return false
+			if ( !this.values.instanceId ) return false
 			valuesList = [this.values]
 		}
 
 		this.postDataList = valuesList.map(values => {
 			let { attrList } = this.postData
 			attrList = attrList.map(attr => Object.assign({}, attr, values[attr.attrCode]))
-			return Object.assign({}, this.postData, { attrList })
+			return Object.assign({}, this.postData, { attrList }, { itemNo: this.makeItemNum() }, { relyItemNo: values.instanceId })
 		})
 
 		console.log(this.postDataList)
+	}
+
+	addCart() {   //加入购物车
+		if (!this.checkInput()) return;
+
+		this.payLoadFormat();   //获取最新的的payload的对象
+		this.layoutService.show();
+		this.service.addCart(this.postDataList).then(res => {
+			this.layoutService.hide();
+			this.noticeDialog.open("","CLOUD_DRIVE_ORDER.SUCCESSFULLY_ADDED_TO_SHOPPING_CART");
+			this.cartButton.setCartList();
+		}).catch(res => {
+			this.layoutService.hide();
+			this.showNotice("提示", "加入购物车失败")
+		})
+	}
+
+
+	buyNow() {
+		if (!this.checkInput()) return;
+
+		this.payLoadFormat();   //获取最新的的payload的对象
+		this.layoutService.show();
+		this.service.saveOrder(this.postDataList).then(res => {
+			this.layoutService.hide();
+			this.router.navigate(['cloud-host-service/cart-order/', JSON.stringify(res)]);
+		}).catch(error => {
+			this.layoutService.hide();
+			this.showNotice("提示", "提交订单失败")
+		})
 	}
 	
 	// 警告框相关
@@ -319,4 +385,16 @@ export class ManagementServicesOrderComponent implements OnInit {
 		this.noticeDialog.open();
 	}
 	modalAction() { }
+
+	isCustomInput() {
+		return ['5','6','7','8'].indexOf(this.code) > -1
+	}
+
+	get selectLength() {
+		return this.isCustomInput() ? 1 : this.selectedList.length
+	}
+
+	get selectedName() {
+		return this.selectedList.map(s => s.INSTANCENAME.attrValue)
+	}
 }
