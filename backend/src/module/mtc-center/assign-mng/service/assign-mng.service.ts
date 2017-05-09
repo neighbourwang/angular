@@ -71,9 +71,9 @@ export class AssignMngService {
     }
 
     exportCurrent(query:QueryModel): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("assign-mng.hyper.export.current");
-        //return this.restApi.request(api.method, api.url, null, null, query);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => HyperList_mock);
+        const api = this.restApiCfg.getRestApi("assign-mng.hyper.export.current");
+        return this.restApi.request(api.method, api.url, null, null, query);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => HyperList_mock);
     }
 
     acceptExport(Flag:number,start?:string, end?:string, period?:string): Promise<any> {

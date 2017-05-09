@@ -9,6 +9,7 @@ import {DiskViewComponent} from './component/disk-view.component';
 import {OrderMngCancelComponent} from './component/order-mng-cancel.component';
 import {VmViewComponent} from './component/vm-view.component';
 import {MachineViewComponent} from './component/machine-view.component';
+import {ServiceViewComponent} from './component/service-view.component';
 import { OrderCancelService } from './service/order-cancel.service';
 
 @NgModule({
@@ -20,13 +21,15 @@ import { OrderCancelService } from './service/order-cancel.service';
         VmViewComponent,
         OrderMngCancelComponent,
         DiskViewComponent,
-        MachineViewComponent
+        MachineViewComponent,
+        ServiceViewComponent
     ],
     exports: [
         OrderMngCancelComponent,
         VmViewComponent,
         DiskViewComponent,
-        MachineViewComponent
+        MachineViewComponent,
+        ServiceViewComponent
     ],
     providers: [
         OrderCancelService
