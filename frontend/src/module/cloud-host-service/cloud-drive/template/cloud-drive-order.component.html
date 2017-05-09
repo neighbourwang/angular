@@ -45,11 +45,10 @@
 								class="btn btn-default">
 								{{value.attrDisplayValue}}
 							</button>
-
-					                                                                                                 		<popover-content #myPopover [closeOnClickOutside]="true" >
-					                                                                                                 			<table-list [code]="value.attrValue" [platformId]="sendModule.platform.attrValue"></table-list>
-					                                                                                                 		</popover-content>
-					                                                                                                 	</ng-container> -->
+							<popover-content #myPopover [closeOnClickOutside]="true" >
+								<table-list [code]="value.attrValue" [platformId]="sendModule.platform.attrValue"></table-list>
+							</popover-content>
+						</ng-container> -->
 					</div>                                                                                           	
 					<div class="col-md-2 content-title">{{'CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_TYPE'| translate}}</div>	
 					<div class="col-md-10 btn-group" data-toggle="buttons">

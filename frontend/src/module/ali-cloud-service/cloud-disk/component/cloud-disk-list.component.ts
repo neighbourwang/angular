@@ -465,7 +465,18 @@ export class AliCloudDiskListComponent implements OnInit {
                         this.showAlert("删除硬盘成功");
                         this.selectRegion(this.choosenRegion);
                     } else {
-                        this.showAlert("COMMON.OPERATION_ERROR");
+                        if(403 == response["resultCode"]) {
+                            let result;
+                        try {
+                            result = JSON.parse(response.resultContent);
+                            console.log(result, "result!");
+                        } catch (ex) {
+                            console.log(ex);
+                        }
+                            this.showAlert(response["resultCode"] + ": " + result.Message);
+                        } else {
+                            this.showAlert("COMMON.OPERATION_ERROR");
+                        }
                     }
                 })
                 .catch((e) => this.onRejected(e));
