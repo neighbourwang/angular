@@ -153,13 +153,14 @@ export class ManagementServicesOrderComponent implements OnInit {
 
 	/******************确定产品后，把postData外层的信息填充了******************/
 	private initPostData() {
-		this.postData.quality = 1;
-		this.checkValue("quality")
 		this.postData.skuId = this.productInfo.serviceSkuId
 		this.postData.productId = this.productInfo.productId
 		this.postData.serviceType = "11"
 		this.postData.totalPrice = 1
+		this.postData.quality = 1
 		this.values.SERVICEOBJECTCODE.attrValue = this.productInfo.serviceObjectCode	
+		this.values.TIMELINE.attrValue = "1";
+		this.checkValue("timeline")
 	}
 
 	/******************计算价格******************/
@@ -282,7 +283,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 	private checkValue(key?:string){
 		const regs:ValidationRegs = {
 			description: [this.values.REMARK.attrValue, [this.v.maxLength(300)], "备注信息填写有误"],
-			quality: [this.postData.quality, [this.v.isUnBlank, this.v.isInteger, this.v.min(1)], "购买量填写有误"],
+			timeline: [this.postData.quality, [this.v.isUnBlank, this.v.isInteger, this.v.min(1)], "购买周期填写有误"],
 			region: [ this.values.REGION.attrValue, [this.v.isUnBlank, this.v.isBase], "区域填写有误"],
 			zone: [this.values.ZONE.attrValue, [this.v.isUnBlank, this.v.isBase], "可用区填写有误"],
 			intanceType: [this.values.INSTANCETYPE.attrValue, [this.v.isUnBlank, this.v.isBase], "请选择实例类型"],
