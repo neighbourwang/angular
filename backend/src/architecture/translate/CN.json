@@ -1587,7 +1587,13 @@
     "SELECT_PRODUCT_CAT":"请选择产品目录",
     "SELECT_RESOURCE_POOL":"选择资源池",
     "SERVE_TEMPLATE":"服务模板",
-    "SERVE_DESCRIPTION":"服务描述"
+    "SERVE_DESCRIPTION":"服务描述",
+    "TEMPLATE_MANAGEMENT":"模板管理",
+    "CREATE_TEMPLATE":"创建模板",
+    "SOFTWARE_TYPE":"软件类型",
+    "SOFTWARE_VERSION":"软件版本",
+    "DEPLOY_MODE":"部署模式",
+    "RELATE_PRODUCT_SERVICE_COUNTS":"关联产品目录数量"
   },
   "USER_CENTER": {
     "ACCOUNT": "帐号",
