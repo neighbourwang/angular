@@ -247,7 +247,7 @@ export class ProdMngComponent implements OnInit {
     //去编辑详情页面
     goDetail(item) {
         console.log(item);
-        if(item.serviceType=='0'||item.serviceType=='1'){
+        if(item.serviceType=='0'||item.serviceType=='1'||item.serviceType=='4'){
             this.router.navigate(["prod-mng/prod-mng/prod-detail", {id:item.id,type:item.serviceType}]);            
         }
     }

@@ -31,4 +31,10 @@ export class GetProductService {
 
         return this.restApi.request(api.method, api.url, [{key:'id',value:id}], undefined);
     }
+    //获取物理机产品目录详情
+    getPhysicalService(id:string){
+        let api = this.restApiCfg.getRestApi("physical-service-detail.get");
+        
+        return this.restApi.request(api.method, api.url, [{key:'id',value:id}], undefined)
+    }
 }

@@ -59,7 +59,7 @@
 								<machine-view  [values]="item" *ngIf="item.serviceType==4"></machine-view>
 								<a *ngIf="item.serviceType==4" class="hands" [popover]="popover">点击查看部件信息</a><!--物理机-->
 								<popover-content #popover placement="right"[animation]="true" [closeOnClickOutside]="true" >
-									<div class="table-container mgb20">
+									<div *ngIf="item.serviceType==4" class="table-container mgb20">
 										<table class="table table-bordered mgb20 text-center inner-table">
 											<thead>
 													<th>部件名称</th>
@@ -82,9 +82,9 @@
 						
 								</popover-content>
 
-								<a *ngIf="item.serviceType==2" class="hands" [popover]="osPopover">点击查看实例详情</a><!--管理服务-->
+								<a *ngIf="item.serviceType==11" class="hands" [popover]="osPopover">点击查看实例详情</a><!--管理服务-->
 								<popover-content #osPopover placement="right"[animation]="true" [closeOnClickOutside]="true">
-									<div class="table-container mgb20"><!--云主机-->
+									<div *ngIf="item.serviceType==11"  class="table-container mgb20"><!--云主机-->
 										<table class="table table-bordered mgb20 text-center inner-table">
 											<thead>
 													<th>平台</th>
@@ -187,7 +187,8 @@
 									</div>
 						
 								</popover-content>
-								<span *ngIf="item.serviceType==2">备注信息：显示购买时的备注信息</span>
+								<span *ngIf="item.serviceType==11" style="display: block;">备注信息：显示购买时的备注信息</span>
+							
 
 								<vm-view [values]="item" *ngIf="item.serviceType==0"></vm-view><!--云主机-->
 								<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view><!--云硬盘-->

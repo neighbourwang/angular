@@ -103,4 +103,9 @@ export class ManagementServicesOrderService {
         owner: "PACKAGE_BILLING",
         field: "PERIOD_TYPE"
     });
+
+   instanceList = this.dict.get({
+       owner: "SUPERVISE_SERVICE",
+       field: "TYPE"
+   }) 
 }

@@ -32,7 +32,7 @@ export class AssignDetailComponent implements OnInit {
     noticeMsg = "";
 
     Period="1";
-    wmId: string;
+    vmId: string;
     hyperInfo: HyperInfo = new HyperInfo();
     hyperGraph: HyperGraph = new HyperGraph();
 
@@ -44,7 +44,7 @@ export class AssignDetailComponent implements OnInit {
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
             if (params["vm_Id"] != null) {
-                this.wmId = params["vm_Id"];
+                this.vmId = params["vm_Id"];
 
             }
         });
@@ -54,7 +54,7 @@ export class AssignDetailComponent implements OnInit {
 
     getHyperInfo() {
         this.layoutService.show();
-        this.service.getHyperInfo(this.wmId, this.Period)  
+        this.service.getHyperInfo(this.vmId, this.Period)  
             .then(
             response => {
                 this.layoutService.hide();
@@ -72,7 +72,7 @@ export class AssignDetailComponent implements OnInit {
     //获取超分管理详情折线图数据
     getHyperGraph() {
          this.layoutService.show();
-        this.service.getHyperGraph(this.wmId,this.Period)
+        this.service.getHyperGraph(this.vmId,this.Period)
             .then(
             response => {
                 this.layoutService.hide();

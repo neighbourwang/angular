@@ -151,8 +151,9 @@ export class OrderMngComponent implements OnInit {
 			for(let item of target ){
 				//实例名称
 				if(item.itemList&&item.itemList[0].specList){
+				
 					let getProperty = _.property("attrDisplayValue");
-					 if(item.productType==0||item.productType==4){
+					 if(item.productType==0||item.productType==4||item.productType==11){
 						item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
 					}else{
 						item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
@@ -261,6 +262,7 @@ export class OrderMngComponent implements OnInit {
 		this._orderLoader.MapFunc = (source: Array<any>, target: Array<SubInstanceResp>) => {
 			for (let item of source) {
 				let obj = new SubInstanceResp();
+				
 				target.push(_.extendOwn(obj, item));
 			}
 		};
@@ -311,6 +313,9 @@ export class OrderMngComponent implements OnInit {
 				reloadstruct(orderItem.itemList);
 
 				if (orderItem.itemList && orderItem.itemList.length > 0) {
+		           
+					orderItem.itemList[0].showSpecList = true;
+					
 					if (orderItem.itemList.find(n => !canRenew(n)) != null)
 						orderItem.canRenew = false;
 					else

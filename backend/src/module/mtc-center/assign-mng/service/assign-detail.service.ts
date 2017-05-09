@@ -35,9 +35,9 @@ export class AssignDetailService {
             },
            
         ];
-        //const api = this.restApiCfg.getRestApi("assign-detail.hyper.info");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => HyperInfo_mock);
+        const api = this.restApiCfg.getRestApi("assign-detail.hyper.info");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => HyperInfo_mock);
      }
 
 
@@ -53,8 +53,8 @@ export class AssignDetailService {
             },
            
         ];
-        //const api = this.restApiCfg.getRestApi("host-detail.host.graph");
-        //return this.restApi.request(api.method, api.url, pathParams, null, null);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => HyperGraph_mock);
+        const api = this.restApiCfg.getRestApi("assign-detail.hyper.graph");
+        return this.restApi.request(api.method, api.url, pathParams, null, null);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => HyperGraph_mock);
      }
 }

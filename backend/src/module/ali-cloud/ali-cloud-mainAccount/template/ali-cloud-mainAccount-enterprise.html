@@ -8,7 +8,7 @@
             <div class="col-sm-3">
                <span style="line-height:34px">{{changeEntName}}</span>     
             </div>
-           <button class="fox-cloud-button fox-cloud-button-white "(click)="changeEnt();"> {{'ALI_CLOUD.RESET'|translate}}</button>
+           <button class="fox-cloud-button fox-cloud-button-white "(click)="changeEnt();" id="changeEnt"> {{'ALI_CLOUD.RESET'|translate}}</button>
         </div>
     </div>
     <div  style="margin-left:260px;width:570px">
@@ -30,7 +30,7 @@
                             </td>                       
                     </tr>-->
                     
-                    <tr *ngFor="let item of enterpriseList "  >
+                    <tr *ngFor="let item of enterpriseList "  id="enterpriseList_{{item.id}}">
                         <template  [ngIf]="item.visible == 'true'">
                             <td ><input type="radio" name="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);"></td>
                             <td>{{item.tenantName}}</td>
@@ -46,10 +46,10 @@
     </div>
 </div>
 <div class="text-center mgt20">
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="gotoAccountList();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="gotoAccountList();" id="gotoAccountList">
         <span class="icon-button-label">{{'ALI_CLOUD.CANCEL'|translate}}</span>
     </button>   
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="setEnterprise();" >
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="setEnterprise();" id="setEnterprise">
         <span class="icon-button-label">{{'ALI_CLOUD.SAVE'|translate}}</span>
     </button>
 </div>

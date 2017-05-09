@@ -129,6 +129,53 @@
                     </div>
                 </div>
             </li>
+            <li *ngIf="['5','6','7','8'].indexOf(code) > -1">
+                <div class="col-md-1 li-title">
+                    <p>实例选择</p>
+                </div>
+                <div class="col-md-12 li-content customInput">
+                    <div class="col-md-6">
+                        <div class="col-md-2 no-padding">区域</div> 
+                        <div class="col-md-6 no-padding has-feedback" [ngClass]="{'has-error': v.result.region }">
+                            <input (keyup)="checkValue('region');" [(ngModel)]="values.REGION.attrValue" type="text" class="form-control">
+                            <span *ngIf="v.result.region" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="v.result.region" class="alert alert-danger" role="alert">{{v.result.region | translate}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-2 no-padding">可用区</div> 
+                        <div class="col-md-6 no-padding has-feedback" [ngClass]="{'has-error': v.result.zone }">
+                            <input (keyup)="checkValue('zone');" [(ngModel)]="values.ZONE.attrValue" type="text" class="form-control">
+                            <span *ngIf="v.result.zone" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="v.result.zone" class="alert alert-danger" role="alert">{{v.result.zone | translate}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-2 no-padding">实例类型</div> 
+                        <div class="col-md-6 no-padding">
+                            <select [(ngModel)]="values.INSTANCETYPE.attrValue" class="form-control">
+                                <option *ngFor="let value of service.instanceList | async;" [ngValue]="value.value">{{ value.displayValue }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-2 no-padding">实例ID</div> 
+                        <div class="col-md-6 no-padding has-feedback" [ngClass]="{'has-error': v.result.intanceId }">
+                            <input (keyup)="checkValue('intanceId');" [(ngModel)]="values.INSTANCEID.attrValue" type="text" class="form-control">
+                            <span *ngIf="v.result.intanceId" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="v.result.intanceId" class="alert alert-danger" role="alert">{{v.result.intanceId | translate}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-2 no-padding">实例名称</div> 
+                        <div class="col-md-6 no-padding has-feedback" [ngClass]="{'has-error': v.result.instanceName }">
+                            <input (keyup)="checkValue('instanceName');" [(ngModel)]="values.INSTANCENAME.attrValue" type="text" class="form-control">
+                            <span *ngIf="v.result.instanceName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                            <div *ngIf="v.result.instanceName" class="alert alert-danger" role="alert">{{v.result.instanceName | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
             <li>
                 <div class="col-md-1 li-title">
                     <p>服务类型</p>

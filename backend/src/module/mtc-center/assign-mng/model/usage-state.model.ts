@@ -3,7 +3,7 @@ export class UsageState {
     cpu: ItemModel;
     mem: ItemModel;
     powerStat: PowerStatModel;
-    flavor: Array<FlavorModel>;
+    flavor: Object;
 }
 export class ItemModel {
     num: string;
@@ -19,10 +19,6 @@ export class PowerStatModel {
     pause: string;
 }
 
-export class FlavorModel {
-    name:string;
-    value:string;
-}
 
 export class DoughnutChart {
     

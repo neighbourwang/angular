@@ -1,6 +1,6 @@
 export class BasicModel {
-    zonename: string;
-    cpus: number;
+    zoneName: string;
+    cpu: number;
     memory: number;
     cpuOversubscription: number;
     cpuQurta: number;//≈‰∂Ó
