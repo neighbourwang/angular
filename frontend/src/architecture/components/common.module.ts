@@ -29,6 +29,8 @@ import { Validation } from './validators';
 
 import { SharedModule } from '../shared/shared.module';
 
+//import { MsgBellComponent } from './msg/component/msg-bell.component';
+
 
 
 // import { DonutChart } from './donutChart/component/chart.component';
@@ -44,7 +46,7 @@ import { SharedModule } from '../shared/shared.module';
         ClickOutsideModule,
         AfterNgForModule,
         HttpModule,
-        SharedModule
+        SharedModule,
         // ChartsModule
     ],
     declarations: [
@@ -56,10 +58,12 @@ import { SharedModule } from '../shared/shared.module';
         CountBarComponent,
         TableEditNameComponent,
         StaticTooltipComponent,
-        tagInputComponent
+        tagInputComponent,
         // OrderByPipe
         // DonutChart,
         // LineChart
+
+        //MsgBellComponent
     ],
     exports: [
         CommonModule,
@@ -79,10 +83,12 @@ import { SharedModule } from '../shared/shared.module';
         tagInputComponent,
         AfterNgForModule,
         HttpModule,
-        SharedModule
+        SharedModule,
         // OrderByPipe
         // DonutChart,
         // LineChart
+
+        //MsgBellComponent
     ],
     providers : [
         DialogTranslate,
