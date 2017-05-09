@@ -15,15 +15,17 @@
 					<tr>
 						<td>{{ 'ORDER_MNG.PRODUCT_TYPE' | translate}}</td>
 						<td>{{_orderDetail.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>	
-						<td><span *ngIf="_orderDetail.productType==0||_orderDetail.productType==1||_orderDetail.productType==2">{{ 'COMMON.ZONE' | translate}}/{{ 'COMMON.AVAILABLE_ZONE' | translate}}</span><!--云主机云硬盘，数据库中间件-->
+						<td><span *ngIf="_orderDetail.productType==0||_orderDetail.productType==1||_orderDetail.productType==2||_orderDetail.productType==11">{{ 'COMMON.ZONE' | translate}}/{{ 'COMMON.AVAILABLE_ZONE' | translate}}</span><!--云主机云硬盘，数据库中间件-->
 							<span  *ngIf="_orderDetail.productType==4">区域资源池</span><!--物理机-->
 						</td>
-						<td><span *ngIf="_orderDetail.productType==0||_orderDetail.productType==1||_orderDetail.productType==2">{{_orderDetail.platform}} {{_orderDetail.zone}}</span>
+						<td><span *ngIf="_orderDetail.productType==0||_orderDetail.productType==1||_orderDetail.productType==2||_orderDetail.productType==11">{{_orderDetail.platform}} {{_orderDetail.zone}}</span>
 							<span  *ngIf="_orderDetail.productType==4">物理机</span><!--物理机-->
 						</td>
 					</tr>
 					<tr>
-						<td><span>{{ 'COMMON.CURRENT_CONFIGURATION' | translate}}</span></td>
+						<td><span>{{ 'COMMON.CURRENT_CONFIGURATION' | translate}}</span>
+						<span *ngIf="_orderDetail.productType==11" >服务名称</span>
+						</td>
 						<td><span *ngIf="_orderDetail.productType==0||_orderDetail.productType==1||_orderDetail.productType==2">{{_orderDetail.specification}}</span><!--云主机云硬盘，数据库中间件-->
 							<a *ngIf="_orderDetail.productType==4" class="hands" [popover]="popover">点击查看部件信息</a><!--物理机-->
 							<popover-content #popover placement="right"[animation]="true" [closeOnClickOutside]="true">
@@ -49,7 +51,7 @@
 								</div>
 					
 							</popover-content>
-							<a *ngIf="_orderDetail.productType==3" (clic)="checkOSInfo()">OS管理服务</a><!--管理服务-->
+							<a *ngIf="_orderDetail.productType==11" (clic)="checkOSInfo()">OS管理服务</a><!--管理服务-->
 						</td>	
 						<td>{{ 'COMMON.CREATED_TIME' | translate}}</td>
 						<td>{{_orderDetail.createDate}}</td>
