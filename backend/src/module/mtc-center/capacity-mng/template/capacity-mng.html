@@ -35,7 +35,9 @@
             </tbody>       
         </table>
     </div>
-
+    <div class="fox-cloud-pagination-container">
+        <fc-pagination #pager tp={{totalPage}} (pf)="getPlatformList($event)"></fc-pagination>
+    </div>
 </div>
 
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>

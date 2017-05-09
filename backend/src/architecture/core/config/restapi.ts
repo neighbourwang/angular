@@ -2612,7 +2612,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "导出当前数据",
         "id":"assign-mng.hyper.export.current",
         "method":"POST",
-        "url":"maintenance/hyper/query/export/current"
+        "url":"maintenancemgmt/noauth/hyper/query/export/current"
      },
      {
         "desc": "导出",
