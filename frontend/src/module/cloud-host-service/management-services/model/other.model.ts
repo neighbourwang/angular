@@ -11,6 +11,7 @@ class Values {
 	INSTANCENAME: ValuesAttr = new ValuesAttr;
 	REMARK: ValuesAttr = new ValuesAttr;
 	SERVICEOBJECTCODE: ValuesAttr = new ValuesAttr;
+	TIMELINE: ValuesAttr = new ValuesAttr;
 }
 
 class Selected {
