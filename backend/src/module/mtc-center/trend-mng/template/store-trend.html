@@ -131,5 +131,14 @@
              </div>
         </div>
     </div>
+
+    <div *ngFor="let zone of barData.zone let i=index" class="panel panel-default" style="margin-top:15px;">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{zone.name}}</h3><!--CPU使用率-->
+            </div>
+            <div class="panel-body">
+                <div style="height:400px" id="{{'chart'+i}}"></div>
+            </div>
+        </div>
 </div>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>

@@ -5,9 +5,10 @@ import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, Po
 import { PlfModel, RegionModel, ZoneModel } from "../model/plf.model";
 import {StoreQuery} from "../model/store-query.model";
 import {GeneralModel, zoneDisk, DoughnutChart} from "../model/general.model";
+import { Bar, ZoneBar, Item } from "../model/bar.model";
 //service
 import { StoreTrendService } from "../service/store-trend.service";
-
+const echarts = require('echarts');
 
 @Component({
     selector: "store-trend",
@@ -44,6 +45,7 @@ export class StoreTrendComponent implements OnInit {
     general: GeneralModel=new GeneralModel();
     zoneDiskList: Array<zoneDisk>;
     diskCircle: DoughnutChart = new DoughnutChart();
+    barData: Bar = new Bar();
 
     ngOnInit() {
         this.defaultPlf.platformId = 'all';
@@ -88,7 +90,9 @@ export class StoreTrendComponent implements OnInit {
     }
 
     confirm() {
+        this.getQuery();
         this.getGeneral();
+        this.getBarData();
     }
     reset() {
         this.selectedPlf=this.defaultPlf;
@@ -108,7 +112,7 @@ export class StoreTrendComponent implements OnInit {
                 if (response && "100" == response["resultCode"]) {
                     this.general = response["resultContent"];
                     this.zoneDiskList = response["resultContent"].zones;
-                    this.getGraphData(this.diskCircle, this.general);
+                    this.getCircleData(this.diskCircle, this.general);
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -117,7 +121,7 @@ export class StoreTrendComponent implements OnInit {
             .catch((e) => this.onRejected(e));
     }
 
-    getGraphData(chart:DoughnutChart,source:GeneralModel) {
+    getCircleData(chart:DoughnutChart,source:GeneralModel) {
         chart.DataSets = [{ data: [source.s0_50GB, source.s50_150GB,source.s150_200GB]}];
         chart.Colors = [{ backgroundColor: ["#2bd2c8","#05ab83","#c9cacc"] }];
         chart.ChartType = "doughnut";
@@ -126,6 +130,142 @@ export class StoreTrendComponent implements OnInit {
             rotation: -1.2* Math.PI,
         }
     }
+
+    getBarData() {
+        this.layoutService.show();
+        this.service.getBarData(this.queryOpt)
+            .then(
+            response => {
+                this.layoutService.hide();
+                if (response && "100" == response["resultCode"]) {
+                    this.barData = response["resultContent"];
+                    
+                    this.showChart(this.barData);
+                } else {
+                    this.showAlert("COMMON.OPERATION_ERROR");
+                }
+            }
+            )
+            .catch((e) => this.onRejected(e));
+    }
+
+    showChart(chartData: Bar) {
+        let thx = chartData.thx;
+        let zonesData = chartData.zone;
+        if (zonesData[0].series.length==0) {
+                this.showAlert("没有数据！");
+                return;
+            }
+
+        for (let m = 0; m < zonesData.length; m++) {
+            let sum = new Array<number>();
+            let TempSeries = new Array<any>();
+            let TempLegend = new Array<string>();
+            let chartId = 'chart' + m;
+            
+
+            //获取第m个可用区的series
+            let zoneSeries = zonesData[m].series;
+            
+            let dataLength = zoneSeries[0].data.length;
+            //获取‘总计’数据
+            for (let i = 0; i < dataLength; i++) {
+                sum[i] = 0;
+                for (let j = 0; j < zoneSeries.length; j++) {
+                    sum[i] += zoneSeries[j].data[i];
+                }
+            }
+            
+
+            for (let k = 0; k < zoneSeries.length; k++) {
+                TempLegend.push(zoneSeries[k].name);
+                TempSeries.push({
+                    name: zoneSeries[k].name,
+                    type: 'bar',
+                    stack: '广告',
+                    data: zoneSeries[k].data,
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: function (value) {
+                                return (value.data * 100).toFixed(1) + "%"
+                            }
+                        }
+                    }
+                });
+            }
+
+            TempSeries.push({
+                name: '总计',
+                type: 'line',
+
+                data: sum,
+                label: {
+                    normal: {
+                        show: true,
+                        formatter: function (value) {
+                            
+                            return (value.data * zonesData[m].total[value.dataIndex]).toFixed(0);
+                        },
+                        textStyle: {
+                            color: "#000"
+                        }
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: "transparent"
+                    }
+                }
+            });
+
+
+
+            let option = {
+                tooltip: {
+                    show: false,
+
+                },
+                legend: {
+                    data: TempLegend
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: thx
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: function (value, index) {
+
+                                return value * 100 + "%";
+                            }
+                        }
+                    }
+                ],
+                series: TempSeries
+            };
+
+           
+            window.setTimeout(() => {
+                let myChart = echarts.init(document.getElementById(chartId));
+                    myChart.setOption(option);
+                },
+                10);
+     
+        }
+
+
+    } //函数结尾
 
     onRejected(reason: any) {
         this.layoutService.hide();

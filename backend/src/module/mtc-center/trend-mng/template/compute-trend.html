@@ -132,28 +132,7 @@
         </div>
     </div>
 
-    <!--<div *ngIf="showType==2">
-        <div class="table-container" *ngFor=" let zoneGrowth of growthRateList">
-                <table class="table column-title-table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th *ngFor="let month of zoneGrowth.data">{{month.date}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>云主机总数</td>
-                            <td *ngFor="let month of zoneGrowth.data">{{month.total}}</td>
-                        </tr>
-                        <tr>
-                            <td>增长率（环比）</td>
-                            <td *ngFor="let month of zoneGrowth.data">{{month.rate}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-    </div>-->
+    
     <div *ngIf="showType==2">
         <div *ngFor="let zone of vmData.zone; let i=index" >
             <div class="mgt20 mgb10" style="font-size:18px;font-weight:bold;">{{zone.name}}：</div>

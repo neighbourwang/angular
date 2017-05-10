@@ -173,7 +173,7 @@ export class ComputeTrendComponent implements OnInit {
         }
     }
 
-    confirm() {
+    getQuery() {
         this.queryOpt.platformId = this.selectedPlf.platformId;
         this.queryOpt.regionId = this.selectedRegion.regionId;
         
@@ -187,8 +187,10 @@ export class ComputeTrendComponent implements OnInit {
         } else {
             this.queryOpt.zoneId = this.selectedZone.zoneId;
         }
-                    
+    }
 
+    confirm() {
+        this.getQuery();
         if (this.queryOpt.queryType == "1") {
             this.showType = 1;
             
@@ -356,8 +358,7 @@ export class ComputeTrendComponent implements OnInit {
     } //函数结尾
 
     exportCurrent() {
-        this.queryOpt.platformId = this.selectedPlf.platformId;
-        this.queryOpt.regionId = this.selectedRegion.regionId;
+        this.getQuery();
 
         //this.layoutService.show();
         this.service.exportCurrent(this.queryOpt);  

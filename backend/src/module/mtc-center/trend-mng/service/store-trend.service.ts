@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel, SystemDictionaryService} from '../../../../architecture';
 import {StoreQuery} from "../model/store-query.model";
 import {general_mock} from "../model/general.mock";
+import { VmData_mock} from '../model/bar-data.mock';
 @Injectable()
 export class StoreTrendService {
     constructor(
@@ -35,5 +36,11 @@ export class StoreTrendService {
         //const api = this.restApiCfg.getRestApi("store.trend.general");
         //return this.restApi.request(api.method, api.url, null, null, query);
         return new Promise(resovle => setTimeout(resovle, 200)).then(() => general_mock );
+    }
+
+    getBarData(query:StoreQuery): Promise<any> {
+        //const api = this.restApiCfg.getRestApi("store.trend.general");
+        //return this.restApi.request(api.method, api.url, null, null, query);
+        return new Promise(resovle => setTimeout(resovle, 200)).then(() =>VmData_mock);
     }
 }
