@@ -1,0 +1,38 @@
+<div class="page-content-header icon-content-header-operation-center">
+    一次性管理服务系统设置
+</div>
+<div style="padding:10px 0px 0px 0px;height:300px;">
+    <div class="row row-line-height mgt30">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title mgl5"><span class="asterisk">*</span>自动完成:</div>
+            <div class="col-md-1" style="line-height:34px">
+                <input class="fox-cloud-radio" type="radio">
+                <span class="mgl5">开启</span>
+            </div>
+            <div class="col-md-1" style="line-height:34px">
+                <input class="fox-cloud-radio" type="radio">
+                <span class="mgl5">关闭</span>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height mgt15">
+        <div class="form-group">
+            <div class="col-sm-4 form-control-title">自动完成等待时间:</div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-sm-1" style="line-height:34px">分钟</div>
+        </div>
+    </div>
+
+</div>
+<div class="text-center">
+    <button type="button" class="fox-cloud-button-lg fox-cloud-button-white mgr20">
+        <span class="icon-button-label">取消</span>
+    </button>
+    <button type="button" class="fox-cloud-button-lg fox-cloud-button-white">
+        <span class="icon-button-label">保存</span>
+    </button>
+</div>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>

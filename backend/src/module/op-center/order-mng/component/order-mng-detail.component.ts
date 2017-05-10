@@ -10,7 +10,7 @@ import { ItemLoader
   , SystemDictionaryService
   , SystemDictionary } from '../../../../architecture';
   import {DictService} from '../../../../architecture/core/service/dict-service';
-import{OrderDetailItem} from '../model';
+import{OrderDetailItem,PhysicalMachine,PhysicalMachinePart} from '../model';
   
 import * as _ from 'underscore';
 @Component({
@@ -55,15 +55,61 @@ export class OrderMngDetailComponent implements OnInit {
 			//匹配历史信息
 			for(let item of target ){
 
-        if(item.itemList&&item.itemList[0].specList){
-				      let getProperty = _.property("attrDisplayValue");
-          if(item.productType==0){
-          	  item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
-          }else{
-              item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
-           }
-			
+        if(item.itemList){
+					if(item.itemList[0].pmEntity){
+						for(let partItem of item.itemList[0].pmEntity.partsEntitys){
+							if(partItem.partsName=='磁盘'||partItem.partsName=='内存'){
+								partItem.capacity = Number(partItem.number)*Number(partItem.specValue)+'GB';//只有磁盘和内存计算总容量
+								partItem.specValue+='GB';		
+							}		
+							if(partItem.partsName=='CPU'){
+								partItem.specValue=partItem.specValue.replace('Ghz','GHZ');
+							}
+							if(partItem.partsName=='网卡'){
+								partItem.specValue+='M';
+							}
+						}
+					}else{
+						// Mock数据
+						item.itemList[0].pmEntity = new PhysicalMachine();
+						let _item = new PhysicalMachinePart();
+						_item.partsName = 'CPU';
+						_item.specName = 'Xeon E5 2560';
+						_item.specValue = '2Ghz';
+						_item.number = '3';
+						_item.capacity = '4';
+							let _item2 = new PhysicalMachinePart();
+						_item2.partsName = '磁盘';
+						_item2.specName = 'Xeon E5 2560';
+						_item2.specValue = '2';
+						_item2.number = '3';
+						_item2.capacity = '4';
+						item.itemList[0].pmEntity.partsEntitys[0] = _item;
+						item.itemList[0].pmEntity.partsEntitys[1] = _item2;
+						for(let partItem of item.itemList[0].pmEntity.partsEntitys){
+							if(partItem.partsName=='磁盘'||partItem.partsName=='内存'){
+								partItem.capacity = Number(partItem.number)*Number(partItem.specValue)+'GB';//只有磁盘和内存计算总容量
+								partItem.specValue+='GB';		
+							}		
+							if(partItem.partsName=='CPU'){
+								partItem.specValue=partItem.specValue.replace('Ghz','GHZ');
+							}
+							if(partItem.partsName=='网卡'){
+								partItem.specValue+='M';
+							}
+						}
+					}
+					if(item.itemList[0].specList){
+						let getProperty = _.property("attrDisplayValue");
+						if(item.productType==0||item.productType==4||item.productType==11){
+							item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+						}else{
+							item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
+						}
+					}	
 				}
+
+        
 				if(item.hisOrderList){
 					for(let hisItem of item.hisOrderList){
 						// item.hisOrderList[0].type=0;

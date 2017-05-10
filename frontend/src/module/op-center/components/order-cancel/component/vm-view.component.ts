@@ -28,9 +28,9 @@ import * as _ from 'underscore';
 })
 export class VmViewComponent implements OnInit{
 	@Input()
-	private values:SubInstanceItemResp;//
+	private values:any;//
 
-    private  specList:Array<SubInstanceAttrPair>=[];
+    private  specList=[];
 	private _obj:{
 		platform:string,//区域
 		zone:string;//可用区

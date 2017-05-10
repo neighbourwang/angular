@@ -29,6 +29,7 @@ export class CheckListItem{
 	checkResultName: string = null;//审批结果名称	
 	description: string = null; //描述
 	specList:Array<{attrDisplayName:string;attrDisplayValue:string}> = null;//产品详细信息
+    showSpecList:boolean = true;
 
 	checkResult:Promise<ApproveItem> = null;//审批结果
 	relyOrderNo:string = null;//关联的父级订单编号

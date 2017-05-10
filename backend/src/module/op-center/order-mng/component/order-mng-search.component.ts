@@ -84,17 +84,20 @@ export class OrderMngSearchComponent implements OnInit{
 			this._productTypeLoader.UpdateWithDic([firstItem], 'productTypeName', 'productType');
 			this._productTypeLoader.UpdateWithDic(firstItem.subInstanceList, 'serviceTypeName', 'serviceType');
 
-			// if(firstItem.productType=='0'){//云主机服务,
-			// 	if(firstItem.subInstanceList[0].specList){
-			// 		for(let item of firstItem.subInstanceList[0].specList){
-			// 			if(!this.checkVm(item)){
-			// 				let index = firstItem.subInstanceList[0].specList.indexOf(item);
-			// 				firstItem.subInstanceList[0].specList.splice(index,1);
-			// 			}
-							
-			// 		}
-			// 	}
-			// }
+			if(firstItem.subInstanceList[0].pmEntity){
+					for(let item of firstItem.subInstanceList[0].pmEntity.partsEntitys){
+						if(item.partsName=='磁盘'||item.partsName=='内存'){
+							item.capacity = Number(item.number)*Number(item.specValue)+'GB';//只有磁盘和内存计算总容量
+							item.specValue+='GB';		
+						}		
+						if(item.partsName=='CPU'){
+							item.specValue=item.specValue.replace('Ghz','GHZ');
+						}
+						if(item.partsName=='网卡'){
+							item.specValue+='M';
+						}
+				}
+			}
 			console.log(firstItem.subInstanceList[0].specList);
 		}
 		this._orderDetailLoader.FirstItem = new SearchOrderDetail();

@@ -13,6 +13,8 @@ import { CheckMngHascheckComponent } from './component/check-mng-hascheck.compon
 import { CheckMngSetComponent } from './component/check-mng-set.component';
 import {VmViewComponent} from './component/vm-view.component';
 import {DiskViewComponent} from './component/disk-view.component';
+import {MachineViewComponent} from '../op-center/order-mng/component/machine-view.component';
+import {ServiceViewComponent} from '../op-center/order-mng/component/service-view.component';
 @NgModule({
     imports: [
         CommonComponentModule,
@@ -24,7 +26,9 @@ import {DiskViewComponent} from './component/disk-view.component';
          CheckMngHascheckComponent,
          CheckMngSetComponent,
          VmViewComponent,
-         DiskViewComponent
+         DiskViewComponent,
+         MachineViewComponent,
+         ServiceViewComponent
     ],
     exports: [],
     providers: []

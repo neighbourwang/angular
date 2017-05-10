@@ -2640,6 +2640,12 @@ export let RestApis: RestApiModel[] = [
         "url":"maintenancemgmt/noauth/trend/general"
      },
      {
+        "desc": "计算资源-环比增长率",
+        "id":"compute-trend.compare",
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/trend/compare"
+     },
+     {
         "desc": "按CPU",
         "id":"compute-trend.graph.cpu",
         "method":"POST",
