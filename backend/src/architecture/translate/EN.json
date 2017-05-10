@@ -1221,8 +1221,13 @@
     "SELECT_PRODUCT_CAT":"please select a product service",
     "SELECT_RESOURCE_POOL":"please select a resource pool",
     "SERVE_TEMPLATE":"serve template",
-    "SERVE_DESCRIPTION":"serve description"
-
+    "SERVE_DESCRIPTION":"serve description",
+    "TEMPLATE_MANAGEMENT":"template management",
+    "SOFTWARE_TYPE":"software type",
+    "SOFTWARE_VERSION":"software mode",
+    "DEPLOY_MODE":"deploy mode",
+    "RELATE_PRODUCT_SERVICE_COUNTS":"relate product service counts",
+    "CREATE_TEMPLATE":"create template"
   },
   "USER_CENTER": {
     "ACCOUNT": "Account",
