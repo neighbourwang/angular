@@ -222,6 +222,20 @@ export class MenuService {
                     "icon": "icon-physical-mng",
                     "top2_menu": [
                         {
+                            "label": "PHY_MNG_POOL.PHY_POOL_MNG",
+                            "isOpen": false,
+                            "isActive": false,
+                            "isShow": !isRoot,
+                            "routing": "phy-mng/phy-pool/phy-pool-mng"
+                        },
+                        {
+                            "label": "PHY_MNG_DEPART.PHY_DEPART",
+                            "isOpen": false,
+                            "isActive": false,
+                            "isShow": !isRoot,
+                            "routing": "phy-mng/phy-pool/phy-unit-mng"
+                        },
+                     /*   {
                             "label": "物理机资源池管理",
                             "isOpen": false,
                             "isActive": false,
@@ -242,7 +256,7 @@ export class MenuService {
                                     "routing": "phy-mng/phy-pool/phy-unit-mng"
                                 }
                             ]
-                        },
+                        },*/
 						{
                             "label": "USER_CENTER.PHY_IMAGE_MNG",
                             "isOpen": false,
