@@ -78,7 +78,7 @@
                 <td><input type="radio" class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
                 <td>{{item.serviceProductId}}</td>
                 <td><a href="javascript:void(0);" (click)="gotoDetail(item);">{{item.serviceName}}</a></td>
-                <td>{{item.serviceObjectCode | dict: this.service.typeDic | async}}</td>
+                <td><a href="javascript:void(0);" (click)="oneSet()">{{item.serviceObjectCode | dict: this.service.typeDic | async}}</a></td>
                 <td>
                     <ol class="no-padding">
                         <li>

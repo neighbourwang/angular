@@ -2,7 +2,7 @@
     {{'CAPACITY_MNG.STORE_RES_CAPACITY_MNG'|translate}}<!--存储资源容量管理-->
     <span style="font-size:16px;">
     {{'CAPACITY_MNG.CLOUD_PLATFORM_NAME'|translate}}:{{selectedPf.name}} &nbsp;&nbsp;
-    {{'CAPACITY_MNG.PLATFORM_TYPE'|translate}}：{{selectedPf.platformType}} &nbsp;&nbsp;
+    {{'CAPACITY_MNG.PLATFORM_TYPE'|translate}}：{{selectedPf.platformType| dict:this.service.pfDic | async}} &nbsp;&nbsp;
       {{'CAPACITY_MNG.URL'|translate}}：{{selectedPf.uri}}</span>
     <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoCapacityMng()">
         {{'CAPACITY_MNG.BACK_TO_CAPACITY_MNG'|translate}}<!--返回云平台容量管理-->
@@ -32,7 +32,7 @@
             <tbody>
                 <tr *ngFor="let storage of storageList">
                     <td>{{storage.order}}</td>
-                    <td><a (click)="gotoStoreDetail(storage)">{{storage.storageName}}</a></td>
+                    <td><a href="javascript:void(0);" (click)="gotoStoreDetail(storage)">{{storage.storageName}}</a></td>
                     <td>{{storage.displayName}}</td>
                     <td>{{storage.storageType}}</td>
                     <td>{{storage.capacity}}</td>
@@ -58,7 +58,7 @@
                         <span class="progress-value">{{storage.usage}}%</span>
                         </div>                            
                      </td>
-                    <td [ngClass]="storage.status==1?'font-green':'font-orange'">{{storage.status| dict:this.service.statusDic | async}}</td>
+                    <td style="width:60px;" [ngClass]="storage.status==1?'font-green':'font-orange'">{{storage.status| dict:this.service.statusDic | async}}</td>
                 </tr>
                 
             </tbody>

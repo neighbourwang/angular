@@ -4,10 +4,10 @@
         {{ showMsg | translate:param }}
     </modal-body>
     <modal-footer class="fox-cloud-modal-footer">
-        <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="ccf()">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="ccf()" name="ccf_{{title}}">
             <span class="icon-button-label">{{ct || 'COMMON.CONFIRM' | translate}}</span>
         </button>
-        <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="cof()" style="margin-left: 30px">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="cof()" style="margin-left: 30px" name="cof_{{title}}">
             <span class="icon-button-label">{{ot || 'COMMON.CANCEL' | translate}}</span>
         </button>
     </modal-footer>

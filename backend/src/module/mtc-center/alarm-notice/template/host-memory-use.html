@@ -1,0 +1,132 @@
+<div class="page-content-header icon-content-header-operation-center">
+    告警项：Host/可用区CPU/内存 使用率模板
+</div>
+<div class="page-content">
+    <div class="row row-line-height">
+        <div class="col-md-10" >
+            <div class="col-md-2 form-control-title" style="width:140px;">告警开关：</div>
+            <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;width:90px;">
+                <input class="fox-cloud-radio" type="radio">
+                <span class="mgl5">开启</span>
+            </div>
+            <div class="col-md-1" style="line-height:34px;font-size:16px;width:90px;">
+                <input class="fox-cloud-radio" type="radio">
+                <span class="mgl5">关闭</span>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="col-md-10" >
+            <div class="col-md-2 form-control-title" style="width:140px;">阀值设置：</div>
+            <div class="col-md-1 no-padding text-right" style="line-height:34px;font-size:16px;width:115px;">检查周期：</div>
+            <div class="col-md-2">
+                <select class="form-control">
+                    <option>最近24小时</option>
+                    <option></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="col-md-10" >
+            <div class="col-md-2 form-control-title" style="width:140px;"></div>
+            <div class="col-md-1 no-padding text-right" style="line-height:34px;font-size:16px;width:115px;">触发条件1：</div>
+            <div class="col-md-2">
+                <select class="form-control">
+                    <option>1</option>
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control">
+                    <option>0~100</option>
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;">级别：</div>
+            <div class="col-md-2 no-padding" style="line-height:34px;font-size:16px;">警告</div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="col-md-10" >
+            <div class="col-md-2 form-control-title" style="width:140px;"></div>
+            <div class="col-md-1 no-padding text-right" style="line-height:34px;font-size:16px;width:115px;">触发条件2：</div>
+            <div class="col-md-2">
+                <select class="form-control">
+                    <option>1</option>
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control">
+                    <option>0~100</option>
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;">级别：</div>
+            <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;">警急</div>
+            <div class="col-md-3" style="line-height:34px;font-size:16px;">条件2&nbsp;输入的数值必须大于条件1</div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="col-md-10" >
+            <div class="col-md-2 form-control-title" style="width:140px;"></div>
+            <div class="col-md-1 no-padding text-right" style="line-height:34px;font-size:16px;width:115px;">重复告警条件：</div>
+            <div class="col-md-1" style="line-height:34px;font-size:16px;width:30px;">每</div>
+            <div class="col-md-2">
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;width:30px;">次</div>
+            <div class="col-md-6" style="font-size:16px;">条件2输入的数值必须大于条件1条件2输入的数值必须大于条件1条件2输入的数值必须大于条件1条件2</div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="col-md-10" >
+            <div class="col-md-2 form-control-title" style="width:140px;">告警方式：</div>
+            <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;width:90px;">
+                <input class="fox-cloud-radio" type="radio">
+                <span class="mgl5">Email</span>
+            </div>
+            <div class="col-md-2">
+                <button class="fox-cloud-button fox-cloud-button-green">设置接收人</button>
+            </div>
+        </div>
+    </div>
+    <div class="row row-line-height">
+        <div class="col-md-10" >
+            <div class="col-md-2 form-control-title" style="width:140px;"></div>
+            <div class="col-md-10 no-padding">
+                <div class="table-container">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox"class="fox-cloud-checkbox"/>&nbsp;多选框</th>
+                            <th>姓名</th>
+                            <th>账号</th>
+                            <th>Email地址</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><input type="checkbox"class="fox-cloud-checkbox"/></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    <button type="button" class="fox-cloud-button-lg fox-cloud-button-white mgr20">
+        <span class="icon-button-label">取消</span>
+    </button>
+    <button type="button" class="fox-cloud-button-lg fox-cloud-button-white">
+        <span class="icon-button-label">保存</span>
+    </button>
+</div>
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>

@@ -2640,6 +2640,12 @@ export let RestApis: RestApiModel[] = [
         "url":"maintenancemgmt/noauth/trend/general"
      },
      {
+        "desc": "计算资源-环比增长率",
+        "id":"compute-trend.compare",
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/trend/compare"
+     },
+     {
         "desc": "按CPU",
         "id":"compute-trend.graph.cpu",
         "method":"POST",
@@ -2661,13 +2667,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "导出当前数据",
         "id":"compute-trend.export.current",
         "method":"POST",
-        "url":"maintenance/trend/query/export/current"
+        "url":"maintenancemgmt/noauth/trend/query/export/current"
      },
      {
         "desc": "导出所有数据",
         "id":"compute-trend.export.all",
-        "method":"GET",
-        "url":"maintenance/trend/query/export/current"
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/trend/query/export"
      },
      //阿里云账号管理
      {

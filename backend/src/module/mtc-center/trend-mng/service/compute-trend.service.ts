@@ -40,7 +40,7 @@ export class ComputeTrendService {
     }
 
     getCloudHostSpec(): Promise<any> {
-        const api = this.restApiCfg.getRestApi("query.plf.list");
+        const api = this.restApiCfg.getRestApi("query.flavor");
         return this.restApi.request(api.method, api.url, null, null, null);
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => CloudHostSpec_mock);
     }
@@ -52,17 +52,17 @@ export class ComputeTrendService {
     }
 
     getGrowthRateList(query: ComputeQuery): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("compute-trend.basic.info");
-        //return this.restApi.request(api.method, api.url, null, null, query).then(
-        //    res =>{
-        //        if (res && 100 == res["resultCode"]) {
-        //            return res.resultContent;
-        //        } else {
-        //            throw "error";
-        //        }
-        //    }
-        //);
-         return new Promise(resovle => setTimeout(resovle, 10)).then(() => GrowthRatelist_mock.resultContent);
+        const api = this.restApiCfg.getRestApi("compute-trend.compare");
+        return this.restApi.request(api.method, api.url, null, null, query).then(
+            res =>{
+                if (res && 100 == res["resultCode"]) {
+                    return res.resultContent;
+                } else {
+                    throw "error";
+                }
+            }
+        );
+        // return new Promise(resovle => setTimeout(resovle, 10)).then(() => GrowthRatelist_mock.resultContent);
         
         
     }
@@ -96,9 +96,9 @@ export class ComputeTrendService {
      }
 
     exportCurrent(query:ComputeQuery): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("compute-trend.export.current");
-        //return this.restApi.request(api.method, api.url, null, null, query);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => BasicList_mock );
+        const api = this.restApiCfg.getRestApi("compute-trend.export.current");
+        return this.restApi.request(api.method, api.url, null, null, query);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => BasicList_mock );
      }
 
     exportAll(): Promise<any> {

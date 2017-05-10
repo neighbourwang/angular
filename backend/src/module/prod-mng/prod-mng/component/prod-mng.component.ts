@@ -247,7 +247,8 @@ export class ProdMngComponent implements OnInit {
     //去编辑详情页面
     goDetail(item) {
         console.log(item);
-        if(item.serviceType=='0'||item.serviceType=='1'||item.serviceType=='4'){
+        // if(item.serviceType=='0'||item.serviceType=='1'||item.serviceType=='4'){
+        if(item.serviceType=='0'||item.serviceType=='1'){
             this.router.navigate(["prod-mng/prod-mng/prod-detail", {id:item.id,type:item.serviceType}]);            
         }
     }
@@ -308,7 +309,7 @@ export class ProdMngComponent implements OnInit {
             this.router.navigate(["prod-mng/prod-mng/prod-mng-cre-1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);                       
         }else if(this.prodDirTypeCre=='SUPERVISE_SERVICE'){
             this.router.navigate(["prod-mng/manager-serve/manager-serve-product-cre-step1", {'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);            
-        }else if(this.prodDirTypeCre=='MiddleWare'){
+        }else if(this.prodDirTypeCre=='MiddleWare'||this.prodDirTypeCre=='Database'){
             this.router.navigate(["prod-mng/database-middleware-mng/database-middleware-product-cre-step1",{'id':this.prodDirIdCre,'type':this.prodDirTypeCre}]);             
         }        
     }

@@ -240,7 +240,7 @@
                 <tbody>
                     <tr *ngFor="let hyper of hyperList let i=index">
                         <td>{{i+1}}</td>
-                        <td><a (click)="gotoAssignDetail(hyper.id)">{{hyper.name}}</a></td>
+                        <td><a href="javascript:void(0);" (click)="gotoAssignDetail(hyper.id)">{{hyper.name}}</a></td>
                         <td>{{hyper.platform}}</td>
                         <td>{{hyper.region}}</td>
                         <td>{{hyper.zone}}</td>

@@ -1,5 +1,5 @@
 
-import { Component,ViewChild,Input , Output,  OnInit } from '@angular/core';
+import { Component,ViewChild,Input , Output,  OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, Validation, ValidationRegs } from '../../../../architecture';
@@ -15,7 +15,7 @@ import { VMInstanceLabelItem } from '../model/labe-iItem.model';
 	styleUrls: ['../style/cloud-host-list.less'],
 })
 
-export class cloudHostListComponent implements OnInit {
+export class cloudHostListComponent implements OnInit, OnDestroy {
 
 	@ViewChild('confirm')
 	private confirmDialog: ConfirmComponent;
@@ -47,6 +47,8 @@ export class cloudHostListComponent implements OnInit {
 	handleData: HandleVm;   //发送操纵云主机的数据
 	labelItem:VMInstanceLabelItem[] = [];
 
+	destroyed: boolean;
+
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -59,11 +61,15 @@ export class cloudHostListComponent implements OnInit {
 		})
 	}
 	ngOnInit() {
-		
 		this.setHostList();
 		this.getLabels();  //获取标签列表
 		this.initSelect();
 
+		this.destroyed = false;
+	}
+
+	ngOnDestroy() {
+		this.destroyed = true;
 	}
 
 	setHostList(): void {
@@ -76,7 +82,7 @@ export class cloudHostListComponent implements OnInit {
 			
 		}).then(list => {
 			this.vmList = list;
-			// this.checkListMiddleState();
+			this.checkListMiddleState();
 		}).catch(error => {
 			// this.layoutService.hide();
 		});
@@ -111,6 +117,8 @@ export class cloudHostListComponent implements OnInit {
 	}
 
 	checkListMiddleState() {
+		if(this.destroyed) return false;  //如果组件被销毁了 return
+
 		let mkPromise = (vm) => this.isMiddleState(vm.vmState) ? this.service.fetchVmState(vm.itemId) : false
 		let fecthMiddleStateList = this.vmList.map(mkPromise)
 
