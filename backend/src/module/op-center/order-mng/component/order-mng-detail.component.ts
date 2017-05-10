@@ -78,7 +78,14 @@ export class OrderMngDetailComponent implements OnInit {
 						_item.specValue = '2Ghz';
 						_item.number = '3';
 						_item.capacity = '4';
+							let _item2 = new PhysicalMachinePart();
+						_item2.partsName = '磁盘';
+						_item2.specName = 'Xeon E5 2560';
+						_item2.specValue = '2';
+						_item2.number = '3';
+						_item2.capacity = '4';
 						item.itemList[0].pmEntity.partsEntitys[0] = _item;
+						item.itemList[0].pmEntity.partsEntitys[1] = _item2;
 						for(let partItem of item.itemList[0].pmEntity.partsEntitys){
 							if(partItem.partsName=='磁盘'||partItem.partsName=='内存'){
 								partItem.capacity = Number(partItem.number)*Number(partItem.specValue)+'GB';//只有磁盘和内存计算总容量

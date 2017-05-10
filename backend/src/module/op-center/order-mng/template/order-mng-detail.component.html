@@ -33,8 +33,9 @@
 						<td>
 						<span *ngIf="_detailLoader.FirstItem.productType==0||_detailLoader.FirstItem.productType==1||_detailLoader.FirstItem.productType==2">{{_detailLoader.FirstItem.specification}}</span><!--云主机云硬盘，数据库中间件-->
 							<a *ngIf="_detailLoader.FirstItem.productType==4" class="hands" [popover]="popover">点击查看部件信息</a><!--物理机-->
-							<popover-content #popover placement="right"[animation]="true" [closeOnClickOutside]="true">
-								<div *ngIf="_detailLoader.FirstItem.productType==4"  class="table-container mgb20">
+							<!--<div *ngIf="_detailLoader.FirstItem.productType==4"  style="width: 1000px!important;">  style="width: 700px!important;"-->
+								<popover-content #popover placement="right"[animation]="true" [closeOnClickOutside]="true" >
+								<div *ngIf="_detailLoader.FirstItem.productType==4"  class="table-container mgb20" >
 									<table class="table table-bordered mgb20 text-center inner-table">
 										<thead>
 												<th>部件名称</th>
@@ -56,6 +57,7 @@
 								</div>
 					
 							</popover-content>
+							<!--</div>-->
 							<a *ngIf="_detailLoader.FirstItem.productType==11" (clic)="checkOSInfo()">OS管理服务</a><!--管理服务-->	
 						</td>	
 						<td>{{ 'COMMON.CREATION_TIME' | translate}}</td>

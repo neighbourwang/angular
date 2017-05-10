@@ -57,9 +57,141 @@
 											<tr  *ngFor="let prodItem of _detail.subInstanceList">
 												<td>{{prodItem.serviceType  | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 												<td style="text-align: left;padding-top: 30px;padding-left: 40px;padding-right: 20px; width: 450px;">
-													<ul *ngIf="prodItem.serviceType>1"  >
+													<!--<ul *ngIf="prodItem.serviceType>1"  >
 														<li *ngFor="let specItem of prodItem.specList">{{specItem.attrDisplayName}}：&nbsp;&nbsp;{{specItem.attrDisplayValue}}</li>
-													</ul>
+													</ul>-->
+													<machine-view  [values]="prodItem" *ngIf="prodItem.serviceType==4"></machine-view>
+													<a *ngIf="prodItem.serviceType==4" class="hands" [popover]="popover">查看详情</a><!--物理机-->
+													<popover-content #popover placement="right"[animation]="true" [closeOnClickOutside]="true" >
+														<div *ngIf="prodItem.serviceType==4" class="table-container mgb20">
+															<table class="table table-bordered mgb20 text-center inner-table">
+																<thead>
+																		<th>部件名称</th>
+																		<th>规格</th>
+																		<th>规格值</th>
+																		<th>数量</th>
+																		<th>总容量</th>
+																</thead>
+																<tbody>
+																	<tr *ngFor="let physicalMachineItem of _detail.subInstanceList[0].pmEntity.partsEntitys">
+																		<td>{{physicalMachineItem.partsName}}</td>
+																		<td>{{physicalMachineItem.specName}}</td>
+																		<td>{{physicalMachineItem.specValue}}</td>
+																		<td>{{physicalMachineItem.number}}</td>
+																		<td>{{physicalMachineItem.capacity}}</td>
+																	</tr>		
+																</tbody>
+															</table>
+														</div>
+											
+													</popover-content>
+
+													<a *ngIf="prodItem.serviceType==11" class="hands" [popover]="osPopover">点击查看实例详情</a><!--管理服务-->
+													<popover-content #osPopover placement="right"[animation]="true" [closeOnClickOutside]="true">
+														<div *ngIf="prodItem.serviceType==11"  class="table-container mgb20"><!--云主机-->
+															<table class="table table-bordered mgb20 text-center inner-table">
+																<thead>
+																		<th>平台</th>
+																		<th>可用区</th>
+																		<th>云主机名称</th>
+																		<th>配置</th>
+																		<th>镜像</th>
+																		<th>内部IP</th>
+																		<th>外部IP</th>
+																		<th>所在区域及可用区</th>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>磁盘</td>
+																		<td>SSD</td>
+																		<td>100GB</td>
+																		<td>2</td>
+																		<td>128GB</td>
+																		<td>100GB</td>
+																		<td>2</td>
+																		<td>128GB</td>
+																	</tr>		
+																</tbody>
+															</table>
+														</div>
+														<div class="table-container mgb20"><!--云硬盘-->
+															<table class="table table-bordered mgb20 text-center inner-table">
+																<thead>
+																		<th>平台</th>
+																		<th>可用区</th>
+																		<th>云硬盘名称</th>
+																		<th>存储类型</th>
+																		<th>容量（GB）</th>
+																		<th>状态</th>
+																		<th>挂载位置（云主机名称）</th>
+																		<th>属性</th>
+																		<th>所在区域及可用区</th>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>磁盘</td>
+																		<td>SSD</td>
+																		<td>100GB</td>
+																		<td>2</td>
+																		<td>128GB</td>
+																		<td>100GB</td>
+																		<td>2</td>
+																		<td>128GB</td>
+																		<td>128GB</td>
+																	</tr>		
+																</tbody>
+															</table>
+														</div>
+														<div class="table-container mgb20"><!--物理机-->
+															<table class="table table-bordered mgb20 text-center inner-table">
+																<thead>
+																		<th>地域</th>
+																		<th>数据中心</th>
+																		<th>物理机名称</th>
+																		<th>配置</th>
+																		<th>镜像</th>
+																		<th>私网IP</th>
+																		<th>公网IP</th>
+																		<th>所在区域及可用区</th>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>磁盘</td>
+																		<td>SSD</td>
+																		<td>100GB</td>
+																		<td>2</td>
+																		<td>128GB</td>
+																		<td>100GB</td>
+																		<td>2</td>
+																		<td>128GB</td>
+																	</tr>		
+																</tbody>
+															</table>
+														</div>
+
+														<div class="table-container mgb20"><!--手工输入的信息-->
+															<table class="table table-bordered mgb20 text-center inner-table">
+																<thead>
+																		<th>地域</th>
+																		<th>可用区</th>
+																		<th>实例类型</th>
+																		<th>实例ID</th>
+																		<th>实例名称</th>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>磁盘</td>
+																		<td>SSD</td>
+																		<td>100GB</td>
+																		<td>2</td>
+																		<td>128GB</td>
+																	</tr>		
+																</tbody>
+															</table>
+														</div>
+											
+													</popover-content>
+													<span *ngIf="prodItem.serviceType==11" style="display: block;">备注信息：显示购买时的备注信息</span>
 													<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0" ></vm-view> <!--显示云主机 -->
 						 							<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view><!--显示云硬盘 -->
 												</td>
