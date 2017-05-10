@@ -30,6 +30,7 @@ import { OrderCancelService } from './service/order-cancel.service';
         DiskViewComponent,
         MachineViewComponent,
         ServiceViewComponent
+        
     ],
     providers: [
         OrderCancelService
