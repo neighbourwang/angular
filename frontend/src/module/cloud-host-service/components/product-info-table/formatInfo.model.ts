@@ -34,6 +34,8 @@ class Info {
 	DISKINSNAME:attrList = new attrList;
 	RESOURCEPOOL:attrList = new attrList;
 	OSYSTEM: attrList = new attrList;
+	SERVICEOBJECTCODE: attrList = new attrList;
+	REGION: attrList = new attrList;
 }
 export {
     Info,

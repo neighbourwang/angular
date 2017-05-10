@@ -8,28 +8,29 @@
             <div class="col-md-9">
                 <div class="col-md-2 form-control-title">云平台：</div>
                 <div class="col-md-2">
-                    <select class="form-control">
-                        <option>所有平台</option>
+                    <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion; selectedZone=defaultZone;">
+                        <option [ngValue]="defaultPlf">{{'ASSIGN_MNG.ALL_PLATFORMS'|translate}}</option><!--所有平台-->
+                        <option *ngFor="let plf of plfList" [ngValue]="plf">{{plf.platformName}}</option>
                     </select>
                 </div>
                 <div class="col-md-2 form-control-title">Region/DC：</div>
-                <div class="col-md-2">
-                    <select class="form-control">
-                        <option>所有Region/DC</option>
-                    </select>
+                <div class="col-md-2">              
+                    <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedZone=defaultZone; ">
+                        <option [ngValue]="defaultRegion">{{'ASSIGN_MNG.ALL_REGIONS'|translate}}</option><!--所有Region/DC-->
+                        <option *ngFor="let reg of selectedPlf.region" [ngValue]="reg">{{reg.region}}</option>
+                    </select>               
                 </div>
                 <div class="col-md-2 form-control-title">可用区：</div>
                 <div class="col-md-2">
-                    <select class="form-control">
-                        <option>所有可用区</option>
-                        <option>可用区A</option>
-                        <option>可用区B</option>
+                    <select class="form-control" [(ngModel)]="selectedZone" >
+                        <option [ngValue]="defaultZone">{{'ASSIGN_MNG.ALL_ZONES'|translate}}</option><!--所有可用区-->
+                        <option *ngFor="let z of selectedRegion.zone" [ngValue]="z">{{z.zoneName}}</option>
                     </select>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" *ngIf="selectedZone==defaultZone">
                 <div class="col-md-10 form-control-title">
-                    <input class="fox-cloud-checkbox" type="checkbox" />&nbsp;按可用区显示：
+                    <input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected"/>&nbsp;按可用区显示
                 </div>
             </div>
         </div>
@@ -37,30 +38,20 @@
             <div class="col-md-9">
                 <div class="col-md-2 form-control-title">云硬盘状态：</div>
                 <div class="col-md-2">
-                    <select class="form-control">
-                        <option>所有</option>
-                        <option>挂载</option>
-                        <option>未挂载</option>
+                    <select class="form-control" [(ngModel)]="queryOpt.diskStatus">
+                        <option *ngFor="let dStatus of service.diskStatusDic | async" [value]="dStatus.value">{{dStatus.displayValue}}</option>                 
                     </select>
                 </div>
                 <div class="col-md-2 form-control-title">云硬盘容量：</div>
                 <div class="col-md-2">
-                    <select class="form-control">
-                        <option>所有</option>
-                        <option>0-50G</option>
-                        <option>50-100G</option>
-                        <option>100-200G</option>
-                        <option>200-300G</option>
-                        <option>300-500G</option>
-                        <option>500G以上</option>
+                    <select class="form-control" [(ngModel)]="queryOpt.diskSize">
+                        <option *ngFor="let dSize of service.diskSizeDic | async" [value]="dSize.value">{{dSize.displayValue}}</option>                 
                     </select>
                 </div>
                 <div class="col-md-2 form-control-title">时间范围：</div>
                 <div class="col-md-2">
-                    <select class="form-control">
-                        <option>最近3个月</option>
-                        <option>最近6个月</option>
-                        <option>最近12个月</option>
+                    <select class="form-control" [(ngModel)]="queryOpt.period">
+                        <option *ngFor="let p of service.trendPeridDic | async" [value]="p.value">{{p.displayValue}}</option>
                     </select>
                 </div>
             </div>
@@ -70,8 +61,8 @@
     <div>
         <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15">导出所有数据</button>
         <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15">导出当前数据</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">重置</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15">确认</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">重置</button>
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">确认</button>
     </div>
     <div class="clear"></div>
     <div class="mgt15" style="width:100%;border-bottom:solid 1px #00a982;"></div>
@@ -89,18 +80,65 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>可用区</td>
-                            <td>50</td>
-                            <td>20</td>
-                            <td>1000000GB</td>
+                        <tr *ngFor="let z of zoneDiskList">
+                            <td>{{z.name}}</td>
+                            <td>{{z.sizeAttached}}</td>
+                            <td>{{z.sizeUnattached}}</td>
+                            <td>{{z.availabe}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="col-md-5 col-md-offset-1" >
-            <div style="border: 2px solid #cfd8e7;height:75px;"></div>
+        <div class="col-md-5 col-md-offset-1">
+            <div class="panel panel-default" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">云硬盘</h3><!--CPU使用率概览-->
+                </div>
+                <div class="panel-body" style="height:216px;">
+                     <div class="row">
+                         <div class="col-md-5 ">
+                                <div style="position:relative;">
+                                    <div class="circle-mask"></div>
+                                    <div class="circle-text">{{general.num}}个</div>
+                                        <canvas baseChart
+                                        *ngIf="diskCircle.DataSets"
+                                        [datasets]="diskCircle.DataSets "
+                                        [chartType]="diskCircle.ChartType"
+                                        [options]="diskCircle.Options"
+                                        [colors]="diskCircle.Colors">
+                                    </canvas>
+                                </div>
+                         </div>
+                         <div class="col-md-6 col-md-offset-1">
+                             <div style="margin-top:40px;margin-left:20px;">
+                                <div class="row" style="padding:5px 0;">
+                                    <span class="legend" style="background: #2bd2c8;"></span>&nbsp;0-50GB
+                                    <span style="margin-left:60px;">{{general.s0_50GB}}</span>
+                                </div>
+                                <div class="row" style="padding:5px 0;">
+                                    <span class="legend" style="background: #05ab83"></span>&nbsp;50-150GB
+                                    <span style="margin-left:50px;">{{general.s50_150GB}}</span>
+                                </div>
+                                <div class="row" style="padding:5px 0;">
+                                    <span class="legend" style="background: #c9cacc"></span>&nbsp;150-200GB
+                                    <span style="margin-left:44px;">{{general.s150_200GB}}</span>
+                                </div>
+                            </div>
+                         </div>
+                     </div>
+                </div>
+             </div>
         </div>
     </div>
+
+    <div *ngFor="let zone of barData.zone let i=index" class="panel panel-default" style="margin-top:15px;">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{zone.name}}</h3><!--CPU使用率-->
+            </div>
+            <div class="panel-body">
+                <div style="height:400px" id="{{'chart'+i}}"></div>
+            </div>
+        </div>
 </div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>

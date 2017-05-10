@@ -44,19 +44,26 @@ export class MenuService {
 					"icon": "icon-product-and-service",
 					"top2_menu": [
 						{
+							"label": "PROD_MNG.TEMPLATE_MANAGEMENT",
+							"isOpen": false,
+							"isActive": false,
+							"isShow": !isRoot,
+							"routing": "prod-mng/template-mng/template-list"
+						},
+						{
 							"label": "PROD_MNG.PRODUCT_CAT_MANAGEMENT",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
-							// "routing": "pf-mng2/cl-mng/cl-mng"
 							"routing": "prod-mng/prod-dir-mng/prod-dir-mng"
-						}, {
+						}, 
+						{
 							"label": "PROD_MNG.PRODUCT_MANAGEMENT",
 							"isOpen": false,
 							"isActive": false,
 							"isShow": !isRoot,
 							"routing": "prod-mng/prod-mng/prod-mng"
-						},
+						}						
 					]
 				},
 				// {
