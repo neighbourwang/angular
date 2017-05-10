@@ -1,4 +1,4 @@
-﻿
+﻿import {ProductItem,PhysicalMachine } from './'
 //已购列表加载
 export class SubInstanceResp {
   itemList: Array<SubInstanceItemResp> = [];//[SubInstanceItemResp], optional): 对应UI界面订单列表里面的详情 ,
@@ -22,10 +22,12 @@ export class SubInstanceItemResp {
   status: string = null;//, optional): UI订单状态，需要查询数据字典
   buyer: string = null;//订购人
   departmentName: string = null;//所属部门platform:string;
-platform:string;
-privateIp:string;
-publicIp:string;
-osType:string;
+  platform:string;
+  privateIp:string;
+  publicIp:string;
+  osType:string;
+  pmEntity:PhysicalMachine= new PhysicalMachine();
+  showSpecList:boolean = false;//已购服务配置和订单查询配置不一致
   get billingMode():number{//包装计费模式
     return this.billingInfo ? this.billingInfo.billingMode : null;
   }
