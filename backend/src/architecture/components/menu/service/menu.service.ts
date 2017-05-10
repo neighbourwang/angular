@@ -170,6 +170,13 @@ export class MenuService {
                             "isShow": !isRoot,
                             "routing": "mtc-center/mng-service/mng-service-list"
                         },
+                        {
+                            "label": "管理服务设置",
+                            "isOpen": false,
+                            "isActive": false,
+                            "isShow": !isRoot,
+                            "routing": "mtc-center/mng-service/mng-service-set"
+                        },
 					]
 				},
 				{
