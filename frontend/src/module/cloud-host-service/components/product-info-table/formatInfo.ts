@@ -117,6 +117,25 @@ export class formatInfo implements PipeTransform {
 					attrDisplayValue: info.INSTANCENAME.attrDisplayValue
 				}
 			]
+		}else if (serviceType == 11){  //管理服务
+			arr = [
+				{
+					attrDisplayName: "区域",
+					attrDisplayValue: info.REGION.attrDisplayValue
+				},
+				{
+					attrDisplayName: "可用区",
+					attrDisplayValue: info.ZONE.attrDisplayValue
+				},
+				{
+					attrDisplayName: "产品类型",
+					attrDisplayValue: info.SERVICEOBJECTCODE.attrDisplayValue
+				},
+				{
+					attrDisplayName: "产品名称",
+					attrDisplayValue: info.INSTANCENAME.attrDisplayValue
+				}
+			]
 		}
 		console.log(arr, 435345345)
 		return arr;

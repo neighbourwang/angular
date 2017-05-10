@@ -164,6 +164,10 @@ export class ManagementServicesOrderComponent implements OnInit {
 		this.postData.totalPrice = 1
 		this.postData.quality = 1
 		this.values.SERVICEOBJECTCODE.attrValue = this.productInfo.serviceObjectCode	
+		this.service.instanceList.then(res => {
+			this.values.SERVICEOBJECTCODE.attrDisplayValue = res.filter( r => r.value == this.productInfo.serviceObjectCode)[0].displayValue
+		})
+
 		this.values.TIMELINE.attrValue = "1";
 		this.checkValue("timeline")
 

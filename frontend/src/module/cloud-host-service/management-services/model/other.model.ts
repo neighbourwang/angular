@@ -1,5 +1,5 @@
 class ValuesAttr {
-	attrDisplayName: string = "";
+	attrDisplayValue: string = "";
 	attrValue: string = "";
 }
 
