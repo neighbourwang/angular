@@ -1,4 +1,5 @@
 //订单查询详情
+import { PhysicalMachine } from './';
 export class SearchOrderDetail{
 	billingPerson: string = null;//, optional): 提交者 ,
 	billingPersonId: string = null;//, optional): 提交者ID ,
@@ -58,7 +59,8 @@ export class SubInstanceItemResp1{
 		valueUnit: string;//, optional): 服务属性值的单位
 	}];//[SubInstanceAttrPair], optional): 产品规格 ,
 	status: string;//, optional): UI订单状态，需要查询数据字典
-    
+   pmEntity:PhysicalMachine= new PhysicalMachine();
+  showSpecList:boolean = false;//已购服务配置和订单查询配置不一致
 
   //一次性费用
   get oneTimePrice():number{

@@ -354,6 +354,9 @@ export class OrderMngComponent implements OnInit {
 				if (orderItem.itemList && orderItem.itemList.length > 0) {
 		           
 					orderItem.itemList[0].showSpecList = true;
+					// if(orderItem.itemList[0].serviceType==4||orderItem.itemList[0].serviceType==11){
+					// 	orderItem.itemList[0].status = '2';//测试物理机和管理服务续订
+					// }
 					
 					if (orderItem.itemList.find(n => !canRenew(n)) != null)
 						orderItem.canRenew = false;

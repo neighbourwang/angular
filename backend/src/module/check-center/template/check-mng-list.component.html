@@ -115,9 +115,11 @@
 								placement="right"
 								[animation]="true" 
 								[closeOnClickOutside]="true" >
-								<ul *ngIf="item.serviceTypeIdStr>1">
+								<!--<ul *ngIf="item.serviceTypeIdStr>1">
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}: {{spec.attrDisplayValue}}</li>
-								</ul>
+								</ul>-->
+								<service-view  [values]="item" *ngIf="item.serviceType==11"></service-view>
+								<machine-view  [values]="item" *ngIf="item.serviceType==4"></machine-view>
 								<vm-view [values]="item.specList" *ngIf="item.serviceTypeIdStr==0"></vm-view><!-- 显示云主机 -->
 						 		<disk-view [values]="item.specList" *ngIf="item.serviceTypeIdStr==1"></disk-view><!-- 显示云硬盘 -->
 						</popover-content>
