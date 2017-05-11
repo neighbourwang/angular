@@ -1921,6 +1921,8 @@
      "ENTERPRISE_NAME_NULL_CHANGE":"企业已变更为'{{value_1}}'。 确认是否保存",
      "ENTERPRISE_NAME_NOT_NULL_CHANGE":"企业已从'{{value_1}}'变更为'{{value_2}}'。 确认是否保存",
      "ENTERPRISE_NAME_CHANGE_NULL":"企业已重置, 确认是否保存",
+     "PLEASE_SELECT_OTHER_NULL_ENTERPRISE":"该账号的企业已经是'',请选择其他企业！",
+     "PLEASE_SELECT_OTHER_ENTERPRISE":"该账号的企业已经是'{{value_1}}',请选择其他企业！",
 
      "ALI_CLOUD_URL":"阿里云访问地址",
      "PLEASE_DONT'T_CHANGE_URL'":"自行修改默认设置可能会造成无法连接阿里云",

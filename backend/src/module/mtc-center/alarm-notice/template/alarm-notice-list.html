@@ -14,17 +14,19 @@
                 <th>阀值</th>
                 <th>告警开关</th>
                 <th>告警方式</th>
-                <th>描述</th>
+                <th >描述</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td><input type="radio"class="fox-cloud-radio"/></td>
-                <td>Host CPU平均利用率</td>
-                <td>条件1:>70 条件2:>80</td>
-                <td>打开</td>
-                <td>email</td>
-                <td>云平台宿主机CPU平均使用率</td>
+            <tr *ngFor="let item of alarmList">
+                <td>
+                    <input type="radio" class="fox-cloud-radio" name="alarm" (click)="getSelectAlarm(item);" [checked]="item.isSelect"/>
+                </td>
+                <td>{{item.alarmName}}</td>
+                <td>{{item.threshold}}</td>
+                <td>{{item.alarmSwitch}}</td>
+                <td>{{item.alarmMethod}}</td>
+                <td style="width:300px;word-break:break-all;">{{item.description}}</td>
             </tr>
             </tbody>
         </table>

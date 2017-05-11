@@ -1,16 +1,16 @@
 <div class="page-content-header icon-content-header-operation-center">
-    告警项：Host/可用区CPU/内存 使用率模板
+    告警项:{{alarm.alarmName}}
 </div>
 <div class="page-content">
     <div class="row row-line-height">
         <div class="col-md-10" >
             <div class="col-md-2 form-control-title" style="width:140px;">告警开关：</div>
             <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;width:90px;">
-                <input class="fox-cloud-radio" type="radio">
+                <input class="fox-cloud-radio" type="radio" name="alarmswitch"  [value]="1" [(ngModel)]="alarm.alarmSwitch">
                 <span class="mgl5">开启</span>
             </div>
             <div class="col-md-1" style="line-height:34px;font-size:16px;width:90px;">
-                <input class="fox-cloud-radio" type="radio">
+                <input class="fox-cloud-radio" type="radio" name="alarmswitch"  [value]="0"[(ngModel)]="alarm.alarmSwitch">
                 <span class="mgl5">关闭</span>
             </div>
         </div>
@@ -22,7 +22,8 @@
             <div class="col-md-2">
                 <select class="form-control">
                     <option>最近24小时</option>
-                    <option></option>
+                    <option>最近7天</option>
+                    <option>最近30天</option>
                 </select>
             </div>
         </div>
@@ -44,7 +45,12 @@
                 </select>
             </div>
             <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;">级别：</div>
-            <div class="col-md-2 no-padding" style="line-height:34px;font-size:16px;">警告</div>
+            <div class="col-md-2 no-padding" style="line-height:34px;font-size:16px;">
+                 <select class="form-control">
+                    <option>警告</option>
+                    <option></option>
+                </select>
+            </div>
         </div>
     </div>
     <div class="row row-line-height">
@@ -64,7 +70,12 @@
                 </select>
             </div>
             <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;">级别：</div>
-            <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;">警急</div>
+            <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;">
+                 <select class="form-control">
+                    <option>紧急</option>
+                    <option></option>
+                </select>
+            </div>
             <div class="col-md-3" style="line-height:34px;font-size:16px;">条件2&nbsp;输入的数值必须大于条件1</div>
         </div>
     </div>
@@ -121,7 +132,7 @@
     </div>
 </div>
 <div class="text-center">
-    <button type="button" class="fox-cloud-button-lg fox-cloud-button-white mgr20">
+    <button type="button" class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();">
         <span class="icon-button-label">取消</span>
     </button>
     <button type="button" class="fox-cloud-button-lg fox-cloud-button-white">

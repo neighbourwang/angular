@@ -94,6 +94,7 @@ export class CapacityMngComponent implements OnInit {
             return;
         }
         this.service.selectedPlatform = selectedPf;
+        this.service.selectedPage = this.page;
         this.router.navigate([ `mtc-center/capacity-mng/compute-res`]);
     }
 
