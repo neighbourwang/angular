@@ -1051,44 +1051,44 @@ export let RestApis: RestApiModel[] = [
         "desc": "主账号列表",
         "id": "user-center.ali-cloud.list",
         "method": "GET",
-        "url": "alicloud/authsec/alicloud/mmp/main/list"
+        "url": "marketplace/authsec/alicloud/mmp/main/list"
     },
     {
         "desc": "主账号详细信息",
         "id": "user-center.ali-cloud.majorinfo",
         "method": "GET",
-        "url": "alicloud/authsec/alicloud/mmp/main/acct/{id}"
+        "url": "marketplace/authsec/alicloud/mmp/main/acct/{id}"
     },
     {
         "desc": "测试主账号",
         "id": "user-center.ali-cloud.majortest",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/mmp/main/testacct"
+        "url": "marketplace/authsec/alicloud/mmp/main/testacct"
     },
     {
         "desc": "编辑保存主账号信息",
         "id": "user-center.ali-cloud.edit",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/mmp/main/update/{id}"
+        "url": "marketplace/authsec/alicloud/mmp/main/update/{id}"
     },
     {
         "desc": "编辑保存主账号部门分配",
         "id": "user-center.ali-cloud.editdepart",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/mmp/main/depart/update/{id}"
+        "url": "marketplace/authsec/alicloud/mmp/main/depart/update/{id}"
     },
     {
         "desc": "主账号部门列表",
         "id": "user-center.ali-cloud.departmajorlist",
         "method": "GET",
-        "url": "alicloud/authsec/alicloud/mmp/main/depart/list"
+        "url": "marketplace/authsec/alicloud/mmp/main/depart/list"
     },
     // 阿里云子账号管理
     {
         "desc": "子账号列表",
         "id": "user-center.ali-cloud.sublist",
         "method": "GET",
-        "url": "alicloud/authsec/alicloud/mmp/sub/list/{id}"
+        "url": "marketplace/authsec/alicloud/mmp/sub/list/{id}"
     },
     {
         "desc": "子账号详细信息",
@@ -1100,19 +1100,19 @@ export let RestApis: RestApiModel[] = [
         "desc": "子账号部门列表",
         "id": "user-center.ali-cloud.departsublist",
         "method": "GET",
-        "url": "alicloud/authsec/alicloud/mmp/sub/depart/list"
+        "url": "marketplace/authsec/alicloud/mmp/sub/depart/list"
     },
     {
         "desc": "测试子账号",
         "id": "user-center.ali-cloud.subtest",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/mmp/sub/acct/testsubacct"
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/testsubacct"
     },
     {
         "desc": "启用子账号",
         "id": "user-center.ali-cloud.enable",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/mmp/sub/acct/enable/{id}"
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/enable/{id}"
     },
     {
         "desc": "禁用子账号",
@@ -1130,19 +1130,19 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建子账号",
         "id": "user-center.ali-cloud.create",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/mmp/sub/acct/create/{id}"
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/create/{id}"
     },
     {
         "desc": "编辑保存子账号部门分配",
         "id": "user-center.ali-cloud.subdepart",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/mmp/sub/depart/update/{id}"
+        "url": "marketplace/authsec/alicloud/mmp/sub/depart/update/{id}"
     },
     {
         "desc": "编辑保存子账号信息",
         "id": "user-center.ali-cloud.editsub",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/mmp/sub/acct/update"
+        "url": "marketplace/authsec/alicloud/mmp/sub/acct/update"
     },
     // 阿里云共享账号管理
     {
@@ -1155,19 +1155,19 @@ export let RestApis: RestApiModel[] = [
         "desc": "编辑保存共享账号部门分配",
         "id": "user-center.ali-cloud.sharedepart",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/mmp/share/acct/depart/update/{id}"
+        "url": "marketplace/authsec/alicloud/mmp/share/acct/depart/update/{id}"
     },
     {
         "desc": "共享账号部门列表",
         "id": "user-center.ali-cloud.departsharelist",
-        "method": "GET",
-        "url": "alicloud/authsec/alicloud/mmp/share/sub/depart/list"
+        "method": "POST",
+        "url": "marketplace/authsec/alicloud/mmp/share/sub/depart/list"
     },
     // 阿里云index账号管理
     {
         "desc": "导航",
         "id": "user-center.ali-cloud.index",
         "method": "POST",
-        "url": "alicloud/authsec/alicloud/mmp/acct/type"
+        "url": "marketplace/authsec/alicloud/mmp/acct/type"
     },
 ]
