@@ -21,7 +21,7 @@ export class PhysicalMachineListComponent implements OnInit {
 
 	@ViewChild('popup')
 	private popup: PopupComponent;
-	
+
 	modalTitle: string = '';
 	modalMessage: string = '';
 	modalOKTitle: string = '';
@@ -64,6 +64,10 @@ export class PhysicalMachineListComponent implements OnInit {
 
 	changeName(name) {
 		
+	}
+
+	regionClick(event) {
+		console.log(event)
 	}
 
 	//分页

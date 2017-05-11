@@ -1,6 +1,13 @@
 <div class="page-content cloud_host_list">
 	<h1 class="page-content-header">物理机列表</h1>
-	<region-resourcepoll></region-resourcepoll>
+	<table class="cm-table-left top-table mgb20">
+        <tr>
+            <th class="col-md-1 col-xs-3 text-center">{{'CLOUD_DRIVE_LIST.AREA_LIST' | translate}}</th>
+            <td>
+				<region-resourcepoll (onClick)="regionClick($event)"></region-resourcepoll>
+            </td>
+        </tr>
+    </table>
     <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>

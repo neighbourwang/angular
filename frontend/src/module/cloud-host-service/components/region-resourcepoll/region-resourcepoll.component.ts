@@ -44,15 +44,13 @@ export class RegionResourcepollComponent implements OnInit {
 			if(!res.length) return this.resourcePolls = []
 
 			this.resourcePolls = res;
-			this.resourcePoll = this.resourcePolls[0]
 		})
 	}
 
-
-	// private clickEmit(){
-	//	this.onClick.emit({
-	//		area : this.currentArea, 
-	//		zone : this.currentZone
-	//	});
-	// }
+	private clickEmit(){
+		this.onClick.emit({
+			region : this.region, 
+			resourcePoll : this.resourcePoll
+		});
+	}
 }
