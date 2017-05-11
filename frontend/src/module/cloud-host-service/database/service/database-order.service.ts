@@ -14,8 +14,8 @@ export class DatabaseServiceOrder {
     }
 
 
-    fetchVmState(vmid): Promise<any> {
-        const api = this.restApiCfg.getRestApi("featch.vm.state");
+    fetchDatabaseInit (): Promise<any> {
+        const api = this.restApiCfg.getRestApi("database.template.init");
 
         const request = this.restApi.request(api.method, api.url, undefined, undefined, undefined)
                             .then(res => {
@@ -26,5 +26,30 @@ export class DatabaseServiceOrder {
                             });
         return request;
     }
-    
+
+    fetchShoppingMDproducts (postData): Promise<any> {
+        const api = this.restApiCfg.getRestApi("shopping.MDproducts");
+
+        const request = this.restApi.request(api.method, api.url, undefined, undefined, postData)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+        return request;
+    }
+
+    fetchDatabaseSearch(postData): Promise<any> {
+        const api = this.restApiCfg.getRestApi("database.template.search");
+
+        const request = this.restApi.request(api.method, api.url, undefined, undefined, postData)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+        return request;
+    }
 }

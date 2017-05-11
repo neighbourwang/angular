@@ -34,7 +34,19 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 
 	ngOnInit() {
 		this.makeSubscriber()
+		this.makeDbSubScriber()
 		this.fetchConfig()
+		this.fetchDatabaseInit()
+	}
+
+	makeDbSubScriber() {
+
+	}
+
+	private fetchDatabaseInit() {
+		this.dbservice.fetchDatabaseInit().then(res => {
+			console.log(res.items)
+		})
 	}
 
 }
