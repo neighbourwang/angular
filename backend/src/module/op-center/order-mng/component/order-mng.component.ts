@@ -124,7 +124,9 @@ export class OrderMngComponent implements OnInit{
 
 
 				if(orderItem.itemList && orderItem.itemList.length > 0)
+		
 				{
+					orderItem.itemList[0].showSpecList = true;
 					if(orderItem.itemList.find(n=>!canRenew(n)) != null)
 						orderItem.canRenew = false;
 					else

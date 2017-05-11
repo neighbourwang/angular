@@ -19,6 +19,7 @@ export class TemplateMngListComponent implements OnInit{
     @ViewChild('createTemplatePop')
     createTemplatePop:PopupComponent;
 
+    templateType:string='0';
     ngOnInit(){
         
     }
@@ -26,7 +27,8 @@ export class TemplateMngListComponent implements OnInit{
         this.createTemplatePop.open('PROD_MNG.CREATE_TEMPLATE')
     }
     otcreate(){
-        this.router.navigate(['prod-mng/template-mng/template-cre'])
+        console.log(this.templateType);
+        this.router.navigate(['prod-mng/template-mng/template-cre',{type:'new',code:this.templateType}])
     }
     ccf(){
 

@@ -4,8 +4,9 @@ import { NgModule } from '@angular/core';
 import { CommonComponentModule, PipeModule} from '../../../architecture';
 
 //Components
-import {MngServiceListComponent} from './component/mng-service-list.component'
-import {MngServiceDetailComponent} from './component/mng-service-detail.component'
+import {MngServiceListComponent} from './component/mng-service-list.component';
+import {MngServiceDetailComponent} from './component/mng-service-detail.component';
+import {MngServiceSetComponent} from './component/mng-service-set.component';
 
 // Routing
 import {MngServiceRouting} from './mng-service.routing';
@@ -22,11 +23,13 @@ import { MngDetailService} from './service/mng-detail.service';
     ],
     declarations: [
         MngServiceListComponent,
-        MngServiceDetailComponent
+        MngServiceDetailComponent,
+        MngServiceSetComponent
     ],
     exports: [
         MngServiceListComponent,
-        MngServiceDetailComponent
+        MngServiceDetailComponent,
+        MngServiceSetComponent
     ],
     providers:[
         MngService,
