@@ -227,13 +227,13 @@ export class MenuService {
                         {
                             "label": "MENU.ALI_ACCOUNT_MNG",
                             "isOpen": false,
-                            "isShow": true,
+                            "isShow": isOrgin,
                             "routing": "user-center/ali-cloud/ali-index"
                         },
                         {
                             "label": "MENU.CASE_MNY",
                             "isOpen": false,
-                            "isShow": true,
+                            "isShow": isOrgin,
                             "routing": "user-center/case-mng/case-mng-list"
                         }
 
