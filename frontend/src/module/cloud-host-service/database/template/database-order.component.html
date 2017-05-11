@@ -28,6 +28,41 @@
 			</li>
 			<li>
 				<div class="col-md-1 li-title">
+					<p><span class="icon-host"></span><br>{{'VM_INSTANCE.CLOUD_HOST_SOURCE'| translate}}</p>
+				</div>
+				<div class="col-md-12 li-content">
+					<div class="col-md-2 content-title">{{'VM_INSTANCE.START_SOURCE'| translate}}</div>
+					<div class="col-md-10">
+						<select [(ngModel)]="values.STARTUPSOURCE" class="form-control" id="startupsource">
+							<option
+							 *ngFor="let value of valuesList.STARTUPSOURCE"
+							 [ngValue]="value" id="startupsource_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
+						</select>
+					</div>
+					<div class="col-md-2"></div>
+					<div class="col-md-10 text-tip">{{'VM_INSTANCE.DEFINITION_OF_PUBLIC_IMAGE_AND_CUSTOM_IMAGE'| translate}}</div>
+					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_TYPE'| translate}}</div>
+					<div class="col-md-10 btn-group" data-toggle="buttons">
+						<label
+							*ngFor="let value of valuesList.IMAGETYPE"
+							(click)="values.IMAGETYPE = value;dux.dispatch('IMAGETYPE')" id="imagetype_{{value.attrValue}}" class="btn btn-default" [ngClass]="{'active': values.IMAGETYPE?.attrValueId === value.attrValueId}">
+							<input type="radio" name="imagetype" autocomplete="off"  value="{{value.attrValue}}" > {{ value.attrDisplayValue }}
+						</label>
+					</div>
+					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_LIST'| translate}}</div>
+					<div class="col-md-10">
+						<select [(ngModel)]="values.OS" (ngModelChange)="dux.dispatch('OS')" id="os" class="form-control">
+							<option
+							 *ngFor="let value of valuesList.OS"
+							 [ngValue]="value" id="os_{{value.attrValueCode}}">{{ value.attrDisplayValue }}</option>
+						</select>
+					</div>
+					<div class="col-md-2"></div>
+					<div class="col-md-10 text-tip-orange" *ngIf="!isZoneSupportOs">本可用区不支持该镜像！</div>
+				</div>
+			</li>
+			<li>
+				<div class="col-md-1 li-title">
 					<p><span class="icon-specifications"></span><br>{{'VM_INSTANCE.INSTANCE_CONFIGURATION'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
@@ -76,41 +111,6 @@
 					</div>
 					<div class="col-md-2"></div>
 					<div class="col-md-10 text-tip">{{'VM_INSTANCE.CONSULT_ADMIN_ABOUT_CHOOSING'| translate}}</div>
-				</div>
-			</li>
-			<li>
-				<div class="col-md-1 li-title">
-					<p><span class="icon-host"></span><br>{{'VM_INSTANCE.CLOUD_HOST_SOURCE'| translate}}</p>
-				</div>
-				<div class="col-md-12 li-content">
-					<div class="col-md-2 content-title">{{'VM_INSTANCE.START_SOURCE'| translate}}</div>
-					<div class="col-md-10">
-						<select [(ngModel)]="values.STARTUPSOURCE" class="form-control" id="startupsource">
-							<option
-							 *ngFor="let value of valuesList.STARTUPSOURCE"
-							 [ngValue]="value" id="startupsource_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
-						</select>
-					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-10 text-tip">{{'VM_INSTANCE.DEFINITION_OF_PUBLIC_IMAGE_AND_CUSTOM_IMAGE'| translate}}</div>
-					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_TYPE'| translate}}</div>
-					<div class="col-md-10 btn-group" data-toggle="buttons">
-						<label
-							*ngFor="let value of valuesList.IMAGETYPE"
-							(click)="values.IMAGETYPE = value;dux.dispatch('IMAGETYPE')" id="imagetype_{{value.attrValue}}" class="btn btn-default" [ngClass]="{'active': values.IMAGETYPE?.attrValueId === value.attrValueId}">
-							<input type="radio" name="imagetype" autocomplete="off"  value="{{value.attrValue}}" > {{ value.attrDisplayValue }}
-						</label>
-					</div>
-					<div class="col-md-2 content-title">{{'VM_INSTANCE.MIRROR_LIST'| translate}}</div>
-					<div class="col-md-10">
-						<select [(ngModel)]="values.OS" (ngModelChange)="dux.dispatch('OS')" id="os" class="form-control">
-							<option
-							 *ngFor="let value of valuesList.OS"
-							 [ngValue]="value" id="os_{{value.attrValueCode}}">{{ value.attrDisplayValue }}</option>
-						</select>
-					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-10 text-tip-orange" *ngIf="!isZoneSupportOs">本可用区不支持该镜像！</div>
 				</div>
 			</li>
 			<li>
