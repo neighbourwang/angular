@@ -220,10 +220,6 @@ export class MngServiceListComponent implements OnInit{
         }
     }
 
-    oneSet(){
-        this.setUnit.open("一次性管理服务系统设置");
-    }
-
     gotoDetail(item){
         this.router.navigate([`mtc-center/mng-service/mng-service-detail`,{"serviceId":item.serviceId}]);
     }
