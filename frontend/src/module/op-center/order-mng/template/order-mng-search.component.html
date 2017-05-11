@@ -101,12 +101,12 @@
 					</td>
 					<td>{{item.submitTime}}</td>
 					<td>{{item.EndTime}}</td>
-					<td>{{item.submitPeople}}</td>
+					<td><span style="display:block;width:80px;word-wrap:break-word;">{{item.submitPeople}}</span></td>
 					<td>{{item.departmentName}}</td>
-					<td>
-						<button class="mgr20  button-gray-gradient" (click)="showDetail(item)" id="order_detail_{{item.orderId}}">{{ 'ORDER_MNG.DETAILS' | translate }}</button>
+					<td style="min-width: 90px;">
+						<button class="button-gray-gradient " (click)="showDetail(item)" id="order_detail_{{item.orderId}}">{{ 'ORDER_MNG.DETAILS' | translate }}</button>
 						<!--撤单-->
-						<button *ngIf="item.withDrawOrderFlag==1" class="button-gray-gradient" data-toggle="modal" (click)="selectItem(item)" id="cancel_order_{{item.orderId}}">{{ 'ORDER_MNG.CANCEL_THE_ORDER' | translate }}</button>
+						<button *ngIf="item.withDrawOrderFlag==1" class="button-gray-gradient mgt10" data-toggle="modal" (click)="selectItem(item)" id="cancel_order_{{item.orderId}}"><span style="letter-spacing: 2px;">{{ 'ORDER_MNG.CANCEL_THE_ORDER' | translate }}</span></button>
 						
 					</td>
 				</tr>

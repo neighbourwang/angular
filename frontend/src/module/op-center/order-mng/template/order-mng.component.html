@@ -183,13 +183,13 @@
 						<th class="text-center">{{ 'CHECK_CENTER.PRODUCT_TYPE' | translate }}</th>
 						<th class="text-center">{{ 'ORDER_MNG.CHARGING_MODE' | translate }}</th>
 						<th class="text-center">{{ 'ORDER_MNG.PURCHASE_CYCLE' | translate }}</th>
-						<th class="text-center">{{ 'COMMON.QUANTITY' | translate }}</th>
+						<th class="text-center" style="padding-right: 40px;">{{ 'COMMON.QUANTITY' | translate }}</th>
 						<th class="text-center">{{ 'COMMON.EXPENSE' | translate }}</th>
-						<th class="text-center">{{ 'COMMON.STATUS' | translate }}</th>
+						<th class="text-center" style="padding-left: 40px;">{{ 'COMMON.STATUS' | translate }}</th>
 						<th class="text-center">{{ 'COMMON.CREATED_TIME' | translate }}</th>
 						<th class="text-center">{{ 'COMMON.EXPIRE_DATE' | translate }}</th>
-						<th>{{ 'COMMON.PURCHASER' | translate }}</th>
-						<th>所属部门</th>
+						<th class="text-center">{{ 'COMMON.PURCHASER' | translate }}</th>
+						<th  class="text-center">所属部门</th>
 					</tr>
 				</thead>
 			</table>
@@ -213,10 +213,6 @@
 				</tr>
 				<tr *ngFor="let prodItem of orderItem.itemList">
 					<td class="order-title">
-						<!--<ul *ngIf="prodItem.serviceType>1">
-							<li *ngFor="let detailItem of prodItem.specList">{{detailItem.attrDisplayName}}：&nbsp;&nbsp;{{detailItem.attrDisplayValue}} {{detailItem.valueUnit}}</li>
-						</ul>
-						-->
 						<service-view  [values]="prodItem" *ngIf="prodItem.serviceType==11"></service-view>
 						<machine-view  [values]="prodItem" *ngIf="prodItem.serviceType==4"></machine-view>
 						<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0"></vm-view>
@@ -228,14 +224,16 @@
 					<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>
 					<td>{{prodItem.period}} {{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</td>
 					<td>{{prodItem.quantity}}台</td>
-					<td style="width: 100px;">
-						{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}<br/>
-						<span>费用:￥{{prodItem.price}}/</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
+					<td style="width: 125px;">
+						<ul>
+							<li><span>{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}</span></li>
+							<li><span>费用:￥{{prodItem.price}}/</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></li>
+						</ul>	
 					</td>
 					<td class="font-green">{{prodItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') |async}}</td>
 					<td>{{prodItem.createDate}}</td>
 					<td>{{prodItem.expireDate}}</td>
-					<td>{{prodItem.buyer}}</td>
+					<td><span style="display:block;width:80px;word-wrap:break-word;">{{prodItem.buyer}}</span></td>
 					<td>{{prodItem.departmentName}}</td>
 				</tr>
 			</table>
