@@ -1111,7 +1111,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建子账号",
         "id": "user-center.ali-cloud.create",
         "method": "POST",
-        "url": "marketplace/authsec/alicloud/mmp/sub/acct/create/{id}"
+        "url": "alicloud/authsec/alicloud/mmp/sub/acct/create/{id}"
     },
     {
         "desc": "编辑保存子账号部门分配",
