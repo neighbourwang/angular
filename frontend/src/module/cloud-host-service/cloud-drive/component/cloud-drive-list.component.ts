@@ -50,6 +50,8 @@ export class cloudDriveListComponent implements OnInit {
 	superSearch: boolean = false;   //高级搜索开关
 	distList : DistList[];
 
+	destroyed: boolean;
+
 	constructor(
 		private layoutService: LayoutService, 
 		private router: Router,
@@ -61,6 +63,12 @@ export class cloudDriveListComponent implements OnInit {
 		// this.setArea();
 		this.setDistList();
 		this.initSelect();
+
+		this.destroyed = false;
+	}
+
+	ngOnDestroy() {
+		this.destroyed = true;
 	}
 
 	setDistList(): void {
@@ -74,7 +82,7 @@ export class cloudDriveListComponent implements OnInit {
 			return res.resultContent;
 		}).then(list => {
 			this.distList = list;
-			// this.checkListMiddleState();
+			this.checkListMiddleState();
 		}).catch(error => {
 			// this.layoutService.hide();
 		});
@@ -116,10 +124,12 @@ export class cloudDriveListComponent implements OnInit {
 
 
 	isMiddleState(state) {
-		return !!['3', '4', '5', '6', '8', '9', '11', '13'].filter(v => v==state).length
+		return !!['0', '15', '5'].filter(v => v==state).length
 	}
 
 	checkListMiddleState() {
+		if(this.destroyed) return false;  //如果组件被销毁了 return
+
 		let mkPromise = (disk) => this.isMiddleState(disk.status) ? this.service.fetchDiskState(disk.itemId) : false
 		let fecthMiddleStateList = this.distList.map(mkPromise)
 
@@ -127,7 +137,7 @@ export class cloudDriveListComponent implements OnInit {
 
 		Promise.all(fecthMiddleStateList).then(res => {
 			res.forEach((disk, i) => {
-				if(disk) this.distList[i].status = disk.status
+				if(disk) this.distList[i].status = disk.diskState
 			})
 			setTimeout(this.checkListMiddleState.bind(this) , 10 * 1000)
 		})

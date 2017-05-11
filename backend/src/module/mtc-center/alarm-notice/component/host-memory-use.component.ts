@@ -1,9 +1,10 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router,Params,ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { LayoutService, NoticeComponent , ConfirmComponent  } from '../../../../architecture';
-
+import{ AlarmListModel} from '../model/alarm-list.model';
 //service
 import { AlarmNoticeListService } from '../service/alarm-notice-list.service';
 
@@ -18,8 +19,10 @@ export class HostMemoryUseComponent implements OnInit{
 
     constructor(
         private router : Router,
+        private activeRoute:ActivatedRoute,
         private service : AlarmNoticeListService,
-        private layoutService : LayoutService
+        private layoutService : LayoutService,
+        private location: Location
     ) {
 
     }
@@ -30,11 +33,38 @@ export class HostMemoryUseComponent implements OnInit{
     @ViewChild("notice")
     notice: NoticeComponent;
 
+    alarm:AlarmListModel=new AlarmListModel();
+
     ngOnInit (){
         console.log('init');
-        //this.layoutService.show();
+        this.activeRoute.params.forEach((params: Params) => {
+            this.alarm.id = params["id"];
+          });
+          this.getAlarm()
+    }
 
+    //获取告警项
+    getAlarm(){
+        this.layoutService.show();
+        this.service.getAlarm(this.alarm.id) 
+        .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.layoutService.hide();
+                        this.alarm=response["resultContent"].find((e)=>{return e.id ==this.alarm.id});
+                        console.log(this.alarm)
+                    } 
+                    else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e)); 
+    }
 
+    cancel(){
+       this.location.back();
     }
     
 
