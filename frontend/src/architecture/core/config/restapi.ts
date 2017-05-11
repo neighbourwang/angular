@@ -240,6 +240,25 @@ export let RestApis: RestApiModel[] = [
         "id": "disk.vm.search",
         "url": "marketplace/authsec/subinstance/itemlist/vm/simple/search/page"
     },
+    //数据库中间件
+    {
+        "desc": "获取DB预加载数据",
+        "method": "GET",
+        "id": "database.template.init",
+        "url": "marketplace/authsec/database/template/init"
+    },
+    {
+        "desc": "数据库，中间件--根据templateId,获取产品详情",
+        "method": "POST",
+        "id": "shopping.MDproducts",
+        "url": "marketplace/authsec/shopping/MDproducts/"
+    },
+    {
+        "desc": "查询数据库模板",
+        "method": "POST",
+        "id": "database.template.search",
+        "url": "marketplace/authsec/database/template/search"
+    },
     //物理机部分,
     {
         "desc": "获取区域列表",
