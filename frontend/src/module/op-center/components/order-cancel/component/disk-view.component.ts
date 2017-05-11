@@ -14,7 +14,7 @@ import * as _ from 'underscore';
 
 		<li  *ngIf="_obj.capacity" >云硬盘容量: {{_obj.capacity}}</li>
 
-		<li  *ngIf="_obj.instanceName" >实例名称: {{_obj.instanceName}}</li>
+		<li  *ngIf="_obj.instanceName" ><span style="display:block;width:150px;word-wrap:break-word;">实例名称: {{_obj.instanceName}}</span></li>
 	</ul>
 	`
 })
