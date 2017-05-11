@@ -13,7 +13,7 @@
 
     <button *ngFor="let value of resourcePolls;" 
             (click)="resourcePoll = value;" 
-            [ngClass]="{'active':resourcePoll.id === value.id}"
+            [ngClass]="{'active':resourcePoll?.id === value.id}"
             id="regionItem_{{value.id}}"
             class="btn mgb5 btn-default">{{ value.poolName }}
     </button>

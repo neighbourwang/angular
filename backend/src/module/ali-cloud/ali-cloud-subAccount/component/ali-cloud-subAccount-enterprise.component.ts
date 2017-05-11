@@ -98,6 +98,18 @@ export class AliCloudSubAccountEnterpriseComponent implements OnInit{
              entName=selectEnt.tenantName
         }
         console.log("传的企业",entId,entName)
+        if( this.account.tenantName==this.changeEntName){
+            if(this.account.tenantName==null){
+                //this.showAlert("该账号的企业已经是'',请选择其他企业！");
+                this.showAlert("ALI_CLOUD.PLEASE_SELECT_OTHER_NULL_ENTERPRISE");
+                return;
+            }
+            else{
+                //this.showAlert("该账号的企业已经是'"+this.account.tenantName+"',请选择其他企业！");
+                this.showAlert("ALI_CLOUD.PLEASE_SELECT_OTHER_ENTERPRISE^^^"+this.account.tenantName);
+                return;
+            }       
+        }
         if(this.account.tenantName != this.changeEntName){
              this.noticeTitle="ALI_CLOUD.ENTERPRISE_SET";
             if(!this.account.tenantName){
