@@ -50,10 +50,10 @@ export class MenuService {
 							"routing": "image-mng/image-mng"
 						},
 						{
-							"label": "物理机订购",
+							"label": "物理机实例",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "cloud-host-service/physical-machine-order"
+							"routing": "cloud-host-service/physical-machine-list"
 						},
 						{
 							"label": "管理服务订购",
