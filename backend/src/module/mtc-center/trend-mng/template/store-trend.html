@@ -69,7 +69,7 @@
     <div class="mgt20 mgb10" style="font-size:18px;font-weight:bold;">基本信息：</div>
     <div class="row">
         <div class="col-md-6">
-            <div class="table-container">
+            <div class="table-container" style="height:256px;overflow-y:scroll;">
                 <table class="table table-container">
                     <thead>
                         <tr>
@@ -79,7 +79,7 @@
                             <th>可分配</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         <tr *ngFor="let z of zoneDiskList">
                             <td>{{z.name}}</td>
                             <td>{{z.sizeAttached}}</td>
@@ -111,18 +111,26 @@
                                 </div>
                          </div>
                          <div class="col-md-6 col-md-offset-1">
-                             <div style="margin-top:40px;margin-left:20px;">
+                             <div style="margin-top:20px;margin-left:20px;">
                                 <div class="row" style="padding:5px 0;">
                                     <span class="legend" style="background: #2bd2c8;"></span>&nbsp;0-50GB
-                                    <span style="margin-left:60px;">{{general.s0_50GB}}</span>
+                                    <span style="margin-left:67px;">{{general.level1}}</span>
                                 </div>
                                 <div class="row" style="padding:5px 0;">
-                                    <span class="legend" style="background: #05ab83"></span>&nbsp;50-150GB
-                                    <span style="margin-left:50px;">{{general.s50_150GB}}</span>
+                                    <span class="legend" style="background: #05ab83"></span>&nbsp;50-100GB
+                                    <span style="margin-left:51px;">{{general.level2}}</span>
                                 </div>
                                 <div class="row" style="padding:5px 0;">
-                                    <span class="legend" style="background: #c9cacc"></span>&nbsp;150-200GB
-                                    <span style="margin-left:44px;">{{general.s150_200GB}}</span>
+                                    <span class="legend" style="background: #c9cacc"></span>&nbsp;100-150GB
+                                    <span style="margin-left:44px;">{{general.level3}}</span>
+                                </div>
+                                <div class="row" style="padding:5px 0;">
+                                    <span class="legend" style="background: #85f46f"></span>&nbsp;150-200GB
+                                    <span style="margin-left:44px;">{{general.level4}}</span>
+                                </div>
+                                 <div class="row" style="padding:5px 0;">
+                                    <span class="legend" style="background: #fa88ec"></span>&nbsp;200GB以上
+                                    <span style="margin-left:47px;">{{general.level5}}</span>
                                 </div>
                             </div>
                          </div>

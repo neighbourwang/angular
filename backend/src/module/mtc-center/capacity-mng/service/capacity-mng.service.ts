@@ -16,7 +16,7 @@ export class CapacityMngService {
     ) { }
 
     selectedPlatform: PlatformModel;
-    selectedPage: number;
+    
     pfDic = this.dict.get({
         owner: "PLATFORM",
         field: "TYPE"
