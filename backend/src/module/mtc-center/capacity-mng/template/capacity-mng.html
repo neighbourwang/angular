@@ -24,7 +24,7 @@
             </thead> 
             <tbody>
                 <tr *ngFor="let pf of pfList let i=index">
-                    <td><input type="radio" name="pf" class="fox-cloud-radio" [checked]="pf.selected" (change)="selectPlatform(pf)"/></td>
+                    <td><input type="radio" name="pf" class="fox-cloud-radio" [checked]="pf.selected" [disabled]="pf.status==0"  (change)="selectPlatform(pf)"/></td>
                     <td>{{(page-1)*size+i+1}}</td>                   
                     <td>{{pf.name}}</td>
                     <td>{{pf.regionName}}</td>

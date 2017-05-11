@@ -30,6 +30,7 @@ import { OrderCancleModule } from '../../op-center/components/order-cancel/order
 import { OrderCompleteModule } from './order-complete/order-complete.module';
 import { UnsubscribeModule } from './unsubscribe/unsubscribe.module';
 import { PlatformZoneModule } from './platform-zone/platform-zone.module';
+import { RegionResourcepollModule } from './region-resourcePoll/region-resourcePoll.module';
 
 import { filterPlatformPipe } from './pipe/filter-platform.pipe'
 
@@ -73,7 +74,8 @@ import { DispatchEvent } from './dispatch-event'
         CustomOsComponent,
         UnsubscribeModule,
         OrderCompleteModule,
-        PlatformZoneModule
+        PlatformZoneModule,
+        RegionResourcepollModule
     ],
     providers: [
         // PlatformZoneServiceList,

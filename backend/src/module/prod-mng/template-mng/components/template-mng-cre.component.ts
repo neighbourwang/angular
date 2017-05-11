@@ -22,11 +22,16 @@ export class TemplateMngCreComponent implements OnInit{
 
     @ViewChild('notice')
     notice:NoticeComponent;
-
+    pagetitle:string;
     ngOnInit(){
-        // this.router.params.forEach((params: Params) => {
-        //     console.log();
-        // })
+        this.route.params.forEach((params: Params) => {
+            this.pagetitle=
+                params['type']=='new'&&params['code']=='0'?'新建数据库模板':
+                params['type']=='new'&&params['code']=='1'?'新建中间件模板':
+                params['type']=='edit'&&params['code']=='0'?'编辑数据库模板':'编辑中间件模板';
+
+            console.log();
+        })
     }
     onSubmit(){
         this.router.navigateByUrl('prod-mng/template-mng/template-list', { skipLocationChange: true })
