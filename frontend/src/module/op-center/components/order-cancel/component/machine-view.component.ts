@@ -47,7 +47,7 @@ import * as _ from 'underscore';
 
 		<li  *ngIf="_obj.password&&values.showSpecList" >密码: {{_obj.password}}</li>
 
-		<li  *ngIf="_obj.instanceName&&values.showSpecList" >实例名称: {{_obj.instanceName}}</li>
+		<li  *ngIf="_obj.instanceName&&values.showSpecList" ><span style="display:block;width:150px;word-wrap:break-word;">实例名称: {{_obj.instanceName}}</span></li>
 	</ul>
 
 	`
