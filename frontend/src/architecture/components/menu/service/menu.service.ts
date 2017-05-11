@@ -50,10 +50,22 @@ export class MenuService {
 							"routing": "image-mng/image-mng"
 						},
 						{
+							"label": "物理机实例",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "cloud-host-service/physical-machine-list"
+						},
+						{
 							"label": "物理机订购",
 							"isOpen": true,
 							"isShow": true,
 							"routing": "cloud-host-service/physical-machine-order"
+						},
+						{
+							"label": "数据库实例",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "cloud-host-service/database-list"
 						},
 						{
 							"label": "管理服务订购",
@@ -227,13 +239,13 @@ export class MenuService {
                         {
                             "label": "MENU.ALI_ACCOUNT_MNG",
                             "isOpen": false,
-                            "isShow": true,
+                            "isShow": isOrgin,
                             "routing": "user-center/ali-cloud/ali-index"
                         },
                         {
                             "label": "MENU.CASE_MNY",
                             "isOpen": false,
-                            "isShow": true,
+                            "isShow": isOrgin,
                             "routing": "user-center/case-mng/case-mng-list"
                         }
 

@@ -677,7 +677,19 @@ export class AliCloudVmListComponent implements OnInit {
                             this.showAlert("释放实例成功！");
                             this.selectRegion(this.choosenRegion);
                         } else {
-                            this.showAlert("COMMON.GETTING_DATA_FAILED");
+                            //this.showAlert("COMMON.GETTING_DATA_FAILED");
+                            if (403 == response["resultCode"]) {
+                                let result;
+                                try {
+                                    result = JSON.parse(response.resultContent);
+                                    console.log(result, "result!");
+                                } catch (ex) {
+                                    console.log(ex);
+                                }
+                                this.showAlert(response["resultCode"] + ": " + result.Message);
+                            } else {
+                                this.showAlert("COMMON.OPERATION_ERROR");
+                            }
                         }
                     })
                     .catch((e) => this.onRejected(e));
@@ -806,6 +818,7 @@ export class AliCloudVmListComponent implements OnInit {
                     this.totalPage = Math.ceil(this.allinstances.length / this.pageSize);
                     console.log(this.allinstances.length, this.totalPage, "TotalCount, this.totalPage!");
                     this.pageIndex = 1;
+                    this.pager.render(1);
                     this.instances = this.allinstances.slice(0,this.pageIndex*this.pageSize);
                     console.log(this.instances, "instances!");
                     //this.instances = result.Instances.Instance;

@@ -75,7 +75,7 @@ export class cartListComponent implements OnInit {
 		this.service.purchaseCart(list).then(res => {
 			this.layoutService.hide();
 			this.noticeconfirm = function(){
-				this.goTo("cloud-host-service/cart-order");
+				this.router.navigate(['cloud-host-service/cart-order/', JSON.stringify(res)]);
 			}
 			this.noticeDialog.open("","SHOPPING_CART.PURCHASE_SUCCESS");
 		}).catch(e => {

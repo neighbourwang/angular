@@ -67,8 +67,8 @@ export class ComputeTrendComponent implements OnInit {
         this.getPlfList();
         this.getCloudHostSpec();
         
-        console.log('Dic',this.service.queryTypeDic);
         this.reset();
+        this.confirm();
     }
 
     //获取平台联动列表

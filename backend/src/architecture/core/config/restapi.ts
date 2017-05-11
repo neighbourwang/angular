@@ -2712,6 +2712,18 @@ export let RestApis: RestApiModel[] = [
         "method":"POST",
         "url":"maintenancemgmt/noauth/trend/query/export"
      },
+     {
+        "desc": "趋势-存储-表格和环形图",
+        "id":"store-trend.general",
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/trend/storage/general"
+     },
+     {
+        "desc": "趋势-存储-柱状图",
+        "id":"store-trend.graph",
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/trend/graph/storage"
+     },
      //阿里云账号管理
      {
         "desc": "获取主账号列表",
