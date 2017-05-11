@@ -386,7 +386,7 @@ export class AliSubListComponent implements OnInit{
 
     checkForm(key?:string){
         const regs:ValidationRegs = {
-            loginName: [this.subInfo.loginName, [this.v.isBase, this.v.isUnBlank], "USER_CENTER.LOGINNAME_CANNOT_EMPTY"],
+            loginName: [this.subInfo.loginName, [this.v.isUnBlank], "USER_CENTER.LOGINNAME_CANNOT_EMPTY"],
             accessKey: [this.subInfo.accessKey, [this.v.isUnBlank], "USER_CENTER.ACCESSKEY_CANNOT_EMPTY"],
             accessSecret: [this.subInfo.accessSecret, [this.v.isUnBlank], "USER_CENTER.ACCESSSECRET_CANNOT_EMPTY"],
         }
