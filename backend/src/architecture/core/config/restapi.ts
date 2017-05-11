@@ -1247,6 +1247,43 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminui/authsec/product/middeware" 
     },
+    //模板管理
+    {
+        "desc": "获取数据库选项基础信息",
+        "id": "template-mng-database.initInfo.get",
+        "method": "GET",
+        "url": "adminui/authsec/database/template/options/init"
+    },    
+    {
+        "desc": "获取模板列表",
+        "id": "template-mng-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/database/template/search/list/paging" 
+    },
+    {
+        "desc": "创建数据库模板",
+        "id": "template-mng-database.cre.post",
+        "method": "POST",
+        "url": "adminui/authsec/database/template" 
+    },
+    {
+        "desc": "创建中间件模板",
+        "id": "template-mng-middleware.cre.post",
+        "method": "POST",
+        "url": "adminui/authsec/middleware/insertTemplate" 
+    },
+     {
+        "desc": "更新数据库模板",
+        "id": "template-mng-database.cre.post",
+        "method": "PUT",
+        "url": "adminui/authsec/database/template" 
+    },
+    {
+        "desc": "更新中间件模板",
+        "id": "template-mng-middleware.cre.post",
+        "method": "PUT",
+        "url": "adminui/authsec/middleware/updateTemplate" 
+    },
     //用户中心
     {
         "desc": "获取所有机构",

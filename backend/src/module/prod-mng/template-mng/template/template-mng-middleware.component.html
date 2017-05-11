@@ -1,0 +1,54 @@
+<div class="page-content-header icon-create-product">{{pagetitle | translate}}</div><!--创建模板-->
+
+<div class="page-content fix-page-content">
+	<div class="row" style="padding-top: 30px;">
+		<div class="col-md-12">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}：</div><!--模板名称-->
+					<div class="col-sm-4">
+						<!--<input type="text" class="form-control font-gray" [(ngModel)]="product.name" placeholder="{{'PROD_MNG.PROD_NAME' | translate}}">-->
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>{{'数据库选项' | translate}}：</div><!--模板目录-->
+
+					<div class="col-sm-4 font-gray">
+						
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>{{'最小规格' | translate}}：</div><!--模板目录-->
+
+					<div class="col-sm-4 font-gray">
+						
+					</div>
+				</div>
+			</div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-3 form-control-title"><span class="asterisk">*</span>{{'存储定义' | translate}}：</div><!--模板目录-->
+
+					<div class="col-sm-4 font-gray">
+						
+					</div>
+				</div>
+			</div>			
+		</div>
+	</div>
+</div>
+<div class="text-center">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">{{'NET_MNG_OPENSTACK.CNACLE' | translate}}</span>
+    </button>
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();" style="margin-left:40px">
+        <span class="icon-button-label">{{'PROD_MNG.CREATE_PRODUCT' | translate}}</span><!--创建模板-->
+
+    </button>
+</div>
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>

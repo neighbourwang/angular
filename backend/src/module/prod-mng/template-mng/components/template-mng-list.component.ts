@@ -28,7 +28,8 @@ export class TemplateMngListComponent implements OnInit{
     }
     otcreate(){
         console.log(this.templateType);
-        this.router.navigate(['prod-mng/template-mng/template-cre',{type:'new',code:this.templateType}])
+        this.templateType=='0'&&this.router.navigate(['prod-mng/template-mng/template-database',{type:'new'}])
+        this.templateType=='1'&&this.router.navigate(['prod-mng/template-mng/template-middleware',{type:'new'}])
     }
     ccf(){
 
