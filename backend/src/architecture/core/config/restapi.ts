@@ -2840,10 +2840,16 @@ export let RestApis: RestApiModel[] = [
         "url":"adminboe/authsec/alicloud/adm/sub/update"
      },
      {
-        "desc": "测试access信息",
-        "id":"ali-Account-accessInfo-test.post",
+        "desc": "测试access信息主账号",
+        "id":"ali-mainAccount-accessInfo-test.post",
         "method":"POST",
         "url":"adminboe/authsec/alicloud/adm/test"
+     },
+     {
+        "desc": "测试access信息子账号",
+        "id":"ali-subAccount-accessInfo-test.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/test/{id}"
      },
 
     //管理服务
@@ -2890,6 +2896,31 @@ export let RestApis: RestApiModel[] = [
         "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
     },
 
+    //告警通知
+    {
+        "desc": "告警列表",
+        "id":"trigger-list.get",
+        "method":"GET",
+        "url":"maintenancemgmt/noauth/trigger/list"
+     },
+    {
+        "desc": "告警详细",
+        "id":"trigger-detail.get",
+        "method":"GET",
+        "url":"maintenancemgmt/noauth/trigger/detail/{triggerId}"
+     },
+    {
+        "desc": "告警更新",
+        "id":"trigger-update.put",
+        "method":"PUT",
+        "url":"maintenancemgmt/noauth//trigger/update"
+     },
+     {
+        "desc": "接收人列表",
+        "id":"trigger-receiver-list.get",
+        "method":"GET",
+        "url":"maintenancemgmt/noauth/trigger/receiver/list"
+     },
 
 ]
 

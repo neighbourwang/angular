@@ -359,6 +359,12 @@ export let RestApis: RestApiModel[] = [
         "id": "mng-console-info",
         // "url": "/basis/authsec/mpp/organizations/page/0/size/10"
         "url": "basis/authsec/mpp/organization/{organizationId}/ext"
+    },
+    {
+        "desc": "Get platform general indo",
+        "method": "POST",
+        "id": "maintenancemgmt-general",
+        "url": "maintenancemgmt/noauth/hyper/general"
     }
     //<--费用中心-已购服务管理
     , {
