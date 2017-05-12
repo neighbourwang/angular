@@ -90,11 +90,11 @@ export class cloudVmComponentOrder implements OnInit {
 	@ViewChild('storage') storage;
 
 	constructor(
-		private layoutService: LayoutService,
-		private router: Router,
-		private v: Validation,
-		private dux: DispatchEvent,
-		private service: cloudHostServiceOrder
+		public layoutService: LayoutService,
+		public router: Router,
+		public v: Validation,
+		public dux: DispatchEvent,
+		public service: cloudHostServiceOrder
 	) {
 		this.v.result = {};
 		this.dux.reset();
@@ -105,7 +105,7 @@ export class cloudVmComponentOrder implements OnInit {
 		this.fetchConfig()
 	}
 
-	private makeSubscriber() {
+	public makeSubscriber() {
 		this.dux.subscribe("CONFIG_DONE", () => { this.setMapValueSubscriber() })   //先设置子层有依赖的订阅者
 		this.dux.subscribe("CONFIG_DONE", () => { this.setDefaultValueList() })     //再无依赖的父层 并派发事件
 		this.dux.subscribe("ZONE", () => { this.setNetwork() })
@@ -117,7 +117,7 @@ export class cloudVmComponentOrder implements OnInit {
 		this.dux.subscribe("SET_VMPRICE", () => { this.setVmPrice() })
 	}
 
-	private fetchConfig() {
+	public fetchConfig() {
 		this.layoutService.show();
 		this.service.getHostConfigList().then(configList => {
 			configList.attrList.forEach(config => {

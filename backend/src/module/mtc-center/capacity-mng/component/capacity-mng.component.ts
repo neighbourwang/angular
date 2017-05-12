@@ -44,8 +44,8 @@ export class CapacityMngComponent implements OnInit {
     }
 
     getPlatformList(pageIndex?) {
-        this.layoutService.show();
-        this.page= pageIndex || this.page;
+        this.layoutService.show();      
+        this.page = pageIndex || this.page;     
         this.service.getPlatformList(this.page, this.size)
             .then(
             response => {
@@ -94,7 +94,7 @@ export class CapacityMngComponent implements OnInit {
             return;
         }
         this.service.selectedPlatform = selectedPf;
-        this.service.selectedPage = this.page;
+        
         this.router.navigate([ `mtc-center/capacity-mng/compute-res`]);
     }
 

@@ -56,7 +56,7 @@ export class AliSubService {
         //return new Promise(resovle => setTimeout(resovle, 200)).then(() => DepartList_mock);
     }
 
-    testSub(subInfo: AliSubList): Promise<any>{
+    testSub(majorId: string, subInfo: AliSubList): Promise<any>{
          const api= this.restApiCfg.getRestApi("user-center.ali-cloud.subtest");
          return this.restApi.request(api.method, api.url, null, null,
              {
@@ -64,7 +64,8 @@ export class AliSubService {
                  "accessKey": subInfo.accessKey,
                  "accessSecret": subInfo.accessSecret,
                  "departId": subInfo.departId,
-                 "departmentName": subInfo.departmentName
+                 "departmentName": subInfo.departmentName,
+                 "id":majorId
              });
     }
 
