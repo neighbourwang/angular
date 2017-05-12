@@ -1225,7 +1225,7 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "获取数据库中间件平台信息",
-        "id": "prod-mng.prod-disk-dir.plateforms",
+        "id": "prod-mng-database-plateforms.get",
         "method": "GET",
         "url": "adminui/authsec/services/platforms"
     },
