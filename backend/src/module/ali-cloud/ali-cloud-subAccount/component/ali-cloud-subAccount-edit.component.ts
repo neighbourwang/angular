@@ -158,7 +158,7 @@ export class AliCloudSubAccountEditComponent implements OnInit{
     //测试access信息
     testAccessInfo(){
         this.layoutService.hide();
-        this.service.testAccessInfo(this.account)
+        this.service.testAccessInfo(this.account,this.mainAccountId)
         .then(
             response=>{
                 this.layoutService.hide();

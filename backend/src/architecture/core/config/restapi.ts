@@ -2840,10 +2840,16 @@ export let RestApis: RestApiModel[] = [
         "url":"adminboe/authsec/alicloud/adm/sub/update"
      },
      {
-        "desc": "测试access信息",
-        "id":"ali-Account-accessInfo-test.post",
+        "desc": "测试access信息主账号",
+        "id":"ali-mainAccount-accessInfo-test.post",
         "method":"POST",
         "url":"adminboe/authsec/alicloud/adm/test"
+     },
+     {
+        "desc": "测试access信息子账号",
+        "id":"ali-subAccount-accessInfo-test.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/test/{id}"
      },
 
     //管理服务
