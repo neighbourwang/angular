@@ -2841,6 +2841,31 @@ export let RestApis: RestApiModel[] = [
         "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
     },
 
+    //告警通知
+    {
+        "desc": "告警列表",
+        "id":"trigger-list.get",
+        "method":"GET",
+        "url":"maintenancemgmt/noauth/trigger/list"
+     },
+    {
+        "desc": "告警详细",
+        "id":"trigger-detail.get",
+        "method":"GET",
+        "url":"maintenancemgmt/noauth/trigger/detail/{triggerId}"
+     },
+    {
+        "desc": "告警更新",
+        "id":"trigger-update.put",
+        "method":"PUT",
+        "url":"maintenancemgmt/noauth//trigger/update"
+     },
+     {
+        "desc": "接收人列表",
+        "id":"trigger-receiver-list.get",
+        "method":"GET",
+        "url":"maintenancemgmt/noauth/trigger/receiver/list"
+     },
 
 ]
 
