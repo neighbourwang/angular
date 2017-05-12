@@ -1,9 +1,11 @@
 ﻿export class GeneralModel{
    zones:Array<zoneDisk>;
    num:number;
-   s0_50GB:number;
-   s50_150GB:number;
-   s150_200GB:number;
+   level1:number;
+   level2:number;
+   level3: number;
+   level4: number;
+   level5:number;
 }
 
 export class zoneDisk{

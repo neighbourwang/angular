@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from "@angular/core";
+ï»¿import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
@@ -33,7 +33,7 @@ export class StoreTrendComponent implements OnInit {
 
     isSelected=false;
     queryOpt: StoreQuery = new StoreQuery();
-    //Æ½Ì¨Áª¶¯ÁĞ±í
+    //å¹³å°è”åŠ¨åˆ—è¡¨
     defaultPlf: PlfModel = new PlfModel();
     selectedPlf: PlfModel = this.defaultPlf;
     defaultRegion: RegionModel = new RegionModel();
@@ -53,9 +53,10 @@ export class StoreTrendComponent implements OnInit {
         this.defaultZone.zoneId = 'all';
         this.reset();
         this.getPlfList();
+        this.confirm();
     }
 
-    //»ñÈ¡Æ½Ì¨Áª¶¯ÁĞ±í
+    //è·å–å¹³å°è”åŠ¨åˆ—è¡¨
     getPlfList() {
         this.layoutService.show();
         this.service.getPlfList()
@@ -122,8 +123,8 @@ export class StoreTrendComponent implements OnInit {
     }
 
     getCircleData(chart:DoughnutChart,source:GeneralModel) {
-        chart.DataSets = [{ data: [source.s0_50GB, source.s50_150GB,source.s150_200GB]}];
-        chart.Colors = [{ backgroundColor: ["#2bd2c8","#05ab83","#c9cacc"] }];
+        chart.DataSets = [{ data: [source.level1, source.level2,source.level3, source.level4,source.level5]}];
+        chart.Colors = [{ backgroundColor: ["#2bd2c8","#05ab83","#c9cacc","#85f46f","#fa88ec"] }];
         chart.ChartType = "doughnut";
         chart.Options = {
             cutoutPercentage: 70,
@@ -153,7 +154,7 @@ export class StoreTrendComponent implements OnInit {
         let thx = chartData.thx;
         let zonesData = chartData.zone;
         if (zonesData[0].series.length==0) {
-                this.showAlert("Ã»ÓĞÊı¾İ£¡");
+                this.showAlert("æ²¡æœ‰æ•°æ®ï¼");
                 return;
             }
 
@@ -164,11 +165,11 @@ export class StoreTrendComponent implements OnInit {
             let chartId = 'chart' + m;
             
 
-            //»ñÈ¡µÚm¸ö¿ÉÓÃÇøµÄseries
+            //è·å–ç¬¬mä¸ªå¯ç”¨åŒºçš„series
             let zoneSeries = zonesData[m].series;
             
             let dataLength = zoneSeries[0].data.length;
-            //»ñÈ¡¡®×Ü¼Æ¡¯Êı¾İ
+            //è·å–â€˜æ€»è®¡â€™æ•°æ®
             for (let i = 0; i < dataLength; i++) {
                 sum[i] = 0;
                 for (let j = 0; j < zoneSeries.length; j++) {
@@ -182,7 +183,7 @@ export class StoreTrendComponent implements OnInit {
                 TempSeries.push({
                     name: zoneSeries[k].name,
                     type: 'bar',
-                    stack: '¹ã¸æ',
+                    stack: 'å¹¿å‘Š',
                     data: zoneSeries[k].data,
                     label: {
                         normal: {
@@ -196,7 +197,7 @@ export class StoreTrendComponent implements OnInit {
             }
 
             TempSeries.push({
-                name: '×Ü¼Æ',
+                name: 'æ€»è®¡',
                 type: 'line',
 
                 data: sum,
@@ -265,7 +266,7 @@ export class StoreTrendComponent implements OnInit {
         }
 
 
-    } //º¯Êı½áÎ²
+    } //å‡½æ•°ç»“å°¾
 
     onRejected(reason: any) {
         this.layoutService.hide();

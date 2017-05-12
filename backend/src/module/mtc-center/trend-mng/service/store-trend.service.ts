@@ -33,14 +33,14 @@ export class StoreTrendService {
     }
 
     getGeneral(query:StoreQuery): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("store.trend.general");
-        //return this.restApi.request(api.method, api.url, null, null, query);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => general_mock );
+        const api = this.restApiCfg.getRestApi("store-trend.general");
+        return this.restApi.request(api.method, api.url, null, null, query);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() => general_mock );
     }
 
     getBarData(query:StoreQuery): Promise<any> {
-        //const api = this.restApiCfg.getRestApi("store.trend.general");
-        //return this.restApi.request(api.method, api.url, null, null, query);
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() =>VmData_mock);
+        const api = this.restApiCfg.getRestApi("store-trend.graph");
+        return this.restApi.request(api.method, api.url, null, null, query);
+        //return new Promise(resovle => setTimeout(resovle, 200)).then(() =>VmData_mock);
     }
 }

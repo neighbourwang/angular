@@ -35,11 +35,10 @@ export class ComputeResComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
     PlatformId: string;
-    cpage: number;
-    czise = 10;
+    
+    
    
     selectedPf: PlatformModel = new PlatformModel();
-   // computeRes: ComputeResModel = new ComputeResModel();
     hostList: Array<HostModel>;
     regionList: Array<Region>;
     selectedRegion: Region = new Region();
@@ -61,7 +60,7 @@ export class ComputeResComponent implements OnInit {
 
     ngOnInit() {
         this.selectedPf = this.serviceParam.selectedPlatform;
-        this.cpage = this.serviceParam.selectedPage;
+        
         this.getComputeRes();
         
     }
@@ -183,7 +182,8 @@ export class ComputeResComponent implements OnInit {
 
     BacktoCapacityMng(){
         this.router.navigate([`mtc-center/capacity-mng/capacity-mng`]);
-        this.serviceParam.getPlatformList(this.cpage, this.czise);
+        
+        
     }
 
     onRejected(reason: any) {
