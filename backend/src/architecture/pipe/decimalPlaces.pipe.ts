@@ -4,17 +4,18 @@
 	{{22.00000 | decimalPlaces : 2}} ===> 22   //与toFixed的区别
 *****/
 
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform, Injectable } from "@angular/core";
 import { SystemDictionaryService } from '../../architecture';
 
 @Pipe({
     name: "decimalPlaces"
 })
 
+@Injectable()
 export class decimalPlacesPipe implements PipeTransform {
 
-    transform(number:number|string, length : number = 2): number {
-    	const times = Math.pow(10,length);
-    	return parseInt("" + +number*times)/times;
+    transform(number:number|string, length : number = 2, method="pow"): number {
+	const times = Math[method](10,length);
+	return parseInt("" + +number*times)/times;
     }
 }

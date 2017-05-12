@@ -63,10 +63,10 @@
 					</div>
 					<div class="col-md-2 content-title">产品列表：</div>
 					<div class="col-md-10 no-padding" >
-						<select [(ngModel)]="values.STARTUPSOURCE" class="form-control" id="startupsource">
+						<select [(ngModel)]="dbProduct" (ngModelChange)="dux.dispatch('SELECT_DB_PRODUCT')" class="form-control" id="startupsource">
 							<option
-							 *ngFor="let value of valuesList.STARTUPSOURCE"
-							 [ngValue]="value" id="startupsource_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
+							 *ngFor="let pro of dbProductList"
+							 [ngValue]="pro" id="dbProduct_{{pro.productId}}">{{ pro.displayproductName }}</option>
 						</select>
 					</div>
 				</div>
@@ -133,33 +133,6 @@
 			</li>
 			<li>
 				<div class="col-md-1 li-title">
-					<p><span class="icon-network"></span><br>{{'VM_INSTANCE.NET'| translate}}</p>
-				</div>
-				<div class="col-md-12 li-content">
-					<div class="col-md-2 content-title">{{'VM_INSTANCE.NET_TYPE'| translate}}</div>
-					<div class="col-md-10">
-						<select [(ngModel)]="values.NETWORKTYPE" class="form-control" id="networktype">
-							<option
-							 *ngFor="let value of valuesList.NETWORKTYPE"
-							 [ngValue]="value" id="network_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
-						</select>
-					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-10 text-tip">{{'VM_INSTANCE.PLEASE_SELECT_SUBNET_YOU_NEED'| translate}}</div>
-					<div class="col-md-2 content-title">{{'VM_INSTANCE.SECURITY_GROUP'| translate}}</div>
-					<div class="col-md-10">
-						<select [(ngModel)]="values.SECURITYGROUP" class="form-control" id="securitygroup">
-							<option
-							 *ngFor="let value of valuesList.SECURITYGROUP;"
-							 [ngValue]="value" id="securitygroup_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
-						</select>
-					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-10 text-tip">{{'VM_INSTANCE.CONSULT_ADMIN_ABOUT_CHOOSING'| translate}}</div>
-				</div>
-			</li>
-			<li>
-				<div class="col-md-1 li-title">
 					<p><span class="icon-disk"></span><br>{{'VM_INSTANCE.STORE'| translate}}</p>
 				</div>
 				<div class="col-md-12 li-content">
@@ -186,7 +159,58 @@
 							<div class="col-md-6 content-title2">{{'COMMON.GB'| translate}}</div>
 						</div>
 					</div>
-					<!-- <div style="display: none"><add-storage #storage (onChanges)="storageChange()" [values]="" [CONFIGS]="valuesList.STORAGE"></add-storage></div> -->
+					<div class="col-md-12 no-padding mb20">
+						<div class="col-md-2 content-title">数据库存储类型</div>
+						<div class="col-md-10 no-padding">
+	                        <label *ngFor="let storage of storageTypes" class="mgr20">
+	                            <input type="radio" 
+										class="fox-cloud-radio" 
+										name="needHBA" 
+										[checked]="storageType === storage.value" 
+										(change)="storageType = storage.value; dux.dispatch('STORAGE_CHANGE')"> {{storage.name}}
+	                        </label>
+						</div>
+					</div>
+					 <div class="col-md-12">
+                        <table class="table">
+                            <tr>
+                                <th class="text-center">编号</th>
+                                <th class="text-center">云硬盘用途</th>
+                                <th class="text-center">云硬盘类型</th>
+                                <th class="text-center">配置</th>
+                                <th class="text-center">磁盘组名称</th>
+                                <th class="text-center">冗余级别</th>
+                                <th class="text-center">挂载目录</th>
+                            </tr>
+                        </table>
+					 </div>
+				</div>
+			</li>
+			<li>
+				<div class="col-md-1 li-title">
+					<p><span class="icon-network"></span><br>{{'VM_INSTANCE.NET'| translate}}</p>
+				</div>
+				<div class="col-md-12 li-content">
+					<div class="col-md-2 content-title">{{'VM_INSTANCE.NET_TYPE'| translate}}</div>
+					<div class="col-md-10">
+						<select [(ngModel)]="values.NETWORKTYPE" class="form-control" id="networktype">
+							<option
+							 *ngFor="let value of valuesList.NETWORKTYPE"
+							 [ngValue]="value" id="network_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
+						</select>
+					</div>
+					<div class="col-md-2"></div>
+					<div class="col-md-10 text-tip">{{'VM_INSTANCE.PLEASE_SELECT_SUBNET_YOU_NEED'| translate}}</div>
+					<div class="col-md-2 content-title">{{'VM_INSTANCE.SECURITY_GROUP'| translate}}</div>
+					<div class="col-md-10">
+						<select [(ngModel)]="values.SECURITYGROUP" class="form-control" id="securitygroup">
+							<option
+							 *ngFor="let value of valuesList.SECURITYGROUP;"
+							 [ngValue]="value" id="securitygroup_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
+						</select>
+					</div>
+					<div class="col-md-2"></div>
+					<div class="col-md-10 text-tip">{{'VM_INSTANCE.CONSULT_ADMIN_ABOUT_CHOOSING'| translate}}</div>
 				</div>
 			</li>
 			<li>

@@ -73,10 +73,12 @@ export class cloudHostListComponent implements OnInit, OnDestroy {
 	}
 
 	setHostList(): void {
+		this.layoutService.show();
 		this.service.getHostList(this.list).then(res => {
 			if (res.resultCode !== "100") {
 				throw "";
 			}
+			this.layoutService.hide();
 			this.list.pageParameter.totalPage = res.pageInfo.totalPage;
 			return res.resultContent;
 			
@@ -84,7 +86,7 @@ export class cloudHostListComponent implements OnInit, OnDestroy {
 			this.vmList = list;
 			this.checkListMiddleState();
 		}).catch(error => {
-			// this.layoutService.hide();
+			this.layoutService.hide();
 		});
 	};
 
