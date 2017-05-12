@@ -100,8 +100,9 @@ export class AssignMngDetailComponent implements OnInit {
         console.log('period', this.service.peridDic);
         console.log('top', this.service.topDic);
         this.reset();
-        //this.getUsageState();
-        //this.getHyperList();
+        this.getQuery();
+        this.getUsageState();
+        this.getHyperList();
     }
 
     //获取企业联动列表

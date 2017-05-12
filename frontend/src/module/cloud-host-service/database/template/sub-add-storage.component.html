@@ -1,0 +1,36 @@
+<div class="col-md-12 no-padding">
+	<ng-container *ngFor="let list of forArr;let i = index">
+	<div class="col-md-2 content-title">{{i === 0 ? "COMMON.CAPACITY" : ""|translate}}</div>
+	<div class="col-md-10 no-padding data-disk">
+		<div class="col-md-12 no-padding mgb10">
+			<div class="col-md-3 no-padding">
+				<select class="form-control" (change)="onChanges.emit('storage')" [(ngModel)]="list.storage">
+					<option
+					*ngFor="let value of configs;"
+					[ngValue]="value" >{{ value.attrDisplayValue }}</option>
+				</select>
+			</div>
+			<div class="col-md-1 content-title2">{{'COMMON.CAPATITY'|translate}}</div>
+			<div class="col-md-2 no-padding">
+				<count-bar
+		            [step]="sendModule.diskstepsize.attrValue" 
+		            [max]="sendModule.diskmaxsize.attrValue" 
+		            [min]="sendModule.diskinitialsize.attrValue" 
+		            [stepCheck]=true
+		            [value]="sendModule.diskinitialsize.attrValue" (output)="outputValue($event, i)"></count-bar>
+			</div>
+			<div class="col-md-1 content-title2">{{'COMMON.GB'|translate}}</div>
+			<div class="col-md-3 text-right">
+				<button (click)="delete(i)" class="btn button-gray-gradient"><span class="glyphicon glyphicon-remove"></span>{{'COMMON.DELETE'|translate}} </button>
+			</div>
+		</div>
+	</div>
+	</ng-container>
+	<div class="col-md-2 content-title">{{!this.forArr.length ? "VM_INSTANCE.DATA_DISK" : "" | translate}}</div>
+	<div class="col-md-10 add-disk-box">
+		<div class="col-md-3 content-title2 no-padding">
+			<button (click)="addDisk()" [disabled]="this.forArr.length === this.maxLenght" class="btn button-gray-gradient button-icon"><span class="glyphicon glyphicon-plus"></span>{{'VM_INSTANCE.ADD_DATA_DISK'|translate}}</button>
+		</div>
+		<div class="col-md-7 no-padding disk-tip">{{'VM_INSTANCE.ADD_HEAD'|translate}}<span class="font-green">{{maxLenght}}</span>{{'VM_INSTANCE.ADD_MIDDLE'|translate}}<span class="font-orange">{{maxLenght - forArr.length}}</span>{{'VM_INSTANCE.ADD_TAIL'|translate}}</div>
+	</div>
+</div>

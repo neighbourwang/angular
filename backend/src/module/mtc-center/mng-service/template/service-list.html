@@ -78,7 +78,7 @@
                 <td><input type="radio" class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
                 <td>{{item.serviceProductId}}</td>
                 <td><a href="javascript:void(0);" (click)="gotoDetail(item);">{{item.serviceName}}</a></td>
-                <td><a href="javascript:void(0);" (click)="oneSet()">{{item.serviceObjectCode | dict: this.service.typeDic | async}}</a></td>
+                <td>{{item.serviceObjectCode | dict: this.service.typeDic | async}}</td>
                 <td>
                     <ol class="no-padding">
                         <li>
@@ -122,7 +122,7 @@
    </div>
 </fc-popup>
 
-<fc-popup #setUnit title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'COMMON.SAVE' | translate }}"  ct="{{ 'COMMON.CANCEL' | translate }}" (of)="creOredit()">
+<!--<fc-popup #setUnit title="{{title}}" ot="{{isEdit== false? 'COMMON.CREATE': 'COMMON.SAVE' | translate }}"  ct="{{ 'COMMON.CANCEL' | translate }}" (of)="creOredit()">
     <div class="row row-line-height">
         <div class="form-group">
             <div class="col-sm-4 form-control-title mgl5"><span class="asterisk">*</span>自动完成:</div>
@@ -145,4 +145,4 @@
             <div class="col-sm-4" style="line-height:34px">分钟</div>
         </div>
     </div>
-</fc-popup>
+</fc-popup>-->

@@ -1225,7 +1225,7 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "获取数据库中间件平台信息",
-        "id": "prod-mng.prod-disk-dir.plateforms",
+        "id": "prod-mng-database-plateforms.get",
         "method": "GET",
         "url": "adminui/authsec/services/platforms"
     },
@@ -1246,6 +1246,43 @@ export let RestApis: RestApiModel[] = [
         "id": "database-middleware-product-create.post",
         "method": "POST",
         "url": "adminui/authsec/product/middeware" 
+    },
+    //模板管理
+    {
+        "desc": "获取数据库选项基础信息",
+        "id": "template-mng-database.initInfo.get",
+        "method": "GET",
+        "url": "adminui/authsec/database/template/options/init"
+    },    
+    {
+        "desc": "获取模板列表",
+        "id": "template-mng-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/database/template/search/list/paging" 
+    },
+    {
+        "desc": "创建数据库模板",
+        "id": "template-mng-database.cre.post",
+        "method": "POST",
+        "url": "adminui/authsec/database/template" 
+    },
+    {
+        "desc": "创建中间件模板",
+        "id": "template-mng-middleware.cre.post",
+        "method": "POST",
+        "url": "adminui/authsec/middleware/insertTemplate" 
+    },
+     {
+        "desc": "更新数据库模板",
+        "id": "template-mng-database.cre.post",
+        "method": "PUT",
+        "url": "adminui/authsec/database/template" 
+    },
+    {
+        "desc": "更新中间件模板",
+        "id": "template-mng-middleware.cre.post",
+        "method": "PUT",
+        "url": "adminui/authsec/middleware/updateTemplate" 
     },
     //用户中心
     {
@@ -2674,6 +2711,18 @@ export let RestApis: RestApiModel[] = [
         "id":"compute-trend.export.all",
         "method":"POST",
         "url":"maintenancemgmt/noauth/trend/query/export"
+     },
+     {
+        "desc": "趋势-存储-表格和环形图",
+        "id":"store-trend.general",
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/trend/storage/general"
+     },
+     {
+        "desc": "趋势-存储-柱状图",
+        "id":"store-trend.graph",
+        "method":"POST",
+        "url":"maintenancemgmt/noauth/trend/graph/storage"
      },
      //阿里云账号管理
      {

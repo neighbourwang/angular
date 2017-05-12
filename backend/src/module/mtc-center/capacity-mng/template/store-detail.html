@@ -43,7 +43,7 @@
             <div class="col-md-3 form-control-title">{{'CAPACITY_MNG.CLOUD_PLATFORM_HAS_ALLOCATED'|translate}}：</div><!--云平台已分配-->
             <div class="col-md-1" style="width:150px;">{{storeInfo.allocation}}&nbsp;GB</div>  
             <div class="col-md-4 ">
-                <div class="table-progress">
+                <div class="table-progress" style="padding-left:0">
                     <div class="progress">
                         <div class="progress-bar progress-bar-info"
                              [style.width.%]="storeInfo.allocationPercent">
@@ -57,7 +57,7 @@
             <div class="col-md-3 form-control-title">{{'CAPACITY_MNG.STORAGE_ACTUAL_UTILIZATION'|translate}}：</div><!--存储实际利用率-->
             <div class="col-md-1" style="width:150px;">{{storeInfo.actual}}&nbsp;GB</div>  
             <div class="col-md-4 ">
-                <div class="table-progress">
+                <div class="table-progress" style="padding-left:0">
                     <div class="progress">
                         <div class="progress-bar progress-bar-info"
                              [style.width.%]="storeInfo.actualPercent">
