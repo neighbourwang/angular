@@ -10,7 +10,7 @@ import { DispatchEvent } from "../../components/dispatch-event"
 import { cloudVmComponentOrder } from "../../vm-instance/component/cloud-host-order.component"
 import { cloudHostServiceOrder } from '../../vm-instance/service/cloud-host-order.service';
 
-import { DbTemplateInfo } from "../model/post.model"
+import { DbTemplateInfo, MDproductReq } from "../model/post.model"
 
 @Component({
 	selector: 'cloud-vm-order',
@@ -21,7 +21,12 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 
 	dbInits = [];
 	dbInit;
-	fetchTmIdsPost: DbTemplateInfo = new DbTemplateInfo   //获取模板id的post
+
+	databases = [];   //数据库列表
+	database;   //选中的数据库
+
+	fetchTmIdsPost: DbTemplateInfo = new DbTemplateInfo;   //获取模板id的post
+	fetchDBProductPost: MDproductReq = new MDproductReq;
 
 	constructor(
 		public layoutService: LayoutService,
@@ -35,6 +40,8 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	
 		this.v.result = {};
 		this.dux.reset();
+
+		this.fetchDBProductPost.serviceType = "3"   //数据库的serviceType = 3
 	};
 
 	ngOnInit() {
@@ -46,6 +53,8 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 
 	makeDbSubScriber() {
 		this.dux.subscribe("DB_TYPE_CHANGE", () => { this.fetchDatabaseSearch() })   //数据库选项有变化时候
+		this.dux.subscribe("DB_PRODUCT_CHANGE", () => { this.fetchShoppingMDproducts() })   //数据库产品有变化时候 （模板id，云平台）
+		this.dux.subscribe("PLATFORM", () => { this.fetchShoppingMDproducts() })   //云平台有变化时
 	}
 
 	private fetchDatabaseInit() {
@@ -74,7 +83,20 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 
 	private fetchDatabaseSearch() {
 		this.dbservice.fetchDatabaseSearch(this.fetchTmIdsPost).then(res => {
-			console.log(res, 123)
+			this.databases = res;
+			this.fetchDBProductPost.templateIds = res.map(r => r.id)
+
+			this.dux.dispatch("DB_PRODUCT_CHANGE")
 		})
+	}
+
+	private fetchShoppingMDproducts() {   //获取数据库产品
+		if( !this.values.PLATFORM.attrValue || !this.fetchDBProductPost.templateIds.length) return;  //当没有id或者云平台时
+
+		this.fetchDBProductPost.platformId = this.values.PLATFORM.attrValue;
+		this.dbservice.fetchShoppingMDproducts(this.fetchDBProductPost)
+			.then(res => {
+				console.log(res, 112323);
+			})
 	}
 }
