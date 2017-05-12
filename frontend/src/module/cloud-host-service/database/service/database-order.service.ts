@@ -102,7 +102,7 @@ export class DatabaseServiceOrder {
 						diskGroup: "DB", //(string, optional): 磁盘组名称 ,
 						id: "1sdadw", //(string, optional): ID ,
 						minDiskSize: 50, //(integer, optional): 最小磁盘 ,
-						mountPath: "/etc/uc", //(string, optional): 挂载目录 ,
+						mountPath: "/etc/sasd", //(string, optional): 挂载目录 ,
 						templateType: "ASM",
 						usageType: 0, //(integer, optional): 云硬盘用途 0 主目录，1 数据文件， 2 日志，归档文件
 					},
@@ -111,7 +111,7 @@ export class DatabaseServiceOrder {
 						diskGroup: "DATA", //(string, optional): 磁盘组名称 ,
 						id: "sdfdsf", //(string, optional): ID ,
 						minDiskSize: 30, //(integer, optional): 最小磁盘 ,
-						mountPath: "/etc/nnm", //(string, optional): 挂载目录 ,
+						mountPath: "/etc/wef", //(string, optional): 挂载目录 ,
 						templateType: "ASM",
 						usageType: 2, //(integer, optional): 云硬盘用途 0 主目录，1 数据文件， 2 日志，归档文件
 					},
@@ -120,7 +120,7 @@ export class DatabaseServiceOrder {
 						diskGroup: "ARCH", //(string, optional): 磁盘组名称 ,
 						id: "sdfdsf", //(string, optional): ID ,
 						minDiskSize: 30, //(integer, optional): 最小磁盘 ,
-						mountPath: "/etc/nnm", //(string, optional): 挂载目录 ,
+						mountPath: "/etc/reg", //(string, optional): 挂载目录 ,
 						templateType: "ASM",
 						usageType: 3, //(integer, optional): 云硬盘用途 0 主目录，1 数据文件， 2 日志，归档文件
 					},
