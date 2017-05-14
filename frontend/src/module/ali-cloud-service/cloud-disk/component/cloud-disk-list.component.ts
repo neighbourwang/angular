@@ -481,7 +481,12 @@ export class AliCloudDiskListComponent implements OnInit {
                     this.layoutService.hide();
                     this.attachdisk.close();
                     if (response && 100 == response["resultCode"]) {
-                        this.selectRegion(this.choosenRegion);
+                        //this.selectRegion(this.choosenRegion);
+                        if (this.choosenRegion != this.defaultRegion) {
+                            this.selectRegion(this.choosenRegion);
+                        } else {
+                            this.getAllRegionDisks();
+                        }
                         this.showAlert("挂载云硬盘成功！");
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -543,7 +548,12 @@ export class AliCloudDiskListComponent implements OnInit {
                     this.layoutService.hide();
                     this.detachdisk.close();
                     if (response && 100 == response["resultCode"]) {
-                        this.selectRegion(this.choosenRegion);
+                        //this.selectRegion(this.choosenRegion);
+                        if (this.choosenRegion != this.defaultRegion) {
+                            this.selectRegion(this.choosenRegion);
+                        } else {
+                            this.getAllRegionDisks();
+                        }
                         this.showAlert("卸载云硬盘成功！");
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -574,7 +584,12 @@ export class AliCloudDiskListComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.showAlert("删除硬盘成功");
-                        this.selectRegion(this.choosenRegion);
+                        //this.selectRegion(this.choosenRegion);
+                        if (this.choosenRegion != this.defaultRegion) {
+                            this.selectRegion(this.choosenRegion);
+                        } else {
+                            this.getAllRegionDisks();
+                        }
                     } else {
                         if(403 == response["resultCode"]) {
                             let result;
@@ -621,7 +636,12 @@ export class AliCloudDiskListComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         console.log("云硬盘名称更改成功！");
                         this.showMsg("云硬盘名称更改成功！");
-                        this.selectRegion(this.choosenRegion);
+                        //this.selectRegion(this.choosenRegion);
+                        if (this.choosenRegion != this.defaultRegion) {
+                            this.selectRegion(this.choosenRegion);
+                        } else {
+                            this.getAllRegionDisks();
+                        }
                     } else {
                         this.showMsg("COMMON.GETTING_DATA_FAILED");
                         return;
