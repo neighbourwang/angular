@@ -58,7 +58,7 @@ export class AliCloudDiskListComponent implements OnInit {
     confirmMsg = "";
 
     pageIndex = 1;
-    pageSize = 2;
+    pageSize = 10;
     totalPage = 1;
     listTimer = null;
 
@@ -770,7 +770,7 @@ export class AliCloudDiskListComponent implements OnInit {
         console.log(this.pageIndex);
         if(this.pageIndex>this.totalPage) return;
 
-        this.disks = this.disks.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize);
+        this.disks = this.alldisks.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize);
         console.log(this.disks, "disks!");
     }
 
