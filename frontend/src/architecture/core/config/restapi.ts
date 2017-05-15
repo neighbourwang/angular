@@ -1051,6 +1051,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/all/instances"
     },
+    { //显示所有区域的阿里云硬盘列表
+        "desc": "Get all region disks",
+        "id": "al-cloud.cloud-vm.allregion.disks",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/all/disks"
+    },
 
     // 阿里云主账号管理
     {
