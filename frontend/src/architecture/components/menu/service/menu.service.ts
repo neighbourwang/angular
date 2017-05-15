@@ -56,22 +56,10 @@ export class MenuService {
 							"routing": "cloud-host-service/physical-machine-list"
 						},
 						{
-							"label": "物理机订购",
-							"isOpen": true,
-							"isShow": true,
-							"routing": "cloud-host-service/physical-machine-order"
-						},
-						{
 							"label": "数据库实例",
 							"isOpen": true,
 							"isShow": true,
 							"routing": "cloud-host-service/database-list"
-						},
-						{
-							"label": "管理服务订购",
-							"isOpen": true,
-							"isShow": true,
-							"routing": "cloud-host-service/management-services-order"
 						},
 						{
 							"label": "管理服务列表",

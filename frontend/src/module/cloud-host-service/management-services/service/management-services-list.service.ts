@@ -16,6 +16,21 @@ export class ManagementServicesListService {
     }
 
     userInfo = this.restApi.getLoginInfo().userInfo;
+
+    fetchMgmtList(istQuery) {
+        return Promise.resolve([])
+    }
     
    
+    status = this.dict.get({    //服务状态
+        owner : "SUPERVISE_SERVICE",
+        field : "STATUS"
+    })
+   
+    period = this.dict.get({    //服务对象
+        owner : "SUPERVISE_SERVICE",
+        field : "PERIOD"
+    })
+
+
 }

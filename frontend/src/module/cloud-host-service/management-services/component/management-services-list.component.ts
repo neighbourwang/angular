@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import { ManagementServicesListService } from '../service/management-services-list.service'
+import { ManagementServicesOrderService } from '../service/management-services-order.service'
 
-// import { VmList, HandleVm, QuiryVmList } from '../model/pm-list.model';
-// import { VMInstanceLabelItem } from '../model/labe-iItem.model';
+import { SuperviseQueryCondition, PageParameter} from '../model/post.model';
+import { SuperviseProductItem, ProductSimpleItem, ShoppingCartProfile, SuperviseItem } from '../model/service.model';
 
 @Component({
 	selector: 'management-services-list',
@@ -25,27 +26,52 @@ export class ManagementServicesListComponent implements OnInit {
 	@ViewChild('popup')
 	private popup: PopupComponent;
 
-
-	@ViewChild('platformZone') platformZone;
-
-	// list : QuiryVmList = new QuiryVmList();
+	listQuery : SuperviseQueryCondition = new SuperviseQueryCondition();
+	// mgmtList: SuperviseItem[] = []
+	mgmtList: any[] = []
 
 	modalTitle: string = '';
 	modalMessage: string = '';
 	modalOKTitle: string = '';
 
+	productList: ProductSimpleItem[] = [];
+	product: ProductSimpleItem;
 
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
-		private service: ManagementServicesListService
+		private service: ManagementServicesListService,
+		private orderService: ManagementServicesOrderService
 	) {
 	}
 	ngOnInit() {
+		this.fetchServicesList();
+	}
+
+	fetchServicesList() {
+		this.layoutService.show();
+		this.orderService.fetchServicesList().then(res => {
+			this.layoutService.hide()
+			this.productList = res;
+			if(res.length) this.listQuery.instanceNo = res[0].id
+			
+			this.fetchMgmtList()
+		})
+		.catch(e => this.layoutService.hide())
+	}
+
+	fetchMgmtList() {
+		// this.layoutService.show();
+		this.service.fetchMgmtList(this.listQuery).then(res => {
+			this.mgmtList = res;
+		})
 		
 	}
 
-
+	resetSearch() {
+		this.listQuery = new SuperviseQueryCondition();
+		this.listQuery.instanceNo = this.productList.length ? this.productList[0].id : ""
+	}
 
 	goTo(url : string) {
 		this.router.navigateByUrl(url);
@@ -79,13 +105,13 @@ export class ManagementServicesListComponent implements OnInit {
 	changePage(page: number) {
 
 		page = page < 1 ? 1 : page;
-		// page = page > this.list.pageParameter.totalPage ? this.list.pageParameter.totalPage : page;
+		page = page > this.listQuery.pageParameter.totalPage ? this.listQuery.pageParameter.totalPage : page;
 
-		// if (this.list.pageParameter.currentPage + 1 == page) {
-		//	return;
-		// }
+		if (this.listQuery.pageParameter.currentPage + 1 == page) {
+			return;
+		}
 
-		// this.list.pageParameter.currentPage = page - 1;
-		// this.setHostList();
+		this.listQuery.pageParameter.currentPage = page - 1;
+		this.fetchMgmtList();
 	}
 }
