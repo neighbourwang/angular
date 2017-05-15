@@ -43,13 +43,13 @@ export class MenuService {
 					"isShow": !isRoot,
 					"icon": "icon-product-and-service",
 					"top2_menu": [
-						{
-							"label": "PROD_MNG.TEMPLATE_MANAGEMENT",
-							"isOpen": false,
-							"isActive": false,
-							"isShow": !isRoot,
-							"routing": "prod-mng/template-mng/template-list"
-						},
+						// {
+						// 	"label": "PROD_MNG.TEMPLATE_MANAGEMENT",
+						// 	"isOpen": false,
+						// 	"isActive": false,
+						// 	"isShow": !isRoot,
+						// 	"routing": "prod-mng/template-mng/template-list"
+						// },
 						{
 							"label": "PROD_MNG.PRODUCT_CAT_MANAGEMENT",
 							"isOpen": false,
