@@ -18,3 +18,5 @@ class dbMiddlewareDiskTemplateModel{
       "templateId": string;
       "usageType":number;
     }
+
+  export { MiddleWareModel}

@@ -225,4 +225,14 @@ export class AliCloudDiskService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
+    getAllRegionDisks(): Promise<any> {
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.allregion.disks");/////////////////
+        return this.restApi.request(api.method, api.url, null, null, body);
+    }
+
 }

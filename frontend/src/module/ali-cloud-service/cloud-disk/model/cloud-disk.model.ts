@@ -109,6 +109,7 @@ export class diskListModel {
 
     checked: boolean = false;
     EnableEdit: boolean = false;
+    diskTimer: any = null;
 }
 
 export class TagModel {

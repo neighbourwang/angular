@@ -22,8 +22,20 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	dbInits = [];
 	dbInit;
 
-	databases = [];   //数据库列表
-	database;   //选中的数据库
+	databases = [];   //数据库模板列表
+	database;   //选中的数据库模板
+
+	dbProductList = [];  //数据库产品列表
+	dbProduct;  //数据库产品
+
+	storageTypes = [{
+		value: "FS",
+		name: "文件系统(File System)"
+	}, {
+		value: "ASM",
+		name: "自动化存储管理(ASM)"
+	}];
+	storageType = "FS"
 
 	fetchTmIdsPost: DbTemplateInfo = new DbTemplateInfo;   //获取模板id的post
 	fetchDBProductPost: MDproductReq = new MDproductReq;
@@ -55,6 +67,8 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.dux.subscribe("DB_TYPE_CHANGE", () => { this.fetchDatabaseSearch() })   //数据库选项有变化时候
 		this.dux.subscribe("DB_PRODUCT_CHANGE", () => { this.fetchShoppingMDproducts() })   //数据库产品有变化时候 （模板id，云平台）
 		this.dux.subscribe("PLATFORM", () => { this.fetchShoppingMDproducts() })   //云平台有变化时
+		this.dux.subscribe("SELECT_DB_PRODUCT", () => { this.databaseChange() })   //选择产品列表触发的时间
+
 	}
 
 	private fetchDatabaseInit() {
@@ -82,12 +96,14 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	}
 
 	private fetchDatabaseSearch() {
+		this.layoutService.show()
 		this.dbservice.fetchDatabaseSearch(this.fetchTmIdsPost).then(res => {
+			this.layoutService.hide()
 			this.databases = res;
 			this.fetchDBProductPost.templateIds = res.map(r => r.id)
 
 			this.dux.dispatch("DB_PRODUCT_CHANGE")
-		})
+		}).catch(res => this.layoutService.hide())
 	}
 
 	private fetchShoppingMDproducts() {   //获取数据库产品
@@ -96,7 +112,35 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.fetchDBProductPost.platformId = this.values.PLATFORM.attrValue;
 		this.dbservice.fetchShoppingMDproducts(this.fetchDBProductPost)
 			.then(res => {
-				console.log(res, 112323);
+				let { mdProductShoppingItems: items } =  res
+
+				this.dbProductList = items
+				this.dbProduct = items.length ? items[0] : {}
+
+				this.dux.dispatch("SELECT_DB_PRODUCT")
 			})
 	}
+
+	private databaseChange() {   //选择数据库模板后
+		if(!this.dbProduct.templatId) return  //如果没有产品 返回
+
+		this.database = this.databases.filter(data => data.id === this.dbProduct.templatId)[0]
+
+		console.log(this.database, 3453425234)
+	}
+
+	get FSList() {
+		if(!this.database || !this.database.diskInfoList || this.storageType === "ASM") return []
+		return this.database.diskInfoList.filter(l => l.templateType === "FS")
+	}
+
+	get ASMList() {
+		if(!this.database || !this.database.diskInfoList || this.storageType === "FS") return []
+		return this.database.diskInfoList.filter(l => l.templateType === "ASM")
+	}
+
+	outputValue() {
+		
+	}
+
 }
