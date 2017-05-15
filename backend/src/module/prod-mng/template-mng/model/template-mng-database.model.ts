@@ -19,9 +19,10 @@ class DatabaseModel {
     this.memory=4;
     this.bootStorageSize=20;
     this.version='';
+    this.storageType='FS';
     this.diskProfileList = [
       {
-        "copyLevel": 0,
+        "copyLevel": 2,
         "defaultPath": '/u01',
         "diskGroup": '',
         "minSize": 50,
@@ -37,7 +38,7 @@ class DatabaseModel {
         "useDisplay": '数据库文件'
       },
       {
-        "copyLevel": 0,
+        "copyLevel": 1,
         "defaultPath": '/u03',
         "diskGroup": 'ARCH',
         "minSize": 200,
@@ -54,6 +55,12 @@ class diskProfile {
   "minSize": number;//最下
   "usage": number;//磁盘用途
   "useDisplay": string;//
+}
+class DatabaseOptions{
+  items:Array<DatabaseOption>;
+  constructor(){
+    this.items=new Array<DatabaseOption>();
+  }
 }
 class DatabaseOption {
   "db": {
@@ -74,4 +81,4 @@ class mode {
   "label": string;
   "value": number
 }
-export { DatabaseModel,DatabaseOption}
+export { DatabaseModel,DatabaseOptions}

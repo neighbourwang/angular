@@ -24,31 +24,45 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title">{{'软件类型' | translate}}</div>
-
-					<div class="col-sm-4 font-gray">
-
+					<div class="col-sm-5 no-padding">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default" *ngFor="let item of softwareTypeList;let idx = index" (click)="chooseStorageType(item,idx)"
+							 [ngClass]="{'btn-active': true}">{{item.label}}</button>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title">{{'软件版本' | translate}}</div>
-					<div class="col-sm-2 font-gray">
-						<!--<select [(ngModel)]="database.version">
-							<option *ngFor="let version of databaseOptionList[0].version" value="version">{{version}}</option>
-						</select>-->
+					<div class="col-sm-1 no-padding">
+						<select class="form-control" [(ngModel)]="database.version">
+							<option *ngFor="let version of databaseOptionList.items[0]?.version" [value]="version">{{version}}</option>
+						</select>
 					</div>
-					<div class="col-sm-4 font-gray">
+					<div class="col-sm-2 form-control-title">{{'操作系统类型' | translate}}</div>
+					<div class="col-sm-1">
+						<select class="form-control">
+							<option value="0">Linux</option>
+							<option value="1">Windows</option>
+							<option value="3">Mac</option>
+						</select>
+					</div>
+					<div class="col-sm-2 form-control-title">{{'位数' | translate}}</div>
+					<div class="col-sm-1">
+						<select class="form-control">
+							<option value="0">32bit</option>
+							<option value="1">64bit</option>
+						</select>
 					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title">{{'部署模式' | translate}}</div>
-					<!--<div class="col-sm-2 no-padding" *ngFor="let mode of databaseOptionList[0].mode">
-                        <input type="radio" class="fox-cloud-radio" [value]="mode.value" [(ngModel)]="database.deployMode" name="deployMode"
-                            style="margin-right:10px;">{{mode.label}}                    
-                    </div>-->
+					<div class="col-sm-2 no-padding from-control" *ngFor="let mode of databaseOptionList.items[0]?.mode">
+						<input type="radio" class="fox-cloud-radio" [value]="mode.value" [(ngModel)]="database.deployMode" name="deployMode" style="margin-right:10px;">{{mode.label}}
+					</div>
 				</div>
 			</div>
 			<div class="row row-line-height">
@@ -81,8 +95,11 @@
 			<div class="row row-line-height">
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title">{{'存储类型' | translate}}</div>
-					<div class="col-sm-4 font-gray">
-
+					<div class="col-sm-5 no-padding">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default" *ngFor="let item of storageTypeList;let idx = index" (click)="chooseStorageType(item,idx)"
+							 [ngClass]="{'btn-active': item.selected}">{{item.type}}</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -90,7 +107,7 @@
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title">{{'附件云硬盘' | translate}}</div>
 					<div class="col-md-6 no-padding" style="border:1px solid #cfd8e7">
-						<table class="table table-hover">
+						<table class="table table-hover" *ngIf="database.storageType=='FS'">
 							<thead>
 								<tr>
 									<th>编号</th>
@@ -105,6 +122,38 @@
 									<td>{{item.useDisplay}}</td>
 									<td>
 										<input class="form-control" [(ngModel)]="item.minSize" style="display: inline;width:100px">
+									</td>
+									<td>
+										<input class="form-control" [(ngModel)]="item.defaultPath" style="display: inline;width:150px">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="table table-hover" *ngIf="database.storageType=='ASM'">
+							<thead>
+								<tr>
+									<th>编号</th>
+									<th>{{"云硬盘用途" | translate}}</th>
+									<th>{{"最小配置" | translate}}</th>
+									<th>{{"磁盘组名称" | translate}}</th>
+									<th>{{"冗余级别" | translate}}</th>
+									<th>{{"默认挂载目录" | translate}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let item of database.diskProfileList; let idx = index;">
+									<td>{{idx + 1}}</td>
+									<td>{{item.useDisplay}}</td>
+									<td>
+										<input class="form-control" [(ngModel)]="item.minSize" style="display: inline;width:100px">
+									</td>
+									<td>
+										<input class="form-control" [(ngModel)]="item.minSize" style="display: inline;width:100px">
+									</td>
+									<td>
+										<select name="redundancy" class="form-control" [(ngModel)]="item.copyLevel">
+                            				<option [value]="redundancy.value" *ngFor="let redundancy of databaseOptionList.items[0]?.copyleveloption">{{redundancy.label}}</option>
+                        				</select>
 									</td>
 									<td>
 										<input class="form-control" [(ngModel)]="item.defaultPath" style="display: inline;width:150px">

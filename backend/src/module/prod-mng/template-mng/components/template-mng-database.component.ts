@@ -4,11 +4,17 @@ import { Router , ActivatedRoute, Params} from '@angular/router';
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent} from '../../../../architecture';
 import { Validation, ValidationRegs } from '../../../../architecture';
 
-import { DatabaseModel,DatabaseOption } from '../model/template-mng-database.model'
+import { DatabaseModel,DatabaseOptions } from '../model/template-mng-database.model'
 import { DatabaseService } from '../service/template-mng-database.service'
 
 @Component({
-    templateUrl:"../template/template-mng-database.component.html",    
+    templateUrl:"../template/template-mng-database.component.html", 
+     styles: [
+        `.btn-active{
+            background-color: #00a982;
+            color : #fff
+        }`
+    ],   
 })
 export class DatabaseComponent implements OnInit{
     constructor(
@@ -25,24 +31,45 @@ export class DatabaseComponent implements OnInit{
     notice:NoticeComponent;
     pagetitle:string;
     database:DatabaseModel=new DatabaseModel();
-    databaseOptionList:Array<DatabaseOption>=new Array<DatabaseOption>();
+    databaseOptionList:DatabaseOptions=new DatabaseOptions();
+    storageTypeList=[
+            {
+                type:'FileSystem',
+                value:'FS',
+                selected:true
+            },
+            {
+                type:'ASM',
+                value:'ASM',
+                selected:false            
+            }
+        ];
+    softwareTypeList:Array<any>=new Array<any>();
     ngOnInit(){
         this.database=new DatabaseModel();
-        this.databaseOptionList=new Array<DatabaseOption>();
+        this.databaseOptionList=new DatabaseOptions();
         console.log(this.database);
         console.log(this.databaseOptionList);
         this.route.params.forEach((params: Params) => {
             this.pagetitle=
                 params['type']=='new'?'新建数据库模板':'编辑数据库模板';             
-            console.log();
         });
         this.service.getDatabaseOptionInitInfo().then(res=>{
             console.log(res);
-            this.databaseOptionList=res.resultContent.items;
-            // this.database.version=this.databaseOptionList[0].version[0];
+            this.databaseOptionList=Object.assign({},res.resultContent);
+            // console.log();
+            this.softwareTypeList.push(this.databaseOptionList.items[0].db);
+            this.database.dbType=this.databaseOptionList.items[0].db.value;
+            this.database.version=this.databaseOptionList.items[0].version[0];
         }).catch(err=>{
             console.log(err);
         })
+    }
+    //选择存储类型
+    chooseStorageType(item,idx){
+        this.storageTypeList.forEach(type=>type.selected=false);
+        this.storageTypeList[idx].selected=true;
+        this.database.storageType=item.value;
     }
     //表单验证
     checkForm(key?: string) {
