@@ -75,7 +75,7 @@ export class MenuService {
 					"label": "管理服务",
 					"isOpen": false,
 					"isShow": true,
-					"icon": "icon-machine",
+					"icon": "icon-setting",
 					"top2_menu": [
 						{
 							"label": "管理服务",
