@@ -19,7 +19,7 @@ export class SearchOrderDetail{
 	statusName:string = null;
 	type:number = null;//订单类型??
 	typeName:string = null;//订单类型
-
+  subinstanceId:string;//实例Id
 	extendType:string;//自动续订方式
 	orderInstanceItems:[{//订单中的产品信息
 		departmentName: string;//, optional): 所属部门 ,
