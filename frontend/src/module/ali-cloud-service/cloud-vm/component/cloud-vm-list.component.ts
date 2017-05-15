@@ -67,7 +67,7 @@ export class AliCloudVmListComponent implements OnInit {
     confirmMsg = "";
 
     pageIndex = 1;
-    pageSize = 2;
+    pageSize = 10;
     totalPage = 1;
     listTimer = null;
     instanceTimer: Array<any> = [];
@@ -675,7 +675,11 @@ export class AliCloudVmListComponent implements OnInit {
                         this.layoutService.hide();
                         if (response && 100 == response["resultCode"]) {
                             this.showAlert("释放实例成功！");
-                            this.selectRegion(this.choosenRegion);
+                            if (this.choosenRegion != this.defaultRegion) {
+                                this.selectRegion(this.choosenRegion);
+                            } else {
+                                this.getAllRegionInstances();
+                            }
                         } else {
                             //this.showAlert("COMMON.GETTING_DATA_FAILED");
                             if (403 == response["resultCode"]) {
@@ -771,7 +775,11 @@ export class AliCloudVmListComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         console.log("云主机名称更改成功！");
                         this.showMsg("云主机名称更改成功！");
-                        this.selectRegion(this.choosenRegion);
+                        if (this.choosenRegion != this.defaultRegion) {
+                            this.selectRegion(this.choosenRegion);
+                        } else {
+                            this.getAllRegionInstances();
+                        }
                     } else {
                         this.showMsg("COMMON.GETTING_DATA_FAILED");
                         return;

@@ -172,15 +172,35 @@
 						</div>
 					</div>
 					 <div class="col-md-12">
-                        <table class="table">
+                        <table class="table table-all-boder">
                             <tr>
                                 <th class="text-center">编号</th>
                                 <th class="text-center">云硬盘用途</th>
                                 <th class="text-center">云硬盘类型</th>
                                 <th class="text-center">配置</th>
-                                <th class="text-center">磁盘组名称</th>
-                                <th class="text-center">冗余级别</th>
+                                <th *ngIf="storageType==='ASM'" class="text-center">磁盘组名称</th>
+                                <th *ngIf="storageType==='ASM'" class="text-center">冗余级别</th>
                                 <th class="text-center">挂载目录</th>
+                            </tr>
+                            <tr *ngFor="let data of FSList.concat(ASMList); let i = index">
+								<td class="text-center">{{i + 1}}</td>
+								<td class="text-center">{{data.usageType}}</td>
+								<td class="text-center">
+									<select class="form-control" id="bootstorage">
+										<option
+										*ngFor="let value of valuesList.BOOTSTORAGE"
+										[ngValue]="value" id="bootstorage_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
+									</select>
+								</td>
+								<td class="text-center">
+									<count-bar
+							            step="1" 
+							            [min]="data.minDiskSize" 
+							            [value]="data.minDiskSize" (output)="outputValue($event, i)"></count-bar>
+								</td>
+								<td *ngIf="storageType==='ASM'" class="text-center">{{data.diskGroup}}</td>
+								<td *ngIf="storageType==='ASM'" class="text-center">{{data.copyLevel}}</td>
+								<td class="text-center">{{data.mountPath}}</td>
                             </tr>
                         </table>
 					 </div>

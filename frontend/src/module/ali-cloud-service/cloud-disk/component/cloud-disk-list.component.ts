@@ -60,6 +60,9 @@ export class AliCloudDiskListComponent implements OnInit {
     pageIndex = 1;
     pageSize = 10;
     totalPage = 1;
+    listTimer = null;
+
+    pollDisk:  DiskQueryObject = new DiskQueryObject();
 
     //keysecret: keysecretModel = new keysecretModel();
 
@@ -72,6 +75,7 @@ export class AliCloudDiskListComponent implements OnInit {
     defaultRegion: RegionModel = new RegionModel();
     choosenRegion: RegionModel = this.defaultRegion;
 
+    alldisks: Array<diskListModel> = [];
     disks: Array<diskListModel> = []; //订购body模型
     selectedDiskItem: diskListModel = new diskListModel();
     changedDisk: diskListModel = new diskListModel();
@@ -175,6 +179,7 @@ export class AliCloudDiskListComponent implements OnInit {
                     }
                     this.regions = result.Regions.Region;
                     console.log(this.regions, "this.regions!");
+                    this.selectRegion(this.regions[0]);
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -193,13 +198,15 @@ export class AliCloudDiskListComponent implements OnInit {
     }
 
     selectRegion(region: RegionModel) {
+        this.choosenRegion = region;
         this.regions.map((item) => {
             item.selected = false;
         });
         region.selected = true;
         this.queryObject.keyword = "";
         this.queryObject.criteria = "disk_name";
-        this.getDiskList(region); // 列出对应region的disk list
+        //this.getDiskList(region); // 列出对应region的disk list
+        this.getDiskList(1);
         /*
         if (region.areas == null || region.areas.length == 0) {
             this.getArea(region);
@@ -207,9 +214,13 @@ export class AliCloudDiskListComponent implements OnInit {
         */
     }
 
-    getDiskList(region: RegionModel) {
+    getDiskList(pageIndex?) {
+        this.pageIndex = pageIndex || this.pageIndex;
         this.layoutService.show();
-        this.service.getDiskList(this.pageIndex, this.pageSize, region.RegionId, this.queryObject)
+        this.clearInterval();
+        this.listTimer && window.clearInterval(this.listTimer);
+
+        this.service.getDiskList(this.pageIndex, 100, this.choosenRegion.RegionId, this.queryObject)
         .then(
             response => {
                 this.layoutService.hide();
@@ -221,13 +232,22 @@ export class AliCloudDiskListComponent implements OnInit {
                     } catch (ex) {
                         console.log(ex);
                     }
-                    this.disks = result.Disks.Disk;
-                    this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
-                    console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
+                    this.alldisks = result.Disks.Disk;
+                    this.totalPage = Math.ceil(this.alldisks.length / this.pageSize);
+                    console.log(this.alldisks.length, this.totalPage, "TotalCount, this.totalPage!");
+                    this.pageIndex = 1;
+                    this.pager.render(1);
+                    this.disks = this.alldisks.slice(0,this.pageIndex*this.pageSize);
+                    console.log(this.disks, "disks!");
+                    //this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
+                    //console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
                     for(let i=0; i<this.disks.length; i++) {
                         console.log(this.disks[i].DiskId, " == ");
                     }
                     console.log(this.disks, "this.disks!");
+                    if (this.disks.length != 0) {
+                        this.disksPollOps();
+                    }
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -237,8 +257,98 @@ export class AliCloudDiskListComponent implements OnInit {
                 this.onRejected(e);
             });
 
+
+        this.listTimer = window.setInterval(() => {
+            this.service.getDiskList(this.pageIndex, 100, this.choosenRegion.RegionId, this.queryObject)
+        .then(
+            response => {
+                this.layoutService.hide();
+                //console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.alldisks = result.Disks.Disk;
+                    this.totalPage = Math.ceil(this.alldisks.length / this.pageSize);
+                    console.log(this.alldisks.length, this.totalPage, "TotalCount, this.totalPage!");
+                    this.pageIndex = 1;
+                    this.pager.render(1);
+                    this.disks = this.alldisks.slice(0,this.pageIndex*this.pageSize);
+                    console.log(this.disks, "disks!");
+                    //this.disks = result.Disks.Disk;
+                    //this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
+                    //console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
+                    for(let i=0; i<this.disks.length; i++) {
+                        console.log(this.disks[i].DiskId, " == ");
+                    }
+                    console.log(this.disks, "this.disks!");
+                    if (this.disks.length != 0) {
+                        this.disksPollOps();
+                    }
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+        })
+        .catch((e) => {
+                this.onRejected(e);
+            });
+        }, 600000 );
+
     }
 
+    disksPollOps() {
+        console.log("=====================================================================");
+        this.disks.map((disk) => {
+            this.oneDiskPoll(disk);
+        });
+
+    }
+
+    clearInterval() {
+        this.disks.map((disk) => {
+            disk.diskTimer && window.clearInterval(disk.diskTimer);
+        });
+    }
+
+    oneDiskPoll(disk) {
+        disk.diskTimer && window.clearTimeout(disk.diskTimer);
+        if (disk.Status == "Attaching" || disk.Status == "Detaching" || disk.Status == "Creating" || disk.Status == "Deleting" || disk.Status == "ReIniting") {
+            disk.diskTimer = window.setInterval(() => {
+                console.log(disk.Status);
+                this.pollDisk.criteria = "instance_ids";
+                this.pollDisk.keyword = disk.DiskId;
+                this.service.getDiskList(1, 10, this.choosenRegion.RegionId, this.pollDisk).then(
+                    response => {
+                        if (response && 100 == response["resultCode"]) {
+                            let result;
+                            try {
+                                result = JSON.parse(response.resultContent);
+                                console.log(result, "result!");
+                            } catch (ex) {
+                                console.log(ex);
+                            }
+                            disk.Status = result.Disks.Disk[0].Status;
+                            if (disk.Status != "Pending" && disk.Status != "Starting" && disk.Status != "Stopping") {
+                                disk.diskTimer && window.clearInterval(disk.diskTimer);
+                            }
+                            console.log(disk.Status);
+                        } else {
+                            console.log("getInstanceList in instancesPollOps failed!");
+                            return;
+                        }
+                    }
+
+                );
+
+            }, 5000);
+        }
+
+    }
+/*
     changePage(pageIndex?) {
         this.pageIndex = pageIndex || this.pageIndex;
         this.layoutService.show();
@@ -270,6 +380,7 @@ export class AliCloudDiskListComponent implements OnInit {
                 this.onRejected(e);
             });
     }
+*/
 
     search() {
         console.log(this.queryObject);
@@ -370,7 +481,12 @@ export class AliCloudDiskListComponent implements OnInit {
                     this.layoutService.hide();
                     this.attachdisk.close();
                     if (response && 100 == response["resultCode"]) {
-                        this.selectRegion(this.choosenRegion);
+                        //this.selectRegion(this.choosenRegion);
+                        if (this.choosenRegion != this.defaultRegion) {
+                            this.selectRegion(this.choosenRegion);
+                        } else {
+                            this.getAllRegionDisks();
+                        }
                         this.showAlert("挂载云硬盘成功！");
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -432,7 +548,12 @@ export class AliCloudDiskListComponent implements OnInit {
                     this.layoutService.hide();
                     this.detachdisk.close();
                     if (response && 100 == response["resultCode"]) {
-                        this.selectRegion(this.choosenRegion);
+                        //this.selectRegion(this.choosenRegion);
+                        if (this.choosenRegion != this.defaultRegion) {
+                            this.selectRegion(this.choosenRegion);
+                        } else {
+                            this.getAllRegionDisks();
+                        }
                         this.showAlert("卸载云硬盘成功！");
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -463,7 +584,12 @@ export class AliCloudDiskListComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.showAlert("删除硬盘成功");
-                        this.selectRegion(this.choosenRegion);
+                        //this.selectRegion(this.choosenRegion);
+                        if (this.choosenRegion != this.defaultRegion) {
+                            this.selectRegion(this.choosenRegion);
+                        } else {
+                            this.getAllRegionDisks();
+                        }
                     } else {
                         if(403 == response["resultCode"]) {
                             let result;
@@ -510,7 +636,12 @@ export class AliCloudDiskListComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         console.log("云硬盘名称更改成功！");
                         this.showMsg("云硬盘名称更改成功！");
-                        this.selectRegion(this.choosenRegion);
+                        //this.selectRegion(this.choosenRegion);
+                        if (this.choosenRegion != this.defaultRegion) {
+                            this.selectRegion(this.choosenRegion);
+                        } else {
+                            this.getAllRegionDisks();
+                        }
                     } else {
                         this.showMsg("COMMON.GETTING_DATA_FAILED");
                         return;
@@ -585,6 +716,62 @@ export class AliCloudDiskListComponent implements OnInit {
             this.showMsg("NET_MNG_VM_IP_MNG.PLEASE_CHOOSE_ITEM");
             return null;
         }
+    }
+
+    getAllRegionDisks() {
+        this.layoutService.show();
+        this.clearInterval();
+        this.listTimer && window.clearInterval(this.listTimer);
+
+        this.service.getAllRegionDisks()
+            .then(
+            response => {
+                this.layoutService.hide();
+                console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.resultContent);
+                        console.log(result, "result!");
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                    this.alldisks = result.Disks.Disk;
+                    this.totalPage = Math.ceil(this.alldisks.length / this.pageSize);
+                    console.log(this.alldisks.length, this.totalPage, "TotalCount, this.totalPage!");
+                    this.pageIndex = 1;
+                    this.pager.render(1);
+                    this.disks = this.alldisks.slice(0,this.pageIndex*this.pageSize);
+                    console.log(this.disks, "disks!");
+                    //this.disks = result.Disks.Disk;
+                    //this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
+                    //console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
+                    for(let i=0; i<this.disks.length; i++) {
+                        console.log(this.disks[i].DiskId, " == ");
+                    }
+                    //console.log(this.disks, "this.disks!");
+                    /*
+                    if (this.disks.length != 0) {
+                        this.disksPollOps();
+                    }*/
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+
+    }
+
+    changePage(pageIndex?) {
+        this.pageIndex = pageIndex || this.pageIndex;
+        console.log(this.pageIndex);
+        if(this.pageIndex>this.totalPage) return;
+
+        this.disks = this.alldisks.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize);
+        console.log(this.disks, "disks!");
     }
 
 }
