@@ -49,7 +49,7 @@ export const AlarmList_mock = {
         "order":1,
         "itemId":"157876b7-8529-4fb9-ae6e-f0c257e4f029",
         "name":"Host 内存平均利用率",
-        "switch":2,
+        "switch":"2",
         "method":"1",
         "description":"云平台宿主机CPU平均使用率",
         "threshold":[
