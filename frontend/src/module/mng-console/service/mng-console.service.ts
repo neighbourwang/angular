@@ -53,4 +53,24 @@ export class MngConsoleService {
 		return request;
 	};
 
+	getMgmtGraph() : Promise<any> {
+		let api = this.restApiCfg.getRestApi('maintenancemgmt-general');
+
+		let data = {
+			"enterpriseId": this.getUserInfo.enterpriseId
+		};
+
+		const request = this.restApi.request(api.method, api.url, undefined, undefined, data)
+							.then(res => {
+								if(res.resultCode !== "100"){
+									throw "";
+								}
+								return res.resultContent;
+							});
+
+		return request;
+	};
+
+	
+
 };

@@ -14,8 +14,8 @@ import { SystemDictionaryService } from '../../architecture';
 @Injectable()
 export class decimalPlacesPipe implements PipeTransform {
 
-    transform(number:number|string, length : number = 2): number {
-    	const times = Math.pow(10,length);
-    	return parseInt("" + +number*times)/times;
+    transform(number:number|string, length : number = 2, method="floor"): number {
+	const times = Math.pow(10,length);
+	return Math[method]("" + +number*times)/times;
     }
 }

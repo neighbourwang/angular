@@ -22,10 +22,12 @@
                 <td>
                     <input type="radio" class="fox-cloud-radio" name="alarm" (click)="getSelectAlarm(item);" [checked]="item.isSelect"/>
                 </td>
-                <td>{{item.alarmName}}</td>
-                <td>{{item.threshold}}</td>
-                <td>{{item.alarmSwitch}}</td>
-                <td>{{item.alarmMethod}}</td>
+                <td>{{item.name}}</td>
+                <td >
+                 <div *ngFor="let v of item.threshold">{{v.name}}: {{v.symbol}} {{v.value}}</div>
+                </td>
+                <td>{{item.switch |dict:service.dictSwitch | async}}</td>
+                <td>{{item.method | dict:service.dictMethod | async}}</td>
                 <td style="width:300px;word-break:break-all;">{{item.description}}</td>
             </tr>
             </tbody>
