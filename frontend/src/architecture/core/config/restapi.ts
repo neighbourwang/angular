@@ -295,19 +295,19 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取管理服务产品",
         "method": "GET",
         "id": "mgmt-product-simple",
-        "url": "productmgmt/authsec/supervise/product/simple"
+        "url": "marketplace/authsec/supervise/product/simple"
     },
     {
         "desc": "获取管理服务产品详情",
         "method": "GET",
         "id": "product-info-via-serviceId",
-        "url": "productmgmt/authsec/supervise/product/{productId}"
+        "url": "marketplace/authsec/supervise/product/{productId}"
     },
     {
         "desc": "获取管理服务的attribute",
         "method": "GET",
         "id": "mngm-attribute",
-        "url": "productmgmt/authsec/supervise/product/attribute"
+        "url": "marketplace/authsec/supervise/product/attribute"
     },
     // {
     //     "desc": "获取一个管理服务目录的基础信息",
