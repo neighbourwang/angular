@@ -51,7 +51,7 @@ export class HostMemoryUseComponent implements OnInit{
     }
 
     alarmName=["平台存储实际分配率","平台存储分配率","虚拟机CPU平均使用率","虚拟机内存平均使用率"];
-    isName=false;
+    isName:boolean;
 
     //获取告警项
     getAlarm(){
@@ -67,9 +67,10 @@ export class HostMemoryUseComponent implements OnInit{
                         this.threshold1=this.alarm.threshold[0];
                         this.threshold2=this.alarm.threshold[1];
                         if(this.alarmName.find((e)=>{return e==this.alarm.name})){
-                            this.isName=true;
-                            console.log("isName",this.isName)
+                            this.isName=true;                           
                         }
+                        else this.isName=false;
+                        console.log("isName",this.isName)
                         console.log("条件1",this.threshold1)
                         console.log("条件2",this.threshold2)
                     } 

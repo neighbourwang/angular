@@ -5,11 +5,11 @@
     <div class="row row-line-height">        
         <div class="col-md-2 form-control-title" style="width:140px;">告警开关：</div>
         <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;width:90px;">
-            <input class="fox-cloud-radio" type="radio" name="alarmswitch"  [value]="1" [(ngModel)]="alarm.switch" >
+            <input class="fox-cloud-radio" type="radio" name="alarmswitch"  value="1" [(ngModel)]="alarm.switch" >
             <span class="mgl5">开启</span>
         </div>
         <div class="col-md-1" style="line-height:34px;font-size:16px;width:90px;">  
-            <input class="fox-cloud-radio" type="radio" name="alarmswitch"  [value]="2" [(ngModel)]="alarm.switch">
+            <input class="fox-cloud-radio" type="radio" name="alarmswitch"  value="2" [(ngModel)]="alarm.switch">
             <span class="mgl5">关闭</span>
         </div>      
     </div>
@@ -39,7 +39,8 @@
         <div class="col-md-1 mgl10" style="padding:0px;">
                 <input class="form-control" type="number" min=0 max=100  [(ngModel)]="threshold1.value">
         </div>
-        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;">级别：</div>
+        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;" *ngIf="isName == false">级别：</div>
+        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;padding:0px" *ngIf="isName == true">告警内容：</div>
         <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;">
                 <select class="form-control"  [(ngModel)]="threshold1.level">
                 <option value="">请选择</option>
@@ -62,15 +63,16 @@
         <div class="col-md-1 " style="padding:0px;margin-left:10px">
                 <input class="form-control" type="number"   [(ngModel)]="threshold2.value" min=0 max=100>
         </div>
-        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;">级别：</div>
+        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;" *ngIf="isName == false">级别：</div>
+        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;padding:0px" *ngIf="isName == true">告警内容：</div>
         <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;">
                 <select class="form-control"  [(ngModel)]="threshold2.level">
                 <option value="">请选择</option>
                 <option *ngFor="let type of service.dictLevel | async" [value]="type.value">{{type.displayValue}}</option>
             </select>
         </div>
-        <div class="col-md-3"style="font-size:16px;line-height:34px" *ngIf="isName == 'false'">条件2输入的数值必须大于条件1</div>
-        <div class="col-md-3"style="font-size:16px;line-height:34px" *ngIf="isName == 'true'">条件2输入的数值必须小于等于条件1</div>
+        <div class="col-md-3" style="font-size:16px;line-height:34px" *ngIf="isName == false">条件2输入的数值必须大于条件1</div>
+        <div class="col-md-3" style="font-size:16px;line-height:34px" *ngIf="isName == true">条件2输入的数值必须小于等于条件1</div>
     </div>
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title" style="width:140px;"></div>
@@ -85,7 +87,7 @@
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title" style="width:140px;">告警方式：</div>
         <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;width:90px;">
-            <input class="fox-cloud-radio" type="radio" name="method" [value]="1" [(ngModel)]="alarm.method">
+            <input class="fox-cloud-radio" type="radio" name="method" value="1" [(ngModel)]="alarm.method">
             <span class="mgl5">Email</span>
         </div>
         <div class="col-md-2">
@@ -103,6 +105,7 @@
                         <th>姓名</th>
                         <th>账号</th>
                         <th>Email地址</th>
+                        <th *ngIf="isName == true">角色</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -113,6 +116,7 @@
                         <td>{{item.name}}</td>
                         <td>{{item.account}}</td>
                         <td>{{item.email}}</td>
+                        <td *ngIf="isName == true">{{item.role}}</td>
                     </tr>
                     </tbody>
                 </table>
