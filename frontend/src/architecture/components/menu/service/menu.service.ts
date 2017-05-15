@@ -74,6 +74,12 @@ export class MenuService {
 							"routing": "cloud-host-service/management-services-order"
 						},
 						{
+							"label": "管理服务列表",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "cloud-host-service/management-services-list"
+						},
+						{
 							"label": "阿里云主机",
 							"isOpen": true,
 							"isShow": true,
