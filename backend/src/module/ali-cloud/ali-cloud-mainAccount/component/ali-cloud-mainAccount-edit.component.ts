@@ -103,7 +103,7 @@ export class AliCloudMainAccountEditComponent implements OnInit{
             return;
         }
         if((!this.changebt &&this.testResult=="1")  || this.changebt){      
-            this.layoutService.hide();
+            this.layoutService.show();
             this.service.editAccount(this.account)
             .then(
                 response=>{ 
