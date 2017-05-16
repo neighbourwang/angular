@@ -52,7 +52,7 @@ export class bootDiskCreEditComponent implements OnInit {
             this.isEdit =
                 params['isEdit'] ? true : false;
             this.titleName =
-                params['isEdit'] ? '设置启动盘' : '编辑启动盘';
+                params['isEdit'] ?'编辑启动盘': '设置启动盘';
         })
         if (!this.isEdit) {
             this.getZoneList(this.platformId);
