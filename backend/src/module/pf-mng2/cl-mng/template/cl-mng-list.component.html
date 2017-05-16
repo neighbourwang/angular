@@ -8,17 +8,17 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <!--<li><a href="#">修改</a></li>-->
-                <li> <a (click)="goDiskMng()">管理启动盘</a></li>
-                <li> <a (click)="goVmSpec()">管理云主机规格</a></li>
-                <li><a (click)="remove();"> {{ 'COMMON.DELETE' | translate}}</a></li>
-                <li><a (click)="enable();"> {{ 'COMMON.ENABLE' | translate}}</a></li>
-                <li><a (click)="disable();"> {{ 'COMMON.DISABLE' | translate}}</a></li>
+                <li> <a (click)="goDiskMng()" id="goDiskMng" >管理启动盘</a></li>
+                <li> <a (click)="goVmSpec()" id="goVmSpec">管理云主机规格</a></li>
+                <li><a (click)="remove();" id="remove"> {{ 'COMMON.DELETE' | translate}}</a></li>
+                <li><a (click)="enable();" id="enable"> {{ 'COMMON.ENABLE' | translate}}</a></li>
+                <li><a (click)="disable();" id="disable"> {{ 'COMMON.DISABLE' | translate}}</a></li>
             </ul>
         </div>
         <!--<button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;padding:0 10px;margin-right: 20px"
 			(click)='goDiskMng()'>修改配额与配置
         </button>-->
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="create();">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="create();" id="createPlatform">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">{{ 'PF_MNG2.CREATE_CLOUD_PLATFORM' | translate}}</span>
         </button>
@@ -40,7 +40,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of platforms; let idx = index;">
+            <tr *ngFor="let item of platforms; let idx = index;" id="platform_{{item.id}}">
                 <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" (click)="switchSelectIndividual(idx)"/></td>
                 <!--<td>123</td>-->
                 <td>{{idx+1}}</td>
