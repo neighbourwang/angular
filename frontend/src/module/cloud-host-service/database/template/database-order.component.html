@@ -1,6 +1,6 @@
 <div class="page-content cloud_host_order database-order">
 	<div class="col-md-9">
-		<h1 (click)="payLoadFormat()" class="page-content-header">创建数据库</h1>
+		<h1 (click)="dbPayLoadFormat()" class="page-content-header">创建数据库</h1>
 		<ul class="left-box">
 			<li>
 				<div class="col-md-1 li-title">                  
@@ -186,7 +186,7 @@
 								<td class="text-center">{{i + 1}}</td>
 								<td class="text-center">{{data.usageType}}</td>
 								<td class="text-center">
-									<select class="form-control" id="bootstorage">
+									<select class="form-control" id="bootstorage" [(ngModel)]="data.storage">
 										<option
 										*ngFor="let value of valuesList.BOOTSTORAGE"
 										[ngValue]="value" id="bootstorage_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>

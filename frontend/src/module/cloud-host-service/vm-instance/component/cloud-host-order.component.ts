@@ -121,9 +121,8 @@ export class cloudVmComponentOrder implements OnInit {
 	public fetchConfig() {
 		this.layoutService.show();
 		this.service.getHostConfigList().then(configList => {
+			this.layoutService.hide();
 			configList.attrList.forEach(config => {
-				this.layoutService.hide();
-
 				this.attrList[config.attrCode] = config;
 			});
 			this.skuMap = configList.skuMap;
@@ -256,10 +255,10 @@ export class cloudVmComponentOrder implements OnInit {
 		}
 	}
 
-	private getSkuMap(code: "vm" | "disk"): SkuMap[] {   //获取根据参数获取的sku数组 因为云主机的sku不止一个
+	public getSkuMap(code: "vm" | "disk", values = this.values): SkuMap[] {   //获取根据参数获取的sku数组 因为云主机的sku不止一个
 
-		let list = code === "vm" ? ["ZONE", "PLATFORM", "CPU", "MEM", "BOOTSIZE"].map(v => this.values[v].attrValueId)   //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
-			: code === "disk" ? ["ZONE", "PLATFORM", "STORAGE"].map(v => this.values[v].attrValueId) : [];  //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
+		let list = code === "vm" ? ["ZONE", "PLATFORM", "CPU", "MEM", "BOOTSIZE"].map(v => values[v].attrValueId)   //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
+			: code === "disk" ? ["ZONE", "PLATFORM", "STORAGE"].map(v => values[v].attrValueId) : [];  //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
 
 		const trim = val => val.replace("[", "").replace("]", "");
 
@@ -421,25 +420,25 @@ export class cloudVmComponentOrder implements OnInit {
 		});
 	}
 
-	private itemNum: number = 0;
-	private makeItemNum(): string {
+	public itemNum: number = 0;
+	public makeItemNum(): string {
 		return new Date().getTime() + "" + (this.itemNum++);
 	}
 
-	private sendModuleToPay(): AttrList[] {   //把sendModule转换成数组
+	public sendModuleToPay(values = this.values): AttrList[] {   //把sendModule转换成数组
 		let payloadList = [];
 
-		for (let v in this.values) {
-			if(this.values[v].attrValueCode === "" && this.values[v].attrValue === "")  continue;
+		for (let v in values) {
+			if(values[v].attrValueCode === "" && values[v].attrValue === "")  continue;
 
 			payloadList.push({
 				attrId: this.attrList[v].attrId,                  	//服务属性ID
 				attrCode: this.attrList[v].attrCode,              	//服务属性CODE
-				attrDisplayValue: this.values[v].attrDisplayValue,	//服务属性Name
+				attrDisplayValue: values[v].attrDisplayValue,     	//服务属性Name
 				attrDisplayName: this.attrList[v].attrDisplayName,	//服务属性Name
-				attrValueId: this.values[v].attrValueId,          	//服务属性值ID
-				attrValue: this.values[v].attrValue,              	//服务属性值
-				attrValueCode: this.values[v].attrValueCode,      	//服务属性值
+				attrValueId: values[v].attrValueId,               	//服务属性值ID
+				attrValue: values[v].attrValue,                   	//服务属性值
+				attrValueCode: values[v].attrValueCode,           	//服务属性值
 			});
 		};
 		return payloadList;
