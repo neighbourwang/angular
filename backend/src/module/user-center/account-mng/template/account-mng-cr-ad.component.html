@@ -10,7 +10,7 @@
                     </div>
                     
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="account.userName" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}">
+                        <input type="text" id="userName" class="form-control" [(ngModel)]="account.userName" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}">
                     </div>
                     <!--
                     <div class="col-sm-4" [ngClass]="{'has-error': userName.errors && (userName.dirty || userName.touched)}">
@@ -34,7 +34,7 @@
                     </div>
                     
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="account.phone" placeholder="{{'USER_CENTER.INPUT_PHONE' | translate}}">
+                        <input type="text" id="phone" class="form-control" [(ngModel)]="account.phone" placeholder="{{'USER_CENTER.INPUT_PHONE' | translate}}">
                     </div>
                     <!--
                     <div class="col-sm-4" [ngClass]="{'has-error': Phone.errors && (Phone.dirty || Phone.touched)}">
@@ -55,7 +55,7 @@
                         {{'COMMON.DESCRIPTION' | translate}}<!--描述-->
                     </div>
                     <div class="col-sm-4">
-                        <textarea type="text" class="form-control" [(ngModel)]="account.description" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3"></textarea>
+                        <textarea type="text" id="description" class="form-control" [(ngModel)]="account.description" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3"></textarea>
                     </div>
                 </div>
             </div>
@@ -77,9 +77,9 @@
                         {{'USER_CENTER.AD_SOURCE' | translate}}<!--认证源-->
                     </div>
                     <div class="col-sm-4">
-                        <select class="form-control" [(ngModel)]="account.ldapId">
-                            <option value="">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE' | translate}}<!--请选择--></option>
-                            <option *ngFor="let attest of attests" [value]="attest.id">{{attest.name}}</option>
+                        <select class="form-control" [(ngModel)]="account.ldapId" id="ldapId">
+                            <option value="" id="ldapId_null">{{'NET_MNG_VM_IP_MNG.PLEASE_CHOOSE' | translate}}<!--请选择--></option>
+                            <option *ngFor="let attest of attests" [value]="attest.id" id="ldapId_{{attest.id}}">{{attest.name}}</option>
                         </select>
                     </div>
                         
@@ -91,10 +91,10 @@
                         {{'USER_CENTER.AD_USER_ACCOUNT' | translate}}<!--AD用户帐号-->
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="filterStr" placeholder="">
+                        <input type="text" id="filterStr" class="form-control" [(ngModel)]="filterStr" placeholder="">
                     </div>
                     <div class="col-sm-4">
-                        <button class="fox-cloud-button fox-cloud-button-white"  (click)="searchAdUser();">{{'COMMON.SEARCH' | translate}}<!--查询--></button>
+                        <button class="fox-cloud-button fox-cloud-button-white" id="searchAdUser"  (click)="searchAdUser();">{{'COMMON.SEARCH' | translate}}<!--查询--></button>
                     </div>
                 </div>
             </div>
@@ -112,8 +112,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let user of adUsers">
-                            <td><input class="fox-cloud-radio" type="radio" name="aduser-list" (change)="account.loginName=user.loginName;" /></td>
+                        <tr *ngFor="let user of adUsers" id="adUsers_{{user.id}}">
+                            <td><input class="fox-cloud-radio" type="radio" value="adUsers_{{user.id}}" name="aduser-list" (change)="account.loginName=user.loginName;" /></td>
                             <td>{{user.loginName}}</td>
                             <td>{{user.userName}}</td>
                             <td>{{user.email}}</td>
@@ -132,7 +132,7 @@
                     <div class="col-sm-6">
                         <div class="btn-group pdl5">
                             <div class="btn-group float-left" data-toggle="buttons">
-                                <button *ngFor="let role of roles;" title="{{role.name}}" class="btn btn-default fix-width-140 mgt5" [ngClass]="{'active':role.selected}" (click)="role.selected=!role.selected;">
+                                <button *ngFor="let role of roles;" title="{{role.name}}" class="btn btn-default fix-width-140 mgt5" [ngClass]="{'active':role.selected}" (click)="role.selected=!role.selected;" id="roleSelected">
                                     <!--<input type="checkbox" name="role" autocomplete="off" [checked]="role.selected" >--> {{role.name}}
                                 </button>
                             </div>
@@ -148,8 +148,8 @@
                     <div class="col-sm-6">
                         <div class="btn-group pdl5" style="max-height: 300px; overflow: auto;">
                             <div class="btn-group float-left" data-toggle="buttons">
-                                <label *ngFor="let org of organizations;" title="{{org.name}}" class="btn btn-default mgt5 fix-width-140" [ngClass]="{'active':org.selected}" (click)="clearSelectedOrg(); org.selected=true;">
-                                    <input type="radio" name="org" autocomplete="off" [checked]="org.selected" > {{org.name}}
+                                <label *ngFor="let org of organizations;" id="organizations_{{org.id}}" title="{{org.name}}" class="btn btn-default mgt5 fix-width-140" [ngClass]="{'active':org.selected}" (click)="clearSelectedOrg(); org.selected=true;">
+                                    <input type="radio" name="org" autocomplete="off" [checked]="org.selected" value="organizations_{{org.id}}"> {{org.name}}
                                 </label>
                             </div>
                         </div>
@@ -162,10 +162,10 @@
     </div>
 </div>
  <div class="text-center " style="margin-top:50px">
-            <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()" >
+            <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()" id="cancel" >
                 <span class="icon-button-label" >{{'NET_MNG_VM_PORT.CNACLE' | translate}}<!--取消--></span>
             </button>
-            <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="createAccount()" style="margin-left : 10px">
+            <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="createAccount()" id="createAccount" style="margin-left : 10px">
                 <span class="icon-button-label" >{{'NET_MNG_VM_IP_MNG.CREATE' | translate}}<!--创建--></span>
             </button>
 </div>

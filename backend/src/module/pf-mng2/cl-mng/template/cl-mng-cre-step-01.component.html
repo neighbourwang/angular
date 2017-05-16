@@ -30,7 +30,7 @@
                         <span class="asterisk">*</span> {{"USER_CENTER.PLATFORM_NAME" | translate}}:
                     </div>                    
                     <div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.name}">
-						<input type="text" [(ngModel)]="creStep1Model.name" (ngModelChange)="checkForm('name')" name="name"
+						<input type="text" [(ngModel)]="creStep1Model.name" (ngModelChange)="checkForm('name')" id="platName" name="name"
 						 placeholder="{{'PF_MNG2.PLATFORM_NAME_REQUIRED' | translate}}" class="form-control">
 						<span *ngIf="v.result.name" class="glyphicon glyphicon-remove form-control-feedback"></span>
 						<div *ngIf="v.result.name" class="alert alert-danger" role="alert">{{v.result.name|translate}}</div>
@@ -43,8 +43,8 @@
                         <span class="asterisk">*</span> {{"USER_CENTER.REGION_WHICH_BELONG_TO" | translate}}:
                     </div>
                     <div class="col-sm-4 no-padding">
-                        <select class="form-control" [(ngModel)]="creStep1Model.regionId">
-                            <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
+                        <select class="form-control" [(ngModel)]="creStep1Model.regionId" id="regionId_{{creStep1Model.regionId}}">
+                            <option *ngFor="let item of regions;" [value]="item.id" id="region_{{item.id}}">{{item.name}}</option>
                         </select>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         <input type="text" class="form-control" [(ngModel)]="creStep1Model.dataCenter" placeholder="{{'PF_MNG2.DATA_CENTER_REQUIRED' | translate}}">
                     </div>-->
                     <div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.dataCenter}">
-						<input type="text" [(ngModel)]="creStep1Model.dataCenter" (ngModelChange)="checkForm('dataCenter')" name="dataCenter"
+						<input type="text" [(ngModel)]="creStep1Model.dataCenter" (ngModelChange)="checkForm('dataCenter')" name="dataCenter" id="dataCenter"
 						 placeholder="{{'PF_MNG2.DATA_CENTER_REQUIRED' | translate}}" class="form-control">
 						<span *ngIf="v.result.dataCenter" class="glyphicon glyphicon-remove form-control-feedback"></span>
 						<div *ngIf="v.result.dataCenter" class="alert alert-danger" role="alert">{{v.result.dataCenter|translate}}</div>
@@ -73,7 +73,7 @@
                     <div class="col-sm-4 no-padding">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default" *ngFor="let item of platformTypes;let idx = index" (click)="choosePlatFormType(item,idx)"
-                                [ngClass]="{'btn-active': item.isSelected}">{{item.displayValue}}</button>
+                                [ngClass]="{'btn-active': item.isSelected}" id="platformTypes_{{item.code}}">{{item.displayValue}}</button>
                         </div>
                     </div>
                 </div>
@@ -85,9 +85,9 @@
                     </div>
                     <div class="col-sm-4 no-padding">
                         <input type="radio" class="fox-cloud-radio" [value]="true" [(ngModel)]="creStep1Model.supportChange" name="supportChange"
-                            style="margin-right:10px;">{{"PF_MNG2.SUPPORT" | translate}}
+                            style="margin-right:10px;" id="supportChange">{{"PF_MNG2.SUPPORT" | translate}}
                         <input type="radio" class="fox-cloud-radio" [value]="false" [(ngModel)]="creStep1Model.supportChange" name="supportChange"
-                            style="margin:0 10px 0 20px;">{{"PF_MNG2.NONSUPPORT" | translate}}
+                            style="margin:0 10px 0 20px;" id="unsupportChange">{{"PF_MNG2.NONSUPPORT" | translate}}
                     </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                         <span class="asterisk">*</span> {{"PF_MNG2.ADDRESS" | translate}}:
                     </div>
                     <div class="col-sm-4 no-padding">
-                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.uri" placeholder="{{'PF_MNG2.ADDRESS_REQUIRED' | translate}}">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.uri" id="uri" placeholder="{{'PF_MNG2.ADDRESS_REQUIRED' | translate}}">
                     </div>
                 </div>
             </div>
@@ -114,8 +114,8 @@
                         <span class="asterisk">*</span> {{"PF_MNG2.VERSION" | translate}}:
                     </div>
                     <div class="col-sm-4 no-padding">
-                        <select class="form-control" [(ngModel)]="creStep1Model.version">
-                            <option *ngFor="let item of platformVersion;" [value]="item.value">{{item.displayValue}}</option>
+                        <select class="form-control" [(ngModel)]="creStep1Model.version" id="version">
+                            <option *ngFor="let item of platformVersion;" [value]="item.value" id="version_{{item.value}}">{{item.displayValue}}</option>
                         </select>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                         <span class="asterisk">*</span> {{"COMMON.USERNAME" | translate}}:
                     </div>
                     <div class="col-sm-4 no-padding">
-                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.userName" placeholder="{{'PF_MNG2.USERNAME_REQUIRED' | translate}}">
+                        <input type="text" class="form-control" [(ngModel)]="creStep1Model.userName" id="userName" placeholder="{{'PF_MNG2.USERNAME_REQUIRED' | translate}}">
                     </div>
                 </div>
             </div>
@@ -136,7 +136,7 @@
                         <span class="asterisk">*</span> {{"COMMON.PASSWORD" | translate}}:
                     </div>
                     <div class="col-sm-4 no-padding">
-                        <input type="password" class="form-control" [(ngModel)]="creStep1Model.passwd" placeholder="{{'PF_MNG2.PASSWORD_REQUIRED' | translate}}">
+                        <input type="password" class="form-control" [(ngModel)]="creStep1Model.passwd" id="passwd" placeholder="{{'PF_MNG2.PASSWORD_REQUIRED' | translate}}">
                     </div>
                 </div>
             </div>
@@ -145,10 +145,10 @@
     </div>
 </div>
 <div class="text-center mgt30">
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();" id="cancel">
         <span class="icon-button-label">{{"COMMON.CANCEL" | translate}}</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();" id="next">
         <span class="icon-button-label">{{"COMMON.NEXT" | translate}}</span>
     </button>
 </div>
@@ -163,9 +163,9 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>Region {{"COMMON.NAME" | translate}}:</div>
             <div class="col-sm-6">
-                <select class="form-control" [(ngModel)]="creStep1Model.region">
+                <select class="form-control" [(ngModel)]="creStep1Model.region" id="po_region">
 				<!--<select class="form-control">-->
-                    <option *ngFor="let item of platFormRegionList;" [value]="item.id">{{item.id}}</option>
+                    <option *ngFor="let item of platFormRegionList;" [value]="item.id"  id="po_region_{{item.id}}">{{item.id}}</option>
                 </select>
             </div>
         </div>

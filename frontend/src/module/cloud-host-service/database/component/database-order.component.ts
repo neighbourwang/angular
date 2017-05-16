@@ -11,6 +11,7 @@ import { cloudVmComponentOrder } from "../../vm-instance/component/cloud-host-or
 import { cloudHostServiceOrder } from '../../vm-instance/service/cloud-host-order.service';
 
 import { DbTemplateInfo, MDproductReq } from "../model/post.model"
+import { DatabaseValue, DiskValue, VlueList } from "../model/other.model"
 
 @Component({
 	selector: 'cloud-vm-order',
@@ -27,6 +28,9 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 
 	dbProductList = [];  //数据库产品列表
 	dbProduct;  //数据库产品
+
+	databaseValue: DatabaseValue = new DatabaseValue;
+	diskValue: DiskValue = new DiskValue;
 
 	storageTypes = [{
 		value: "FS",
@@ -75,11 +79,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.dbservice.fetchDatabaseInit().then(res => {
 			if(!res.items.length) return
 
-			this.dbInits = res.items.concat([{
-				"db":{"code":null,"label":"mysql","value":1},
-				"middleware":null,"version":["5.5","5.6"],
-				"mode":[{"code":null,"label":"多节点部署","value":0}]
-			}])
+			this.dbInits = res.items
 			this.dbtypeChange(res.items[0])
 		})
 	}
@@ -124,13 +124,48 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	private databaseChange() {   //选择数据库模板后
 		if(!this.dbProduct.templatId) return  //如果没有产品 返回
 
-		this.database = this.databases.filter(data => data.id === this.dbProduct.templatId)[0]
-
-		console.log(this.database, 3453425234)
+		this.database = this.databases.filter(data => data.id === this.dbProduct.templatId)[0]   //确定模板
+		this.database.diskInfoList.forEach(disk => disk.storage = this.values.BOOTSTORAGE)  //目录下面的所有的硬盘的storage下拉列表设置为第一位
 	}
 
-	outputValue() {
-		
+	formatDisk() {
+		let lists = this.database.diskInfoList;
+		if(!lists.length) return [];
+
+		for (let list of lists) {
+		    this.diskValue.PLATFORM = this.values.PLATFORM; 
+		    this.diskValue.ZONE = this.values.ZONE; 
+			this.diskValue.STORAGE.attrValue = list.storage; 
+			this.diskValue.COPYLEVEL.attrValue = list.copyLevel
+			this.diskValue.DISKSIZE.attrValue = list.diskSize || list.minDiskSize; 
+			this.diskValue.MOUNTPATH.attrValue = list.mountPath; 
+			this.diskValue.DISKGROUP.attrValue = list.diskGroup; 
+			this.diskValue.USAGETYPE.attrValue = list.usageType; 
+
+			// let sku = this.getSkuMap("disk", this.diskValue)[0],
+			//	pro = this.diskProduct[0],
+			//	payloadList = this.sendModuleToPay();
+			// let payLoad = {
+			//	skuId: sku.skuId,
+			//	productId: pro.productId,
+			//	attrList: payloadList,
+			//	itemNo: this.makeItemNum(),
+			//	totalPrice: this.diskTotalPrice,
+			//	quality: this.payLoad.quality,
+			//	serviceType: "1",
+			//	relyType: "1",
+			//	relyItemNo: "itemNo"
+			// }
+			// this.payLoadArr.push(payLoad);  //加入云硬盘
+		}
+	}
+
+	dbPayLoadFormat() {
+		this.formatDisk()
+	}
+
+	outputValue($event, i) {
+		this.database.diskInfoList[i].diskSize = $event
 	}
 
 }

@@ -8,19 +8,19 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <li (click)="edit()"><a>{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑--></a></li>
-                <li (click)="resetPassword()"><a>{{'USER_CENTER.RESET_PASSWORD' | translate}}<!--重置密码--></a></li>
-                <li (click)="enable()"><a>{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></a></li>
-                <li (click)="disable()"><a>{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></a></li>
-                <li (click)="delete()"><a>{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}<!--删除--></a></li>
+                <li (click)="edit()" id="edit"><a>{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑--></a></li>
+                <li (click)="resetPassword()" id="resetPassword"><a>{{'USER_CENTER.RESET_PASSWORD' | translate}}<!--重置密码--></a></li>
+                <li (click)="enable()" id="enable"><a>{{'NET_MNG_VM_IP_MNG.ENABLE' | translate}}<!--启用--></a></li>
+                <li (click)="disable()" id="disable"><a>{{'HOST_VMWARE_MNG.DISABLE' | translate}}<!--禁用--></a></li>
+                <li (click)="delete()" id="delete"><a>{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}<!--删除--></a></li>
             </ul>
         </div>
 
         <div class="dropdown pull-right" style="padding-right : 20px">
-            <input type="text" placeholder="{{'USER_CENTER.INPUT_ACC_QUICK_SEARCH' | translate}}" style="height : 35px ; padding : 5px" placeholder="{{'USER_CENTER.INPUT_USERNAME_SEARCH' | translate}}" [(ngModel)]="keyup" (keyup.enter)="search()" />
+            <input type="text" placeholder="{{'USER_CENTER.INPUT_ACC_QUICK_SEARCH' | translate}}" id="username_search" style="height : 35px ; padding : 5px" placeholder="{{'USER_CENTER.INPUT_USERNAME_SEARCH' | translate}}" [(ngModel)]="keyup" (keyup.enter)="search()" />
         </div>
 
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="openCrAccountPop()">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="openCrAccountPop()" id="openCrAccountPop">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">{{'USER_CENTER.CREATE_ACCOUNT' | translate}}<!--创建帐号--></span>
         </button>
@@ -44,8 +44,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of accounts ; let idx = index">
-                    <td><input class="fox-cloud-radio" type="radio" name="isSelected" (click)="chooseItem(idx)" /></td>
+                <tr *ngFor="let item of accounts ; let idx = index" id="accounts_{{item.id}}">
+                    <td><input class="fox-cloud-radio" type="radio" name="isSelected" (click)="chooseItem(idx)" value="accounts_{{item.id}}"/></td>
                     <td>{{item.userName}}</td>
                     <td>{{item.loginName}}</td>
                     <td>{{item.phone}}</td>
@@ -56,10 +56,10 @@
                     <td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
                         <!--{{item.status| dict:this.service.accStatusList | async}}-->
                         <span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">{{'COMMON.ENABLED' | translate}}</template>
-                            <template [ngSwitchCase]="3">{{'COMMON.UNABLED' | translate}}</template>
-                            <template [ngSwitchCase]="0">{{'COMMON.NOT_ENABLED' | translate}}</template>
-                            <template [ngSwitchCase]="4">4</template>
+                            <template [ngSwitchCase]="1" id="status_ENABLED">{{'COMMON.ENABLED' | translate}}</template>
+                            <template [ngSwitchCase]="3" id="status_UNABLED">{{'COMMON.UNABLED' | translate}}</template>
+                            <template [ngSwitchCase]="0" id="status_NOT_ENABLED">{{'COMMON.NOT_ENABLED' | translate}}</template>
+                            <template [ngSwitchCase]="4" id="status_null">4</template>
                             <template ngSwitchDefault>Unknown</template>
                     	</span>
                     </td>
@@ -77,8 +77,8 @@
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'COMMON.AD_SOURCE' | translate}}：</div><!--认证源-->
 
             <div class="col-sm-6">
-                <select class="form-control" [(ngModel)]="authenticationSource">
-                    <option *ngFor="let item of authenticationSourceList;" [value]="item.id">{{item.name}}</option>
+                <select class="form-control" [(ngModel)]="authenticationSource" id="authenticationSource">
+                    <option *ngFor="let item of authenticationSourceList;" [value]="item.id" id="authenticationSource_{{item.id}}">{{item.name}}</option>
                 </select>
             </div>
         </div>
