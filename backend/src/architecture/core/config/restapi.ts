@@ -1208,8 +1208,8 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建管理服务产品",
         "id": "manager-serve-product-create.post",
         "method": "POST",
-        "url": "productmgmt/authsec/supervise/product" 
-    },    
+        "url": "productmgmt/authsec/supervise/product"
+    },
     //数据库中间件产品管理
     {
         "desc": "获取中间件服务模板列表",
@@ -1233,7 +1233,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建中间件服务目录",
         "id": "database-middleware-service-create.post",
         "method": "POST",
-        "url": "adminui/authsec/services/type/middleware" 
+        "url": "adminui/authsec/services/type/middleware"
     },
     {
         "desc": "获取中间件数据库服务目录详情",
@@ -1245,7 +1245,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建中间件服务产品",
         "id": "database-middleware-product-create.post",
         "method": "POST",
-        "url": "adminui/authsec/product/middeware" 
+        "url": "adminui/authsec/product/middeware"
     },
     //模板管理
     {
@@ -1253,36 +1253,36 @@ export let RestApis: RestApiModel[] = [
         "id": "template-mng-database.initInfo.get",
         "method": "GET",
         "url": "adminui/authsec/database/template/options/init"
-    },    
+    },
     {
         "desc": "获取模板列表",
         "id": "template-mng-list.post",
         "method": "POST",
-        "url": "adminui/authsec/database/template/search/list/paging" 
+        "url": "adminui/authsec/database/template/search/list/paging"
     },
     {
         "desc": "创建数据库模板",
         "id": "template-mng-database.cre.post",
         "method": "POST",
-        "url": "adminui/authsec/database/template" 
+        "url": "adminui/authsec/database/template"
     },
     {
         "desc": "创建中间件模板",
         "id": "template-mng-middleware.cre.post",
         "method": "POST",
-        "url": "adminui/authsec/middleware/insertTemplate" 
+        "url": "adminui/authsec/middleware/insertTemplate"
     },
      {
         "desc": "更新数据库模板",
         "id": "template-mng-database.cre.post",
         "method": "PUT",
-        "url": "adminui/authsec/database/template" 
+        "url": "adminui/authsec/database/template"
     },
     {
         "desc": "更新中间件模板",
         "id": "template-mng-middleware.cre.post",
         "method": "PUT",
-        "url": "adminui/authsec/middleware/updateTemplate" 
+        "url": "adminui/authsec/middleware/updateTemplate"
     },
     //用户中心
     {
@@ -2857,7 +2857,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "管理服务名称下拉框",
         "id": "mtc-center.mng-service.servicename",
         "method": "GET",
-        "url": "servicemgmt/authsec/services/supervise/operation/simple"
+        "url": "adminui/authsec/services/supervise/product/simple"
     },
     {
         "desc": "管理服务列表",
@@ -2875,13 +2875,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "服务跟进",
         "id": "mtc-center.mng-service.followservice",
         "method": "POST",
-        "url": "productmgmt/authsec/services/supervise/followservice"
+        "url": "subinstancemgmt/authsec/subinstance/supervise/service/{itemId}"
     },
     {
         "desc": "服务更新",
         "id": "mtc-center.mng-service.updateservice",
-        "method": "POST",
-        "url": "productmgmt/authsec/services/supervise/updatestatus"
+        "method": "PUT",
+        "url": "subinstancemgmt/authsec/subinstance/supervise/state/{itemId}"
     },
     {
         "desc": "服务详情",
@@ -2889,7 +2889,6 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
     },
-
 
 ]
 
