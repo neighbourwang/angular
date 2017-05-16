@@ -242,13 +242,13 @@ export class DatabaseServiceOrder {
 	}
 
 
-	archmode = this.dict.get({    //实例归属
+	archmode = this.dict.get({    //归档模式
 		owner: "DB",
-		field: "OWNER_TYPE"
+		field: "ARCHMODE"
 	});
 
 	dbcharset = this.dict.get({    //实例归属
 		owner: "DB",
-		field: "和DBCHARSET"
+		field: "DBCHARSET"
 	});
 }

@@ -1,6 +1,6 @@
 <div class="page-content cloud_host_order database-order">
 	<div class="col-md-9">
-		<h1 (click)="payLoadFormat()" class="page-content-header">创建数据库</h1>
+		<h1 (click)="dbPayLoadFormat()" class="page-content-header">创建数据库</h1>
 		<ul class="left-box">
 			<li>
 				<div class="col-md-1 li-title">                  
@@ -152,7 +152,7 @@
 							<div class="col-md-2 no-padding">
 								<select [(ngModel)]="values.BOOTSIZE" class="form-control" id="bootsize">
 									<option
-									*ngFor="let value of oSfilterBootsize(valuesList.BOOTSIZE) | filterPlatform: values.PLATFORM?.attrValueId;"
+									*ngFor="let value of bootsizeList | filterPlatform: values.PLATFORM?.attrValueId;"
 									[ngValue]="value" id="bootsize_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>
@@ -186,7 +186,7 @@
 								<td class="text-center">{{i + 1}}</td>
 								<td class="text-center">{{data.usageType}}</td>
 								<td class="text-center">
-									<select class="form-control" id="bootstorage">
+									<select class="form-control" id="bootstorage" [(ngModel)]="data.storage">
 										<option
 										*ngFor="let value of valuesList.BOOTSTORAGE"
 										[ngValue]="value" id="bootstorage_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
@@ -217,8 +217,8 @@
 							<div class="col-md-3 no-padding">
 								<select [(ngModel)]="values.SECURITYGROUP" class="form-control" id="securitygroup">
 									<option
-									 *ngFor="let value of valuesList.SECURITYGROUP;"
-									 [ngValue]="value" id="securitygroup_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
+									 *ngFor="let value of dbservice.archmode | async;"
+									 [ngValue]="value" id="securitygroup_{{value.attrValue}}">{{ value.displayValue }}</option>
 								</select>
 							</div>
 							<div class="col-md-1"></div>
@@ -236,8 +236,8 @@
 							<div class="col-md-3 no-padding">
 								<select [(ngModel)]="values.SECURITYGROUP" class="form-control" id="securitygroup">
 									<option
-									 *ngFor="let value of valuesList.SECURITYGROUP;"
-									 [ngValue]="value" id="securitygroup_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
+									 *ngFor="let value of dbservice.dbcharset | async;"
+									 [ngValue]="value" id="securitygroup_{{value.attrValue}}">{{ value.displayValue }}</option>
 								</select>
 							</div>
 							<div class="col-md-1"></div>
