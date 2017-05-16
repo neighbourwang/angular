@@ -1,5 +1,5 @@
 ﻿import { NgModule } from '@angular/core';
-
+import {OrderViewModule} from '../components/order-view/order-view.module';
 // Common Componets
 import { PipeModule } from '../../../architecture';
 import { CommonComponentModule } from '../../../architecture';
@@ -17,15 +17,16 @@ import {OrderMngDetailComponent
         ,VmViewComponent
         ,DiskViewComponent
         ,CostPandectComponent
-        ,MachineViewComponent
-        ,ServiceViewComponent
+        // ,MachineViewComponent
+        // ,ServiceViewComponent
         ,CostManageComponent } from './component';
 
 @NgModule({
     imports: [
         CommonComponentModule,
         PipeModule,
-        OrderMngRouting
+        OrderMngRouting,
+        OrderViewModule
     ],
     declarations: [
         OrderMngDetailComponent
@@ -38,8 +39,8 @@ import {OrderMngDetailComponent
         ,DiskViewComponent
         ,CostPandectComponent
         ,CostManageComponent
-        ,MachineViewComponent
-        ,ServiceViewComponent
+        // ,MachineViewComponent
+        // ,ServiceViewComponent
     ],
     exports: [],
     providers: []

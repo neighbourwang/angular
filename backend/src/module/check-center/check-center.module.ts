@@ -13,13 +13,17 @@ import { CheckMngHascheckComponent } from './component/check-mng-hascheck.compon
 import { CheckMngSetComponent } from './component/check-mng-set.component';
 import {VmViewComponent} from './component/vm-view.component';
 import {DiskViewComponent} from './component/disk-view.component';
-import {MachineViewComponent} from '../op-center/order-mng/component/machine-view.component';
-import {ServiceViewComponent} from '../op-center/order-mng/component/service-view.component';
+// import {MachineViewComponent} from '../op-center/order-mng/component/machine-view.component';
+// import {ServiceViewComponent} from '../op-center/order-mng/component/service-view.component';
+import {OrderViewModule} from '../op-center/components/order-view/order-view.module';
 @NgModule({
     imports: [
         CommonComponentModule,
         PipeModule,
-        CheckCenterRouting
+        CheckCenterRouting,
+        OrderViewModule
+        // MachineViewComponent,
+        // ServiceViewComponent
     ],
     declarations: [
          CheckMngListComponent,
@@ -27,8 +31,8 @@ import {ServiceViewComponent} from '../op-center/order-mng/component/service-vie
          CheckMngSetComponent,
          VmViewComponent,
          DiskViewComponent,
-         MachineViewComponent,
-         ServiceViewComponent
+        //  OrderViewModule
+      
     ],
     exports: [],
     providers: []
