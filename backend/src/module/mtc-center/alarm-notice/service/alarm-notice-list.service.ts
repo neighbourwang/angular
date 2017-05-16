@@ -35,7 +35,7 @@ export class AlarmNoticeListService {
     dictLevel = this.dict.get(
         {      
         owner : "MAINTAIN",
-        field : "LEVEL"      //告警内容 
+        field : "LEVEL"      //告警级别
     }             
     );
      dictPeriod = this.dict.get(

@@ -129,16 +129,6 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		console.log(this.database, 3453425234)
 	}
 
-	get FSList() {
-		if(!this.database || !this.database.diskInfoList || this.storageType === "ASM") return []
-		return this.database.diskInfoList.filter(l => l.templateType === "FS")
-	}
-
-	get ASMList() {
-		if(!this.database || !this.database.diskInfoList || this.storageType === "FS") return []
-		return this.database.diskInfoList.filter(l => l.templateType === "ASM")
-	}
-
 	outputValue() {
 		
 	}

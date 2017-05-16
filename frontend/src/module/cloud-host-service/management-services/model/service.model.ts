@@ -80,6 +80,55 @@ class ServiceResAttributePair {
 	valueUnit: string;  //, optional): 服务属性值的单位
 }
 
+class PageInfo {
+	currentPage: number;//, optional),
+	pageSize: number;//, optional),
+	totalPage: number;//, optional),
+	totalRecords: number;//, optional)
+}
+class SuperviseItem {
+	billingInfo: ProductBillingItem = new ProductBillingItem;//, optional): 产品计费详细信息 ,
+	createDate: Timestamp = new Timestamp;//, optional),
+	description: string;//, optional): 管理服务描述 ,
+	expiryDate: Timestamp = new Timestamp;//, optional),
+	instanceName: string;//, optional): 管理服务实例名称 ,
+	itemId: string;//, optional): 管理服务实例Id ,
+	paymentType: string;//, optional): 管理服务支付类型 ,
+	regionZone: string;//, optional): 管理服务所属可用区 ,
+	releaseDate: Timestamp = new Timestamp;//, optional),
+	serviceHisItems: SuperviseHisItem[] = [];//[SuperviseHisItem], optional): 服务跟进信息 ,
+	serviceLevel: string;//, optional): 服务级别，如：关键，高，中，低。见数据字典field=SERVICE_LEVEL ,
+	serviceType: string;//, optional): 服务类型，如持续性服务 ,
+	subInstanceId: string;//, optional): 订购实例ID ,
+	subinstanceNo: string;//, optional): subinstance编号 ,
+	superitemState: string;//, optional): 管理服务状态
+}
+class ProductBillingItem {
+	basePrice: number;//, optional): 一次性价格 ,
+	basicPrice: number;//, optional): 周期计费-基础周期价格 ,
+	billingId: string;//, optional): 产品计费ID ,
+	billingMode: string;//, optional): 计费类型，需要检索数据字典 ,
+	cyclePrice: number;//, optional): 周期计费-增量周期价格 ,
+	periodType: string;//, optional): 周期计费-周期类型，需要检索数据字典 ,
+	unitPrice: number;//, optional): 流量计费-流量单价 ,
+	unitType: number;//, optional): 流量计费-流量计费类型，需要查询数据字典
+}
+class Timestamp {
+	date: number;//, optional),
+	day: number;//, optional),
+	hours: number;//, optional),
+	minutes: number;//, optional),
+	month: number;//, optional),
+	nanos: number;//, optional),
+	seconds: number;//, optional),
+	time: number;//, optional),
+	timezoneOffset: number;//, optional),
+	year: number;//, optional)
+}
+class SuperviseHisItem {
+
+}
+
 export {
 	ProductSimpleItem,
 	SuperviseProductItem,
@@ -89,5 +138,7 @@ export {
 	ProductServiceZoneReq,
 	PlatformDiskZoneStorageItem,
 	ShoppingCartProfile,
-	ServiceResAttributePair
+	ServiceResAttributePair,
+	SuperviseItem,
+	ProductBillingItem
 }
