@@ -1208,8 +1208,8 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建管理服务产品",
         "id": "manager-serve-product-create.post",
         "method": "POST",
-        "url": "adminui/authsec/supervise/product" 
-    },    
+        "url": "adminui/authsec/supervise/product"
+    },
     //数据库中间件产品管理
     {
         "desc": "获取中间件服务模板列表",
@@ -2851,7 +2851,6 @@ export let RestApis: RestApiModel[] = [
         "method":"POST",
         "url":"adminboe/authsec/alicloud/adm/sub/test/{id}"
      },
-
     //管理服务
     {
         "desc": "企业列表",
@@ -2895,35 +2894,6 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
     },
-
-<<<<<<< .mine
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
     //告警通知
     {
         "desc": "告警列表",
@@ -2948,8 +2918,6 @@ export let RestApis: RestApiModel[] = [
         "id":"trigger-receiver-list.get",
         "method":"GET",
         "url":"maintenancemgmt/noauth/trigger/receiver/list"
-     },
-
->>>>>>> .theirs
+     }
 ]
 
