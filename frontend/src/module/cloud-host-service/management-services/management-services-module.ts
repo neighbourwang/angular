@@ -9,7 +9,7 @@ import { CommonComponentModule } from '../../../architecture';
 import { ManagementServicesRouting } from './management-services-routing';
 
 //component
-// import { ManagementServicesListComponent } from './component/management-services-list.component';
+import { ManagementServicesListComponent } from './component/management-services-list.component';
 import { ManagementServicesOrderComponent } from './component/management-services-order.component';
 // import { ManagementServicesDetailComponent } from './component/management-services-detail.component';
 
@@ -17,7 +17,7 @@ import { CloudHostComponents } from '../components/cloud-host-components.module'
 
 //service
 import { ManagementServicesOrderService } from './service/management-services-order.service'; 
-// import { ManagementServicesListService } from './service/management-services-list.service'; 
+import { ManagementServicesListService } from './service/management-services-list.service'; 
 // import { ManagementServicesDetailService } from './service/management-services-detail.service';
 
 // import { MyDatePickerModule } from 'mydatepicker';
@@ -38,7 +38,7 @@ import { CountPartLengthPipe } from './pipe/countPartLength';
         // TreeModule
     ],
     declarations: [
-        // ManagementServicesListComponent,
+        ManagementServicesListComponent,
         CountPartLengthPipe,
         ManagementServicesOrderComponent,
         // ManagementServicesDetailComponent,
@@ -48,7 +48,7 @@ import { CountPartLengthPipe } from './pipe/countPartLength';
     providers: [
         ManagementServicesOrderService,
 
-        // ManagementServicesListService,
+        ManagementServicesListService,
         // ManagementServicesDetailService,
     ]
 

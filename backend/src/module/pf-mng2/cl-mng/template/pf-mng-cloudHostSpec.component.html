@@ -1,20 +1,20 @@
 <div class="page-content-header icon-content-header-platform-manage" style="padding-bottom:10px;height:45px;">
     {{'PF_MNG2.MANAGE_CLOUD_HOST_SPEC' | translate}}: <span style="margin-right:20px;">{{platformName}}</span> {{'PF_MNG.CLOUD_HOST_TYPE' | translate}}: <span>{{platformTypeName}}</span>
-    <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-        <span class="icon-button-label" (click)='goList()'>{{'PF_MNG2.RETURN_CLOUD_LIST' | translate}}</span>
+    <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" (click)='goList()'>
+        <span class="icon-button-label" >{{'PF_MNG2.RETURN_CLOUD_LIST' | translate}}</span>
     </button>
 </div>
 <div>
     <div class="page-content">
         <div style="padding-bottom: 10px;" *ngIf="platformType=='0'">
-            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='updateFlavor()'>{{'PF_MNG2.SYNC_CLOUD_SPEC' | translate}}</span>
+            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" (click)='updateFlavor()'>
+                <span class="icon-button-label" >{{'PF_MNG2.SYNC_CLOUD_SPEC' | translate}}</span>
              </button>
             <div style="clear:both"></div>
         </div>
         <div style="padding-bottom: 10px;" *ngIf="platformType=='2'">
-            <button class="fox-cloud-button-md fox-cloud-button-white">
-                <span class="icon-button-label" (click)='createFlavor()'>{{'PF_MNG2.NEW_CLOUD_SPEC' | translate}}</span>
+            <button class="fox-cloud-button-md fox-cloud-button-white" (click)='createFlavor()'>
+                <span class="icon-button-label" >{{'PF_MNG2.NEW_CLOUD_SPEC' | translate}}</span>
              </button>
             <div style="clear:both"></div>
         </div>

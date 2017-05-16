@@ -13,7 +13,7 @@
 							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.userName">
 						</div>-->
 						<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.userName}">
-							<input type="text" [(ngModel)]="personAcc.userName" (ngModelChange)="checkForm('userName')" [disabled]="!edit" name="userName"
+							<input type="text" id="userName" [(ngModel)]="personAcc.userName" (ngModelChange)="checkForm('userName')" [disabled]="!edit" name="userName"
 							 placeholder="{{'USER_CENTER.INPUTNAME' | translate}}" class="form-control">
 							<span *ngIf="v.result.userName" class="glyphicon glyphicon-remove form-control-feedback"></span>
 							<div *ngIf="v.result.userName" class="alert alert-danger" role="alert">{{v.result.userName}}</div>
@@ -25,7 +25,7 @@
 						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.ACCOUNT' | translate}}：</div>
 						<!--账号-->
 						<div class="col-sm-4 no-padding">
-							<input type="text" class="form-control font-gray" [disabled]="true" [(ngModel)]="personAcc.loginName">
+							<input type="text" id="loginName" class="form-control font-gray" [disabled]="true" [(ngModel)]="personAcc.loginName">
 						</div>
 					</div>
 				</div>
@@ -37,7 +37,7 @@
 							<input type="text" class="form-control font-gray" [disabled]="!edit" [(ngModel)]="personAcc.phone">
 						</div>-->
 						<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.phone}">
-							<input type="text" [(ngModel)]="personAcc.phone" (ngModelChange)="checkForm('phone')" name="phone" [disabled]="!edit" placeholder="{{'USER_CENTER.INPUT_MOBILE_PHONE' | translate}}"
+							<input type="text" id="phone" [(ngModel)]="personAcc.phone" (ngModelChange)="checkForm('phone')" name="phone" [disabled]="!edit" placeholder="{{'USER_CENTER.INPUT_MOBILE_PHONE' | translate}}"
 							 class="form-control">
 							<span *ngIf="v.result.phone" class="glyphicon glyphicon-remove form-control-feedback"></span>
 							<div *ngIf="v.result.phone" class="alert alert-danger" role="alert">{{v.result.phone| translate}}</div>
@@ -63,7 +63,7 @@
 							<textarea class="form-control font-gray" rows="4" placeholder="{{'COMMON.DESCRIPTION' | translate}}" [disabled]="!edit" [(ngModel)]="personAcc.description"></textarea>
 						</div>-->
 						<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
-							<textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" [disabled]="!edit" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}"
+							<textarea type="text" id="description" class="form-control" (ngModelChange)="checkForm('description')" [disabled]="!edit" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}"
 							 rows="3" [(ngModel)]="personAcc.description" name="description">
                             </textarea>
 						</div>
@@ -73,21 +73,21 @@
 		</div>
 	</div>
 	<div class="text-center" *ngIf="!edit">
-		<button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="onEdit();">
+		<button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="onEdit();" id="onEdit">
             <span class="icon-button-label">{{'HOST_VMWARE_MNG.EDIT' | translate}}<!--编辑--></span>
         </button>
-		<button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="!personAcc.isAD" (click)="onEditPwd()">
+		<button class="fox-cloud-button-lg fox-cloud-button-white" *ngIf="!personAcc.isAD" (click)="onEditPwd()" id="onEditPwd">
             <span class="icon-button-label">{{'USER_CENTER.CHANGE_PASSWORD' | translate}}<!--修改密码--></span>
         </button>
-		<button *ngIf="personAcc.isAD" class="fox-cloud-button-lg fox-cloud-button-disabled">
+		<button *ngIf="personAcc.isAD" class="fox-cloud-button-lg fox-cloud-button-disabled" id="onEditPwd2">
             <span class="icon-button-label">{{'USER_CENTER.CHANGE_PASSWORD' | translate}}<!--修改密码--></span>
         </button>
 	</div>
 	<div class="text-center" *ngIf="edit">
-		<button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();">
+		<button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();" id="cancel">
             <span class="icon-button-label">{{'NET_MNG_VM_PORT.CNACLE' | translate}}<!--取消--> </span>
         </button>
-		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();">
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();" id="onSubmit">
             <span class="icon-button-label">{{'HOST_VMWARE_MNG.SAVE' | translate}}<!--保存--></span>
         </button>
 	</div>
@@ -103,7 +103,7 @@
 							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{'USER_CENTER.CURRENT_PASSWORD' | translate}}
 								<!--当前密码-->:</div>							
 							<div class="col-sm-6 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.password}">
-								<input type="password" [(ngModel)]="accPwd.password" (ngModelChange)="checkPasswordForm('password')" name="password" 
+								<input id="fc_password" type="password" [(ngModel)]="accPwd.password" (ngModelChange)="checkPasswordForm('password')" name="password" 
 								 class="form-control">
 								<span *ngIf="v.result.password" class="glyphicon glyphicon-remove form-control-feedback"></span>
 								<div *ngIf="v.result.password" class="alert alert-danger" role="alert">{{v.result.password| translate}}</div>
@@ -115,7 +115,7 @@
 							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{'USER_CENTER.NEW_PASSWROD' | translate}}
 								<!--新密码-->:</div>							
 							<div class="col-sm-6 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.newPassword}">
-								<input type="password" [(ngModel)]="accPwd.newPassword" (ngModelChange)="checkPasswordForm('newPassword')" name="newPassword" 
+								<input id="fc_password_re" type="password" [(ngModel)]="accPwd.newPassword" (ngModelChange)="checkPasswordForm('newPassword')" name="newPassword" 
 								 class="form-control">
 								<span *ngIf="v.result.newPassword" class="glyphicon glyphicon-remove form-control-feedback"></span>
 								<div *ngIf="v.result.newPassword" class="alert alert-danger" role="alert">{{v.result.newPassword| translate}}</div>
@@ -127,7 +127,7 @@
 							<div class="col-sm-4 form-control-title"><span class="asterisk">*</span> {{'USER_CENTER.CONFIRM_NEW_PASSWORD' | translate}}
 								<!--确认新密码-->:</div>							
 							<div class="col-sm-6 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.confirmPwd}">
-								<input type="password" [(ngModel)]="accPwd.confirmPwd" (ngModelChange)="checkPasswordForm('confirmPwd')" name="confirmPwd" 
+								<input type="password" id="fc_password_sure" [(ngModel)]="accPwd.confirmPwd" (ngModelChange)="checkPasswordForm('confirmPwd')" name="confirmPwd" 
 								 class="form-control">
 								<span *ngIf="v.result.confirmPwd" class="glyphicon glyphicon-remove form-control-feedback"></span>
 								<div *ngIf="v.result.confirmPwd" class="alert alert-danger" role="alert">{{v.result.confirmPwd| translate}}</div>

@@ -1196,20 +1196,20 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建管理服务",
         "id": "manager-serve-service-create.post",
         "method": "POST",
-        "url": "servicemgmt/authsec/services/supervise"
+        "url": "adminui/authsec/services/supervise"
     },
     {
         "desc": "获取管理服务详情",
         "id": "manager-serve-service-detail.get",
         "method": "GET",
-        "url": "servicemgmt/authsec/services/supervise/{id}"
+        "url": "adminui/authsec/services/supervise/{id}"
     },
     {
         "desc": "创建管理服务产品",
         "id": "manager-serve-product-create.post",
         "method": "POST",
-        "url": "productmgmt/authsec/supervise/product"
-    },
+        "url": "adminui/authsec/supervise/product" 
+    },    
     //数据库中间件产品管理
     {
         "desc": "获取中间件服务模板列表",
@@ -1225,7 +1225,7 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "获取数据库中间件平台信息",
-        "id": "prod-mng.prod-disk-dir.plateforms",
+        "id": "prod-mng-database-plateforms.get",
         "method": "GET",
         "url": "adminui/authsec/services/platforms"
     },
@@ -2840,10 +2840,16 @@ export let RestApis: RestApiModel[] = [
         "url":"adminboe/authsec/alicloud/adm/sub/update"
      },
      {
-        "desc": "测试access信息",
-        "id":"ali-Account-accessInfo-test.post",
+        "desc": "测试access信息主账号",
+        "id":"ali-mainAccount-accessInfo-test.post",
         "method":"POST",
         "url":"adminboe/authsec/alicloud/adm/test"
+     },
+     {
+        "desc": "测试access信息子账号",
+        "id":"ali-subAccount-accessInfo-test.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/test/{id}"
      },
 
     //管理服务
@@ -2890,5 +2896,60 @@ export let RestApis: RestApiModel[] = [
         "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
     },
 
+<<<<<<< .mine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======
+    //告警通知
+    {
+        "desc": "告警列表",
+        "id":"trigger-list.get",
+        "method":"GET",
+        "url":"maintenancemgmt/noauth/trigger/list"
+     },
+    {
+        "desc": "告警详细",
+        "id":"trigger-detail.get",
+        "method":"GET",
+        "url":"maintenancemgmt/noauth/trigger/detail/{triggerId}"
+     },
+    {
+        "desc": "告警更新",
+        "id":"trigger-update.put",
+        "method":"PUT",
+        "url":"maintenancemgmt/noauth//trigger/update"
+     },
+     {
+        "desc": "接收人列表",
+        "id":"trigger-receiver-list.get",
+        "method":"GET",
+        "url":"maintenancemgmt/noauth/trigger/receiver/list"
+     },
+
+>>>>>>> .theirs
 ]
 

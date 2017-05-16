@@ -49,7 +49,8 @@ export class OrderMngSearchComponent implements OnInit{
 	private _cancelLoader : ItemLoader<any> = null;//撤单
 	private cancelReason : string = null;//撤单原因
 
-	private _orderDetail:SearchOrderDetail = null;	
+	private _orderDetail:SearchOrderDetail = null;
+	
 	constructor(
 		private layoutService: LayoutService,
 		private router: Router,
@@ -57,6 +58,7 @@ export class OrderMngSearchComponent implements OnInit{
 		private restApi:RestApi,
 		private _dictServ:DictService){
 
+		
 		//获取订单查询详情
 		this._orderDetailLoader = new ItemLoader<SearchOrderDetail>(false, "ORDER_MNG.ORDERS_DETAILS_DATA_FAILED", "op-center.order-search.detail.get", restApiCfg, restApi);
 		this._orderDetailLoader.MapFunc = (source:Array<any>, target:Array<SearchOrderDetail>)=>{
@@ -95,8 +97,7 @@ export class OrderMngSearchComponent implements OnInit{
 						item.specValue+='M';
 					}
 			}
-		  }
-			
+		  }	
 
 		}
 		this._orderDetailLoader.FirstItem = new SearchOrderDetail();
@@ -141,6 +142,7 @@ export class OrderMngSearchComponent implements OnInit{
 				obj.submitTime = item.createDate;
 				obj.EndTime = item.completeDate;
 				obj.submitPeople = item.submiter;
+				obj.subinstanceId = item.subinstanceId;
 
 
 				//费用
@@ -273,6 +275,7 @@ export class OrderMngSearchComponent implements OnInit{
 		this._orderDetailLoader.Go(null, [{key:"orderNo", value:item.orderNo}])
 		.then(success=>{
 			this._orderDetailLoader.FirstItem.type = item.orderType;
+			this._orderDetailLoader.FirstItem.subinstanceId = item.subinstanceId;
 			$('#searchDetail').modal('show');
 			this.layoutService.hide();
 		})
@@ -316,5 +319,5 @@ export class OrderMngSearchComponent implements OnInit{
 			this.showMsg(err);
 		})
 	}
-	
+
 }

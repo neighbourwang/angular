@@ -271,12 +271,12 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" (click)="search(currentPage)">&times;</span></button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" >&times;</span></button>
 					<h4 *ngIf="!_renewSetting.completed" class="modal-title" id="myModalLabel">已购服务续订：{{selectedOrderItem.orderNo}}</h4>
 					<h4 *ngIf="_renewSetting.completed" class="modal-title" id="myModalLabel">续订完成</h4>
 				</div>
 				<div class="modal-body">
-					<!--<account-mng-cr-local></account-mng-cr-local>
+					<!--<account-mng-cr-local></account-mng-cr-local>(click)="search(currentPage)"
 			          <order-mng-detail></order-mng-detail>-->
 					<order-mng-renew *ngIf="!_renewSetting.completed" [orderItem]="selectedOrderItem"></order-mng-renew>
 

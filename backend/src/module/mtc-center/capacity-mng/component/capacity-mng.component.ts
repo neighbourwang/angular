@@ -41,6 +41,7 @@ export class CapacityMngComponent implements OnInit {
 
     ngOnInit() {
         this.getPlatformList();
+        console.log("pingtaizidian", this.service.pfDic);
     }
 
     getPlatformList(pageIndex?) {

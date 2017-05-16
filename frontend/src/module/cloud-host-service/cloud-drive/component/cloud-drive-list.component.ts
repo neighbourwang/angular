@@ -72,19 +72,19 @@ export class cloudDriveListComponent implements OnInit {
 	}
 
 	setDistList(): void {
-		// this.layoutService.show();
+		this.layoutService.show();
 		this.service.getDistList(this.list).then(res => {
 			if (res.resultCode !== "100") {
 				throw "";
 			}
-			// this.layoutService.hide();
+			this.layoutService.hide();
 			this.list.pageParameter.totalPage = res.pageInfo.totalPage;
 			return res.resultContent;
 		}).then(list => {
 			this.distList = list;
 			this.checkListMiddleState();
 		}).catch(error => {
-			// this.layoutService.hide();
+			this.layoutService.hide();
 		});
 	}
 

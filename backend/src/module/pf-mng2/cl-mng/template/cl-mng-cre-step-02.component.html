@@ -33,27 +33,27 @@
                     <tr>
                         <td style="line-height:35px;">{{"COMMON.AVAILABLE_ZONE" | translate}}</td>
                         <td style="line-height:35px;">{{creStep2Model.zones}}</td>
-                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.zonesStatus"></span></td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.zonesStatus" id="zonesStatus"></span></td>
                     </tr>
                     <tr>
                         <td style="line-height:35px;">{{"COMMON.STORAGE" | translate}}</td>
                         <td style="line-height:35px;">{{creStep2Model.storages}}</td>
-                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.storagesStatus"></span></td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.storagesStatus"  id="storagesStatus"></span></td>
                     </tr>
                     <tr>
                         <td style="line-height:35px;">{{"PF_MNG2.CLOUD_HOST_SPECIFICATIONS" | translate}}</td>
                         <td style="line-height:35px;">{{creStep2Model.flavors}}</td>
-                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.flavorsStatus"></span></td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.flavorsStatus" id="flavorsStatus"></span></td>
                     </tr>
                     <tr>
                         <td style="line-height:35px;">{{"COMMON.IMAGE" | translate}}</td>
                         <td style="line-height:35px;">{{creStep2Model.images}}</td>
-                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.imagesStatus"></span></td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.imagesStatus" id="imagesStatus"></span></td>
                     </tr>
                     <tr>
                         <td style="line-height:35px;">{{"PF_MNG2.HOST" | translate}}</td>
                         <td style="line-height:35px;">{{creStep2Model.hosts}}</td>
-                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.hostsStatus"></span></td>
+                        <td><span class="icon-tick" style="position : initial" *ngIf="creStep2Model.hostsStatus" id="hostsStatus"></span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -66,7 +66,7 @@
                      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
                      [ngStyle]="{'width': creStep2Model.percentage + '%'}">
                 </div>
-                <span class="progress-prompt">{{creStep2Model.percentage}}%</span>
+                <span class="progress-prompt" id="percentage_{{creStep2Model.percentage}}">{{creStep2Model.percentage}}%</span>
             </div>
         </div>
         <div class="col-md-3"></div>
@@ -74,10 +74,10 @@
 </div>
 <div class="text-center">
     <button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancel();" [disabled]="!creStep2Model.isBack">
-        <span class="icon-button-label">{{"COMMON.RETURN" | translate}}</span>
+        <span class="icon-button-label" id="cancel">{{"COMMON.RETURN" | translate}}</span>
     </button>    
     <button class="fox-cloud-button-lg fox-cloud-button-white mgl20 btn" (click)="next();" [disabled]="!creStep2Model.isNext">
-        <span class="icon-button-label">{{"COMMON.NEXT" | translate}}</span>
+        <span class="icon-button-label" id="next">{{"COMMON.NEXT" | translate}}</span>
     </button>
 </div>
 
