@@ -2,7 +2,8 @@ import { ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { TemplateMngListComponent } from './components/template-mng-list.component'
-import { TemplateMngCreComponent } from './components/template-mng-cre.component'
+import { DatabaseComponent } from './components/template-mng-database.component'
+import { MiddlewareComponent } from './components/template-mng-middleware.component'
 
 
 export const TemplateMngRouting:ModuleWithProviders=RouterModule.forChild([
@@ -11,8 +12,12 @@ export const TemplateMngRouting:ModuleWithProviders=RouterModule.forChild([
         component:TemplateMngListComponent
     },
     {
-        path:'template-mng/template-cre',
-        component:TemplateMngCreComponent
+        path:'template-mng/template-database',
+        component:DatabaseComponent
+    },
+    {
+        path:'template-mng/template-middleware',
+        component:MiddlewareComponent
     }
     
 ])

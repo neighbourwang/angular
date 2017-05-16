@@ -32,7 +32,7 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
     serviceType: string;//服务类型
     servcieTitle: string;//创建服务器标题
     resourcePooList: Array<ResourcPool>;
-    _platformlist: Array<Platform>;
+    _platformlist: Array<PlatformSimpleItem>;
     serviceTemplatList: Array<ServiceTemplat>;
     databaseMiddlewareService: DatabaseMiddlewareServiceModel = new DatabaseMiddlewareServiceModel();//数据库中间件服务
     ngOnInit() {
@@ -180,14 +180,7 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
             this.databaseMiddlewareService.platformSimpleItemResp = [];
             this._platformlist.forEach(ele => {
                 if (ele.selected) {
-                    this.databaseMiddlewareService.platformSimpleItemResp.push({
-                        "code": ele.code,
-                        "displayName": ele.displayName,
-                        "id": ele.platformId,
-                        "name": ele.platformName,
-                        "selected": ele.selected,
-                        "skuID": ele.skuID
-                    })
+                    this.databaseMiddlewareService.platformSimpleItemResp.push(ele);
                 }
             })
             if (this.databaseMiddlewareService.platformSimpleItemResp.length == 0) {

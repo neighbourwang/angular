@@ -4,7 +4,7 @@
     </div>
     <div style="clear:both;"></div>
     <div class="row">
-        <div class="col-sm-8" style="margin-left: 16%;">
+        <div class="col-sm-8">
             <div class="console-box ">
                 <div class="admin-box col-sm-4">
                     <div class="col-sm-4 icon-admin"></div>
@@ -48,7 +48,7 @@
                           [datasets]="epcpu"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.vcpu ? 0 : eplist.usedCpu/eplist.vcpu*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.vcpu ? 0 : eplist.usedCpu/eplist.vcpu*100 | decimalPlaces : 0 : "round"}}<sup>%</sup></div>
                     <div class="quota-name">vCPU</div>
                 </div>
                 <div class="quota-box ">
@@ -57,7 +57,7 @@
                           [datasets]="epmem"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.mem ? 0 : eplist.usedMem/eplist.mem*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.mem ? 0 : eplist.usedMem/eplist.mem*100 | decimalPlaces : 0 : "round"}}<sup>%</sup></div>
                     <div class="quota-name">{{ 'COMMON.RAM' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -66,7 +66,7 @@
                           [datasets]="epdisk"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.storage ? 0 : eplist.usedStorage/eplist.storage*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.storage ? 0 : eplist.usedStorage/eplist.storage*100 | decimalPlaces : 0 : "round"}}<sup>%</sup></div>
                     <div class="quota-name">{{ 'COMMON.STORAGE' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -75,7 +75,7 @@
                           [datasets]="ephost"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.physical ? 0 : eplist.usedPhysical/eplist.physical*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.physical ? 0 : eplist.usedPhysical/eplist.physical*100 | decimalPlaces : 0 : "round"}}<sup>%</sup></div>
                     <div class="quota-name">{{ 'COMMON.PHYSICAL_MACHINE' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -84,7 +84,7 @@
                           [datasets]="epsnapshot"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.snapshot ? 0 : eplist.usedSnapshot/eplist.snapshot*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.snapshot ? 0 : eplist.usedSnapshot/eplist.snapshot*100 | decimalPlaces : 0 : "round"}}<sup>%</sup></div>
                     <div class="quota-name">{{ 'COMMON.SNAPSHOT' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -93,7 +93,7 @@
                           [datasets]="epimage"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.image ? 0 : eplist.usedImage/eplist.image*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.image ? 0 : eplist.usedImage/eplist.image*100 | decimalPlaces : 0 : "round"}}<sup>%</sup></div>
                     <div class="quota-name">{{ 'COMMON.MIRROR' | translate }}</div>
                 </div>
                 <div class="quota-box ">
@@ -102,7 +102,7 @@
                           [datasets]="epfloatIp"
                           chartType="doughnut"
                           [options]="quotaOptions"></canvas>
-                    <div class="percent-num">{{!eplist.ipaddress ? 0 : eplist.usedIpaddress/eplist.ipaddress*100 | decimalPlaces : 0}}<sup>%</sup></div>
+                    <div class="percent-num">{{!eplist.ipaddress ? 0 : eplist.usedIpaddress/eplist.ipaddress*100 | decimalPlaces : 0 : "round"}}<sup>%</sup></div>
                     <div class="quota-name">{{ 'COMMON.FLOAT' | translate }}IP</div>
                 </div>
 
@@ -389,29 +389,25 @@
             </div> -->
             </div>
         </div>
-        <!-- <div class="col-sm-4">
+        <div class="col-sm-4">
             <div class="console-box ">
                 <div class="console-title">云主机CPU利用率概览</div>
                 <div class="ues-content">
                     <canvas baseChart
-                          [datasets]="useDatasets"
-                          chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="useOptions"
-                          [labels]="useLabels"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="use-total">229</div>
+                          [data]="cpuChartData"
+                          [labels]="cpuChartLabels"
+                          chartType="doughnut"></canvas>
+
+                    <div class="use-total">{{cpuNum}}</div>
                 </div>
                 <div class="console-title next-title">云主机Memory利用率概览</div>
                 <div class="ues-content">
                     <canvas baseChart
-                          [datasets]="useDatasets"
-                          chartType="doughnut"
-                          (chartHover)="chartHovered($event)"
-                          [options]="useOptions"
-                          [labels]="useLabels"
-                          (chartClick)="chartClicked($event)"></canvas>
-                    <div class="use-total">326</div>
+                          [data]="memChartData"
+                          [labels]="memChartLabels"
+                          chartType="doughnut"></canvas>
+
+                    <div class="use-total">{{memNum}}</div>
                 </div>
             </div>
             
@@ -419,13 +415,9 @@
                 <div class="console-title">Top5云主机-按CPU利用率排名</div>
                 <div class="rank-content">
                     <div class="rank-left">
-                        <div class="rank-name">MyCentos65-vm2</div>
-                        <div class="rank-name">wein2012-vm3</div>
-                        <div class="rank-name">redHat7.6-64-vm2</div>
-                        <div class="rank-name">wein2012-vm3</div>
-                        <div class="rank-name">MyCentos65-vm2</div>
+                        <div class="rank-name"  *ngFor="let cpu of cpuTop; let i = index">{{i+1}}、{{cpu}}</div>
                     </div>
-                    <div class="rank-right">
+                    <div class="rank-right" style="display: none;">
                         <div class="rank-bar">
                             <div class="bar" style="width:80%;"></div>
                             <div class="bar-num">80%</div>
@@ -452,13 +444,9 @@
                 <div class="console-title next-title">Top5云主机-按内存利用率排名</div>
                 <div class="rank-content">
                     <div class="rank-left">
-                        <div class="rank-name">MyCentos65-vm2</div>
-                        <div class="rank-name">wein2012-vm3</div>
-                        <div class="rank-name">redHat7.6-64-vm2</div>
-                        <div class="rank-name">wein2012-vm3</div>
-                        <div class="rank-name">MyCentos65-vm2</div>
+                        <div class="rank-name"  *ngFor="let mem of memTop; let i = index">{{i+1}}、{{mem}}</div>
                     </div>
-                    <div class="rank-right">
+                    <div class="rank-right" style="display: none;">
                         <div class="rank-bar">
                             <div class="bar" style="width:80%;"></div>
                             <div class="bar-num">80%</div>
@@ -485,13 +473,9 @@
                 <div class="console-title next-title">Top5云主机-按磁盘利用率排名</div>
                 <div class="rank-content">
                     <div class="rank-left">
-                        <div class="rank-name">MyCentos65-vm2</div>
-                        <div class="rank-name">wein2012-vm3</div>
-                        <div class="rank-name">redHat7.6-64-vm2</div>
-                        <div class="rank-name">wein2012-vm3</div>
-                        <div class="rank-name">MyCentos65-vm2</div>
+                        <div class="rank-name"  *ngFor="let disk of diskTop; let i = index">{{i+1}}、{{disk}}</div>
                     </div>
-                    <div class="rank-right">
+                    <div class="rank-right" style="display: none;">
                         <div class="rank-bar">
                             <div class="bar" style="width:80%;"></div>
                             <div class="bar-num">80%</div>
@@ -515,6 +499,6 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 </div>
 

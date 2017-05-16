@@ -7,7 +7,7 @@ import * as _ from 'underscore';
 	selector:'service-view'
 	,template:`
 	<ul>	
-		<li *ngIf="_obj.instanceName">管理服务名称: {{_obj.instanceName}}</li>
+		<li *ngIf="_obj.instanceName"><span style="display:block;width:150px;word-wrap:break-word;">管理服务名称: {{_obj.instanceName}}</span></li>
 	</ul>
 	`
 })

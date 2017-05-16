@@ -111,6 +111,7 @@ export class cloudVmComponentOrder implements OnInit {
 		this.dux.subscribe("ZONE", () => { this.setNetwork() })
 		this.dux.subscribe("IMAGETYPE", () => { this.setImage() })
 		this.dux.subscribe("OS", () => { this.osChanged() })
+		this.dux.subscribe("OS", () => { this.oSfilterBootsize() })
 		this.dux.subscribe("FINDE_VMSKU", () => { this.getSkuMap("vm") })
 		this.dux.subscribe("FINDE_DISKSKU", () => { this.getSkuMap("disk") })
 		this.dux.subscribe("SET_TIME_UNIT", () => { this.setTimeUnit() })
@@ -238,17 +239,21 @@ export class cloudVmComponentOrder implements OnInit {
 		this.values.USERNAME.attrValue = this.values.OS.osType == 0 ? "administrtor" : "root";
 	}
 
-	private oSfilterBootsize(bootSizeList: VlueList[]): VlueList[] {  //根据os的大小过滤bootsize的大小
-		if (!this.values.OS) return [];
+	private oSfilterBootsize(): VlueList[] {  //根据os的大小过滤bootsize的大小
+		if (!this.values.OS) return this.bootsizeList = [];
 
-		const filteredList = bootSizeList.filter(bootSizeObj =>
+		const filteredList = this.valuesList.BOOTSIZE.filter(bootSizeObj =>
 			parseInt(bootSizeObj.attrValue) * 1024 * 1024 * 1024 >= this.values.OS.capacity
 		);
 
 		setTimeout(res => {
 			this.isZoneSupportOs = !!filteredList.length;
 		}, 0);
-		return filteredList;
+		this.bootsizeList = filteredList;
+		if( this.bootsizeList.length ){
+			this.values.BOOTSIZE = filteredList[0];
+			this.dux.dispatch("BOOTSIZE")
+		}
 	}
 
 	private getSkuMap(code: "vm" | "disk"): SkuMap[] {   //获取根据参数获取的sku数组 因为云主机的sku不止一个

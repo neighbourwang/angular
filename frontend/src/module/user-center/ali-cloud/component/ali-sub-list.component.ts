@@ -200,7 +200,7 @@ export class AliSubListComponent implements OnInit{
 
     testSub(){
         this.layoutService.show();
-        this.service.testSub(this.subInfo)
+        this.service.testSub(this.Majorid,this.subInfo)
             .then(
                 response => {
                     this.layoutService.hide();

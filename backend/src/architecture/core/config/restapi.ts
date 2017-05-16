@@ -1196,19 +1196,19 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建管理服务",
         "id": "manager-serve-service-create.post",
         "method": "POST",
-        "url": "servicemgmt/authsec/services/supervise"
+        "url": "adminui/authsec/services/supervise"
     },
     {
         "desc": "获取管理服务详情",
         "id": "manager-serve-service-detail.get",
         "method": "GET",
-        "url": "servicemgmt/authsec/services/supervise/{id}"
+        "url": "adminui/authsec/services/supervise/{id}"
     },
     {
         "desc": "创建管理服务产品",
         "id": "manager-serve-product-create.post",
         "method": "POST",
-        "url": "productmgmt/authsec/supervise/product" 
+        "url": "adminui/authsec/supervise/product" 
     },    
     //数据库中间件产品管理
     {
@@ -1225,7 +1225,7 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "获取数据库中间件平台信息",
-        "id": "prod-mng.prod-disk-dir.plateforms",
+        "id": "prod-mng-database-plateforms.get",
         "method": "GET",
         "url": "adminui/authsec/services/platforms"
     },
@@ -1246,6 +1246,43 @@ export let RestApis: RestApiModel[] = [
         "id": "database-middleware-product-create.post",
         "method": "POST",
         "url": "adminui/authsec/product/middeware" 
+    },
+    //模板管理
+    {
+        "desc": "获取数据库选项基础信息",
+        "id": "template-mng-database.initInfo.get",
+        "method": "GET",
+        "url": "adminui/authsec/database/template/options/init"
+    },    
+    {
+        "desc": "获取模板列表",
+        "id": "template-mng-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/database/template/search/list/paging" 
+    },
+    {
+        "desc": "创建数据库模板",
+        "id": "template-mng-database.cre.post",
+        "method": "POST",
+        "url": "adminui/authsec/database/template" 
+    },
+    {
+        "desc": "创建中间件模板",
+        "id": "template-mng-middleware.cre.post",
+        "method": "POST",
+        "url": "adminui/authsec/middleware/insertTemplate" 
+    },
+     {
+        "desc": "更新数据库模板",
+        "id": "template-mng-database.cre.post",
+        "method": "PUT",
+        "url": "adminui/authsec/database/template" 
+    },
+    {
+        "desc": "更新中间件模板",
+        "id": "template-mng-middleware.cre.post",
+        "method": "PUT",
+        "url": "adminui/authsec/middleware/updateTemplate" 
     },
     //用户中心
     {
@@ -2803,10 +2840,16 @@ export let RestApis: RestApiModel[] = [
         "url":"adminboe/authsec/alicloud/adm/sub/update"
      },
      {
-        "desc": "测试access信息",
-        "id":"ali-Account-accessInfo-test.post",
+        "desc": "测试access信息主账号",
+        "id":"ali-mainAccount-accessInfo-test.post",
         "method":"POST",
         "url":"adminboe/authsec/alicloud/adm/test"
+     },
+     {
+        "desc": "测试access信息子账号",
+        "id":"ali-subAccount-accessInfo-test.post",
+        "method":"POST",
+        "url":"adminboe/authsec/alicloud/adm/sub/test/{id}"
      },
 
     //管理服务
@@ -2853,6 +2896,31 @@ export let RestApis: RestApiModel[] = [
         "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
     },
 
+    //告警通知
+    {
+        "desc": "告警列表",
+        "id":"trigger-list.get",
+        "method":"GET",
+        "url":"maintenancemgmt/noauth/trigger/list"
+     },
+    {
+        "desc": "告警详细",
+        "id":"trigger-detail.get",
+        "method":"GET",
+        "url":"maintenancemgmt/noauth/trigger/detail/{triggerId}"
+     },
+    {
+        "desc": "告警更新",
+        "id":"trigger-update.put",
+        "method":"PUT",
+        "url":"maintenancemgmt/noauth//trigger/update"
+     },
+     {
+        "desc": "接收人列表",
+        "id":"trigger-receiver-list.get",
+        "method":"GET",
+        "url":"maintenancemgmt/noauth/trigger/receiver/list"
+     },
 
 ]
 

@@ -68,9 +68,15 @@ export class AliCloudSubAccountEditService {
     }
 
     //测试access信息
-    testAccessInfo(account:AccountListModel):Promise<any>{
-         const api = this.restApiCfg.getRestApi("ali-Account-accessInfo-test.post");
-        return this.restApi.request(api.method, api.url,null, null,{
+    testAccessInfo(account:AccountListModel,id:string):Promise<any>{
+        const pathParams = [
+            {
+                key: "id",
+                value:id
+            },             
+        ]
+         const api = this.restApiCfg.getRestApi("ali-subAccount-accessInfo-test.post");
+        return this.restApi.request(api.method, api.url,pathParams, null,{
             "loginName":account.loginName,
             "accesskey":account.accessKey,
             "accessSecret":account.accessSecret,

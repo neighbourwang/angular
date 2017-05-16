@@ -694,6 +694,7 @@ export class OrderMngComponent implements OnInit {
 
 	//续订
 	renew() {
+		// this.selectedOrderItem.itemList[0].status ='2';
 
 		let list = this.selectedOrderItem.itemList[0].specList;
 

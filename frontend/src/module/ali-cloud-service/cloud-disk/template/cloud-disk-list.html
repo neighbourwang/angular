@@ -10,7 +10,7 @@
                     <div class="region-btn" styple="height:40px !important" *ngFor="let region of this.regions;" [ngClass]='{"selected":region.selected}' (click)="selectRegion(region);choosenRegion=region;disableSearch=false;">
                         <div class="regionName">{{region.LocalName}}</div>
                     </div>
-                    <div class="region-btn" styple="height:40px !important" [ngClass]='{"selected":disableSearch}' (click)="clearRegion(); disableSearch=true;">
+                    <div class="region-btn" styple="height:40px !important" [ngClass]='{"selected":disableSearch}' (click)="clearRegion(); disableSearch=true;getAllRegionDisks();">
                         <div class="regionName">所有</div>
                     </div>
                 </div>
@@ -54,6 +54,7 @@
             <th class="text-center">可卸载</th>
             <th class="text-center">可用区</th>
             <th class="text-center">属性</th>
+            <th class="text-center">容量</th>
             <th class="text-center">操作</th>
         </tr>
         <tr style="line-height: 65px;" *ngFor="let disk of disks; let i=index;">
@@ -87,11 +88,14 @@
                 </div>
             </td>
             <td class="text-center">{{disk.Category | dict:this.dictService.diskCategoryDict | async}}</td>
-            <td class="text-center">{{disk.Status | dict:this.dictService.diskStatusDict | async}}</td>
+            <td class="text-center">
+                <img *ngIf="disk.Status == 'Attaching' || disk.Status == 'Detaching' || disk.Status == 'Creating' || disk.Status == 'Deleting' || disk.Status == 'ReIniting'" src="../../../../../architecture/assets/images/icon_instance_starting.gif" />                {{disk.Status | dict:this.dictService.diskStatusDict | async}}
+            </td>
             <td class="text-center">{{disk.DiskChargeType | dict:this.dictService.diskChargeTypeDict | async}}</td>
             <td class="text-center">{{disk.Portable.toString() | dict:this.dictService.diskBoolDict | async}}</td>
-            <td class="text-center">{{disk.RegionId}} {{disk.ZoneId}}</td>
+            <td class="text-center">{{disk.ZoneId}}</td>
             <td class="text-center">{{disk.Type | dict:this.dictService.diskTypeDict | async}}</td>
+            <td class="text-center">{{disk.Size}}</td>
             <td class="text-center">
                 <button *ngIf="disk.Status!='In_use' && disk.Type!='system'" (click)="selectItem(i); attachDisk();" style="display: inline;" class="btn button-gray-gradient">挂载
                 </button>
@@ -108,7 +112,7 @@
             </td>
         </tr>
     </table>
-    <fc-pagination tp={{totalPage}} (pf)="changePage($event)"></fc-pagination>
+    <fc-pagination #pager tp={{totalPage}} (pf)="changePage($event)"></fc-pagination>
     <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
 </div>
 <fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{confirmOKTitle}}" ct="{{confirmCancelTitle}}"></fc-confirm>

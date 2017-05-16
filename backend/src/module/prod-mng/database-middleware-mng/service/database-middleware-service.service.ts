@@ -36,7 +36,7 @@ export class DatabaseMiddlewareService {
     }
     //获取平台信息
     getDiskPlateForms() {
-        let api = this.restApiCfg.getRestApi("prod-mng.prod-disk-dir.plateforms");
+        let api = this.restApiCfg.getRestApi("prod-mng-database-plateforms.get");
         return this.restApi.request(api.method, api.url, undefined, undefined);
     }
     //创建管理服务产品目录    
