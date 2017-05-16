@@ -1,12 +1,12 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
-    私有云平台存储资源用量分析
+    {{'TREND_MNG.STORE_RES_TREND_ANALYSIS'|translate}}<!--私有云平台存储资源用量分析-->
 </div>
 
 <div class="page-content">
     <div>
         <div class="row row-line-height">
-            <div class="col-md-9">
-                <div class="col-md-2 form-control-title">云平台：</div>
+            <div class="col-md-10">
+                <div class="col-md-2 form-control-title">{{'COMMON.CLOUD_PLATFORM'|translate}}：</div><!--云平台-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion; selectedZone=defaultZone;">
                         <option [ngValue]="defaultPlf">{{'ASSIGN_MNG.ALL_PLATFORMS'|translate}}</option><!--所有平台-->
@@ -20,7 +20,7 @@
                         <option *ngFor="let reg of selectedPlf.region" [ngValue]="reg">{{reg.region}}</option>
                     </select>               
                 </div>
-                <div class="col-md-2 form-control-title">可用区：</div>
+                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.ZONE'|translate}}：</div><!--可用区-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedZone" >
                         <option [ngValue]="defaultZone">{{'ASSIGN_MNG.ALL_ZONES'|translate}}</option><!--所有可用区-->
@@ -28,27 +28,27 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-3" *ngIf="selectedZone==defaultZone">
-                <div class="col-md-10 form-control-title">
-                    <input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected"/>&nbsp;按可用区显示
+            <div class="col-md-2" *ngIf="selectedZone==defaultZone">
+                <div style="font-size:18px;line-height:34px;letter-spacing:2px;">
+                    <input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="isSelected"/>&nbsp;{{'TREND_MNG.DISPLAY_BY_ZONE'|translate}}<!--按可用区显示-->
                 </div>
             </div>
         </div>
         <div class="row row-line-height">
-            <div class="col-md-9">
-                <div class="col-md-2 form-control-title">云硬盘状态：</div>
+            <div class="col-md-10">
+                <div class="col-md-2 form-control-title">{{'TREND_MNG.DISK_STATUS'|translate}}：</div><!--云硬盘状态-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.diskStatus">
                         <option *ngFor="let dStatus of service.diskStatusDic | async" [value]="dStatus.value">{{dStatus.displayValue}}</option>                 
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title">云硬盘容量：</div>
+                <div class="col-md-2 form-control-title">{{'TREND_MNG.DISK_CAPACITY'|translate}}：</div><!--云硬盘容量-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.diskSize">
                         <option *ngFor="let dSize of service.diskSizeDic | async" [value]="dSize.value">{{dSize.displayValue}}</option>                 
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title">时间范围：</div>
+                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.PERIOD'|translate}}：</div><!--时间范围-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.period">
                         <option *ngFor="let p of service.trendPeridDic | async" [value]="p.value">{{p.displayValue}}</option>
@@ -59,24 +59,24 @@
         </div>
     </div>
     <div>
-        <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15">导出所有数据</button>
-        <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15">导出当前数据</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">重置</button>
-        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">确认</button>
+        <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15">{{'ASSIGN_MNG.EXPORT_ALL_DATA'|translate}}</button><!--导出所有数据-->
+        <button class="fox-cloud-button fox-cloud-button-white pull-right mgr15">{{'ASSIGN_MNG.EXPORT_CURRENT_DATA'|translate}}</button><!--导出当前数据-->
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="reset()">{{'COMMON.RESET'|translate}}</button><!--重置-->
+        <button class="fox-cloud-button fox-cloud-button-green pull-right mgr15" (click)="confirm()">{{'COMMON.CONFIRM'|translate}}</button><!--确认-->
     </div>
     <div class="clear"></div>
     <div class="mgt15" style="width:100%;border-bottom:solid 1px #00a982;"></div>
-    <div class="mgt20 mgb10" style="font-size:18px;font-weight:bold;">基本信息：</div>
+    <div class="mgt20 mgb10" style="font-size:18px;font-weight:bold;">{{'TREND_MNG.BASIC_INFO'|translate}}：</div><!--基本信息-->
     <div class="row">
         <div class="col-md-6">
-            <div class="table-container" style="height:256px;overflow-y:scroll;">
+            <div class="table-container" style="max-height:256px;overflow-y:scroll;">
                 <table class="table table-container">
                     <thead>
                         <tr>
-                            <th>可用区</th>
-                            <th>云硬盘-已挂载</th>
-                            <th>云硬盘-未挂载</th>
-                            <th>可分配</th>
+                            <th>{{'ASSIGN_MNG.ZONE'|translate}}</th><!--可用区-->
+                            <th>{{'TREND_MNG.DISK_ATTACHED'|translate}}</th><!--云硬盘-已挂载-->
+                            <th>{{'TREND_MNG.DISK_UNATTACHED'|translate}}</th><!--云硬盘-未挂载-->
+                            <th>{{'TREND_MNG.ASSIGNABLE'|translate}}</th><!--可分配-->
                         </tr>
                     </thead>
                     <tbody >
@@ -93,7 +93,7 @@
         <div class="col-md-5 col-md-offset-1">
             <div class="panel panel-default" >
                 <div class="panel-heading">
-                    <h3 class="panel-title">云硬盘</h3><!--CPU使用率概览-->
+                    <h3 class="panel-title">{{'COMMON.CLOUD_HARD_DISK'|translate}}</h3><!--云硬盘-->
                 </div>
                 <div class="panel-body" style="height:216px;">
                      <div class="row">
@@ -142,7 +142,7 @@
 
     <div *ngFor="let zone of barData.zone let i=index" class="panel panel-default" style="margin-top:15px;">
             <div class="panel-heading">
-                <h3 class="panel-title">{{zone.name}}</h3><!--CPU使用率-->
+                <h3 class="panel-title">{{zone.name}}</h3><!--可用区名称-->
             </div>
             <div class="panel-body">
                 <div style="height:400px" id="{{'chart'+i}}"></div>
