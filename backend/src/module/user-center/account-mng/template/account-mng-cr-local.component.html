@@ -18,7 +18,7 @@
                             </div>
                         </div>-->
                         <div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.userName}">
-                            <input type="text" [(ngModel)]="account.userName" (ngModelChange)="checkForm('userName')" name="userName" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}" class="form-control">
+                            <input id="userName" type="text" [(ngModel)]="account.userName" (ngModelChange)="checkForm('userName')" name="userName" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}" class="form-control">
                             <span *ngIf="v.result.userName" class="glyphicon glyphicon-remove form-control-feedback"></span>
                             <div *ngIf="v.result.userName" class="alert alert-danger" role="alert">{{v.result.userName}}</div>
                         </div>
@@ -54,7 +54,7 @@
                             <input type="text" class="form-control" placeholder="{{'USER_CENTER.INPUT_ACC' | translate}}" [disabled]="!isCreate" [(ngModel)]="account.loginName" name="loginName" #loginName="ngModel">
                         </div>-->
                          <div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.loginName}">
-                            <input type="text" [(ngModel)]="account.loginName" (ngModelChange)="checkForm('loginName')" name="loginName" placeholder="{{'USER_CENTER.INPUT_EMAIL_ACC' | translate}}" class="form-control" [disabled]="!isCreate">
+                            <input id="loginName" type="text" [(ngModel)]="account.loginName" (ngModelChange)="checkForm('loginName')" name="loginName" placeholder="{{'USER_CENTER.INPUT_EMAIL_ACC' | translate}}" class="form-control" [disabled]="!isCreate">
                             <span *ngIf="v.result.loginName" class="glyphicon glyphicon-remove form-control-feedback"></span>
                             <div *ngIf="v.result.loginName" class="alert alert-danger" role="alert">{{v.result.loginName| translate}}</div>
                         </div>
@@ -82,7 +82,7 @@
                             </div>
                         </div>-->
                        <div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.phone}">
-                            <input type="text" [(ngModel)]="account.phone" (ngModelChange)="checkForm('phone')" name="phone" placeholder="{{'USER_CENTER.INPUT_MOBILE_PHONE' | translate}}" class="form-control">
+                            <input id="phone" type="text" [(ngModel)]="account.phone" (ngModelChange)="checkForm('phone')" name="phone" placeholder="{{'USER_CENTER.INPUT_MOBILE_PHONE' | translate}}" class="form-control">
                             <span *ngIf="v.result.phone" class="glyphicon glyphicon-remove form-control-feedback"></span>
                             <div *ngIf="v.result.phone" class="alert alert-danger" role="alert">{{v.result.phone| translate}}</div>
                         </div>
@@ -96,7 +96,7 @@
                             <!--描述-->
                         </div>
                         <div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
-                            <textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3" [(ngModel)]="account.description"
+                            <textarea id="description" type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3" [(ngModel)]="account.description"
                                 name="description">
                             </textarea>
                         </div>
@@ -131,7 +131,7 @@
                                 </div>
                             </div>-->
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default" *ngFor="let item of role;let idx=index" (click)="addRole(item,idx)" [ngClass]="{'btn-active': item.selected}">{{item.name}}</button>
+                            <button id="role_{{item.id}}" type="button" class="btn btn-default" *ngFor="let item of role;let idx=index" (click)="addRole(item,idx)" [ngClass]="{'btn-active': item.selected}">{{item.name}}</button>
                         </div>
                     </div>
                 </div>
@@ -150,8 +150,8 @@
 
                         <div class="btn-group">
                             <div class="btn-group float-left" data-toggle="buttons">
-                                <label class="btn btn-default" *ngFor="let item of org" style="margin-bottom : 5px" (click)="addOrg(item)" [ngClass]="{active: item.selected}">
-                                        <input type="radio" name="mirror" autocomplete="off" checked="" > {{item.name}}
+                                <label class="btn btn-default" *ngFor="let item of org" style="margin-bottom : 5px" id="org_{{item.id}}"  (click)="addOrg(item)" [ngClass]="{active: item.selected}">
+                                        <input type="radio" name="mirror" autocomplete="off" checked="" value="org_{{item.id}}"> {{item.name}}
                                     </label>
                             </div>
                         </div>
@@ -165,11 +165,11 @@
     </div>
 </div>
 <div class="text-center" style="margin-top:50px">
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()" id="cancel">
             <span class="icon-button-label">{{'NET_MNG_VM_PORT.CNACLE' | translate}}<!--取消--></span>
         </button>
     <!--<button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()" [disabled]="!accountForm.form.valid||!loginNameIsOnly||!isEmail||!isPhone">-->
-    <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" style="margin-left : 10px" (click)="create()" id="create">
             <span class="icon-button-label" >{{btnTitle|translate}}</span>
         </button>
 </div>
