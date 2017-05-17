@@ -348,46 +348,13 @@ export class AliCloudDiskListComponent implements OnInit {
         }
 
     }
-/*
-    changePage(pageIndex?) {
-        this.pageIndex = pageIndex || this.pageIndex;
-        this.layoutService.show();
-        this.service.getDiskList(this.pageIndex, this.pageSize, this.choosenRegion.RegionId, this.queryObject)
-        .then(
-            response => {
-                this.layoutService.hide();
-                //console.log(response, "response!");
-                if (response && 100 == response["resultCode"]) {
-                    let result;
-                    try {
-                        result = JSON.parse(response.resultContent);
-                    } catch (ex) {
-                        console.log(ex);
-                    }
-                    this.disks = result.Disks.Disk;
-                    this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
-                    console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
-                    for(let i=0; i<this.disks.length; i++) {
-                        console.log(this.disks[i].DiskId, " == ");
-                    }
-                    console.log(this.disks, "this.disks!");
-                } else {
-                    this.showMsg("COMMON.GETTING_DATA_FAILED");
-                    return;
-                }
-        })
-        .catch((e) => {
-                this.onRejected(e);
-            });
-    }
-*/
 
     search() {
         console.log(this.queryObject);
         if (this.choosenRegion == this.defaultRegion) {
             this.showMsg("请选择区域");
         } else {
-            this.getDiskList(this.choosenRegion);
+            this.getDiskList();
         }
     }
 
@@ -439,7 +406,8 @@ export class AliCloudDiskListComponent implements OnInit {
             this.layoutService.show();
             this.vmqueryObject.criteria = "instance_name";
             this.vmqueryObject.keyword = "";
-            this.vmService.getInstanceList(1, 100, this.choosenRegion.RegionId, this.vmqueryObject)
+            //this.vmService.getInstanceList(1, 100, this.choosenRegion.RegionId, this.vmqueryObject)
+            this.vmService.getInstanceList(1, 100, this.selectedDiskItem.RegionId, this.vmqueryObject)
                 .then(
                 response => {
                     this.layoutService.hide();
@@ -505,26 +473,6 @@ export class AliCloudDiskListComponent implements OnInit {
     detachDisk() {
         this.selectedDiskItem = this.getSelected();
         if (this.selectedDiskItem) {
-            /*
-            this.confirmTitle = "卸载硬盘";
-            this.confirmMsg = "卸载硬盘" + this.selectedDiskItem.DiskId;
-            this.confirm.cof = () => { };
-            this.confirm.ccf = () => {
-                this.layoutService.show();
-                this.service.detachDisk(this.selectedDiskItem)
-                .then(
-                response => {
-                    this.layoutService.hide();
-                    if (response && 100 == response["resultCode"]) {
-                        this.showAlert("NET_MNG_VM_IP_MNG.DISABLE_NET_SUCCESS");
-                    } else {
-                        this.showAlert("COMMON.OPERATION_ERROR");
-                    }
-                })
-                .catch((e) => this.onRejected(e));
-            }
-            this.confirm.open();
-            */
             if (this.selectedDiskItem.InstanceId == "") {
                 this.showAlert("该云硬盘未绑定云主机实例！");
                 return;
@@ -546,7 +494,7 @@ export class AliCloudDiskListComponent implements OnInit {
                 .then(
                 response => {
                     this.layoutService.hide();
-                    this.detachdisk.close();
+                    //this.detachdisk.close();
                     if (response && 100 == response["resultCode"]) {
                         //this.selectRegion(this.choosenRegion);
                         if (this.choosenRegion != this.defaultRegion) {

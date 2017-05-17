@@ -93,7 +93,7 @@
             </td>
             <td class="text-center">{{disk.DiskChargeType | dict:this.dictService.diskChargeTypeDict | async}}</td>
             <td class="text-center">{{disk.Portable.toString() | dict:this.dictService.diskBoolDict | async}}</td>
-            <td class="text-center">{{disk.ZoneId}}</td>
+            <td class="text-center">{{disk.ZoneName}}</td>
             <td class="text-center">{{disk.Type | dict:this.dictService.diskTypeDict | async}}</td>
             <td class="text-center">{{disk.Size}}</td>
             <td class="text-center">
