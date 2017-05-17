@@ -5,13 +5,14 @@ class DatabaseModel {
   "dbType": number;//数据库类型
   "desc": string;
   "diskProfileList": Array<diskProfile>;
+  "diskInfoList": Array<diskProfile>;
   "id": string;
   "memory": number;//内存
   "name": string;
   "os": string;//操作系统
   "status": number;
   "storageType": string;//存储类型
-  "templateTpye": string;//模板类型
+  "templateType": string;//模板类型
   "version": string;//版本
   "deploymentMode":number;//缺
   constructor() {
@@ -23,6 +24,7 @@ class DatabaseModel {
     this.bit='64bit';
     this.os='linux';
     this.deploymentMode=0;
+    this.templateType='database';
     this.diskProfileList = [
       {
         "copyLevel": 2,
@@ -71,7 +73,11 @@ class DatabaseOption {
     "label": string,
     "value": number
   };//数据库 0 Oracle, 1 Mysql ,
-  "middleware": null;
+  "middleware": {
+    "code": string,
+    "label": string,
+    "value": number
+  };;
   "version": Array<string>;
   "mode": Array<mode>//0 单节点部署,1 集群 ,
   constructor(){
