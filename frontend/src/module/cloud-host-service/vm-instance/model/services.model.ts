@@ -18,7 +18,7 @@ class OrderService {
     relyType: number = null;
     relyAttrId: string = "";
     valueList: VlueList[] = [];
-    mapValueList: VlueList[] = [];
+    mapValueList: VlueList[][] = [];
 }
 
 class OrderList {

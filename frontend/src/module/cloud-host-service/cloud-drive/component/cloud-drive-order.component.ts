@@ -138,7 +138,7 @@ export class cloudDriveComponentOrder implements OnInit {
 	//把payLoad转换成提交的post对象
 	private payLoadFormat(): PayLoad[] {
 
-		this.sendModule.diskinsname.attrValue = (window as any).escape(this.sendModule.diskinsname.attrDisplayValue).toLocaleLowerCase().replace(/%u/gi,'\\u');
+		// this.sendModule.diskinsname.attrValue = (window as any).escape(this.sendModule.diskinsname.attrDisplayValue).toLocaleLowerCase().replace(/%u/gi,'\\u');
 
 		let payloadList = [];
 		for (let v in this.sendModule) {
