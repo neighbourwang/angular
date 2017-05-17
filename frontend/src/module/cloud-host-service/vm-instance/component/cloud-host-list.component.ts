@@ -147,7 +147,7 @@ export class cloudHostListComponent implements OnInit, OnDestroy {
 		this.service.handleVm(this.handleData).then(res => {
 			this.layoutService.hide();
 			// alert(msg+"成功！");
-			this.showNotice("COMMON.CLOUD_HOST_OPERATION" ,"COMMON.SUCCESS");
+			this.showNotice("COMMON.CLOUD_HOST_OPERATION" , msg+"成功");
 
 			this.setHostList();
 		}).catch(error => {
