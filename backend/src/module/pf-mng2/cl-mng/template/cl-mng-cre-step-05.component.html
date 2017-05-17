@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of creStep5Model; let idx = index;">
+                    <tr *ngFor="let item of creStep5Model; let idx = index;" id="model_{{item.id}}">
                         <td>{{idx + 1}}</td>
                         <td>{{item.name}}</td>
                         <td><input type="text" class="form-control" required [(ngModel)]="item.displayName"></td>
@@ -44,13 +44,13 @@
     </div>
 </div>
 <div class="text-center">
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();" id="cancel">
         <span class="icon-button-label">{{"COMMON.RETURN" | translate}}</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="previous();" id="previous">
         <span class="icon-button-label">{{"COMMON.PREVIOUS" | translate}}</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20" (click)="next();" id="next">
         <span class="icon-button-label">{{"COMMON.NEXT" | translate}}</span>
     </button>
 </div>
