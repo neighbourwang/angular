@@ -71,7 +71,7 @@ export class AliCloudMainAccountEditComponent implements OnInit{
     }
     //获取账号信息
     getAccount(id:string){
-        this.layoutService.hide();
+        this.layoutService.show();
         this.service.getAccount(id)
              .then(
                 response => {
@@ -102,8 +102,8 @@ export class AliCloudMainAccountEditComponent implements OnInit{
             this.showAlert("ALI_CLOUD.PLEASE_INPUT_ACCESS_SECRET");
             return;
         }
-        if((!this.changebt &&this.testResult=="1")  || this.changebt){      
-            this.layoutService.show();
+        this.layoutService.show();
+        if((!this.changebt &&this.testResult=="1")  || this.changebt){                 
             this.service.editAccount(this.account)
             .then(
                 response=>{ 
@@ -178,7 +178,8 @@ export class AliCloudMainAccountEditComponent implements OnInit{
 
     //测试access信息
     testAccessInfo(){
-        this.layoutService.hide();
+        this.testResult ="";
+        this.layoutService.show();
         this.service.testAccessInfo(this.account)
         .then(
             response=>{
