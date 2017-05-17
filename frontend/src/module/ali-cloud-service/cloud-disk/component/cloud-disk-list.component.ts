@@ -726,7 +726,11 @@ export class AliCloudDiskListComponent implements OnInit {
     changePage(pageIndex?) {
         this.pageIndex = pageIndex || this.pageIndex;
         console.log(this.pageIndex, typeof this.pageIndex, "pageIndex!");
-        if(this.pageIndex>this.totalPage) return;
+        if(this.pageIndex>this.totalPage) {
+            this.pageIndex = this.totalPage;
+            console.log(this.pageIndex);
+            return;
+        }
 
         this.clearInterval();
         this.disks = this.alldisks.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize);

@@ -894,9 +894,12 @@ export class AliCloudVmListComponent implements OnInit {
     changePage(pageIndex?) {
         this.pageIndex = pageIndex || this.pageIndex;
         console.log(this.pageIndex, typeof this.pageIndex, "pageIndex!");
-        if(this.pageIndex>this.totalPage) return;
-        //this.layoutService.show();
-        //this.getInstanceList(this.pageIndex);
+        if(this.pageIndex>this.totalPage)  {
+            this.pageIndex = this.totalPage;
+            console.log(this.pageIndex);
+            return;
+        }
+        
         this.clearInterval();
         this.instances = this.allinstances.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize);
         console.log(this.instances, "instances!");
