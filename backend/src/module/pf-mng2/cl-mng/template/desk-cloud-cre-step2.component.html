@@ -71,10 +71,10 @@
     </div>
 </div>
 <div class="text-center">
-    <button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancel();" [disabled]="!creStep2Model.isBack">
+    <button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancel();" id="cancel" [disabled]="!creStep2Model.isBack">
         <span class="icon-button-label">{{"COMMON.RETURN" | translate}}</span>
     </button>    
-    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20 btn" (click)="next();" [disabled]="!creStep2Model.isNext">
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgl20 btn" (click)="next();" id="next" [disabled]="!creStep2Model.isNext">
         <span class="icon-button-label">{{"COMMON.NEXT" | translate}}</span>
     </button>
 </div>

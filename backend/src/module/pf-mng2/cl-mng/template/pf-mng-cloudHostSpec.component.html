@@ -1,19 +1,19 @@
 <div class="page-content-header icon-content-header-platform-manage" style="padding-bottom:10px;height:45px;">
     {{'PF_MNG2.MANAGE_CLOUD_HOST_SPEC' | translate}}: <span style="margin-right:20px;">{{platformName}}</span> {{'PF_MNG.CLOUD_HOST_TYPE' | translate}}: <span>{{platformTypeName}}</span>
-    <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" (click)='goList()'>
+    <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" (click)='goList()' id="goList">
         <span class="icon-button-label" >{{'PF_MNG2.RETURN_CLOUD_LIST' | translate}}</span>
     </button>
 </div>
 <div>
     <div class="page-content">
         <div style="padding-bottom: 10px;" *ngIf="platformType=='0'">
-            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" (click)='updateFlavor()'>
+            <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" (click)='updateFlavor()' id="updateFlavor">
                 <span class="icon-button-label" >{{'PF_MNG2.SYNC_CLOUD_SPEC' | translate}}</span>
              </button>
             <div style="clear:both"></div>
         </div>
         <div style="padding-bottom: 10px;" *ngIf="platformType=='2'">
-            <button class="fox-cloud-button-md fox-cloud-button-white" (click)='createFlavor()'>
+            <button class="fox-cloud-button-md fox-cloud-button-white" (click)='createFlavor()' id="createFlavor">
                 <span class="icon-button-label" >{{'PF_MNG2.NEW_CLOUD_SPEC' | translate}}</span>
              </button>
             <div style="clear:both"></div>
@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let flavor of flavorlist,let idx=index">
+                    <tr *ngFor="let flavor of flavorlist,let idx=index" id="flavor_{{flavor.id}}">
                         <td>{{idx+1}}</td>
                         <td>{{flavor.name}}</td>
                         <td>{{flavor.vcpu}}</td>
@@ -55,7 +55,7 @@
                     </tr>
                 </tbody>
             </table>
-            <table class="table table-hover" *ngIf="platformType=='2'">
+            <table class="table table-hover" *ngIf="platformType=='2'" >
                 <thead>
                     <tr>
                         <th>#</th>
@@ -70,7 +70,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let flavor of flavorlist,let idx=index">
+                    <tr *ngFor="let flavor of flavorlist,let idx=index" id="flavor_{{flavor.id}}">
                         <td>{{idx+1}}</td>
                         <td>{{flavor.name}}</td>
                         <td>{{flavor.vcpu}}</td>
@@ -86,8 +86,8 @@
                         <!--<td>使用中</td>-->
                         <td>{{flavor.updateDate}}</td>
                         <td>
-                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor(flavor)">{{'COMMON.ENABLE' | translate}}</button>
-                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="deleFlavor(flavor)">{{'COMMON.DELETE' | translate}}</button>
+                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableFlavor(flavor)" id="enableFlavor">{{'COMMON.ENABLE' | translate}}</button>
+                            <button *ngIf="flavor.status=='0'" class="fox-cloud-button-md fox-cloud-button-white" (click)="deleFlavor(flavor)" id="deleFlavor">{{'COMMON.DELETE' | translate}}</button>
                         </td>
                     </tr>
                 </tbody>
@@ -105,7 +105,7 @@
                         {{'COMMON.NAME' | translate}}: 
                     </div>
                     <div class="col-sm-4 no-padding" [ngClass]="{'has-error':!flavorObj.nameValid||nameRepeat}">
-                        <input type="text" class="form-control" [(ngModel)]="flavorObj.name" (focus)="flavorObj.nameValid=true;nameRepeat=false;" required placeholder="{{'PF_MNG2.SPEC_NAME' | translate}}" (blur)="flavorObj.nameValid=flavorObj.name?true:false;">
+                        <input type="text" id="flavorObj_name" class="form-control" [(ngModel)]="flavorObj.name" (focus)="flavorObj.nameValid=true;nameRepeat=false;" required placeholder="{{'PF_MNG2.SPEC_NAME' | translate}}" (blur)="flavorObj.nameValid=flavorObj.name?true:false;">
                         <span *ngIf="!flavorObj.nameValid||nameRepeat" class="glyphicon glyphicon-remove form-control-feedback"></span>
 						<div *ngIf="!flavorObj.nameValid" class="alert alert-danger" role="alert" style="margin-bottom:0">{{'PF_MNG2.SPEC_NAME_ERROR' | translate}}</div>
 						<div *ngIf="nameRepeat" class="alert alert-danger" role="alert" style="margin-bottom:0">{{'PF_MNG2.SPEC_NAME_EXISTS' | translate}}</div>
@@ -119,7 +119,7 @@
                         CPU：
                     </div>
                     <div class="col-sm-3 no-padding" [ngClass]="{'has-error':!flavorObj.cpuValid}">
-                        <input type="number" class="form-control" [(ngModel)]="flavorObj.cpu"  required (focus)="flavorObj.cpuValid=true;" (blur)="flavorObj.cpuValid=flavorObj.cpu?true:false;">
+                        <input type="number" id="flavorObj_cpu" class="form-control" [(ngModel)]="flavorObj.cpu"  required (focus)="flavorObj.cpuValid=true;" (blur)="flavorObj.cpuValid=flavorObj.cpu?true:false;">
                     </div>
                     <div class="col-sm-4" style="line-height:34px;">
                         {{'COMMON.CORE' | translate}}(vCPU)
@@ -133,7 +133,7 @@
                         {{'COMMON.RAM' | translate}}: 
                     </div>
                     <div class="col-sm-3 no-padding" [ngClass]="{'has-error':!flavorObj.memValid}">
-                        <input type="number" class="form-control" [(ngModel)]="flavorObj.mem" required (focus)="flavorObj.memValid=true;" (blur)="flavorObj.memValid=flavorObj.mem?true:false;">
+                        <input type="number" id="flavorObj_mem" class="form-control" [(ngModel)]="flavorObj.mem" required (focus)="flavorObj.memValid=true;" (blur)="flavorObj.memValid=flavorObj.mem?true:false;">
                     </div>
                     <div class="col-sm-4" style="line-height:34px;">
                         (MB)
@@ -147,7 +147,7 @@
                         {{'PROD_MNG.ROOT_DISK_SIZE' | translate}}:
                     </div>
                     <div class="col-sm-3 no-padding" [ngClass]="{'has-error':!flavorObj.diskValid}">
-                        <input type="number" class="form-control" [(ngModel)]="flavorObj.disk" required (focus)="flavorObj.memValid=true;" (blur)="flavorObj.diskValid=flavorObj.disk?true:false;">
+                        <input type="number" id="flavorObj_disk" class="form-control" [(ngModel)]="flavorObj.disk" required (focus)="flavorObj.memValid=true;" (blur)="flavorObj.diskValid=flavorObj.disk?true:false;">
                     </div>
                      <div class="col-sm-4 " style="line-height:34px;">
                         (GB)

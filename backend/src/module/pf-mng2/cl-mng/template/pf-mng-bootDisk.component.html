@@ -1,7 +1,7 @@
 <div class="page-content-header icon-content-header-platform-manage" style="padding-bottom:10px;height:45px;">
     管理云主机启动盘: <span style="margin-right:20px;">{{platformName}}</span> 云主机类型: <span>{{platformTypeName}}</span>
     <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" (click)='goList()'>
-        <span class="icon-button-label" >返回云平台列表</span>
+        <span class="icon-button-label" id="goList">返回云平台列表</span>
     </button>
 </div>
 <div class="page-content" style="min-height:300px;">
@@ -13,13 +13,13 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <li><a (click)="editZoneBootDisk()">编辑</a></li>
-                <li><a (click)="deleteZoneBootDisk();">删除</a></li>
-                <li><a (click)="enableZoneBootDisk();">启用</a></li>
-                <li><a (click)="suspendZoneBootDisk();">禁用</a></li>
+                <li><a (click)="editZoneBootDisk()" id="editZoneBootDisk">编辑</a></li>
+                <li><a (click)="deleteZoneBootDisk();" id="deleteZoneBootDisk">删除</a></li>
+                <li><a (click)="enableZoneBootDisk();" id="enableZoneBootDisk">启用</a></li>
+                <li><a (click)="suspendZoneBootDisk();" id="suspendZoneBootDisk">禁用</a></li>
             </ul>
         </div>
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="createBootDisk();">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="createBootDisk();" id="createBootDisk">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">设置启动盘</span>
         </button>
@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let bootDisk of zoneBootDiskList; let idx=index">
+                <tr *ngFor="let bootDisk of zoneBootDiskList; let idx=index" id="bootDisk_{{bootDisk.id}}">
                     <td><input class="fox-cloud-radio" type="radio" name="isSelected" [checked]="bootDisk.selected" (click)="selectZone(bootDisk)"/></td>
                     <td style="cursor:pointer">{{bootDisk.zoneName}}</td>
                     <td>{{bootDisk.bootStorageName}}</td>
