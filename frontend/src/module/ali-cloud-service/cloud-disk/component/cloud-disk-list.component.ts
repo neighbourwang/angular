@@ -235,6 +235,7 @@ export class AliCloudDiskListComponent implements OnInit {
                         console.log(ex);
                     }
                     this.alldisks = result.Disks.Disk;
+                    console.log(this.alldisks, "alldisks!");
                     this.totalPage = Math.ceil(this.alldisks.length / this.pageSize);
                     console.log(this.alldisks.length, this.totalPage, "TotalCount, this.totalPage!");
                     this.changePage();
@@ -277,6 +278,7 @@ export class AliCloudDiskListComponent implements OnInit {
                         console.log(ex);
                     }
                     this.alldisks = result.Disks.Disk;
+                    console.log(this.alldisks, "alldisks!");
                     this.totalPage = Math.ceil(this.alldisks.length / this.pageSize);
                     console.log(this.alldisks.length, this.totalPage, "TotalCount, this.totalPage!");
                     this.changePage();
@@ -328,7 +330,7 @@ export class AliCloudDiskListComponent implements OnInit {
                 console.log(disk.Status);
                 this.pollDisk.criteria = "instance_ids";
                 this.pollDisk.keyword = disk.DiskId;
-                this.service.getDiskList(1, 10, this.choosenRegion.RegionId, this.pollDisk).then(
+                this.service.getDiskList(1, 10, disk.RegionId, this.pollDisk).then(
                     response => {
                         if (response && 100 == response["resultCode"]) {
                             let result;
@@ -692,6 +694,7 @@ export class AliCloudDiskListComponent implements OnInit {
                         console.log(ex);
                     }
                     this.alldisks = result.Disks.Disk;
+                    console.log(this.alldisks, "alldisks!");
                     this.totalPage = Math.ceil(this.alldisks.length / this.pageSize);
                     console.log(this.alldisks.length, this.totalPage, "TotalCount, this.totalPage!");
                     this.pageIndex = 1;
@@ -722,7 +725,7 @@ export class AliCloudDiskListComponent implements OnInit {
 
     changePage(pageIndex?) {
         this.pageIndex = pageIndex || this.pageIndex;
-        console.log(this.pageIndex);
+        console.log(this.pageIndex, typeof this.pageIndex, "pageIndex!");
         if(this.pageIndex>this.totalPage) return;
 
         this.clearInterval();
