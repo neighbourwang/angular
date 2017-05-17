@@ -89,7 +89,9 @@
             </td>
             <td class="text-center">{{disk.Category | dict:this.dictService.diskCategoryDict | async}}</td>
             <td class="text-center">
-                <img *ngIf="disk.Status == 'Attaching' || disk.Status == 'Detaching' || disk.Status == 'Creating' || disk.Status == 'Deleting' || disk.Status == 'ReIniting'" src="../../../../../architecture/assets/images/icon_instance_starting.gif" />                {{disk.Status | dict:this.dictService.diskStatusDict | async}}
+                <!--<img *ngIf="disk.Status == 'Attaching' || disk.Status == 'Detaching' || disk.Status == 'Creating' || disk.Status == 'Deleting' || disk.Status == 'ReIniting'" src="../../../../../architecture/assets/images/icon_instance_starting.gif" /> -->
+                <div *ngIf="disk.Status == 'Attaching' || disk.Status == 'Detaching' || disk.Status == 'Creating' || disk.Status == 'Deleting' || disk.Status == 'ReIniting'" class="loading-icon"></div>
+                {{disk.Status | dict:this.dictService.diskStatusDict | async}}
             </td>
             <td class="text-center">{{disk.DiskChargeType | dict:this.dictService.diskChargeTypeDict | async}}</td>
             <td class="text-center">{{disk.Portable.toString() | dict:this.dictService.diskBoolDict | async}}</td>

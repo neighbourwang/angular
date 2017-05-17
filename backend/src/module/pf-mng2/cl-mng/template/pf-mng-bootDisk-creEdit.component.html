@@ -6,7 +6,7 @@
                 <div class="col-md-4 form-control-title">{{'PF_MNG2.BOOT_DISK_NAME'| translate}}：</div>
                 <div class="col-md-8">
                     <input class="form-control" type="text" placeholder="{{'COMMON.NAME' | translate}}" [(ngModel)]="bootDisk.bootStorageName"
-                        name="bootStorageName">
+                        name="bootStorageName" id="bootStorageName">
                 </div>
             </div>
         </div>
@@ -16,11 +16,11 @@
             <div class="row  row-line-height">
                 <div class="col-md-3 form-control-title">{{'COMMON.AVAILABLE_ZONE'| translate}}：</div>
                 <div class="col-md-9">
-                    <select *ngIf="!isEdit" class="form-control" [(ngModel)]="selectedZoneId" (ngModelChange)="selectValidZone($event)">
-                        <option *ngFor="let zone of validZoneList; let idx=index" [value]="zone.zoneId">{{zone.zoneName}}</option>
+                    <select *ngIf="!isEdit" class="form-control" id="selectedZoneId" [(ngModel)]="selectedZoneId" (ngModelChange)="selectValidZone($event)">
+                        <option *ngFor="let zone of validZoneList; let idx=index" id="selectedZoneId_{{zone.zoneId}}" [value]="zone.zoneId">{{zone.zoneName}}</option>
                     </select>
                     <input *ngIf="isEdit" class="form-control" type="text"  [(ngModel)]="service.editBootDiskData.zoneName" disabled
-                        name="zoneName">
+                        name="zoneName" id="zoneName">
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                 <div class="col-md-3 form-control-title">{{'NET_MNG_VM_IP_MNG.DESCRIPTION'| translate}}：</div>
                 <div class="col-md-9">
                     <input class="form-control" type="text" placeholder="{{'COMMON.COMMENT' | translate}}" [(ngModel)]="bootDisk.bootStorageDescription"
-                        name="bootStorageDescription">
+                        name="bootStorageDescription" id="bootStorageDescription">
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
             <div class="col-md-4 form-control-title boldTitle">{{'PF_MNG2.ALL_STORAGE_BACKEND'| translate}}</div>
             <div class="col-md-7">
                 <div class="has-feedback">
-                    <input type="text" class="form-control" #userName [(ngModel)]="personAcc" pla>
+                    <input type="text" class="form-control" #userName [(ngModel)]="personAcc" pla id="personAcc">
                     <span class="glyphicon glyphicon-search form-control-feedback font-green"></span>
                     <!--<span class="cancel" (click)="clear('userName')"></span>-->
                 </div>
@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="row bodyList">
-            <div class="col-md-12" *ngFor="let storage of storageList;let idx=index" (click)="selectStorage(storage,idx)" style="cursor:pointer" title="点击选择存储后端">
+            <div class="col-md-12" *ngFor="let storage of storageList;let idx=index" (click)="selectStorage(storage,idx)" id="selectStorage" style="cursor:pointer" title="点击选择存储后端">
                 {{storage.storageName}}
             </div>
             <div style="clear:both"></div> 
@@ -67,7 +67,7 @@
             <div class="col-md-4 form-control-title boldTitle">{{'PF_MNG2.SELECTED_STORAGE_BACKEND'| translate}}</div>
             <div class="col-md-7">
                 <div class="has-feedback">
-                    <input type="text" class="form-control" #userName [(ngModel)]="personAcc" >
+                    <input type="text" class="form-control" #userName [(ngModel)]="personAcc" id="personAcc2">
                     <span class="glyphicon glyphicon-search form-control-feedback font-green"></span>
                     <!--<span class="cancel" (click)="clear('userName')"></span>-->
                 </div>
@@ -78,7 +78,7 @@
             </div>
         </div>
         <div class="row bodyList">
-            <div class="col-md-12 " *ngFor="let storageName of bootDisk.storageName;let idxx=index" (click)="cancelStorage(idx)" style="cursor:pointer" title="{{'PF_MNG2.CLICK_SELECT_STORAGE_BACKEND'| translate}}">
+            <div class="col-md-12 " *ngFor="let storageName of bootDisk.storageName;let idxx=index" (click)="cancelStorage(idx)" id="cancelStorage" style="cursor:pointer" title="{{'PF_MNG2.CLICK_SELECT_STORAGE_BACKEND'| translate}}">
                 {{storageName}}
             </div>
             <div style="clear:both"></div> 
@@ -86,10 +86,10 @@
     </div>
 </div>
 <div class="text-center">
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();" style="margin-right:40px;">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();" id="cancel" style="margin-right:40px;">
             <span class="icon-button-label">{{'COMMON.CANCEL'| translate}}</span>
         </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="createBootDisk();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="createBootDisk();" id="createBootDisk">
             <span class="icon-button-label">{{'COMMON.SAVE'| translate}}</span>
     </button>
 </div>
