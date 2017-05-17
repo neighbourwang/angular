@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService} from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel, SystemDictionaryService } from '../../../../architecture';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -11,29 +11,41 @@ export class DatabaseService {
         private http: Http,
         private restApiCfg: RestApiCfg,
         private restApi: RestApi,
-        private dict:SystemDictionaryService
+        private dict: SystemDictionaryService
     ) { }
+    //获取数据库模板详情
+    getTemplatedetail( data: any) {
+        let api = this.restApiCfg.getRestApi("prod-mng.template-mng.detail.search");
 
-    // 条件查询所有产品列表
-    getTemplateList(page: number, size: number,data:any) {
-        let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.list.get");
-
-        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined,data);
+        return this.restApi.request(api.method, api.url, [], undefined, data);
     }
     //获取数据库选项基础信息
-    getDatabaseOptionInitInfo(){
-       let api = this.restApiCfg.getRestApi("template-mng-database.initInfo.get");
+    getDatabaseOptionInitInfo() {
+        let api = this.restApiCfg.getRestApi("template-mng-database.initInfo.get");
 
-        return this.restApi.request(api.method, api.url, [], undefined);  
+        return this.restApi.request(api.method, api.url, [], undefined);
     }
-    //更新产品状态
-    changProdstatus(data:any){
-        let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.updateStatus");
+    //创建数据库模板
+    postDatabaseTemplate(data: any) {
+        let api = this.restApiCfg.getRestApi("template-mng-database.cre.post");
 
-        return this.restApi.request(api.method, api.url,[], undefined,data);
+        return this.restApi.request(api.method, api.url, [], undefined, data);
     }
-    productTypeDic=this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise
-      owner : "GLOBAL",
-      field : "SERVICE_TYPE"    
-   })
+    //更新数据库模板
+    putDatabaseTemplate(data: any) {
+        let api = this.restApiCfg.getRestApi("template-mng-database.update.put");
+
+        return this.restApi.request(api.method, api.url, [], undefined, data);
+    }
 }
+// [‎2017/‎5/‎17 17:41] Chen, Roger: 
+// 无标题
+// INSERT INTO `foxbase`.`FOX_SYSTEMDICTIONARY` (`ID`, `OWNER`, `FIELD`, `CODE`, `VALUE`, `TEXT`, `DESCRIPTION`) VALUES ('763', 'TEMPALTE', 'STATUS', '0', '已删除', '已删除', '已删除');
+// INSERT INTO `foxbase`.`FOX_SYSTEMDICTIONARY` (`ID`, `OWNER`, `FIELD`, `CODE`, `VALUE`, `TEXT`, `DESCRIPTION`) VALUES ('764', 'TEMPLATE', 'STATUS', '1', '已启用', '已启用', '已启用');
+// INSERT INTO `foxbase`.`FOX_SYSTEMDICTIONARY` (`ID`, `OWNER`, `FIELD`, `CODE`, `VALUE`, `TEXT`, `DESCRIPTION`) VALUES ('822', 'DB', 'DB_TYPE', 'Oracle', '0', 'Oracle', 'Oracle');
+// INSERT INTO `foxbase`.`FOX_SYSTEMDICTIONARY` (`ID`, `OWNER`, `FIELD`, `CODE`, `VALUE`, `TEXT`, `DESCRIPTION`) VALUES ('823', 'DB', 'DEPLOYMENT_MODE', 'single', '0', '单机部署', '单机部署');
+// INSERT INTO `foxbase`.`FOX_SYSTEMDICTIONARY` (`ID`, `OWNER`, `FIELD`, `CODE`, `VALUE`, `TEXT`, `DESCRIPTION`) VALUES ('824', 'MIDDLEWARE', 'DEPLOYMENT_MODE', 'single', '0', '单例部署', '单例部署');
+// INSERT INTO `foxbase`.`FOX_SYSTEMDICTIONARY` (`ID`, `OWNER`, `FIELD`, `CODE`, `VALUE`, `TEXT`, `DESCRIPTION`) VALUES ('825', 'MIDDLEWARE', 'DEPLOYMENT_MODE', 'cluster', '1', '多实例部署', '多实例部署');
+// INSERT INTO `foxbase`.`FOX_SYSTEMDICTIONARY` (`ID`, `OWNER`, `FIELD`, `CODE`, `VALUE`, `TEXT`, `DESCRIPTION`) VALUES ('826', 'DB', 'DEPLOYMENT_MODE', 'cluster', '1', '集群部署', '集群部署');
+// INSERT INTO `foxbase`.`FOX_SYSTEMDICTIONARY` (`ID`, `OWNER`, `FIELD`, `CODE`, `VALUE`, `TEXT`, `DESCRIPTION`) VALUES ('827', 'MIDDLEWARE', 'TYPE', 'weblogic', '0', 'Weblogic', 'Weblogic'); 
+

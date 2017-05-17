@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { RestApiCfg, RestApi, RestApiModel ,SystemDictionaryService} from '../../../../architecture';
+import { RestApiCfg, RestApi, RestApiModel, SystemDictionaryService } from '../../../../architecture';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -11,29 +11,25 @@ export class MiddlewareService {
         private http: Http,
         private restApiCfg: RestApiCfg,
         private restApi: RestApi,
-        private dict:SystemDictionaryService
+        private dict: SystemDictionaryService
     ) { }
+    //获取中间件选项基础信息
+    getMiddlewareOptionInitInfo() {
+        let api = this.restApiCfg.getRestApi("template-mng-middleware.initInfo.get");
 
-    // 条件查询所有产品列表
-    getTemplateList(page: number, size: number,data:any) {
-        let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.list.get");
-
-        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined,data);
+        return this.restApi.request(api.method, api.url, [], undefined);
     }
-    //获取数据库选项基础信息
-    getDatabaseOptionInitInfo(){
-       let api = this.restApiCfg.getRestApi("template-mng-database.initInfo.get");
+    //创建中间件模板
+    postMiddlewareTemplate(data:any) {
+        let api = this.restApiCfg.getRestApi("template-mng-middleware.cre.post");
 
-        return this.restApi.request(api.method, api.url, [], undefined);  
+        return this.restApi.request(api.method, api.url, [], undefined, data);
     }
     //更新产品状态
-    changProdstatus(data:any){
+    changProdstatus(data: any) {
         let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.updateStatus");
 
-        return this.restApi.request(api.method, api.url,[], undefined,data);
+        return this.restApi.request(api.method, api.url, [], undefined, data);
     }
-    productTypeDic=this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise
-      owner : "GLOBAL",
-      field : "SERVICE_TYPE"    
-   })
+    
 }

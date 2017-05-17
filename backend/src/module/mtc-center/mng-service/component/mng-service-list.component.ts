@@ -13,7 +13,7 @@ import { MngService } from '../service/mng-service.service';
 @Component({
     selector:"mng-service-list",
     templateUrl:"../template/service-list.html",
-    styleUrls:['../style/mng-service-list.less'],
+    styleUrls:[],
     providers:[]
 })
 
@@ -160,6 +160,7 @@ export class MngServiceListComponent implements OnInit{
         }else{
             this.type= "update";
             this.selectedProductId= selectedService.serviceProductId;
+            this.Info= "";
             this.popUnit.open("服务状态更新");
         }
     }
@@ -173,6 +174,7 @@ export class MngServiceListComponent implements OnInit{
         }else{
             this.type= "follow";
             this.selectedProductId= selectedService.serviceProductId;
+            this.Info= "";
             this.popUnit.open("服务跟进");
         }
     }
@@ -218,6 +220,7 @@ export class MngServiceListComponent implements OnInit{
                 this.serviceUpdate();
                 break;
         }
+        this.popUnit.close();
     }
 
     gotoDetail(item){

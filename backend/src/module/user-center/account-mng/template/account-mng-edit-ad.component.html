@@ -11,7 +11,7 @@
                 </div>
                 
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" [(ngModel)]="account.userName" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}">
+                    <input id="userName" type="text" class="form-control" [(ngModel)]="account.userName" placeholder="{{'USER_CENTER.INPUTNAME' | translate}}">
                 </div>
                 
                 <!--
@@ -58,7 +58,7 @@
                 </div>
                 
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" [(ngModel)]="account.phone" placeholder="{{'USER_CENTER.INPUT_PHONE' | translate}}">
+                    <input type="text" id="phone" class="form-control" [(ngModel)]="account.phone" placeholder="{{'USER_CENTER.INPUT_PHONE' | translate}}">
                 </div>                
                 <!--
                 <div class="col-sm-4" [ngClass]="{'has-error': Phone.errors && (Phone.dirty || Phone.touched)}">
@@ -78,7 +78,7 @@
                     {{'COMMON.DESCRIPTION' | translate}}<!--描述-->
                 </div>
                 <div class="col-sm-4">
-                    <textarea type="text" class="form-control" [(ngModel)]="account.description" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3"></textarea>
+                    <textarea id="description" type="text" class="form-control" [(ngModel)]="account.description" placeholder="{{'USER_CENTER.INPUT_CONTACT_DESC' | translate}}" rows="3"></textarea>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
                 <div class="col-sm-6">
                     <div class="btn-group pdl5">
                         <div class="btn-group float-left" data-toggle="buttons">
-                            <button *ngFor="let role of roles;" title="{{role.name}}" class="btn btn-default fix-width-140 mgt5" (click)="role.selected=!role.selected;" [ngClass]="{'active':role.selected}">
+                            <button id="role_{{role.id}}" *ngFor="let role of roles;" title="{{role.name}}" class="btn btn-default fix-width-140 mgt5" (click)="role.selected=!role.selected;" [ngClass]="{'active':role.selected}">
                                  {{role.name}}
                             </button>
                         </div>
@@ -119,8 +119,8 @@
                 <div class="col-sm-6">
                     <div class="btn-group pdl5">
                         <div class="btn-group float-left" data-toggle="buttons">
-                            <label *ngFor="let org of organizations;" title="{{org.name}}" class="btn btn-default fix-width-140" style="margin: 3px 0;" [ngClass]="{'active':org.selected}" (click)="clearSelectedOrg(org);">
-                                <input type="radio" name="org" autocomplete="off"> {{org.name}}
+                            <label *ngFor="let org of organizations;" id="organizations_{{org.id}}" title="{{org.name}}" class="btn btn-default fix-width-140" style="margin: 3px 0;" [ngClass]="{'active':org.selected}" (click)="clearSelectedOrg(org);">
+                                <input type="radio" name="org" autocomplete="off" value="organizations_{{org.id}}"> {{org.name}}
                             </label>
                         </div>
                     </div>
@@ -132,10 +132,10 @@
 </div>
 </div>
  <div class="text-center" style="margin-top:50px">
-            <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()">
+            <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel()" id="cancel">
                 <span class="icon-button-label" >{{'NET_MNG_VM_PORT.CNACLE' | translate}}<!--取消--></span>
             </button>
-            <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="saveAccount()" style="margin-left : 10px">
+            <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="saveAccount()" id="saveAccount" style="margin-left : 10px">
                 <span class="icon-button-label" >{{'HOST_VMWARE_MNG.SAVE' | translate}}<!--保存--></span>
             </button>
 </div>

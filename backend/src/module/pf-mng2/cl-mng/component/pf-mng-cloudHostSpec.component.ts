@@ -94,7 +94,7 @@ export class CloudHostSpecComponent implements OnInit {
         console.log('cc')
         this.flavorObj=new FlavorObj();
         this.nameRepeat=false;
-        this.createSepc.open('PROD_MNG.CREATE_PRODUCT_CAT');
+        this.createSepc.open();
     }
     //确认创建
     nameRepeat:boolean=false;
@@ -146,7 +146,7 @@ export class CloudHostSpecComponent implements OnInit {
     enableFlavor(flavor){
         console.log(flavor);
         this.selectFlavor=flavor;
-        this.enableConfirm.open('启用启动盘',"你选择启用 '"+flavor.name+"' 云主机规格，请确认")
+        this.enableConfirm.open('启用云主机规格',"你选择启用 '"+flavor.name+"' 云主机规格，请确认")
     }
     cofEnable(){
         this.layoutService.show();
@@ -163,7 +163,7 @@ export class CloudHostSpecComponent implements OnInit {
     deleFlavor(flavor){
         console.log(flavor);        
         this.selectFlavor=flavor;
-        this.deleteConfirm.open('启用启动盘',"你选择删除 '"+flavor.name+"' 云主机规格，请确认")        
+        this.deleteConfirm.open('删除云主机规格',"你选择删除 '"+flavor.name+"' 云主机规格，请确认")        
     }
     cofDelete(){
         this.layoutService.show();
