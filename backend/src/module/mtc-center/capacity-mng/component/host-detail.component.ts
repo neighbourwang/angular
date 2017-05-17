@@ -122,20 +122,56 @@ export class HostDetailComponent implements OnInit {
 
             data: chart._data,
             label:_label,
-            fill: true,
-            lineTension: 0.1,
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderWidth: 2,
-            pointHoverRadius: 5,
-            pointHoverBorderWidth: 2,
-            pointRadius: 4,
-            pointHitRadius: 10,
-            spanGaps: false,
+            borderWidth: 2,
+            pointBorderWidth: 0,
+            pointRadius: 1,
+            pointHoverRadius: 3,
+            fill:false
         }
         ];
+
+        //chart.DataSets = [{
+
+        //    data: chart._data,
+        //    label:_label,
+        //    fill: false,
+        //    lineTension: 0.1,
+        //    borderCapStyle: 'butt',
+        //    borderDash: [],
+        //    borderDashOffset: 0.0,
+        //    borderJoinStyle: 'miter',
+        //    pointBorderWidth: 2,
+        //    pointHoverRadius: 5,
+        //    pointHoverBorderWidth: 2,
+        //    pointRadius: 4,
+        //    pointHitRadius: 10,
+        //    spanGaps: false,
+        //}
+        //];
+
+        chart.options={
+                       
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                ticks: {
+                                    //maxRotation:0, 
+                                    userCallback: function(dataLabel, index) {
+                                        return index % 5 === 0 ? dataLabel : '';
+                                    }
+                                }
+                            }],
+                            yAxes: [{
+                                display: true,
+                                 ticks: {
+                                    suggestedMin: 0,
+                                    suggestedMax: 60,
+                                },
+                                //min:0,
+                                beginAtZero: true
+                            }]
+                        }
+                    } 
 
         chart.ChartType= "line";
         
