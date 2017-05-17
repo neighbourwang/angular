@@ -13,13 +13,16 @@ class DatabaseModel {
   "storageType": string;//存储类型
   "templateTpye": string;//模板类型
   "version": string;//版本
-  "deployMode":number;//缺
+  "deploymentMode":number;//缺
   constructor() {
     this.cpu=2;
     this.memory=4;
     this.bootStorageSize=20;
     this.version='';
     this.storageType='FS';
+    this.bit='64bit';
+    this.os='linux';
+    this.deploymentMode=0;
     this.diskProfileList = [
       {
         "copyLevel": 2,

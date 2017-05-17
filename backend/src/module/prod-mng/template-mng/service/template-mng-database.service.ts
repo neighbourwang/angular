@@ -26,6 +26,12 @@ export class DatabaseService {
 
         return this.restApi.request(api.method, api.url, [], undefined);  
     }
+    //创建数据库模板
+    postDatabaseTemplate(data:any){
+        let api = this.restApiCfg.getRestApi("template-mng-database.cre.post");
+
+        return this.restApi.request(api.method, api.url, [], undefined,data);
+    }
     //更新产品状态
     changProdstatus(data:any){
         let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.updateStatus");

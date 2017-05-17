@@ -74,21 +74,31 @@ export class MngService {
 
     }
 
-    serviceFollow(productId: string, Info: string): Promise<any>{
-        const api = this.restApiCfg.getRestApi("mtc-center.mng-service.followservice");
-        return this.restApi.request(api.method, api.url, null, null,
+    serviceFollow(itemId: string, Info: string): Promise<any>{
+        const pathParams=[
             {
-                "productId": productId,
-                "updateInfo": Info
+                key:"itemId",
+                value: itemId
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("mtc-center.mng-service.followservice");
+        return this.restApi.request(api.method, api.url, pathParams, null,
+            {
+                "msg": Info
             });
     }
 
-    serviceUpdate(productId: string, Info: string): Promise<any>{
-        const api = this.restApiCfg.getRestApi("mtc-center.mng-service.updateservice");
-        return this.restApi.request(api.method, api.url, null, null,
+    serviceUpdate(itemId: string, Info: string): Promise<any>{
+        const pathParams=[
             {
-                "productId": productId,
-                "updateInfo": Info
+                key:"itemId",
+                value: itemId
+            }
+        ];
+        const api = this.restApiCfg.getRestApi("mtc-center.mng-service.updateservice");
+        return this.restApi.request(api.method, api.url, pathParams, null,
+            {
+                "message": Info
             });
     }
 }

@@ -11,6 +11,7 @@ import { cloudVmComponentOrder } from "../../vm-instance/component/cloud-host-or
 import { cloudHostServiceOrder } from '../../vm-instance/service/cloud-host-order.service';
 
 import { DbTemplateInfo, MDproductReq } from "../model/post.model"
+import { DatabaseValue, DiskValue, VlueList } from "../model/other.model"
 
 @Component({
 	selector: 'cloud-vm-order',
@@ -18,6 +19,12 @@ import { DbTemplateInfo, MDproductReq } from "../model/post.model"
 	styleUrls: ['../style/database-order.less'],
 })
 export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnInit {
+
+	@ViewChild('confirm')
+	public confirmDialog: ConfirmComponent;
+
+	@ViewChild('notice')
+	public noticeDialog: NoticeComponent;
 
 	dbInits = [];
 	dbInit;
@@ -28,6 +35,16 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	dbProductList = [];  //数据库产品列表
 	dbProduct;  //数据库产品
 
+	diskProducts = [];   //硬盘产品列表
+	diskSkuList = [];   //硬盘sku列表
+	vmItemNo: string //云主机的itemno
+
+	databaseValue: DatabaseValue = new DatabaseValue;
+	diskValue: DiskValue = new DiskValue;
+
+	asmpasswordShadow:string = ""
+	syspasswordShadow:string = ""
+
 	storageTypes = [{
 		value: "FS",
 		name: "文件系统(File System)"
@@ -35,7 +52,6 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		value: "ASM",
 		name: "自动化存储管理(ASM)"
 	}];
-	storageType = "FS"
 
 	fetchTmIdsPost: DbTemplateInfo = new DbTemplateInfo;   //获取模板id的post
 	fetchDBProductPost: MDproductReq = new MDproductReq;
@@ -44,6 +60,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		public layoutService: LayoutService,
 		public router: Router,
 		public v: Validation,
+		public dbv: Validation,
 		public dux: DispatchEvent,
 		public service: cloudHostServiceOrder,
 		private dbservice: DatabaseServiceOrder
@@ -51,6 +68,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		super(layoutService, router, v, dux, service)
 	
 		this.v.result = {};
+		this.dbv.result = {};
 		this.dux.reset();
 
 		this.fetchDBProductPost.serviceType = "3"   //数据库的serviceType = 3
@@ -67,19 +85,18 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.dux.subscribe("DB_TYPE_CHANGE", () => { this.fetchDatabaseSearch() })   //数据库选项有变化时候
 		this.dux.subscribe("DB_PRODUCT_CHANGE", () => { this.fetchShoppingMDproducts() })   //数据库产品有变化时候 （模板id，云平台）
 		this.dux.subscribe("PLATFORM", () => { this.fetchShoppingMDproducts() })   //云平台有变化时
+		this.dux.subscribe("ZONE", () => { this.setDiskPrice() })   //zone有变化时重新计算云硬盘
 		this.dux.subscribe("SELECT_DB_PRODUCT", () => { this.databaseChange() })   //选择产品列表触发的时间
-
+		this.dux.subscribe("SET_DISK_PRODUCTS", () => { this.setDiskProducts() })   //设置云硬盘的列表
+		this.dux.subscribe("SET_DISK_PRODUCTS", () => { this.setDiskPrice() })   //当设置完云硬盘的产品列表时 设置云硬盘的价格
+		this.dux.subscribe("SET_DISKPRICE", () => { this.setDiskPrice() })   //设置云硬盘的价格
 	}
 
 	private fetchDatabaseInit() {
 		this.dbservice.fetchDatabaseInit().then(res => {
 			if(!res.items.length) return
 
-			this.dbInits = res.items.concat([{
-				"db":{"code":null,"label":"mysql","value":1},
-				"middleware":null,"version":["5.5","5.6"],
-				"mode":[{"code":null,"label":"多节点部署","value":0}]
-			}])
+			this.dbInits = res.items
 			this.dbtypeChange(res.items[0])
 		})
 	}
@@ -124,13 +141,174 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	private databaseChange() {   //选择数据库模板后
 		if(!this.dbProduct.templatId) return  //如果没有产品 返回
 
-		this.database = this.databases.filter(data => data.id === this.dbProduct.templatId)[0]
+		this.database = this.databases.filter(data => data.id === this.dbProduct.templatId)[0]   //确定模板
+		this.database.diskInfoList.forEach(disk => disk.storage = this.values.STORAGE)  //目录下面的所有的硬盘的storage下拉列表设置为第一位
 
-		console.log(this.database, 3453425234)
+		this.database.attrList.forEach(data => this.attrList[data.attrCode] = data )  //把数据库新加的attrList添加到老的list里面去
+		this.dux.dispatch("SET_DISK_PRODUCTS")
 	}
 
-	outputValue() {
-		
+	setDiskSkuList() {   //确定硬盘的sku列表  并且在这里确定diskValue
+		let lists = this.database.diskInfoList;
+		if(!lists.length) return [];
+		let arr = []
+		for (let list of lists) {
+			list.diskValue = new DiskValue
+		    list.diskValue.PLATFORM = this.values.PLATFORM; 
+		    list.diskValue.ZONE = this.values.ZONE; 
+			list.diskValue.STORAGE = list.storage; 
+			list.diskValue.COPYLEVEL.attrValue = list.copyLevel
+			list.diskValue.DISKSIZE.attrValue = list.diskSize || list.minDiskSize; 
+			list.diskValue.MOUNTPATH.attrValue = list.mountPath; 
+			list.diskValue.DISKGROUP.attrValue = list.diskGroup; 
+			list.diskValue.USAGETYPE.attrValue = list.usageType; 
+
+			this.getSkuMap("disk", list.diskValue);
+			arr.push(this.diskSku);  //加入云硬盘
+		}
+		this.diskSkuList = arr;
+	}
+
+	setDiskProducts() {     //确定硬盘的产品列表
+		this.setDiskSkuList()
+		let arr = []
+		this.diskSkuList.forEach(sku => {
+			if(!sku) return arr.push(undefined)
+			let diskTimelineUnit = this.attrList.TIMELINEUNIT.mapValueList[sku.skuId].filter(value => value.attrValueId === this.values.TIMELINEUNIT.attrValueId)   //根据vm的时长id找到硬盘的时长
+			if(!diskTimelineUnit.length) return arr.push(undefined)
+
+			let product = this.proMap[`[${sku.skuId}, ${diskTimelineUnit[0].attrValueCode}]`]
+			arr.push(product)
+		})
+		this.diskProducts = arr;
+	}
+
+	setDiskPrice() {
+		if(!this.database) return false;
+		console.log(this.diskSkuList, this.diskProducts)
+	}
+
+	formatDisk():any[] {
+		let lists = this.database.diskInfoList;
+		if(!lists.length) return [];
+
+		let arr = []
+		for (let i = 0; i < lists.length; ++i) {
+			if(!this.diskProducts[i]) return [`第${i+1}块云硬盘没有找到相应的产品`];   //如果没有响应的产品 则直接返回当前的序号 云硬盘产品缺一不可
+
+	 		let payloadList = this.sendModuleToPay(lists[i].diskValue);
+	 		let payLoad = {
+	 			skuId: this.diskSkuList[i].skuId,
+	 			productId: this.diskProducts[i].productId,
+	 			attrList: payloadList,
+	 			itemNo: this.makeItemNum(),
+	 			totalPrice: this.diskTotalPrice,
+	 			quality: this.payLoad.quality,
+	 			serviceType: "1",
+	 			relyType: "1",
+	 			relyItemNo: this.vmItemNo
+	 		}
+	 		arr.push(payLoad);  //加入云硬盘
+	 	}
+	 	return arr;
+	}	
+
+	formatVm():any[] {
+		let errorMsg = this.checkValue()
+		if(errorMsg) return [errorMsg];
+
+		this.vmItemNo = this.makeItemNum();
+		let payloadList = this.sendModuleToPay(),
+			payLoad = {
+				skuId: this.vmSku.skuId,
+				productId: this.vmProduct.productId,
+				attrList: payloadList,
+				itemNo: this.vmItemNo,
+				totalPrice: this.vmTotalPrice,
+				quality: this.payLoad.quality,
+				serviceType: "0",
+				relyType: "",
+				relyItemNo: ""
+			}
+		return [payLoad]
+	}
+
+	formatDB():any[] {
+		let errorMsg = this.checkDbValue()
+		if(errorMsg) return [errorMsg];
+
+		this.databaseValue.STORAGETYPE.attrValue = this.database.storageType;
+
+		let payloadList = this.sendModuleToPay(this.databaseValue);
+		let payLoad = {
+			skuId: this.dbProduct.skuId,
+			productId: this.dbProduct.productId,
+			attrList: payloadList,
+			itemNo: this.makeItemNum(),
+			totalPrice: this.diskTotalPrice,
+			quality: this.payLoad.quality,
+			serviceType: "3",
+			relyType: "1",
+			relyItemNo: this.vmItemNo
+		}
+
+		return [payLoad]
+	}
+
+	dbPayLoadFormat() {
+		let vm = this.formatVm()
+		let disk = this.formatDisk()
+		let db = this.formatDB()
+
+		let payLoadArr = [...vm, ...disk, ...db]
+
+		return payLoadArr;
+	}
+
+
+	submitCheck():Promise<any[]>{  //检测是否可以提交订单
+		let payLoadArr = this.dbPayLoadFormat();
+		let errMsg = payLoadArr.filter(pay => typeof pay === "string")
+		if(errMsg.length)  return Promise.reject(errMsg[0]);
+
+		this.layoutService.show();
+		return this.checkQuota().then(isEnoughQuota => {
+			this.layoutService.hide();
+			if(!isEnoughQuota) {
+				this.showNotice("提示","部门或平台配额不足, 无法完成购买！");
+				throw "配额不足";
+			}
+
+			return payLoadArr;   //获取最新的的payload的对象
+		}).catch(res => {
+			this.layoutService.hide();
+		})
+	}
+
+	checkDbValue(key?: string) {
+		const regs: ValidationRegs = {
+			listenpost: [this.databaseValue.LISTENPOST.attrValue, [this.v.isUnBlank, this.v.isNumber], "监听端口输入不正确"],
+			maxconnection: [this.databaseValue.MAXCONNECTION.attrValue, [this.v.isUnBlank, this.v.isNumber], "最大连接数输入不正确"],
+			syspassword: [this.databaseValue.SYSPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
+			syspasswordShadow: [this.syspasswordShadow, [this.v.equalTo(this.databaseValue.SYSPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
+			asmpassword: [this.databaseValue.ASMPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
+			asmpasswordShadow: [this.asmpasswordShadow, [this.v.equalTo(this.databaseValue.ASMPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
+		}
+
+		return this.v.check(key, regs);
+	}
+
+	checkDbInput(): boolean {
+		const al = value => !!this.showNotice("提示",value);
+
+		const value = this.checkDbValue();
+		if (value) return al(value);
+		return true;
+	}
+
+	outputValue($event, i) {
+		this.database.diskInfoList[i].diskSize = $event
+		this.dux.dispatch("SET_DISKPRICE")
 	}
 
 }
