@@ -52,7 +52,7 @@ export class AliCloudSubAccountListComponent implements OnInit{
 
     //获取子账号列表
     getAccountList(){
-        this.layoutService.hide();
+        this.layoutService.show();
         this.service.getSubAccounts( this.mainAccountId) 
         .then(
             response => {
@@ -71,7 +71,7 @@ export class AliCloudSubAccountListComponent implements OnInit{
     }
      //获取主账号信息
     getAccount(){
-        this.layoutService.hide();
+        this.layoutService.show();
         this.service.getMainAccount( this.mainAccountId)
              .then(
                 response => {
@@ -100,7 +100,7 @@ export class AliCloudSubAccountListComponent implements OnInit{
         console.log(account)
         //this.noticeMsg="您选择启用账号'"+account.loginName +"',请确认；如果确认，用户将能够访问阿里云。";
         this.noticeMsg="ALI_CLOUD.CONFIRM_ENABLE_ACCOUNT^^^"+account.loginName;
-        this.noticeTitle="ENABLE_ALI_CLOUD_SUB_ACCOUNT";
+        this.noticeTitle="ALI_CLOUD.ENABLE_ALI_CLOUD_SUB_ACCOUNT";
         this.confirm.ccf = () => {};
         this.confirm.cof = () => {
             this.layoutService.show();
@@ -171,9 +171,9 @@ export class AliCloudSubAccountListComponent implements OnInit{
             return ;
         }                            
       
-        this.layoutService.hide();
         this.confirm.ccf = () => {};
         this.confirm.cof = () => {
+            this.layoutService.show();
             this.service.deleteAccount(account.id)
             .then(
                 response=>{

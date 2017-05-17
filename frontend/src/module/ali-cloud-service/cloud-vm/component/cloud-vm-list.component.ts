@@ -66,9 +66,10 @@ export class AliCloudVmListComponent implements OnInit {
     confirmTitle = "";
     confirmMsg = "";
 
-    pageIndex = 1;
-    pageSize = 10;
-    totalPage = 1;
+    pageIndex:number = 1;
+    pageSize:number = 2;
+    totalPage:number = 1;
+
     listTimer = null;
     instanceTimer: Array<any> = [];
     pollInstance: VmQueryObject = new VmQueryObject();
@@ -216,12 +217,12 @@ export class AliCloudVmListComponent implements OnInit {
 
 
     getInstanceList(pageIndex?) {
-        this.pageIndex = pageIndex || this.pageIndex;
+        //this.pageIndex = pageIndex || this.pageIndex;
         this.layoutService.show();
         this.clearInterval();
         this.listTimer && window.clearInterval(this.listTimer);
 
-        this.service.getInstanceList(this.pageIndex, 100, this.choosenRegion.RegionId, this.queryObject)  //这个不应该给出pageIndex和pageSize
+        this.service.getInstanceList(1, 100, this.choosenRegion.RegionId, this.queryObject)  //这个不应该给出pageIndex和pageSize
             .then(
             response => {
                 this.layoutService.hide();
@@ -235,15 +236,13 @@ export class AliCloudVmListComponent implements OnInit {
                         console.log(ex);
                     }
                     this.allinstances = result.Instances.Instance;
+                    console.log(this.allinstances, "allinstances!");
                     this.totalPage = Math.ceil(this.allinstances.length / this.pageSize);
                     console.log(this.allinstances.length, this.totalPage, "TotalCount, this.totalPage!");
-                    this.pageIndex = 1;
-                    this.pager.render(1);
+                    this.changePage();
+                    /*
                     this.instances = this.allinstances.slice(0,this.pageIndex*this.pageSize);
                     console.log(this.instances, "instances!");
-                    //this.instances = result.Instances.Instance;
-                    //this.totalPage = Math.ceil(result.TotalCount / this.pageSize);
-                    //console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
                     for (let i = 0; i < this.instances.length; i++) {
                         console.log(this.instances[i].InstanceId, " == ");
                     }
@@ -251,6 +250,7 @@ export class AliCloudVmListComponent implements OnInit {
                     if (this.instances.length != 0) {
                         this.instancesPollOps();
                     }
+                    */
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -261,7 +261,7 @@ export class AliCloudVmListComponent implements OnInit {
             });
 
         this.listTimer = window.setInterval(() => {
-            this.service.getInstanceList(this.pageIndex, 100, this.choosenRegion.RegionId, this.queryObject)  //这个不应该给出pageIndex和pageSize
+            this.service.getInstanceList(1, 100, this.choosenRegion.RegionId, this.queryObject)  //这个不应该给出pageIndex和pageSize
                 .then(
                 response => {
                     this.layoutService.hide();
@@ -275,10 +275,11 @@ export class AliCloudVmListComponent implements OnInit {
                             console.log(ex);
                         }
                         this.allinstances = result.Instances.Instance;
+                        console.log(this.allinstances, "allinstances!");
                         this.totalPage = Math.ceil(this.allinstances.length / this.pageSize);
-                        console.log(this.allinstances.length, this.totalPage, "TotalCount, this.totalPage!");
-                        this.pageIndex = 1;
-                        this.pager.render(1);
+                        console.log(this.allinstances.length, this.totalPage, "TotalCount, this.totalPage!"); 
+                        this.changePage();
+                        /*                       
                         this.instances = this.allinstances.slice(0,this.pageIndex*this.pageSize);
                         console.log(this.instances, "instances!");
                         //this.instances = result.Instances.Instance;
@@ -290,7 +291,7 @@ export class AliCloudVmListComponent implements OnInit {
                         console.log(this.instances, "this.instances!");
                         if (this.instances.length != 0) {
                             this.instancesPollOps();
-                        }
+                        }*/
                     } else {
                         this.showMsg("COMMON.GETTING_DATA_FAILED");
                         return;
@@ -337,7 +338,7 @@ export class AliCloudVmListComponent implements OnInit {
                 console.log(ins.Status);
                 this.pollInstance.criteria = "instance_ids";
                 this.pollInstance.keyword = ins.InstanceId;
-                this.service.getInstanceList(1, 10, this.choosenRegion.RegionId, this.pollInstance).then(
+                this.service.getInstanceList(1, 10, ins.RegionId, this.pollInstance).then(
                     response => {
                         if (response && 100 == response["resultCode"]) {
                             let result;
@@ -361,7 +362,7 @@ export class AliCloudVmListComponent implements OnInit {
                 );
 
             }, 5000);
-        }
+        } 
 
     }
 
@@ -526,7 +527,8 @@ export class AliCloudVmListComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.showMsg("绑定弹性IP到实例成功");
-                        this.getInstanceList();
+                        //this.getInstanceList();
+                        this.selectedInstance.EipAddress.IpAddress = this.selectedfreeip.IpAddress;
                     } else {
                         this.showMsg("绑定弹性IP到实例失败");
                         return;
@@ -603,7 +605,8 @@ export class AliCloudVmListComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.showMsg("从实例中解绑弹性IP成功");
-                        this.getInstanceList();
+                        //this.getInstanceList();
+                        this.selectedInstance.EipAddress.IpAddress = "";
                     } else {
                         this.showMsg("从实例中解绑弹性IP失败");
                         return;
@@ -637,7 +640,7 @@ export class AliCloudVmListComponent implements OnInit {
         if (this.selectedInstance) {
             this.showMsg("远程控制台Url, 有效时间为15秒，请尽快输入密码登陆！");
             this.layoutService.show();
-            this.service.remoteControlInstance(this.choosenRegion.RegionId, this.selectedInstance)
+            this.service.remoteControlInstance(this.selectedInstance.RegionId, this.selectedInstance)
                 .then(
                 response => {
                     this.layoutService.hide();
@@ -890,12 +893,14 @@ export class AliCloudVmListComponent implements OnInit {
 
     changePage(pageIndex?) {
         this.pageIndex = pageIndex || this.pageIndex;
-        console.log(this.pageIndex);
+        console.log(this.pageIndex, typeof this.pageIndex, "pageIndex!");
         if(this.pageIndex>this.totalPage) return;
         //this.layoutService.show();
         //this.getInstanceList(this.pageIndex);
+        this.clearInterval();
         this.instances = this.allinstances.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize);
         console.log(this.instances, "instances!");
+        this.instancesPollOps();
     }
 
 }

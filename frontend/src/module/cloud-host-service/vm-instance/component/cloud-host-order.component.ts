@@ -74,13 +74,13 @@ export class cloudVmComponentOrder implements OnInit {
 	}
 
 	@ViewChild('confirm')
-	private confirmDialog: ConfirmComponent;
+	public confirmDialog: ConfirmComponent;
 
 	@ViewChild('notice')
-	private noticeDialog: NoticeComponent;
+	public noticeDialog: NoticeComponent;
 
 	@ViewChild('popup')
-	private popup: PopupComponent;
+	public popup: PopupComponent;
 
 	modalTitle: string = '';
 	modalMessage: string = '';
@@ -416,7 +416,8 @@ export class cloudVmComponentOrder implements OnInit {
 				this.layoutService.hide();
 				this.showNotice("提示", "加入购物车失败")
 			})
-		});
+		})
+		.catch(e => this.showNotice("提示", e))
 	}
 
 	public itemNum: number = 0;
@@ -519,6 +520,7 @@ export class cloudVmComponentOrder implements OnInit {
 				this.showNotice("提示", "提交订单失败")
 			})
 		})
+		.catch(e => this.showNotice("提示", e))
 	}
 	// 警告框相关
 	showNotice(title: string, msg: string) {

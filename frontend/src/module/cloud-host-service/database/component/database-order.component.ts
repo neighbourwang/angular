@@ -20,6 +20,12 @@ import { DatabaseValue, DiskValue, VlueList } from "../model/other.model"
 })
 export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnInit {
 
+	@ViewChild('confirm')
+	public confirmDialog: ConfirmComponent;
+
+	@ViewChild('notice')
+	public noticeDialog: NoticeComponent;
+
 	dbInits = [];
 	dbInit;
 
@@ -32,6 +38,10 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	diskProducts = [];   //硬盘产品列表
 	diskSkuList = [];   //硬盘sku列表
 	vmItemNo: string //云主机的itemno
+
+	oneTimeTotalPrice:number = 0;
+	totalBilling:number = 0;
+	totalAnnual:number = 0;
 
 	databaseValue: DatabaseValue = new DatabaseValue;
 	diskValue: DiskValue = new DiskValue;
@@ -81,9 +91,11 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.dux.subscribe("PLATFORM", () => { this.fetchShoppingMDproducts() })   //云平台有变化时
 		this.dux.subscribe("ZONE", () => { this.setDiskPrice() })   //zone有变化时重新计算云硬盘
 		this.dux.subscribe("SELECT_DB_PRODUCT", () => { this.databaseChange() })   //选择产品列表触发的时间
+		this.dux.subscribe("SELECT_DB_PRODUCT", () => { this.setTotalPrice() })   //选择产品列表触发的时间
 		this.dux.subscribe("SET_DISK_PRODUCTS", () => { this.setDiskProducts() })   //设置云硬盘的列表
-		this.dux.subscribe("SET_DISK_PRODUCTS", () => { this.setDiskPrice() })   //当设置完云硬盘的产品列表时 设置云硬盘的价格
-		this.dux.subscribe("SET_DISKPRICE", () => { this.setDiskPrice() })   //设置云硬盘的价格
+		this.dux.subscribe("SET_DISK_PRODUCTS", () => { this.setTotalPrice() })   //当设置完云硬盘的产品列表时 设置云硬盘的价格
+		this.dux.subscribe("SET_DISKPRICE", () => { this.setTotalPrice() })   //设置云硬盘的价格
+		this.dux.subscribe("SET_VMPRICE", () => { this.setTotalPrice() })
 	}
 
 	private fetchDatabaseInit() {
@@ -137,15 +149,19 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 
 		this.database = this.databases.filter(data => data.id === this.dbProduct.templatId)[0]   //确定模板
 		this.database.diskInfoList.forEach(disk => disk.storage = this.values.STORAGE)  //目录下面的所有的硬盘的storage下拉列表设置为第一位
-		console.log(this.database.attrList, "this.database.attrList")
+
 		this.database.attrList.forEach(data => this.attrList[data.attrCode] = data )  //把数据库新加的attrList添加到老的list里面去
+
+		//做一些数据库的选项初始化的工作
+		this.databaseValue.ARCHMODE.attrValue = "0";
+		this.databaseValue.DBCHARSET.attrValue = "0";
 		this.dux.dispatch("SET_DISK_PRODUCTS")
 	}
 
-	setDiskSkuList() {   //确定硬盘的sku列表  并且在这里确定diskValue
+	setListDiskValue() {  //把diskValue加入到 this.database.diskInfoList里面去
 		let lists = this.database.diskInfoList;
-		if(!lists.length) return [];
-		let arr = []
+		if(!lists.length) return;
+
 		for (let list of lists) {
 			list.diskValue = new DiskValue
 		    list.diskValue.PLATFORM = this.values.PLATFORM; 
@@ -156,7 +172,15 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 			list.diskValue.MOUNTPATH.attrValue = list.mountPath; 
 			list.diskValue.DISKGROUP.attrValue = list.diskGroup; 
 			list.diskValue.USAGETYPE.attrValue = list.usageType; 
+		}
+	}
 
+	setDiskSkuList() {   //确定硬盘的sku列表  并且在这里确定diskValue
+		this.setListDiskValue()
+		let lists = this.database.diskInfoList;
+		if(!lists.length) return [];
+		let arr = []
+		for (let list of lists) {
 			this.getSkuMap("disk", list.diskValue);
 			arr.push(this.diskSku);  //加入云硬盘
 		}
@@ -177,18 +201,34 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.diskProducts = arr;
 	}
 
-	setDiskPrice() {
-		if(!this.database) return false;
-		console.log(this.diskSkuList, this.diskProducts)
+	setTotalPrice() {
+		this.setListDiskValue()
+		let billingList = [];
+		[...this.diskProducts, this.dbProduct, this.vmProduct].forEach((prod, i) => {
+			if(prod) {
+				let disksize = this.database.diskInfoList[i] && this.database.diskInfoList[i].diskValue 
+											? this.database.diskInfoList[i].diskValue.DISKSIZE.attrValue : 1   //获取云硬盘的大小
+				billingList.push(Object.assign({}, prod.billingInfo, { disksize }))
+			}
+		})
+		console.log(billingList)
+		this.oneTimeTotalPrice = 0;
+		this.totalBilling = 0;
+		this.totalAnnual = 0;
+		billingList.forEach(billing => {
+			this.oneTimeTotalPrice += billing.basePrice;  //计算一次性价格
+			if(billing.billingMode == 1) this.totalBilling += billing.basicPrice * +this.values.TIMELINE.attrValue;
+			if(billing.billingMode == 2) this.totalAnnual += billing.unitPrice * billing.disksize * +this.values.TIMELINE.attrValue;
+		})
 	}
 
-	formatDisk():any[]|string {
+	formatDisk():any[] {
 		let lists = this.database.diskInfoList;
 		if(!lists.length) return [];
 
 		let arr = []
 		for (let i = 0; i < lists.length; ++i) {
-			if(!this.diskProducts[i]) return `第${i+1}块云硬盘没有找到相应的产品`;   //如果没有响应的产品 则直接返回当前的序号 云硬盘产品缺一不可
+			if(!this.diskProducts[i]) return [`第${i+1}块云硬盘没有找到相应的产品`];   //如果没有响应的产品 则直接返回当前的序号 云硬盘产品缺一不可
 
 	 		let payloadList = this.sendModuleToPay(lists[i].diskValue);
 	 		let payLoad = {
@@ -207,7 +247,10 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	 	return arr;
 	}	
 
-	formatVm() {
+	formatVm():any[] {
+		let errorMsg = this.checkValue()
+		if(errorMsg) return [errorMsg];
+
 		this.vmItemNo = this.makeItemNum();
 		let payloadList = this.sendModuleToPay(),
 			payLoad = {
@@ -224,16 +267,61 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		return [payLoad]
 	}
 
+	formatDB():any[] {
+		let errorMsg = this.checkDbValue()
+		if(errorMsg) return [errorMsg];
+
+		this.databaseValue.STORAGETYPE.attrValue = this.database.storageType;
+
+		let payloadList = this.sendModuleToPay(this.databaseValue);
+		let payLoad = {
+			skuId: this.dbProduct.skuId,
+			productId: this.dbProduct.productId,
+			attrList: payloadList,
+			itemNo: this.makeItemNum(),
+			totalPrice: this.diskTotalPrice,
+			quality: this.payLoad.quality,
+			serviceType: "3",
+			relyType: "1",
+			relyItemNo: this.vmItemNo
+		}
+
+		return [payLoad]
+	}
+
 	dbPayLoadFormat() {
 		let vm = this.formatVm()
 		let disk = this.formatDisk()
-console.log(this.databaseValue)
-		console.log(vm, disk)
+		let db = this.formatDB()
+
+		let payLoadArr = [...vm, ...disk, ...db]
+
+		return payLoadArr;
+	}
+
+
+	submitCheck():Promise<any[]>{  //检测是否可以提交订单
+		let payLoadArr = this.dbPayLoadFormat();
+		let errMsg = payLoadArr.filter(pay => typeof pay === "string")
+		if(errMsg.length)  return Promise.reject(errMsg[0]);
+
+		this.layoutService.show();
+		return this.checkQuota().then(isEnoughQuota => {
+			this.layoutService.hide();
+			if(!isEnoughQuota) {
+				this.showNotice("提示","部门或平台配额不足, 无法完成购买！");
+				throw "配额不足";
+			}
+
+			return payLoadArr;   //获取最新的的payload的对象
+		}).catch(res => {
+			this.layoutService.hide();
+		})
 	}
 
 	checkDbValue(key?: string) {
 		const regs: ValidationRegs = {
-			listenpost: [this.databaseValue.ARCHMODE.attrValue, [this.v.isUnBlank, this.v.isNumber], "监听端口输入不正确"],
+			listenpost: [this.databaseValue.LISTENPOST.attrValue, [this.v.isUnBlank, this.v.isNumber], "监听端口输入不正确"],
 			maxconnection: [this.databaseValue.MAXCONNECTION.attrValue, [this.v.isUnBlank, this.v.isNumber], "最大连接数输入不正确"],
 			syspassword: [this.databaseValue.SYSPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
 			syspasswordShadow: [this.syspasswordShadow, [this.v.equalTo(this.databaseValue.SYSPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],

@@ -24,7 +24,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of storageList; let idx = index;">
+                            <tr *ngFor="let item of storageList; let idx = index;" id="storageList_{{item.id}}">
                                 <td>{{idx + 1}}</td>
                                 <td>{{item.name}}</td>
                                 <td><input type="text" class="form-control" [(ngModel)]="item.displayName" required></td>
@@ -59,7 +59,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of storageList; let idx = index;">
+                            <tr *ngFor="let item of storageList; let idx = index;" id="storageList_{{item.id}}">
                                 <td>{{idx + 1}}</td>
                                 <td>{{item.name}}</td>
                                 <td><input type="text" class="form-control" [(ngModel)]="item.displayName" required></td>
@@ -95,7 +95,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of storageList; let idx = index;">
+                            <tr *ngFor="let item of storageList; let idx = index;" id="storageList_{{item.id}}">
                                 <td>{{idx + 1}}</td>
                                 <td>{{item.name}}</td>
                                 <td><input type="text" class="form-control" [(ngModel)]="item.displayName" required></td>
@@ -119,9 +119,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default btn fox-cloud-button-lg" data-dismiss="modal">{{ct || 'COMMON.CANCEL' | translate }}</button>
+                <button class="btn btn-default btn fox-cloud-button-lg" data-dismiss="modal" id="cancel">{{ct || 'COMMON.CANCEL' | translate }}</button>
                 <!-- 取消 -->
-                <button (click)="update()" class="btn fox-cloud-button-lg fox-cloud-button-white">{{ot || '更新' }}</button>
+                <button (click)="update()" class="btn fox-cloud-button-lg fox-cloud-button-white" id="update">{{ot || '更新' }}</button>
                 <!-- 确认 -->
             </div>
         </div>

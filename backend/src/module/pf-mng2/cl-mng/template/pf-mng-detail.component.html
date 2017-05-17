@@ -1,11 +1,11 @@
 <div class="page-content-header icon-content-header-platform-manage" style="padding-bottom:10px;height:45px;">
     {{ 'PF_MNG2.CLOUD_PLATFORM_DETAIL' | translate}} <span>: {{platformName}}</span>
-    <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" (click)='goList()'>
+    <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" (click)='goList()' id="goList">
         <span class="icon-button-label" >{{'PF_MNG2.RETURN_CLOUD_PLAT_OVERVIEW' | translate}}</span>
     </button>
 </div>
 <div class="mgt20" style="border-bottom:1px solid #ddd;padding-bottom:5px">
-    <button type="button" class="btn btn-default grayTab noBorder" *ngFor="let item of Tabels;let idx = index" (click)="changeTab(item,idx)"
+    <button type="button" class="btn btn-default grayTab noBorder" *ngFor="let item of Tabels;let idx = index" id="changeTab" (click)="changeTab(item,idx)"
         [ngClass]="{'btn-active': item.active}" style="margin-right:2px;">{{item.name | translate}}</button>
 </div>
 <div *ngIf="Tabels[0].active">
@@ -18,7 +18,7 @@
                             <span class="asterisk">*</span>{{ 'USER_CENTER.PLATFORM_NAME' | translate }}:
                         </div>
                         <div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.name}">
-						<input type="text" [(ngModel)]="platform.name" (ngModelChange)="checkForm('name')" name="name"
+						<input type="text" id="platform_name" [(ngModel)]="platform.name" (ngModelChange)="checkForm('name')" name="name"
 						 placeholder="{{'PF_MNG2.PLATFORM_NAME_REQUIRED' | translate}}" class="form-control">
 						<span *ngIf="v.result.name" class="glyphicon glyphicon-remove form-control-feedback"></span>
 						<div *ngIf="v.result.name" class="alert alert-danger" role="alert">{{v.result.name|translate}}</div>
@@ -31,8 +31,8 @@
                             <span class="asterisk">*</span> {{'USER_CENTER.REGION_WHICH_BELONG_TO' | translate}}:
                         </div>
                         <div class="col-sm-4 no-padding">
-                            <select class="form-control" [(ngModel)]="platform.regionId">
-                            <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
+                            <select class="form-control" id="regionId" [(ngModel)]="platform.regionId">
+                            <option *ngFor="let item of regions;" id="regionId_{{item.id}}" [value]="item.id">{{item.name}}</option>
                         </select>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             <span class="asterisk">*</span> {{'CAPACITY_MNG.DATA_CENTER_BELONG_TO' | translate}}:
                         </div>
                         <div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.dataCenter}">
-						<input type="text" [(ngModel)]="platform.dataCenter" (ngModelChange)="checkForm('dataCenter')" name="dataCenter"
+						<input type="text" [(ngModel)]="platform.dataCenter" id="dataCenter" (ngModelChange)="checkForm('dataCenter')" name="dataCenter"
 						 placeholder="{{'PF_MNG2.DATA_CENTER_REQUIRED' | translate}}" class="form-control">
 						<span *ngIf="v.result.dataCenter" class="glyphicon glyphicon-remove form-control-feedback"></span>
 						<div *ngIf="v.result.dataCenter" class="alert alert-danger" role="alert">{{v.result.dataCenter|translate}}</div>
@@ -58,7 +58,7 @@
                         <div class="col-sm-4 no-padding">
                             <div class="btn-group">
                                 <!--<button type="button" class="btn btn-default" disabled *ngFor="let item of platformTypes;let idx = index" (click)="choosePlatFormType(item,idx)"-->
-                                <button type="button" class="btn btn-default" *ngFor="let item of platformTypes;let idx = index" [ngClass]="{'btn-active': item.isSelected}">{{item.displayValue}}</button>
+                                <button type="button" id="platformTypes_{{item.value}}" class="btn btn-default" *ngFor="let item of platformTypes;let idx = index" [ngClass]="{'btn-active': item.isSelected}">{{item.displayValue}}</button>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                             <span class="asterisk">*</span> {{'COMMON.PATH' | translate}}:
                         </div>
                         <div class="col-sm-4 no-padding">
-                            <input type="text" class="form-control" disabled [(ngModel)]="platform.uri" placeholder="{{'PF_MNG2.ADDRESS_REQUIRED' | translate}}">
+                            <input type="text" class="form-control" id="uri" disabled [(ngModel)]="platform.uri" placeholder="{{'PF_MNG2.ADDRESS_REQUIRED' | translate}}">
                         </div>
                     </div>
                 </div>
@@ -79,8 +79,8 @@
                             <span class="asterisk">*</span> {{'PF_MNG2.VERSION' | translate}}:
                         </div>
                         <div class="col-sm-4 no-padding">
-                            <select class="form-control" [(ngModel)]="platform.version">
-                            <option *ngFor="let item of platformVersion;" [value]="item.value">{{item.displayValue}}</option>
+                            <select class="form-control" id="version" [(ngModel)]="platform.version">
+                            <option *ngFor="let item of platformVersion;" id="version_{{item.value}}"  [value]="item.value">{{item.displayValue}}</option>
                         </select>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                             <span class="asterisk">*</span> {{'COMMON.USERNAME' | translate}}:
                         </div>
                         <div class="col-sm-4 no-padding">
-                            <input type="text" class="form-control" disabled [(ngModel)]="platform.username" placeholder="{{'PF_MNG2.USERNAME_REQUIRED' | translate}}">
+                            <input type="text" id="username" class="form-control" disabled [(ngModel)]="platform.username" placeholder="{{'PF_MNG2.USERNAME_REQUIRED' | translate}}">
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                             <span class="asterisk">*</span> {{'COMMON.PASSWORD' | translate}}:
                         </div>
                         <div class="col-sm-4 no-padding">
-                            <input type="password" class="form-control" disabled [(ngModel)]="platform.password" placeholder="{{'PF_MNG2.PASSWORD_REQUIRED' | translate}}">
+                            <input type="password" id="password" class="form-control" disabled [(ngModel)]="platform.password" placeholder="{{'PF_MNG2.PASSWORD_REQUIRED' | translate}}">
                         </div>
                     </div>
                 </div>
@@ -111,9 +111,9 @@
                             <span class="asterisk">*</span> {{'PF_MNG2.SUPPORT_CLOUD_HOST_CHANGES' | translate}}:
                         </div>
                         <div class="col-sm-4 no-padding">
-                            <input type="radio" class="fox-cloud-radio" [value]="1" [(ngModel)]="platform.support" name="support" style="margin-right:10px;">{{'PF_MNG2.SUPPORT'
+                            <input type="radio"id="support_1" class="fox-cloud-radio" [value]="1" [(ngModel)]="platform.support" name="support" style="margin-right:10px;">{{'PF_MNG2.SUPPORT'
                             | translate}}
-                            <input type="radio" class="fox-cloud-radio" [value]="0" [(ngModel)]="platform.support" name="support" style="margin:0 10px 0 20px;">{{'PF_MNG2.NONSUPPORT'
+                            <input type="radio" id="support_0" class="fox-cloud-radio" [value]="0" [(ngModel)]="platform.support" name="support" style="margin:0 10px 0 20px;">{{'PF_MNG2.NONSUPPORT'
                             | translate}}
                         </div>
                     </div>
@@ -122,10 +122,10 @@
         </div>
     </div>
     <div class="text-center">
-        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="back();" style="margin-right:40px;">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="back();" id="back" style="margin-right:40px;">
             <span class="icon-button-label">{{'COMMON.CANCEL' | translate}}</span>
         </button>
-        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="save()">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="save()" id="save">
             <span class="icon-button-label">{{'COMMON.SAVE' | translate}}</span>
          </button>
     </div>
@@ -137,7 +137,7 @@
                 <span class="icon-button-label" (click)='updateResourcePop()'>同步计算资源</span>
              </button>-->
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
-                <span class="icon-button-label" (click)='updateZone()'>{{'PF_MNG2.SYNC_AVAILABLE_ZONE' | translate}}</span>
+                <span class="icon-button-label" (click)='updateZone()' id="updateZone">{{'PF_MNG2.SYNC_AVAILABLE_ZONE' | translate}}</span>
             </button>
             <div style="clear:both"></div>
         </div>
@@ -160,7 +160,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let zone of zoneList;let idx=index">
+                    <tr *ngFor="let zone of zoneList;let idx=index" id="zone_{{zone.id}}">
                         <!--<td>{{idx+1}}</td>-->
                         <td>
                             <p *ngFor="let dcOrRegion of zone.dcOrRegion" style="padding:0;margin-bottom: 0">{{dcOrRegion}}</p>
@@ -201,15 +201,15 @@
                         </td>
                         <td>
                             <div *ngIf="!zone.isEdit">
-                                <button *ngIf="zone.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone)">{{'COMMON.ENABLE' | translate}}</button>
-                                <button *ngIf="zone.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone)">{{'COMMON.DISABLE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editZone(zone,idx)">{{'COMMON.EDIT' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateHostPop(zone.id)">{{'PF_MNG2.SYNC_HOST' | translate}}</button>
+                                <button *ngIf="zone.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone)" id="enableZone">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="zone.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone)" id="suspendZone">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editZone(zone,idx)" id="editZone">{{'COMMON.EDIT' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateHostPop(zone.id)" id="updateHostPop">{{'PF_MNG2.SYNC_HOST' | translate}}</button>
                             </div>
 
                             <div *ngIf="zone.isEdit">
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveZone(zone,idx)">{{'COMMON.SAVE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEdit(zone,idx)">{{'COMMON.CANCEL' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveZone(zone,idx)" id="saveZone">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEdit(zone,idx)" id="cancelEdit">{{'COMMON.CANCEL' | translate}}</button>
                             </div>
 
                         </td>
@@ -221,10 +221,10 @@
     <div class="page-content" *ngIf="platformType=='3'">
         <div style="padding-bottom: 10px;">
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" *ngIf="false">
-                <span class="icon-button-label" (click)='autoSyncDeskSet()'>自动同步桌面设置</span>
+                <span class="icon-button-label" (click)='autoSyncDeskSet()' id="autoSyncDeskSet">自动同步桌面设置</span>
              </button>
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right;margin-right:20px">
-                <span class="icon-button-label" (click)='updateZone()'>{{'PF_MNG2.SYNC_AVAILABLE_ZONE' | translate}}</span>
+                <span class="icon-button-label" (click)='updateZone()' id="updateZone">{{'PF_MNG2.SYNC_AVAILABLE_ZONE' | translate}}</span>
             </button>
             <div style="clear:both"></div>
         </div>
@@ -246,7 +246,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let zone of zoneList;let idx=index">
+                    <tr *ngFor="let zone of zoneList;let idx=index" id="zone_{{zone.id}}">
                         <!--<td>{{idx+1}}</td>-->
                         <td>
                             <p *ngFor="let dcOrRegion of zone.dcOrRegion" style="padding:0;margin-bottom: 0">{{dcOrRegion}}</p>
@@ -274,19 +274,19 @@
                         </td>
                         <td>
                             <span *ngIf="!zone.isEdit">{{zone.description}}</span>
-                            <input *ngIf="zone.isEdit" type="text" class="form-control" [(ngModel)]="zone.description" style="display: inline;" name="description">
+                            <input *ngIf="zone.isEdit" type="text" class="form-control" id="description" [(ngModel)]="zone.description" style="display: inline;" name="description">
                         </td>
                         <td>
                             <div *ngIf="!zone.isEdit">
-                                <button *ngIf="false" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone)">{{'COMMON.ENABLE' | translate}}</button>
-                                <button *ngIf="false" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone)">{{'COMMON.DISABLE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editZone(zone,idx)">{{'COMMON.EDIT' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateHostPop(zone.id)">{{'PF_MNG2.SYNC_HOST' | translate}}</button>
+                                <button *ngIf="false" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableZone(zone)" id="enableZone">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="false" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendZone(zone)" id="suspendZone">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editZone(zone,idx)" id="editZone">{{'COMMON.EDIT' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateHostPop(zone.id)" id="updateHostPop">{{'PF_MNG2.SYNC_HOST' | translate}}</button>
                             </div>
 
                             <div *ngIf="zone.isEdit">
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveZone(zone,idx)">{{'COMMON.SAVE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEdit(zone,idx)">{{'COMMON.CANCEL' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveZone(zone,idx)" id="saveZone">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEdit(zone,idx)" id="cancelEdit">{{'COMMON.CANCEL' | translate}}</button>
                             </div>
 
                         </td>
@@ -301,7 +301,7 @@
                     <div class="col-sm-6 form-control-title">{{'自动同步时间间隔'| translate}}:</div>
                     <!--选择产品目录-->
                     <div class="col-sm-2">
-                        <input type="number" class="form-control">
+                        <input type="number" id="pro_number" class="form-control">
                     </div>
                     <div class="col-sm-4 form-control-title" style="text-align:left">
                         分钟
@@ -326,10 +326,10 @@
                 <span style="line-height: 34px;">后端存储( Backends )信息 :</span>
             </div>
             <button class="fox-cloud-button-md fox-cloud-button-white mgl20" style="float:right" *ngIf="false">
-                <span class="icon-button-label" (click)='autoSyncCapacitySet()'>{{'自动同步存储容量设置' | translate}}</span>
+                <span class="icon-button-label" (click)='autoSyncCapacitySet()' id="autoSyncCapacitySet">{{'自动同步存储容量设置' | translate}}</span>
              </button>
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='updateStorageListPop()'>{{'PF_MNG2.SYNC_STORAGE_BACKEND' | translate}}</span>
+                <span class="icon-button-label" (click)='updateStorageListPop()' id="updateStorageListPop">{{'PF_MNG2.SYNC_STORAGE_BACKEND' | translate}}</span>
              </button>             
             <div style="clear:both"></div>
         </div>
@@ -350,22 +350,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let storage of storageList;let idx=index">
+                    <tr *ngFor="let storage of storageList;let idx=index" id="storage_{{storage.id}}">
                         <!--<td>1</td>-->
                         <td>{{storage.name}}</td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.displayName||'NULL'}}</span>
-                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.displayName">
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" id="displayName" [(ngModel)]="storage.displayName">
                         </td>
                         <td>{{storage.typeDisplayName}}</td>
                         <td>{{storage.maximum||0}}</td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.replica||0}}</span>
-                            <input *ngIf="storage.isEdit" type="number" class="form-control" min="0" max="10" [(ngModel)]="storage.replica" style="width: 100px; display: inline;">
+                            <input *ngIf="storage.isEdit" type="number" id="replica" class="form-control" min="0" max="10" [(ngModel)]="storage.replica" style="width: 100px; display: inline;">
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.quotaPercentDisplay||0}}</span>
-                            <input *ngIf="storage.isEdit" type="number" class="form-control" min="0" max="100" [(ngModel)]="storage.quotaPercentDisplay"
+                            <input *ngIf="storage.isEdit" type="number" class="form-control" id="quotaPercentDisplay" min="0" max="100" [(ngModel)]="storage.quotaPercentDisplay"
                                 style="width: 100px; display: inline;">
                         </td>
                         <td [ngClass]="{'font-green':zone?.status == '1' ,'font-orange':zone?.status == '3'}">
@@ -379,18 +379,18 @@
                         </td>
                         <td>
                             <span *ngIf="!storage.isEdit">{{storage.description||'NULL'}}</span>
-                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" style=" display: inline;">
+                            <input *ngIf="storage.isEdit" type="text" class="form-control" [(ngModel)]="storage.description" id="description" style=" display: inline;">
                         </td>
                         <td>
                             <div *ngIf="!storage.isEdit">
-                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage)">{{'COMMON.ENABLE' | translate}}</button>
-                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage)">{{'COMMON.DISABLE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">{{'COMMON.EDIT' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
+                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage)" id="enableStorage">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage)" id="suspendStorage">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)" id="editStorage">{{'COMMON.EDIT' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)" id="updateStorage">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
                             </div>
                             <div *ngIf="storage.isEdit">
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">{{'COMMON.SAVE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">{{'COMMON.CANCEL' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)" id="saveStorage">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)" id="cancelEditStorage">{{'COMMON.CANCEL' | translate}}</button>
                             </div>
                         </td>
                     </tr>
@@ -402,7 +402,7 @@
                 <span style="line-height: 34px;">卷类型( Volume Type )信息 :</span>
             </div>
             <button class="fox-cloud-button-md fox-cloud-button-white" style="float:right">
-                <span class="icon-button-label" (click)='updateVolumetypeListPop()'>同步存储类型</span>
+                <span class="icon-button-label" (click)='updateVolumetypeListPop()' id="updateVolumetypeListPop">同步存储类型</span>
              </button>
             <div style="clear:both"></div>
         </div>
@@ -420,7 +420,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let volumeType of volumeTypeList; let idx = index;">
+                    <tr *ngFor="let volumeType of volumeTypeList; let idx = index;" id="volumeType_{{volumeType.id}}">
                         <td>{{idx + 1}}</td>
                         <td>{{volumeType.name}}</td>
                         <td>
@@ -442,13 +442,13 @@
                         </td>
                         <td>
                             <div *ngIf="!volumeType.isEdit">
-                                <button *ngIf="volumeType.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableVolumeType(volumeType.id)">{{'COMMON.ENABLE' | translate}}</button>
-                                <button *ngIf="volumeType.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendVolumeType(volumeType.id)">{{'COMMON.DISABLE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editVolumeType(volumeType,idx)">{{'COMMON.EDIT' | translate}}</button>
+                                <button *ngIf="volumeType.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableVolumeType(volumeType.id)" id="enableVolumeType">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="volumeType.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendVolumeType(volumeType.id)" id="suspendVolumeType">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editVolumeType(volumeType,idx)" id="editVolumeType">{{'COMMON.EDIT' | translate}}</button>
                             </div>
                             <div *ngIf="volumeType.isEdit">
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveVolumeType(volumeType,idx)">{{'COMMON.SAVE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditVolumeType(volumeType,idx)">{{'COMMON.CANCEL' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveVolumeType(volumeType,idx)" id="saveVolumeType">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditVolumeType(volumeType,idx)" id="cancelEditVolumeType">{{'COMMON.CANCEL' | translate}}</button>
                             </div>
                         </td>
                     </tr>
@@ -508,14 +508,14 @@
                         </td>
                         <td>
                             <div *ngIf="!storage.isEdit">
-                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage)">{{'COMMON.ENABLE' | translate}}</button>
-                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage)">{{'COMMON.DISABLE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">{{'COMMON.EDIT' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
+                                <button *ngIf="storage.status!=1" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage)" id="enableStorage">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="storage.status==1" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage)" id="suspendStorage">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)" id="editStorage">{{'COMMON.EDIT' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)" id="updateStorage">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
                             </div>
                             <div *ngIf="storage.isEdit">
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">{{'COMMON.SAVE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">{{'COMMON.CANCEL' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)" id="saveStorage">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)" id="cancelEditStorage">{{'COMMON.CANCEL' | translate}}</button>
                             </div>
                         </td>
                     </tr>
@@ -539,7 +539,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let storage of storageList;let idx=index">
+                    <tr *ngFor="let storage of storageList;let idx=index" id="storage_{{storage.id}}">
                         <!--<td>1</td>-->
                         <td>{{storage.name}}</td>
                         <td>
@@ -569,14 +569,14 @@
                         </td>
                         <td>
                             <div *ngIf="!storage.isEdit">
-                                <button *ngIf="false" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage)">{{'COMMON.ENABLE' | translate}}</button>
-                                <button *ngIf="false" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage)">{{'COMMON.DISABLE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)">{{'COMMON.EDIT' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
+                                <button *ngIf="false" class="fox-cloud-button-md fox-cloud-button-white" (click)="enableStorage(storage)" id="enableStorage">{{'COMMON.ENABLE' | translate}}</button>
+                                <button *ngIf="false" class="fox-cloud-button-md fox-cloud-button-white" (click)="suspendStorage(storage)" id="suspendStorage">{{'COMMON.DISABLE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="editStorage(storage,idx)" id="editStorage">{{'COMMON.EDIT' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="updateStorage(storage.id)" id="updateStorage">{{'PF_MNG2.SYNC_STORAGE_SPACE' | translate}}</button>
                             </div>
                             <div *ngIf="storage.isEdit">
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)">{{'COMMON.SAVE' | translate}}</button>
-                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)">{{'COMMON.CANCEL' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="saveStorage(storage,idx)" id="saveStorage">{{'COMMON.SAVE' | translate}}</button>
+                                <button class="fox-cloud-button-md fox-cloud-button-white" (click)="cancelEditStorage(storage,idx)" id="cancelEditStorage">{{'COMMON.CANCEL' | translate}}</button>
                             </div>
                         </td>
                     </tr>
@@ -589,7 +589,7 @@
                     <div class="col-sm-6 form-control-title">{{'自动同步时间间隔'| translate}}:</div>
                     <!--选择产品目录-->
                     <div class="col-sm-2">
-                        <input type="number" class="form-control">
+                        <input type="number" class="form-control" id="prod_number">
                     </div>
                     <div class="col-sm-4 form-control-title" style="text-align:left">
                         分钟
