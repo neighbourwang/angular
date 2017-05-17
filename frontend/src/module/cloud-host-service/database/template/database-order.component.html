@@ -1,6 +1,6 @@
 <div class="page-content cloud_host_order database-order">
 	<div class="col-md-9">
-		<h1 (click)="payLoadFormat()" class="page-content-header">创建数据库</h1>
+		<h1 (click)="dbPayLoadFormat()" class="page-content-header">创建数据库</h1>
 		<ul class="left-box">
 			<li>
 				<div class="col-md-1 li-title">                  
@@ -28,7 +28,7 @@
 			</li>
 			<li>
 				<div class="col-md-1 li-title">                  
-					<p><span class="icon-location"></span><br>数据库选项</p>
+					<p><span class="icon-db"></span><br>数据库选项</p>
 				</div>
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">类型：</div>
@@ -73,7 +73,7 @@
 			</li>
 			<li>
 				<div class="col-md-1 li-title">
-					<p><span class="icon-host"></span><br>{{'VM_INSTANCE.CLOUD_HOST_SOURCE'| translate}}</p>
+					<p><span class="icon-os"></span><br>镜像</p>
 				</div>
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">{{'VM_INSTANCE.START_SOURCE'| translate}}</div>
@@ -152,7 +152,7 @@
 							<div class="col-md-2 no-padding">
 								<select [(ngModel)]="values.BOOTSIZE" class="form-control" id="bootsize">
 									<option
-									*ngFor="let value of oSfilterBootsize(valuesList.BOOTSIZE) | filterPlatform: values.PLATFORM?.attrValueId;"
+									*ngFor="let value of bootsizeList | filterPlatform: values.PLATFORM?.attrValueId;"
 									[ngValue]="value" id="bootsize_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>
@@ -166,8 +166,8 @@
 	                            <input type="radio" 
 										class="fox-cloud-radio" 
 										name="needHBA" 
-										[checked]="storageType === storage.value" 
-										(change)="storageType = storage.value; dux.dispatch('STORAGE_CHANGE')"> {{storage.name}}
+										[disabled]="storage.value !== database?.storageType"
+										[checked]="storage.value === database?.storageType" > {{storage.name}}
 	                        </label>
 						</div>
 					</div>
@@ -178,17 +178,17 @@
                                 <th class="text-center">云硬盘用途</th>
                                 <th class="text-center">云硬盘类型</th>
                                 <th class="text-center">配置</th>
-                                <th *ngIf="storageType==='ASM'" class="text-center">磁盘组名称</th>
-                                <th *ngIf="storageType==='ASM'" class="text-center">冗余级别</th>
+                                <th *ngIf="database?.storageType==='ASM'" class="text-center">磁盘组名称</th>
+                                <th *ngIf="database?.storageType==='ASM'" class="text-center">冗余级别</th>
                                 <th class="text-center">挂载目录</th>
                             </tr>
-                            <tr *ngFor="let data of FSList.concat(ASMList); let i = index">
+                            <tr *ngFor="let data of database?.diskInfoList; let i = index">
 								<td class="text-center">{{i + 1}}</td>
 								<td class="text-center">{{data.usageType}}</td>
 								<td class="text-center">
-									<select class="form-control" id="bootstorage">
+									<select class="form-control" id="bootstorage" [(ngModel)]="data.storage"  (ngModelChange)="dux.dispatch('SET_DISK_PRODUCTS')">
 										<option
-										*ngFor="let value of valuesList.BOOTSTORAGE"
+										*ngFor="let value of valuesList.STORAGE"
 										[ngValue]="value" id="bootstorage_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
 									</select>
 								</td>
@@ -198,12 +198,109 @@
 							            [min]="data.minDiskSize" 
 							            [value]="data.minDiskSize" (output)="outputValue($event, i)"></count-bar>
 								</td>
-								<td *ngIf="storageType==='ASM'" class="text-center">{{data.diskGroup}}</td>
-								<td *ngIf="storageType==='ASM'" class="text-center">{{data.copyLevel}}</td>
+								<td *ngIf="database?.storageType==='ASM'" class="text-center">{{data.diskGroup}}</td>
+								<td *ngIf="database?.storageType==='ASM'" class="text-center">{{data.copyLevel}}</td>
 								<td class="text-center">{{data.mountPath}}</td>
                             </tr>
                         </table>
 					 </div>
+				</div>
+			</li>
+			<li>
+				<div class="col-md-1 li-title">
+					<p><span class="icon-adjust"></span><br>部署参数</p>
+				</div>
+				<div class="col-md-12 li-content">
+					<div class="col-md-12 no-padding mb20">
+						<div class="col-md-12 no-padding mgb20">
+							<div class="col-md-2 content-title">归档模式</div>
+							<div class="col-md-3 no-padding">
+								<select [(ngModel)]="databaseValue.ARCHMODE.attrValue" class="form-control" id="securitygroup">
+									<option
+									 *ngFor="let value of dbservice.archmode | async;"
+									 [ngValue]="value.value" id="securitygroup_{{value.attrValue}}">{{ value.displayValue }}</option>
+								</select>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-2 content-title">监听端口</div>
+							<div class="col-md-3 no-padding mr10 has-feedback" [ngClass]="{'has-error': dbv.result.listenpost }">
+								<input (keyup)="checkDbValue('listenpost');dux.dispatch('ARCHMODE');" 
+									   [(ngModel)]="databaseValue.LISTENPOST.attrValue" type="text" class="form-control" id="input_archmode">
+						        <span *ngIf="dbv.result.listenpost" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						        <div *ngIf="dbv.result.listenpost" class="alert alert-danger" role="alert">{{dbv.result.listenpost | translate}}</div>
+							</div>
+						</div>
+
+						<div class="col-md-12 no-padding">
+							<div class="col-md-2 content-title">数据库字符集</div>
+							<div class="col-md-3 no-padding">
+								<select [(ngModel)]="databaseValue.DBCHARSET.attrValue" class="form-control" id="securitygroup">
+									<option
+									 *ngFor="let value of dbservice.dbcharset | async;"
+									 [ngValue]="value.value" id="securitygroup_{{value.attrValue}}">{{ value.displayValue }}</option>
+								</select>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-2 content-title">允许最大连接数</div>
+							<div class="col-md-3 no-padding mr10 has-feedback" [ngClass]="{'has-error': dbv.result.maxconnection }">
+								<input (keyup)="checkDbValue('maxconnection');dux.dispatch('MAXCONNECTION');" 
+									   [(ngModel)]="databaseValue.MAXCONNECTION.attrValue" type="text" class="form-control" id="input_maxconnection">
+						        <span *ngIf="dbv.result.maxconnection" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						        <div *ngIf="dbv.result.maxconnection" class="alert alert-danger" role="alert">{{dbv.result.maxconnection | translate}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="col-md-1 li-title">
+					<p><span class="icon-userset"></span><br>数据库<br/>系统用户</p>
+				</div>
+				<div class="col-md-12 li-content li-password">
+
+					<div class="col-md-12 no-padding mb20">
+						<div class="col-md-2 content-title">数据库系统用户<br/>(Sys、System)密码</div>
+						<div class="col-md-4 no-padding has-feedback mgt5" [ngClass]="{'has-error': dbv.result.syspassword}">
+							<input type="password" 
+								(keyup) = "checkDbValue('syspassword')"
+								[(ngModel)]="databaseValue.SYSPASSWORD.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWORD'| translate}}" id="login_password">
+					        <span *ngIf="dbv.result.syspassword" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					        <div *ngIf="dbv.result.syspassword" class="alert alert-danger" role="alert">{{dbv.result.syspassword | translate}}</div>
+						</div>
+						<div class="col-md-5 text-tip  pdb0">{{'VM_INSTANCE.PASSWORD_COMPLEXITY_DESCRIPTION'| translate}}</div>
+					</div>
+
+					<div class="col-md-12 no-padding mb20">
+						<div class="col-md-2 content-title">{{'VM_INSTANCE.CONFIRM_PASSWORD'| translate}}</div>
+						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': dbv.result.syspasswordShadow }">
+
+							<input type="password" class="form-control" (keyup)="checkDbValue('syspasswordShadow')"  [(ngModel)]="syspasswordShadow"  placeholder="{{'VM_INSTANCE.ENTER_PASSWORD_AGAIN'| translate}}" id="login_confirm_password">
+					        <span *ngIf="dbv.result.syspasswordShadow" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					        <div *ngIf="dbv.result.syspasswordShadow" class="alert alert-danger" role="alert">{{dbv.result.syspasswordShadow | translate}}</div>
+						</div>
+					</div>
+
+					<div *ngIf="database?.storageType==='ASM'" class="col-md-12 no-padding mb20">
+						<div class="col-md-2 content-title">ASM管理密码</div>
+						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': dbv.result.asmpassword}">
+							<input type="password" 
+								(keyup) = "checkDbValue('asmpassword')"
+								[(ngModel)]="databaseValue.ASMPASSWORD.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWORD'| translate}}" id="login_password">
+					        <span *ngIf="dbv.result.asmpassword" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					        <div *ngIf="dbv.result.asmpassword" class="alert alert-danger" role="alert">{{dbv.result.asmpassword | translate}}</div>
+						</div>
+						<div class="col-md-5 text-tip  pdb0">{{'VM_INSTANCE.PASSWORD_COMPLEXITY_DESCRIPTION'| translate}}</div>
+					</div>
+
+					<div *ngIf="database?.storageType==='ASM'" class="col-md-12 no-padding mb20">
+						<div class="col-md-2 content-title">{{'VM_INSTANCE.CONFIRM_PASSWORD'| translate}}</div>
+						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': dbv.result.asmpasswordShadow }">
+
+							<input type="password" class="form-control" (keyup)="checkDbValue('asmpasswordShadow')"  [(ngModel)]="asmpasswordShadow"  placeholder="{{'VM_INSTANCE.ENTER_PASSWORD_AGAIN'| translate}}" id="login_confirm_password">
+					        <span *ngIf="dbv.result.asmpasswordShadow" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					        <div *ngIf="dbv.result.asmpasswordShadow" class="alert alert-danger" role="alert">{{dbv.result.asmpasswordShadow | translate}}</div>
+						</div>
+					</div>
 				</div>
 			</li>
 			<li>
@@ -315,25 +412,6 @@
 								永久
 							</label> -->
 						</div>
-					</div>
-
-					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">{{'COMMON.PURCHASE_AMOUNT'|translate}}</div>
-						<div class="col-md-2 no-padding mr10">
-							<select [(ngModel)]="payLoad.quality" (ngModelChange)="dux.dispatch('SET_VMPRICE');"   class="form-control" id="pay_quality">
-								<option [ngValue]="1">{{'COMMON.ONE_SET'| translate}}</option>
-								<option [ngValue]="2">{{'COMMON.TWO_SET'| translate}}</option>
-								<option [ngValue]="3">{{'COMMON.THREE_SET'| translate}}</option>
-								<option [ngValue]="4">{{'COMMON.FOUR_SET'| translate}}</option>
-								<option [ngValue]="5">{{'COMMON.FIVE_SET'| translate}}</option>
-							</select>
-							<!--<div class="btn-group input-step-compontent">
-								<button type="button" class="btn btn-default col-md-3"><span class="glyphicon glyphicon-minus"></span></button>
-								<input type="text" class="form-control" value="20">
-								<button type="button" class="btn btn-default clickable"><span class="glyphicon glyphicon-plus"></span></button>
-							</div>-->
-						</div>
-						<!--<div class="col-md-2 no-padding lh32">台</div>-->
 					</div>
 				</div>
 			</li>

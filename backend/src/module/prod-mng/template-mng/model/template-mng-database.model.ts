@@ -13,15 +13,19 @@ class DatabaseModel {
   "storageType": string;//存储类型
   "templateTpye": string;//模板类型
   "version": string;//版本
-  "deployMode":number;//缺
+  "deploymentMode":number;//缺
   constructor() {
     this.cpu=2;
     this.memory=4;
     this.bootStorageSize=20;
     this.version='';
+    this.storageType='FS';
+    this.bit='64bit';
+    this.os='linux';
+    this.deploymentMode=0;
     this.diskProfileList = [
       {
-        "copyLevel": 0,
+        "copyLevel": 2,
         "defaultPath": '/u01',
         "diskGroup": '',
         "minSize": 50,
@@ -37,7 +41,7 @@ class DatabaseModel {
         "useDisplay": '数据库文件'
       },
       {
-        "copyLevel": 0,
+        "copyLevel": 1,
         "defaultPath": '/u03',
         "diskGroup": 'ARCH',
         "minSize": 200,
@@ -54,6 +58,12 @@ class diskProfile {
   "minSize": number;//最下
   "usage": number;//磁盘用途
   "useDisplay": string;//
+}
+class DatabaseOptions{
+  items:Array<DatabaseOption>;
+  constructor(){
+    this.items=new Array<DatabaseOption>();
+  }
 }
 class DatabaseOption {
   "db": {
@@ -74,4 +84,4 @@ class mode {
   "label": string;
   "value": number
 }
-export { DatabaseModel,DatabaseOption}
+export { DatabaseModel,DatabaseOptions}

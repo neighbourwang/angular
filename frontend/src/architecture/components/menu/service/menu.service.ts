@@ -20,10 +20,10 @@ export class MenuService {
 		return new Promise(resolve => {
 			resolve([
 				{
-					"label": "MENU.CLOUD_HOSTING_SERVICES",
+					"label": "私有云服务",
 					"isOpen": true,
 					"isShow": true,
-					"icon": "icon-cloudhost",
+					"icon": "icon-privateyun",
 					"top2_menu": [
 						// {
 						//	"label": "MENU.VIRTUAL_MACHINE_INSTANCE",
@@ -50,23 +50,47 @@ export class MenuService {
 							"routing": "image-mng/image-mng"
 						},
 						{
-							"label": "物理机实例",
-							"isOpen": true,
-							"isShow": true,
-							"routing": "cloud-host-service/physical-machine-list"
-						},
-						{
 							"label": "数据库实例",
 							"isOpen": true,
 							"isShow": true,
 							"routing": "cloud-host-service/database-list"
 						},
+					]
+				},
+				{
+					"label": "物理机服务",
+					"isOpen": false,
+					"isShow": true,
+					"icon": "icon-machine",
+					"top2_menu": [
 						{
-							"label": "管理服务列表",
+							"label": "物理机服务",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "cloud-host-service/physical-machine-list"
+						}
+					]
+				},
+				{
+					"label": "管理服务",
+					"isOpen": false,
+					"isShow": true,
+					"icon": "icon-setting",
+					"top2_menu": [
+						{
+							"label": "管理服务",
 							"isOpen": true,
 							"isShow": true,
 							"routing": "cloud-host-service/management-services-list"
-						},
+						}
+					]
+				},
+				{
+					"label": "阿里云服务",
+					"isOpen": false,
+					"isShow": true,
+					"icon": "icon-aliyun",
+					"top2_menu": [
 						{
 							"label": "阿里云主机",
 							"isOpen": true,

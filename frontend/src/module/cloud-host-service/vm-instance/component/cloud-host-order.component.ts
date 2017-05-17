@@ -111,6 +111,7 @@ export class cloudVmComponentOrder implements OnInit {
 		this.dux.subscribe("ZONE", () => { this.setNetwork() })
 		this.dux.subscribe("IMAGETYPE", () => { this.setImage() })
 		this.dux.subscribe("OS", () => { this.osChanged() })
+		this.dux.subscribe("OS", () => { this.oSfilterBootsize() })
 		this.dux.subscribe("FINDE_VMSKU", () => { this.getSkuMap("vm") })
 		this.dux.subscribe("FINDE_DISKSKU", () => { this.getSkuMap("disk") })
 		this.dux.subscribe("SET_TIME_UNIT", () => { this.setTimeUnit() })
@@ -120,9 +121,8 @@ export class cloudVmComponentOrder implements OnInit {
 	public fetchConfig() {
 		this.layoutService.show();
 		this.service.getHostConfigList().then(configList => {
+			this.layoutService.hide();
 			configList.attrList.forEach(config => {
-				this.layoutService.hide();
-
 				this.attrList[config.attrCode] = config;
 			});
 			this.skuMap = configList.skuMap;
@@ -238,23 +238,27 @@ export class cloudVmComponentOrder implements OnInit {
 		this.values.USERNAME.attrValue = this.values.OS.osType == 0 ? "administrtor" : "root";
 	}
 
-	private oSfilterBootsize(bootSizeList: VlueList[]): VlueList[] {  //根据os的大小过滤bootsize的大小
-		if (!this.values.OS) return [];
+	private oSfilterBootsize(): VlueList[] {  //根据os的大小过滤bootsize的大小
+		if (!this.values.OS) return this.bootsizeList = [];
 
-		const filteredList = bootSizeList.filter(bootSizeObj =>
+		const filteredList = this.valuesList.BOOTSIZE.filter(bootSizeObj =>
 			parseInt(bootSizeObj.attrValue) * 1024 * 1024 * 1024 >= this.values.OS.capacity
 		);
 
 		setTimeout(res => {
 			this.isZoneSupportOs = !!filteredList.length;
 		}, 0);
-		return filteredList;
+		this.bootsizeList = filteredList;
+		if( this.bootsizeList.length ){
+			this.values.BOOTSIZE = filteredList[0];
+			this.dux.dispatch("BOOTSIZE")
+		}
 	}
 
-	private getSkuMap(code: "vm" | "disk"): SkuMap[] {   //获取根据参数获取的sku数组 因为云主机的sku不止一个
+	public getSkuMap(code: "vm" | "disk", values:any = this.values): SkuMap[] {   //获取根据参数获取的sku数组 因为云主机的sku不止一个
 
-		let list = code === "vm" ? ["ZONE", "PLATFORM", "CPU", "MEM", "BOOTSIZE"].map(v => this.values[v].attrValueId)   //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
-			: code === "disk" ? ["ZONE", "PLATFORM", "STORAGE"].map(v => this.values[v].attrValueId) : [];  //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
+		let list = code === "vm" ? ["ZONE", "PLATFORM", "CPU", "MEM", "BOOTSIZE"].map(v => values[v].attrValueId)   //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
+			: code === "disk" ? ["ZONE", "PLATFORM", "STORAGE"].map(v => values[v].attrValueId) : [];  //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
 
 		const trim = val => val.replace("[", "").replace("]", "");
 
@@ -302,35 +306,34 @@ export class cloudVmComponentOrder implements OnInit {
 		this.vmBasePrice = this.vmProduct.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
 		this.vmTotalPrice = (this.vmProduct.billingInfo.basicPrice) * timeline * this.payLoad.quality;   //周期费用
 	}
-	// private setDiskPrice(): void {  //设置数据盘的价格
-	//	const timeline = +(this.values.TIMELINE.attrValue || "0"),
-	//		storages = this.storage ? this.storage.getData() : [];   //获取数据盘
+	public setDiskPrice(): void {  //设置数据盘的价格
+		const timeline = +(this.values.TIMELINE.attrValue || "0"),
+			storages = this.storage ? this.storage.getData() : [];   //获取数据盘
 
-	//	let basePrice = 0, totalPrice = 0;
-	//	for (let data of storages) {
-	//		let skuMap = this.getSkuMap("disk");
+		let basePrice = 0, totalPrice = 0;
+		for (let data of storages) {
+			let skuMap = this.getSkuMap("disk");
 
-	//		if(!skuMap.length) return;  //如果没有获取到sku
+			if(!skuMap.length) return;  //如果没有获取到sku
 
-	//		let sku = skuMap[0];
-	//		this.values.STORAGE = data.storage;
-	//		this.diskSku.push(sku); //获取sku
+			let sku = skuMap[0];
+			this.values.STORAGE = data.storage;
 
-	//		let price = this.proMap[`[${sku.skuId}]`];  //计算价格
-	//		this.diskProduct.push(price);
+			let price = this.proMap[`[${sku.skuId}]`];  //计算价格
+			this.diskProduct.push(price);
 
-	//		console.log("匹配到的云硬盘：", price)
-	//		if (!price) return; //如果没获取到价格
+			console.log("匹配到的云硬盘：", price)
+			if (!price) return; //如果没获取到价格
 
-	//		basePrice += price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
-	//		totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * this.payLoad.quality;   //周期费用
+			basePrice += price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
+			totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * this.payLoad.quality;   //周期费用
 
-	//		this.diskUnitType = price.billingInfo.unitType;
-	//	}
+			this.diskUnitType = price.billingInfo.unitType;
+		}
 
-	//	this.diskBasePrice = basePrice;  //一次性费用
-	//	this.diskTotalPrice = totalPrice;   //周期费用
-	// }
+		this.diskBasePrice = basePrice;  //一次性费用
+		this.diskTotalPrice = totalPrice;   //周期费用
+	}
 
 	checkValue(key?: string) {
 		const regs: ValidationRegs = {
@@ -416,25 +419,24 @@ export class cloudVmComponentOrder implements OnInit {
 		});
 	}
 
-	private itemNum: number = 0;
-	private makeItemNum(): string {
+	public itemNum: number = 0;
+	public makeItemNum(): string {
 		return new Date().getTime() + "" + (this.itemNum++);
 	}
 
-	private sendModuleToPay(): AttrList[] {   //把sendModule转换成数组
+	public sendModuleToPay(values:any = this.values): AttrList[] {   //把sendModule转换成数组
 		let payloadList = [];
 
-		for (let v in this.values) {
-			if(this.values[v].attrValueCode === "" && this.values[v].attrValue === "")  continue;
-
+		for (let v in values) {
+			if(values[v].attrValueCode === "" && values[v].attrValue === "")  continue;
 			payloadList.push({
 				attrId: this.attrList[v].attrId,                  	//服务属性ID
 				attrCode: this.attrList[v].attrCode,              	//服务属性CODE
-				attrDisplayValue: this.values[v].attrDisplayValue,	//服务属性Name
+				attrDisplayValue: values[v].attrDisplayValue,     	//服务属性Name
 				attrDisplayName: this.attrList[v].attrDisplayName,	//服务属性Name
-				attrValueId: this.values[v].attrValueId,          	//服务属性值ID
-				attrValue: this.values[v].attrValue,              	//服务属性值
-				attrValueCode: this.values[v].attrValueCode,      	//服务属性值
+				attrValueId: values[v].attrValueId,               	//服务属性值ID
+				attrValue: values[v].attrValue,                   	//服务属性值
+				attrValueCode: values[v].attrValueCode,           	//服务属性值
 			});
 		};
 		return payloadList;

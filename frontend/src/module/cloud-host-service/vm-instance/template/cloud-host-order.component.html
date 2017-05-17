@@ -134,7 +134,7 @@
 							<div class="col-md-2 no-padding">
 								<select [(ngModel)]="values.BOOTSIZE" class="form-control" id="bootsize">
 									<option
-									*ngFor="let value of oSfilterBootsize(valuesList.BOOTSIZE) | filterPlatform: values.PLATFORM?.attrValueId;"
+									*ngFor="let value of bootsizeList | filterPlatform: values.PLATFORM?.attrValueId;"
 									[ngValue]="value" id="bootsize_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>

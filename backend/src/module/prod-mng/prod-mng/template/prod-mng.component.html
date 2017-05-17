@@ -87,7 +87,8 @@
 					<td>{{item.serviceType | dict:ProdListService.productTypeDic|async}}</td>								
 					<td>{{item.serviceSpecification}}</td>					
 					<td>
-						<span [ngSwitch]="item.billingCycle"> 
+						<span *ngIf="item.billingType=='3'">{{'COMMON.BY_TIMES'|translate}}</span>
+						<span *ngIf="item.billingType!='3'" [ngSwitch]="item.billingCycle"> 
 							<template [ngSwitchCase]="0">{{'COMMON.BY_HOUR' | translate}}</template>
 							<template [ngSwitchCase]="1">{{'COMMON.BY_DAY' | translate}}</template>
 							<template [ngSwitchCase]="2">{{'COMMON.BY_WEEK' | translate}}</template>
@@ -96,14 +97,13 @@
 							<template ngSwitchDefault>Unknown</template>							
 						</span>
 					</td>
-					<td>{{item.recurringPrice}}</td>
+					<td *ngIf="item.billingType=='0'">{{item.basicPrice}}</td>
+					<td *ngIf="item.billingType!='0'">{{item.unitPrice}}</td>
 					<td>{{item.onetimePrice}}</td>
 					<td [ngClass]="{'font-green':item.status == '1' ,'font-orange':item.status == '3'}">
 						<span [ngSwitch]="item.status">
                             <template [ngSwitchCase]="1">{{'PROD_MNG.HAS_PUBLISHED' | translate}}</template><!--已发布-->
-
                             <template [ngSwitchCase]="3">{{'PROD_MNG.NOT_PUBLISHED_YET' | translate}}</template><!--未发布-->
-
                             <template ngSwitchDefault>Unknown</template>
                     	</span>
 					</td>

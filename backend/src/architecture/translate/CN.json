@@ -113,7 +113,13 @@
     "COMPUTE_RES_TREND_ANALYSIS":"私有云平台计算资源用量分析",
 	"ANALYSIS_TYPE":"分析类型",
 	"DISPLAY_BY_ZONE":"按可用区显示",
-	"BASIC_INFO":"基本信息"
+	"BASIC_INFO":"基本信息",
+	"STORE_RES_TREND_ANALYSIS":"私有云平台存储资源用量分析",
+	"DISK_STATUS":"云硬盘状态",
+	"DISK_CAPACITY":"云硬盘容量",
+	"DISK_ATTACHED":"云硬盘-已挂载",
+	"DISK_UNATTACHED":"云硬盘-未挂载",
+	"ASSIGNABLE":"可分配"
   },
   "CHECK_CENTER": {
     "ADVANCED_QUERY": "高级查询",
@@ -199,6 +205,7 @@
     "BY_WEEK": "按周",
     "BY_YEAR": "包年",
     "BY_YEAR1": "按年",
+    "BY_TIMES":"按次",
     "CANCEL": "取消",
     "CANNOT_BE_EMPTY": " * 必填内容不能为空",
     "CANNOT_BE_INTEGER": "不能为负数！",
@@ -1289,7 +1296,7 @@
     "DISK": "磁盘",
     "INIT": "初始化",
     "DISABLED": "已禁用",
-    "MANAGE_CLOUD_HOST_SPEC": "管理云主机规格",
+    "MANAGE_CLOUD_PLATFORM_SPEC": "管理云平台规格",
     "NO_SYNC_SPEC_INFO": "暂时没有可同步的规格信息",
     "NONSUPPORT_CHANGES_STATE": "不支持对未启用状态平台下的可用区状态的更改",
     "RETURN_CLOUD_LIST": "返回云平台列表",
