@@ -69,6 +69,9 @@ export class AliCloudVmListComponent implements OnInit {
     pageIndex = 1;
     pageSize = 10;
     totalPage = 1;
+
+    poll_flag: boolean = false;
+
     listTimer = null;
     instanceTimer: Array<any> = [];
     pollInstance: VmQueryObject = new VmQueryObject();
@@ -361,7 +364,7 @@ export class AliCloudVmListComponent implements OnInit {
                 );
 
             }, 5000);
-        }
+        } 
 
     }
 
@@ -526,7 +529,8 @@ export class AliCloudVmListComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.showMsg("绑定弹性IP到实例成功");
-                        this.getInstanceList();
+                        //this.getInstanceList();
+                        this.selectedInstance.EipAddress.IpAddress = this.selectedfreeip.IpAddress;
                     } else {
                         this.showMsg("绑定弹性IP到实例失败");
                         return;
@@ -603,7 +607,8 @@ export class AliCloudVmListComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.showMsg("从实例中解绑弹性IP成功");
-                        this.getInstanceList();
+                        //this.getInstanceList();
+                        this.selectedInstance.EipAddress.IpAddress = "";
                     } else {
                         this.showMsg("从实例中解绑弹性IP失败");
                         return;
