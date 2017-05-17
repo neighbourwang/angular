@@ -211,7 +211,6 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 				billingList.push(Object.assign({}, prod.billingInfo, { disksize }))
 			}
 		})
-		console.log(billingList)
 		this.oneTimeTotalPrice = 0;
 		this.totalBilling = 0;
 		this.totalAnnual = 0;
@@ -272,6 +271,8 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		if(errorMsg) return [errorMsg];
 
 		this.databaseValue.STORAGETYPE.attrValue = this.database.storageType;
+		this.databaseValue.TIMELINE = this.values.TIMELINE
+		this.databaseValue.TIMELINEUNIT = this.values.TIMELINEUNIT
 
 		let payloadList = this.sendModuleToPay(this.databaseValue);
 		let payLoad = {
@@ -320,13 +321,16 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	}
 
 	checkDbValue(key?: string) {
-		const regs: ValidationRegs = {
+		let regs: any = {
 			listenpost: [this.databaseValue.LISTENPOST.attrValue, [this.v.isUnBlank, this.v.isNumber], "监听端口输入不正确"],
 			maxconnection: [this.databaseValue.MAXCONNECTION.attrValue, [this.v.isUnBlank, this.v.isNumber], "最大连接数输入不正确"],
 			syspassword: [this.databaseValue.SYSPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
-			syspasswordShadow: [this.syspasswordShadow, [this.v.equalTo(this.databaseValue.SYSPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
-			asmpassword: [this.databaseValue.ASMPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
-			asmpasswordShadow: [this.asmpasswordShadow, [this.v.equalTo(this.databaseValue.ASMPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
+			syspasswordShadow: [this.syspasswordShadow, [this.v.equalTo(this.databaseValue.SYSPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"]
+		}
+
+		if(this.database.storageType==='ASM') {
+			regs.asmpassword = [this.databaseValue.ASMPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"];
+			regs.asmpasswordShadow = [this.asmpasswordShadow, [this.v.equalTo(this.databaseValue.ASMPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"]
 		}
 
 		return this.v.check(key, regs);

@@ -25,6 +25,8 @@ class DatabaseValue {
 	MAXCONNECTION : VlueList = new VlueList;
 	SYSPASSWORD : VlueList = new VlueList;
 	ASMPASSWORD : VlueList = new VlueList;
+    TIMELINE : VlueList = new VlueList;
+    TIMELINEUNIT : VlueList = new VlueList;
 }
 
 export {
