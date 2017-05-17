@@ -74,13 +74,13 @@ export class cloudVmComponentOrder implements OnInit {
 	}
 
 	@ViewChild('confirm')
-	private confirmDialog: ConfirmComponent;
+	public confirmDialog: ConfirmComponent;
 
 	@ViewChild('notice')
-	private noticeDialog: NoticeComponent;
+	public noticeDialog: NoticeComponent;
 
 	@ViewChild('popup')
-	private popup: PopupComponent;
+	public popup: PopupComponent;
 
 	modalTitle: string = '';
 	modalMessage: string = '';
@@ -255,7 +255,7 @@ export class cloudVmComponentOrder implements OnInit {
 		}
 	}
 
-	public getSkuMap(code: "vm" | "disk", values = this.values): SkuMap[] {   //获取根据参数获取的sku数组 因为云主机的sku不止一个
+	public getSkuMap(code: "vm" | "disk", values:any = this.values): SkuMap[] {   //获取根据参数获取的sku数组 因为云主机的sku不止一个
 
 		let list = code === "vm" ? ["ZONE", "PLATFORM", "CPU", "MEM", "BOOTSIZE"].map(v => values[v].attrValueId)   //vm主机订单的sku匹配的选项 需要匹配可用区 平台 cpu 内存
 			: code === "disk" ? ["ZONE", "PLATFORM", "STORAGE"].map(v => values[v].attrValueId) : [];  //云硬盘订单的sku匹配的选项 需要匹配 平台 可用区 （还有一个硬盘类型 由下面添加）
@@ -306,35 +306,34 @@ export class cloudVmComponentOrder implements OnInit {
 		this.vmBasePrice = this.vmProduct.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
 		this.vmTotalPrice = (this.vmProduct.billingInfo.basicPrice) * timeline * this.payLoad.quality;   //周期费用
 	}
-	// private setDiskPrice(): void {  //设置数据盘的价格
-	//	const timeline = +(this.values.TIMELINE.attrValue || "0"),
-	//		storages = this.storage ? this.storage.getData() : [];   //获取数据盘
+	public setDiskPrice(): void {  //设置数据盘的价格
+		const timeline = +(this.values.TIMELINE.attrValue || "0"),
+			storages = this.storage ? this.storage.getData() : [];   //获取数据盘
 
-	//	let basePrice = 0, totalPrice = 0;
-	//	for (let data of storages) {
-	//		let skuMap = this.getSkuMap("disk");
+		let basePrice = 0, totalPrice = 0;
+		for (let data of storages) {
+			let skuMap = this.getSkuMap("disk");
 
-	//		if(!skuMap.length) return;  //如果没有获取到sku
+			if(!skuMap.length) return;  //如果没有获取到sku
 
-	//		let sku = skuMap[0];
-	//		this.values.STORAGE = data.storage;
-	//		this.diskSku.push(sku); //获取sku
+			let sku = skuMap[0];
+			this.values.STORAGE = data.storage;
 
-	//		let price = this.proMap[`[${sku.skuId}]`];  //计算价格
-	//		this.diskProduct.push(price);
+			let price = this.proMap[`[${sku.skuId}]`];  //计算价格
+			this.diskProduct.push(price);
 
-	//		console.log("匹配到的云硬盘：", price)
-	//		if (!price) return; //如果没获取到价格
+			console.log("匹配到的云硬盘：", price)
+			if (!price) return; //如果没获取到价格
 
-	//		basePrice += price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
-	//		totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * this.payLoad.quality;   //周期费用
+			basePrice += price.billingInfo.basePrice * this.payLoad.quality;  //一次性费用
+			totalPrice += price.billingInfo.unitPrice * data.storagesize.attrValue * this.payLoad.quality;   //周期费用
 
-	//		this.diskUnitType = price.billingInfo.unitType;
-	//	}
+			this.diskUnitType = price.billingInfo.unitType;
+		}
 
-	//	this.diskBasePrice = basePrice;  //一次性费用
-	//	this.diskTotalPrice = totalPrice;   //周期费用
-	// }
+		this.diskBasePrice = basePrice;  //一次性费用
+		this.diskTotalPrice = totalPrice;   //周期费用
+	}
 
 	checkValue(key?: string) {
 		const regs: ValidationRegs = {
@@ -417,7 +416,8 @@ export class cloudVmComponentOrder implements OnInit {
 				this.layoutService.hide();
 				this.showNotice("提示", "加入购物车失败")
 			})
-		});
+		})
+		.catch(e => this.showNotice("提示", e))
 	}
 
 	public itemNum: number = 0;
@@ -425,12 +425,11 @@ export class cloudVmComponentOrder implements OnInit {
 		return new Date().getTime() + "" + (this.itemNum++);
 	}
 
-	public sendModuleToPay(values = this.values): AttrList[] {   //把sendModule转换成数组
+	public sendModuleToPay(values:any = this.values): AttrList[] {   //把sendModule转换成数组
 		let payloadList = [];
 
 		for (let v in values) {
 			if(values[v].attrValueCode === "" && values[v].attrValue === "")  continue;
-
 			payloadList.push({
 				attrId: this.attrList[v].attrId,                  	//服务属性ID
 				attrCode: this.attrList[v].attrCode,              	//服务属性CODE
@@ -521,6 +520,7 @@ export class cloudVmComponentOrder implements OnInit {
 				this.showNotice("提示", "提交订单失败")
 			})
 		})
+		.catch(e => this.showNotice("提示", e))
 	}
 	// 警告框相关
 	showNotice(title: string, msg: string) {

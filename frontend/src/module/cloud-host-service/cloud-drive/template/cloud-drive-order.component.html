@@ -36,19 +36,19 @@
 				<div class="col-md-12 li-content" >
 					<div class="col-md-2 content-title">{{'COMMON.CLOUD_HARD_DISK'| translate}}</div>
 					<div class="col-md-10 btn-group" id="cloud-desk">
-						
-						<button class="btn btn-default active" id="black_desk">{{'CLOUD_DRIVE_ORDER.BLANK_DISK'| translate}}</button>
-						<!-- <ng-container *ngFor="let value of configs.disktype.valueList;">
-							<button 
-								[popover]="value.attrValue=='0' ? null : myPopover"
-								[ngClass]="{'active': sendModule.disktype.attrValueId === value.attrValueId}"
-								class="btn btn-default">
-								{{value.attrDisplayValue}}
-							</button>
-							<popover-content #myPopover [closeOnClickOutside]="true" >
-								<table-list [code]="value.attrValue" [platformId]="sendModule.platform.attrValue"></table-list>
-							</popover-content>
-						</ng-container> -->
+					                                                                                                 	
+					                                                                                                 	<button class="btn btn-default active" id="black_desk">{{'CLOUD_DRIVE_ORDER.BLANK_DISK'| translate}}</button>
+					                                                                                                 	<!-- <ng-container *ngFor="let value of configs.disktype.valueList;">
+					                                                                                                 		<button 
+					                                                                                                 			[popover]="value.attrValue=='0' ? null : myPopover"
+					                                                                                                 			[ngClass]="{'active': sendModule.disktype.attrValueId === value.attrValueId}"
+					                                                                                                 			class="btn btn-default">
+					                                                                                                 			{{value.attrDisplayValue}}
+					                                                                                                 		</button>
+					                                                                                                 		<popover-content #myPopover [closeOnClickOutside]="true" >
+					                                                                                                 			<table-list [code]="value.attrValue" [platformId]="sendModule.platform.attrValue"></table-list>
+					                                                                                                 		</popover-content>
+					                                                                                                 	</ng-container> -->
 					</div>                                                                                           	
 					<div class="col-md-2 content-title">{{'CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_TYPE'| translate}}</div>	
 					<div class="col-md-10 btn-group" data-toggle="buttons">
@@ -75,7 +75,7 @@
 						<div class="col-md-2 content-title">{{'CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_INSTANCE_NAME'| translate}}</div>
 						<div class="col-md-4 no-padding mgr15 has-feedback"
 							[ngClass]="{'has-error': v.result.diskinsname }">
-							<input type="text" id="diskinsname" (keyup)="checkValue('diskinsname')" [(ngModel)]="sendModule.diskinsname.attrDisplayValue" class="form-control" placeholder="如不填写，则系统自动生成">
+							<input type="text" id="diskinsname" (keyup)="checkValue('diskinsname')" [(ngModel)]="sendModule.diskinsname.attrValue" class="form-control" placeholder="如不填写，则系统自动生成">
 					        <span *ngIf="v.result.diskinsname" class="glyphicon glyphicon-remove form-control-feedback"></span>
 					        <div *ngIf="v.result.diskinsname" class="alert alert-danger" role="alert">{{v.result.diskinsname | translate}}</div>
 					      	</div>

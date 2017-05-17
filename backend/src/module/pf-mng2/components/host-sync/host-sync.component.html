@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">同步可用区</h4>
             </div>
             <div class="modal-body">
@@ -36,9 +36,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default btn fox-cloud-button-lg" data-dismiss="modal">{{ct || 'COMMON.CANCEL' | translate }}</button>
+                <button class="btn btn-default btn fox-cloud-button-lg" data-dismiss="modal" id="cancel">{{ct || 'COMMON.CANCEL' | translate }}</button>
                 <!-- 取消 -->
-                <button (click)="update()" class="btn fox-cloud-button-lg fox-cloud-button-white">{{ot || '更新' }}</button>
+                <button (click)="update()" class="btn fox-cloud-button-lg fox-cloud-button-white" id="update">{{ot || '更新' }}</button>
                 <!-- 确认 -->
             </div>
         </div>
