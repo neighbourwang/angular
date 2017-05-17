@@ -89,8 +89,8 @@
 
                 </div>
             </td>
-            <td class="text-center text-vertical-middle">{{instance.RegionId}}</td>
-            <td class="text-center text-vertical-middle">{{instance.ZoneId}}</td>
+            <td class="text-center text-vertical-middle">{{instance.RegionName}}</td>
+            <td class="text-center text-vertical-middle">{{instance.ZoneName}}</td>
             <td class="text-left text-vertical-middle"><span style="display: block">内网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0] || ''}}</span><span>外网IP：{{instance.EipAddress.IpAddress || ''}}</span></td>
             <td class="text-center text-vertical-middle">{{instance.InstanceNetworkType | dict:this.dictService.networkTypeDict | async}}</td>
             <td class="text-center text-vertical-middle">
