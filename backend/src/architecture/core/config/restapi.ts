@@ -1249,6 +1249,12 @@ export let RestApis: RestApiModel[] = [
     },
     //模板管理
     {
+        "desc": "查询数据库模板列表",
+        "id": "prod-mng.prod-mng.list.get",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/products/search/page/{page}/size/{size}"
+    },
+    {
         "desc": "获取数据库选项基础信息",
         "id": "template-mng-database.initInfo.get",
         "method": "GET",
@@ -1274,7 +1280,7 @@ export let RestApis: RestApiModel[] = [
     },
      {
         "desc": "更新数据库模板",
-        "id": "template-mng-database.cre.post",
+        "id": "template-mng-database.cre.put",
         "method": "PUT",
         "url": "adminui/authsec/database/template"
     },
