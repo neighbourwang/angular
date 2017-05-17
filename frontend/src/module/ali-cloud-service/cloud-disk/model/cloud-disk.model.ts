@@ -87,6 +87,7 @@ export class diskListModel {
     InstanceId: string = "";
     EnableAutoSnapshot: boolean = false;
     ZoneId: string = "";
+    ZoneName: string = "";
     AttachedTime: string = "";
     SourceSnapshotId: string = "";
     DeleteAutoSnapshot: boolean = false;
@@ -102,6 +103,7 @@ export class diskListModel {
     Status: string = "";
     Category: string = "";
     RegionId: string = "";
+    RegionName: string = "";
     DeleteWithInstance: boolean = false;
     OperationLocks: OperationLockModel = new OperationLockModel();
     ExpiredTime: string = "";

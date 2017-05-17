@@ -89,13 +89,14 @@
 
                 </div>
             </td>
-            <td class="text-center text-vertical-middle">{{instance.RegionId}}</td>
-            <td class="text-center text-vertical-middle">{{instance.ZoneId}}</td>
+            <td class="text-center text-vertical-middle">{{instance.RegionName}}</td>
+            <td class="text-center text-vertical-middle">{{instance.ZoneName}}</td>
             <td class="text-left text-vertical-middle"><span style="display: block">内网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0] || ''}}</span><span>外网IP：{{instance.EipAddress.IpAddress || ''}}</span></td>
             <td class="text-center text-vertical-middle">{{instance.InstanceNetworkType | dict:this.dictService.networkTypeDict | async}}</td>
             <td class="text-center text-vertical-middle">
-                <img *ngIf="instance.Status=='Pending'||instance.Status=='Starting'||instance.Status=='Stopping'" src="../../../../../architecture/assets/images/icon_instance_starting.gif" /> {{instance.Status | dict:this.dictService.instanceStatusDict
-                | async}}
+                <!--<img *ngIf="instance.Status=='Pending'||instance.Status=='Starting'||instance.Status=='Stopping'" src="../../../../../architecture/assets/images/icon_instance_starting.gif" /> -->
+                <div *ngIf="instance.Status=='Pending'||instance.Status=='Starting'||instance.Status=='Stopping'" class="loading-icon"></div>
+                {{instance.Status | dict:this.dictService.instanceStatusDict | async}}
             </td>
             <td class="text-left text-vertical-middle"><span style="display: block">CPU: {{instance.Cpu}}核</span><span>内存：{{instance.Memory}} MB (I/O优化)</span></td>
             <td class="text-center text-vertical-middle">{{instance.CreationTime}}</td>

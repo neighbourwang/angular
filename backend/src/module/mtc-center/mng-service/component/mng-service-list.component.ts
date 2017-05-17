@@ -13,7 +13,7 @@ import { MngService } from '../service/mng-service.service';
 @Component({
     selector:"mng-service-list",
     templateUrl:"../template/service-list.html",
-    styleUrls:['../style/mng-service-list.less'],
+    styleUrls:[],
     providers:[]
 })
 

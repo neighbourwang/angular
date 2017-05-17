@@ -89,11 +89,13 @@
             </td>
             <td class="text-center">{{disk.Category | dict:this.dictService.diskCategoryDict | async}}</td>
             <td class="text-center">
-                <img *ngIf="disk.Status == 'Attaching' || disk.Status == 'Detaching' || disk.Status == 'Creating' || disk.Status == 'Deleting' || disk.Status == 'ReIniting'" src="../../../../../architecture/assets/images/icon_instance_starting.gif" />                {{disk.Status | dict:this.dictService.diskStatusDict | async}}
+                <!--<img *ngIf="disk.Status == 'Attaching' || disk.Status == 'Detaching' || disk.Status == 'Creating' || disk.Status == 'Deleting' || disk.Status == 'ReIniting'" src="../../../../../architecture/assets/images/icon_instance_starting.gif" /> -->
+                <div *ngIf="disk.Status == 'Attaching' || disk.Status == 'Detaching' || disk.Status == 'Creating' || disk.Status == 'Deleting' || disk.Status == 'ReIniting'" class="loading-icon"></div>
+                {{disk.Status | dict:this.dictService.diskStatusDict | async}}
             </td>
             <td class="text-center">{{disk.DiskChargeType | dict:this.dictService.diskChargeTypeDict | async}}</td>
             <td class="text-center">{{disk.Portable.toString() | dict:this.dictService.diskBoolDict | async}}</td>
-            <td class="text-center">{{disk.ZoneId}}</td>
+            <td class="text-center">{{disk.ZoneName}}</td>
             <td class="text-center">{{disk.Type | dict:this.dictService.diskTypeDict | async}}</td>
             <td class="text-center">{{disk.Size}}</td>
             <td class="text-center">
@@ -102,7 +104,7 @@
                 <button *ngIf="disk.Status=='In_use' && disk.Type!='system'" (click)="selectItem(i); detachDisk();" style="display: inline;" class="btn button-gray-gradient">卸载
                 </button>
 
-                <button *ngIf="disk.Type!='system'" (click)="selectItem(i); deleteDisk();" class="btn button-gray-gradient">释放
+                <button *ngIf="disk.Type!='system'" (click)="selectItem(i); deleteDisk();" [disabled]="disk.Status=='In_use'" class="btn button-gray-gradient">释放
                 </button>
 
                 <button *ngIf="disk.Type=='system'" [disabled]="disk.Type=='system'" class="btn button-gray-gradient">挂载

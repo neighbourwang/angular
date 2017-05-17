@@ -201,6 +201,7 @@ export class instanceListModel {
     OperationLocks: OperationLocksModel = new OperationLocksModel();
     PublicIpAddress: IpAddressModel = new IpAddressModel();
     RegionId: string = "";
+    RegionName: string = "";
     SecurityGroupIds: SecurityGroupIdsModel = new SecurityGroupIdsModel();
     SerialNumber: string = "";
     SpotStrategy: string = "";
@@ -208,6 +209,7 @@ export class instanceListModel {
     VlanId: string = "";
     VpcAttributes: VpcAttributesModel = new VpcAttributesModel();
     ZoneId: string = "";
+    ZoneName: string = "";
 
     checked: boolean = false;
     EnableEdit: boolean = false;

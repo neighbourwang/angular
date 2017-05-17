@@ -98,7 +98,7 @@
             <div *ngIf="type== 'create'" class="col-md-6 no-padding form-group">
                 <select class="form-control" [(ngModel)]="subInfo.departId">
                     <option value="">{{ 'USER_CENTER.SELECT' | translate}}</option>
-                    <option *ngFor="let item of departsList" [value]="item.id">{{item.departmentName}}</option>
+                    <option *ngFor="let item of departsList" [value]="item.id" [hidden]="item.visible == 'false'">{{item.departmentName}}</option>
                 </select>
             </div>
         </div>
