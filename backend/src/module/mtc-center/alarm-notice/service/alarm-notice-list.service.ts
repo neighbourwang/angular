@@ -44,6 +44,14 @@ export class AlarmNoticeListService {
         field : "PERIOD"      //周期
     }             
     );
+   
+    dictContent = this.dict.get(
+        {      
+        owner : "MAINTAIN",
+        field : "ALERTCONTENT"      //告警内容
+    }             
+    );
+    
     //获取告警列表
     getAlarmList():Promise<any>{
         const api = this.restApiCfg.getRestApi("trigger-list.get");

@@ -236,9 +236,9 @@ export class AliCloudMainAccountListComponent implements OnInit{
             this.showAlert("ALI_CLOUD.SHARED_ACCOUNT_AND_DISABLED_STATUS_CAN_DELETE");//共享主账号只有将所有子账号的企业或部门设置移除且为禁用状态，才能删除该主账号！
             return;
         }             
-        this.layoutService.hide();
         this.confirm.ccf = () => {};
         this.confirm.cof = () => {
+             this.layoutService.show();
             this.service.deleteAccount(account.id)
             .then(
                 response=>{
