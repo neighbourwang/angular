@@ -194,6 +194,7 @@
 													<span *ngIf="prodItem.serviceType==11" style="display: block;">备注信息：显示购买时的备注信息</span>
 													<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0" ></vm-view> <!--显示云主机 -->
 						 							<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view><!--显示云硬盘 -->
+													 <sql-view *ngIf="prodItem.serviceType==3" [values]="prodItem"></sql-view>
 												</td>
 												<td>{{prodItem.quantity}}<span  *ngIf="prodItem.serviceType==0">台</span><span  *ngIf="prodItem.serviceType==1">块</span></td>
 												<td>{{prodItem.period}}<span *ngIf="prodItem.period>0">{{prodItem.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
