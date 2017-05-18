@@ -57,23 +57,23 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 
 
 	isMiddleState(state) {
-		return !!["0", "2", "3", "4", "5", "6", "8", "9", "11", "13" ].filter(v => v==state).length
+		return !!["1","5","20","22","25","26","27","28","29" ].filter(v => v==state).length
 	}
 
 	checkListMiddleState() {
 		if(this.destroyed) return false;  //如果组件被销毁了 return
 
-		// let mkPromise = (disk) => this.isMiddleState(disk.status) ? this.service.fetchDiskState(disk.itemId) : false
-		// let fecthMiddleStateList = this.distList.map(mkPromise)
+		let mkPromise = (pm) => this.isMiddleState(pm.status) ? this.service.fetchPMState(pm.pmId) : false
+		let fecthMiddleStateList = this.list.map(mkPromise)
 
-		// if(!fecthMiddleStateList.filter(l => l).length) return false;   //如果没有中间状态了 则不再循环
+		if(!fecthMiddleStateList.filter(l => l).length) return false;   //如果没有中间状态了 则不再循环
 
-		// Promise.all(fecthMiddleStateList).then(res => {
-		//	res.forEach((disk, i) => {
-		//		if(disk) this.distList[i].status = disk.diskState
-		//	})
-		//	setTimeout(this.checkListMiddleState.bind(this) , 10 * 1000)
-		// })
+		Promise.all(fecthMiddleStateList).then(res => {
+			res.forEach((pm, i) => {
+				if(pm) this.list[i].status = pm.dataType
+			})
+			setTimeout(this.checkListMiddleState.bind(this) , 10 * 1000)
+		})
 	}
 
 	fetchPMList() {
