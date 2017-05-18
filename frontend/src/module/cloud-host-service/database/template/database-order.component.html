@@ -439,9 +439,9 @@
             <p class="cloud-p">{{'VM_INSTANCE.BOOT_DISK'| translate}}: {{ values.BOOTSTORAGE?.attrDisplayValue}} / {{ values.BOOTSIZE?.attrValue}}GB</p>
             <p class="cloud-p" *ngFor="let disk of database?.diskInfoList;let i = index;"> 云硬盘{{i+1}}:  {{disk?.storage?.attrDisplayValue}} / {{disk?.diskValue?.DISKSIZE.attrValue}}GB</p>
             <h4 class="cloud-title font-green">实例类型</h4>
-            <p class="cloud-p">类型: {{fetchTmIdsPost.dbType}}</p>
+            <p class="cloud-p">类型: {{dbInit?.db.label}}</p>
             <p class="cloud-p">版本: {{fetchTmIdsPost.version}}</p>
-            <p class="cloud-p">部署模式: {{fetchTmIdsPost.deploymentMode}}</p>
+            <p class="cloud-p">部署模式: {{deploymentModeString}}</p>
             <h4 class="cloud-title font-green">{{'COMMON.PURCHASE_AMOUNT'|translate}}</h4>
             <p class="cloud-p">{{'COMMON.PURCHASE_DURATION'|translate}}: {{ values.TIMELINEUNIT.attrDisplayValue}} / {{ values.TIMELINE?.attrValue}}</p>
             <div class="cloud-line"></div>

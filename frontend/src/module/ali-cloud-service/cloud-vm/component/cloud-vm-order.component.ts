@@ -473,7 +473,7 @@ export class AliCloudVmOrderComponent implements OnInit {
                         this.checkClassicNetworkSecGroups();
                         this.checkVpcNetworkSecGroups(this.selectedOrderVmPage.selectedVpcId);
 
-                        this.calculatePrice();
+                        //this.calculatePrice();
                     } else {
                         console.log("this.securitygrouplist.length = 0");
                         this.selectedsecgroup = this.defaultsecgroup;
@@ -718,7 +718,8 @@ export class AliCloudVmOrderComponent implements OnInit {
             region.selectedArea.AvailableDiskCategories = this.selectedOrderVmPage.selectedArea.AvailableDiskCategories;
             //console.log(region, this.selectedOrderVmPage, "After AreaChanged()!");
         }, 50); //window内的代码要延后50ms执行
-        this.getVSwitches(); //there is calculatePrice
+        this.selectedOrderVmPage.selectedVpcId = this.selectedVPC.VpcId;
+        this.VPCChanged();
     }
 
     DiskChanged() {

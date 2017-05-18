@@ -1,4 +1,4 @@
-<div class="page-content-header icon-create-product">{{'PROD_MNG.PRODUCT_CAT_MANAGEMENT' | translate}}</div>
+<div class="page-content-header icon-create-product"> {{'PROD_MNG.PRODUCT_CAT_MANAGEMENT' | translate}}</div>
 <!--产品目录管理-->
 
 <div class="page-content" style="min-height:300px;">
@@ -12,26 +12,26 @@
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<!--<li><a href="#">{{'COMMON.MODIFY' | translate}}</a></li>-->
 				<!--<li><a (click)="edit();">{{'HOST_VMWARE_MNG.EDIT' | translate}}</a></li>-->
-				<li><a (click)="action('publish');">{{'COMMON.PUBLISH' | translate}}</a></li>
+				<li><a (click)="action('publish');" id="action_publish">{{'COMMON.PUBLISH' | translate}}</a></li>
 				<!--发布-->
 
-				<li><a (click)="action('ccPublish');">{{'PROD_MNG.CANCEL_PUBLISH' | translate}}</a></li>
+				<li><a (click)="action('ccPublish');" id="action_ccPublish">{{'PROD_MNG.CANCEL_PUBLISH' | translate}}</a></li>
 				<!--取消发布-->
 
-				<li><a (click)="action('delete');">{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}</a></li>
+				<li><a (click)="action('delete');" id="action_delete">{{'NET_MNG_VM_IP_MNG.DELETE' | translate}}</a></li>
 			</ul>
 		</div>
 		<button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;width:60px; margin-left: 20px"
-		 (click)='onQuery()'>{{'COMMON.SEARCH' | translate}}</button>
+		 (click)='onQuery()' id="onQuery">{{'COMMON.SEARCH' | translate}}</button>
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
 			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 {{'PROD_MNG.ALL_PLATFORM' | translate}}
 
                 <span class="caret"></span>
             </button>-->
-			<select class="form-control" [(ngModel)]="platformId">
-				<option value="">--{{'PROD_MNG.ALL_PLATFORM'|translate}}--</option>
-                 <option *ngFor="let item of platformsList;" [value]="item.id">{{item.name}}</option>
+			<select class="form-control" [(ngModel)]="platformId" id="platformId">
+				<option value="" id="platformId_null">--{{'PROD_MNG.ALL_PLATFORM'|translate}}--</option>
+                 <option *ngFor="let item of platformsList;" [value]="item.id"  id="platformId_{{item.id}}">{{item.name}}</option>
             </select>
 		</div>
 		<span class="pull-right" style="line-height: 34px;margin-left: 20px">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}：</span>
@@ -44,15 +44,15 @@
 
                 <span class="caret"></span>
             </button>-->
-			<select class="form-control" [(ngModel)]="queryProDirTypeId">
-					<option value="">--{{'PROD_MNG.ALL_PRODUCT_TYPE'|translate}}--</option>
-                 <option *ngFor="let item of prodDirTypeList;" [value]="item.id">{{item.name}}</option>
+			<select class="form-control" [(ngModel)]="queryProDirTypeId" id="queryProDirTypeId">
+					<option value=""  id="queryProDirTypeId_null">--{{'PROD_MNG.ALL_PRODUCT_TYPE'|translate}}--</option>
+                 <option *ngFor="let item of prodDirTypeList;" [value]="item.id" id="queryProDirTypeId_{{item.id}}">{{item.name}}</option>
             </select>
 		</div>
 		<span class="pull-right" style="line-height: 34px">{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}：</span>
 		<!--产品目录类别-->
 
-		<button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="creation();" id="creation">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">{{'PROD_MNG.CREATE_PRODUCT_CAT' | translate}}</span><!--创建产品目录-->
 
@@ -62,7 +62,7 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th class="check-box-col"><input class="fox-cloud-checkbox" type="checkbox" class="fox-cloud-checkbox" (click)="switchSelectAll();" />{{'COMMON.SELECT_ALL'
+					<th class="check-box-col"><input class="fox-cloud-checkbox" type="checkbox" class="fox-cloud-checkbox" (click)="switchSelectAll();"  id="switchSelectAll" />{{'COMMON.SELECT_ALL'
 						| translate}}</th>
 					<th>
 						{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}
@@ -81,8 +81,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let item of prodDirList; let idx = index;">
-					<td><input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)"
+				<tr *ngFor="let item of prodDirList; let idx = index;" id="prodDirList_{{item.serviceId}}">
+					<td><input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="item.isSelected"(ngModelChange)="switchSelectIndividual(idx)"
 						/></td>
 					<td>
 						<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{item.serviceName}}</a>
@@ -121,8 +121,8 @@
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}:</div>
 			<div class="col-sm-6">
-				<select class="form-control" [(ngModel)]="prodDirTypeCode">
-                    <option *ngFor="let item of prodDirTypeList;" [value]="item.code">{{item.name}}</option>
+				<select class="form-control" [(ngModel)]="prodDirTypeCode" id="prodDirTypeCode">
+                    <option *ngFor="let item of prodDirTypeList;" [value]="item.code" id="prodDirTypeCode_{{item.code}}">{{item.name}}</option>
                 </select>
 			</div>
 		</div>
@@ -132,8 +132,8 @@
 			<div class="form-group">
 				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SELECT_CLOUD_HOST_SPECIFICATIONS' | translate}}: </div>
 				<div class="col-sm-6">
-					<select class="form-control" [(ngModel)]="prodDirSpecIdx" (ngModelChange)="selectProDirSpec(prodDirSpecIdx)">
-                    <option *ngFor="let item of vmProdDirSpecList; let idx=index" [value]="idx">{{'COMMON.NAME' | translate}}: {{item.cpu+' CPU,'+(item.mem/1024)+' GB,'+item.bootStorageSize+' GB'}}</option>
+					<select class="form-control" [(ngModel)]="prodDirSpecIdx" id="prodDirSpecIdx" (ngModelChange)="selectProDirSpec(prodDirSpecIdx)">
+                    <option *ngFor="let item of vmProdDirSpecList; let idx=index" [value]="idx" id="vmProdDirSpecList_{{idx}}">{{'COMMON.NAME' | translate}}: {{item.cpu+' CPU,'+(item.mem/1024)+' GB,'+item.bootStorageSize+' GB'}}</option>
                 </select>
 				</div>
 			</div>
@@ -144,8 +144,8 @@
 			<div class="form-group">
 				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SERVE_OBJECT' | translate}}: </div>
 				<div class="col-sm-6">
-					<select class="form-control" [(ngModel)]="servObjCode">
-                    <option *ngFor="let obj of service.dictServiceObjList | async; let idx=index" [value]="obj.code">{{obj.displayValue}}</option>
+					<select class="form-control" [(ngModel)]="servObjCode" id="servObjCode">
+                    <option *ngFor="let obj of service.dictServiceObjList | async; let idx=index" id="servObjCode_{{obj.code}}" [value]="obj.code">{{obj.displayValue}}</option>
                 </select>
 				</div>
 			</div>
@@ -156,8 +156,8 @@
 			<div class="form-group">
 				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PHYSICAL_MNG.SERVER_TYPE' | translate}}: </div>
 				<div class="col-sm-6">
-					<select class="form-control" [(ngModel)]="serverTypeCode">
-                    <option *ngFor="let obj of service.serverTypeDic | async; let idx=index" [value]="obj.code">{{obj.displayValue}}</option>
+					<select class="form-control" [(ngModel)]="serverTypeCode" id="serverTypeCode">
+                    <option *ngFor="let obj of service.serverTypeDic | async; let idx=index" id="serverTypeCode_{{obj.code}}" [value]="obj.code">{{obj.displayValue}}</option>
                 </select>
 				</div>
 			</div>

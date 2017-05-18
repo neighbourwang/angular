@@ -27,7 +27,7 @@
 						<div class="row">
 							<div class="col-sm-3" style="min-width:180px">
 								<count-bar [default]=0 [step]=10 [max]=2048 [min]=0 [disabled]="type=='edit'" [value]="prodDir.specification.initialSize"
-								 (output)="outputValue($event,'initialSize')"></count-bar>
+								 (output)="outputValue($event,'initialSize')" id="prodDir_specification_initialSize"></count-bar>
 							</div>
 							<div class="col-sm-2">
 								<span style="line-height:34px;margin-left:-15px;">GB</span>
@@ -42,7 +42,7 @@
 					<div class="col-sm-5 no-padding">						
 						<div class="row">
 							<div class="col-sm-3" style="min-width:180px">
-								<count-bar [default]=1 [step]=10 [max]=2048 [min]=1 [disabled]="type=='edit'" [value]="1" (output)="outputValue($event,'stepSize')"></count-bar>
+								<count-bar [default]=1 [step]=10 [max]=2048 [min]=1 [disabled]="type=='edit'" [value]="1" id="prodDir_specification_type" (output)="outputValue($event,'stepSize')"></count-bar>
 							</div>
 							<div class="col-sm-2">
 								<span style="line-height:34px;margin-left:-15px;">GB</span>
@@ -57,7 +57,7 @@
 					<div class="col-sm-5 no-padding">
 						<div class="row">
 							<div class="col-sm-3" style="min-width:180px">
-								<count-bar [default]=0 [step]="prodDir.specification.stepSize" [max]=2048 [min]="prodDir.specification.initialSize" [disabled]="type=='edit'"
+								<count-bar [default]=0 [step]="prodDir.specification.stepSize" id="prodDir_specification_stepSize" [max]=2048 [min]="prodDir.specification.initialSize" [disabled]="type=='edit'"
 								 [value]="this.prodDir.specification.maxSize" (output)="outputValue($event,'maxSize')" [stepCheck]="true"></count-bar>
 							</div>
 							<div class="col-sm-2">
@@ -109,7 +109,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index">
+					<div class="row tabBody" *ngFor="let plateform of _platformlist; let idx=index" id="plateform_{{plateform.platformId}}">
 						<div class="col-sm-4 oneChild">
 							<p class="no-padding" style="line-height:34px" [title]="plateform.platformName">{{plateform.platformName}}</p>
 						</div>
@@ -149,10 +149,10 @@
 	</div>
 </div>
 <div class="text-center">
-	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();" id="cancel">
         <span class="icon-button-label">{{'NET_MNG_OPENSTACK.CNACLE' | translate}}</span>
     </button>
-	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();" style="margin-left:40px;">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();" id="onSubmit" style="margin-left:40px;">
         <span *ngIf="type=='new'" class="icon-button-label">{{'PHY_MNG_POOL.CREATE' | translate}}</span><!--创建-->
         <span *ngIf="type=='edit'" class="icon-button-label">{{'COMMON.SAVE' | translate}}</span><!--保存-->
     </button>
