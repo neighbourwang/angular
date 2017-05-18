@@ -1,18 +1,20 @@
 <div class="col-md-12 btn-group">
-	<button (click)="region={};resourcePolls=[];" name="setCurrentArea" class="btn mgb5 btn-default" [ngClass]="{'active': !region?.id }">{{'COMMON.ALL' | translate}}</button>
+	<button (click)="region={};resourcePolls=[];clickEmit();" name="setCurrentArea" class="btn mgb5 btn-default" [ngClass]="{'active': !region?.id }">{{'COMMON.ALL' | translate}}</button>
 
     <button *ngFor="let value of regions;" 
-            (click)="region = value;fetchResourcePoll();" 
+            (click)="region = value;fetchResourcePoll();clickEmit();" 
             [ngClass]="{'active':region?.id === value.id}"
             id="regionItem_{{value.id}}"
             class="btn mgb5 btn-default">{{ value.name }}
     </button>
 </div>
-<div class="col-md-12 btn-group areaAble" data-toggle="buttons">
+
+<!-- 暂时隐藏 ⤵️ -->
+<div style="display: none" class="col-md-12 btn-group areaAble" data-toggle="buttons"> 
 	<button class="btn mgb5 btn-default" name="setCurrentZone" (click)="resourcePoll = {};" [ngClass]="{'active': !resourcePoll?.id }">{{'COMMON.ALL' | translate}}</button>
 
     <button *ngFor="let value of resourcePolls;" 
-            (click)="resourcePoll = value;" 
+            (click)="resourcePoll = value;clickEmit()" 
             [ngClass]="{'active':resourcePoll?.id === value.id}"
             id="regionItem_{{value.id}}"
             class="btn mgb5 btn-default">{{ value.poolName }}

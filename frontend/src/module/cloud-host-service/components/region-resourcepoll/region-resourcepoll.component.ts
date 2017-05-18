@@ -51,4 +51,9 @@ export class RegionResourcepollComponent implements OnInit {
 			resourcePoll : this.resourcePoll
 		});
 	}
+
+	public reset() {
+		this.region = undefined
+		this.resourcePoll = undefined
+	}
 }

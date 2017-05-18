@@ -6,6 +6,7 @@ import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from
 import { PhysicalMachineListService } from '../service/physical-machine-list.service'
 
 import { PMServiceItem } from "../model/service.model"
+import { PMServiceQuery } from "../model/post.model"
 
 @Component({
 	selector: 'physical-machine-list',
@@ -24,13 +25,17 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 	@ViewChild('popup')
 	private popup: PopupComponent;
 
+	@ViewChild('region') region
+
 	destroyed: boolean;
 
 	modalTitle: string = '';
 	modalMessage: string = '';
 	modalOKTitle: string = '';
 
-	pmListQuery: any = {};
+	queryField: number = 0;
+
+	pmListQuery: PMServiceQuery = new PMServiceQuery;
 	currentPage: number = 1;
 	totalPage: number = 0;
 	list:PMServiceItem[] = [];
@@ -118,6 +123,21 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 
 	regionClick(event) {
 		console.log(event)
+		this.pmListQuery.regionId = event.region ? event.region.id : ""
+		this.fetchPMList()
+	}
+
+	resetQueryField() {
+		this.pmListQuery.pmName = ""
+		this.pmListQuery.privateIP = ""
+		this.pmListQuery.publicIP = ""
+	}
+
+	resetSearch() {
+		this.pmListQuery = new PMServiceQuery;
+		this.queryField = 0;
+		this.region.reset()
+		this.fetchPMList();
 	}
 
 	//分页

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
+import { Regions, PMOrderResponse, PMPartsEntity, PMNetworkVO, ResoucePolls, PMImageBaseVO } from '../model/service.model';
+import { PostAttrList, PayLoad, PMServiceQuery} from '../model/post.model';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -15,7 +17,7 @@ export class PhysicalMachineListService {
 
     userInfo = this.restApi.getLoginInfo().userInfo;
     
-    fetchPMList (page, pmServiceQuery:any = {}): Promise<any> {
+    fetchPMList (page, pmServiceQuery:PMServiceQuery): Promise<any> {
         let api = this.restApiCfg.getRestApi('phymachine.product.page');
         let pathParams = [
             {
