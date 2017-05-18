@@ -7,6 +7,7 @@ import { ManagementServicesOrderService } from '../service/management-services-o
 
 import { cloudHostServiceList } from '../../vm-instance/service/cloud-host-list.service';
 import { cloudDriveServiceList } from '../../cloud-drive/service/cloud-drive-list.service';
+import { PhysicalMachineListService } from '../../physical-machine/service/physical-machine-list.service';
 
 import { DispatchEvent } from "../../components/dispatch-event"
 
@@ -16,6 +17,8 @@ import { Values, ValuesAttr, Selected} from '../model/other.model';
 
 import { QuiryDistList } from '../../cloud-drive/model/dist-list.model';
 import { QuiryVmList } from '../../vm-instance/model/vm-list.model';
+import { PMServiceItem } from "../../physical-machine/model/service.model"
+import { PMServiceQuery } from "../../physical-machine/model/post.model"
 	
 const codeList = {
 	"0" : "VM",
@@ -68,6 +71,11 @@ export class ManagementServicesOrderComponent implements OnInit {
 	code: string;
 	description: string;
 
+	pmListQuery: PMServiceQuery = new PMServiceQuery;
+	pmCurrentPage: number = 1;
+	pmTotalPage: number = 0;
+	pmList:PMServiceItem[] = [];
+
 	check = {};
 
 	@ViewChild('cartButton') cartButton;
@@ -81,7 +89,8 @@ export class ManagementServicesOrderComponent implements OnInit {
 		private customV: Validation,
 		private service: ManagementServicesOrderService,
 		private diskService: cloudDriveServiceList,
-		private vmService: cloudHostServiceList
+		private vmService: cloudHostServiceList,
+		private pmService: PhysicalMachineListService
 	) {
 		this.v.result = {}
 		this.customV.result = {}  //自定义表单的一些验证
@@ -113,7 +122,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 		this.dux.subscribe("PRODUCT_INFO", () => { this.initPostData() })  //选取产品详情时 -》 填充postdata的一些能填充的信息
 		this.dux.subscribe("VM", () => { this.fetchVmlist() })  
 		this.dux.subscribe("DISK", () => { this.fetchDisklist() })
-		this.dux.subscribe("PHYSICAL", () => {})
+		this.dux.subscribe("PHYSICAL", () => { this.fetchPmList() })
 		this.dux.subscribe("DATABASES", () => { this.fetchVmlist() })
 		this.dux.subscribe("MIDDLEWARE", () => { this.fetchVmlist() })
 		this.dux.subscribe("ALI_VM", () => { this.customInput() })
@@ -275,6 +284,49 @@ export class ManagementServicesOrderComponent implements OnInit {
 				return returnData
 			})
 		console.log(this.selectedList)
+	}
+
+	//////物理机
+	private fetchPmList() {
+		this.layoutService.show()
+		this.pmService.fetchPMList(this.pmCurrentPage, this.pmListQuery)
+			.then(res => {
+				this.layoutService.hide()
+				if (res.resultCode !== "100" || !res.resultContent.length) return ;
+
+                this.pmTotalPage = res.pageInfo.totalPage
+				this.pmList = this.pmList.concat(res.resultContent)
+			})
+			.catch(e => this.layoutService.hide())
+	}
+	private pmNextPage() {
+		if(this.pmCurrentPage >= this.pmTotalPage) return
+		this.pmCurrentPage += 1
+		this.fetchPmList()
+	}
+	private reFetchPmList() {
+		this.pmCurrentPage = 1
+		this.pmList = []
+		this.fetchPmList()
+	}
+
+	/******************物理机的区域变化******************/
+	private regionClick(event) {
+		this.pmListQuery.regionId = event.region ? event.region.id : ""
+		this.reFetchPmList()
+	}
+	/******************物理机被选择******************/
+	private pmSelect() {
+		this.selectedList = this.pmList.filter(pm => (pm as any).isSelected)
+			.map(pm => {
+				let returnData = new Selected;
+				returnData.REGION.attrValue = pm.poolRegionInfo
+				returnData.ZONE.attrValue = ""
+				returnData.instanceId = pm.pmId
+				returnData.INSTANCENAME.attrValue = pm.pmName
+
+				return returnData
+			})
 	}
 
 	/******************自定义表单******************/
