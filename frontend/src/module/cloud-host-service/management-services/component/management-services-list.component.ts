@@ -63,6 +63,7 @@ export class ManagementServicesListComponent implements OnInit {
 	fetchMgmtList() {
 		// this.layoutService.show();
 		this.service.fetchMgmtList(this.listQuery).then(res => {
+			console.log(this.mgmtList)
 			this.mgmtList = res;
 		})
 		

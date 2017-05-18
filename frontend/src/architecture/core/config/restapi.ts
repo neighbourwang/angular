@@ -327,6 +327,12 @@ export let RestApis: RestApiModel[] = [
         "id": "mngm-attribute",
         "url": "marketplace/authsec/supervise/product/attribute"
     },
+    {
+        "desc": "分页获取管理服务列表",
+        "method": "POST",
+        "id": "mngm-search-page",
+        "url": "subinstancemgmt/authsec/subinstance/supervise/search/page"
+    },
     // {
     //     "desc": "获取一个管理服务目录的基础信息",
     //     "method": "GET",

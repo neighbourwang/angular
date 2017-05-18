@@ -27,6 +27,9 @@ class DatabaseValue {
 	ASMPASSWORD : VlueList = new VlueList;
     TIMELINE : VlueList = new VlueList;
     TIMELINEUNIT : VlueList = new VlueList;
+    DBTYPE : VlueList = new VlueList;
+    DBVERSION : VlueList = new VlueList;
+    DEPLOYMODE : VlueList = new VlueList;
 }
 
 export {
