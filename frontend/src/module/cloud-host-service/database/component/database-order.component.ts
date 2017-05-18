@@ -349,4 +349,8 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.dux.dispatch("SET_DISKPRICE")
 	}
 
+	get deploymentModeString () {
+		return this.dbInit ? this.dbInit.mode.filter(m => m.value === this.fetchTmIdsPost.deploymentMode)[0].label : ""
+	}
+
 }

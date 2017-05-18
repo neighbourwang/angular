@@ -97,6 +97,7 @@ export class ProdDirListComponent implements OnInit {
             "platformId": '',
             "size": this.pp,
         });
+        console.log(this.service.dictServiceObjList);
     }
     data: any = {
         "categoryId": "",

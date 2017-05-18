@@ -253,7 +253,7 @@ export class cloudDriveComponentOrder implements OnInit {
 			zone: [this.sendModule.zone.attrValue, [this.v.isUnBlank], "CLOUD_DRIVE_ORDER.PLEASE_SELECT_AVAILABLE_ZONE"],
 			disktype: [this.sendModule.disktype.attrValue, [this.v.isUnBlank], "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK"],
 			storage: [this.sendModule.storage.attrValue, [this.v.isUnBlank], "CLOUD_DRIVE_ORDER.PLEASE_SELECT_CLOUD_HARD_DISK_TYPE"],
-			diskinsname: [this.sendModule.diskinsname.attrDisplayValue, [this.v.isInstanceName, this.v.isBase], "CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_NAME_FORMAT_IS_NOT_CORRECT"]
+			diskinsname: [this.sendModule.diskinsname.attrValue, [this.v.isInstanceName, this.v.isBase], "CLOUD_DRIVE_ORDER.CLOUD_HARD_DISK_NAME_FORMAT_IS_NOT_CORRECT"]
 		}
 
 		return this.v.check(key, regs);
