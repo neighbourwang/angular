@@ -56,10 +56,9 @@ export class DatabaseComponent implements OnInit{
                 params['type']=='new'?'新建数据库模板':'编辑数据库模板';
                 if(params['id']){
                     this.database.id=params['id'];
-                    this.getDatabaseTemplateList(this.database.id);                    
                 }             
         });
-        
+        this.getDatabseOptionInfo();
     }
     //获取基础选项类型数据    
     getDatabseOptionInfo(){
@@ -68,6 +67,9 @@ export class DatabaseComponent implements OnInit{
             console.log(res);
             this.databaseOptionList=Object.assign({},res.resultContent);
             // console.log();
+            if(this.database.id){
+                this.getDatabaseTemplateList(this.database.id);                                    
+            }
             this.softwareTypeList.push(this.databaseOptionList.items[0].db);
             this.database.dbType=this.databaseOptionList.items[0].db.value;
             this.database.version=this.databaseOptionList.items[0].version[0];
