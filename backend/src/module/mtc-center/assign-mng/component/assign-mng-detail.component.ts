@@ -394,7 +394,7 @@ export class AssignMngDetailComponent implements OnInit {
                                 display: true,
                                 ticks: {
                                     userCallback: function(dataLabel, index) {
-                                        return index % 2 === 0 ? dataLabel : '';
+                                        return index % 10 === 0 ? dataLabel : '';
                                     }
                                 }
                             }],
@@ -402,7 +402,7 @@ export class AssignMngDetailComponent implements OnInit {
                                 display: true,
                                 ticks: {
                                     min: 0,
-                                    //max:100
+                                    suggestedMax: 50
                                 },
                                 beginAtZero: false
                             }]
