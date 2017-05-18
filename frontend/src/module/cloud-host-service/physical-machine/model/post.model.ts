@@ -23,7 +23,20 @@ class PayLoad {
     totalPrice: number = 120;
 }
 
+class PMServiceQuery {
+    appendService :string = ""; //, optional),
+    department :string = ""; //, optional),
+    pmName :string = ""; //, optional),
+    privateIP :string = ""; //, optional),
+    publicIP :string = ""; //, optional),
+    regionId :string = ""; //, optional),
+    serviceLevel :string = ""; //, optional),
+    serviceType :string = ""; //, optional),
+    status :string = ""; //, optional)
+}
+
 export {
     PostAttrList,
+    PMServiceQuery,
     PayLoad
 }

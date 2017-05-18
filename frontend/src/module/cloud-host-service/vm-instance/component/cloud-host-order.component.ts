@@ -113,6 +113,7 @@ export class cloudVmComponentOrder implements OnInit {
 		this.dux.subscribe("OS", () => { this.osChanged() })
 		this.dux.subscribe("OS", () => { this.oSfilterBootsize() })
 		this.dux.subscribe("FINDE_VMSKU", () => { this.getSkuMap("vm") })
+		this.dux.subscribe("FINDE_VMSKU", () => { this.oSfilterBootsize() })  //选择新的云主机的话会重新计算启动盘的大小
 		this.dux.subscribe("FINDE_DISKSKU", () => { this.getSkuMap("disk") })
 		this.dux.subscribe("SET_TIME_UNIT", () => { this.setTimeUnit() })
 		this.dux.subscribe("SET_VMPRICE", () => { this.setVmPrice() })
@@ -252,6 +253,8 @@ export class cloudVmComponentOrder implements OnInit {
 		if( this.bootsizeList.length ){
 			this.values.BOOTSIZE = filteredList[0];
 			this.dux.dispatch("BOOTSIZE")
+		}else {
+			this.values.BOOTSIZE.attrValue = ""
 		}
 	}
 
@@ -337,6 +340,7 @@ export class cloudVmComponentOrder implements OnInit {
 
 	checkValue(key?: string) {
 		const regs: ValidationRegs = {
+			zoneSupportOs: [this.isZoneSupportOs.toString(), [this.v.equalTo("true")], "本可用区不支持该镜像！"],
 			platform: [this.values.PLATFORM.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_CLOUD_PALTFORM"],
 			zone: [this.values.ZONE.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_AVAILABLE_ZONE"],
 			cpu: [this.values.CPU.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_CPU"],

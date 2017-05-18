@@ -41,7 +41,7 @@ export class ManagerServeServiceCreComponent implements OnInit {
         });
         if (this.managerServeService.serviceObjectCode == '2') {
             this.getResourcePoolList();
-        } else if (this.managerServeService.serviceObjectCode != '8') {
+        } else if (this.managerServeService.serviceObjectCode != '6'&&this.managerServeService.serviceObjectCode != '7'&&this.managerServeService.serviceObjectCode != '8') {
             this.getPlateForm();
         }
     }
@@ -132,7 +132,7 @@ export class ManagerServeServiceCreComponent implements OnInit {
                 this.notice.open('COMMON.OPERATION_ERROR','请选择资源池信息')
                 return 
             }
-        } else if (this.managerServeService.serviceObjectCode != '8') {
+        } else if (this.managerServeService.serviceObjectCode != '6'&&this.managerServeService.serviceObjectCode != '7'&&this.managerServeService.serviceObjectCode != '8') {
             this.managerServeService.platformList=[];
             this._platformlist.forEach(ele => {
                 if (ele.selected) {

@@ -24,6 +24,9 @@
         <div class="pull-left  mgr20 ">
             <button type="button" class="fox-cloud-button fox-cloud-button-white " style="height:34px" (click)="search1()"> {{'NET_MNG_OPENSTACK.COMFIRM' | translate}}</button>
         </div>
+        <!--<div>region={{queryOpt.region}}</div>
+        <div>selectedDc={{queryOpt.dataCenter}}</div>
+        <div>platformName={{queryOpt.platformId}}</div>-->
     </div>
     <div class="clear"></div>
     <div class="mgb20 mgt10">
@@ -91,7 +94,7 @@
                                         </div>
                                     </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class=" fox-cloud-button fox-cloud-button-white"style="background-color:#00a982;color:white" (click)="updateNetworkDisplayName(network)">{{'NET_MNG_OPENSTACK.SAVE' | translate}}</button>
+                                    <button class=" fox-cloud-button fox-cloud-button-white"(click)="updateNetworkDisplayName(network)">{{'NET_MNG_OPENSTACK.SAVE' | translate}}</button>
                                     <button class=" fox-cloud-button fox-cloud-button-white"(click)="network.nameEditing=false">{{'NET_MNG_OPENSTACK.CNACLE' | translate}}</button>
                                 </div>
                             </div>

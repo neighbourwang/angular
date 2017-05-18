@@ -44,7 +44,7 @@
 					<td>{{item.deploymentMode | dict:this.service.databaseDeployModeDic | async}}</td>
 					<td>{{item.relatedProdNum}}</td>
 					<td>
-						<button  class="fox-cloud-button-md fox-cloud-button-white" (click)="deleteTemplate(item.id)">{{'COMMON.DELETE' | translate}}</button>
+						<button  class="fox-cloud-button-md fox-cloud-button-white" (click)="deleteTemplate(item)">{{'COMMON.DELETE' | translate}}</button>
 					</td>
 				</tr>
 			</tbody>
@@ -54,10 +54,8 @@
 <fc-pagination #pagination tp={{tp}} (pf)="pageInfo($event)"></fc-pagination>
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="nof()"></fc-notice>
 <fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="deleteCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="publishCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="ccPublishCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
 
-<fc-popup #createTemplatePop title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
+<fc-popup #createTemplatePop title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccd()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.TEMPLATE_TYPE'| translate}}:</div> <!--选择模板目录-->
