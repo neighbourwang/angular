@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService, 
     PaginationComponent, ConfirmComponent, SystemDictionary } from '../../../../../architecture';
 
+import { TranslateService } from 'ng2-translate';
+
 //model
 import { VmwareImgSyncModel, TenantModel } from '../model/vmware-img-list.model';
 
@@ -26,7 +28,8 @@ export class VmwareImgSyncComponent implements OnInit {
         private syncService: VmwareImgSyncService,
         private layoutService: LayoutService,
         private validationService: ValidationService,
-        private activatedRouter : ActivatedRoute
+        private activatedRouter : ActivatedRoute,
+        private translateService: TranslateService
     ) {
         if (activatedRouter.snapshot.params["platformId"]) {
             this.platformId = activatedRouter.snapshot.params["platformId"];
@@ -185,6 +188,15 @@ export class VmwareImgSyncComponent implements OnInit {
         this.getSelectedItems();
         console.log(this.selectedsyncvmimgs, "[[[[[[[[[[马上要同步的镜像]]]]]]]]]]");
         if(this.selectedsyncvmimgs.length > 0) {
+            for(let i=0; i<this.selectedsyncvmimgs.length; i++) {
+                if(this.validateImgOSBit(this.selectedsyncvmimgs[i])) {
+                    console.log(this.selectedsyncvmimgs[i], " have os and bit!");
+                } else {
+                    //this.showAlert("HOST_VMWARE_MNG.MUST_CHOOSE_OS_AND_BIT");
+                    console.log("You must choose os/bitType for any images which will be synced!");
+                    return;
+                }
+            }
             this.layoutService.show();
             this.syncService.VmwareSyncImages(this.platformId, this.selectedsyncvmimgs)
             .then(
@@ -201,17 +213,6 @@ export class VmwareImgSyncComponent implements OnInit {
                 {
                     this.getVmwareImgSyncList();
                     this.showAlert("HOST_VMWARE_MNG.IMAGE_SYNC_SUCCESS");
-                    /*
-                    //this.getUnSelectedItems();
-                    for (var i = this.vmwaresyncimgs.length - 1; i >= 0; i--) {
-                        if (this.vmwaresyncimgs[i].checked == true) {
-                            this.vmwaresyncimgs.splice(i, 1);
-                            //let e = this.vmwaresyncimgs.splice(i, 1);
-                            //this.unselectedsyncvmimgs.push(e[0]);
-                        }
-                    }
-                    //this.vmwaresyncimgs = this.unselectedsyncvmimgs;
-                    */
                     console.log(this.vmwaresyncimgs, "New sync images!!!");
                 }
             )
@@ -219,6 +220,60 @@ export class VmwareImgSyncComponent implements OnInit {
         } else {
             this.showAlert("HOST_VMWARE_MNG.NO_MORE_IMAGE_NEED_TO_SYNC");
             console.log("No image need to be synced.");
+        }
+    }
+
+
+    validate(name: string, val: any, op: string) {
+        let map: any = {
+            "*": {
+                "func": this.validationService.isBlank,
+                "msg": "HOST_VMWARE_MNG.NO_EMPTY" //不能为空
+            },
+             "email": {
+                "func": val => !this.validationService.isEmail(val),
+                "msg": "HOST_VMWARE_MNG.EMAIL_INVALID"  //邮箱地址无效
+            },
+            "number": {
+                "func": val => { return (Number(val)==0 || isNaN(Number(val)) || Number(val)<0) },
+                "msg": "HOST_VMWARE_MNG.NOT_NUMBER"  //邮箱地址无效
+            }
+        }
+
+        if (map[op].func(val)) {
+            return [name, map[op].msg];
+        }
+        else
+            return undefined;
+    }
+
+    validateImgOSBit(img: VmwareImgSyncModel): boolean {
+        let notValid = null;
+        notValid = [
+            {
+                "name": "HOST_VMWARE_MNG.OS"  //操作系统
+                , 'value': img.os
+                , "op": "*"
+            },
+            {
+                "name": "HOST_VMWARE_MNG.BIT"  //操作系统位数
+                , 'value': img.bitsType
+                , "op": "*"
+            }
+            ].find(n => this.validate(n.name, n.value, n.op) !== undefined);
+        
+        console.log(notValid, "notValid!!!");
+
+        if (notValid !== void 0) {
+            let name = this.validate(notValid.name, notValid.value, notValid.op)[0];
+            let msg = this.validate(notValid.name, notValid.value, notValid.op)[1];
+            this.translateService.get([name,msg], null).subscribe((res) => {
+                this.showMsg(res[name] + res[msg]);
+            });
+            return false;
+        } else {
+            console.log("validateImgOSBit OK!!!");
+            return true;
         }
     }
 

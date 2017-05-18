@@ -4,25 +4,25 @@
     </button>
 </div>
 <div class="page-content">
-    <div class="mgt15 ">      
-            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >{{'HOST_VMWARE_MNG.IMAGE_TYPE' | translate}}：</span>
-            <div class="float-left pdr20">
-                <select class="pdl10 form-control" [(ngModel)]="queryOpt.type">
+    <div class="mgt15 ">
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">{{'HOST_VMWARE_MNG.IMAGE_TYPE' | translate}}：</span>
+        <div class="float-left pdr20">
+            <select class="pdl10 form-control" [(ngModel)]="queryOpt.type">
                     <option [value]="" value="">{{'HOST_VMWARE_MNG.SELECT_IMAGE' | translate}}</option>
                     <!-- <option *ngFor="let td of typeDictArray" [value]="td.value"><span  *ngIf="td.value!='1'">{{td.displayValue}}</span></option> -->
                     <option [value]="'0'">{{'HOST_VMWARE_MNG.PUBLIC_IMAGE' | translate}}</option>
                     <option [value]="'2'">{{'HOST_VMWARE_MNG.ENTERPRISE_IMAGE' | translate}}</option>
                 </select>
-            </div>          
-            <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0" >{{'HOST_VMWARE_MNG.AFFILIATED_ENTERPRISE' | translate}}：</span>
-            <div class="float-left">
-                <select class="pdl10 form-control" [(ngModel)]="queryOpt.tenantId">
+        </div>
+        <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">{{'HOST_VMWARE_MNG.AFFILIATED_ENTERPRISE' | translate}}：</span>
+        <div class="float-left">
+            <select class="pdl10 form-control" [(ngModel)]="queryOpt.tenantId">
                     <option [value]="" value="">{{'HOST_VMWARE_MNG.SELECT_ENTERPRISE' | translate}}</option>
                     <option *ngFor="let ent of vmwareents" [value]="ent.id">{{ent.name}}</option>
                 </select>
-            </div>  
-            <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10" (click)="realQueryOpt.type = queryOpt.type; realQueryOpt.tenantId = queryOpt.tenantId; filter();"><span class="icon-button-label">{{'HOST_VMWARE_MNG.ENSURE' | translate}} </span> </button>                                                             
-    </div>         
+        </div>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10" (click)="realQueryOpt.type = queryOpt.type; realQueryOpt.tenantId = queryOpt.tenantId; filter();"><span class="icon-button-label">{{'HOST_VMWARE_MNG.ENSURE' | translate}} </span> </button>
+    </div>
     <div style="clear:both"></div>
     <div class="mgb20 " style="margin-top:20px">
         <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-sync-vmware.html" (click)="VmwareImgSyncPage()">{{'HOST_VMWARE_MNG.SYNC_IMAGE' | translate}}</button>
@@ -41,7 +41,7 @@
     </div>
     <div class="table-container">
         <table class="table table-hover">
-             <thead>
+            <thead>
                 <tr>
                     <th>{{'HOST_VMWARE_MNG.SELECT' | translate}}</th>
                     <th>{{'HOST_VMWARE_MNG.IMAGE_NAME' | translate}}</th>
@@ -54,32 +54,32 @@
                     <th>{{'HOST_VMWARE_MNG.STATUS' | translate}}</th>
                 </tr>
             </thead>
-            
+
             <tbody>
                 <tr *ngFor="let img of vmwareimgs; let i=index">
                     <td><input type="radio" name="image" class="fox-cloud-radio" [checked]="img.checked" (change)="selectItem(i)" value="{{i}}"></td>
                     <td title="{{img.description}}">
                         <div class="tenant-description-c">{{img.name}} </div>
                     </td>
-                    <td style="position:relative">{{img.displayName || img.name}}             
+                    <td style="position:relative">{{img.displayName || img.name}}
                         <span class="pull-right icon-edit2" (click)="img.nameEditing=true; onSelect(img);"></span>
                         <div *ngIf="img.nameEditing" class="popover fade bottom in" role="tooltip" id="popover316538" style="top:25px; left:150px; width:370px; max-width:1100px; display: block; z-index: 50;">
                             <div class="arrow" style="left: 30%;"></div>
                             <div class="popover-content">
                                 <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label">{{'HOST_VMWARE_MNG.IMAGE_DISPLAY_NAME' | translate}}:</label>
-                                            <div class="col-sm-8 float-left">
-                                            <input type="text" class="form-control"[(ngModel)]="selectedimg.displayName" name="name">
-                                            </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">{{'HOST_VMWARE_MNG.IMAGE_DISPLAY_NAME' | translate}}:</label>
+                                        <div class="col-sm-8 float-left">
+                                            <input type="text" class="form-control" [(ngModel)]="selectedimg.displayName" name="name">
                                         </div>
+                                    </div>
                                 </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
                                     <button class=" fox-cloud-button fox-cloud-button-white" (click)="onSave(img)">{{'HOST_VMWARE_MNG.SAVE' | translate}}</button>
                                     <button class="fox-cloud-button fox-cloud-button-white" (click)="onCancel(); img.nameEditing=false;">{{'HOST_VMWARE_MNG.CANCEL' | translate}}</button>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </td>
                     <td>{{(img.os | dict:this.dictService.osDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>
@@ -88,27 +88,27 @@
                     <td>{{(img.type | dict:this.dictService.typeDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>
                     <td [ngSwitch]="displayIt(img.tenants)">
                         <div *ngSwitchCase="'some'" class="tenants-c">{{'HOST_VMWARE_MNG.DETAIL' | translate}}>>
-                        <div class="table-container" style=" border-left: 1px solid #cfd8e7;border-right: 1px solid #cfd8e7">
-                            <table class="table table-hover" >
-                                <thead>
-                                    <th style="background-color:#00a982;color:white">{{'HOST_VMWARE_MNG.ALL_ENTERPRISE' | translate}}</th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let tenant of img.tenants">
-                                        <td>{{tenant.name}}</td>
-                                    </tr>
-                                </tbody>                          
-                            </table>
-                        </div>
+                            <div class="table-container" style=" border-left: 1px solid #cfd8e7;border-right: 1px solid #cfd8e7">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th style="background-color:#00a982;color:white">{{'HOST_VMWARE_MNG.ALL_ENTERPRISE' | translate}}</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let tenant of img.tenants">
+                                            <td>{{tenant.name}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div *ngSwitchCase="'all'">{{'HOST_VMWARE_MNG.ALL' | translate}}</div>
                         <div *ngSwitchCase="'special'">{{img.tenants[0].name}}</div>
-                        
+
                     </td>
-                    <td [ngClass]="{'font-green':img.status=='1','font-orange':img.status=='0'}">{{(img.status | dict:this.dictService.statusDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>                   
+                    <td [ngClass]="{'font-green':img.status=='1','font-orange':img.status=='0'}">{{(img.status | dict:this.dictService.statusDict | async) || ('HOST_VMWARE_MNG.UNSET' | translate)}}</td>
                 </tr>
             </tbody>
-            
+
         </table>
 
     </div>
@@ -121,100 +121,99 @@
 </div>
 
 <fc-popup #enableimagebox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'HOST_VMWARE_MNG.ENABLE_IMAGE' | translate}}" (of)="acceptVmwareImageEnableModify()" (cf)="cancelVmwareImageEnableModify()">
-	<div class="dialogContent">
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-12">
-                        {{'HOST_VMWARE_MNG.ENABLE_IMAGE_MSG' | translate:{value_1: (selectedimg.displayName || selectedimg.name)} }}
-                        <!--您选择启用 ' {{selectedimg.displayName || "image"}} ' ， 请确认；如果确认，用户将能够在订购中选择此镜像。 -->
-					</div>
-				</div>
-			</div>
-	</div>
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    {{'HOST_VMWARE_MNG.ENABLE_IMAGE_MSG' | translate:{value_1: (selectedimg.displayName || selectedimg.name)} }}
+                    <!--您选择启用 ' {{selectedimg.displayName || "image"}} ' ， 请确认；如果确认，用户将能够在订购中选择此镜像。 -->
+                </div>
+            </div>
+        </div>
+    </div>
 </fc-popup>
 
 <fc-popup #disableimagebox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'HOST_VMWARE_MNG.DISABLE_IMAGE' | translate}}" (of)="acceptVmwareImageDisableModify()" (cf)="cancelVmwareImageEnableModify()">
-	<div class="dialogContent">
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-12">
-                        {{'HOST_VMWARE_MNG.DISABLE_IMAGE_MSG' | translate:{value_1: (selectedimg.displayName || selectedimg.name)} }}
-                        <!-- 您选择禁用 ' {{selectedimg.displayName || "image"}} ' ， 请确认；如果确认，用户将不能在订购中选择此镜像。 -->
-					</div>
-				</div>
-			</div>
-	</div>
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    {{'HOST_VMWARE_MNG.DISABLE_IMAGE_MSG' | translate:{value_1: (selectedimg.displayName || selectedimg.name)} }}
+                    <!-- 您选择禁用 ' {{selectedimg.displayName || "image"}} ' ， 请确认；如果确认，用户将不能在订购中选择此镜像。 -->
+                </div>
+            </div>
+        </div>
+    </div>
 </fc-popup>
 
 <fc-popup #editimagebox ot="{{'COMMON.CONFIRM' | translate}}" ct="{{'COMMON.CANCEL' | translate}}" title="{{'HOST_VMWARE_MNG.EDIT_IMAGE' | translate}}" (of)="acceptVmwareImageModify()" (cf)="cancelVmwareImageModify()">
-	
-	<div class="dialogContent">
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_NAME' | translate}}：</div>
-					<div class="col-sm-7">
-					    {{changedimg.name}}
-					</div>
-				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_DISPLAY_NAME' | translate}}：</div>
-					<div class="col-sm-7">
-					    <input type="string" class="form-control input-control" [(ngModel)]="changedimg.displayName">
-					</div>
-				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-5 form-control-title">{{'HOST_VMWARE_MNG.OS' | translate}}：</div>
-					<div class="col-sm-7">
-                        <select [(ngModel)]="changedimg.os">
+
+    <div class="dialogContent">
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_NAME' | translate}}：</div>
+                <div class="col-sm-7">
+                    {{changedimg.name}}
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_DISPLAY_NAME' | translate}}：</div>
+                <div class="col-sm-7">
+                    <input type="string" class="form-control input-control" [(ngModel)]="changedimg.displayName">
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.OS' | translate}}：</div>
+                <div class="col-sm-7">
+                    <select [(ngModel)]="changedimg.os">
                             <option *ngFor="let os of this.osDictArray" [value]="os.value">{{os.displayValue}}</option>
                         </select>
-					</div>
-				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-5 form-control-title">{{'HOST_VMWARE_MNG.BIT' | translate}}：</div>
-					<div class="col-sm-7">                        
-                        <select [(ngModel)]="changedimg.bitsType">
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.BIT' | translate}}：</div>
+                <div class="col-sm-7">
+                    <select [(ngModel)]="changedimg.bitsType">
                             <option *ngFor="let bit of this.bitDictArray" [value]="bit.value">{{bit.displayValue}}</option>
                         </select>
-					</div>
-				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.CAPACITY' | translate}}：</div>
-					<div class="col-sm-7">
-                        <!-- <span>{{ changedimg.capacity | formatCapacity}}</span> -->
-                        <!-- <input type="string" class="form-control input-control" [ngModel]="capacity" (ngModelChange)="capacity=$event"> GB -->
-                        <input type="string" class="form-control input-control" [(ngModel)]="capacity" style="width:70%; display:inline;"> GB
-					</div>
-				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_TYPE' | translate}}：</div>
-					<div class="col-sm-7">
-                        <select [(ngModel)]="changedimg.type">
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.CAPACITY' | translate}}：</div>
+                <div class="col-sm-7">
+                    <!-- <span>{{ changedimg.capacity | formatCapacity}}</span> -->
+                    <!-- <input type="string" class="form-control input-control" [ngModel]="capacity" (ngModelChange)="capacity=$event"> GB -->
+                    <input type="string" class="form-control input-control" [(ngModel)]="capacity" style="width:70%; display:inline;"> GB
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_TYPE' | translate}}：</div>
+                <div class="col-sm-7">
+                    <select [(ngModel)]="changedimg.type">
                             <option [value]="'0'">{{'HOST_VMWARE_MNG.PUBLIC_IMAGE' | translate}}</option>
                             <option [value]="'2'">{{'HOST_VMWARE_MNG.ENTERPRISE_IMAGE' | translate}}</option>
                             <!-- <option *ngFor="let type of this.typeDict" [value]="type.value">{{type.displayValue}}</option> -->
                         </select>
-					</div>
-				</div>
-			</div>
-			<div class="row row-line-height">
-				<div class="form-group">
-					<div class="col-sm-5 form-control-title">{{'HOST_VMWARE_MNG.DESCRIPTION' | translate}}：</div>
-					<div class="col-sm-7">
-						<input type="string" class="form-control input-control" [(ngModel)]="changedimg.description">
-					</div>
-				</div>
-			</div>
-	</div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-5 form-control-title">{{'HOST_VMWARE_MNG.DESCRIPTION' | translate}}：</div>
+                <div class="col-sm-7">
+                    <input type="string" class="form-control input-control" [(ngModel)]="changedimg.description">
+                </div>
+            </div>
+        </div>
+    </div>
 </fc-popup>
-
