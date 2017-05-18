@@ -59,7 +59,10 @@ export class DatabaseComponent implements OnInit{
                     this.getDatabaseTemplateList(this.database.id);                    
                 }             
         });
-        //获取基础选项类型数据
+        
+    }
+    //获取基础选项类型数据    
+    getDatabseOptionInfo(){
         this.layoutService.show();
         this.service.getDatabaseOptionInitInfo().then(res=>{
             console.log(res);

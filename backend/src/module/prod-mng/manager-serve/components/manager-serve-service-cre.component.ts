@@ -41,7 +41,7 @@ export class ManagerServeServiceCreComponent implements OnInit {
         });
         if (this.managerServeService.serviceObjectCode == '2') {
             this.getResourcePoolList();
-        } else if (this.managerServeService.serviceObjectCode != '8') {
+        } else if (this.managerServeService.serviceObjectCode != '6'&&this.managerServeService.serviceObjectCode != '7'&&this.managerServeService.serviceObjectCode != '8') {
             this.getPlateForm();
         }
     }

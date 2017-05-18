@@ -52,7 +52,7 @@ export class ManagerServeProdCreStep1Component implements OnInit {
                 console.log(res);
                 this.service.managerServeService = res.resultContent;
                 this.service.managerServeProduct.serviceId = res.resultContent.serviceId;
-                if(res.resultContent.serviceObjectCode=='2'||res.resultContent.serviceObjectCode=='8'){
+                if(res.resultContent.serviceObjectCode=='2'||res.resultContent.serviceObjectCode=='6'||res.resultContent.serviceObjectCode=='7'||res.resultContent.serviceObjectCode=='8'){
                     this.service.getEnterPriseList();
                 }else{
                     let platformIdList=res.resultContent.platformList.map(ele=>ele.id);
