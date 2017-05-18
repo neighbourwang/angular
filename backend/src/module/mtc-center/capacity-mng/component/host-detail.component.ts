@@ -130,27 +130,8 @@ export class HostDetailComponent implements OnInit {
         }
         ];
 
-        //chart.DataSets = [{
-
-        //    data: chart._data,
-        //    label:_label,
-        //    fill: false,
-        //    lineTension: 0.1,
-        //    borderCapStyle: 'butt',
-        //    borderDash: [],
-        //    borderDashOffset: 0.0,
-        //    borderJoinStyle: 'miter',
-        //    pointBorderWidth: 2,
-        //    pointHoverRadius: 5,
-        //    pointHoverBorderWidth: 2,
-        //    pointRadius: 4,
-        //    pointHitRadius: 10,
-        //    spanGaps: false,
-        //}
-        //];
-
-        chart.options={
-                       
+       
+        chart.options={                    
                         scales: {
                             xAxes: [{
                                 display: true,
@@ -165,9 +146,8 @@ export class HostDetailComponent implements OnInit {
                                 display: true,
                                  ticks: {
                                     suggestedMin: 0,
-                                    suggestedMax: 60,
+                                    //suggestedMax: 100,
                                 },
-                                //min:0,
                                 beginAtZero: true
                             }]
                         }
