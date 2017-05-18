@@ -15,7 +15,21 @@ export class PhysicalMachineListService {
 
     userInfo = this.restApi.getLoginInfo().userInfo;
     
-  
+    fetchPMList (page, pmServiceQuery:any = {}): Promise<any> {
+        let api = this.restApiCfg.getRestApi('phymachine.product.page');
+        let pathParams = [
+            {
+                key: 'size',
+                value: 20
+            },
+            {
+                key: 'page',
+                value: page
+            }
+        ];
+
+        return this.restApi.request(api.method, api.url, pathParams, undefined, pmServiceQuery)
+    }
 
     //数据字典所用到的值
     dictSourceType = this.dict.get({ 
