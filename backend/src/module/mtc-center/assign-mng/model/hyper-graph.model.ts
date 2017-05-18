@@ -14,4 +14,5 @@ export class LineChart {
     ChartType: string;
     Colors: Array<any>;
     Labels: Array<any>;
+    options: any;
 }

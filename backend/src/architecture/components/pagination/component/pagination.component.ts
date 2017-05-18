@@ -88,7 +88,7 @@ export class PaginationComponent implements OnInit, OnChanges {
         sp = sp > 1 ? sp : 1;
 
         this.prev = this.cp == 1 ? 1 : this.cp - 1;
-        this.next = this.cp > this.tp ? this.cp : this.cp + 1;
+        this.next = this.cp > this.tp ? this.cp : Number(this.cp) + 1;
 
         const pages = new Array<number>();
 

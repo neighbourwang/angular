@@ -15,12 +15,21 @@ class MiddleWareModel {
   "status": 0;
   "templateType": string;
   constructor() {
+    this.templateType='middleware';
+    this.cpu=2;
+    this.memory=4;
+    this.bootStorageSize=20;
+    this.version='';
+    this.bit='64bit';
+    this.os='linux';
+    this.deploymentMode=0;
+    this.templateType='database';
     this.dbMiddlewareDiskTemplateModelList = [
       {
         usageType: 0,
         id: '',
-        minDiskSize: 0,
-        mountPath: '',
+        minDiskSize: 100,
+        mountPath: '/data',
         templateId: '',
         useDisplay: '安装主目录'
       },

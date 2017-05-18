@@ -31,7 +31,7 @@ export class PaginationComponent implements OnInit, OnChanges {
     // 当前显示页切换，更新分页信息，同时调用画面组件指定的分页展示方法
     paging(page: number) {
         this.pf.emit(page);
-        this.cp = page;
+        this.cp = Number(page);
         this.reCalculatePage();
     }
 
@@ -88,7 +88,7 @@ export class PaginationComponent implements OnInit, OnChanges {
         sp = sp > 1 ? sp : 1;
 
         this.prev = this.cp == 1 ? 1 : this.cp - 1;
-        this.next = this.cp > this.tp ? this.cp : this.cp + 1;
+        this.next = this.cp > this.tp ? this.cp : Number(this.cp) + 1;
 
         let pages = new Array<number>();
 
