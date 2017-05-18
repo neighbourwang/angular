@@ -32,6 +32,18 @@ export class PhysicalMachineListService {
 
         return this.restApi.request(api.method, api.url, pathParams, undefined, pmServiceQuery)
     }
+    
+    handlePM (actions:string, uuid:string): Promise<any> {
+        let api = this.restApiCfg.getRestApi('phymachine.subinstance.action');
+
+        return this.restApi.request(api.method, api.url, undefined, undefined, {actions, uuid})
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+    }
 
     fetchPMState(uuid): Promise<any> {
         const api = this.restApiCfg.getRestApi("phymachine.product.state");
@@ -71,10 +83,6 @@ export class PhysicalMachineListService {
         field : "STATUS"
     })
 
-    computeStatus = this.dict.get({    //获取状态列表
-        owner : "COMPUTE",
-        field : "STATUS"
-    });
     useType = this.dict.get({    //云主机类型
         owner : "GLOBAL",
         field : "USE_TYPE"
@@ -95,4 +103,9 @@ export class PhysicalMachineListService {
         owner : "INSTANCE",
         field : "OWNER_TYPE"
     });
+    computeStatus = this.dict.get({    //获取状态列表
+        owner : "PM",
+        field : "SUB_STATUS"
+    });
+
 }
