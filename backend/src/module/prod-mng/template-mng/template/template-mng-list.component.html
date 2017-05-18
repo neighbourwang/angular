@@ -10,7 +10,8 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th class="check-box-col"><input type="checkbox" (click)="switchSelectAll();" class="fox-cloud-checkbox" />{{'COMMON.SELECT_ALL' | translate}}</th>
+					<!--<th class="check-box-col"><input type="checkbox" (click)="switchSelectAll();" class="fox-cloud-checkbox" />{{'COMMON.SELECT_ALL' | translate}}</th>-->
+					<th>{{'编号' | translate}}</th><!--编号-->
 					<th>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}</th><!--模板名称-->
 
 					<th>{{'SYS_SETUP.TEMPLATE_TYPE' | translate}}</th><!--模板类型-->
@@ -20,38 +21,32 @@
 					<th>{{'PROD_MNG.SOFTWARE_VERSION' | translate}}</th><!--软件版本-->
 					<th>{{'PROD_MNG.DEPLOY_MODE' | translate}}</th><!--部署模式-->
 					<th>{{'PROD_MNG.RELATE_PRODUCT_SERVICE_COUNTS' | translate}}</th><!--关联产品目录数量-->
+					<th>{{'操作' | translate}}</th><!--关联产品目录数量-->
 				</tr>
 			</thead>
 			<tbody>
-				<!--<tr *ngFor="let item of productList; let idx = index;">
-					<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)"/></td>
+				<tr *ngFor="let item of templateList; let idx = index;">
+					<!--<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="selectTemplate(idx)"/></td>-->
+					<td>{{idx+1}}</td>
 					<td>
 						<a (click)="goDetail(item)" style="cursor: pointer">{{item.name}}</a>	
 					</td>
-					<td>{{item.serviceName}}</td>					
-					<td>{{item.serviceType | dict:ProdListService.productTypeDic|async}}</td>								
-					<td>{{item.serviceSpecification}}</td>					
 					<td>
-						<span [ngSwitch]="item.billingCycle"> 
-							<template [ngSwitchCase]="0">{{'COMMON.BY_HOUR' | translate}}</template>
-							<template [ngSwitchCase]="1">{{'COMMON.BY_DAY' | translate}}</template>
-							<template [ngSwitchCase]="2">{{'COMMON.BY_WEEK' | translate}}</template>
-							<template [ngSwitchCase]="3">{{'COMMON.BY_MONTH1' | translate}}</template>							
-							<template [ngSwitchCase]="5">{{'COMMON.BY_YEAR1' | translate}}</template>							
+						<!--{{item.templateTpye}}-->
+						<span [ngSwitch]="item.templateTpye"> 
+							<template [ngSwitchCase]="database">{{'数据库模板' | translate}}</template>
 							<template ngSwitchDefault>Unknown</template>							
 						</span>
+					</td>					
+					<td>{{item.type | dict:this.service.databaseTypeDic|async}}</td>								
+					<td>{{item.version}}</td>			
+					
+					<td>{{item.deploymentMode | dict:this.service.databaseDeployModeDic | async}}</td>
+					<td>{{item.relatedProdNum}}</td>
+					<td>
+						<button  class="fox-cloud-button-md fox-cloud-button-white" (click)="deleteTemplate(item)">{{'COMMON.DELETE' | translate}}</button>
 					</td>
-					<td>{{item.recurringPrice}}</td>
-					<td>{{item.onetimePrice}}</td>
-					<td [ngClass]="{'font-green':item.status == '1' ,'font-orange':item.status == '3'}">
-						<span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">{{'PROD_MNG.HAS_PUBLISHED' | translate}}</template>
-                            <template [ngSwitchCase]="3">{{'PROD_MNG.NOT_PUBLISHED_YET' | translate}}</template>
-
-                            <template ngSwitchDefault>Unknown</template>
-                    	</span>
-					</td>
-				</tr>-->
+				</tr>
 			</tbody>
 		</table>
 	</div>
@@ -59,10 +54,8 @@
 <fc-pagination #pagination tp={{tp}} (pf)="pageInfo($event)"></fc-pagination>
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="nof()"></fc-notice>
 <fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="deleteCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-<fc-confirm #publishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="publishCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
-<fc-confirm #ccPublishConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="ccPublishCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
 
-<fc-popup #createTemplatePop title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()">
+<fc-popup #createTemplatePop title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccd()">
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.TEMPLATE_TYPE'| translate}}:</div> <!--选择模板目录-->

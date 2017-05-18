@@ -39,6 +39,10 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	diskSkuList = [];   //硬盘sku列表
 	vmItemNo: string //云主机的itemno
 
+	oneTimeTotalPrice:number = 0;
+	totalBilling:number = 0;
+	totalAnnual:number = 0;
+
 	databaseValue: DatabaseValue = new DatabaseValue;
 	diskValue: DiskValue = new DiskValue;
 
@@ -87,9 +91,11 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.dux.subscribe("PLATFORM", () => { this.fetchShoppingMDproducts() })   //云平台有变化时
 		this.dux.subscribe("ZONE", () => { this.setDiskPrice() })   //zone有变化时重新计算云硬盘
 		this.dux.subscribe("SELECT_DB_PRODUCT", () => { this.databaseChange() })   //选择产品列表触发的时间
+		this.dux.subscribe("SELECT_DB_PRODUCT", () => { this.setTotalPrice() })   //选择产品列表触发的时间
 		this.dux.subscribe("SET_DISK_PRODUCTS", () => { this.setDiskProducts() })   //设置云硬盘的列表
-		this.dux.subscribe("SET_DISK_PRODUCTS", () => { this.setDiskPrice() })   //当设置完云硬盘的产品列表时 设置云硬盘的价格
-		this.dux.subscribe("SET_DISKPRICE", () => { this.setDiskPrice() })   //设置云硬盘的价格
+		this.dux.subscribe("SET_DISK_PRODUCTS", () => { this.setTotalPrice() })   //当设置完云硬盘的产品列表时 设置云硬盘的价格
+		this.dux.subscribe("SET_DISKPRICE", () => { this.setTotalPrice() })   //设置云硬盘的价格
+		this.dux.subscribe("SET_VMPRICE", () => { this.setTotalPrice() })
 	}
 
 	private fetchDatabaseInit() {
@@ -145,13 +151,17 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.database.diskInfoList.forEach(disk => disk.storage = this.values.STORAGE)  //目录下面的所有的硬盘的storage下拉列表设置为第一位
 
 		this.database.attrList.forEach(data => this.attrList[data.attrCode] = data )  //把数据库新加的attrList添加到老的list里面去
+
+		//做一些数据库的选项初始化的工作
+		this.databaseValue.ARCHMODE.attrValue = "0";
+		this.databaseValue.DBCHARSET.attrValue = "0";
 		this.dux.dispatch("SET_DISK_PRODUCTS")
 	}
 
-	setDiskSkuList() {   //确定硬盘的sku列表  并且在这里确定diskValue
+	setListDiskValue() {  //把diskValue加入到 this.database.diskInfoList里面去
 		let lists = this.database.diskInfoList;
-		if(!lists.length) return [];
-		let arr = []
+		if(!lists.length) return;
+
 		for (let list of lists) {
 			list.diskValue = new DiskValue
 		    list.diskValue.PLATFORM = this.values.PLATFORM; 
@@ -162,7 +172,15 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 			list.diskValue.MOUNTPATH.attrValue = list.mountPath; 
 			list.diskValue.DISKGROUP.attrValue = list.diskGroup; 
 			list.diskValue.USAGETYPE.attrValue = list.usageType; 
+		}
+	}
 
+	setDiskSkuList() {   //确定硬盘的sku列表  并且在这里确定diskValue
+		this.setListDiskValue()
+		let lists = this.database.diskInfoList;
+		if(!lists.length) return [];
+		let arr = []
+		for (let list of lists) {
 			this.getSkuMap("disk", list.diskValue);
 			arr.push(this.diskSku);  //加入云硬盘
 		}
@@ -183,9 +201,24 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.diskProducts = arr;
 	}
 
-	setDiskPrice() {
-		if(!this.database) return false;
-		console.log(this.diskSkuList, this.diskProducts)
+	setTotalPrice() {
+		this.setListDiskValue()
+		let billingList = [];
+		[...this.diskProducts, this.dbProduct, this.vmProduct].forEach((prod, i) => {
+			if(prod) {
+				let disksize = this.database.diskInfoList[i] && this.database.diskInfoList[i].diskValue 
+											? this.database.diskInfoList[i].diskValue.DISKSIZE.attrValue : 1   //获取云硬盘的大小
+				billingList.push(Object.assign({}, prod.billingInfo, { disksize }))
+			}
+		})
+		this.oneTimeTotalPrice = 0;
+		this.totalBilling = 0;
+		this.totalAnnual = 0;
+		billingList.forEach(billing => {
+			this.oneTimeTotalPrice += billing.basePrice;  //计算一次性价格
+			if(billing.billingMode == 1) this.totalBilling += billing.basicPrice * +this.values.TIMELINE.attrValue;
+			if(billing.billingMode == 2) this.totalAnnual += billing.unitPrice * billing.disksize * +this.values.TIMELINE.attrValue;
+		})
 	}
 
 	formatDisk():any[] {
@@ -238,6 +271,8 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		if(errorMsg) return [errorMsg];
 
 		this.databaseValue.STORAGETYPE.attrValue = this.database.storageType;
+		this.databaseValue.TIMELINE = this.values.TIMELINE
+		this.databaseValue.TIMELINEUNIT = this.values.TIMELINEUNIT
 
 		let payloadList = this.sendModuleToPay(this.databaseValue);
 		let payLoad = {
@@ -286,13 +321,16 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	}
 
 	checkDbValue(key?: string) {
-		const regs: ValidationRegs = {
+		let regs: any = {
 			listenpost: [this.databaseValue.LISTENPOST.attrValue, [this.v.isUnBlank, this.v.isNumber], "监听端口输入不正确"],
 			maxconnection: [this.databaseValue.MAXCONNECTION.attrValue, [this.v.isUnBlank, this.v.isNumber], "最大连接数输入不正确"],
 			syspassword: [this.databaseValue.SYSPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
-			syspasswordShadow: [this.syspasswordShadow, [this.v.equalTo(this.databaseValue.SYSPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
-			asmpassword: [this.databaseValue.ASMPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
-			asmpasswordShadow: [this.asmpasswordShadow, [this.v.equalTo(this.databaseValue.ASMPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
+			syspasswordShadow: [this.syspasswordShadow, [this.v.equalTo(this.databaseValue.SYSPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"]
+		}
+
+		if(this.database.storageType==='ASM') {
+			regs.asmpassword = [this.databaseValue.ASMPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"];
+			regs.asmpasswordShadow = [this.asmpasswordShadow, [this.v.equalTo(this.databaseValue.ASMPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"]
 		}
 
 		return this.v.check(key, regs);
@@ -309,6 +347,10 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	outputValue($event, i) {
 		this.database.diskInfoList[i].diskSize = $event
 		this.dux.dispatch("SET_DISKPRICE")
+	}
+
+	get deploymentModeString () {
+		return this.dbInit ? this.dbInit.mode.filter(m => m.value === this.fetchTmIdsPost.deploymentMode)[0].label : ""
 	}
 
 }

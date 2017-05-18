@@ -1,6 +1,6 @@
 // ***********子组件 云硬盘列表*************
 
-import { Component,ViewChild, OnInit, Input , Output } from '@angular/core';
+import { Component,ViewChild, OnInit, Input , Output, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent, dictPipe, PopupComponent } from '../../../../architecture';
@@ -15,7 +15,7 @@ import { ListOptions } from '../model/options.model';
 	styleUrls: ['../style/cloud-drive-list.less'],
 })
 
-export class cloudDriveListComponent implements OnInit {
+export class cloudDriveListComponent implements OnInit, OnDestroy {
 
 	@ViewChild('confirm')
 	private confirmDialog: ConfirmComponent;
@@ -124,7 +124,7 @@ export class cloudDriveListComponent implements OnInit {
 
 
 	isMiddleState(state) {
-		return !!['0', '15', '5'].filter(v => v==state).length
+		return !!["0", "2", "3", "4", "5", "6", "8", "9", "11", "13" ].filter(v => v==state).length
 	}
 
 	checkListMiddleState() {

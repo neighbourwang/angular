@@ -104,7 +104,7 @@
                 <button *ngIf="disk.Status=='In_use' && disk.Type!='system'" (click)="selectItem(i); detachDisk();" style="display: inline;" class="btn button-gray-gradient">卸载
                 </button>
 
-                <button *ngIf="disk.Type!='system'" (click)="selectItem(i); deleteDisk();" class="btn button-gray-gradient">释放
+                <button *ngIf="disk.Type!='system'" (click)="selectItem(i); deleteDisk();" [disabled]="disk.Status=='In_use'" class="btn button-gray-gradient">释放
                 </button>
 
                 <button *ngIf="disk.Type=='system'" [disabled]="disk.Type=='system'" class="btn button-gray-gradient">挂载

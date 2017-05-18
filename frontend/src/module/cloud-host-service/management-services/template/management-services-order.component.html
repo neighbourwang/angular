@@ -129,6 +129,58 @@
                     </div>
                 </div>
             </li>
+
+            <li *ngIf="['2'].indexOf(code) > -1">
+                <div class="col-md-1 li-title">
+                    <p>实例选择</p>
+                </div>
+                <div class="col-md-12 li-content">
+                    <div class="col-md-12 no-padding">
+                        <region-resourcepoll #region (onClick)="regionClick($event)"></region-resourcepoll>
+                    </div>
+                    <div class="input-group col-md-4 pdl15 pdr15 pdt15 pdb15">
+                        <input class="form-control" type="text" [(ngModel)]="pmListQuery.pmName" placeholder="物理机名称">
+                        <div class="input-group-addon" (click)="reFetchPmList()" id="queryFieldValue_search">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tr>
+                                <th style="width: 5%;" class="text-center">选择</th>
+                                <th style="width: 17%;" class="text-center">物理机名称</th>
+                                <th style="width: 25%;" class="text-center">配置</th>
+                                <th style="width: 13%;" class="text-center">操作系统</th>
+                                <th style="width: 12%;" class="text-center">私网IP地址</th>
+                                <th style="width: 12%;" class="text-center">公网IP地址</th>
+                                <th style="width: 15%;" class="text-center">区域</th>
+                            </tr>
+                        </table>
+                        <div class="table-scroll mgb20" (scroll)="scrollChange($event, pmNextPage)">
+                            <table class="table table-hover table-boder-top-none table-all-boder">
+                                <ng-container *ngFor="let pm of pmList;let i = index">
+                                    <tr>
+                                        <td style="width: 5%; text-align: center;">
+                                            <input type="checkbox"
+                                                    class="fox-cloud-checkbox fox-cloud-checkbox-white" 
+                                                    name="networkRequirements" 
+                                                    [checked]="pm.isSelected" 
+                                                    (change)="pm.isSelected = !pm.isSelected; pmSelect()">
+                                        </td>
+                                        <td style="width: 17%;" class="text-center active">{{pm.pmName}}</td>
+                                        <td style="width: 25%;" class="text-center">{{pm.pmConfInfo}}</td>
+                                        <td style="width: 13%;" class="text-center">{{pm.osInfo}}</td>
+                                        <td style="width: 12%;" class="text-center">{{pm.privateIP}}</td>
+                                        <td style="width: 12%;" class="text-center">{{pm.publicIP}}</td>
+                                        <td style="width: 15%;" class="text-center">{{pm.poolRegionInfo}}</td>
+                                        <!-- <td class="text-center">{{pm.vmState | dict:vmService.computeStatus | async}}</td> -->
+                                    </tr>
+                                </ng-container>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </li>
             <li *ngIf="isCustomInput()">
                 <div class="col-md-1 li-title">
                     <p>实例选择</p>

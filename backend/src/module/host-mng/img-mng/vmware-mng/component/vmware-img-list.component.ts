@@ -448,6 +448,16 @@ export class VmwareImgListComponent implements OnInit {
                 , "op": "*"
             },
             {
+                "name": "HOST_VMWARE_MNG.OS"  //操作系统
+                , 'value': this.changedimg.os
+                , "op": "*"
+            },
+            {
+                "name": "HOST_VMWARE_MNG.BIT"  //操作系统位数
+                , 'value': this.changedimg.bitsType
+                , "op": "*"
+            },
+            {
                 "name": "HOST_VMWARE_MNG.IMAGE_TYPE"  //镜像类型
                 , 'value': this.changedimg.type
                 , "op": "*"

@@ -64,7 +64,7 @@ export class ProdDirListComponent implements OnInit {
     prodDirTypeCode: string;;
     queryProDirTypeId: string = '';
     ngOnInit() {
-        console.log(this.pp);
+        console.log(this.service.serverTypeDic);
         //获得激活云平台数据
         this.PlatformsActiveService.getPlatformsActive().then(response => {
             console.log('激活云平台数据', response);
@@ -97,6 +97,7 @@ export class ProdDirListComponent implements OnInit {
             "platformId": '',
             "size": this.pp,
         });
+        console.log(this.service.dictServiceObjList);
     }
     data: any = {
         "categoryId": "",

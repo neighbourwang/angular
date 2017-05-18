@@ -9,7 +9,7 @@ import { DatabaseService } from '../service/template-mng-database.service'
 
 @Component({
     templateUrl:"../template/template-mng-database.component.html", 
-     styles: [
+    styles: [
         `.btn-active{
             background-color: #00a982;
             color : #fff
@@ -50,15 +50,26 @@ export class DatabaseComponent implements OnInit{
         this.databaseOptionList=new DatabaseOptions();
         console.log(this.database);
         console.log(this.databaseOptionList);
+        let id:string;
         this.route.params.forEach((params: Params) => {
             this.pagetitle=
-                params['type']=='new'?'新建数据库模板':'编辑数据库模板';             
+                params['type']=='new'?'新建数据库模板':'编辑数据库模板';
+                if(params['id']){
+                    this.database.id=params['id'];
+                }             
         });
+        this.getDatabseOptionInfo();
+    }
+    //获取基础选项类型数据    
+    getDatabseOptionInfo(){
         this.layoutService.show();
         this.service.getDatabaseOptionInitInfo().then(res=>{
             console.log(res);
             this.databaseOptionList=Object.assign({},res.resultContent);
             // console.log();
+            if(this.database.id){
+                this.getDatabaseTemplateList(this.database.id);                                    
+            }
             this.softwareTypeList.push(this.databaseOptionList.items[0].db);
             this.database.dbType=this.databaseOptionList.items[0].db.value;
             this.database.version=this.databaseOptionList.items[0].version[0];
@@ -67,6 +78,22 @@ export class DatabaseComponent implements OnInit{
             this.layoutService.hide();
             console.log(err);
         })
+    }
+    //编辑时查询数据库模板信息
+    getDatabaseTemplateList(id:string) {
+        let pageParameter = {
+            "currentPage": 1,
+            "offset": 0,
+            "size": 10,
+            "sort": {},
+            "totalPage": 0
+        }
+        this.service.getTemplatedetail({id:id, pageParameter}).then(res => {
+            console.log(res);
+            this.database=res.resultContent[0];
+            this.database.diskProfileList=JSON.parse(JSON.stringify(this.database.diskInfoList));
+            console.log(this.database);
+        }).catch(err => console.error(err))
     }
     //选择存储类型
     chooseStorageType(item,idx){

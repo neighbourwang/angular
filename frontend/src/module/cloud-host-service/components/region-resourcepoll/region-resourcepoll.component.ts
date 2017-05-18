@@ -33,8 +33,6 @@ export class RegionResourcepollComponent implements OnInit {
 			if(!res.length) return
 
 			this.regions = res;
-			this.region = this.regions[0]
-			this.fetchResourcePoll()
 		})
 	}
 
@@ -52,5 +50,10 @@ export class RegionResourcepollComponent implements OnInit {
 			region : this.region, 
 			resourcePoll : this.resourcePoll
 		});
+	}
+
+	public reset() {
+		this.region = undefined
+		this.resourcePoll = undefined
 	}
 }

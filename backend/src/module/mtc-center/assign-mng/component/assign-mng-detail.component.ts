@@ -391,6 +391,30 @@ export class AssignMngDetailComponent implements OnInit {
         }
         ];
 
+        
+         chart.options={
+                       
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                ticks: {
+                                    userCallback: function(dataLabel, index) {
+                                        return index % 2 === 0 ? dataLabel : '';
+                                    }
+                                }
+                            }],
+                            yAxes: [{
+                                display: true,
+                                ticks: {
+                                    min: 0,
+                                    max:100
+                                },
+                                beginAtZero: false
+                            }]
+                        }
+                    } 
+
+
         chart.ChartType= "line";
         
         chart.Colors = [

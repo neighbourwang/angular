@@ -4,20 +4,20 @@
         <tr>
             <th class="col-md-1 col-xs-3 text-center">{{'CLOUD_DRIVE_LIST.AREA_LIST' | translate}}</th>
             <td>
-				<region-resourcepoll (onClick)="regionClick($event)"></region-resourcepoll>
+				<region-resourcepoll #region (onClick)="regionClick($event)"></region-resourcepoll>
             </td>
         </tr>
     </table>
     <div class="col-md-12 no-padding mgb20">
         <div class="dropdown float-left mgr10">
-            <select class="form-control" id="queryField">
-                <option
-                 *ngFor="let v of service.queryField | async; let i = index;" id="queryField_{{v.code}}"
-                 [ngValue]="v.code" >{{ v.displayValue }}</option>
+            <select [(ngModel)]="queryField" (ngModelChange)="resetQueryField()" class="form-control" id="queryField">
+                <option [ngValue]="0">物理机名称</option>
+                <option [ngValue]="1">私网IP地址</option>
+                <option [ngValue]="2">公网IP地址</option>
             </select>
         </div>
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control"> 
+            <select [(ngModel)]="pmListQuery.status" class="form-control"> 
                 <option disabled selected value class="hideoption">{{'COMMON.STATUS' | translate}}</option>
                 <option
                  *ngFor="let v of service.computeStatus | async; let i = index;"
@@ -25,7 +25,7 @@
             </select>
          </div>
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control"> 
+            <select [(ngModel)]="pmListQuery.appendService" class="form-control"> 
                 <option disabled selected value class="hideoption">{{'VM_INSTANCE.EXTRA_SERVICES' | translate}}</option>
                 <option
                  *ngFor="let v of service.addonType | async; let i = index;"
@@ -33,7 +33,7 @@
             </select>
          </div>
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control"> 
+            <select [(ngModel)]="pmListQuery.serviceLevel" class="form-control"> 
                 <option disabled selected value class="hideoption">{{'COMMON.TYPE' | translate}}</option>
                 <option
                  *ngFor="let v of service.useType | async; let i = index;"
@@ -41,7 +41,7 @@
             </select>
          </div>
          <div class="input-group col-md-1 float-left mgr10" *ngIf="superSearch">
-            <select class="form-control"> 
+            <select [(ngModel)]="pmListQuery.serviceLevel" class="form-control"> 
                 <option disabled selected value class="hideoption">{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}</option>
                 <option
                  *ngFor="let v of service.serviceLevel | async; let i = index;"
@@ -49,10 +49,12 @@
             </select>
          </div>
         <div class="input-group col-md-2 float-left mgr10">
-            <input class="form-control width-100" id="CLOUD_ENTER_CLOUD_HOST_INFORMATION_TO_SEARCH" type="email" placeholder="{{'COMMON.ENTER_CLOUD_HOST_INFORMATION_TO_SEARCH' | translate}}">
-            <div class="input-group-addon"  (click)="search()" id="GET_CLOUD_HOST_INFORMATION_TO_SEARCH"><span class="glyphicon glyphicon-search"></span></div>
+            <input *ngIf="queryField === 0" class="form-control width-100" type="text" [(ngModel)]="pmListQuery.pmName" placeholder="物理机名称">
+            <input *ngIf="queryField === 1" class="form-control width-100" type="text" [(ngModel)]="pmListQuery.privateIP" placeholder="私网IP地址">
+            <input *ngIf="queryField === 2" class="form-control width-100" type="text" [(ngModel)]="pmListQuery.publicIP" placeholder="公网IP地址">
+            <div class="input-group-addon"  (click)="fetchPMList()" id="GET_CLOUD_HOST_INFORMATION_TO_SEARCH"><span class="glyphicon glyphicon-search"></span></div>
         </div>
-        <!-- <div class="input-group float-left mgr10">
+  <!--       <div class="input-group float-left mgr10">
             <label class="btn btn-default button-gray-gradient" (click)="superSearch = !superSearch" [ngClass]="{'active': superSearch}">
                 高级搜索
             </label>
@@ -79,7 +81,56 @@
             </ul>
         </div>-->
     </div>
-    <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
+
+    <table class="table table-hover">
+        <tr>
+            <th class="text-center"></th>
+            <th class="text-center">物理机名称</th>
+            <th class="text-center">配置</th>
+            <th class="text-center">操作系统</th>
+            <th class="text-center">私网IP地址</th>
+            <th class="text-center">公网IP地址</th>
+            <th class="text-center">区域</th>
+            <th class="text-center">状态</th>
+            <th class="text-center">到期时间</th>
+            <th class="text-center">附加服务</th>
+            <th class="text-center">类型</th>
+            <th class="text-center">服务级别</th>
+            <th class="text-center">{{'CLOUD_DRIVE_LIST.OPERATE' | translate}}</th>
+        </tr>
+        <tr *ngFor="let pm of list;" id="pm_{{pm.pmid}}">
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=pm;" name="disk-list" id="pm_radio_{{pm.id}}"></td>
+            <td class="text-center active">{{pm.pmName}}</td>
+            <td class="text-center">{{pm.pmConfInfo}}</td>
+            <td class="text-center">{{pm.osInfo}}</td>
+            <td class="text-center">{{pm.privateIP}}</td>
+            <td class="text-center">{{pm.publicIP}}</td>
+            <td class="text-center">{{pm.poolRegionInfo}}</td>
+            <td class="text-center">
+                <div *ngIf="isMiddleState(pm.status)" class="loading-icon"></div>
+                {{pm.status | dict:service.computeStatus | async}}
+            </td>
+            <td class="text-center">{{pm.expireDate}}</td>
+            <td class="text-center">{{pm.appendService}}</td>
+            <td class="text-center">{{pm.serviceType}}</td>
+            <td class="text-center">{{pm.serviceLevel}}</td>
+            <td class="text-center">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="more_{{pm.id}}">
+                    {{'COMMON.MORE_ACTIONS' | translate}}
+                    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a (click)="handlePM('start', pm, '启动')" href="javascript:" id="cloud_control_on_{{pm.itemId}}">{{'COMMON.START'| translate}}</a></li>
+                        <li><a (click)="handlePM('stop', pm, '关机')" href="javascript:" id="cloud_control_off_{{pm.itemId}}">{{'COMMON.SHUTDOWN'| translate}}</a></li>
+                        <li><a (click)="handlePM('hardReboot', pm , '硬重启')" href="javascript:"  id="cloud_control_hard_{{pm.itemId}}">{{'COMMON.HARD_REBOOT'| translate}}</a></li>
+                        <li><a (click)="handlePM('softReboot', pm , '软重启')" href="javascript:" id="cloud_control_soft_{{pm.itemId}}">{{'COMMON.SOFT_RESTART'| translate}}</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <fc-pagination tp={{this.totalPage}} (pf)="changePage($event)"></fc-pagination>
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>

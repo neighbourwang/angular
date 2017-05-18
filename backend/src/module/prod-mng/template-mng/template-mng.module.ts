@@ -11,7 +11,7 @@ import { MiddlewareComponent } from './components/template-mng-middleware.compon
 
 import { DatabaseService } from './service/template-mng-database.service';
 import { MiddlewareService } from './service/template-mng-middleware.service';
-
+import { TemplateListService } from './service/template-mng-list.service';
 
 @NgModule({
     imports:[
@@ -27,7 +27,8 @@ import { MiddlewareService } from './service/template-mng-middleware.service';
     exports:[],
     providers:[
         DatabaseService,
-        MiddlewareService
+        MiddlewareService,
+        TemplateListService
     ]
 })
 export class TemplateMngModule{}
