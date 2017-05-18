@@ -1058,7 +1058,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取某个VM产品目录详细信息",
         "id": "prod-mng.prod-edit-vm.detail",
         "method": "GET",
-        "url": "adminui/authsec/service/{id}/type/vm/detail "
+        "url": "adminui/authsec/service/{id}/type/vm/detail"
     },
     //DISK产品目录
     {

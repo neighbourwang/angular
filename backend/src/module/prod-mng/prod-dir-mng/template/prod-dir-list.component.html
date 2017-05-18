@@ -10,8 +10,6 @@
                 <span class="caret"></span>
             </button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<!--<li><a href="#">{{'COMMON.MODIFY' | translate}}</a></li>-->
-				<!--<li><a (click)="edit();">{{'HOST_VMWARE_MNG.EDIT' | translate}}</a></li>-->
 				<li><a (click)="action('publish');" id="action_publish">{{'COMMON.PUBLISH' | translate}}</a></li>
 				<!--发布-->
 
@@ -24,11 +22,6 @@
 		<button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;width:60px; margin-left: 20px"
 		 (click)='onQuery()' id="onQuery">{{'COMMON.SEARCH' | translate}}</button>
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
-			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{'PROD_MNG.ALL_PLATFORM' | translate}}
-
-                <span class="caret"></span>
-            </button>-->
 			<select class="form-control" [(ngModel)]="platformId" id="platformId">
 				<option value="" id="platformId_null">--{{'PROD_MNG.ALL_PLATFORM'|translate}}--</option>
                  <option *ngFor="let item of platformsList;" [value]="item.id"  id="platformId_{{item.id}}">{{item.name}}</option>
@@ -36,14 +29,7 @@
 		</div>
 		<span class="pull-right" style="line-height: 34px;margin-left: 20px">{{'NET_MNG_OPENSTACK.PLATFORM' | translate}}：</span>
 		<!--平台-->
-
-
 		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
-			<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                选择{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}
-
-                <span class="caret"></span>
-            </button>-->
 			<select class="form-control" [(ngModel)]="queryProDirTypeId" id="queryProDirTypeId">
 					<option value=""  id="queryProDirTypeId_null">--{{'PROD_MNG.ALL_PRODUCT_TYPE'|translate}}--</option>
                  <option *ngFor="let item of prodDirTypeList;" [value]="item.id" id="queryProDirTypeId_{{item.id}}">{{item.name}}</option>

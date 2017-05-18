@@ -9,6 +9,12 @@ import { TemplateListService } from '../service/template-mng-list.service';
 
 @Component({
     templateUrl: "../template/template-mng-list.component.html",
+    styles: [
+        `.btn-active{
+            background-color: #00a982;
+            color : #fff
+        }`
+    ],
 })
 export class TemplateMngListComponent implements OnInit {
     constructor(
@@ -28,9 +34,22 @@ export class TemplateMngListComponent implements OnInit {
     @ViewChild('notice')
     notice:NoticeComponent;
 
-    templateType: string = '0';
 
+    templateType: string = '0';
     templateList: Array<DatabaseModel> = new Array<DatabaseModel>();
+
+    templateTypeList = [
+        {
+            type: '数据库模板',
+            value: '0',
+            selected: true
+        },
+        {
+            type: '中间件模板',
+            value: '1',
+            selected: false
+        }
+    ];
 
     ngOnInit() {
         this.getDatabaseTemplateList(1);
@@ -38,6 +57,13 @@ export class TemplateMngListComponent implements OnInit {
     createTemplate() {
         this.createTemplatePop.open('PROD_MNG.CREATE_TEMPLATE')
     }
+
+    //选择模板类型
+    chooseTemplateType(item,idx){
+        this.templateTypeList.forEach(tem=>tem.selected=false);
+        item.selected=true;
+    }
+
     otcreate() {
         console.log(this.templateType);
         this.templateType == '0' && this.router.navigate(['prod-mng/template-mng/template-database', { type: 'new' }])
@@ -84,7 +110,7 @@ export class TemplateMngListComponent implements OnInit {
     ccd(){
         this.selectedId='';
     }
-    deleteCof(id) {
+    deleteCof() {
         if(this.selectedId==''){
             this.notice.open('请选择模板');
             return;
@@ -96,10 +122,11 @@ export class TemplateMngListComponent implements OnInit {
             "sort": {},
             "totalPage": 0
         }
-        this.service.getTemplatedetail({id:id, pageParameter}).then(res => {
+        this.service.getTemplatedetail({id:this.selectedId, pageParameter}).then(res => {
             res.resultContent[0].status = 0;
             res.resultContent[0].diskProfileList=JSON.parse(JSON.stringify(res.resultContent[0].diskInfoList));
-            this.service.putDatabaseTemplate(res.resultContent[0]);
+            this.selectedId=='';
+            return this.service.putDatabaseTemplate(res.resultContent[0]);
         }).then(() => {
             this.getDatabaseTemplateList(1);
         }).catch(err => {
