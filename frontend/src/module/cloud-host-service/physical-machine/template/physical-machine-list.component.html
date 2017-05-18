@@ -121,6 +121,10 @@
                     <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
+                        <li><a (click)="handlePM('start', pm, '启动')" href="javascript:" id="cloud_control_on_{{pm.itemId}}">{{'COMMON.START'| translate}}</a></li>
+                        <li><a (click)="handlePM('stop', pm, '关机')" href="javascript:" id="cloud_control_off_{{pm.itemId}}">{{'COMMON.SHUTDOWN'| translate}}</a></li>
+                        <li><a (click)="handlePM('hardReboot', pm , '硬重启')" href="javascript:"  id="cloud_control_hard_{{pm.itemId}}">{{'COMMON.HARD_REBOOT'| translate}}</a></li>
+                        <li><a (click)="handlePM('softReboot', pm , '软重启')" href="javascript:" id="cloud_control_soft_{{pm.itemId}}">{{'COMMON.SOFT_RESTART'| translate}}</a></li>
                     </ul>
                 </div>
             </td>

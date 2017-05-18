@@ -68,7 +68,7 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 	checkListMiddleState() {
 		if(this.destroyed) return false;  //如果组件被销毁了 return
 
-		let mkPromise = (pm) => this.isMiddleState(pm.status) ? this.service.fetchPMState(pm.pmId) : false
+		let mkPromise = (pm) => this.isMiddleState(pm.status) ? this.service.fetchPMState(pm.uuid) : false
 		let fecthMiddleStateList = this.list.map(mkPromise)
 
 		if(!fecthMiddleStateList.filter(l => l).length) return false;   //如果没有中间状态了 则不再循环
@@ -104,6 +104,21 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 	    this.modalMessage = msg;
 
 	    this.noticeDialog.open();
+	}
+
+	//物理机的操作相关
+	handlePM(key:string,pm, msg:string) {
+		this.layoutService.show();
+
+		this.service.handlePM(key, pm.uuid).then(res => {
+			this.layoutService.hide();
+			this.showNotice("物理机操作" ,msg + "成功");
+
+			this.fetchPMList();
+		}).catch(error => {
+			this.layoutService.hide();
+			this.showNotice("物理机操作" ,msg + "失败");
+		})
 	}
 
 	modalAction(btnType: number) {

@@ -302,6 +302,12 @@ export let RestApis: RestApiModel[] = [
         "id": "phymachine.product.state",
         "url": "marketplace/authsec/subinstance/pm/status/uuid/{uuid}"
     },
+    {
+        "desc": "物理机操作（包括：暂停，取消暂定，恢复，软重启，硬重启）",
+        "method": "POST",
+        "id": "phymachine.subinstance.action",
+        "url": "marketplace/authsec/subinstance/pm/action"
+    },
     //管理服务部分
     {
         "desc": "获取管理服务产品",

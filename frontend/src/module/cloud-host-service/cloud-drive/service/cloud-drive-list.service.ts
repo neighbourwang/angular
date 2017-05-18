@@ -154,8 +154,7 @@ export class cloudDriveServiceList {
         field : "OWNER_TYPE"
     });
     computeStatus = this.dict.get({    //获取状态列表
-        owner : "PM",
-        field : "SUB_STATUS"
+        owner : "VOLUME",
+        field : "STATUS"
     });
-
 }

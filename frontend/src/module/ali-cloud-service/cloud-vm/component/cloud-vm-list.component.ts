@@ -67,7 +67,7 @@ export class AliCloudVmListComponent implements OnInit {
     confirmMsg = "";
 
     pageIndex:number = 1;
-    pageSize:number = 2;
+    pageSize:number = 10;
     totalPage:number = 1;
 
     listTimer = null;

@@ -78,13 +78,13 @@
         </div>
     </div>
     <div class="row mgt20">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="panel panel-default" >
                 <div class="panel-heading">
                     <h3 class="panel-title">{{'CAPACITY_MNG.CPU_UTILIZATION'|translate}}</h3><!--CPU使用率-->
                 </div>
                 <div class="panel-body">
-                    <canvas baseChart
+                    <canvas baseChart height="100"
                           *ngIf="cpuChart.DataSets"
                           [datasets]="cpuChart.DataSets "
                           [chartType]="cpuChart.ChartType"
@@ -95,13 +95,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        
+</div>
+    <div class="row mgt20" >
+        <div class="col-md-12">
             <div class="panel panel-default" >
                 <div class="panel-heading">
                     <h3 class="panel-title">{{'CAPACITY_MNG.MEMORY_UTILIZATION'|translate}}</h3><!--内存使用率-->
                 </div>
                 <div class="panel-body">
-                    <canvas baseChart
+                    <canvas baseChart height="100"
                           *ngIf="memChart.DataSets"
                           [datasets]="memChart.DataSets "
                           [chartType]="memChart.ChartType"
@@ -112,5 +115,5 @@
                 </div>
         </div>
     </div>
-</div>
+    </div>
 </div>
