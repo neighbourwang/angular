@@ -79,7 +79,52 @@
             </ul>
         </div>-->
     </div>
-    <!-- <fc-pagination tp={{list.pageParameter.totalPage}} (pf)="changePage($event)"></fc-pagination> -->
+
+    <table class="table table-hover">
+        <tr>
+            <th class="text-center"></th>
+            <th class="text-center">物理机名称</th>
+            <th class="text-center">配置</th>
+            <th class="text-center">操作系统</th>
+            <th class="text-center">私网IP地址</th>
+            <th class="text-center">公网IP地址</th>
+            <th class="text-center">区域</th>
+            <th class="text-center">状态</th>
+            <th class="text-center">到期时间</th>
+            <th class="text-center">附加服务</th>
+            <th class="text-center">类型</th>
+            <th class="text-center">服务级别</th>
+            <th class="text-center">{{'CLOUD_DRIVE_LIST.OPERATE' | translate}}</th>
+        </tr>
+        <tr *ngFor="let pm of list;" id="pm_{{pm.pmid}}">
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=pm;" name="disk-list" id="pm_radio_{{pm.id}}"></td>
+            <td class="text-center active">{{pm.pmName}}</td>
+            <td class="text-center">{{pm.pmConfInfo}}</td>
+            <td class="text-center">{{pm.osInfo}}</td>
+            <td class="text-center">{{pm.privateIP}}</td>
+            <td class="text-center">{{pm.publicIP}}</td>
+            <td class="text-center">{{pm.poolRegionInfo}}</td>
+            <td class="text-center">
+                <div *ngIf="isMiddleState(pm.status)" class="loading-icon"></div>
+                {{pm.status | dict:service.computeStatus | async}}
+            </td>
+            <td class="text-center">{{pm.expireDate}}</td>
+            <td class="text-center">{{pm.appendService}}</td>
+            <td class="text-center">{{pm.serviceType}}</td>
+            <td class="text-center">{{pm.serviceLevel}}</td>
+            <td class="text-center">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="more_{{pm.id}}">
+                    {{'COMMON.MORE_ACTIONS' | translate}}
+                    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <fc-pagination tp={{this.totalPage}} (pf)="changePage($event)"></fc-pagination>
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>

@@ -299,6 +299,22 @@ export class PhysicalMachineOrderComponent implements OnInit {
 				attrValueCode: this.values[v].attrValueCode,      	//服务属性值
 			});
 		};
+
+		let partInfoList = this.phyProduct.billingInfo.addonPriceDetailInfo  //把部件的信息加进去
+		if(partInfoList.length) {
+			partInfoList.forEach(part => {
+				payloadList.push({
+					attrId: part.id,                	//服务属性ID
+					attrCode: "PARTADDONNUM",       	//服务属性CODE
+					attrDisplayValue: part.partsNum,	//服务属性Name
+					attrDisplayName: part.partsname,	//服务属性Name
+					attrValueId: part.id,           	//服务属性值ID
+					attrValue: part.partsNum,       	//服务属性值
+					attrValueCode: "",              	//服务属性值
+				})
+			})
+		}
+		payloadList.concat()
 		return payloadList;
 	}
 

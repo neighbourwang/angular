@@ -22,6 +22,12 @@ export class TemplateMngListComponent implements OnInit {
     @ViewChild('createTemplatePop')
     createTemplatePop: PopupComponent;
 
+    @ViewChild('deleteConfirm')
+    deleteConfirm:ConfirmComponent;
+
+    @ViewChild('notice')
+    notice:NoticeComponent;
+
     templateType: string = '0';
 
     templateList: Array<DatabaseModel> = new Array<DatabaseModel>();
@@ -68,7 +74,21 @@ export class TemplateMngListComponent implements OnInit {
         console.log(page);
         this.getDatabaseTemplateList(page);
     }
-    deleteTemplate(id) {
+
+    //选择的模板ID
+    selectedId:string='';
+    deleteTemplate(item){
+        this.selectedId=item.id;
+        this.deleteConfirm.open('删除模板',"你选择删除 '"+item.name+"' 模板")
+    }
+    ccd(){
+        this.selectedId='';
+    }
+    deleteCof(id) {
+        if(this.selectedId==''){
+            this.notice.open('请选择模板');
+            return;
+        }
         let pageParameter = {
             "currentPage": 1,
             "offset": 0,
@@ -87,4 +107,5 @@ export class TemplateMngListComponent implements OnInit {
             this.layoutService.hide();
         })
     }
+    
 }

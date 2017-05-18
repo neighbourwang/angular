@@ -27,6 +27,7 @@ export class ManagerServeProdService {
     }
     //根据平台获取企业列表    
     getEnterpriseListById(list) {
+        this.enterpriseListForSelect=new Array<Enterprise>();
         this.layoutService.show();
         let api = this.restApiCfg.getRestApi("prod-mng.prod-enterprise.post");
         return this.restApi.request(api.method, api.url, [], undefined,list).then(res=>{
@@ -43,6 +44,7 @@ export class ManagerServeProdService {
     }
     //获取企业列表    
     getEnterPriseList() {
+        this.enterpriseListForSelect=new Array<Enterprise>();
         this.layoutService.show();
         let api = this.restApiCfg.getRestApi("prod-mng.prod-enterprise.list");
         return this.restApi.request(api.method, api.url, [], undefined).then(res=>{

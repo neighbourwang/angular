@@ -15,7 +15,48 @@ export class PhysicalMachineListService {
 
     userInfo = this.restApi.getLoginInfo().userInfo;
     
-  
+    fetchPMList (page, pmServiceQuery:any = {}): Promise<any> {
+        let api = this.restApiCfg.getRestApi('phymachine.product.page');
+        let pathParams = [
+            {
+                key: 'size',
+                value: 20
+            },
+            {
+                key: 'page',
+                value: page
+            }
+        ];
+
+        return this.restApi.request(api.method, api.url, pathParams, undefined, pmServiceQuery)
+    }
+
+    fetchPMState(uuid): Promise<any> {
+        const api = this.restApiCfg.getRestApi("phymachine.product.state");
+
+        let pathParams = [
+            {
+                key: 'uuid',
+                value: uuid
+            }
+        ];
+
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+        return request;
+
+        // return new Promise(next => {
+        //     setTimeout(() => {
+        //         next({"resultCode":"100","detailDescription":null,"resultContent":{"id":null,"status":""+Math.round(Math.random()*13),"uuid":"都得_GvH_34E"}}.resultContent)
+        //     },500)
+        // })
+
+    }
 
     //数据字典所用到的值
     dictSourceType = this.dict.get({ 
