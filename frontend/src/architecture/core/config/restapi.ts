@@ -297,6 +297,12 @@ export let RestApis: RestApiModel[] = [
         "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/page/{page}/size/{size} "
     },
     {
+        "desc": "物理机详情",
+        "method": "GET",
+        "id": "phymachine.detail",
+        "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/{pmId}"
+    },
+    {
         "desc": "获取物理机状态",
         "method": "POST",
         "id": "phymachine.product.state",
