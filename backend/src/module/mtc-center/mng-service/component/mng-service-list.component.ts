@@ -41,7 +41,7 @@ export class MngServiceListComponent implements OnInit{
     noticeTitle = "";
     noticeMsg = "";
 
-    pageIndex= 1;
+    pageIndex= 0;
     pageSize= 10;
     totalPage= 1;
 
