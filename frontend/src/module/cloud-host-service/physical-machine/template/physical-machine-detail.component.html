@@ -122,13 +122,16 @@
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.CPU' | translate}}:</font></div>    {{pm?.vcpus}}核
+                          <div class="col-md-2 no-padding"><font>型号:</font></div>    {{pm?.modleInfo}}核
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.RAM' | translate}}:</font></div>    {{pm?.memoryMb}}MB
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.CPU' | translate}}:</font></div>    {{pm?.cpuInfo}}
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.MIRROR' | translate}}:</font></div>    {{pm?.osInfo}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.RAM' | translate}}:</font></div>    {{pm?.memoryInfo}}GB
+                      </div>
+                      <div class="line-box">
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.MIRROR' | translate}}:</font></div>    {{pm?.imageName}}
                       </div>
                       <div class="line-box">
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.INTERNAL_IP' | translate}}:</font></div>    {{pm?.privateIP}}
@@ -151,15 +154,8 @@
                 </div>
                 <div id="collapseFourth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFourth">
                   <div class="panel-body">
-                    
-                      <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.BOOT_DISK' | translate}}:</font></div>    {{pm?.rootGb}}GB
-                      </div>
-                      <div (click)="goToUrl('cloud-host-service/physical-machine-list')" class="line-box cursor-pointer">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.DATA_DISK' | translate}}:</font></div>    {{pm?.diskCount}}
-                      </div>
-                      <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.SNAPSHOT' | translate}}:</font></div>    0
+                      <div class="line-box" *ngFor="let disk of pm?.diskInfoList">
+                          <div class="col-md-2 no-padding"><font>裸容量:</font></div>    {{disk}}
                       </div>
                   </div>
                 </div>
@@ -168,15 +164,15 @@
               <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingFifth" data-toggle="collapse" data-parent="#accordion" href="#collapseFifth" aria-expanded="true" aria-controls="collapseFifth">
                   <h4 class="panel-title">
-                    <span class="icon-safety mgl10"></span>{{'VM_INSTANCE.SECURITY_INFORMATION' | translate}}
+                    <span class="icon-safety mgl10"></span>其他部件信息
                     <span class="glyphicon glyphicon-chevron-down"></span>
                   </h4>
                 </div>
                 <div id="collapseFifth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFifth">
                   <div class="panel-body">
                     
-                      <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.SECURITY_GROUP' | translate}}:</font></div>    DEFAULT
+                      <div class="line-box" *ngFor="let part of pm?.detailPartsVOList">
+                          <div class="col-md-2 no-padding"><font>{{part.partsName}}:</font></div>    {{part.partsInfo}}
                       </div>
                   </div>
                 </div>
@@ -193,7 +189,7 @@
                   <div class="panel-body">
                     
                       <div (click)="goToUrl('op-center/order-mng/order-mng')" class="line-box cursor-pointer">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font></div>    {{pm?.itemId}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font></div>    {{pm?.orderNo}}
                       </div>
                       <div class="line-box">
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.PAYMENT_METHODS' | translate}}:</font></div>    {{pm?.paymentType}}

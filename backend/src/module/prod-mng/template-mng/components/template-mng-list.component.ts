@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router ,ActivatedRoute,Params } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 
@@ -19,6 +19,7 @@ import { TemplateListService } from '../service/template-mng-list.service';
 export class TemplateMngListComponent implements OnInit {
     constructor(
         private router: Router,
+        private route: ActivatedRoute,
         private service: TemplateListService,
         private layoutService: LayoutService
     ) {
@@ -34,10 +35,9 @@ export class TemplateMngListComponent implements OnInit {
     @ViewChild('notice')
     notice:NoticeComponent;
 
-
+    tp:number//页数
     templateType: string = '0';
     templateList: Array<DatabaseModel> = new Array<DatabaseModel>();
-
     templateTypeList = [
         {
             type: '数据库模板',
@@ -52,7 +52,11 @@ export class TemplateMngListComponent implements OnInit {
     ];
 
     ngOnInit() {
-        this.getDatabaseTemplateList(1);
+        this.route.params.forEach((params:Params)=>{
+            this.templateType=params['type'];
+        })
+        console.log(this.templateType);
+        this.onQuery();
     }
     createTemplate() {
         this.createTemplatePop.open('PROD_MNG.CREATE_TEMPLATE')
@@ -63,7 +67,16 @@ export class TemplateMngListComponent implements OnInit {
         this.templateTypeList.forEach(tem=>tem.selected=false);
         item.selected=true;
     }
-
+    onQuery(){
+        // (this.templateType=='0')&&(this.getDatabaseTemplateList(1));
+        // (this.templateType=='1')&&(this.getMiddlewareTemplateList(1));
+        if(this.templateType=='1'){
+            this.getMiddlewareTemplateList(1);
+        }else{
+            this.templateType='0';
+            this.getDatabaseTemplateList(1);
+        }
+    }
     otcreate() {
         console.log(this.templateType);
         this.templateType == '0' && this.router.navigate(['prod-mng/template-mng/template-database', { type: 'new' }])
@@ -85,6 +98,27 @@ export class TemplateMngListComponent implements OnInit {
         this.service.getDatabaseTemplateList(pageParameter).then(res => {
             console.log(res);
             this.templateList = res.resultContent;
+            this.tp = res.pageInfo.totalPage;
+            this.layoutService.hide();
+        }).catch(err => {
+            console.error(err);
+            this.layoutService.hide();
+        })
+    }
+    //查询中间模板列表
+    getMiddlewareTemplateList(page){
+        let pageParameter = {
+            "currentPage": page,
+            "offset": 0,
+            "size": 10,
+            "sort": {},
+            "totalPage": 0
+        }
+        this.layoutService.show()
+        this.service.getMiddlewareTemplateList(pageParameter).then(res => {
+            console.log(res);
+            this.templateList = res.resultContent;
+            this.tp = res.pageInfo.totalPage;
             this.layoutService.hide();
         }).catch(err => {
             console.error(err);

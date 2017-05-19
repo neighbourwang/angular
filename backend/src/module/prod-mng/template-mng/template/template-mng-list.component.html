@@ -56,7 +56,8 @@
 					<td>
 						<!--{{item.templateTpye}}-->
 						<span [ngSwitch]="item.templateTpye"> 
-							<template [ngSwitchCase]="database">{{'数据库模板' | translate}}</template>
+							<template [ngSwitchCase]="Database">{{'数据库模板' | translate}}</template>
+							<template [ngSwitchCase]="Middleware">{{'数据库模板' | translate}}</template>
 							<template ngSwitchDefault>Unknown</template>							
 						</span>
 					</td>

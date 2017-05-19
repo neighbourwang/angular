@@ -178,6 +178,16 @@ export class PhyUnitMngComponent implements OnInit{
             return;
         }
 
+        if(this.selectedParts.partsName == '磁盘' || this.selectedParts.partsName == '内存' && !this.validationService.isNumber(this.criteria.specValue)){
+            this.showAlert("PHY_MNG_DEPART.PARTSNAME_ONLY_CANBE_NUMBER");
+            return;
+        }
+
+        if(!this.validationService.isNumber(this.criteria.referencePrice)){
+            this.showAlert("PHY_MNG_DEPART.REFERENCENAME_ONLY_CANBE_NUMBER");
+            return;
+        }
+
         let repartsName= this.partslist.find((p)=>{
             return p.partsName== this.criteria.partsName
         });

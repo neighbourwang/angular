@@ -25,9 +25,9 @@ export class MiddlewareService {
 
         return this.restApi.request(api.method, api.url, [], undefined, data);
     }
-    //更新产品状态
-    changProdstatus(data: any) {
-        let api = this.restApiCfg.getRestApi("prod-mng.prod-mng.updateStatus");
+    //更新中间件模板
+    updateMiddlewareTemplate(data:any) {
+        let api = this.restApiCfg.getRestApi("template-mng-middleware.cre.put");
 
         return this.restApi.request(api.method, api.url, [], undefined, data);
     }

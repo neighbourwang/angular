@@ -110,10 +110,10 @@
 									<td>{{idx + 1}}</td>
 									<td>{{item.useDisplay}}</td>
 									<td>
-										<input class="form-control" [(ngModel)]="item.minSize" style="display: inline;width:100px">
+										<input class="form-control" [(ngModel)]="item.minDiskSize" style="display: inline;width:100px">
 									</td>
 									<td>
-										<input class="form-control" [(ngModel)]="item.defaultPath" style="display: inline;width:150px">
+										<input class="form-control" [(ngModel)]="item.mountPath" style="display: inline;width:150px">
 									</td>
 								</tr>
 							</tbody>
@@ -129,8 +129,8 @@
         <span class="icon-button-label">{{'NET_MNG_OPENSTACK.CNACLE' | translate}}</span>
     </button>
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onSubmit();" style="margin-left:40px">
-        <span class="icon-button-label">{{'COMMON.CREATE' | translate}}</span><!--创建模板-->
-
+         <span class="icon-button-label" *ngIf="pageType=='new'">{{'COMMON.CREATE' | translate}}</span><!--创建模板-->
+        <span class="icon-button-label" *ngIf="pageType=='edit'">{{'COMMON.SAVE' | translate}}</span><!--保存模板-->
     </button>
 </div>
 

@@ -23,7 +23,7 @@ class MiddleWareModel {
     this.bit='64bit';
     this.os='linux';
     this.deploymentMode=0;
-    this.templateType='database';
+    this.templateType='middleware';
     this.dbMiddlewareDiskTemplateModelList = [
       {
         usageType: 0,
@@ -33,22 +33,22 @@ class MiddleWareModel {
         templateId: '',
         useDisplay: '安装主目录'
       },
-      {
-        usageType: 1,
-        id: '',
-        minDiskSize: 0,
-        mountPath: '',
-        templateId: '',
-        useDisplay: '数据库文件'        
-      },
-      {
-        usageType: 2,
-        id: '',
-        minDiskSize: 0,
-        mountPath: '',
-        useDisplay: '归档日志,快速恢复区',
-        templateId: '',
-      }
+      // {
+      //   usageType: 1,
+      //   id: '',
+      //   minDiskSize: 0,
+      //   mountPath: '',
+      //   templateId: '',
+      //   useDisplay: '数据库文件'        
+      // },
+      // {
+      //   usageType: 2,
+      //   id: '',
+      //   minDiskSize: 0,
+      //   mountPath: '',
+      //   useDisplay: '归档日志,快速恢复区',
+      //   templateId: '',
+      // }
     ]
   }
 }

@@ -28,37 +28,28 @@ class DatabaseModel {
     this.diskProfileList = [
       {
         "copyLevel": 2,
-        "defaultPath": '/u01',
         "diskGroup": '',
-        "minSize": 50,
-        "usage": 0,
         "useDisplay": '安装主目录',
-        "minDiskSize":0,
-        "mountPath":"",
+        "minDiskSize":50,
+        "mountPath":'/u01',
         "usageType":0,
         "minSizeValid":true,
       },
       {
         "copyLevel": 0,
-        "defaultPath": '/u02',
         "diskGroup": 'DATA',
-        "minSize": 50,
-        "usage": 1,
         "useDisplay": '数据库文件',
-        "minDiskSize":0,
-        "mountPath":"",
+        "minDiskSize":50,
+        "mountPath":'/u02',
         "usageType":1,
         "minSizeValid":true,
       },
       {
         "copyLevel": 1,
-        "defaultPath": '/u03',
         "diskGroup": 'ARCH',
-        "minSize": 200,
-        "usage": 2,
         "useDisplay": '归档日志,快速恢复区',
-        "minDiskSize":0,
-        "mountPath":"",
+        "minDiskSize":200,
+        "mountPath":'/u03',
         "usageType":2,
         "minSizeValid":true,
       }
@@ -67,10 +58,7 @@ class DatabaseModel {
 }
 class diskProfile {
   "copyLevel": number;//冗余级别
-  "defaultPath": string;//挂在路径
   "diskGroup": string;//磁盘组
-  "minSize": number;//最下
-  "usage": number;//磁盘用途
   "useDisplay": string;//
   //获取时字段不一样
   "minDiskSize":number;
