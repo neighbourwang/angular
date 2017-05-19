@@ -58,7 +58,7 @@
         <div class="float-left">
             <button class="btn float-left mgr5 btn-success" id="create_cloud_disk" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i> {{'CLOUD_DRIVE_LIST.CREATE_CLOUD_HRAD_DISK' | translate}}</button>
             <unsubscribe #unsubscribeVm (onSuccess)="setDistList()" title="云硬盘退订" id="unsubscribe_cloud_disk" [subid]="radioSelected?.subInstanceId"></unsubscribe>
-            <button (click)="unsubscribeVm.open()" id="un_cloud_disk" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK' | translate}}</button>
+            <button *ngIf="!isMiddleState(radioSelected?.status)" (click)="unsubscribeVm.open()" id="un_cloud_disk" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK' | translate}}</button>
 
 
             <!--<div class="dropdown float-left  mgr5">
