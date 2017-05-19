@@ -398,7 +398,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 			let { attrList } = this.postData
 			attrList = attrList.map(attr => Object.assign({}, attr, values[attr.attrCode]))
 			
-			let billingType = Object.assign({}, new ServiceResAttributePair,{   
+			let billingType = Object.assign({}, new ServiceResAttributePair,{    //配合后端临时添加
 				attrCode: "BILLINGTYPE",
 				attrValue: this.productInfo.billingType
 			})
