@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
+import { Regions, PMOrderResponse, PMPartsEntity, PMNetworkVO, ResoucePolls, PMImageBaseVO } from '../model/service.model';
+import { PostAttrList, PayLoad, PMServiceQuery} from '../model/post.model';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -15,7 +17,60 @@ export class PhysicalMachineListService {
 
     userInfo = this.restApi.getLoginInfo().userInfo;
     
-  
+    fetchPMList (page, pmServiceQuery:PMServiceQuery): Promise<any> {
+        let api = this.restApiCfg.getRestApi('phymachine.product.page');
+        let pathParams = [
+            {
+                key: 'size',
+                value: 20
+            },
+            {
+                key: 'page',
+                value: page
+            }
+        ];
+
+        return this.restApi.request(api.method, api.url, pathParams, undefined, pmServiceQuery)
+    }
+    
+    handlePM (actions:string, uuid:string): Promise<any> {
+        let api = this.restApiCfg.getRestApi('phymachine.subinstance.action');
+
+        return this.restApi.request(api.method, api.url, undefined, undefined, {actions, uuid})
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+    }
+
+    fetchPMState(uuid): Promise<any> {
+        const api = this.restApiCfg.getRestApi("phymachine.product.state");
+
+        let pathParams = [
+            {
+                key: 'uuid',
+                value: uuid
+            }
+        ];
+
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined, undefined)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+        return request;
+
+        // return new Promise(next => {
+        //     setTimeout(() => {
+        //         next({"resultCode":"100","detailDescription":null,"resultContent":{"id":null,"status":""+Math.round(Math.random()*13),"uuid":"都得_GvH_34E"}}.resultContent)
+        //     },500)
+        // })
+
+    }
 
     //数据字典所用到的值
     dictSourceType = this.dict.get({ 
@@ -28,10 +83,6 @@ export class PhysicalMachineListService {
         field : "STATUS"
     })
 
-    computeStatus = this.dict.get({    //获取状态列表
-        owner : "COMPUTE",
-        field : "STATUS"
-    });
     useType = this.dict.get({    //云主机类型
         owner : "GLOBAL",
         field : "USE_TYPE"
@@ -52,4 +103,9 @@ export class PhysicalMachineListService {
         owner : "INSTANCE",
         field : "OWNER_TYPE"
     });
+    computeStatus = this.dict.get({    //获取状态列表
+        owner : "PM",
+        field : "SUB_STATUS"
+    });
+
 }

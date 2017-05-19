@@ -1058,7 +1058,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取某个VM产品目录详细信息",
         "id": "prod-mng.prod-edit-vm.detail",
         "method": "GET",
-        "url": "adminui/authsec/service/{id}/type/vm/detail "
+        "url": "adminui/authsec/service/{id}/type/vm/detail"
     },
     //DISK产品目录
     {
@@ -1249,10 +1249,10 @@ export let RestApis: RestApiModel[] = [
     },
     //模板管理
     {
-        "desc": "查询数据库模板列表",
-        "id": "prod-mng.prod-mng.list.get",
+        "desc": "查询数据库模板",
+        "id": "prod-mng.template-mng.detail.search",
         "method": "POST",
-        "url": "adminui/authsec/enterprises/products/search/page/{page}/size/{size}"
+        "url": "adminui/authsec/database/template/search/list/paging"
     },
     {
         "desc": "获取数据库选项基础信息",
@@ -1261,10 +1261,16 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/database/template/options/init"
     },
     {
+        "desc": "获取中间件模板选项基础信息",
+        "id": "template-mng-middleware.initInfo.get",
+        "method": "GET",
+        "url": "adminui/authsec/middleware/template/search/condition/init"
+    },
+    {
         "desc": "获取模板列表",
-        "id": "template-mng-list.post",
+        "id": "template-mng-database-list.post",
         "method": "POST",
-        "url": "adminui/authsec/database/template/search/list/paging"
+        "url": "adminui/authsec/database/template/list"
     },
     {
         "desc": "创建数据库模板",
@@ -1280,7 +1286,7 @@ export let RestApis: RestApiModel[] = [
     },
      {
         "desc": "更新数据库模板",
-        "id": "template-mng-database.cre.put",
+        "id": "template-mng-database.update.put",
         "method": "PUT",
         "url": "adminui/authsec/database/template"
     },

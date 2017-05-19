@@ -104,6 +104,21 @@ class AttrList{
 	INSTANCENAME: ResAttr = new ResAttr; //attrDisplayName: "实例名称",…}
 }
 
+class PMServiceItem {
+	appendService :string = ""; //, optional),
+	expireDate :string = ""; //, optional),
+	osInfo :string = ""; //, optional),
+	pmConfInfo :string = ""; //, optional),
+	pmId :string = ""; //, optional),
+	pmName :string = ""; //, optional),
+	poolRegionInfo :string = ""; //, optional),
+	privateIP :string = ""; //, optional),
+	publicIP :string = ""; //, optional),
+	serviceLevel :string = ""; //, optional),
+	serviceType :string = ""; //, optional),
+	status :string = ""; //, optional)
+}
+
 class ValuesList {
 	TIMELINEUNIT:ValuesType[] = [];  // "时长单位",…}
 	PASSWORD:ValuesType[] = [];  // "登录密码",…}
@@ -135,5 +150,6 @@ export {
 	AttrList,
 	ValuesList,
 	ValuesType,
+	PMServiceItem,
 	Values
 }

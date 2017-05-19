@@ -345,7 +345,10 @@ export class AssignMngDetailComponent implements OnInit {
                     this.memLine.SourceData = this.memList;
                     this.getLineGraph(this.cpuLine);
                     this.getLineGraph(this.memLine);
-                   
+                    console.log("cpu_value", this.cpuLine.DataSets);
+                    console.log("cpu_time", this.cpuLine.Labels);
+                    console.log("mem_value", this.memLine.DataSets);
+                    console.log("mem_time", this.memLine.Labels);
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -376,20 +379,36 @@ export class AssignMngDetailComponent implements OnInit {
 
             data: chart._data,
             label:_label,
-            fill: true,
-            lineTension: 0.1,
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderWidth: 2,
-            pointHoverRadius: 5,
-            pointHoverBorderWidth: 2,
-            pointRadius: 4,
-            pointHitRadius: 10,
-            spanGaps: false,
+            borderWidth: 2,
+            pointBorderWidth: 0,
+            pointRadius: 1,
+            pointHoverRadius: 3,
+            fill:false
         }
         ];
+
+         chart.options={
+                       
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                ticks: {
+                                    userCallback: function(dataLabel, index) {
+                                        return index % 10 === 0 ? dataLabel : '';
+                                    }
+                                }
+                            }],
+                            yAxes: [{
+                                display: true,
+                                ticks: {
+                                    min: 0,
+                                    suggestedMax: 50
+                                },
+                                beginAtZero: false
+                            }]
+                        }
+                    } 
+
 
         chart.ChartType= "line";
         

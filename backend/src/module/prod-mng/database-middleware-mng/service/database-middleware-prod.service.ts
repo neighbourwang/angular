@@ -28,6 +28,7 @@ export class DatabaseMiddlewareProdService {
     }
     //根据平台获取企业列表    
     getEnterpriseListById(list) {
+        this.enterpriseListForSelect=new Array<Enterprise>();
         let api = this.restApiCfg.getRestApi("prod-mng.prod-enterprise.post");
         return this.restApi.request(api.method, api.url, [], undefined,list).then(res=>{
             console.log(res);
@@ -41,6 +42,7 @@ export class DatabaseMiddlewareProdService {
     }
     //获取企业列表    
     getEnterPriseList() {
+        this.enterpriseListForSelect=new Array<Enterprise>();        
         let api = this.restApiCfg.getRestApi("prod-mng.prod-enterprise.list");
         return this.restApi.request(api.method, api.url, [], undefined).then(res=>{
             if(res.resultContent){

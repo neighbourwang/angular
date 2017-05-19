@@ -24,11 +24,11 @@ class PayLoad {
 }
 
 class SuperviseQueryCondition {
-    instanceName :string = "0"; //, optional): 管理服务对象名称 ,
+    instanceName :string = ""; //, optional): 管理服务对象名称 ,
     instanceNo :string = ""; //, optional): 管理服务编号 ,
     name :string = ""; //, optional): 管理服务名称 ,
     pageParameter :PageParameter = new PageParameter; //, optional): 分页信息 ,
-    state :string  = "0"; //, optional): 管理服务实例状态: 已完成，进行中 ,
+    state :string  = ""; //, optional): 管理服务实例状态: 已完成，进行中 ,
 }
 class PageParameter {
     currentPage :number = 0; //, optional),

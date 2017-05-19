@@ -5,13 +5,14 @@ class DatabaseModel {
   "dbType": number;//数据库类型
   "desc": string;
   "diskProfileList": Array<diskProfile>;
+  "diskInfoList": Array<diskProfile>;
   "id": string;
   "memory": number;//内存
   "name": string;
   "os": string;//操作系统
   "status": number;
   "storageType": string;//存储类型
-  "templateTpye": string;//模板类型
+  "templateType": string;//模板类型
   "version": string;//版本
   "deploymentMode":number;//缺
   constructor() {
@@ -23,6 +24,7 @@ class DatabaseModel {
     this.bit='64bit';
     this.os='linux';
     this.deploymentMode=0;
+    this.templateType='database';
     this.diskProfileList = [
       {
         "copyLevel": 2,
@@ -30,7 +32,11 @@ class DatabaseModel {
         "diskGroup": '',
         "minSize": 50,
         "usage": 0,
-        "useDisplay": '安装主目录'
+        "useDisplay": '安装主目录',
+        "minDiskSize":0,
+        "mountPath":"",
+        "usageType":0,
+        "minSizeValid":true,
       },
       {
         "copyLevel": 0,
@@ -38,7 +44,11 @@ class DatabaseModel {
         "diskGroup": 'DATA',
         "minSize": 50,
         "usage": 1,
-        "useDisplay": '数据库文件'
+        "useDisplay": '数据库文件',
+        "minDiskSize":0,
+        "mountPath":"",
+        "usageType":1,
+        "minSizeValid":true,
       },
       {
         "copyLevel": 1,
@@ -46,7 +56,11 @@ class DatabaseModel {
         "diskGroup": 'ARCH',
         "minSize": 200,
         "usage": 2,
-        "useDisplay": '归档日志,快速恢复区'
+        "useDisplay": '归档日志,快速恢复区',
+        "minDiskSize":0,
+        "mountPath":"",
+        "usageType":2,
+        "minSizeValid":true,
       }
     ]
   }
@@ -58,6 +72,11 @@ class diskProfile {
   "minSize": number;//最下
   "usage": number;//磁盘用途
   "useDisplay": string;//
+  //获取时字段不一样
+  "minDiskSize":number;
+  "mountPath":string;
+  "usageType":number;
+  "minSizeValid":boolean;
 }
 class DatabaseOptions{
   items:Array<DatabaseOption>;
@@ -71,7 +90,11 @@ class DatabaseOption {
     "label": string,
     "value": number
   };//数据库 0 Oracle, 1 Mysql ,
-  "middleware": null;
+  "middleware": {
+    "code": string,
+    "label": string,
+    "value": number
+  };;
   "version": Array<string>;
   "mode": Array<mode>//0 单节点部署,1 集群 ,
   constructor(){
