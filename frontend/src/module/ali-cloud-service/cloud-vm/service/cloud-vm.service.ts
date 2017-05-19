@@ -463,7 +463,7 @@ export class AliCloudVmService {
         if (queryObject.keyword != "") {
             switch (queryObject.criteria) {
                 case "instance_name":
-                    body.instanceName = queryObject.keyword;
+                    body.instanceName = "*" + queryObject.keyword + "*";;
                     break;
                 case "instance_ids":
                     let instanceIds: Array<string> = [];                    
