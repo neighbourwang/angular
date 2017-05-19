@@ -2917,7 +2917,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "告警详细",
         "id":"trigger-detail.get",
         "method":"GET",
-        "url":"maintenancemgmt/noauth/trigger/detail/{triggerId}"
+        "url":"maintenancemgmt/noauth/trigger/detail/{itemId}"
      },
     {
         "desc": "告警更新",

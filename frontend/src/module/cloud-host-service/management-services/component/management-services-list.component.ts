@@ -53,7 +53,6 @@ export class ManagementServicesListComponent implements OnInit {
 		this.orderService.fetchServicesList().then(res => {
 			this.layoutService.hide()
 			this.productList = res;
-			if(res.length) this.listQuery.instanceNo = res[0].id
 			
 			this.fetchMgmtList()
 		})
