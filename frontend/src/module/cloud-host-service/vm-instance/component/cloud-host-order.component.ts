@@ -253,8 +253,6 @@ export class cloudVmComponentOrder implements OnInit {
 		if( this.bootsizeList.length ){
 			this.values.BOOTSIZE = filteredList[0];
 			this.dux.dispatch("BOOTSIZE")
-		}else {
-			this.values.BOOTSIZE.attrValue = ""
 		}
 	}
 
