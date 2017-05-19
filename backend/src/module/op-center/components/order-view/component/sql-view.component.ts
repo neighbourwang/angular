@@ -35,12 +35,17 @@ export class SqlViewComponent implements OnInit{
 	ngOnInit(){
 		let getProperty = _.property("attrDisplayValue");
 		if(this.values&&this.values.specList){
-			this.specList = this.values.specList;
+			this.specList = this.values.specList;	
+		}else if(this.values&&this.values.orderItems[0]){
+			this.specList = this.values.orderItems[0].specList;
+		}
+		
+		if(this.specList!=null){
 			this._obj = {
 			platform:getProperty(this.specList.find(n=>n.attrCode == 'PLATFORM'))
 			,zone:getProperty(this.specList.find(n=>n.attrCode == 'ZONE'))
-			,type:getProperty(this.specList.find(n=>n.attrCode == 'ZONE'))
-			,version:getProperty(this.specList.find(n=>n.attrCode == 'ZONE'))
+			,type:getProperty(this.specList.find(n=>n.attrCode == 'DBTYPE'))
+			,version:getProperty(this.specList.find(n=>n.attrCode == 'DBVERSION'))
 			,instanceName: getProperty(this.specList.find(n=>n.attrCode == 'INSTANCENAME'))
 			};
 		}
