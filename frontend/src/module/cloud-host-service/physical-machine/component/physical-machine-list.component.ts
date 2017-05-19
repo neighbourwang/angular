@@ -75,7 +75,7 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 
 		Promise.all(fecthMiddleStateList).then(res => {
 			res.forEach((pm, i) => {
-				if(pm) this.list[i].status = pm.dataType
+				if(pm) this.list[i].status = pm
 			})
 			setTimeout(this.checkListMiddleState.bind(this) , 10 * 1000)
 		})
