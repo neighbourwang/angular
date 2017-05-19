@@ -13,4 +13,24 @@ export class PhysicalMachineDetailService {
         private dict: SystemDictionaryService,
         private restApi: RestApi) {
     }
+
+    
+    getPmInfo(pmId:string) : Promise<any>{
+        const api = this.restApiCfg.getRestApi("phymachine.detail");
+
+        let pathParams = [
+            {
+                key: 'pmId',
+                value: pmId
+            }
+        ];
+        const request = this.restApi.request(api.method, api.url, pathParams, undefined)
+                            .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+        return request;
+    }
 }
