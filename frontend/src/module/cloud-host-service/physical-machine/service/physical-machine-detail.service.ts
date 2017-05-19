@@ -33,4 +33,8 @@ export class PhysicalMachineDetailService {
                             });
         return request;
     }
+    computeStatus = this.dict.get({    //获取状态列表
+        owner : "PM",
+        field : "SUB_STATUS"
+    });
 }
