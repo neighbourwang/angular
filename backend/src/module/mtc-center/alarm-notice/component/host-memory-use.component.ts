@@ -48,10 +48,10 @@ export class HostMemoryUseComponent implements OnInit{
             .then(() => {
                 this.getAlarm().then(
                     () => {
-                        for (var i = this.receiverList.length - 1; i >= 0; i--) {
-                        let a= this.alarm.receiver.find((e)=>{return e.name ==this.receiverList[i].name});
+                        for (var i = this.alarm.receiver.length - 1; i >= 0; i--) {
+                        let a= this.receiverList.find((e)=>{return e.name ==this.alarm.receiver[i].name});
                         if(a){
-                            this.receiverList[i].isSelect=true;
+                            a.isSelect=true;
                         }
                     }
                 });              

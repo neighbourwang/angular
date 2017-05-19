@@ -51,6 +51,10 @@ export class VmViewComponent implements OnInit{
 		// alert("1111111");
 		if(this.values&&this.values.specList){
 			this.specList = this.values.specList;
+		}else if(this.values&&this.values.orderItems[0]){
+			this.specList = this.values.orderItems[0].specList;
+		}
+		if(this.specList!=null){
 			this._obj = {
 			platform:getProperty(this.specList.find(n=>n.attrCode == 'PLATFORM'))//this.values.platform
 			,zone:getProperty(this.specList.find(n=>n.attrCode == 'ZONE'))
