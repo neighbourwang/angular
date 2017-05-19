@@ -1,9 +1,8 @@
 ﻿import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
-
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
-
+import { chartColors } from "../model/color.mock";
 import {HostInfo} from'../model/host-info.model';
 import {HostGraphModel, GraphItem,LineChart} from '../model/host-graph.model';
 //service
@@ -156,13 +155,13 @@ export class HostDetailComponent implements OnInit {
         chart.ChartType= "line";
         
         chart.Colors = [
-            { // grey
-                backgroundColor: '#f9f9fb',
-                borderColor: '#2bd2c8',
-                pointBackgroundColor: '#f1f3f2',
-                pointBorderColor: '#2cd2c8',
-                pointHoverBackgroundColor: '#e8f0f2',
-                pointHoverBorderColor: '#6fdcd6'
+            { 
+                backgroundColor: chartColors.lineBg,
+                borderColor: chartColors.lineBorder,
+                pointBackgroundColor: chartColors.linePointBg,
+                pointBorderColor: chartColors.linePointBorder,
+                pointHoverBackgroundColor: chartColors.linePointHoverBg,
+                pointHoverBorderColor: chartColors.linePointHoverBorder
             }
         ];
      

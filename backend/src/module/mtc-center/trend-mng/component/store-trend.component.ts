@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
+import { chartColors } from "../../capacity-mng/model/color.mock";
 import { PlfModel, RegionModel, ZoneModel } from "../model/plf.model";
 import {StoreQuery} from "../model/store-query.model";
 import {GeneralModel, zoneDisk, DoughnutChart} from "../model/general.model";
@@ -124,7 +125,15 @@ export class StoreTrendComponent implements OnInit {
 
     getCircleData(chart:DoughnutChart,source:GeneralModel) {
         chart.DataSets = [{ data: [source.level1, source.level2,source.level3, source.level4,source.level5]}];
-        chart.Colors = [{ backgroundColor: ["#2bd2c8","#05ab83","#c9cacc","#85f46f","#fa88ec"] }];
+        chart.Colors = [{
+            backgroundColor: [
+                chartColors.circleLegend1,
+                chartColors.circleLegend2,
+                chartColors.circleLegend3,
+                chartColors.circleLegend4,
+                chartColors.circleLegend5
+                ]        
+        }];
         chart.ChartType = "doughnut";
         chart.Options = {
             cutoutPercentage: 70,

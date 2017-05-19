@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 
+import { chartColors } from "../../capacity-mng/model/color.mock";
 import {EntModel, DeptModel} from"../model/ent.model";
 import {PlfModel, RegionModel, ZoneModel} from"../model/plf.model";
 import {UsageState, ItemModel, PowerStatModel, DoughnutChart}from "../model/usage-state.model";
@@ -195,7 +196,7 @@ export class AssignMngDetailComponent implements OnInit {
 
     getGraphData(chart:DoughnutChart,source:ItemModel) {
         chart.DataSets = [{ data: [source.level1, source.level2, source.level3] }];
-        chart.Colors = [{ backgroundColor: ["#2bd2c8","#05ab83","#c9cacc"] }];
+        chart.Colors = [{ backgroundColor: [chartColors.circleLegend1,chartColors.circleLegend2,chartColors.circleLegend3] }];
         chart.ChartType = "doughnut";
         chart.Options = {
             cutoutPercentage: 70,
@@ -420,13 +421,13 @@ export class AssignMngDetailComponent implements OnInit {
         chart.ChartType= "line";
         
         chart.Colors = [
-            { // grey
-                backgroundColor: '#f9f9fb',
-                borderColor: '#2bd2c8',
-                pointBackgroundColor: '#f1f3f2',
-                pointBorderColor: '#2cd2c8',
-                pointHoverBackgroundColor: '#e8f0f2',
-                pointHoverBorderColor: '#6fdcd6'
+            { 
+                backgroundColor: chartColors.lineBg,
+                borderColor: chartColors.lineBorder,
+                pointBackgroundColor: chartColors.linePointBg,
+                pointBorderColor: chartColors.linePointBorder,
+                pointHoverBackgroundColor: chartColors.linePointHoverBg,
+                pointHoverBorderColor: chartColors.linePointHoverBorder
             }
         ];
     }
