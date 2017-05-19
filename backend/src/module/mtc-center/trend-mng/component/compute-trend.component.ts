@@ -316,13 +316,18 @@ export class ComputeTrendComponent implements OnInit {
 
             let option = {
                 tooltip: {
-                    show: false,
+                    show: true,
 
                 },
                 legend: {
-                    data: TempLegend
+                    data: TempLegend,
+                    formatter: function (name) {
+                        return echarts.format.truncateText(name.replace("主机规格:",""), 160, '14px Microsoft Yahei', '…');
+                    }
+
                 },
                 grid: {
+                    //top:'30%',
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
