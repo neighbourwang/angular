@@ -115,15 +115,15 @@
                             <div class="col-md-6">
                                 <div style="margin-top:40px;margin-left:20px;">
                                     <div class="row" style="padding:5px 0;">
-                                        <span class="legend" style="background: #2bd2c8;"></span>&nbsp;&lt;30%
+                                        <span class="legend circle-legend1" ></span>&nbsp;&lt;30%
                                         <span style="margin-left:54px;">{{cpuInfo.level1}}</span>
                                     </div>
                                     <div class="row" style="padding:5px 0;">
-                                        <span class="legend" style="background: #05ab83"></span>&nbsp;30%-70%
+                                        <span class="legend circle-legend2" ></span>&nbsp;30%-70%
                                         <span style="margin-left:30px;">{{cpuInfo.level2}}</span>
                                     </div>
                                     <div class="row" style="padding:5px 0;">
-                                        <span class="legend" style="background: #c9cacc"></span>&nbsp;&gt;70%
+                                        <span class="legend circle-legend3" ></span>&nbsp;&gt;70%
                                         <span style="margin-left:54px;">{{cpuInfo.level3}}</span>
                                     </div>
                                 </div>
@@ -155,15 +155,15 @@
                             <div class="col-md-6">
                                 <div style="margin-top:40px;margin-left:20px;">
                                     <div class="row" style="padding:5px 0;">
-                                        <span class="legend" style="background: #2bd2c8;"></span>&nbsp;&lt;30%
+                                        <span class="legend circle-legend1"></span>&nbsp;&lt;30%
                                         <span style="margin-left:54px;">{{memInfo.level1}}</span>
                                     </div>
                                     <div class="row" style="padding:5px 0;">
-                                        <span class="legend" style="background: #05ab83"></span>&nbsp;30%-70%
+                                        <span class="legend circle-legend2" ></span>&nbsp;30%-70%
                                         <span style="margin-left:30px;">{{memInfo.level2}}</span>
                                     </div>
                                     <div class="row" style="padding:5px 0;">
-                                        <span class="legend" style="background: #c9cacc"></span>&nbsp;&gt;70%
+                                        <span class="legend circle-legend3"></span>&nbsp;&gt;70%
                                         <span style="margin-left:54px;">{{memInfo.level3}}</span>
                                     </div>
                                 </div>
@@ -180,23 +180,11 @@
                     <div class="panel-body" style="padding: 0; height: 216px; overflow-y: scroll;">                  
                         <table class="table table-hover" >
                             <tbody>
-                                <tr>
-                                    <td>shutoff：</td>
-                                    <td>{{powerStat.shutoff}}</td>
+                                <tr *ngFor="let p of pstName let i=index">
+                                    <td>{{p}}：</td>
+                                    <td>{{pstValue[i]}}</td>
                                 </tr>
-                                <tr>
-                                    <td>reboot：</td>
-                                    <td>{{powerStat.reboot}}</td>
-                                </tr>
-                                <tr>
-                                    <td>startup：</td>
-                                    <td>{{powerStat.startup}}</td>
-                                </tr>
-                                <tr>
-                                    <td>pause：</td>
-                                    <td>{{powerStat.pause}}</td>
-                                </tr>
-                            
+                                
                             </tbody>
                         </table>                    
                     </div>

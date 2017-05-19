@@ -65,7 +65,9 @@ export class AssignMngDetailComponent implements OnInit {
     powerStat: PowerStatModel = new PowerStatModel();
     flavor: Object = new Object();
     flavorName: Array<string>=new Array<string>();
-    flavorValue: Array<number>=new Array<number>();
+    flavorValue: Array<number> = new Array<number>();
+    pstName: Array<string>=new Array<string>();
+    pstValue: Array<number>=new Array<number>();
     cpuCircle: DoughnutChart = new DoughnutChart(); //cpu环形图
     memCircle: DoughnutChart = new DoughnutChart(); //mem环形图
     hyperList: Array<Hyper>;
@@ -174,6 +176,11 @@ export class AssignMngDetailComponent implements OnInit {
                     for (var f in flv) {
                         this.flavorName.push(f);
                         this.flavorValue.push(flv[f]);
+                    }
+                    let pst = this.powerStat;
+                    for (var p in pst) {
+                        this.pstName.push(p);
+                        this.pstValue.push(pst[p]);
                     }
                     //数据处理
                     this.getGraphData(this.cpuCircle, this.cpuInfo);
