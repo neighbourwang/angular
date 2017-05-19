@@ -144,6 +144,9 @@ export class HostReconfigComponent implements OnInit {
 
 	}
 
+	close() {
+		$('#hostBox').modal('hide');
+	}
 
 	// 警告框相关
 	showNotice(title: string, msg: string) {

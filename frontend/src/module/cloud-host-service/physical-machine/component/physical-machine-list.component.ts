@@ -94,6 +94,7 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 			.then(res => {
 				this.layoutService.hide()
 				this.list = res;
+				this.checkListMiddleState();
 			})
 			.catch(e => this.layoutService.hide())
 	}

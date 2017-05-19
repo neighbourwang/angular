@@ -53,7 +53,6 @@ export class ManagementServicesListComponent implements OnInit {
 		this.orderService.fetchServicesList().then(res => {
 			this.layoutService.hide()
 			this.productList = res;
-			if(res.length) this.listQuery.instanceNo = res[0].id
 			
 			this.fetchMgmtList()
 		})
@@ -63,6 +62,7 @@ export class ManagementServicesListComponent implements OnInit {
 	fetchMgmtList() {
 		// this.layoutService.show();
 		this.service.fetchMgmtList(this.listQuery).then(res => {
+			console.log(this.mgmtList)
 			this.mgmtList = res;
 		})
 		

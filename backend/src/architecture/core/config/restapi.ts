@@ -1058,7 +1058,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取某个VM产品目录详细信息",
         "id": "prod-mng.prod-edit-vm.detail",
         "method": "GET",
-        "url": "adminui/authsec/service/{id}/type/vm/detail "
+        "url": "adminui/authsec/service/{id}/type/vm/detail"
     },
     //DISK产品目录
     {
@@ -2917,7 +2917,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "告警详细",
         "id":"trigger-detail.get",
         "method":"GET",
-        "url":"maintenancemgmt/noauth/trigger/detail/{triggerId}"
+        "url":"maintenancemgmt/noauth/trigger/detail/{itemId}"
      },
     {
         "desc": "告警更新",

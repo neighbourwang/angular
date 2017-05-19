@@ -32,7 +32,11 @@ class DatabaseModel {
         "diskGroup": '',
         "minSize": 50,
         "usage": 0,
-        "useDisplay": '安装主目录'
+        "useDisplay": '安装主目录',
+        "minDiskSize":0,
+        "mountPath":"",
+        "usageType":0,
+        "minSizeValid":true,
       },
       {
         "copyLevel": 0,
@@ -40,7 +44,11 @@ class DatabaseModel {
         "diskGroup": 'DATA',
         "minSize": 50,
         "usage": 1,
-        "useDisplay": '数据库文件'
+        "useDisplay": '数据库文件',
+        "minDiskSize":0,
+        "mountPath":"",
+        "usageType":1,
+        "minSizeValid":true,
       },
       {
         "copyLevel": 1,
@@ -48,7 +56,11 @@ class DatabaseModel {
         "diskGroup": 'ARCH',
         "minSize": 200,
         "usage": 2,
-        "useDisplay": '归档日志,快速恢复区'
+        "useDisplay": '归档日志,快速恢复区',
+        "minDiskSize":0,
+        "mountPath":"",
+        "usageType":2,
+        "minSizeValid":true,
       }
     ]
   }
@@ -60,6 +72,11 @@ class diskProfile {
   "minSize": number;//最下
   "usage": number;//磁盘用途
   "useDisplay": string;//
+  //获取时字段不一样
+  "minDiskSize":number;
+  "mountPath":string;
+  "usageType":number;
+  "minSizeValid":boolean;
 }
 class DatabaseOptions{
   items:Array<DatabaseOption>;

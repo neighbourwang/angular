@@ -63,15 +63,12 @@
         <tr *ngFor="let mgmt of mgmtList;let i = index">
             <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=mgmt;" name="disk-list" id="mgmt_radio_{{mgmt.id}}"></td>
             <td class="text-center">{{i+1}}</td>
-            <td class="text-center active">{{mgmt.name}}</td>
-            <td class="text-center">{{mgmt.type}}</td>
-            <td class="text-center">{{mgmt.itemId}}/{{mgmt.instanceName}}</td>
-            <td class="text-center">{{mgmt.relyName}}</td>
-            <td class="text-center">{{mgmt.expireDate | formatDate}}</td>
-            <td class="text-center">{{mgmt.platformName}}</td>
-            <td class="text-center">{{mgmt.zoneName}}</td>
-            <td class="text-center">{{mgmt.useType}}</td>
-            <td class="text-center">{{mgmt.sourceType | dict:service.dictSourceType | async}}</td>
+            <td class="text-center active">{{mgmt.serviceName}}</td>
+            <td class="text-center">{{mgmt.serviceObjectCode}}</td>
+            <td class="text-center">{{mgmt.instance?.instanceId}}/{{mgmt.instance?.instanceName}}</td>
+            <td class="text-center">{{mgmt.instance?.instanceRegion}}</td>
+            <td class="text-center">{{mgmt.serviceType | dict: service.period | async}}</td>
+            <td class="text-center">{{mgmt.serviceStatus | dict: service.status | async}}</td>
         </tr>
     </table>
 
