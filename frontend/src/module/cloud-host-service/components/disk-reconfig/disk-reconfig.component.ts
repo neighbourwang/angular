@@ -76,6 +76,10 @@ export class DiskReconfigComponent implements OnInit {
 
 	}
 
+	close() {
+		$('#diskBox').modal('hide');
+	}
+
 	check(){
 		if(this.ot || !this.currentStorage) return false;
 

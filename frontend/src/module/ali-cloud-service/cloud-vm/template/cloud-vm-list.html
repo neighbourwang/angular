@@ -104,11 +104,11 @@
             <td class="text-center text-vertical-middle">
                 <span *ngIf="instance.Status=='Stopped'" class="icon_style icon-start" (click)="selectItem(i); startInstance();" name="startvm"></span>
                 <span *ngIf="instance.Status!='Stopped'" class="icon_style icon-stop" (click)="selectItem(i); stopInstance();" name="stopvm"></span>
-                <span class="icon_style icon-reboot" (click)="selectItem(i); reStartInstance();" name="restartvm"></span>
+                <span class="icon_style icon-reboot" (click)="selectItem(i); reStartInstance();" [style.cursor]="instance.Status=='Running'?'pointer':'no-drop'" name="restartvm"></span>
                 <span *ngIf="instance.EipAddress.IpAddress==''" class="icon_style icon-IPlock" (click)="selectItem(i); attachIPToInstance();" name="attachIP"></span>
                 <span *ngIf="instance.EipAddress.IpAddress!=''" class="icon_style icon-IPrelease" (click)="selectItem(i); detachIPToInstance();" name="detachIP"></span>
-                <span class="icon_style icon-remotelink" (click)="selectItem(i); remoteToInstance();" name="remotevm"></span>
-                <span class="icon_style icon-ali-delete3" (click)="selectItem(i); deleteInstance();" name="deletevm"></span>
+                <span class="icon_style icon-remotelink" (click)="selectItem(i); remoteToInstance();" [style.cursor]="instance.Status=='Running'?'pointer':'no-drop'" name="remotevm"></span>
+                <span class="icon_style icon-ali-delete3" (click)="selectItem(i); deleteInstance();" [style.cursor]="instance.Status=='Stopped'?'pointer':'no-drop'" name="deletevm"></span>
             </td>
         </tr>
     </table>

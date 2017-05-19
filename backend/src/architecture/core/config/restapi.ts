@@ -2886,7 +2886,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "管理服务列表",
         "id": "mtc-center.mng-service.list",
         "method": "POST",
-        "url": "servicemgmt/authsec/services/supervise/operation/{page}/{size}"
+        "url": "subinstancemgmt/authsec/subinstance/supervise/search/page"
     },
     {
         "desc": "管理服务详情",
@@ -2923,7 +2923,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "告警详细",
         "id":"trigger-detail.get",
         "method":"GET",
-        "url":"maintenancemgmt/noauth/trigger/detail/{triggerId}"
+        "url":"maintenancemgmt/noauth/trigger/detail/{itemId}"
      },
     {
         "desc": "告警更新",

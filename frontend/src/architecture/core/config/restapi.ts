@@ -112,7 +112,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取硬盘实例状态",
         "method": "GET",
         "id": "featch.disk.state",
-        "url": "/marketplace/authsec/subinstance/disk/{id}/state"
+        "url": "marketplace/authsec/subinstance/disk/{id}/state"
     },
     {
         "desc": "提交变更云硬盘配置",
@@ -295,6 +295,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "id": "phymachine.product.page",
         "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/page/{page}/size/{size} "
+    },
+    {
+        "desc": "物理机详情",
+        "method": "GET",
+        "id": "phymachine.detail",
+        "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/{pmId}"
     },
     {
         "desc": "获取物理机状态",

@@ -19,6 +19,7 @@
         </div>
         <div class="dropdown float-left col-md-1 no-padding mgr20 ">
             <select class="form-control" [(ngModel)]="listQuery.instanceNo">
+                <option value="">请选择</option>
                 <option
                  *ngFor="let v of productList; let i = index;"
                  [ngValue]="v.id" >{{ v.name }}</option>
@@ -29,6 +30,7 @@
         </div>
         <div class="dropdown float-left col-md-1 no-padding mgr20 ">
             <select class="form-control" [(ngModel)]="listQuery.instanceName">
+                <option value="">请选择</option>
                 <option
                  *ngFor="let v of service.period | async; let i = index;"
                  [ngValue]="v.value" >{{ v.displayValue }}</option>
@@ -63,15 +65,12 @@
         <tr *ngFor="let mgmt of mgmtList;let i = index">
             <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=mgmt;" name="disk-list" id="mgmt_radio_{{mgmt.id}}"></td>
             <td class="text-center">{{i+1}}</td>
-            <td class="text-center active">{{mgmt.name}}</td>
-            <td class="text-center">{{mgmt.type}}</td>
-            <td class="text-center">{{mgmt.itemId}}/{{mgmt.instanceName}}</td>
-            <td class="text-center">{{mgmt.relyName}}</td>
-            <td class="text-center">{{mgmt.expireDate | formatDate}}</td>
-            <td class="text-center">{{mgmt.platformName}}</td>
-            <td class="text-center">{{mgmt.zoneName}}</td>
-            <td class="text-center">{{mgmt.useType}}</td>
-            <td class="text-center">{{mgmt.sourceType | dict:service.dictSourceType | async}}</td>
+            <td class="text-center active">{{mgmt.serviceName}}</td>
+            <td class="text-center">{{mgmt.serviceObjectCode}}</td>
+            <td class="text-center">{{mgmt.instance?.instanceId}}/{{mgmt.instance?.instanceName}}</td>
+            <td class="text-center">{{mgmt.instance?.instanceRegion}}</td>
+            <td class="text-center">{{mgmt.serviceType | dict: service.period | async}}</td>
+            <td class="text-center">{{mgmt.serviceStatus | dict: service.status | async}}</td>
         </tr>
     </table>
 

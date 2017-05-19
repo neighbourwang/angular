@@ -191,8 +191,8 @@
 							
 
 								<vm-view [values]="item" *ngIf="item.serviceType==0"></vm-view><!--云主机-->
-								<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view><!--云硬盘-->
-								<sql-view *ngIf="item.serviceType==3" [values]="item"></sql-view>
+								<disk-view [values]="item" *ngIf="item.serviceType==1"></disk-view><!--云硬盘-->
+								<sql-view [values]="item" *ngIf="item.serviceType==3" ></sql-view>
 							</td>
 							<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 							<td class="text-center">{{item.quantity}}台</td>

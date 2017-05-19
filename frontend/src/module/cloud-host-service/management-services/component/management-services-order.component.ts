@@ -11,7 +11,7 @@ import { PhysicalMachineListService } from '../../physical-machine/service/physi
 
 import { DispatchEvent } from "../../components/dispatch-event"
 
-import { SuperviseProductItem, ProductSimpleItem, ShoppingCartProfile } from '../model/service.model';
+import { SuperviseProductItem, ProductSimpleItem, ShoppingCartProfile, ServiceResAttributePair } from '../model/service.model';
 import { PostAttrList, PayLoad} from '../model/post.model';
 import { Values, ValuesAttr, Selected} from '../model/other.model';
 
@@ -397,7 +397,12 @@ export class ManagementServicesOrderComponent implements OnInit {
 		this.postDataList = valuesList.map(values => {
 			let { attrList } = this.postData
 			attrList = attrList.map(attr => Object.assign({}, attr, values[attr.attrCode]))
-			return Object.assign({}, this.postData, { attrList }, { itemNo: this.makeItemNum() }, { relyItemNo: values.instanceId })
+			
+			let billingType = Object.assign({}, new ServiceResAttributePair,{    //配合后端临时添加
+				attrCode: "BILLINGTYPE",
+				attrValue: this.productInfo.billingType
+			})
+			return Object.assign({}, this.postData, { attrList: attrList.concat(billingType) }, { itemNo: this.makeItemNum() }, { relyItemNo: values.instanceId })
 		})
 
 		console.log(this.postDataList)

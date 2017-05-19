@@ -58,7 +58,7 @@
         <div class="float-left">
             <button class="btn float-left mgr5 btn-success" id="create_cloud_disk" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i> {{'CLOUD_DRIVE_LIST.CREATE_CLOUD_HRAD_DISK' | translate}}</button>
             <unsubscribe #unsubscribeVm (onSuccess)="setDistList()" title="云硬盘退订" id="unsubscribe_cloud_disk" [subid]="radioSelected?.subInstanceId"></unsubscribe>
-            <button (click)="unsubscribeVm.open()" id="un_cloud_disk" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK' | translate}}</button>
+            <button *ngIf="!isMiddleState(radioSelected?.status)" (click)="unsubscribeVm.open()" id="un_cloud_disk" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK' | translate}}</button>
 
 
             <!--<div class="dropdown float-left  mgr5">
@@ -116,11 +116,11 @@
                     <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " *ngIf="!dist.relyId"
+                        <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " *ngIf="!dist.relyId && [1, 10].indexOf(dist.status) > -1"
                                 href="javascript:" id="mount_{{dist.id}}">{{'CLOUD_DRIVE_LIST.MOUNT' | translate}}</a></li>
-                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" id="uninstall_{{dist.id}}" *ngIf="dist.relyId" href="javascript:">{{'CLOUD_DRIVE_LIST.UNINSTALL' | translate}}</a></li>
-                        <li *ngIf="dist.relyId" role="separator" class="divider"></li>
-                        <li *ngIf="dist.relyId" ><a (click)="diskReconfig.open(dist)" href="javascript:" id="open_{{dist.id}}">云硬盘扩容</a></li>
+                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" id="uninstall_{{dist.id}}" *ngIf="dist.relyId && [1, 10].indexOf(dist.status) > -1" href="javascript:">{{'CLOUD_DRIVE_LIST.UNINSTALL' | translate}}</a></li>
+                        <li *ngIf="dist.relyId && [1, 10].indexOf(dist.status) > -1" role="separator" class="divider"></li>
+                        <li *ngIf="dist.relyId && [1, 10].indexOf(dist.status) > -1" ><a (click)="diskReconfig.open(dist)" href="javascript:" id="open_{{dist.id}}">云硬盘扩容</a></li>
                     </ul>
                 </div>
             </td>

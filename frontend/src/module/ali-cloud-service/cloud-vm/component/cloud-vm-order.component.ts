@@ -687,7 +687,7 @@ export class AliCloudVmOrderComponent implements OnInit {
         this.defaultOrderVmPage.diskCount = "40";//===云硬盘G数
 
 
-        this.defaultOrderVmPage.selectedQuantity = null; //购买量月份
+        //this.defaultOrderVmPage.selectedQuantity = null; //购买量月份
         this.defaultOrderVmPage.vm_period = null;
         this.defaultOrderVmPage.price_period = null;
         this.defaultOrderVmPage.periodType = null;

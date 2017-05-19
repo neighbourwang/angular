@@ -463,7 +463,7 @@ export class AliCloudVmService {
         if (queryObject.keyword != "") {
             switch (queryObject.criteria) {
                 case "instance_name":
-                    body.instanceName = queryObject.keyword;
+                    body.instanceName = "*" + queryObject.keyword + "*";;
                     break;
                 case "instance_ids":
                     let instanceIds: Array<string> = [];                    
@@ -507,6 +507,9 @@ export class AliCloudVmService {
                     break;
                 case "vswitch_id":
                     body.vswitchId = queryObject.keyword;
+                    break;
+                case "zoneId":
+                    body.zoneId = queryObject.keyword;
                     break;
                 default:
                     console.log("queryObject.keyword don't match any criteria");

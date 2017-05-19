@@ -433,6 +433,10 @@ export class AliCloudVmListComponent implements OnInit {
 
     reStartInstance() {
         this.selectedInstance = this.getSelected();
+        if(this.selectedInstance.Status != "Running") {
+            console.log("can't restarted");
+            return;
+        }
         if (this.selectedInstance) {
             this.restartvm.open();
         } else {
@@ -451,13 +455,14 @@ export class AliCloudVmListComponent implements OnInit {
             .then(
             response => {
                 this.layoutService.hide();
+                /*
                 if (response && 100 == response["resultCode"]) {
-                    this.showMsg("重启实例成功");
-                    this.getInstanceList();
+                    //this.showMsg("重启实例成功");
+                    //this.getInstanceList();
                 } else {
                     this.showMsg("重启实例失败");
                     return;
-                }
+                }*/
             })
             .then(() => {
                 this.restartvm.close();
@@ -471,6 +476,8 @@ export class AliCloudVmListComponent implements OnInit {
                     this.restartvm.open();
                 };
             });
+        this.selectedInstance.Status = "Stopping";
+        this.oneInstancePoll(this.selectedInstance);
     }
 
     cancelRestartInstanceModify() {
@@ -637,13 +644,17 @@ export class AliCloudVmListComponent implements OnInit {
 
     remoteToInstance() {
         this.selectedInstance = this.getSelected();
-        if (this.selectedInstance) {
-            this.showMsg("远程控制台Url, 有效时间为15秒，请尽快输入密码登陆！");
+        if (this.selectedInstance) { 
+            if(this.selectedInstance.Status != "Running") {
+                console.log("can't remoteToInstance");
+                return;
+            }           
             this.layoutService.show();
             this.service.remoteControlInstance(this.selectedInstance.RegionId, this.selectedInstance)
                 .then(
                 response => {
                     this.layoutService.hide();
+                    this.showMsg("远程控制台Url, 有效时间为15秒，请尽快输入密码登陆！");
                     console.log(response, "response!");
                     if (response && 100 == response["resultCode"]) {
                         console.log(this.remoteUrl, "remoteUrl!");
@@ -667,6 +678,10 @@ export class AliCloudVmListComponent implements OnInit {
     deleteInstance() {
         this.selectedInstance = this.getSelected();
         if (this.selectedInstance) {
+            if(this.selectedInstance.Status != "Stopped") {
+                console.log("can't remoteToInstance");
+                return;
+            }    
             this.confirmTitle = "释放实例";
             this.confirmMsg = "释放实例：" + this.selectedInstance.InstanceId;
             this.confirm.cof = () => { };
@@ -894,13 +909,14 @@ export class AliCloudVmListComponent implements OnInit {
     changePage(pageIndex?) {
         this.pageIndex = pageIndex || this.pageIndex;
         console.log(this.pageIndex, typeof this.pageIndex, "pageIndex!");
+        this.instances = [];
         if(this.pageIndex>this.totalPage)  {
-            this.pageIndex = this.totalPage;
+            //this.pageIndex = this.totalPage;
             console.log(this.pageIndex);
             return;
         }
         
-        this.clearInterval();
+        this.clearInterval();        
         this.instances = this.allinstances.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize);
         console.log(this.instances, "instances!");
         this.instancesPollOps();

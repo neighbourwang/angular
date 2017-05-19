@@ -37,42 +37,63 @@ export class HostMemoryUseComponent implements OnInit{
     threshold2:Threshold=new Threshold();
     alarm:AlarmListModel=new AlarmListModel();
     receiverList:Array<Receiver>;
+    selecteReceiver:Array<Receiver>;
 
-    big:string=">";
-    bigger:string=">=";
-    small:string="<";
-    smaller:string="<=";
     ngOnInit (){
         console.log('init');
         this.activeRoute.params.forEach((params: Params) => {
             this.alarm.itemId = params["id"];
           });
-          this.getAlarm();
+          this.getReceiverList()
+            .then(() => {
+                this.getAlarm().then(
+                    () => {
+                        for (var i = this.alarm.receiver.length - 1; i >= 0; i--) {
+                        let a= this.receiverList.find((e)=>{return e.name ==this.alarm.receiver[i].name});
+                        if(a){
+                            a.isSelect=true;
+                        }
+                    }
+                });              
+                              
+            });        
     }
 
-    alarmName=["平台存储实际分配率","平台存储分配率","虚拟机CPU平均使用率","虚拟机内存平均使用率"];
+    alarmName=["虚拟机CPU平均使用率","虚拟机内存平均使用率"];
     isName:boolean;
 
     //获取告警项
-    getAlarm(){
+    getAlarm():Promise<any>{
         this.layoutService.show();
-        this.service.getAlarm(this.alarm.itemId) 
+        return this.service.getAlarm(this.alarm.itemId) 
         .then(
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.layoutService.hide();
-                        this.alarm=response["resultContent"].find((e)=>{return e.itemId ==this.alarm.itemId});
+                        // this.alarm=response["resultContent"].find((e)=>{return e.itemId == this.alarm.itemId});
+                        this.alarm=response["resultContent"];
                         console.log(this.alarm.name)
-                        this.threshold1=this.alarm.threshold[0];
-                        this.threshold2=this.alarm.threshold[1];
+                        this.alarm.threshold[0]&& (this.threshold1=this.alarm.threshold[0]); 
+                        this.alarm.threshold[1]&&(this.threshold2=this.alarm.threshold[1]);
                         if(this.alarmName.find((e)=>{return e==this.alarm.name})){
-                            this.isName=true;                           
+                            this.isName=true;
+                            // this.threshold1.symbol=">";     
+                            // this.threshold2.symbol="<";  
+                            // this.threshold1.content="1";  
+                            // this.threshold2.content="2";                     
                         }
-                        else this.isName=false;
+                        else {
+                            this.isName=false;
+                            // this.threshold1.symbol="<"; 
+                            // this.threshold2.symbol="<";
+                            // this.threshold1.level="1";   
+                            // this.threshold2.level="2";
+                        }
                         console.log("isName",this.isName)
-                        console.log("条件1",this.threshold1)
+                        console.log("条件1",this.threshold1,this.alarm.threshold,this.alarm.threshold[0])
                         console.log("条件2",this.threshold2)
+                        console.log("接收人",this.alarm.receiver)
                     } 
                     else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -83,8 +104,9 @@ export class HostMemoryUseComponent implements OnInit{
     }
 
    //获取接收人列表
-      getReceiverList(){
-        this.service.getReceivers() 
+      getReceiverList():Promise<any>{
+        this.layoutService.show();
+       return this.service.getReceivers() 
         .then(
                 response => {
                     this.layoutService.hide();
@@ -107,6 +129,14 @@ export class HostMemoryUseComponent implements OnInit{
             return;
         }
         this.alarm.threshold=[this.threshold1,this.threshold2];
+        this.receiverList.forEach(
+            item => {
+                if (item.isSelect) {
+                    this.alarm.receiver.push(item);
+                    
+                }
+            });
+            console.log("修改后的接收人",this.alarm.receiver)
         this.layoutService.show();
         this.service.update(this.alarm) 
         .then(
@@ -126,12 +156,11 @@ export class HostMemoryUseComponent implements OnInit{
 
     selectReceiver(id:number){
         this.receiverList[id].isSelect= 
-                  this.receiverList[id].isSelect ==true? false:true;
-
+                  this.receiverList[id].isSelect ==true? false:true;    
     }
 
     //全选
-     isSelectedAll: boolean = false;
+     isSelectedAll= false;
     selectAll(){
         this.isSelectedAll = !this.isSelectedAll;
         this.receiverList.forEach((e)=>e.isSelect=this.isSelectedAll);
