@@ -182,7 +182,7 @@
                     </div>
                 </div>
             </div>
-           <div class="row row-line-height"  >   <!-- *ngIf="editMode=='editParts' || editMode=='create'"-->
+            <div class="row row-line-height"  *ngIf="eidtMode =='create'||eidtMode =='editParts' || physical.partsEntitys.length!=0" >   <!-- *ngIf="editMode=='editParts' || editMode=='create'"-->
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.SET_PART'|translate}}:</div>
                     <div class="col-md-4"> 

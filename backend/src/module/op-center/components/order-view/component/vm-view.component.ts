@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import {SubInstanceAttrPair,SubInstanceItemResp } from '../model'
+import {SubInstanceAttrPair,SubInstanceItemResp } from '../../../order-mng/model';
+
 import * as _ from 'underscore';
 
 @Component({
@@ -21,15 +22,15 @@ import * as _ from 'underscore';
 
 		<li *ngIf="_obj.password">密码: {{_obj.password}} </li>
 		
-		<li *ngIf="_obj.instanceName">实例名称: {{_obj.instanceName}}</li>
+		<li *ngIf="_obj.instanceName"><span style="display:block;width:150px;word-wrap:break-word;">实例名称: {{_obj.instanceName}}</span></li>
 	</ul>
 	`
 })
 export class VmViewComponent implements OnInit{
 	@Input()
-	private values:SubInstanceItemResp;//
+	private values:any;//
 
-    private  specList:Array<SubInstanceAttrPair>=[];
+    private  specList=[];
 	private _obj:{
 		platform:string,//区域
 		zone:string;//可用区
@@ -50,6 +51,12 @@ export class VmViewComponent implements OnInit{
 		// alert("1111111");
 		if(this.values&&this.values.specList){
 			this.specList = this.values.specList;
+			
+		}else if(this.values&&this.values.orderItems[0]){
+			this.specList = this.values.orderItems[0].specList;
+		}
+		
+		if(this.specList!=null){
 			this._obj = {
 			platform:getProperty(this.specList.find(n=>n.attrCode == 'PLATFORM'))//this.values.platform
 			,zone:getProperty(this.specList.find(n=>n.attrCode == 'ZONE'))
@@ -63,8 +70,6 @@ export class VmViewComponent implements OnInit{
 			,instanceName: getProperty(this.specList.find(n=>n.attrCode == 'INSTANCENAME'))
 			};
 		}
-		
-		
 		if(this._obj.password&&this._obj.password!=null){
 			this._obj.password='已设置';
 		}else{

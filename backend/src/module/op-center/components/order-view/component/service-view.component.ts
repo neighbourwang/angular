@@ -13,9 +13,9 @@ import * as _ from 'underscore';
 })
 export class ServiceViewComponent implements OnInit{
 	@Input()
-	private values:SubInstanceItemResp;//
+	private values:any;//
 
-    private  specList:Array<SubInstanceAttrPair>=[];
+    private  specList=[];
 	private _obj:{
 	    region:string;
 		zone:string;//可用区
@@ -30,6 +30,12 @@ export class ServiceViewComponent implements OnInit{
 		// alert("1111111");
 		if(this.values&&this.values.specList){
 			this.specList = this.values.specList;
+		
+		}else if(this.values&&this.values.orderItems[0]){
+			this.specList = this.values.orderItems[0].specList;
+		}
+		
+		if(this.specList!=null){
 			this._obj = {
 		     region:getProperty(this.specList.find(n=>n.attrCode == 'REGION'))
 			,zone:getProperty(this.specList.find(n=>n.attrCode == 'ZONE'))  

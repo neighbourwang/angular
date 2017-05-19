@@ -508,6 +508,9 @@ export class AliCloudVmService {
                 case "vswitch_id":
                     body.vswitchId = queryObject.keyword;
                     break;
+                case "zoneId":
+                    body.zoneId = queryObject.keyword;
+                    break;
                 default:
                     console.log("queryObject.keyword don't match any criteria");
             }

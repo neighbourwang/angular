@@ -15,6 +15,8 @@ import { cloudHostDetailService } from '../../vm-instance/service/cloud-host-det
 
 export class PhysicalMachineDetailComponent extends cloudHostDetailComponent implements OnInit {
 
+    pm: any;
+
     constructor(
         public layoutService: LayoutService,
         public router: Router,
@@ -25,7 +27,23 @@ export class PhysicalMachineDetailComponent extends cloudHostDetailComponent imp
         super(layoutService, router, route, service)
     }
     ngOnInit() {
+        this.fetchPmDetailAndFill()
 
+    }
 
+    fetchPmDetailAndFill(callbackFn?) {
+        this.layoutService.show();
+
+        this.route.params.subscribe(params => {
+            this.PMservice.getPmInfo(params["pmId"]).then(res => {
+                this.layoutService.hide();
+                this.pm = res;
+                console.log(res)
+                
+                callbackFn && callbackFn();
+            }).catch(error => {
+                this.layoutService.hide();
+            })
+        });
     }
 }
