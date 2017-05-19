@@ -64,6 +64,8 @@ export class MngServiceListComponent implements OnInit{
     progress: string;
     complete: string;
     serviceNames: Array<ServiceNameList>;
+    instanceName: string;
+    instanceNo: string;
 
     ngOnInit() {
         this.service.searchDic.then(res =>{
@@ -85,8 +87,7 @@ export class MngServiceListComponent implements OnInit{
         console.log("searchTypeCode",this.searchTypeCode);
         this.pageIndex= pageIndex || this.pageIndex;
         this.layoutService.show();
-        this.service.getData(this.pageIndex, this.pageSize, this.serviceStatus, this.enterpriseId, this.serviceId, this.serviceObjectCode,
-            this.searchTypeCode, this.keyWords)
+        this.service.getData(this.pageIndex, this.pageSize, this.serviceStatus, this.enterpriseId, this.serviceId, this.instanceName, this.instanceNo )
             .then(
                 response => {
                     this.layoutService.hide();

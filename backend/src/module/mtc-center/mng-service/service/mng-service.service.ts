@@ -47,9 +47,9 @@ export class MngService {
         return this.restApi.request(api.method, api.url, null, null,null  );
     }
 
-    getData(pageIndex: number, pageSize: number, serviceStatus: string, enterpriseId: string, serviceName: string, serviceObjectCode: string,
-            searchTypeCode: string, keyWords: string): Promise<any>{
-        const pathParams=[
+    getData(pageIndex: number, pageSize: number, state: string, tenantId: string, name: string, instanceName: string,
+            instanceNo: string): Promise<any>{
+/*        const pathParams=[
             {
                 key:"page",
                 value: pageIndex
@@ -58,19 +58,22 @@ export class MngService {
                 key:"size",
                 value: pageSize
             }
-        ];
-/*        const api= this.restApiCfg.getRestApi("user-center.case-mng.list");
-        return this.restApi.request(api.method, api.url, pathParams, null,
+        ];*/
+        const api= this.restApiCfg.getRestApi("user-center.case-mng.list");
+        return this.restApi.request(api.method, api.url, null, null,
             {
-                "serviceStatus": serviceStatus,
-                "enterpriseId":enterpriseId,
-                "serviceName": serviceName,
-                "serviceObjectCode": serviceObjectCode,
-                "searchTypeCode": searchTypeCode,
-                "keyWords": keyWords
+                "state": "",
+                "tenantId":"",
+                "name": "",
+                "instanceName": "",
+                "instanceNo": "",
+                "pageParameter":{
+                    "currentPage":"pageIndex",
+                    "size":"pageSize"
+                }
 
-            });*/
-        return new Promise(resovle => setTimeout(resovle, 200)).then(() => ServiceList_mock);
+            });
+       // return new Promise(resovle => setTimeout(resovle, 200)).then(() => ServiceList_mock);
 
     }
 
