@@ -26,7 +26,7 @@
                 <td >
                  <div *ngFor="let v of item.threshold">{{v.name}}: {{v.symbol}} {{v.value}}</div>
                 </td>
-                <td>{{item.switch |dict:service.dictSwitch | async}}</td>
+                <td>{{item.switching |dict:service.dictSwitch | async}}</td>
                 <td>{{item.method | dict:service.dictMethod | async}}</td>
                 <td style="width:300px;word-break:break-all;">{{item.description}}</td>
             </tr>

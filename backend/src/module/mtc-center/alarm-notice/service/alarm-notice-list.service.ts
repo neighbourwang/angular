@@ -55,8 +55,8 @@ export class AlarmNoticeListService {
     //获取告警列表
     getAlarmList():Promise<any>{
         const api = this.restApiCfg.getRestApi("trigger-list.get");
-       // return this.restApi.request(api.method, api.url,null, null,null);
-       return new Promise(resovle => setTimeout(resovle, 200)).then(() => AlarmList_mock);
+      return this.restApi.request(api.method, api.url,null, null,null);
+     // return new Promise(resovle => setTimeout(resovle, 200)).then(() => AlarmList_mock);
 
     }
 
@@ -64,27 +64,27 @@ export class AlarmNoticeListService {
     getAlarm(id:string):Promise<any>{
          const pathParams = [
             {
-                key: "triggerId",
+                key: "itemId",
                 value: id
             },             
         ]
          const api = this.restApiCfg.getRestApi("trigger-detail.get");
-       // return this.restApi.request(api.method, api.url,pathParams, null,null);
-       return new Promise(resovle => setTimeout(resovle, 200)).then(() => AlarmList_mock);
+        return this.restApi.request(api.method, api.url,pathParams, null,null);
+      // return new Promise(resovle => setTimeout(resovle, 200)).then(() => AlarmList_mock);
     }
 
     //获取接收人列表
     getReceivers():Promise<any>{
          const api = this.restApiCfg.getRestApi("trigger-receiver-list.get");
-       // return this.restApi.request(api.method, api.url,null, null,null);
-       return new Promise(resovle => setTimeout(resovle, 200)).then(() => ReceiversList_mock);
+        return this.restApi.request(api.method, api.url,null, null,null);
+      //return new Promise(resovle => setTimeout(resovle, 200)).then(() => ReceiversList_mock);
     }
 
     //更新
     update(alarm:AlarmListModel):Promise<any>{
          const api = this.restApiCfg.getRestApi("trigger-update.put");
-       // return this.restApi.request(api.method, api.url,null, null,alarm);
-       return new Promise(resovle => setTimeout(resovle, 200)).then(() => AlarmList_mock);
+       return this.restApi.request(api.method, api.url,null, null,alarm);
+       //return new Promise(resovle => setTimeout(resovle, 200)).then(() => AlarmList_mock);
     }
 
 

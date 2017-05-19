@@ -112,7 +112,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取硬盘实例状态",
         "method": "GET",
         "id": "featch.disk.state",
-        "url": "/marketplace/authsec/subinstance/disk/{id}/state"
+        "url": "marketplace/authsec/subinstance/disk/{id}/state"
     },
     {
         "desc": "提交变更云硬盘配置",
@@ -326,6 +326,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "id": "mngm-attribute",
         "url": "marketplace/authsec/supervise/product/attribute"
+    },
+    {
+        "desc": "分页获取管理服务列表",
+        "method": "POST",
+        "id": "mngm-search-page",
+        "url": "subinstancemgmt/authsec/subinstance/supervise/search/page"
     },
     // {
     //     "desc": "获取一个管理服务目录的基础信息",

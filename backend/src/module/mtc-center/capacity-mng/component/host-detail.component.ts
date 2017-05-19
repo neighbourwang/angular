@@ -138,15 +138,15 @@ export class HostDetailComponent implements OnInit {
                                 ticks: {
                                     //maxRotation:0, 
                                     userCallback: function(dataLabel, index) {
-                                        return index % 5 === 0 ? dataLabel : '';
+                                        return index % 10 === 0 ? dataLabel : '';
                                     }
                                 }
                             }],
                             yAxes: [{
                                 display: true,
                                  ticks: {
-                                    suggestedMin: 0,
-                                    //suggestedMax: 100,
+                                    min: 0,
+                                    suggestedMax: 50
                                 },
                                 beginAtZero: true
                             }]
