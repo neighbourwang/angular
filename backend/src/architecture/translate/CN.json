@@ -1387,7 +1387,9 @@
         "DEPART_NAME_CANNOT_NULL": "部件名称不能为空",
         "SPEC_NAME_CANNOT_NULL": "规格不能为空",
         "SPEC_VALUE_CANNOT_NULL": "规格值不能为空",
-        "REFERENCE_CANNOT_NULL": "参考价值不能为空"
+        "REFERENCE_CANNOT_NULL": "参考价值不能为空",
+        "PARTSNAME_ONLY_CANBE_NUMBER": "磁盘和内存的规格值只能输入数字",
+        "REFERENCENAME_ONLY_CANBE_NUMBER": "参考价值只能输入数字"
     },
     "PHYSICAL_MNG": {
         "CONFIRM": "确认",

@@ -94,7 +94,7 @@
                 <td>{{item.instance.instanceRegion}}</td>
                 <td></td>
                 <td>{{item.serviceType | dict: this.service.typeDic | async}}</td>
-                <td>{{item.serviceStatus}}</td>
+                <td>{{item.serviceStatus | dict: this.service.statusDic | async}}</td>
             </tr>
             </tbody>
         </table>
