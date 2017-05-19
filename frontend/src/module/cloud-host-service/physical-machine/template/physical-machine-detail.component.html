@@ -10,19 +10,14 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a (click)="isEditState = true" href="javascript:">{{'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | translate}}</a></li>
+                <!-- <li><a (click)="isEditState = true" href="javascript:">{{'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | translate}}</a></li> -->
 
                 <li>
-                  <unsubscribe #unsubscribeVm title="云主机退订" [subid]="vm?.subInstanceId"></unsubscribe>
-                  <a (click)="unsubscribeVm.open()" href="javascript:">{{'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | translate}}</a>
+                  <unsubscribe #unsubscribeVm title="物理机退订" [subid]="pm?.subInstanceId"></unsubscribe>
+                  <a (click)="unsubscribeVm.open()" href="javascript:">删除物理机</a>
                 </li>
             </ul>
         </div>
-
-        <open-console #openConsole [platformid]="vm?.platformId" [uuid]="vm?.uuid" [platformtype]="vm?.platformType"></open-console>
-        <button (click)="openConsole.open()" class="btn button-gray-gradient float-right mgr5">
-          <span class="icon-controller"></span>{{'VM_INSTANCE.CONSOLE' | translate}}
-        </button>
     </div>
     <div style="clear:both;"></div>
 
@@ -42,16 +37,19 @@
                       <div class="line-box">
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.INSTANCE_NAME' | translate}}:</font></div>    
                           <input *ngIf="isEditState" class="form-control detail-edit-select" [(ngModel)]="postData.instanceDisplayName" type="text">
-                          <span  *ngIf="!isEditState">{{vm?.instanceName}}</span>
+                          <span  *ngIf="!isEditState">{{pm?.pmName}}</span>
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.AVAILABLE_AREA' | translate}}:</font></div>    {{vm?.regionZone}}
+                          <div class="col-md-2 no-padding"><font>序列号:</font></div>  {{pm?.hwSN}}
+                      </div>
+                      <div class="line-box">
+                          <div class="col-md-2 no-padding"><font>所在可用区:</font></div>    {{pm?.regionZone}}
                       </div>
                       <div class="line-box">
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.OPERATION_HOURS' | translate}}:</font></div>   {{convertTimeDiff}}
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.STATUS' | translate}}:</font></div>    {{vm?.vmState | dict:service.computeStatus | async}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.STATUS' | translate}}:</font></div>    {{pm?.status | dict:PMservice.computeStatus | async}}
                       </div>
                       <div class="line-box">
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.RESOURCE' | translate}}:</font></div>  订购
@@ -70,7 +68,7 @@
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.EXTRA_SERVICES' | translate}}:</font></div>   
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.EXTRA_SERVICES' | translate}}:</font></div>   {{pm?.addService}}
                       </div>
                       <div class="line-box">
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.TYPE' | translate}}:</font></div>    
@@ -81,7 +79,7 @@
                               *ngFor="let value of service.useType | async"
                               [ngValue]="value.value" >{{ value.displayValue }}</option>
                           </select>
-                          <span *ngIf="!isEditState">{{vm?.useType | dict:service.useType | async}}</span>
+                          <span *ngIf="!isEditState">{{pm?.useType | dict:service.useType | async}}</span>
                       </div>
                       <div class="line-box">
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.SERVICE_LEVEL' | translate}}:</font></div>    
@@ -93,11 +91,11 @@
                               *ngFor="let value of service.serviceLevel | async"
                               [ngValue]="value.value" >{{ value.displayValue }}</option>
                           </select>
-                          <span *ngIf="!isEditState">{{vm?.serviceLevel | dict:service.serviceLevel | async}}</span>
+                          <span *ngIf="!isEditState">{{pm?.serviceLevel | dict:service.serviceLevel | async}}</span>
                       </div>
                       <div class="line-box">
                         <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.LABEL' | translate}}:</font></div>
-                        <div class="col-md-10 no-padding" *ngIf="!isEditState">{{ postData.labelIds?.join(",") }}</div>
+                        <div class="col-md-10 no-padding" *ngIf="!isEditState">{{ pm?.lable }}</div>
                         <div class="col-md-10 no-padding" *ngIf="isEditState">
                             <tag-input 
                                 (onDatasChanged)="labelDatasChange($event)"
@@ -108,7 +106,7 @@
                       <div class="line-box">
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.DESCRIPTION' | translate}}:</font></div>    
                           <input *ngIf="isEditState" class="form-control detail-edit-select" [(ngModel)]="postData.description" type="text">
-                          <span  *ngIf="!isEditState">{{vm?.description}}</span>
+                          <span  *ngIf="!isEditState">{{pm?.description}}</span>
                       </div>
                   </div>
                 </div>
@@ -124,19 +122,19 @@
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.CPU' | translate}}:</font></div>    {{vm?.vcpus}}核
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.CPU' | translate}}:</font></div>    {{pm?.vcpus}}核
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.RAM' | translate}}:</font></div>    {{vm?.memoryMb}}MB
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.RAM' | translate}}:</font></div>    {{pm?.memoryMb}}MB
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.MIRROR' | translate}}:</font></div>    {{vm?.osInfo}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.MIRROR' | translate}}:</font></div>    {{pm?.osInfo}}
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.INTERNAL_IP' | translate}}:</font></div>    {{vm?.privateIP}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.INTERNAL_IP' | translate}}:</font></div>    {{pm?.privateIP}}
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.EXTERNA_IP' | translate}}:</font></div>    {{vm?.publicIP}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.EXTERNA_IP' | translate}}:</font></div>    {{pm?.publicIP}}
                       </div>
                   </div>
                 </div>
@@ -155,10 +153,10 @@
                   <div class="panel-body">
                     
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.BOOT_DISK' | translate}}:</font></div>    {{vm?.rootGb}}GB
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.BOOT_DISK' | translate}}:</font></div>    {{pm?.rootGb}}GB
                       </div>
                       <div (click)="goToUrl('cloud-host-service/physical-machine-list')" class="line-box cursor-pointer">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.DATA_DISK' | translate}}:</font></div>    {{vm?.diskCount}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.DATA_DISK' | translate}}:</font></div>    {{pm?.diskCount}}
                       </div>
                       <div class="line-box">
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.SNAPSHOT' | translate}}:</font></div>    0
@@ -195,19 +193,19 @@
                   <div class="panel-body">
                     
                       <div (click)="goToUrl('op-center/order-mng/order-mng')" class="line-box cursor-pointer">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font></div>    {{vm?.itemId}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font></div>    {{pm?.itemId}}
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.PAYMENT_METHODS' | translate}}:</font></div>    {{vm?.paymentType}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.PAYMENT_METHODS' | translate}}:</font></div>    {{pm?.paymentType}}
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.CREATED_DATE' | translate}}:</font></div> {{vm?.createDate}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.CREATED_DATE' | translate}}:</font></div> {{pm?.createDate}}
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.EXPIRE_DATE' | translate}}:</font></div>    {{vm?.expiryDate}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.EXPIRE_DATE' | translate}}:</font></div>    {{pm?.expiryDate}}
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.RELEASE_DATE' | translate}}:</font></div> {{vm?.releaseDate}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.RELEASE_DATE' | translate}}:</font></div> {{pm?.releaseDate}}
                       </div>
                   </div>
                 </div>

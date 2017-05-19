@@ -377,8 +377,8 @@ export class AliCloudDiskListComponent implements OnInit {
         this.selectedDiskItem = this.getSelected();
         if (this.selectedDiskItem) {
             this.layoutService.show();
-            this.vmqueryObject.criteria = "instance_name";
-            this.vmqueryObject.keyword = "";
+            this.vmqueryObject.criteria = "zoneId";
+            this.vmqueryObject.keyword = this.selectedDiskItem.ZoneId;
             //this.vmService.getInstanceList(1, 100, this.choosenRegion.RegionId, this.vmqueryObject)
             this.vmService.getInstanceList(1, 100, this.selectedDiskItem.RegionId, this.vmqueryObject)
                 .then(
@@ -684,7 +684,7 @@ export class AliCloudDiskListComponent implements OnInit {
         console.log(this.pageIndex, typeof this.pageIndex, "pageIndex!");
         this.disks = [];
         if(this.pageIndex>this.totalPage) {
-            this.pageIndex = this.totalPage;
+            //this.pageIndex = this.totalPage;
             console.log(this.pageIndex);
             return;
         }

@@ -1,0 +1,8 @@
+.caas {
+    line-height: 75px;
+    font-size: 21px;
+    color: #000;
+    text-align: center;
+    border-right: solid 1px green;
+    display: block;
+}

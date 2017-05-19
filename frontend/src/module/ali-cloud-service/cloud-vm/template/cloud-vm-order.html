@@ -10,10 +10,12 @@
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-12 no-padding">
-                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PrePaid"}' (click)='selectedOrderVmPage.selectedChargeType="PrePaid"; showAndSetInstanceChargeType();' style="display: inline">包年包月
+                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PrePaid"}' (click)='selectedOrderVmPage.selectedChargeType="PrePaid"; selectedOrderVmPage.selectedQuantity=1; showAndSetInstanceChargeType();'
+                            style="display: inline">包年包月
                             <sup style="width: 20px; height: 20px; color: orange;">惠</sup>
                         </button>
-                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PostPaid"}' (click)='selectedOrderVmPage.selectedChargeType="PostPaid"; showAndSetInstanceChargeType();' style="display: inline">按量付费</button>
+                        <button class="btn-selected-green btn button-gray-gradient" [ngClass]='{"selected":selectedOrderVmPage.selectedChargeType=="PostPaid"}' (click)='selectedOrderVmPage.selectedChargeType="PostPaid"; selectedOrderVmPage.selectedQuantity=null; showAndSetInstanceChargeType();'
+                            style="display: inline">按量付费</button>
                         <!--
                         <static-tooltip [title]="tip_instanceChargeType" placement="right">
                             <span class="glyphicon glyphicon-question-sign"></span>
@@ -451,7 +453,7 @@
                             <tr>
                                 <span>配置费用：</span>
                                 <span *ngIf="selectedOrderVmPage.price_instance!=''">￥</span> {{(selectedOrderVmPage.price_instance) || ""}}
-                                <span *ngIf="selectedOrderVmPage.price_instance!=''"> /时 (参考价格)</span>
+                                <span *ngIf="selectedOrderVmPage.price_instance!=''&&selectedOrderVmPage.selectedChargeType=='PostPaid'"> /时</span> <span> (参考价格)</span>
                             </tr>
                         </table>
                     </div>
