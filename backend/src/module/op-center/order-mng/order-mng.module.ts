@@ -14,8 +14,6 @@ import {OrderMngDetailComponent
         , OrderMngCancelComponent
         ,OrderMngSearchComponent
         ,OrderMngSearchDetailComponent
-        ,VmViewComponent
-        ,DiskViewComponent
         ,CostPandectComponent
         // ,MachineViewComponent
         // ,ServiceViewComponent
@@ -35,12 +33,8 @@ import {OrderMngDetailComponent
         ,OrderMngCancelComponent
         ,OrderMngSearchComponent
         ,OrderMngSearchDetailComponent
-        ,VmViewComponent
-        ,DiskViewComponent
         ,CostPandectComponent
         ,CostManageComponent
-        // ,MachineViewComponent
-        // ,ServiceViewComponent
     ],
     exports: [],
     providers: []

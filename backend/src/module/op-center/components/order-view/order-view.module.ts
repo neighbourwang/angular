@@ -10,6 +10,8 @@ import { CommonComponentModule } from '../../../../architecture';
 import {ServiceViewComponent
         ,MachineViewComponent
         ,SqlViewComponent
+        ,VmViewComponent
+        ,DiskViewComponent
          } from './component';
 
 @NgModule({
@@ -23,12 +25,16 @@ import {ServiceViewComponent
         ServiceViewComponent
         ,MachineViewComponent
         ,SqlViewComponent
+        ,VmViewComponent
+        ,DiskViewComponent
        
     ],
     exports: [
         ServiceViewComponent
         ,MachineViewComponent
         ,SqlViewComponent
+        ,VmViewComponent
+        ,DiskViewComponent
     ],
     providers: []
 
