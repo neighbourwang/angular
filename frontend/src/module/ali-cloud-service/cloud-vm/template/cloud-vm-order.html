@@ -453,7 +453,7 @@
                             <tr>
                                 <span>配置费用：</span>
                                 <span *ngIf="selectedOrderVmPage.price_instance!=''">￥</span> {{(selectedOrderVmPage.price_instance) || ""}}
-                                <span *ngIf="selectedOrderVmPage.price_instance!=''"> /时 (参考价格)</span>
+                                <span *ngIf="selectedOrderVmPage.price_instance!=''&&selectedOrderVmPage.selectedChargeType=='PostPaid'"> /时 (参考价格)</span>
                             </tr>
                         </table>
                     </div>
