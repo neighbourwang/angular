@@ -25,7 +25,7 @@
 									<machine-view  [values]="prodItem" *ngIf="prodItem.serviceType==4"></machine-view>
 									<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0"></vm-view>
 									<!-- 显示云主机 -->
-									<disk-view [values]="prodItem.specList" *ngIf="prodItem.serviceType==1"></disk-view>
+									<disk-view [values]="prodItem" *ngIf="prodItem.serviceType==1"></disk-view>
 							</td>
 							<td>{{prodItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async}}</td>
 							<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>
