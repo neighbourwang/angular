@@ -112,7 +112,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取硬盘实例状态",
         "method": "GET",
         "id": "featch.disk.state",
-        "url": "/marketplace/authsec/subinstance/disk/{id}/state"
+        "url": "marketplace/authsec/subinstance/disk/{id}/state"
     },
     {
         "desc": "提交变更云硬盘配置",

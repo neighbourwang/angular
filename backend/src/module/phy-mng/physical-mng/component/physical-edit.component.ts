@@ -309,6 +309,7 @@ export class PhysicalEditComponent implements OnInit {
                       this.read = true;
                 } else {
                      this.read = false;
+                     this.showAlert("PHYSICAL_MNG.PLEASE_REINPUT_ILO_INFO")
                 }
             })
        }
