@@ -54,7 +54,7 @@ export class PhysicalEditComponent implements OnInit {
     defaultSpace= new Space();
     selectedSpace:Space=this.defaultSpace;
     popSpecValue:string="";
-    popNumber:string="0";
+    popNumber:string;
    
     partsEntityList:Array<PartsEntitys>=new Array<PartsEntitys>();
    
@@ -325,12 +325,29 @@ export class PhysicalEditComponent implements OnInit {
          this.partsEntity=new PartsEntitys();
          this.selectedPart=this.defaultPart;
          this.selectedSpace=this.defaultSpace;
-         this.popNumber="0";
+         this.popNumber="";
          this.popSpecValue="";
         this.addParts.open("PHYSICAL_MNG.CREATE_PART");
     }
     //确认部件
-    addPartConfirm(){
+    addPartConfirm(){  
+        console.log(this.selectedPart,this.selectedSpace)
+         if(!this.selectedPart.specList.length){
+            this.showAlert("请选择部件名称！")
+            return;
+        }
+        if(!this.selectedSpace.specValues.length){
+            this.showAlert("请选择部件规格！")
+            return;
+        }
+        if(!this.popSpecValue){
+            this.showAlert("请选择部件规格值！")
+            return;
+        }
+        if(!this.popNumber ){
+            this.showAlert("请选择部件数量！")
+            return;
+        }  
         if(this.isEdit){//编辑
              const partSelect = this.physical.partsEntitys.find((e) => { return e.isSelect });
              for (var i = this.physical.partsEntitys.length - 1; i >= 0; i--) {
