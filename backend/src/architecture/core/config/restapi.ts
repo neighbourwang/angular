@@ -1267,11 +1267,17 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/middleware/template/search/condition/init"
     },
     {
-        "desc": "获取模板列表",
+        "desc": "获取数据库模板列表",
         "id": "template-mng-database-list.post",
         "method": "POST",
         "url": "adminui/authsec/database/template/list"
     },
+    {
+        "desc": "获取中间件模板列表",
+        "id": "template-mng-middleware-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/middleware/template/list"
+    },    
     {
         "desc": "创建数据库模板",
         "id": "template-mng-database.cre.post",
@@ -1282,7 +1288,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建中间件模板",
         "id": "template-mng-middleware.cre.post",
         "method": "POST",
-        "url": "adminui/authsec/middleware/insertTemplate"
+        "url": "adminui/authsec/middleware/Template"
     },
      {
         "desc": "更新数据库模板",
@@ -1292,9 +1298,9 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "更新中间件模板",
-        "id": "template-mng-middleware.cre.post",
+        "id": "template-mng-middleware.cre.put",
         "method": "PUT",
-        "url": "adminui/authsec/middleware/updateTemplate"
+        "url": "adminui/authsec/middleware/Template"
     },
     //用户中心
     {

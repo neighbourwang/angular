@@ -64,10 +64,10 @@ export class cloudHostDetailComponent implements OnInit {
 	networkLables  = []; 
 
 	constructor(
-		private layoutService: LayoutService,
-		private router: Router,
-		private route: ActivatedRoute,
-		private service: cloudHostDetailService
+		public layoutService: LayoutService,
+		public router: Router,
+		public route: ActivatedRoute,
+		public service: cloudHostDetailService
 	) {
 		this.setGraph()
 	}

@@ -19,6 +19,7 @@
         </div>
         <div class="dropdown float-left col-md-1 no-padding mgr20 ">
             <select class="form-control" [(ngModel)]="listQuery.instanceNo">
+                <option value="">请选择</option>
                 <option
                  *ngFor="let v of productList; let i = index;"
                  [ngValue]="v.id" >{{ v.name }}</option>
@@ -29,6 +30,7 @@
         </div>
         <div class="dropdown float-left col-md-1 no-padding mgr20 ">
             <select class="form-control" [(ngModel)]="listQuery.instanceName">
+                <option value="">请选择</option>
                 <option
                  *ngFor="let v of service.period | async; let i = index;"
                  [ngValue]="v.value" >{{ v.displayValue }}</option>

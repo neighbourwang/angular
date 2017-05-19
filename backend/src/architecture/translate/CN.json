@@ -113,6 +113,10 @@
         "COMPUTE_RES_TREND_ANALYSIS": "私有云平台计算资源用量分析",
         "ANALYSIS_TYPE": "分析类型",
         "DISPLAY_BY_ZONE": "按可用区显示",
+		"HOST_SPEC_CHOOSE":"主机规格选择",
+		"ALL_SPECS":"所有规格",
+		"HOST_NUM":"云主机总数",
+		"GROWTH_RATE":"增长率（环比）",
         "BASIC_INFO": "基本信息",
         "STORE_RES_TREND_ANALYSIS": "私有云平台存储资源用量分析",
         "DISK_STATUS": "云硬盘状态",
@@ -120,6 +124,7 @@
         "DISK_ATTACHED": "云硬盘-已挂载",
         "DISK_UNATTACHED": "云硬盘-未挂载",
         "ASSIGNABLE": "可分配"
+		
     },
     "CHECK_CENTER": {
         "ADVANCED_QUERY": "高级查询",

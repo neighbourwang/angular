@@ -275,7 +275,12 @@ export class ComputeTrendComponent implements OnInit {
                         normal: {
                             show: true,
                             formatter: function (value) {
-                                return (value.data * 100).toFixed(1) + "%"
+                                
+                                if (value.data == 0) { return ""; }
+                                else {
+                                    return (value.data * 100).toFixed(1) + "%";
+                                }
+                                
                             }
                         }
                     }
@@ -292,7 +297,7 @@ export class ComputeTrendComponent implements OnInit {
                         show: true,
                         formatter: function (value) {
                             
-                            return (value.data * zonesData[m].total[value.dataIndex]).toFixed(0);
+                            return (value.data * zonesData[m].total[value.dataIndex]).toFixed(0)+"GB";
                         },
                         textStyle: {
                             color: "#000"
@@ -311,13 +316,20 @@ export class ComputeTrendComponent implements OnInit {
 
             let option = {
                 tooltip: {
-                    show: false,
+                    show: true
 
                 },
                 legend: {
-                    data: TempLegend
+                    data: TempLegend,
+                    formatter: function (name) {
+                        return echarts.format.truncateText(name.replace("主机规格:",""), 160, '14px Microsoft Yahei', '…');
+                    },
+                    tooltip: {
+                     show: true
+                    }
                 },
                 grid: {
+                    //top:'30%',
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
@@ -335,7 +347,7 @@ export class ComputeTrendComponent implements OnInit {
                         axisLabel: {
                             formatter: function (value, index) {
 
-                                return value * 100 + "%";
+                                return (value * 100).toFixed(1) + "%";
                             }
                         }
                     }

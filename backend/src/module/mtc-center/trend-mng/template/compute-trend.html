@@ -5,13 +5,11 @@
     <div>
         <div class="row row-line-height">
             <div class="col-md-10" >
-                <div class="col-md-2 form-control-title">{{'TREND_MNG.ANALYSIS_TYPE'|translate}}：</div><!--分析类型-->
+                <div class="col-md-2 query-left-content">{{'TREND_MNG.ANALYSIS_TYPE'|translate}}：</div><!--分析类型-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.queryType" (ngModelChange)="getDefaultflaovarId()"> 
-                        <option [value]="1">按CPU</option>  
-                        <option [value]="2">按云主机规格</option>  
-                        <option [value]="3">按内存</option>                
-                        <!--<option *ngFor="let type of service.queryTypeDic | async" [value]="type.value">{{type.displayValue}}</option>-->
+                        <option *ngFor="let q of service.queryTypeDic | async" [value]="q.value">{{q.displayValue}}</option>  
+                         
                     </select>
                 </div>
                 <div class="col-md-2">{{analysisType}}</div>
@@ -19,21 +17,21 @@
         </div>
         <div class="row row-line-height">
             <div class="col-md-10" >
-                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.PLATFORM'|translate}}：</div><!--平台-->
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.PLATFORM'|translate}}：</div><!--平台-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion; selectedZone=defaultZone;">
                         <option [ngValue]="defaultPlf">{{'ASSIGN_MNG.ALL_PLATFORMS'|translate}}</option><!--所有平台-->
                         <option *ngFor="let plf of plfList" [ngValue]="plf">{{plf.platformName}}</option>
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title">Region/DC：</div>
+                <div class="col-md-2 query-left-content">Region/DC：</div>
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedZone=defaultZone; ">
                         <option [ngValue]="defaultRegion">{{'ASSIGN_MNG.ALL_REGIONS'|translate}}</option><!--所有Region/DC-->
                         <option *ngFor="let reg of selectedPlf.region" [ngValue]="reg">{{reg.region}}</option>
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.ZONE'|translate}}：</div><!--可用区-->
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.ZONE'|translate}}：</div><!--可用区-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedZone" >
                         <option [ngValue]="defaultZone">{{'ASSIGN_MNG.ALL_ZONES'|translate}}</option><!--所有可用区-->
@@ -49,13 +47,13 @@
         </div>
         <div class="row row-line-height">
             <div class="col-md-10" >
-                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.CLOUD_HOST_STATE'|translate}}：</div><!--云主机状态-->
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.CLOUD_HOST_STATE'|translate}}：</div><!--云主机状态-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.powerStatus">
                         <option *ngFor="let s of service.powerStatusDic | async" [value]="s.value">{{s.displayValue}}</option>
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.PERIOD'|translate}}：</div><!--时间范围-->
+                <div class="col-md-2 query-left-content" >{{'ASSIGN_MNG.PERIOD'|translate}}：</div><!--时间范围-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.period">
                         <option *ngFor="let p of service.trendPeridDic | async" [value]="p.value">{{p.displayValue}}</option>
@@ -65,10 +63,10 @@
         </div>
         <div *ngIf="queryOpt.queryType=='2'" class="row row-line-height">
             <div class="col-md-10" >
-                 <div class="col-md-2 form-control-title">主机规格选择：</div>
+                 <div class="col-md-2 query-left-content">{{'TREND_MNG.HOST_SPEC_CHOOSE'|translate}}：</div><!--主机规格选择-->
                  <div class="col-md-2">
                      <select class="form-control" [(ngModel)]="queryOpt.flaovarId">
-                         <option [value]="'all'">所有规格</option>                
+                         <option [value]="'all'">{{'TREND_MNG.ALL_SPECS'|translate}}</option> <!--所有规格-->               
                          <option *ngFor="let spec of cloudHostSpecList" >{{spec}}</option>
                      </select>
                  </div>
@@ -89,7 +87,7 @@
     <div class="clear"></div>
     <div class="mgt15" style="width:100%;border-bottom:solid 1px #00a982;"></div>
     <div *ngIf="showType==1||showType==3">
-        <div class="mgt20 mgb10" style="font-size:18px;font-weight:bold;">{{'TREND_MNG.BASIC_INFO'|translate}}：</div><!--基本信息-->
+        <div class="mgt20 mgb10 spaced-bold-title" >{{'TREND_MNG.BASIC_INFO'|translate}}：</div><!--基本信息-->
         <div class="table-container">
             <table class="table table-hover">
                 <thead>
@@ -146,11 +144,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>云主机总数</td>
+                            <td>{{'TREND_MNG.HOST_NUM'|translate}}</td><!--云主机总数-->
                             <td *ngFor="let month of growthRateList[i].data">{{month.total}}</td>
                         </tr>
                         <tr>
-                            <td>增长率（环比）</td>
+                            <td>{{'TREND_MNG.GROWTH_RATE'|translate}}</td><!--增长率（环比）-->
                             <td *ngFor="let month of growthRateList[i].data">{{month.rate}}</td>
                         </tr>
                     </tbody>

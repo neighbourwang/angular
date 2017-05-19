@@ -14,9 +14,15 @@ export class TemplateListService {
         private dict: SystemDictionaryService
     ) { }
 
-    // 条件查询模板列表
+    // 条件数据库查询模板列表
     getDatabaseTemplateList( data: any) {
         let api = this.restApiCfg.getRestApi("template-mng-database-list.post");
+
+        return this.restApi.request(api.method, api.url, [], undefined, data);
+    }
+     // 条件中间件查询模板列表
+    getMiddlewareTemplateList( data: any) {
+        let api = this.restApiCfg.getRestApi("template-mng-middleware-list.post");
 
         return this.restApi.request(api.method, api.url, [], undefined, data);
     }

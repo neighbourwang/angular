@@ -100,7 +100,7 @@
         </tr>
         <tr *ngFor="let pm of list;" id="pm_{{pm.pmid}}">
             <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=pm;" name="disk-list" id="pm_radio_{{pm.id}}"></td>
-            <td class="text-center active">{{pm.pmName}}</td>
+            <td class="text-center active"><a href="javascript:" (click)="router.navigate(['cloud-host-service/physical-machine-detail/', pm.pmId])">{{pm.pmName}}</a></td>
             <td class="text-center">{{pm.pmConfInfo}}</td>
             <td class="text-center">{{pm.osInfo}}</td>
             <td class="text-center">{{pm.privateIP}}</td>

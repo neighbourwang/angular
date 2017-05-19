@@ -94,14 +94,11 @@ export class DatabaseComponent implements OnInit {
             this.database = res.resultContent[0];
             this.database.diskProfileList = JSON.parse(JSON.stringify(this.database.diskInfoList));
             this.database.diskProfileList.forEach(disk => {
-                disk.minSize = disk.minDiskSize;
-                disk.defaultPath = disk.mountPath;
-                disk.usage = disk.usageType;
-                (disk.usage == 0) && (disk.useDisplay = '安装主目录');
-                (disk.usage == 1) && (disk.useDisplay = '数据库文件');
-                (disk.usage == 2) && (disk.useDisplay = '归档日志,快速恢复区');
+                (disk.usageType == 0) && (disk.useDisplay = '安装主目录');
+                (disk.usageType == 1) && (disk.useDisplay = '数据库文件');
+                (disk.usageType == 2) && (disk.useDisplay = '归档日志,快速恢复区');
             })
-            this.database.diskProfileList.sort((a,b)=>a.usage-b.usage);//排下序
+            this.database.diskProfileList.sort((a,b)=>a.usageType-b.usageType);//排下序
             console.log(this.database);
             this.storageTypeList.forEach(v => {
                 v.selected = false;
@@ -137,7 +134,7 @@ export class DatabaseComponent implements OnInit {
             this.service.postDatabaseTemplate(this.database).then(res => {
                 console.log(res);
                 this.layoutService.hide();
-                this.router.navigateByUrl('prod-mng/template-mng/template-list', { skipLocationChange: true })
+                this.router.navigate(['prod-mng/template-mng/template-list', {type:'0'}])            
             }).catch(err => {
                 console.log(err);
                 this.layoutService.hide();
@@ -147,16 +144,15 @@ export class DatabaseComponent implements OnInit {
             this.service.putDatabaseTemplate(this.database).then(res => {
                 console.log(res);
                 this.layoutService.hide();
-                this.router.navigateByUrl('prod-mng/template-mng/template-list', { skipLocationChange: true })
+                this.router.navigate(['prod-mng/template-mng/template-list', {type:'0'}])            
             }).catch(err => {
                 console.log(err);
                 this.layoutService.hide();
             })
         }
-
     }
     cancel() {
-        this.router.navigateByUrl('prod-mng/template-mng/template-list', { skipLocationChange: true })
+        this.router.navigate(['prod-mng/template-mng/template-list', {type:'0'}])
     }
     ccf() {
 
