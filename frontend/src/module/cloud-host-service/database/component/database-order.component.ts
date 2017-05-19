@@ -99,12 +99,15 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	}
 
 	private fetchDatabaseInit() {
+		this.layoutService.show()
 		this.dbservice.fetchDatabaseInit().then(res => {
+			this.layoutService.hide()
 			if(!res.items.length) return
 
 			this.dbInits = res.items
 			this.dbtypeChange(res.items[0])
 		})
+		.catch(e => this.layoutService.hide())
 	}
 
 	private dbtypeChange(value) {

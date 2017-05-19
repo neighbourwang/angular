@@ -39,8 +39,8 @@ export class SqlViewComponent implements OnInit{
 			this._obj = {
 			platform:getProperty(this.specList.find(n=>n.attrCode == 'PLATFORM'))
 			,zone:getProperty(this.specList.find(n=>n.attrCode == 'ZONE'))
-			,type:getProperty(this.specList.find(n=>n.attrCode == 'ZONE'))
-			,version:getProperty(this.specList.find(n=>n.attrCode == 'ZONE'))
+			,type:getProperty(this.specList.find(n=>n.attrCode == 'DBTYPE'))
+			,version:getProperty(this.specList.find(n=>n.attrCode == 'DBVERSION'))
 			,instanceName: getProperty(this.specList.find(n=>n.attrCode == 'INSTANCENAME'))
 			};
 		}

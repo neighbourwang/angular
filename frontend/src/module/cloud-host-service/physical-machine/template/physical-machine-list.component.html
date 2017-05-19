@@ -66,7 +66,7 @@
     <div class="col-md-12 no-padding mgb20">
         <button class="btn float-left mgr5 btn-primary" (click)="goTo('cloud-host-service/physical-machine-order')" id="CLOUD_CREATE_CLOUD_HOST"><i class="glyphicon glyphicon-plus"></i> 创建物理机</button>
         <!-- <button class="btn float-left mgr5 btn-success"><i class="glyphicon glyphicon-edit"></i> 编辑云主机</button> -->
-        <unsubscribe #unsubscribeVm title="物理机退订" (onSuccess)="fetchPMList()" [subid]="radioSelected?.uuid"></unsubscribe>
+        <unsubscribe #unsubscribeVm title="物理机退订" (onSuccess)="fetchPMList()" [subid]="radioSelected?.subinstanceId"></unsubscribe>
         <button (click)="unsubscribeVm.open()" class="btn float-left mgr5 btn-danger"  id="CLOUD_UNCLOSE_CLOUD_HOST"><i class="glyphicon glyphicon-trash"></i> 物理机退订</button>
 
         <!--<div class="dropdown float-left  mgr5">
@@ -100,7 +100,7 @@
         </tr>
         <tr *ngFor="let pm of list;" id="pm_{{pm.pmid}}">
             <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=pm;" name="disk-list" id="pm_radio_{{pm.id}}"></td>
-            <td class="text-center active">{{pm.pmName}}</td>
+            <td class="text-center active"><a href="javascript:" (click)="router.navigate(['cloud-host-service/physical-machine-detail/', pm.pmId])">{{pm.pmName}}</a></td>
             <td class="text-center">{{pm.pmConfInfo}}</td>
             <td class="text-center">{{pm.osInfo}}</td>
             <td class="text-center">{{pm.privateIP}}</td>
