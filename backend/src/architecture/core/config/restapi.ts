@@ -2880,7 +2880,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "管理服务列表",
         "id": "mtc-center.mng-service.list",
         "method": "POST",
-        "url": "servicemgmt/authsec/services/supervise/operation/{page}/{size}"
+        "url": "subinstancemgmt/authsec/subinstance/supervise/search/page"
     },
     {
         "desc": "管理服务详情",

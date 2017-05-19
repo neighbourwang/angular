@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { PhysicalMachineOrderComponent } from './component/physical-machine-order.component';
 import { PhysicalMachineListComponent } from './component/physical-machine-list.component';
 
-// import {PhysicalMachineDetailComponent} from './component/physical-machine-detail.component';
+import {PhysicalMachineDetailComponent} from './component/physical-machine-detail.component';
 
 export const PhysicalMachineRouting: ModuleWithProviders = RouterModule.forChild([
     {
@@ -16,8 +16,8 @@ export const PhysicalMachineRouting: ModuleWithProviders = RouterModule.forChild
         path: 'physical-machine-order',
         component: PhysicalMachineOrderComponent
     },
-    // {
-    //     path: 'physical-machine-detail',
-    //     component: PhysicalMachineDetailComponent
-    // }
+    {
+        path: 'physical-machine-detail/:pmId',
+        component: PhysicalMachineDetailComponent
+    }
 ]);
