@@ -1,0 +1,119 @@
+<div class="page-content cloud_host_order cloud_drive_order">
+    <div class="col-md-12">
+        <h1 class="page-content-header">阿里云硬盘详情   
+        <div style="display: inline-block; cursor: pointer;" (click)="goDiskListPage();"> 
+           <span class="icon-back mgl20 mgr5"></span><span class="span_gray">返回阿里云硬盘列表</span>
+        </div>
+        </h1>
+        
+        <table class="col-md-12 disk_detail_table mgt20">
+            <tr class="tr_title">
+                <td style="border-right:0"><span class="glyphicon glyphicon-list-alt mgr10"></span>基本信息
+                </td>
+                <td style="border-left:0">
+                </td>
+            </tr>
+            <tr>
+                <td>磁盘名称：
+                <span>{{disk.DiskName || ""}}</span>
+                </td>
+                <td>所在可用区：
+                <span>{{disk.ZoneName || ""}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>磁盘ID：
+                <span>{{disk.DiskId || ""}}</span>
+                </td>
+                <td>磁盘种类：
+                <span>{{disk.Category | dict:this.dictService.diskCategoryDict | async}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>磁盘状态：
+                <span>{{disk.Status | dict:this.dictService.diskStatusDict | async}}</span>
+                </td>
+                <td>磁盘属性：
+                <span>{{disk.Type | dict:this.dictService.diskTypeDict | async}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>磁盘容量：
+                <span>{{disk.Size || ""}} GB</span>
+                </td>
+                <td>付费方式：
+                <span>{{disk.DiskChargeType | dict:this.dictService.diskChargeTypeDict | async}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>标签：
+                
+                <span *ngIf="disk.Tags.Tag.length!=0" style="display: inline-block;">
+                    <static-tooltip [title]="displayTags(disk)">
+                        <div>{{disk.Tags.Tag[0].TagKey || ""}}：{{disk.Tags.Tag[0].TagValue || ""}}
+                        </div>
+                    </static-tooltip>
+                </span>
+
+                </td>
+                <td>创建时间：
+                <span>{{disk.CreationTime || ""}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>磁盘描述：
+                <span>{{disk.Description || ""}}</span>
+                </td>
+                <td>
+                </td>
+            </tr>
+
+        
+
+           <tr class="tr_title">
+                <td style="border-right:0"><span class="glyphicon glyphicon-floppy-disk mgr10"></span>磁盘挂载信息
+                </td>
+                <td style="border-left:0">
+                </td>
+            </tr>
+        
+            <tr>
+                <td>所挂载的实例：
+                <span>{{disk.InstanceId || ""}}</span>
+                </td>
+                <td>设备名：
+                <span>{{disk.Device || ""}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>可卸载：
+                <span>{{disk.Portable | dict:this.dictService.diskBoolDict | async}}</span>
+                </td>
+                <td>是否随实例释放：
+                <span>{{disk.DeleteWithInstance | dict:this.dictService.diskBoolDict | async}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>自动快照是否随磁盘释放：
+                <span>{{disk.DeleteAutoSnapshot | dict:this.dictService.diskBoolDict | async}}</span>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+
+
+
+    </div>
+
+</div>
+
+
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>
