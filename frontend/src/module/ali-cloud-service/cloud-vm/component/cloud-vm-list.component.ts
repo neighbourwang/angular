@@ -7,7 +7,7 @@ import {
     PaginationComponent, PopupComponent, SystemDictionary
 } from "../../../../architecture";
 
-//import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
+import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";

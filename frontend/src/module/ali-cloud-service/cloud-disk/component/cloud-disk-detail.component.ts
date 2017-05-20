@@ -7,7 +7,7 @@ import {
     PaginationComponent, PopupComponent, SystemDictionary
 } from "../../../../architecture";
 
-//import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
+import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
 import { RegionModel, keysecretModel, AreaModel, diskOrderModel, diskListModel, DiskQueryObject } from "../model/cloud-disk.model";
@@ -177,6 +177,7 @@ export class AliCloudDiskDetailComponent implements OnInit {
                     }
                     this.disk = result.Disks.Disk[0];
                     console.log(this.disk, "disk!");
+                    console.log(this.disk.Tags.Tag.length, this.disk.Tags.Tag[0].TagValue, "this.disk.Tags.Tag.length,    this.disk.Tags.Tag[0].TagValue!");
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -214,5 +215,18 @@ export class AliCloudDiskDetailComponent implements OnInit {
         this.notice.open(msg.title, msg.desc);
     }
 
+    displayTags(disk: diskListModel): string {
+        let displayString = " ";
+        if(disk.Tags.Tag.length!=0) {
+            disk.Tags.Tag.map((item)=> {
+                displayString += (item.TagKey + " : " + item.TagValue) + " </br>";
+            });
+        }
+        return displayString;
+    }
+
+    goDiskListPage() {
+        this.router.navigate([`ali-cloud-service/cloud-disk/cloud-disk-list`,]);
+    }
 
 }
