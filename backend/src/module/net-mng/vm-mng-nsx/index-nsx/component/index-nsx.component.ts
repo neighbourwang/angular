@@ -251,7 +251,7 @@ export class VmNSXIndexComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         this.showAlert("NET_MNG_VM_IP_MNG.DISABLE_NET_SUCCESS");
                         this.getData();
-                    } else if(10002001==response["resultCode"]){
+                    } else if(10030021 ==response["resultCode"]){
                         this.showAlert("NET_MNG_VM_IP_MNG.CANT_DISABLE_AS_ENABLED_IP");
                     }
                     else {
