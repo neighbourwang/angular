@@ -269,7 +269,7 @@ export class AliCloudDiskListComponent implements OnInit {
         .catch((e) => {
                 this.onRejected(e);
             });
-        }, 600000 );
+        }, 300000 );
 
     }
 

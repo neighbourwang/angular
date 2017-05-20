@@ -301,7 +301,7 @@ export class AliCloudVmListComponent implements OnInit {
                     this.onRejected(e);
                 });
         },
-            60000);
+            300000);
     }
 
     instancesPollOps() {
