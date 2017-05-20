@@ -115,7 +115,12 @@ export class diskListModel {
 }
 
 export class TagModel {
-    Tag: Array<string> = [];
+    Tag: Array<TagItemModel> = [];
+}
+
+export class TagItemModel {
+    TagValue: string = "";
+    TagKey: string = "";
 }
 
 export class OperationLockModel {

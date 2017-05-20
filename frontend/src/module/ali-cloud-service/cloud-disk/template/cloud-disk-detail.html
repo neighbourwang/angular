@@ -1,6 +1,10 @@
 <div class="page-content cloud_host_order cloud_drive_order">
     <div class="col-md-12">
-        <h1 class="page-content-header">阿里云硬盘详情</h1>
+        <h1 class="page-content-header">阿里云硬盘详情   
+        <div style="display: inline-block; cursor: pointer;" (click)="goDiskListPage();"> 
+           <span class="icon-back mgl20 mgr5"></span><span class="span_gray">返回阿里云硬盘列表</span>
+        </div>
+        </h1>
         
         <table class="col-md-12 disk_detail_table mgt20">
             <tr class="tr_title">
@@ -47,10 +51,14 @@
 
             <tr>
                 <td>标签：
-                <!--
-                <div>{{disk.Tags.tag[0].TagValue || ""}}：{{disk.Tags.tag[0].TagKey || ""}}
-                </div>
-                -->
+                
+                <span *ngIf="disk.Tags.Tag.length!=0" style="display: inline-block;">
+                    <static-tooltip [title]="displayTags(disk)">
+                        <div>{{disk.Tags.Tag[0].TagKey || ""}}：{{disk.Tags.Tag[0].TagValue || ""}}
+                        </div>
+                    </static-tooltip>
+                </span>
+
                 </td>
                 <td>创建时间：
                 <span>{{disk.CreationTime || ""}}</span>
