@@ -1,21 +1,25 @@
-.input-select-container{
-   position:relative;
-    input{
-        position:absolute;
+.input-select-container {
+    position: relative;
+
+    > input {
+        position: absolute;
         z-index: 1;
-        top:0;
-        left:0;
-        bottom:0;
-        right:30px;
+        top: 1px;
+        left: 1px;
+        bottom: 1px;
         border: none;
-    }
-    select{
-        position:absolute;
-        z-index: 0;
-        top:0;
-        left:0;
-        bottom:0;
-        right:0;
+        width: 88%;
+        height: 30px;
+        outline: none;
+        padding: 6px 12px;
     }
 
+    > select {
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
 }
