@@ -16,7 +16,7 @@ import { PhyUnitMngService } from '../service/phy-unit-mng.service';
 @Component({
     selector: 'phy-unit-mng',
     templateUrl: '../template/phy-unit-mng.html',
-    styleUrls: [],
+    styleUrls: ['../style/phy-unit-mng.style.less'],
     providers: []
 })
 
@@ -178,7 +178,7 @@ export class PhyUnitMngComponent implements OnInit{
             return;
         }
 
-        if(this.selectedParts.partsName == '磁盘' || this.selectedParts.partsName == '内存' && !this.validationService.isNumber(this.criteria.specValue)){
+        if((this.selectedParts.partsName == '磁盘' || this.selectedParts.partsName == '内存') && !this.validationService.isNumber(this.criteria.specValue)){
             this.showAlert("PHY_MNG_DEPART.PARTSNAME_ONLY_CANBE_NUMBER");
             return;
         }

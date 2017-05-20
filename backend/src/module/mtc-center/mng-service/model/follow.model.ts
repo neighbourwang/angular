@@ -1,8 +1,7 @@
 export class Follow{
-    followInfoId: string;
-    followInfo:string;
-    creatorId:string;
-    creatorName:string;
-    date:string;
+    creater: string;
+    message:string;
+    status:string;
+    serviceTime:string;
 
 }

@@ -124,7 +124,7 @@
         "DISK_ATTACHED": "云硬盘-已挂载",
         "DISK_UNATTACHED": "云硬盘-未挂载",
         "ASSIGNABLE": "可分配"
-		
+
     },
     "CHECK_CENTER": {
         "ADVANCED_QUERY": "高级查询",
@@ -1345,7 +1345,7 @@
         "DISABLE_SUCCESS": "禁用成功",
         "EDIT": "编辑",
         "EDIT_POOL": "编辑资源池",
-        "ENABLE_CANNOT_DELETE": "启用状态下不能删除！",
+        "WHEN_CAN_DELETE": "禁用且无物理机的资源池才能删除！",
         "ENABLE_CANNOT_EDIT": "启用状态下不能编辑！",
         "ENABLE_POOL": "启用资源池",
         "ENABLE_POOL_WARNING": "您选择启用{{value_1}}资源池，请确认；如果确认，用户将能够订购此资源池的资源。",

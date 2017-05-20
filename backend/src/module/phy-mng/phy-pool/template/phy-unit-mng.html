@@ -56,10 +56,13 @@
         <div class="form-group">
             <div class="col-sm-3 form-control-title">{{'PHY_MNG_DEPART.PARTS_NAME' | translate}}:</div>
             <div class="col-sm-4">
-                <select class="form-control" [(ngModel)]="selectedParts" (change)="selectedSpec=defaultSpec;">
-                    <option *ngFor="let v of partslist" [ngValue]="v">{{v.partsName}}</option>
-                    <option [ngValue]="defaultParts">{{'PHY_MNG_DEPART.OTHERS' | translate}}</option>
-                </select>
+                <div class="input-select-container">
+                    <input type="text" [(ngModel)]="selectedParts.partsName">
+                    <select class="form-control" [(ngModel)]="selectedParts" (change)="selectedSpec=defaultSpec;">
+                        <option *ngFor="let v of partslist" [ngValue]="v">{{v.partsName}}</option>
+                        <option [ngValue]="defaultParts">{{'PHY_MNG_DEPART.OTHERS' | translate}}</option>
+                    </select>
+                </div>
             </div>
             <div class="col-sm-4" *ngIf="!selectedParts.partsId">
                 <input type="text" class="form-control" [(ngModel)]="criteria.partsName">

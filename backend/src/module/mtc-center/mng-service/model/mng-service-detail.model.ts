@@ -1,11 +1,17 @@
 import { Follow } from './follow.model';
-import { MngServiceList } from './mng-service-list.model';
 export class MngServiceDetail{
-    serviceBaseInfo: MngServiceList= new MngServiceList();
-    remarkInfo: string;
+    serviceId: string;
+    serviceName: string;
+    serviceInstanceType: string;
+    instnceId: string;
+    instanceName: string;
+    regionZone: string;
+    comments: string;
+    serviceType: string;
+    serviceState: string;
     startDate: string;
     endDate: string;
-    followInfos: Array<Follow>;
+    serviceHisItems: Array<Follow>;
 
 }
 
