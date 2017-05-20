@@ -269,7 +269,7 @@ export class AliCloudDiskListComponent implements OnInit {
         .catch((e) => {
                 this.onRejected(e);
             });
-        }, 600000 );
+        }, 300000 );
 
     }
 
@@ -398,6 +398,7 @@ export class AliCloudDiskListComponent implements OnInit {
                             console.log(this.instances[i].InstanceId, " == ");
                         }
                         console.log(this.instances, "this.instances!");
+                        this.selectedInstanceId = "";
                         this.attachdisk.open();
                     } else {
                         this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -693,6 +694,18 @@ export class AliCloudDiskListComponent implements OnInit {
         this.disks = this.alldisks.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize);
         console.log(this.disks, "disks!");
         this.disksPollOps();
+    }
+
+    openDiskDetailPage() {
+        if(this.selectedDiskItem.DiskId != null) {
+            this.router.navigate([
+            `ali-cloud-service/cloud-disk/cloud-disk-detail`,
+            {
+                "regionId": this.selectedDiskItem.RegionId,
+                "diskId": this.selectedDiskItem.DiskId
+            }
+            ]);
+        }
     }
 
 }

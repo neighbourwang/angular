@@ -91,7 +91,19 @@
             </td>
             <td class="text-center text-vertical-middle">{{instance.RegionName}}</td>
             <td class="text-center text-vertical-middle">{{instance.ZoneName}}</td>
-            <td class="text-left text-vertical-middle"><span style="display: block">内网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0] || ''}}</span><span>外网IP：{{instance.EipAddress.IpAddress || ''}}</span></td>
+
+            <td class="text-left text-vertical-middle" *ngIf="instance.InstanceNetworkType=='vpc'">
+                <static-tooltip [title]="instance.VpcAttributes.PrivateIpAddress.IpAddress.join(',')">
+                <span style="display: block">私网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0] || ''}}</span>
+                </static-tooltip>
+                <span>EIP：{{instance.EipAddress.IpAddress || ''}}</span>
+            </td>
+            <td class="text-left text-vertical-middle" *ngIf="instance.InstanceNetworkType=='classic'">
+                <span style="display: block">内网IP：{{instance.InnerIpAddress.IpAddress[0] || ''}}</span>
+                <span style="display: block">外网IP：{{instance.PublicIpAddress.IpAddress[0] || ''}}</span>
+                <span>EIP：{{instance.EipAddress.IpAddress || ''}}</span>
+            </td>
+
             <td class="text-center text-vertical-middle">{{instance.InstanceNetworkType | dict:this.dictService.networkTypeDict | async}}</td>
             <td class="text-center text-vertical-middle">
                 <!--<img *ngIf="instance.Status=='Pending'||instance.Status=='Starting'||instance.Status=='Stopping'" src="../../../../../architecture/assets/images/icon_instance_starting.gif" /> -->
@@ -132,7 +144,7 @@
                 <div class="col-sm-12">
                     <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>弹性IP：</div>
                     <div class="col-sm-6">
-                        <select [(ngModel)]="selectedfreeip" (change)="freeIPChanged();">
+                        <select [(ngModel)]="selectedfreeip">
                         <option [ngValue]="defaultfreeip">请选择弹性IP</option>
                         <option *ngFor="let ip of freeips;" [ngValue]="ip">{{ip.IpAddress}}</option>
                         </select>
@@ -157,7 +169,7 @@
                 <div class="col-sm-12">
                     <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>弹性IP：</div>
                     <div class="col-sm-6">
-                        <select [(ngModel)]="selectedvmip" (change)="vmIPChanged();">
+                        <select [(ngModel)]="selectedvmip">
                         <option [ngValue]="defaultvmip">请选择弹性IP</option>
                         <option *ngFor="let ip of vmips;" [ngValue]="ip">{{ip.IpAddress}}</option>
                         </select>
