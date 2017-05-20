@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
+
 import { PlfModel, RegionModel, ZoneModel } from "../model/plf.model";
 import { BasicModel, Percent } from "../model/basic.model";
 import {GrowthRate, DateRate} from "../model/growth-rate.model";
@@ -316,13 +317,20 @@ export class ComputeTrendComponent implements OnInit {
 
             let option = {
                 tooltip: {
-                    show: false,
+                    show: true
 
                 },
                 legend: {
-                    data: TempLegend
+                    data: TempLegend,
+                    formatter: function (name) {
+                        return echarts.format.truncateText(name.replace("主机规格:",""), 160, '14px Microsoft Yahei', '…');
+                    },
+                    tooltip: {
+                     show: true
+                    }
                 },
                 grid: {
+                    //top:'30%',
                     left: '3%',
                     right: '4%',
                     bottom: '3%',

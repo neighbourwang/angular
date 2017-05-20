@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 
+import { chartColors } from "../../capacity-mng/model/color.mock";
 import {EntModel, DeptModel} from"../model/ent.model";
 import {PlfModel, RegionModel, ZoneModel} from"../model/plf.model";
 import {UsageState, ItemModel, PowerStatModel, DoughnutChart}from "../model/usage-state.model";
@@ -64,10 +65,10 @@ export class AssignMngDetailComponent implements OnInit {
     memInfo: ItemModel = new ItemModel();
     powerStat: PowerStatModel = new PowerStatModel();
     flavor: Object = new Object();
-    flavorName: Array<string>=new Array<string>();
-    flavorValue: Array<number> = new Array<number>();
-    pstName: Array<string>=new Array<string>();
-    pstValue: Array<number>=new Array<number>();
+    flavorName: Array<string>;
+    flavorValue: Array<number> ;
+    pstName: Array<string>;
+    pstValue: Array<number>;
     cpuCircle: DoughnutChart = new DoughnutChart(); //cpu环形图
     memCircle: DoughnutChart = new DoughnutChart(); //mem环形图
     hyperList: Array<Hyper>;
@@ -172,11 +173,17 @@ export class AssignMngDetailComponent implements OnInit {
                     this.memInfo = response["resultContent"].mem;
                     this.powerStat = response["resultContent"].powerStat;
                     this.flavor = response["resultContent"].flavor;
+                    
+                    this.flavorName = new Array<string>();
+                    this.flavorValue = new Array<number>();
                     let flv = this.flavor;
                     for (var f in flv) {
                         this.flavorName.push(f);
                         this.flavorValue.push(flv[f]);
                     }
+
+                    this.pstName = new Array<string>();
+                    this.pstValue = new Array<number>();
                     let pst = this.powerStat;
                     for (var p in pst) {
                         this.pstName.push(p);
@@ -195,7 +202,7 @@ export class AssignMngDetailComponent implements OnInit {
 
     getGraphData(chart:DoughnutChart,source:ItemModel) {
         chart.DataSets = [{ data: [source.level1, source.level2, source.level3] }];
-        chart.Colors = [{ backgroundColor: ["#2bd2c8","#05ab83","#c9cacc"] }];
+        chart.Colors = [{ backgroundColor: [chartColors.circleLegend1,chartColors.circleLegend2,chartColors.circleLegend3] }];
         chart.ChartType = "doughnut";
         chart.Options = {
             cutoutPercentage: 70,
@@ -420,13 +427,13 @@ export class AssignMngDetailComponent implements OnInit {
         chart.ChartType= "line";
         
         chart.Colors = [
-            { // grey
-                backgroundColor: '#f9f9fb',
-                borderColor: '#2bd2c8',
-                pointBackgroundColor: '#f1f3f2',
-                pointBorderColor: '#2cd2c8',
-                pointHoverBackgroundColor: '#e8f0f2',
-                pointHoverBorderColor: '#6fdcd6'
+            { 
+                backgroundColor: chartColors.lineBg,
+                borderColor: chartColors.lineBorder,
+                pointBackgroundColor: chartColors.linePointBg,
+                pointBorderColor: chartColors.linePointBorder,
+                pointHoverBackgroundColor: chartColors.linePointHoverBg,
+                pointHoverBorderColor: chartColors.linePointHoverBorder
             }
         ];
     }

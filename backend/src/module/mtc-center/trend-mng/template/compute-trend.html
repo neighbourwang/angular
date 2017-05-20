@@ -88,8 +88,8 @@
     <div class="mgt15" style="width:100%;border-bottom:solid 1px #00a982;"></div>
     <div *ngIf="showType==1||showType==3">
         <div class="mgt20 mgb10 spaced-bold-title" >{{'TREND_MNG.BASIC_INFO'|translate}}：</div><!--基本信息-->
-        <div class="table-container">
-            <table class="table table-hover">
+        <div class="table-container" style="max-height:327px;overflow-y:scroll;">
+            <table class="table table-hover" >
                 <thead>
                     <tr>
                         <th>{{'ASSIGN_MNG.ZONE'|translate}}</th><!--可用区-->

@@ -122,6 +122,7 @@
 								<machine-view  [values]="item" *ngIf="item.serviceType==4"></machine-view>
 								<vm-view [values]="item" *ngIf="item.serviceTypeIdStr==0"></vm-view> <!--显示云主机 -->
 						 		<disk-view [values]="item" *ngIf="item.serviceTypeIdStr==1"></disk-view><!--显示云硬盘 -->
+								<sql-view  [values]="item" *ngIf="item.serviceType==3"></sql-view>
 						</popover-content>
 					    </td>
 						<td>{{item.serviceTypeName}}</td>

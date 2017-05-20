@@ -2,7 +2,7 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
-
+import { chartColors } from "../model/color.mock";
 import { PlatformModel} from '../model/platform.model';
 import {ComputeResModel, Region, ZoneInfo } from '../model/compute-res.model';
 import {ZoneModel, Percent, DoughnutChart} from '../model/zone.model';
@@ -36,8 +36,6 @@ export class ComputeResComponent implements OnInit {
     noticeMsg = "";
     PlatformId: string;
     
-    
-   
     selectedPf: PlatformModel = new PlatformModel();
     hostList: Array<HostModel>;
     regionList: Array<Region>;
@@ -56,11 +54,11 @@ export class ComputeResComponent implements OnInit {
     memActual: DoughnutChart = new DoughnutChart();
     cpuUsed: DoughnutChart = new DoughnutChart();
     memUsed: DoughnutChart = new DoughnutChart();
- 
+    color: Object = new Object();
 
     ngOnInit() {
         this.selectedPf = this.serviceParam.selectedPlatform;
-        
+        //this.color = chartColors;
         this.getComputeRes();
         
     }
@@ -73,7 +71,6 @@ export class ComputeResComponent implements OnInit {
             response => {
                 this.layoutService.hide();
                 if (response && 100 == response["resultCode"]) {
-                    //this.computeRes = response["resultContent"];
                     this.regionList = response["resultContent"].regions;
                     this.getZoneList(this.regionList[0].regionId);
                     
@@ -133,13 +130,13 @@ export class ComputeResComponent implements OnInit {
         while (part > total) {
            
             tempData.push({ data: [100] });
-            tempColor.push({backgroundColor: ["#2BD2C8"]});
+            tempColor.push({backgroundColor: [chartColors.circleMain]});
             part = part - total;
             circleNum++;
         }
    
         tempData.push({ data: [part, total - part] });
-        tempColor.push({ backgroundColor: ["#2BD2C8", "#e2e3e7"] });
+        tempColor.push({ backgroundColor: [chartColors.circleMain, chartColors.circleGrey] });
         circleNum++;
 
         chart.DataSets = tempData;
