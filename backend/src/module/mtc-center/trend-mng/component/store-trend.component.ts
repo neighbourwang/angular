@@ -192,7 +192,7 @@ export class StoreTrendComponent implements OnInit {
                 TempSeries.push({
                     name: zoneSeries[k].name,
                     type: 'bar',
-                    stack: '广告',
+                    stack: '',
                     data: zoneSeries[k].data,
                     label: {
                         normal: {
