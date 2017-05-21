@@ -11,7 +11,8 @@ import { StaticTooltipComponent } from "../../../../architecture/components/stat
 
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
-import { instanceListModel, VmQueryObject, FloatingIPAddressModel, TagsModel, KeyPairsModel } from "../model/cloud-vm.model";
+import { instanceListModel, VmQueryObject, FloatingIPAddressModel, 
+    TagsModel, KeyPairsModel, GraphItem, LineChart, chartColors } from "../model/cloud-vm.model";
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
@@ -70,6 +71,26 @@ export class AliCloudVmDetailComponent implements OnInit {
     pageSize:number = 10;
     totalPage:number = 1;
 
+    hours: Array<string> = ['00','01','02','03','04','05','06','07','08','09','10',
+                           '11','12','13','14','15','16','17','18','19','20','21','22','23'];
+
+    mins: Array<string> = ['00','01','02','03','04','05','06','07','08','09','10',
+                           '11','12','13','14','15','16','17','18','19','20',
+                           '21','22','23','24','25','26','27','28','29','30',
+                           '31','32','33','34','35','36','37','38','39','40',
+                           '41','42','43','44','45','46','47','48','49','50',
+                           '51','52','53','54','55','56','57','58','59'];    
+
+    startTime:string = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+    endTime:string = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+    startHour: string = "00";
+    startMin: string = "00";
+    endHour: string = "23";
+    endMin: string = "59";
+
+    xchart:string = "cpu";
+
     menu1open:boolean = true;
     menu2open:boolean = false;
     menu3open:boolean = false;
@@ -82,7 +103,10 @@ export class AliCloudVmDetailComponent implements OnInit {
     tags: TagsModel = new TagsModel();
     keypairs: KeyPairsModel = new KeyPairsModel();
 
-    remoteUrl: string = "";
+    cpuList: Array<GraphItem> = [];
+    netList: Array<GraphItem> = [];
+    cpuChart = new LineChart();
+    netChart = new LineChart();
 
     regions: Array<RegionModel> = [];
     defaultRegion: RegionModel = new RegionModel();
@@ -163,10 +187,8 @@ export class AliCloudVmDetailComponent implements OnInit {
             .then((items) => {
                 this.networkTypeDictArray = items;
                 console.log(this.networkTypeDictArray, "this.networkTypeDictArray");
-            });
+            });        
         
-        this.getInstance();
-        this.getInstanceKeypairTags();
     }
 
     getKeySecret(): void {
@@ -178,6 +200,10 @@ export class AliCloudVmDetailComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     this.commonService.keysecret = response.resultContent;
                     this.service.keysecret = response.resultContent;
+                    
+                    this.getInstance();
+                    this.getInstanceKeypairTags();
+                    this.getInstanceMonitorData();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -239,6 +265,204 @@ export class AliCloudVmDetailComponent implements OnInit {
                 this.onRejected(e);
             });
 
+    }
+
+    
+    getInstanceMonitorData() {
+        //let startTime:string = "2017-05-21T10:17:00Z";
+        //let endTime:string = "2017-05-21T11:17:00Z";
+        let start = "";
+        let end = ""
+        start =this.startTime + " " + this.startHour + ":" + this.startMin;
+        end = this.endTime + " " + this.endHour + ":" + this.endMin;
+        console.log(start, end, "start and end!");
+        console.log((new Date(start)).toUTCString(), (new Date(end)).toUTCString(), "start2 and end2!");
+        let period:string = "60";
+        this.layoutService.show();
+        this.service.getInstanceMonitorData(this.instanceId, start, end, period)
+            .then(
+            response => {
+                this.layoutService.hide();
+                console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    let result;
+                    try {
+                        result = JSON.parse(response.detailDescription);//////////////////////////////////
+                        console.log(result, "result!");
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+
+                    this.cpuList = result.MonitorData.InstanceMonitorData;
+                    this.netList = result.MonitorData.InstanceMonitorData;
+
+                    this.cpuChart.SourceData = this.cpuList;
+                    this.netChart.SourceData = this.netList;
+
+                    this.getGraphData(this.cpuChart);
+                    this.getGraphData(this.netChart);
+
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+            
+
+    }
+
+    //将源数据转化成折线图数据格式
+    getGraphData(chart: LineChart) {
+        //获取_data
+        let temp_value1 = new Array<number>();
+        let temp_value2 = new Array<number>();
+        let temp_time = new Array<any>();
+        let max_value = 0;
+        chart.SourceData.forEach((s)=>{
+            
+
+            if (chart == this.cpuChart) {
+                if(max_value < s.CPU) {
+                    max_value = s.CPU;
+                }
+                temp_value1.push(s.CPU);
+                temp_time.push((new Date(s.TimeStamp)).toLocaleString().slice(-11, -6));
+            } else if(chart == this.netChart){
+                if(max_value < s.IntranetRX) {
+                    max_value = s.IntranetRX;
+                }
+                if(max_value < s.IntranetTX) {
+                    max_value = s.IntranetTX;
+                }
+                temp_value1.push(s.IntranetRX);
+                temp_value2.push(s.IntranetTX);
+                temp_time.push((new Date(s.TimeStamp)).toLocaleString().slice(-11, -6));
+            }
+            
+        })
+        chart._data = temp_value1;
+        chart.Labels = temp_time;
+        
+        let _label = "";
+        if (chart == this.cpuChart) {
+            _label = "CPU使用率";
+            chart.DataSets = [
+                {
+                    data: chart._data,
+                    label: _label,
+                    borderWidth: 2,
+                    pointBorderWidth: 0,
+                    pointRadius: 1,
+                    pointHoverRadius: 3,
+                    fill: false
+                }];
+            chart.Colors = [
+            { 
+                backgroundColor: chartColors.lineBg,
+                borderColor: chartColors.lineBorder,
+                pointBackgroundColor: chartColors.linePointBg,
+                pointBorderColor: chartColors.linePointBorder,
+                pointHoverBackgroundColor: chartColors.linePointHoverBg,
+                pointHoverBorderColor: chartColors.linePointHoverBorder
+            }
+        ];
+
+        chart.options={                    
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                ticks: {
+                                    //maxRotation:0, 
+                                    userCallback: function(dataLabel, index) {
+                                        return index % 10 === 0 ? dataLabel : '';
+                                    }
+                                }
+                            }],
+                            yAxes: [{
+                                display: true,
+                                 ticks: {
+                                    min: 0,
+                                    suggestedMax: max_value?Math.ceil(max_value/10)*10 : 10
+                                    //suggestedMax: 50
+                                },
+                                beginAtZero: true
+                            }]
+                        }
+                    }
+        } else {
+            //_label = "网络使用率";
+            chart.DataSets = [
+                {
+                    data: temp_value1,
+                    label: "入网kbps",
+                    borderWidth: 2,
+                    pointBorderWidth: 0,
+                    pointRadius: 1,
+                    pointHoverRadius: 3,
+                    fill: false
+                },
+                {
+                    data: temp_value2,
+                    label: "出网kbps",
+                    borderWidth: 2,
+                    pointBorderWidth: 0,
+                    pointRadius: 1,
+                    pointHoverRadius: 3,
+                    fill: false
+                },
+
+            ];
+            chart.Colors = [
+            { 
+                backgroundColor: chartColors.lineBg,
+                borderColor: chartColors.lineBorder1,
+                pointBackgroundColor: chartColors.linePointBg,
+                pointBorderColor: chartColors.linePointBorder,
+                pointHoverBackgroundColor: chartColors.linePointHoverBg,
+                pointHoverBorderColor: chartColors.linePointHoverBorder
+            },
+            { 
+                backgroundColor: chartColors.lineBg,
+                borderColor: chartColors.lineBorder2,
+                pointBackgroundColor: chartColors.linePointBg,
+                pointBorderColor: chartColors.linePointBorder,
+                pointHoverBackgroundColor: chartColors.linePointHoverBg,
+                pointHoverBorderColor: chartColors.linePointHoverBorder
+            },
+
+        ];
+
+        chart.options={                    
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                ticks: {
+                                    //maxRotation:0, 
+                                    userCallback: function(dataLabel, index) {
+                                        return index % 10 === 0 ? dataLabel : '';
+                                    }
+                                }
+                            }],
+                            yAxes: [{
+                                display: true,
+                                 ticks: {
+                                    min: 0,
+                                    suggestedMax: max_value?Math.ceil(max_value/50)*50 : 50
+                                    //suggestedMax: 50
+                                },
+                                beginAtZero: true
+                            }]
+                        }
+                    } 
+        }
+
+        chart.ChartType= "line";
+        
+
+     
     }
 
 
@@ -320,6 +544,27 @@ export class AliCloudVmDetailComponent implements OnInit {
         }
         return displayString;
 
+    }
+
+    StartDateChange($event) {
+        this.startTime=$event.formatted;
+        console.log(this.startTime, "startTime!");
+    }
+
+    EndDateChange($event) {
+        this.endTime=$event.formatted;
+        console.log(this.endTime, "endTime!");
+    }
+
+    freshPage() {
+        console.log(this.startTime, this.startHour, this.startMin, this.endTime, this.endHour, this.endMin);
+        /*
+        if(this.startTime!=null && this.startHour!=null && this.startMin!=null 
+        && this.endTime!=null && this.endHour!=null && this.endMin!=null) {
+            this.showMsg("请选择正确的时间段");
+            return;
+        }*/
+        this.getInstanceMonitorData();
     }
     
 }

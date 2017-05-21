@@ -756,5 +756,21 @@ export class AliCloudVmService {
         return this.restApi.request(api.method, api.url, pathParams, null, body);
     }
 
+    getInstanceMonitorData(instanceId: string, startTime: string, endTime: string, period: string): Promise<any> {
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "endTime": endTime,
+            "instanceId": instanceId,
+            "period": period,//////////////////////////////////////////
+            "startTime": startTime
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.monitor.data.get");
+        return this.restApi.request(api.method, api.url, null, null, body);
+    }
+
 
 }
