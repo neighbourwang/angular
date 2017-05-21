@@ -237,6 +237,24 @@ export class VpcAttributesModel {
 }
 //<<<
 
+export class KeyPairsModel {
+    KeyPair: Array<KeyPairModel> = [];
+}
+
+export class KeyPairModel {
+    KeyPairFingerPrint: string = "";
+    KeyPairName: string = "";
+}
+
+export class TagsModel {
+    Tag: Array<TagItemModel> = [];
+}
+
+export class TagItemModel {
+    TagValue: string = "";
+    TagKey: string = "";
+}
+
 //>>> FamilyTree
 export class instanceFamilyTreeTypeIdModel {
     LocalStorageAmount:number = 0;

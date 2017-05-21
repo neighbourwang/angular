@@ -934,4 +934,16 @@ export class AliCloudVmListComponent implements OnInit {
         this.instancesPollOps();
     }
 
+    openVMDetailPage() {
+        if(this.selectedInstance.InstanceId != "" || this.selectedInstance.InstanceId != null) {
+            this.router.navigate([
+            `ali-cloud-service/cloud-vm/cloud-vm-detail`,
+            {
+                "regionId": this.selectedInstance.RegionId,
+                "instanceId": this.selectedInstance.InstanceId
+            }
+            ]);
+        }
+    }
+
 }
