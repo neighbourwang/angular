@@ -95,10 +95,10 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">{{'COMMON.CLOUD_HARD_DISK'|translate}}</h3><!--云硬盘-->
                 </div>
-                <div class="panel-body" style="height:216px;">
+                <div class="panel-body" >
                      <div class="row">
                          <div class="col-md-5 ">
-                                <div style="position:relative;">
+                                <div style="position:relative; height:186px; width: 186px; margin: 0; padding: 0;" >
                                     <div class="circle-mask"></div>
                                     <div class="circle-text">{{general.num}}个</div>
                                         <canvas baseChart
@@ -106,7 +106,8 @@
                                         [datasets]="diskCircle.DataSets "
                                         [chartType]="diskCircle.ChartType"
                                         [options]="diskCircle.Options"
-                                        [colors]="diskCircle.Colors">
+                                                [colors]="diskCircle.Colors"
+                                                >
                                     </canvas>
                                 </div>
                          </div>
