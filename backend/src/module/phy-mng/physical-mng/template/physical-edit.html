@@ -314,8 +314,8 @@
                     <div class="form-group">
                         <div class="col-sm-4 form-control-title">{{'PHYSICAL_MNG.PUBLIC_IP'|translate}}:</div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" [(ngModel)]="physical.pubIPAddr"  *ngIf="eidtMode =='view' ||eidtMode =='editParts'" disabled/>
-                            <input type="text" class="form-control" [(ngModel)]="physical.pubIPAddr"  *ngIf="eidtMode =='edit' " [disabled]="!physical.applicant"/>
+                            <input type="text" class="form-control" [(ngModel)]="physical.pubIPAddr"   disabled/>
+                          
                         </div>
                     </div>
                 </div>
