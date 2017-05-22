@@ -91,8 +91,8 @@ export class ManagementServicesListComponent implements OnInit {
 				this.layoutService.hide()
             })
 	}
-	popupCf(){}
-	popupOf(){}
+	popupCf(){  }
+	popupOf(){ this.popup.close() }
 
 	resetSearch() {
 		this.listQuery = new SuperviseQueryCondition();
