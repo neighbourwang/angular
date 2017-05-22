@@ -9,47 +9,47 @@
     <div class="table-container">
         <table class="table table-hover" >
             <thead>
-                <tr>
-                    <th>{{'CAPACITY_MNG.HOST_NAME'|translate}}</th><!--宿主机名称-->
-                    <th>{{'CAPACITY_MNG.PHYSICAL_CPU_CORES'|translate}}</th><!--物理CPU核数-->
-                    <th>{{'CAPACITY_MNG.MEMORY_GB'|translate}}</th><!--内存(GB)-->
-                    <th>{{'CAPACITY_MNG.VIRTUAL_CPU'|translate}}</th><!--虚拟CPU（实际已分配）-->
-                    <th>{{'CAPACITY_MNG.ACTUAL_ALLOCATED_MEMORY'|translate}}</th><!--内存（实际已分配)-->
-                    <th>{{'CAPACITY_MNG.INSTANCE_NUMBER'|translate}}</th><!--实例数量-->
-                    <th>{{'COMMON.STATUS'|translate}}</th><!--状态-->
-                    <th>{{'CAPACITY_MNG.SITUATION'|translate}}</th><!--状况-->
-                </tr>
+            <tr>
+                <th>{{'CAPACITY_MNG.HOST_NAME'|translate}}</th><!--宿主机名称-->
+                <th>{{'CAPACITY_MNG.PHYSICAL_CPU_CORES'|translate}}</th><!--物理CPU核数-->
+                <th>{{'CAPACITY_MNG.MEMORY_GB'|translate}}</th><!--内存(GB)-->
+                <th>{{'CAPACITY_MNG.VIRTUAL_CPU'|translate}}</th><!--虚拟CPU（实际已分配）-->
+                <th>{{'CAPACITY_MNG.ACTUAL_ALLOCATED_MEMORY'|translate}}</th><!--内存（实际已分配)-->
+                <th>{{'CAPACITY_MNG.INSTANCE_NUMBER'|translate}}</th><!--实例数量-->
+                <th>{{'COMMON.STATUS'|translate}}</th><!--状态-->
+                <th>{{'CAPACITY_MNG.SITUATION'|translate}}</th><!--状况-->
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>{{hostInfo.hostName}}</td>
-                    <td>{{hostInfo.cpu}}</td>
-                    <td>{{hostInfo.memory}}</td>
-                    <td class="table-progress">
-                        <div>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info"
-                                     [style.width.%]="hostInfo.cpuPercent">
-                                </div>
+            <tr>
+                <td>{{hostInfo.hostName}}</td>
+                <td>{{hostInfo.cpu}}</td>
+                <td>{{hostInfo.memory}}</td>
+                <td class="table-progress">
+                    <div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info"
+                                 [style.width.%]="hostInfo.cpuPercent">
                             </div>
-                            <span class="progress-value">{{hostInfo.cpuPercent}}%</span>
                         </div>
-                    </td>
-                    <td class="table-progress">
-                        <div>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info"
-                                     [style.width.%]="hostInfo.memPercent">
-                                </div>
+                        <span class="progress-value">{{hostInfo.cpuPercent}}%</span>
+                    </div>
+                </td>
+                <td class="table-progress">
+                    <div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info"
+                                 [style.width.%]="hostInfo.memPercent">
                             </div>
-                            <span class="progress-value">{{hostInfo.memPercent}}%</span>
                         </div>
-                    </td>
-                    <td>{{hostInfo.instance}}</td>
-                    <td [ngClass]="hostInfo.status==1?'font-green':'font-orange'">{{hostInfo.status| dict:this.service.statusDic | async}}</td>
-                    <td [ngClass]="hostInfo.running==1?'font-green':'font-orange'">{{hostInfo.running| dict:this.service.runningDic | async}}</td>
+                        <span class="progress-value">{{hostInfo.memPercent}}%</span>
+                    </div>
+                </td>
+                <td>{{hostInfo.instance}}</td>
+                <td [ngClass]="hostInfo.status==1?'font-green':'font-orange'">{{hostInfo.status| dict:this.service.statusDic | async}}</td>
+                <td [ngClass]="hostInfo.running==1?'font-green':'font-orange'">{{hostInfo.running| dict:this.service.runningDic | async}}</td>
                     
-                </tr>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -85,18 +85,18 @@
                 </div>
                 <div class="panel-body">
                     <canvas baseChart height="100"
-                          *ngIf="cpuChart.DataSets"
-                          [datasets]="cpuChart.DataSets "
-                          [chartType]="cpuChart.ChartType"
-                          [colors]="cpuChart.Colors"
-                          [options]="cpuChart.options"
-						  [labels]="cpuChart.Labels">
+                            *ngIf="cpuChart.DataSets"
+                            [datasets]="cpuChart.DataSets "
+                            [chartType]="cpuChart.ChartType"
+                            [colors]="cpuChart.Colors"
+                            [options]="cpuChart.options"
+                            [labels]="cpuChart.Labels">
                     </canvas>
                 </div>
             </div>
         </div>
         
-</div>
+    </div>
     <div class="row mgt20" >
         <div class="col-md-12">
             <div class="panel panel-default" >
@@ -105,15 +105,16 @@
                 </div>
                 <div class="panel-body">
                     <canvas baseChart height="100"
-                          *ngIf="memChart.DataSets"
-                          [datasets]="memChart.DataSets "
-                          [chartType]="memChart.ChartType"
-                          [colors]="memChart.Colors"
-                          [options]="memChart.options"
-						  [labels]="memChart.Labels">
+                            *ngIf="memChart.DataSets"
+                            [datasets]="memChart.DataSets "
+                            [chartType]="memChart.ChartType"
+                            [colors]="memChart.Colors"
+                            [options]="memChart.options"
+                            [labels]="memChart.Labels">
                     </canvas>
                 </div>
+            </div>
         </div>
     </div>
-    </div>
 </div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
