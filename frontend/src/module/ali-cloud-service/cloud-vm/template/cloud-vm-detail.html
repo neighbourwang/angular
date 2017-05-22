@@ -167,42 +167,53 @@
     </div>
 
     <div class="col-md-8 mgt20">
-        <div class="vm_detail_label_menu">
+        <div class="vm_detail_right">
+
             <div class="label_menu_title">
                 <div class="mgt20" style="display: inline-block;">
                     <span class="icon_chart mgr5"></span> <span>监控图表</span>
                 </div>
+
                 <div class="menu_right no-padding" style="display: inline-block;">
-                    <div class="assign-mng float-left">
+                    <div class="float-left">
                         <date-picker [initDate]="startTime" (dateChanged)="StartDateChange($event)"></date-picker>
-                        <select [(ngModel)]="startHour" style="display: inline-block;height:34px;" class="mgb10">
+                    </div>
+                    <div class="float-left mgt10">
+                        <select [(ngModel)]="startHour" style="display: inline-block;height:34px;">
                         <option value=null>时</option>
                         <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
                         </select> :
-                        <select [(ngModel)]="startMin" style="display: inline-block;height:34px;" class="mgb10">
+                        <select [(ngModel)]="startMin" style="display: inline-block;height:34px;">
                         <option value=null>份</option>
                         <option *ngFor="let min of mins" [value]="min">{{min}}</option>
-                    </select>
+                        </select>
                     </div>
 
                     <div style="float: left; line-height: 50px; width: 40px; text-align: center;">到</div>
 
-                    <div class="assign-mng float-left">
+                    <div class="float-left">
                         <date-picker [initDate]="endTime" (dateChanged)="EndDateChange($event)"></date-picker>
-                        <select [(ngModel)]="endHour" style="display: inline-block;height:34px;" class="mgb10">
+                    </div>
+
+                    <div class="float-left mgt10">
+                        <select [(ngModel)]="endHour" style="display: inline-block;height:34px;">
                         <option value=null>时</option>
                         <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
                         </select> :
-                        <select [(ngModel)]="endMin" style="display: inline-block;height:34px;" class="mgb10">
+                        <select [(ngModel)]="endMin" style="display: inline-block;height:34px;">
                         <option value=null>分</option>
                         <option *ngFor="let min of mins"  [value]="min">{{min}}</option>
                     </select>
                     </div>
 
-                    <button (click)="freshPage();">刷新</button>
+                    <div class="float-left mgt10">
+                        <button class="btn button-gray-gradient" (click)="freshPage();">刷新</button>
+                    </div>
 
                 </div>
             </div>
+            <!-- title -->
+
             <div class="vm_detail_label">
                 <div class="div_button" [ngClass]='{"selected":xchart=="cpu"}' (click)="xchart='cpu'">CPU使用率</div>
                 <div class="div_button" [ngClass]='{"selected":xchart=="net"}' (click)="xchart='net'">网络(内网)</div>

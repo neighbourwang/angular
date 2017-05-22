@@ -272,14 +272,18 @@ export class AliCloudVmDetailComponent implements OnInit {
         //let startTime:string = "2017-05-21T10:17:00Z";
         //let endTime:string = "2017-05-21T11:17:00Z";
         let start = "";
-        let end = ""
+        let end = "";
+        let utcstart = "";
+        let utcend = "";
         start =this.startTime + " " + this.startHour + ":" + this.startMin;
         end = this.endTime + " " + this.endHour + ":" + this.endMin;
         console.log(start, end, "start and end!");
-        console.log((new Date(start)).toUTCString(), (new Date(end)).toUTCString(), "start2 and end2!");
+        utcstart = (new Date(start)).toUTCString();
+        utcend = (new Date(end)).toUTCString();
+        console.log(utcstart, utcend, "start2 and end2!");
         let period:string = "60";
         this.layoutService.show();
-        this.service.getInstanceMonitorData(this.instanceId, start, end, period)
+        this.service.getInstanceMonitorData(this.instanceId, utcstart, utcend, period)
             .then(
             response => {
                 this.layoutService.hide();
@@ -287,7 +291,7 @@ export class AliCloudVmDetailComponent implements OnInit {
                 if (response && 100 == response["resultCode"]) {
                     let result;
                     try {
-                        result = JSON.parse(response.detailDescription);//////////////////////////////////
+                        result = JSON.parse(response.resultContent);//////////////////////////////////
                         console.log(result, "result!");
                     } catch (ex) {
                         console.log(ex);
@@ -377,7 +381,7 @@ export class AliCloudVmDetailComponent implements OnInit {
                                 ticks: {
                                     //maxRotation:0, 
                                     userCallback: function(dataLabel, index) {
-                                        return index % 10 === 0 ? dataLabel : '';
+                                        return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
                                     }
                                 }
                             }],
@@ -442,7 +446,7 @@ export class AliCloudVmDetailComponent implements OnInit {
                                 ticks: {
                                     //maxRotation:0, 
                                     userCallback: function(dataLabel, index) {
-                                        return index % 10 === 0 ? dataLabel : '';
+                                        return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
                                     }
                                 }
                             }],
