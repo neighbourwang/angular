@@ -403,14 +403,14 @@ export class ManagementServicesOrderComponent implements OnInit {
 
 			return Object.assign({}, this.postData, { attrList }, { itemNo: this.makeItemNum() })
 		})
-
 		console.log(this.postDataList)
+		return true;
 	}
 
 	addCart() {   //加入购物车
 		if (!this.checkInput()) return;
 
-		this.payLoadFormat();   //获取最新的的payload的对象
+		if(!this.payLoadFormat()) return this.showNotice("提示", "请选择至少一个实例");   //获取最新的的payload的对象
 		this.layoutService.show();
 		this.service.addCart(this.postDataList).then(res => {
 			this.layoutService.hide();
@@ -426,7 +426,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 	buyNow() {
 		if (!this.checkInput()) return;
 
-		this.payLoadFormat();   //获取最新的的payload的对象
+		if(!this.payLoadFormat()) return this.showNotice("提示", "请选择至少一个实例");   //获取最新的的payload的对象
 		this.layoutService.show();
 		this.service.saveOrder(this.postDataList).then(res => {
 			this.layoutService.hide();
