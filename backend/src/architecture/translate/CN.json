@@ -124,7 +124,7 @@
         "DISK_ATTACHED": "云硬盘-已挂载",
         "DISK_UNATTACHED": "云硬盘-未挂载",
         "ASSIGNABLE": "可分配"
-		
+
     },
     "CHECK_CENTER": {
         "ADVANCED_QUERY": "高级查询",
@@ -1345,7 +1345,7 @@
         "DISABLE_SUCCESS": "禁用成功",
         "EDIT": "编辑",
         "EDIT_POOL": "编辑资源池",
-        "ENABLE_CANNOT_DELETE": "启用状态下不能删除！",
+        "WHEN_CAN_DELETE": "禁用且无物理机的资源池才能删除！",
         "ENABLE_CANNOT_EDIT": "启用状态下不能编辑！",
         "ENABLE_POOL": "启用资源池",
         "ENABLE_POOL_WARNING": "您选择启用{{value_1}}资源池，请确认；如果确认，用户将能够订购此资源池的资源。",
@@ -1392,7 +1392,9 @@
         "DEPART_NAME_CANNOT_NULL": "部件名称不能为空",
         "SPEC_NAME_CANNOT_NULL": "规格不能为空",
         "SPEC_VALUE_CANNOT_NULL": "规格值不能为空",
-        "REFERENCE_CANNOT_NULL": "参考价值不能为空"
+        "REFERENCE_CANNOT_NULL": "参考价值不能为空",
+        "PARTSNAME_ONLY_CANBE_NUMBER": "磁盘和内存的规格值只能输入数字",
+        "REFERENCENAME_ONLY_CANBE_NUMBER": "参考价值只能输入数字"
     },
     "PHYSICAL_MNG": {
         "CONFIRM": "确认",
@@ -1973,5 +1975,39 @@
         "EDIT_SUB_ACCOUNT": "编辑子账号",
         "SUB_ACCOUNT_DETAIL": "子账号详情",
         "PLEASE_INPUT_SUB_ACCOUNT_LOGIN_NAME": "请填写子账号登录名!"
+    },
+    
+    "ALARM":{
+        "ALARM_LIST":"告警通知列表",
+        "SET_ALARM":"设置",
+        "SELECT":"选择",
+        "NOTICEC_NAME":"告警项",
+        "THRESHOLD":"阀值",
+        "SWITCHING":"告警开关",
+        "METHOD":"告警方式",
+        "DESCRIPTION":"描述",
+        "PLEASE_SELECT_ALARM":"请选择需要设置的告警项！",
+        "THRESHOLD2_MUST_BIGGER_THRESHOLD1":"条件2输入的数值必须大于条件1",
+        "THRESHOLD1_MUST_BIGGER_THRESHOLD2":"条件2输入的数值必须小于条件1",
+        "ALARM_NAME":"告警项",
+        "OPEN":"开启",
+        "CLOSE":"关闭",
+        "SET_THRESHOLD":"阀值设置",
+        "PERIOD":"检查周期",
+        "PLEASE_SELECT":"请选择",
+        "THRESHOLD1":"触发条件1",
+        "THRESHOLD2":"触发条件2",
+        "LEVEL":"级别",
+        "CONTENT":"告警内容",
+        "REPEAT":"重复告警条件",
+        "EVERY":"每",
+        "REPEAT_CONDITION":"告警检查以设置的周期为准，重复告警条件为触发告警后，连续多少个周期内都达到阈值情况下的告警再次触发条件。",
+        "RECEIVER":"姓名",
+        "ACCOUNT":"账号",
+        "EMAIL":"Email地址",
+        "ROLE":"角色",
+        "CANCEL":"取消",
+        "SAVE":"保存",
+        "CHECK":"多选框"
     }
 }

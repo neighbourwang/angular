@@ -339,6 +339,13 @@ export let RestApis: RestApiModel[] = [
         "id": "mngm-search-page",
         "url": "subinstancemgmt/authsec/subinstance/supervise/search/page"
     },
+    {
+        "desc": "获取管理服务详情",
+        "method": "GET",
+        "id": "mngm-detail",
+        "url": "subinstancemgmt/authsec/subinstance/supervise/{itemId}"
+    },
+    
     // {
     //     "desc": "获取一个管理服务目录的基础信息",
     //     "method": "GET",
@@ -480,12 +487,12 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-search.cencel.post",
         "url": "marketplace/authsec/order/withdraw/order/{orderId}/reason/{reason}"
     },
-    // {
-    //     "desc": "根据subinstancesId获取管理服务详情",
-    //     "method": "GET",
-    //     "id": "op-center.order-search.subinstance.get",
-    //     "url": "marketplace/authsec/subinstance/supervise/subid/{subId}"
-    // },
+    {
+        "desc": "根据subinstancesId获取管理服务详情",
+        "method": "GET",
+        "id": "op-center.order-search.subinstance.get",
+        "url": "marketplace/authsec/subinstance/supervise/subid/{subId}"
+    },
 
     //订单查询
 
@@ -1093,6 +1100,18 @@ export let RestApis: RestApiModel[] = [
         "id": "al-cloud.cloud-vm.allregion.disks",
         "method": "POST",
         "url": "alicloud/authsec/alicloud/all/disks"
+    },
+    { //获取阿里云主机的keypair和Tags
+        "desc": "Query instance tags and key pair",
+        "id": "al-cloud.cloud-vm.keypair.tags.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/custom/querydetail/regionid/{regionid}/instanceid/{instanceid}"
+    },
+    { //获取阿里云主机的监控数据
+        "desc": "Query instance monitor data",
+        "id": "al-cloud.cloud-vm.monitor.data.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeinstancemonitordata"
     },
 
     // 阿里云主账号管理

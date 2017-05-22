@@ -1284,7 +1284,7 @@ export let RestApis: RestApiModel[] = [
         "id": "template-mng-middleware-list.post",
         "method": "POST",
         "url": "adminui/authsec/middleware/template/list"
-    },    
+    },
     {
         "desc": "创建数据库模板",
         "id": "template-mng-database.cre.post",
@@ -2896,12 +2896,6 @@ export let RestApis: RestApiModel[] = [
         "url": "subinstancemgmt/authsec/subinstance/supervise/search/page"
     },
     {
-        "desc": "管理服务详情",
-        "id": "mtc-center.mng-service.list",
-        "method": "GET",
-        "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
-    },
-    {
         "desc": "服务跟进",
         "id": "mtc-center.mng-service.followservice",
         "method": "POST",
@@ -2917,7 +2911,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "服务详情",
         "id": "mtc-center.mng-detail.detail",
         "method": "GET",
-        "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
+        "url": "subinstancemgmt/authsec/subinstance/supervise/{itemId}"
     },
     //告警通知
     {

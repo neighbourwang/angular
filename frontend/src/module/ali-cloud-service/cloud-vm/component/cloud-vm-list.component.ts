@@ -7,7 +7,7 @@ import {
     PaginationComponent, PopupComponent, SystemDictionary
 } from "../../../../architecture";
 
-//import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
+import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
@@ -301,7 +301,7 @@ export class AliCloudVmListComponent implements OnInit {
                     this.onRejected(e);
                 });
         },
-            60000);
+            300000);
     }
 
     instancesPollOps() {
@@ -503,6 +503,11 @@ export class AliCloudVmListComponent implements OnInit {
                         }
                         this.freeips = result.EipAddresses.EipAddress;
                         console.log(this.freeips, "free ips!");
+                        if (this.freeips.length!=0){
+                            this.selectedfreeip = this.freeips[0];
+                        } else {
+                            this.selectedfreeip = this.defaultfreeip;
+                        }
                         this.allocateip.open();
                     } else {
                         this.showMsg("获取弹性IP失败");
@@ -518,13 +523,13 @@ export class AliCloudVmListComponent implements OnInit {
         }
 
     }
-
+/*
     freeIPChanged() {
         window.setTimeout(() => {
 
         }, 50);
     }
-
+*/
     acceptAttachIPToInstanceModify() {
         if (this.selectedfreeip != this.defaultfreeip) {
             this.layoutService.show();
@@ -583,6 +588,11 @@ export class AliCloudVmListComponent implements OnInit {
                         }
                         this.vmips = result.EipAddresses.EipAddress;
                         console.log(this.vmips, "Instance ips!");
+                        if (this.vmips.length!=0){
+                            this.selectedvmip = this.vmips[0];
+                        } else {
+                            this.selectedvmip = this.defaultvmip;
+                        }
                         this.unallocateip.open();
                     } else {
                         this.showMsg("获取弹性IP失败");
@@ -598,11 +608,13 @@ export class AliCloudVmListComponent implements OnInit {
         }
 
     }
-
+/*
     vmIPChanged() {
+        window.setTimeout(() => {
 
+        }, 50);
     }
-
+*/
     acceptDetachIPToInstanceModify() {
         if (this.selectedvmip != this.defaultvmip) {
             this.layoutService.show();
@@ -920,6 +932,18 @@ export class AliCloudVmListComponent implements OnInit {
         this.instances = this.allinstances.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize);
         console.log(this.instances, "instances!");
         this.instancesPollOps();
+    }
+
+    openVMDetailPage() {
+        if(this.selectedInstance.InstanceId != "" || this.selectedInstance.InstanceId != null) {
+            this.router.navigate([
+            `ali-cloud-service/cloud-vm/cloud-vm-detail`,
+            {
+                "regionId": this.selectedInstance.RegionId,
+                "instanceId": this.selectedInstance.InstanceId
+            }
+            ]);
+        }
     }
 
 }

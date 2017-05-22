@@ -49,15 +49,15 @@ export class MngService {
 
     getData(pageIndex: number, pageSize: number, state: string, tenantId: string, name: string, instanceName: string,
             instanceNo: string): Promise<any>{
-        
+
         const api= this.restApiCfg.getRestApi("mtc-center.mng-service.list");
         return this.restApi.request(api.method, api.url, null, null,
             {
                 "state": "",
-                "tenantId":"",
-                "name": "",
-                "instanceName": "",
-                "instanceNo": "",
+                "tenantId":tenantId,
+                "name": name,
+                "instanceName": instanceName,
+                "instanceNo": instanceNo,
                 "pageParameter":{
                     "currentPage":pageIndex,
                     "size":pageSize

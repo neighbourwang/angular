@@ -7,6 +7,7 @@ import { CommonComponentModule } from '../../../architecture';
 // component 
 import { AliCloudDiskListComponent } from './component/cloud-disk-list.component';
 import { AliCloudDiskOrderComponent } from './component/cloud-disk-order.component';
+import { AliCloudDiskDetailComponent } from './component/cloud-disk-detail.component';
 
 //service 
 import { AliCloudDiskService } from "./service/cloud-disk.service";
@@ -23,11 +24,13 @@ import { AliCloudDiskRouting } from './cloud-disk.routing';
     ],
     declarations: [
         AliCloudDiskListComponent,
-        AliCloudDiskOrderComponent
+        AliCloudDiskOrderComponent,
+        AliCloudDiskDetailComponent
     ],
     exports: [
         AliCloudDiskListComponent,
-        AliCloudDiskOrderComponent
+        AliCloudDiskOrderComponent,
+        AliCloudDiskDetailComponent
     ],
     providers: [
         AliCloudDiskService,

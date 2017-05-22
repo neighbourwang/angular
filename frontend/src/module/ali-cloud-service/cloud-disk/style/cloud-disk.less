@@ -445,4 +445,126 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 
+.disk_detail_table{
+    td {
+        border: 1px solid @gray-color;
+        padding: 20px 0 20px 40px;
+        color: rgb(211, 211, 211);
 
+        span {
+            color: #5e7686;
+        }
+    }
+
+    .tr_title{
+        background: @fa-color;
+        font-weight: bolder;
+        td {
+            padding: 20px 0 20px 20px;
+            color: #5e7686;
+        }
+    }
+
+}
+
+.span_gray {
+    color: rgb(211, 211, 211);
+}
+
+.vm_detail_menu{
+
+    width: 100%;
+
+    .menu_title{
+        background: @fa-color;
+        border: 1px solid @gray-color;
+        padding: 20px 0 20px 10px;
+
+        .menu_right{
+            position:relative;
+            float: right;
+            padding: 0 20px 0 0;
+            cursor: pointer;
+        }
+
+        div{
+            padding: 0 20px 0 0;
+        }
+    }
+
+    li{
+        width: 100%;
+        height: 60px;
+        border: 1px solid @gray-color;
+        padding: 20px 0 20px 40px;
+        border-top: none;
+        color: rgb(211, 211, 211);
+
+        span {
+            color: #5e7686;
+        }
+    }
+
+}
+
+.vm_detail_label{
+    width: 100%;
+    height: 80px;
+    background: @fa-color;
+    padding: 20px 0 0 40px;
+    border: 1px solid #ddd;
+    border-top:none;
+    z-index: 20;
+
+    .div_button {
+        //border: none;
+        border-bottom: 1px solid #ddd;;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        height: 60px;
+        width: 100px;
+        float: left;  
+        background: @fa-color; 
+        text-align: center;
+        vertical-align: middle; 
+        padding: 20px 0 0 0;
+        z-index: 50;
+    }
+    .div_button.selected{
+        background: @white-color; 
+        border-bottom: none;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        z-index: 0;
+    }
+
+}
+
+.vm_detail_right{
+
+    width: 100%;
+    height: 80px;
+
+    .label_menu_title{
+        background: @fa-color;
+        border: 1px solid @gray-color;
+        height: 70px;
+        span{
+            margin: 20px 0 20px 10px;
+        }
+
+        .menu_right{
+            position:relative;
+            float: right;
+            padding: 0 20px 0 0;
+            cursor: pointer;
+
+            select{
+                border: 1px solid rgb(204, 204, 204);
+                height: 36px !important;
+            }
+        }
+    }
+}

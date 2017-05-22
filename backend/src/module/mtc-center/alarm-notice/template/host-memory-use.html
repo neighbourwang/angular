@@ -1,24 +1,24 @@
 <div class="page-content-header icon-content-header-operation-center">
-    告警项:{{alarm.name}}
+     {{'ALARM.ALARM_NAME'|translate}}:{{alarm.name}}
 </div>
 <div class="page-content">
     <div class="row row-line-height">        
-        <div class="col-md-2 form-control-title" style="width:140px;">告警开关：</div>
+        <div class="col-md-2 form-control-title" style="width:140px;">  {{'ALARM.SWITCHING'|translate}}：</div>
         <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;width:90px;">
             <input class="fox-cloud-radio" type="radio" name="alarmswitch"  [value]="1" [(ngModel)]="alarm.switching" >
-            <span class="mgl5">开启</span>
+            <span class="mgl5">  {{'ALARM.OPEN'|translate}}</span>
         </div>
         <div class="col-md-1" style="line-height:34px;font-size:16px;width:90px;">  
             <input class="fox-cloud-radio" type="radio" name="alarmswitch" [value]="2" [(ngModel)]="alarm.switching">
-            <span class="mgl5">关闭</span>
+            <span class="mgl5">{{'ALARM.CLOSE'|translate}}</span>
         </div>      
     </div>
     <div class="row row-line-height">
-        <div class="col-md-2 form-control-title" style="width:140px;">阀值设置：</div>
-        <div class="col-md-1 no-padding text-right" style="line-height:34px;font-size:16px;width:115px;">检查周期：</div>
+        <div class="col-md-2 form-control-title" style="width:140px;">{{'ALARM.SET_THRESHOLD'|translate}}：</div>
+        <div class="col-md-1 no-padding text-right" style="line-height:34px;font-size:16px;width:115px;">{{'ALARM.PERIOD'|translate}}：</div>
         <div class="col-md-1 mgl10" style="padding:0px">
             <select class="form-control" [(ngModel)]="alarm.period" >
-                <option value="">请选择</option>
+                <option value="">{{'ALARM.PLEASE_SELECT'|translate}}</option>
                 <option *ngFor="let type of service.dictPeriod | async" [value]="type.value">{{type.displayValue}}</option>
             </select>
         </div>     
@@ -26,15 +26,15 @@
 
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title" style="width:140px;"></div>
-        <div class="col-md-1 no-padding text-right" style="line-height:34px;font-size:16px;width:115px;">触发条件1：</div>
+        <div class="col-md-1 no-padding text-right" style="line-height:34px;font-size:16px;width:115px;">{{'ALARM.THRESHOLD1'|translate}}：</div>
         <div class="col-md-1 mgl10" style="padding:0px">
            <input class="form-control" type="text" [(ngModel)]="threshold1.symbol" readonly>
         </div>
         <div class="col-md-1 mgl10" style="padding:0px;">
                 <input class="form-control" type="number" min=0 max=100  [(ngModel)]="threshold1.value">
         </div>
-        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;" *ngIf="isName == false">级别：</div>
-        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;padding:0px" *ngIf="isName == true">告警内容：</div>
+        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;" *ngIf="isName == false">{{'ALARM.LEVEL'|translate}}：</div>
+        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;padding:0px" *ngIf="isName == true">{{'ALARM.CONTENT'|translate}}：</div>
         <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;" *ngIf="isName == false">
                <input class="form-control" type="text"   [value]="threshold1.level | dict:service.dictLevel | async" readonly>
         </div>      
@@ -44,7 +44,7 @@
     </div>
     <div class="row row-line-height">  
         <div class="col-md-2 form-control-title" style="width:140px;"></div>
-        <div class="col-md-1 no-padding text-right" style="line-height:34px;font-size:16px;width:115px;">触发条件2：</div>
+        <div class="col-md-1 no-padding text-right" style="line-height:34px;font-size:16px;width:115px;">{{'ALARM.THRESHOLD2'|translate}}：</div>
         <div class="col-md-1 mgl10" style="padding:0px;" *ngIf="isName == false">
             <input class="form-control" type="text" [(ngModel)]="threshold2.symbol" readonly>
         </div>
@@ -54,29 +54,29 @@
         <div class="col-md-1 " style="padding:0px;margin-left:10px">
                 <input class="form-control" type="number"   [(ngModel)]="threshold2.value" min=0 max=100>
         </div>
-        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;" *ngIf="isName == false">级别：</div>
-        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;padding:0px" *ngIf="isName == true">告警内容：</div>
+        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;" *ngIf="isName == false">{{'ALARM.LEVEL'|translate}}：</div>
+        <div class="col-md-1 text-right" style="line-height:34px;font-size:16px;padding:0px" *ngIf="isName == true">{{'ALARM.CONTENT'|translate}}：</div>
         <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;" *ngIf="isName == false">
                 <input class="form-control" type="text"   [value]="threshold2.level | dict:service.dictLevel | async" readonly>
         </div>
         <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;" *ngIf="isName == true">
                 <input class="form-control" type="text"   [value]="threshold2.content | dict:service.dictContent | async" readonly>
         </div>
-        <div class="col-md-3" style="font-size:16px;line-height:34px" *ngIf="isName == false">条件2输入的数值必须大于条件1</div>
-        <div class="col-md-3" style="font-size:16px;line-height:34px" *ngIf="isName == true">条件2输入的数值必须小于等于条件1</div>
+        <div class="col-md-3" style="font-size:16px;line-height:34px" *ngIf="isName == false">{{'ALARM.THRESHOLD2_MUST_BIGGER_THRESHOLD1'|translate}}</div>
+        <div class="col-md-3" style="font-size:16px;line-height:34px" *ngIf="isName == true">{{'ALARM.THRESHOLD1_MUST_BIGGER_THRESHOLD2'|translate}}</div>
     </div>
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title" style="width:140px;"></div>
-        <div class="col-md-1 no-padding text-right" style="line-height:34px;font-size:16px;width:115px;">重复告警条件：</div>
-        <div class="col-md-1" style="line-height:34px;font-size:16px;width:30px;">每</div>
+        <div class="col-md-1 no-padding text-right" style="line-height:34px;font-size:16px;width:115px;">{{'ALARM.REPEAT'|translate}}：</div>
+        <div class="col-md-1" style="line-height:34px;font-size:16px;width:30px;">{{'ALARM.EVERY'|translate}}</div>
         <div class="col-md-1 mgl10 mgr10" style="padding:0px;">
             <input type="text" class="form-control" [(ngModel)]="alarm.repeat">
         </div>
         <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;width:30px;">次</div>
-        <div class="col-md-6" style="font-size:16px;">告警检查以设置的周期为准，重复告警条件为触发告警后，连续多少个周期内都达到阈值情况下的告警再次触发条件。</div>
+        <div class="col-md-6" style="font-size:16px;">{{'ALARM.REPEAT_CONDITION'|translate}}</div>
     </div>
     <div class="row row-line-height">
-        <div class="col-md-2 form-control-title" style="width:140px;">告警方式：</div>
+        <div class="col-md-2 form-control-title" style="width:140px;">{{'ALARM.METHOD'|translate}}：</div>
         <div class="col-md-1 no-padding" style="line-height:34px;font-size:16px;width:90px;">
             <input class="fox-cloud-radio" type="radio" name="method" [value]="1" [(ngModel)]="alarm.method">
             <span class="mgl5">Email</span>
@@ -88,18 +88,18 @@
     <div class="row row-line-height">
         <div class="col-md-2 form-control-title" style="width:140px;"></div>
         <div class="col-md-9 no-padding">
-            <div class="table-container" style="max-height: 280px; overflow: auto;">
+            <div class="table-container" style="height:300px;overflow:auto">
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th><input type="checkbox"class="fox-cloud-checkbox"  (click)="selectAll();"/>&nbsp;多选框</th>
-                        <th>姓名</th>
-                        <th>账号</th>
-                        <th>Email地址</th>
-                        <th *ngIf="isName == true">角色</th>
+                        <th><input type="checkbox"class="fox-cloud-checkbox"  (click)="selectAll();"/>&nbsp;{{'ALARM.CHECK'|translate}}</th>
+                        <th>{{'ALARM.RECEIVER'|translate}}</th>
+                        <th>{{'ALARM.ACCOUNT'|translate}}</th>
+                        <th>{{'ALARM.EMAIL'|translate}}</th>
+                        <th *ngIf="isName == true">{{'ALARM.ROLE'|translate}}</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody  >
                     <tr *ngFor="let item of receiverList; let idx = index;">
                         <td>
                             <input type="checkbox" class="fox-cloud-checkbox" name="receiver" [checked]="item.isSelect" (click)="selectReceiver(idx);"/>
@@ -117,10 +117,10 @@
 </div>
 <div class="text-center mgt20">
     <button type="button" class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();">
-        <span class="icon-button-label">取消</span>
+        <span class="icon-button-label">{{'ALARM.CANCEL'|translate}}</span>
     </button>
     <button type="button" class="fox-cloud-button-lg fox-cloud-button-white" (click)="save();">
-        <span class="icon-button-label">保存</span>
+        <span class="icon-button-label">{{'ALARM.SAVE'|translate}}</span>
     </button>
 </div>
 

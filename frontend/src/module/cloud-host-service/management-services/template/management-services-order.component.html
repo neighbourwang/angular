@@ -213,7 +213,7 @@
                     <div class="col-md-6">
                         <div class="col-md-2 no-padding">实例ID</div> 
                         <div class="col-md-6 no-padding has-feedback" [ngClass]="{'has-error': customV.result.intanceId }">
-                            <input (keyup)="customCheckValue('intanceId');" [(ngModel)]="values.instanceId" type="text" class="form-control">
+                            <input (keyup)="customCheckValue('intanceId');" [(ngModel)]="values.INSTANCEID.attrValue" type="text" class="form-control">
                             <span *ngIf="customV.result.intanceId" class="glyphicon glyphicon-remove form-control-feedback"></span>
                             <div *ngIf="customV.result.intanceId" class="alert alert-danger" role="alert">{{customV.result.intanceId | translate}}</div>
                         </div>

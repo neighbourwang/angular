@@ -110,7 +110,7 @@
             <td class="text-center">{{dist.useType}}</td>
             <td class="text-center">{{dist.sourceType | dict:service.dictSourceType | async}}</td>
             <td class="text-center">
-                <div class="dropdown">
+                <div class="dropdown" *ngIf="!isMiddleState(dist.status)">
                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="more_{{dist.id}}">
                     {{'COMMON.MORE_ACTIONS' | translate}}
                     <span class="caret"></span>

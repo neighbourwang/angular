@@ -124,11 +124,16 @@ export class HostMemoryUseComponent implements OnInit{
 
     //保存
     save(){
-        if(this.threshold2.value < this.threshold1.value){
-            this.showAlert("条件2输入的数值必须大于条件1");
+        if( this.isName==false && this.threshold2.value <= this.threshold1.value){
+            this.showAlert("ALARM.THRESHOLD2_MUST_BIGGER_THRESHOLD1");//条件2输入的数值必须大于条件1
+            return;
+        }
+        if( this.isName==true &&this.threshold1.value <= this.threshold2.value){
+            this.showAlert("ALARM.THRESHOLD1_MUST_BIGGER_THRESHOLD2");//条件2输入的数值必须小于条件1
             return;
         }
         this.alarm.threshold=[this.threshold1,this.threshold2];
+        this.alarm.receiver=[];
         this.receiverList.forEach(
             item => {
                 if (item.isSelect) {

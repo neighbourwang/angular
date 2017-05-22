@@ -56,10 +56,13 @@
         <div class="form-group">
             <div class="col-sm-3 form-control-title">{{'PHY_MNG_DEPART.PARTS_NAME' | translate}}:</div>
             <div class="col-sm-4">
-                <select class="form-control" [(ngModel)]="selectedParts" (change)="selectedSpec=defaultSpec;">
-                    <option *ngFor="let v of partslist" [ngValue]="v">{{v.partsName}}</option>
-                    <option [ngValue]="defaultParts">{{'PHY_MNG_DEPART.OTHERS' | translate}}</option>
-                </select>
+                <div class="input-select-container">
+                    <input type="text" [value]="selectedParts && selectedParts.partsName" #partsName>
+                    <select class="form-control" [(ngModel)]="selectedParts" (change)="selectedSpec=defaultSpec;">
+                        <option *ngFor="let v of partslist" [ngValue]="v">{{v.partsName}}</option>
+                        <option [ngValue]="defaultParts">{{defaultParts.partsName}}</option>
+                    </select>
+                </div>
             </div>
             <div class="col-sm-4" *ngIf="!selectedParts.partsId">
                 <input type="text" class="form-control" [(ngModel)]="criteria.partsName">
@@ -70,10 +73,13 @@
         <div class="form-group">
             <div class="col-sm-3 form-control-title">{{'PHY_MNG_DEPART.SPEC_NAME' | translate}}:</div>
             <div class="col-sm-4">
-                <select class="form-control" [(ngModel)]="selectedSpec">
-                    <option *ngFor="let spec of selectedParts.specList" [ngValue]="spec">{{spec.specName}}</option>
-                    <option [ngValue]="defaultSpec">{{'PHY_MNG_DEPART.OTHERS' | translate}}</option>
-                </select>
+                <div class="input-select-container">
+                    <input type="text" [value]="selectedSpec && selectedSpec.specName" #specName>
+                    <select class="form-control" [(ngModel)]="selectedSpec">
+                        <option *ngFor="let spec of selectedParts.specList" [ngValue]="spec">{{spec.specName}}</option>
+                        <option [ngValue]="defaultSpec">{{defaultSpec.specName}}</option>
+                    </select>
+                </div>
             </div>
             <div class="col-sm-4" *ngIf="!selectedSpec.specId">
                 <input type="text" class="form-control" [(ngModel)]="criteria.specName">

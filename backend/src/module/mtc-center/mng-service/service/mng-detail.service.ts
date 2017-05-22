@@ -25,7 +25,7 @@ export class MngDetailService {
     getInfo(serviceId: string): Promise<any>{
         const pathParams=[
             {
-                key:"serviceId",
+                key:"itemId",
                 value: serviceId
             }
         ];

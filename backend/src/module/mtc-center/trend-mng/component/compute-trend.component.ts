@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
+
 import { PlfModel, RegionModel, ZoneModel } from "../model/plf.model";
 import { BasicModel, Percent } from "../model/basic.model";
 import {GrowthRate, DateRate} from "../model/growth-rate.model";
@@ -269,7 +270,7 @@ export class ComputeTrendComponent implements OnInit {
                 TempSeries.push({
                     name: zoneSeries[k].name,
                     type: 'bar',
-                    stack: '广告',
+                    stack: 'stack',
                     data: zoneSeries[k].data,
                     label: {
                         normal: {
