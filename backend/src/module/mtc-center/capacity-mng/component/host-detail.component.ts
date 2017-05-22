@@ -154,23 +154,6 @@ export class HostDetailComponent implements OnInit {
 
         chart.ChartType= "line";
         
-                    ticks: {
-                        maxTicksLimit: 20
-                    }
-                }],
-                yAxes: [{
-                    display: true,
-                    ticks: {
-                        min: 0,
-                        suggestedMax: 50
-                    },
-                    beginAtZero: true
-                }]
-            }
-        }
-
-        chart.ChartType = "line";
-
         chart.Colors = [
             {
                 backgroundColor: chartColors.lineBg,
