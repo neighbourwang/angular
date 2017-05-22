@@ -63,9 +63,9 @@
             <th class="text-center">服务状态</th>
         </tr>
         <tr *ngFor="let mgmt of mgmtList;let i = index">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=mgmt;" name="disk-list" id="mgmt_radio_{{mgmt.id}}"></td>
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=mgmt;" name="disk-list" id="mgmt_radio_{{mgmt.serviceId}}"></td>
             <td class="text-center">{{i+1}}</td>
-            <td class="text-center active">{{mgmt.serviceName}}</td>
+            <td class="text-center active"> <a href="javascript:" (click)="openDetail(mgmt.serviceId)">{{mgmt.serviceName}}</a></td>
             <td class="text-center">{{mgmt.serviceObjectCode}}</td>
             <td class="text-center">{{mgmt.instance?.instanceId}}/{{mgmt.instance?.instanceName}}</td>
             <td class="text-center">{{mgmt.instance?.instanceRegion}}</td>
@@ -78,5 +78,40 @@
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
-<fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
+<fc-popup #popup (cf)="popupCf()" sizeClass="big-dialog" (of)="popupOf()">
+    <h5 class="service-title">基本信息</h5>
+    <table class="table table-bordered service-info">
+        <tr>
+            <td>管理服务名称</td>
+            <td>{{mgmt?.serviceName}}</td>
+            <td>服务类型</td>
+            <td>{{mgmt?.serviceType | dict: service.period | async}}</td>
+        </tr>
+        <tr>
+            <td>服务对象</td>
+            <td>{{mgmt?.serviceInstanceType | dict: service.type | async}}</td>
+            <td>服务状态</td>
+            <td>{{mgmt?.serviceState | dict: service.status | async}}</td>
+        </tr>
+        <tr>
+            <td>实例ID</td>
+            <td>实例ID</td>
+            <td>服务开始时间</td>
+            <td>服务开始时间</td>
+        </tr>
+        <tr>
+            <td>实例名称</td>
+            <td>实例名称</td>
+            <td>服务结束时间</td>
+            <td>服务结束时间</td>
+        </tr>
+        <tr>
+            <td>所在区域</td>
+            <td>所在区域</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <h5 class="service-title">备注信息</h5>
+    <h5 class="service-title">服务跟进信息</h5>
 </fc-popup>

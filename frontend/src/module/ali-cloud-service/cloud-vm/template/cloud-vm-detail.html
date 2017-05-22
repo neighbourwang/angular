@@ -4,6 +4,10 @@
         <div style="display: inline-block; cursor: pointer;" (click)="goVMListPage();">
             <span class="icon-back mgl20 mgr5"></span><span class="span_gray">返回阿里云主机列表</span>
         </div>
+        <div class="pull-right" style="margin-bottom:10px; margin-right:20px;">
+            <button class="btn button-gray-gradient" [disabled]="instance.Status!='Running'" (click)="remoteToInstance();">控制台</button>
+            <button class="btn button-gray-gradient" [disabled]="instance.Status!='Stopped'" (click)="deleteInstance();">删除主机</button>
+        </div>
     </h1>
 
     <div class="col-md-4 mgt20 ">
@@ -235,4 +239,5 @@
 </div>
 
 
+<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{modalOKTitle}}" ct="{{modalCancelTitle}}"></fc-confirm>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>

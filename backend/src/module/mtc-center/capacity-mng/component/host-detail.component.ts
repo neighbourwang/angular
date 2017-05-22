@@ -135,9 +135,8 @@ export class HostDetailComponent implements OnInit {
                             xAxes: [{
                                 display: true,
                                 ticks: {
-                                    //maxRotation:0, 
                                     userCallback: function(dataLabel, index) {
-                                        return index % 10 === 0 ? dataLabel : '';
+                                        return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
                                     }
                                 }
                             }],
