@@ -74,7 +74,7 @@ export class AlarmNoticeListComponent implements OnInit{
         const alarm=this.alarmList.find((e)=>{return e.isSelect});
         console.log(alarm)
         if(!alarm){
-            this.showAlert("请选择需要设置的告警项！");
+            this.showAlert("ALARM.PLEASE_SELECT_ALARM");
             return;
         }
         this.router.navigate([`mtc-center/alarm-notice/host-memory-use`,{id:alarm.itemId}]);
