@@ -35,6 +35,8 @@ export const routes: Routes = [
     { path: 'sys-setup', loadChildren: 'module/sys-setup/sys-setup.module#SysSetupModule' },
     //ali-cloud
     { path: 'ali-cloud', loadChildren: 'module/ali-cloud/ali-cloud.module#AliCloudModule' },
+    //testutil
+    { path: 'testutil', loadChildren: 'module/testutil/testutil.module#TestUtilModule'}
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

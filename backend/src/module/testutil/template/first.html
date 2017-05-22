@@ -1,0 +1,46 @@
+<div>
+    <div>
+        <button>新增</button>
+        <button>查询</button>
+        <button>批量修改</button>
+    </div>
+    <br>
+    <div>
+        <div>微服务名称:
+            <input [(ngModel)]="entry.groupCase"/>
+        </div>
+        <br>
+        <div>二级功能:
+            <input [(ngModel)]="entry.groupFunc"/>
+        </div>
+        <br>
+        <div>
+            <div class="form-group">
+                请求参数:
+                <br>
+                <div class="col-sm-4 float-left">
+                <input type="text" rows="3" class="form-control" [(ngModel)]="entry.bodyVar"/>         
+            </div>
+        </div>
+        <br>
+        <div>执行顺序(数字):
+            <input [(ngModel)]="entry.sequenceNum"/>
+        </div>
+        <br>
+        <div>下拉框前端:
+            <input [(ngModel)]="entry.methodHit"/>
+        </div>
+        <br>
+        <div>期望返回值:
+            <input [(ngModel)]="entry.resultExp"/>
+        </div>
+        <br>
+        <div>URL:
+            <input [(ngModel)]="entry.urlHit"/>
+        </div>
+    </div>
+    <br>
+    <div>
+        <button (click)="insertone()">保存</button>
+    </div>
+</div>
