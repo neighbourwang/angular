@@ -408,8 +408,9 @@ export class AssignMngDetailComponent implements OnInit {
                                 display: true,
                                 ticks: {
                                     userCallback: function(dataLabel, index) {
-                                        return index % 10 === 0 ? dataLabel : '';
+                                        return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
                                     }
+
                                 }
                             }],
                             yAxes: [{
