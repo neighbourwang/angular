@@ -26,6 +26,17 @@ export class ManagementServicesListService {
                 return res.resultContent;
             });
     }
+
+    fetchMngmDetail(itemId) {
+        let api = this.restApiCfg.getRestApi('mngm-detail');
+        return this.restApi.request(api.method, api.url, [{ key:"itemId", value:itemId}], undefined, undefined)
+            .then(res => {
+                if (res.resultCode !== "100") {
+                    throw "获取接口失败";
+                }
+                return res.resultContent;
+            })
+    }
     
    
     status = this.dict.get({    //服务状态
