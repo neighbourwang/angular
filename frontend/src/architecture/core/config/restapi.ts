@@ -480,12 +480,12 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-search.cencel.post",
         "url": "marketplace/authsec/order/withdraw/order/{orderId}/reason/{reason}"
     },
-    // {
-    //     "desc": "根据subinstancesId获取管理服务详情",
-    //     "method": "GET",
-    //     "id": "op-center.order-search.subinstance.get",
-    //     "url": "marketplace/authsec/subinstance/supervise/subid/{subId}"
-    // },
+    {
+        "desc": "根据subinstancesId获取管理服务详情",
+        "method": "GET",
+        "id": "op-center.order-search.subinstance.get",
+        "url": "marketplace/authsec/subinstance/supervise/subid/{subId}"
+    },
 
     //订单查询
 

@@ -51,7 +51,7 @@
 								</div>
 					
 							</popover-content>
-							<a *ngIf="_orderDetail.productType==11" (clic)="checkOSInfo()">OS管理服务</a><!--管理服务-->
+							<a *ngIf="_orderDetail.productType==11" (click)="checkOSInfo(_orderDetail.instanceId)">OS管理服务</a><!--管理服务-->
 						</td>	
 						<td>{{ 'COMMON.CREATED_TIME' | translate}}</td>
 						<td>{{_orderDetail.createDate}}</td>
