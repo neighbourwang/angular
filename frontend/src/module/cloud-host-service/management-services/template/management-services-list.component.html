@@ -63,9 +63,9 @@
             <th class="text-center">服务状态</th>
         </tr>
         <tr *ngFor="let mgmt of mgmtList;let i = index">
-            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=mgmt;" name="disk-list" id="mgmt_radio_{{mgmt.id}}"></td>
+            <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=mgmt;" name="disk-list" id="mgmt_radio_{{mgmt.serviceId}}"></td>
             <td class="text-center">{{i+1}}</td>
-            <td class="text-center active">{{mgmt.serviceName}}</td>
+            <td class="text-center active"> <a href="javascript:" (click)="openDetail(mgmt)">{{mgmt.serviceName}}</a></td>
             <td class="text-center">{{mgmt.serviceObjectCode}}</td>
             <td class="text-center">{{mgmt.instance?.instanceId}}/{{mgmt.instance?.instanceName}}</td>
             <td class="text-center">{{mgmt.instance?.instanceRegion}}</td>
@@ -78,5 +78,8 @@
 </div>
 <fc-confirm #confirm title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(1)" ct="{{modalCancelTitle}}" (cf)="modalAction(0)"></fc-confirm>
 <fc-notice #notice title="{{modalTitle}}" msg="{{modalMessage}}" ot="{{modalOKTitle}}" (of)="modalAction(0)"></fc-notice>
-<fc-popup #popup (cf)="popupCf()" (of)="popupOf()">
+<fc-popup #popup (cf)="popupCf()" sizeClass="big-dialog" (of)="popupOf()">
+    <h4>基本信息</h4>
+    <h4>备注信息</h4>
+    <h4>服务跟进信息</h4>
 </fc-popup>

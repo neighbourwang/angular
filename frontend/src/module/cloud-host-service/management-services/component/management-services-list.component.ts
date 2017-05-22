@@ -65,8 +65,23 @@ export class ManagementServicesListComponent implements OnInit {
 			console.log(this.mgmtList)
 			this.mgmtList = res;
 		})
-		
 	}
+
+	openDetail(mgmt) {
+		this.layoutService.show();
+		this.service.fetchMngmDetail(mgmt.serviceId)
+			.then(res => {
+				this.layoutService.hide();
+				console.log(res)
+				this.popup.open("管理服务详情")
+			})
+            .catch(e => {
+				this.showNotice("提示","获取服务详情失败");
+				this.layoutService.hide()
+            })
+	}
+	popupCf(){}
+	popupOf(){}
 
 	resetSearch() {
 		this.listQuery = new SuperviseQueryCondition();

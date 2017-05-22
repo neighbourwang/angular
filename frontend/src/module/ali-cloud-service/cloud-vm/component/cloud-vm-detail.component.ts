@@ -67,6 +67,8 @@ export class AliCloudVmDetailComponent implements OnInit {
     confirmTitle = "";
     confirmMsg = "";
 
+    remoteUrl: string = "";
+
     pageIndex:number = 1;
     pageSize:number = 10;
     totalPage:number = 1;
@@ -203,7 +205,6 @@ export class AliCloudVmDetailComponent implements OnInit {
                     
                     this.getInstance();
                     this.getInstanceKeypairTags();
-                    this.getInstanceMonitorData();
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -233,6 +234,16 @@ export class AliCloudVmDetailComponent implements OnInit {
                     }
                     this.instance = result.Instances.Instance[0];
                     console.log(this.instance, "instance!");
+
+                    if(this.instance.Status=="Running") {
+                        this.getInstanceMonitorData();
+                    } else {
+                        console.log("该云主机未运行,所以无监控数据");
+                        return;
+
+                    }
+                    
+                    
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -282,6 +293,14 @@ export class AliCloudVmDetailComponent implements OnInit {
         utcend = (new Date(end)).toUTCString();
         console.log(utcstart, utcend, "start2 and end2!");
         let period:string = "60";
+
+        if(start >= end) {
+            console.log("startTime>endTime!");
+            this.showMsg("请选择正确的时间段");
+            return;
+        }
+
+
         this.layoutService.show();
         this.service.getInstanceMonitorData(this.instanceId, utcstart, utcend, period)
             .then(
@@ -306,6 +325,8 @@ export class AliCloudVmDetailComponent implements OnInit {
                     this.getGraphData(this.cpuChart);
                     this.getGraphData(this.netChart);
 
+                } else if(400 == response["resultCode"]) {
+                    this.showMsg("目前没有监控数据");
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -562,13 +583,91 @@ export class AliCloudVmDetailComponent implements OnInit {
 
     freshPage() {
         console.log(this.startTime, this.startHour, this.startMin, this.endTime, this.endHour, this.endMin);
-        /*
-        if(this.startTime!=null && this.startHour!=null && this.startMin!=null 
-        && this.endTime!=null && this.endHour!=null && this.endMin!=null) {
+
+        if(this.instance.Status!="Running") {
+            this.showMsg("该云主机未运行");
+            return;
+        }
+        
+        if((this.startTime!=null && this.startTime!="")
+        && this.startHour != "" && this.startMin != ""
+        && (this.startHour!=null || this.startHour=="00")
+        && (this.startMin!=null || this.startMin=="00")
+        && (this.endTime!=null && this.endTime!="")
+        && this.endHour != "" && this.endMin != ""
+        && (this.endHour!=null || this.endHour=="00") 
+        && (this.endMin!=null || this.endMin=="00")) {
+            this.getInstanceMonitorData();
+        } else {
             this.showMsg("请选择正确的时间段");
             return;
-        }*/
-        this.getInstanceMonitorData();
+        }
+
+        
+    }
+
+    remoteToInstance() {
+        this.layoutService.show();
+        this.service.remoteControlInstance(this.regionId, this.instance)
+            .then(
+            response => {
+                this.layoutService.hide();
+                this.showMsg("远程控制台Url, 有效时间为15秒，请尽快输入密码登陆！");
+                console.log(response, "response!");
+                if (response && 100 == response["resultCode"]) {
+                    console.log(this.remoteUrl, "remoteUrl!");
+                    this.remoteUrl = response.resultContent;
+                    window.open(this.remoteUrl);
+                } else {
+                    this.showMsg("COMMON.GETTING_DATA_FAILED");
+                    return;
+                }
+            })
+            .catch((e) => {
+                this.onRejected(e);
+            });
+    }
+
+    deleteInstance() {
+        if (this.instance) {
+            if(this.instance.Status != "Stopped") {
+                console.log("can't remoteToInstance");
+                return;
+            }    
+            this.confirmTitle = "释放实例";
+            this.confirmMsg = "释放实例：" + this.instance.InstanceId;
+            this.confirm.cof = () => { };
+            this.confirm.ccf = () => {
+                this.layoutService.show();
+                this.service.deleteInstance(this.instance)
+                    .then(
+                    response => {
+                        this.layoutService.hide();
+                        if (response && 100 == response["resultCode"]) {
+                            //this.showAlert("释放实例成功！");
+                            this.goVMListPage();
+                        } else {
+                            if (403 == response["resultCode"]) {
+                                let result;
+                                try {
+                                    result = JSON.parse(response.resultContent);
+                                    console.log(result, "result!");
+                                } catch (ex) {
+                                    console.log(ex);
+                                }
+                                this.showAlert(response["resultCode"] + ": " + result.Message);
+                            } else {
+                                this.showAlert("COMMON.OPERATION_ERROR");
+                            }
+                        }
+                    })
+                    .catch((e) => this.onRejected(e));
+            };
+            this.confirm.open();
+        } else {
+            this.showAlert("请选择实例");
+            return;
+        }
     }
     
 }

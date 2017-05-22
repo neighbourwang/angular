@@ -339,6 +339,13 @@ export let RestApis: RestApiModel[] = [
         "id": "mngm-search-page",
         "url": "subinstancemgmt/authsec/subinstance/supervise/search/page"
     },
+    {
+        "desc": "获取管理服务详情",
+        "method": "GET",
+        "id": "mngm-detail",
+        "url": "subinstancemgmt/authsec/subinstance/supervise/{itemId}"
+    },
+    
     // {
     //     "desc": "获取一个管理服务目录的基础信息",
     //     "method": "GET",
