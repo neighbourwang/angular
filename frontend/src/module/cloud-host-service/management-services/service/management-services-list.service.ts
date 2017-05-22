@@ -44,9 +44,13 @@ export class ManagementServicesListService {
         field : "STATUS"
     })
    
-    period = this.dict.get({    //服务对象
+    period = this.dict.get({    //服务类型
         owner : "SUPERVISE_SERVICE",
         field : "PERIOD"
+    })
+    type = this.dict.get({    //服务对象
+        owner : "SUPERVISE_SERVICE",
+        field : "TYPE"
     })
 
 
