@@ -7,7 +7,7 @@ export class PhyImg{
     osTypeName: string;
     bitId: number;
     bitName: string;
-    imageTypeId: number;
+    imageTypeId: number;//0-公有镜像，1-私有镜像
     imageTypeName: string;
     enterpriseSelectedList:Array<Enterprise>;
     status:number;

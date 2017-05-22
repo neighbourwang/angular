@@ -51,9 +51,14 @@
                     <td>{{img.osTypeId | dict: this.service.osDic | async}}</td>
                     <td>{{img.bitId | dict: this.service.bits_typeDic | async}}</td>
                     <td>{{img.imageTypeId | dict: this.service.typeDic | async}}</td> 
-                    <td>
-                        <li *ngFor="let e of img.enterpriseSelectedList" style="display: inline-block; padding: 2px 5px;">
+                    <td [ngSwitch]="img.imageTypeId" style="max-width:300px;">
+                        <li *ngSwitchCase="0">
+                            {{'COMMON.ALL' | translate}}
+                        </li>
+                        <li *ngSwitchCase="1">
+                            <span *ngFor="let e of img.enterpriseSelectedList" style=";display: inline-block; padding: 2px 5px;">
                             {{e.com}}
+                            </span>
                         </li>
                     </td>     
                     <td [ngClass]="{'font-green':img.status==1,'font-orange':img.status==0}">
@@ -122,7 +127,7 @@
             <div class="form-group">
                 <div class="col-sm-4 form-control-title">{{'PHY_IMG_MNG.IMAGE_TYPE' | translate}}:</div>
                 <div class="col-sm-6">
-                    <select class="form-control" [(ngModel)]="tempEdit.imageTypeId">
+                    <select class="form-control" [(ngModel)]="tempEdit.imageTypeId"(change)="ischangeType(tempEdit.imageTypeId)">
                         <option *ngFor="let type of service.typeDic | async" [value]="type.value">
                             {{type.displayValue}}</option>
 
