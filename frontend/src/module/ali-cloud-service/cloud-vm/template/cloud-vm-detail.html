@@ -180,11 +180,11 @@
                     </div>
                     <div class="float-left mgt10">
                         <select [(ngModel)]="startHour" style="display: inline-block;height:34px;">
-                        <option value=null>时</option>
+                        <option value=''>时</option>
                         <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
                         </select> :
                         <select [(ngModel)]="startMin" style="display: inline-block;height:34px;">
-                        <option value=null>份</option>
+                        <option value=''>分</option>
                         <option *ngFor="let min of mins" [value]="min">{{min}}</option>
                         </select>
                     </div>
@@ -197,11 +197,11 @@
 
                     <div class="float-left mgt10">
                         <select [(ngModel)]="endHour" style="display: inline-block;height:34px;">
-                        <option value=null>时</option>
+                        <option value=''>时</option>
                         <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
                         </select> :
                         <select [(ngModel)]="endMin" style="display: inline-block;height:34px;">
-                        <option value=null>分</option>
+                        <option value=''>分</option>
                         <option *ngFor="let min of mins"  [value]="min">{{min}}</option>
                     </select>
                     </div>

@@ -282,6 +282,14 @@ export class AliCloudVmDetailComponent implements OnInit {
         utcend = (new Date(end)).toUTCString();
         console.log(utcstart, utcend, "start2 and end2!");
         let period:string = "60";
+
+        if(start >= end) {
+            console.log("startTime>endTime!");
+            this.showMsg("请选择正确的时间段");
+            return;
+        }
+
+
         this.layoutService.show();
         this.service.getInstanceMonitorData(this.instanceId, utcstart, utcend, period)
             .then(
@@ -562,13 +570,21 @@ export class AliCloudVmDetailComponent implements OnInit {
 
     freshPage() {
         console.log(this.startTime, this.startHour, this.startMin, this.endTime, this.endHour, this.endMin);
-        /*
-        if(this.startTime!=null && this.startHour!=null && this.startMin!=null 
-        && this.endTime!=null && this.endHour!=null && this.endMin!=null) {
+        
+        if((this.startTime!=null && this.startTime!="")
+        && this.startHour != "" && this.startMin != ""
+        && (this.startHour!=null || this.startHour=="00")
+        && (this.startMin!=null || this.startMin=="00")
+        && (this.endTime!=null && this.endTime!="")
+        && this.endHour != "" && this.endMin != ""
+        && (this.endHour!=null || this.endHour=="00") 
+        && (this.endMin!=null || this.endMin=="00")) {
+            this.getInstanceMonitorData();
+        } else {
             this.showMsg("请选择正确的时间段");
             return;
-        }*/
-        this.getInstanceMonitorData();
+        }
+        
     }
     
 }
