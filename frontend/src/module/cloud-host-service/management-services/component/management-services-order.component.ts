@@ -395,14 +395,13 @@ export class ManagementServicesOrderComponent implements OnInit {
 		}
 
 		this.postDataList = valuesList.map(values => {
+			this.values.BILLINGTYPE.attrValue = this.productInfo.billingType
+			this.values.SERVICENAME.attrValue = this.product.name
+
 			let { attrList } = this.postData
 			attrList = attrList.map(attr => Object.assign({}, attr, values[attr.attrCode]))
-			
-			let billingType = Object.assign({}, new ServiceResAttributePair,{    //配合后端临时添加
-				attrCode: "BILLINGTYPE",
-				attrValue: this.productInfo.billingType
-			})
-			return Object.assign({}, this.postData, { attrList: attrList.concat(billingType) }, { itemNo: this.makeItemNum() })
+
+			return Object.assign({}, this.postData, { attrList }, { itemNo: this.makeItemNum() })
 		})
 
 		console.log(this.postDataList)
