@@ -3,8 +3,8 @@
 	<h1 class="page-content-header mgb20">{{'SHOPPING_CART.ORDER_FINISHED' | translate}}</h1>
     <order-complete #order [orderId]="orderId"></order-complete>
     <div class="shoping-bottom clear-float">
-    	<span class="float-left pdt10 text-tip">{{'SHOPPING_CART.ORDER_HAS_BEEN_GENERATED' | translate}}<br>{{'SHOPPING_CART.ORDER_IS_EFFECTIVE_AFTER_APPROVED' | translate}}</span>
-        <button (click)="goTo('cloud-host-service/cloud-host-list')" class="btn button-confirm button-size-big float-right mgt20">{{'SHOPPING_CART.MNG_CONSOLE' | translate}}</button>
+	<span class="float-left pdt10 text-tip">{{'SHOPPING_CART.ORDER_HAS_BEEN_GENERATED' | translate}}<br>{{'SHOPPING_CART.ORDER_IS_EFFECTIVE_AFTER_APPROVED' | translate}}</span>
+        <button (click)="goTo('mng-console')" class="btn button-confirm button-size-big float-right mgt20">{{'SHOPPING_CART.MNG_CONSOLE' | translate}}</button>
         <span class="float-right mgr50">
             <table>
                 <tr>

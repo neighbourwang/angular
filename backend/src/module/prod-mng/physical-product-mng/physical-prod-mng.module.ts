@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 // Common Components ../../../architecture
 import { CommonComponentModule } from '../../../architecture';
+import { PipeModule } from '../../../architecture';
 
 //Components
 import { PhsicalProdDirCreComponent } from "./component/prod-dirPhsical-cre.component";
@@ -19,6 +20,7 @@ import { PhysicalProdMngRouting } from './physical-prod-mng.routing';
     imports: [
         CommonComponentModule,
         PhysicalProdMngRouting,
+        PipeModule
     ],
     declarations: [        
         PhysicalProdCreStep1Component,

@@ -32,5 +32,11 @@ export class PhysicalServiceService {
 
         return this.restApi.request(api.method, api.url, [], undefined,data);
     }
+    //获取编辑物理机服务目录详情
+    getEditPhysicalService(id:string){
+       let api = this.restApiCfg.getRestApi("physical-service-edit.get");
+
+        return this.restApi.request(api.method, api.url, [{key:'id',value:id}], undefined); 
+    }
 }
   
