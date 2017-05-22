@@ -8,29 +8,29 @@
     <div class="table-container mgt5">
         <table class="table table-hover" >
             <thead>
-                <tr>
-                    <th>{{'CAPACITY_MNG.NUMBER'|translate}}</th>
-                    <th>{{'CAPACITY_MNG.NAME'|translate}}</th>
-                    <th>{{'CAPACITY_MNG.DISPLAY_NAME'|translate}}</th><!--显示名称-->
-                    <th>{{'CAPACITY_MNG.STORAGE_TYPE'|translate}}</th><!--存储类型-->
-                    <th>{{'CAPACITY_MNG.TOTAL_CAPACITY'|translate}}</th><!--总容量（GB）-->
-                    <th>{{'CAPACITY_MNG.COPIES'|translate}}</th><!--副本数-->
-                    <th>{{'CAPACITY_MNG.QUOTA'|translate}}</th><!--配额%-->
-                    <th>{{'COMMON.STATUS'|translate}}</th>  <!--状态-->  
-                </tr>
+            <tr>
+                <th>{{'CAPACITY_MNG.NUMBER'|translate}}</th>
+                <th>{{'CAPACITY_MNG.NAME'|translate}}</th>
+                <th>{{'CAPACITY_MNG.DISPLAY_NAME'|translate}}</th><!--显示名称-->
+                <th>{{'CAPACITY_MNG.STORAGE_TYPE'|translate}}</th><!--存储类型-->
+                <th>{{'CAPACITY_MNG.TOTAL_CAPACITY'|translate}}</th><!--总容量（GB）-->
+                <th>{{'CAPACITY_MNG.COPIES'|translate}}</th><!--副本数-->
+                <th>{{'CAPACITY_MNG.QUOTA'|translate}}</th><!--配额%-->
+                <th>{{'COMMON.STATUS'|translate}}</th>  <!--状态-->  
+            </tr>
             </thead>
             <tbody>
-                <!--*ngFor="let storeInfo of storeInfoList"-->
-                <tr >
-                    <td>{{storeInfo.order}}</td>
-                    <td>{{storeInfo.storageName}}</td>
-                    <td>{{storeInfo.displayName}}</td>
-                    <td>{{storeInfo.storageType}}</td>
-                    <td>{{storeInfo.total}}</td>
-                    <td>{{storeInfo.copy}}</td>
-                    <td>{{storeInfo.qurota}}</td>
-                    <td [ngClass]="storeInfo.status==1?'font-green':'font-orange'">{{storeInfo.status| dict:this.service.statusDic | async}}</td>
-                </tr>
+            <!--*ngFor="let storeInfo of storeInfoList"-->
+            <tr >
+                <td>{{storeInfo.order}}</td>
+                <td>{{storeInfo.storageName}}</td>
+                <td>{{storeInfo.displayName}}</td>
+                <td>{{storeInfo.storageType}}</td>
+                <td>{{storeInfo.total}}</td>
+                <td>{{storeInfo.copy}}</td>
+                <td>{{storeInfo.qurota}}</td>
+                <td [ngClass]="storeInfo.status==1?'font-green':'font-orange'">{{storeInfo.status| dict:this.service.statusDic | async}}</td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -71,20 +71,20 @@
             <div class="col-md-3 form-control-title">{{'CAPACITY_MNG.CONTAIN'|translate}}：</div><!--包含-->
         </div>
 
-         <div class="row row-line-height" style="margin:0;">
-             <div class="col-md-3 form-control-title">{{'CAPACITY_MNG.CLOUD_HOST_STARTUP_DISK'|translate}}：</div><!--云主机启动盘-->
+        <div class="row row-line-height" style="margin:0;">
+            <div class="col-md-3 form-control-title">{{'CAPACITY_MNG.CLOUD_HOST_STARTUP_DISK'|translate}}：</div><!--云主机启动盘-->
             <div class="col-md-9">{{storeInfo.startup}}&nbsp;块</div>
         </div>
-         <div class="row row-line-height" style="margin:0;">
-             <div class="col-md-3 form-control-title">{{'CAPACITY_MNG.CLOUD_HOST_STARTUP_DISK_OCCUPIED_CAPACITY'|translate}} :</div><!--云主机启动盘占用总容量-->
+        <div class="row row-line-height" style="margin:0;">
+            <div class="col-md-3 form-control-title">{{'CAPACITY_MNG.CLOUD_HOST_STARTUP_DISK_OCCUPIED_CAPACITY'|translate}} :</div><!--云主机启动盘占用总容量-->
             <div class="col-md-9">{{storeInfo.startupCapacity}}&nbsp;GB</div>
         </div>
-         <div class="row row-line-height" style="margin:0;">
-             <div class="col-md-3 form-control-title">{{'CAPACITY_MNG.CLOUD_DISK'|translate}}：</div><!--云硬盘-->
+        <div class="row row-line-height" style="margin:0;">
+            <div class="col-md-3 form-control-title">{{'CAPACITY_MNG.CLOUD_DISK'|translate}}：</div><!--云硬盘-->
             <div class="col-md-9">{{storeInfo.disk}}&nbsp;块</div>
         </div>
         <div class="row row-line-height" style="margin:0;">
-             <div class="col-md-3 form-control-title">{{'CAPACITY_MNG.CLOUD_DISK_OCCUPIED_CAPACITY'|translate}} :</div><!--云硬盘占用总容量-->
+            <div class="col-md-3 form-control-title">{{'CAPACITY_MNG.CLOUD_DISK_OCCUPIED_CAPACITY'|translate}} :</div><!--云硬盘占用总容量-->
             <div class="col-md-9">{{storeInfo.diskCapacity}}&nbsp;GB</div>
         </div>
     </div>

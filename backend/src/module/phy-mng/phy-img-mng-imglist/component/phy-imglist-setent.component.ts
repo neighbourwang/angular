@@ -77,8 +77,9 @@ export class PhyImgListSetentComponent implements OnInit{
                 this.layoutService.hide();
                 if(response && 100==response["resultCode"]){
                     this.layoutService.hide();
-                    this.showAlert("保存成功");
-                    this.getEntList();
+                    this.showAlert("PHY_IMG_MNG.SAVE_SUCCESS",this.backToList);
+                    //this.getEntList();
+                    
                 }else{
                     alert("Res.sync error");
                 }
@@ -89,13 +90,21 @@ export class PhyImgListSetentComponent implements OnInit{
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("获取数据失败");
+        this.showAlert("PHY_IMG_MNG.ERROR", this.error);
     }
-    showAlert(msg: string): void {
+    showAlert(msg: string, fun:Function): void {
         this.layoutService.hide();
 
         this.noticeTitle = "HOST_OPENSTACK_MNG.PROMPT";
         this.noticeMsg = msg;
+         this.notice.nof=()=>{
+            console.log("function");
+            fun.bind(this)();
+        }
         this.notice.open();
+    }
+
+    error(){
+
     }
 }
