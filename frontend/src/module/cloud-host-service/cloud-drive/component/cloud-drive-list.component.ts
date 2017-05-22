@@ -138,7 +138,7 @@ export class cloudDriveListComponent implements OnInit, OnDestroy {
 
 		Promise.all(fecthMiddleStateList).then(res => {
 			res.forEach((disk, i) => {
-				if(disk) this.distList[i].status = disk.diskState
+				if(disk) this.distList[i].status = +disk.diskState
 			})
 			setTimeout(this.checkListMiddleState.bind(this) , 10 * 1000)
 		})

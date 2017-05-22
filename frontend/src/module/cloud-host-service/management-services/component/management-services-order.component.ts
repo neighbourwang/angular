@@ -229,7 +229,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				let returnData = new Selected;
 				returnData.REGION.attrValue = disk.platformName
 				returnData.ZONE.attrValue = disk.zoneName
-				returnData.instanceId = disk.uuid
+				returnData.INSTANCEID.attrValue = disk.uuid
 				returnData.INSTANCENAME.attrValue = disk.name
 
 				return returnData
@@ -278,7 +278,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				let [region, zone] = vm.regionZone.split(" ")
 				returnData.REGION.attrValue = region
 				returnData.ZONE.attrValue = zone
-				returnData.instanceId = vm.itemId
+				returnData.INSTANCEID.attrValue = vm.itemId
 				returnData.INSTANCENAME.attrValue = vm.instanceName
 
 				return returnData
@@ -322,7 +322,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				let returnData = new Selected;
 				returnData.REGION.attrValue = pm.poolRegionInfo
 				returnData.ZONE.attrValue = ""
-				returnData.instanceId = pm.pmId
+				returnData.INSTANCEID.attrValue = pm.pmId
 				returnData.INSTANCENAME.attrValue = pm.pmName
 
 				return returnData
@@ -357,7 +357,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 			region: [ this.values.REGION.attrValue, [this.v.isUnBlank, this.v.isBase], "区域填写有误"],
 			zone: [this.values.ZONE.attrValue, [this.v.isUnBlank, this.v.isBase], "可用区填写有误"],
 			intanceType: [this.values.INSTANCETYPE.attrValue, [this.v.isUnBlank, this.v.isBase], "请选择实例类型"],
-			intanceId: [this.values.instanceId, [this.v.isUnBlank, this.v.isBase], "实例ID填写有误"],
+			intanceId: [this.values.INSTANCEID.attrValue, [this.v.isUnBlank, this.v.isBase], "实例ID填写有误"],
 			instanceName: [this.values.INSTANCENAME.attrValue, [this.v.isUnBlank, this.v.isBase], "实例名称填写有误"],
 		}
 
@@ -390,7 +390,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 		if(this.selectedList.length) {   //如果是选择型的
 			valuesList = this.selectedList.map(select => Object.assign({} ,this.values, select))
 		}else {
-			if ( !this.values.instanceId ) return false
+			if ( !this.values.INSTANCEID.attrValue ) return false
 			valuesList = [this.values]
 		}
 
@@ -402,7 +402,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				attrCode: "BILLINGTYPE",
 				attrValue: this.productInfo.billingType
 			})
-			return Object.assign({}, this.postData, { attrList: attrList.concat(billingType) }, { itemNo: this.makeItemNum() }, { relyItemNo: values.instanceId })
+			return Object.assign({}, this.postData, { attrList: attrList.concat(billingType) }, { itemNo: this.makeItemNum() })
 		})
 
 		console.log(this.postDataList)
