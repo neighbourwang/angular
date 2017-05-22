@@ -1094,6 +1094,18 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "alicloud/authsec/alicloud/all/disks"
     },
+    { //获取阿里云主机的keypair和Tags
+        "desc": "Query instance tags and key pair",
+        "id": "al-cloud.cloud-vm.keypair.tags.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/custom/querydetail/regionid/{regionid}/instanceid/{instanceid}"
+    },
+    { //获取阿里云主机的监控数据
+        "desc": "Query instance monitor data",
+        "id": "al-cloud.cloud-vm.monitor.data.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeinstancemonitordata"
+    },
 
     // 阿里云主账号管理
     {

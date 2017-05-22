@@ -7,13 +7,13 @@ import { CommonComponentModule } from '../../../architecture';
 // component 
 import { AliCloudVmListComponent } from './component/cloud-vm-list.component';
 import { AliCloudVmOrderComponent } from './component/cloud-vm-order.component';
+import { AliCloudVmDetailComponent } from './component/cloud-vm-detail.component';
 
 //service 
 import { AliCloudVmService } from "./service/cloud-vm.service";
 import { AliCloudVMDictService } from "./service/cloud-vm-dict.service";
 import { AliCloudDiskService } from "../cloud-disk/service/cloud-disk.service";
 import { AliCloudDiskDictService } from "../cloud-disk/service/cloud-disk-dict.service";
-
 
 //routing
 import { AliCloudVmRouting } from './cloud-vm.routing';
@@ -26,11 +26,13 @@ import { AliCloudVmRouting } from './cloud-vm.routing';
     ],
     declarations: [
         AliCloudVmListComponent,
-        AliCloudVmOrderComponent
+        AliCloudVmOrderComponent,
+        AliCloudVmDetailComponent
     ],
     exports: [
         AliCloudVmListComponent,
-        AliCloudVmOrderComponent
+        AliCloudVmOrderComponent,
+        AliCloudVmDetailComponent
     ],
     providers: [
         AliCloudDiskService,

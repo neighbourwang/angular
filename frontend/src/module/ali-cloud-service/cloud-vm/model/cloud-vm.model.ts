@@ -237,6 +237,24 @@ export class VpcAttributesModel {
 }
 //<<<
 
+export class KeyPairsModel {
+    KeyPair: Array<KeyPairModel> = [];
+}
+
+export class KeyPairModel {
+    KeyPairFingerPrint: string = "";
+    KeyPairName: string = "";
+}
+
+export class TagsModel {
+    Tag: Array<TagItemModel> = [];
+}
+
+export class TagItemModel {
+    TagValue: string = "";
+    TagKey: string = "";
+}
+
 //>>> FamilyTree
 export class instanceFamilyTreeTypeIdModel {
     LocalStorageAmount:number = 0;
@@ -426,4 +444,49 @@ export class FloatingIPAddressModel {
     Bandwidth: number = null;
 
 }
+
+export class GraphItem {
+    TimeStamp:string = null;
+    BPSRead:number = null;
+    IOPSRead:number = null;
+    BPSWrite:number = null;
+    IntranetBandwidth:number = null;
+    InternetRX:number = null;
+    IntranetTX:number = null;
+    IntranetRX:number = null;
+    InternetBandwidth:number = null;
+    InstanceId:string = null;
+    IOPSWrite:number = null;
+    CPU:number = null;
+    InternetTX:number = null;
+}
+export class LineChart {
+    SourceData: Array<GraphItem>;
+    DataSets: Array<any>;
+    _data: Array<number>;
+    ChartType: string;
+    Colors: Array<any>;
+    Labels: Array<any>;
+    options: any;
+}
+
+
+export const chartColors = {
+    circleMain: "#2BD2C8",
+    circleGrey: "#e2e3e7",
+    lineBg: "#f9f9fb",
+    lineBorder: "#2bd2c8",
+    lineBorder1: "#2bffff",
+    lineBorder2: "#2b0000",
+    linePointBg: "#f1f3f2",
+    linePointBorder: "#2cd2c8",
+    linePointHoverBg: "#e8f0f2",
+    linePointHoverBorder: "#6fdcd6",
+    circleLegend1:"#2bd2c8",
+    circleLegend2:"#05ab83",
+    circleLegend3:"#c9cacc",
+    circleLegend4:"#85f46f",
+    circleLegend5:"#fa88ec"
+}
+
 

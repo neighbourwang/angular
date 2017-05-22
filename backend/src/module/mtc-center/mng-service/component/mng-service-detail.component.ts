@@ -66,7 +66,6 @@ export class MngServiceDetailComponent implements OnInit{
                     if (response && 100 == response["resultCode"]) {
                         this.serviceInfo= response["resultContent"];
                         console.log("serviceInfo",this.serviceInfo);
-                        console.log("serviceBaseInfo",this.serviceInfo.serviceBaseInfo);
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }

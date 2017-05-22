@@ -164,7 +164,7 @@ export class PhyPoolMngComponent implements OnInit{
                 }else if(status == "0"){
                     this.disable(this.selectedPhy.pmPoolId);
                 }else{
-                    this.showAlert("PHY_MNG_POOL.ENABLE_CANNOT_DELETE");
+                    this.showAlert("PHY_MNG_POOL.WHEN_CAN_DELETE");
                 }
             }else{
                 if(status == "1"){
@@ -172,7 +172,11 @@ export class PhyPoolMngComponent implements OnInit{
                 }else if(status == "0"){
                     this.showAlert("PHY_MNG_POOL.POOL_ALREADY_DISABLE");
                 }else{
-                    this.remove(this.selectedPhy.pmPoolId);
+                    if(selectedphy.usedAmount != "0"){
+                        this.showAlert("PHY_MNG_POOL.WHEN_CAN_DELETE");
+                    }else{
+                        this.remove(this.selectedPhy.pmPoolId);
+                    }
                 }
             }
         }

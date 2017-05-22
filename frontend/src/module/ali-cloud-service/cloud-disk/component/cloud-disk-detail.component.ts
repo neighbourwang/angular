@@ -172,6 +172,7 @@ export class AliCloudDiskDetailComponent implements OnInit {
                     let result;
                     try {
                         result = JSON.parse(response.resultContent);
+                        console.log(result, "result!");
                     } catch (ex) {
                         console.log(ex);
                     }

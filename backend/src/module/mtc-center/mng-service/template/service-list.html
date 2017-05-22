@@ -19,21 +19,21 @@
     <div class="mgt15">
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>
         <div class="float-left pdr20 mgl5">
-            <select [(ngModel)]="enterpriseId" class="pdl10 form-control" style="width: 137px;">
+            <select [(ngModel)]="enterpriseId" (ngModelChange)="getData()" class="pdl10 form-control" style="width: 137px;">
                 <option value="">所有企业</option>
                 <option *ngFor="let v of enterpriseList" [value]="v.id">{{v.name}}</option>
             </select>
         </div>{{enterpriseId}}
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">管理服务名称：</span>
         <div class="float-left pdr20 mgl5">
-            <select [(ngModel)]="serviceId" class="pdl10 form-control">
+            <select [(ngModel)]="serviceId" class="pdl10 form-control" (ngModelChange)="getData()">
                 <option value="">所有</option>
                 <option *ngFor="let v of serviceNames" [value]="v.serviceId">{{v.serviceName}}</option>
             </select>
         </div>
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">服务对象：</span>
         <div class="float-left pdr20 mgl5">
-            <select [(ngModel)]="serviceObjectCode" class="pdl10 form-control">
+            <select [(ngModel)]="serviceObjectCode" class="pdl10 form-control" (ngModelChange)="getData()">
                 <option value="">所有</option>
                 <option *ngFor="let v of service.typeDic | async" [value]="v.value">{{v.displayValue}}</option>
             </select>{{serviceObjectCode}}
@@ -48,7 +48,7 @@
         </div>{{searchTypeCode}}
         <div class="input-group col-md-2 float-left">
             <input [(ngModel)]="keyWords" type="text" class="form-control" placeholder="输入信息快速搜索">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+            <div class="input-group-addon" (click)="searchServiceMng()"><span class="glyphicon glyphicon-search"></span></div>
         </div>{{keyWords}}
         <button class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="reset()">重置</button>
 
@@ -80,7 +80,7 @@
                 <td><a href="javascript:void(0);" (click)="gotoDetail(item);">{{item.serviceName}}</a></td>
                 <td>{{item.serviceObjectCode | dict: this.service.typeDic | async}}</td>
                 <td>
-                    <ol class="no-padding">
+<!--                    <ol class="no-padding">
                         <li>
                             {{item.instance.instanceId}}
                         </li>
@@ -89,9 +89,9 @@
                         <li>
                             {{item.instance.instanceName}}
                         </li>
-                    </ol>
+                    </ol>-->
                 </td>
-                <td>{{item.instance.instanceRegion}}</td>
+                <td><!--{{item.instance.instanceRegion}}--></td>
                 <td></td>
                 <td>{{item.serviceType | dict: this.service.typeDic | async}}</td>
                 <td>{{item.serviceStatus | dict: this.service.statusDic | async}}</td>
