@@ -70,7 +70,15 @@ export class CheckMngHascheckComponent implements OnInit{
 				//obj.checkResultName = item.operation;//审批结果
 				//obj.checkResultName = '同意';
 				if(item.orderItems){
-					let orderItem = item.orderItems[0];
+					let orderItem :any=null;
+					for(let _item of item.orderItems){
+						if(_item.serviceType==3){
+							orderItem = item.orderItems[0];
+						}
+						
+					}
+
+					if(orderItem!=null){
 
 					obj.platformStr = orderItem.platformName;//区域
 					obj.zoneStr = orderItem.zoneName;// 可用区
@@ -93,6 +101,7 @@ export class CheckMngHascheckComponent implements OnInit{
 
 					}
 				
+				}
 				}
 
 				obj.createTimeStr = item.createDate;// 创建时间

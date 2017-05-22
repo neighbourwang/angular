@@ -9,6 +9,10 @@ import { ManagementServicesListComponent } from './component/management-services
 
 export const ManagementServicesRouting: ModuleWithProviders = RouterModule.forChild([
     {
+        path: 'management-services-list/:serviceId',
+        component: ManagementServicesListComponent
+    },
+    {
         path: 'management-services-list',
         component: ManagementServicesListComponent
     },
