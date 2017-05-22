@@ -88,7 +88,15 @@ export class CheckMngListComponent implements OnInit{
 
 
 				if(item.orderItems){
-					let orderItem = item.orderItems[0];
+					let orderItem :any=null;
+					for(let _item of item.orderItems){
+						if(_item.serviceType==3){
+							orderItem = item.orderItems[0];
+						}
+						
+					}
+
+					if(orderItem!=null){
 
 					obj.platformStr = orderItem.platformName;//区域
 					obj.zoneStr = orderItem.zoneName;// 可用区
@@ -111,6 +119,7 @@ export class CheckMngListComponent implements OnInit{
 					}
 					
 				}
+			}
 				obj.createTimeStr = item.createDate;// 创建时间
 				// obj.checkResultId = ?? 审批结果	
 				obj.description = item.orderDesc; //描述

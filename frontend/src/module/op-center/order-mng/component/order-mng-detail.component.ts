@@ -29,8 +29,9 @@ export class OrderMngDetailComponent implements OnInit {
    console.log('_dictServ ngOnInit', this._dictServ);
   }
 
-  checkOSInfo(){
+  checkOSInfo(id:string){
     //跳转到管理信息详情
+    this.router.navigateByUrl(`cloud-host-service/management-services-list/${id}`);
     alert("跳转");
   }
 }

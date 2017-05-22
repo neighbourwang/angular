@@ -129,11 +129,31 @@ export class HostDetailComponent implements OnInit {
         }
         ];
 
+       
+        chart.options={                    
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                ticks: {
+                                    maxTicksLimit:20
+                                    //userCallback: function (dataLabel, index) {
+                                    //    return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
+                                    //}
+                                }
+                            }],
+                            yAxes: [{
+                                display: true,
+                                 ticks: {
+                                    min: 0,
+                                    suggestedMax: 50
+                                },
+                                beginAtZero: true
+                            }]
+                        }
+                    } 
 
-        chart.options = {
-            scales: {
-                xAxes: [{
-                    display: true,
+        chart.ChartType= "line";
+        
                     ticks: {
                         maxTicksLimit: 20
                     }

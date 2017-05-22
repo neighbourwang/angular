@@ -7,15 +7,12 @@ import * as _ from 'underscore';
 	selector:'sql-view'
 	,template:`
 	<ul>
-		<li>区域: {{_obj.platform}}</li>
 
-		<li>可用区: {{_obj.zone}}</li>
+		<li *ngIf="_obj.instanceName">产品名称: {{_obj.instanceName}}</li>
 
-		<li>产品名称: {{_obj.instanceName}}</li>
+		<li *ngIf="_obj.type">数据库类型: {{_obj.type}}</li>
 
-		<li>数据库类型: {{_obj.type}}</li>
-
-		<li>数据库版本:{{_obj.version}}</li>
+		<li *ngIf="_obj.version">数据库版本:{{_obj.version}}</li>
 	</ul>
 	`
 })
@@ -35,7 +32,12 @@ export class SqlViewComponent implements OnInit{
 	ngOnInit(){
 		let getProperty = _.property("attrDisplayValue");
 		if(this.values&&this.values.specList){
-			this.specList = this.values.specList;
+			this.specList = this.values.specList;		
+		}else if(this.values&&this.values.orderItems[0]){
+			this.specList = this.values.orderItems[0].specList;
+		}
+		
+		if(this.specList!=null){
 			this._obj = {
 			platform:getProperty(this.specList.find(n=>n.attrCode == 'PLATFORM'))
 			,zone:getProperty(this.specList.find(n=>n.attrCode == 'ZONE'))

@@ -28,7 +28,8 @@ export class PhsicalProdDirCreComponent implements OnInit {
         private location: Location,
         private service: PhysicalServiceService,
         private v: Validation,
-        private router:Router
+        private router:Router,
+        private route:ActivatedRoute
 
     ) { 
         this.v.result={};
@@ -41,12 +42,31 @@ export class PhsicalProdDirCreComponent implements OnInit {
     newUnitPop: PopupComponent
 
     //
+    pageTitle:string;
+
     // unitList: Array<PartsFlavor>=new Array <PartsFlavor>();
     resourcePooList: Array<FlatResourcePool>;
     physicalService: PhysicalService = new PhysicalService();
     flavorInfoList: Array<UnitObj>;
     newUnitObj: PartsFlavor = new PartsFlavor();
+
     ngOnInit() {
+        this.route.params.forEach((params:Params)=>{
+            this.pageTitle=
+                params['type']=='edit'?'编辑产品目录':'创建产品目录';
+            if(params['type']=='edit'){
+                this.physicalService.serviceId=params['id'];
+            }
+        })
+        if(this.physicalService.serviceId){
+            console.log(this.physicalService.serviceId);
+            this.service.getEditPhysicalService(this.physicalService.serviceId).then(res=>{
+                console.log(res);
+                // this.physicalService=res.resultContent;
+            }).catch(err=>{
+                console.log(err)
+            })
+        }
         this.getResourcePoolList();
         this.getUnitFlavorList();
     }
