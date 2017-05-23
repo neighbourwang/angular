@@ -25,6 +25,12 @@ export class MiddlewareService {
 
         return this.restApi.request(api.method, api.url, [], undefined, data);
     }
+    //获取中间件模板详情
+    getTemplatedetail( data: any) {
+        let api = this.restApiCfg.getRestApi("prod-mng.template-mng.middleware.search");
+
+        return this.restApi.request(api.method, api.url, [], undefined, data);
+    }
     //更新中间件模板
     updateMiddlewareTemplate(data:any) {
         let api = this.restApiCfg.getRestApi("template-mng-middleware.cre.put");
