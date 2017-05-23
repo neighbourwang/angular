@@ -362,14 +362,15 @@ export class AliCloudVmDetailComponent implements OnInit {
         let temp_time = new Array<any>();
         let max_value = 0;
         chart.SourceData.forEach((s)=>{
-            
+            let date = "";
 
             if (chart == this.cpuChart) {
                 if(max_value < s.CPU) {
                     max_value = s.CPU;
                 }
                 temp_value1.push(s.CPU);
-                temp_time.push((new Date(s.TimeStamp)).toLocaleString().slice(-11, -6));
+                date = new Date(s.TimeStamp).toLocaleString();
+                temp_time.push(new Date(date).getMonth() + "/" + new Date(date).getDate() + ' ' + new Date(date).getHours() + ":" + new Date(date).getMinutes());
             } else if(chart == this.netChart){
                 if(max_value < s.IntranetRX) {
                     max_value = s.IntranetRX;
@@ -379,7 +380,9 @@ export class AliCloudVmDetailComponent implements OnInit {
                 }
                 temp_value1.push(s.IntranetRX);
                 temp_value2.push(s.IntranetTX);
-                temp_time.push((new Date(s.TimeStamp)).toLocaleString().slice(-11, -6));
+                date = new Date(s.TimeStamp).toLocaleString();
+                //temp_time.push((new Date(s.TimeStamp)).toLocaleString().slice(-11, -6));
+                temp_time.push(new Date(date).getMonth() + "/" + new Date(date).getDate() + ' ' + new Date(date).getHours() + ":" + new Date(date).getMinutes());
             }
             
         })
@@ -416,7 +419,7 @@ export class AliCloudVmDetailComponent implements OnInit {
                                 display: true,
                                 ticks: {
                                     //maxRotation:0,
-                                    maxTicksLimit: 10
+                                    maxTicksLimit: 20
                                     /* 
                                     userCallback: function(dataLabel, index) {
                                         return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
@@ -483,7 +486,7 @@ export class AliCloudVmDetailComponent implements OnInit {
                                 display: true,
                                 ticks: {
                                     //maxRotation:0, 
-                                    maxTicksLimit: 10
+                                    maxTicksLimit: 20
                                     /*userCallback: function(dataLabel, index) {
                                         return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
                                     }*/
