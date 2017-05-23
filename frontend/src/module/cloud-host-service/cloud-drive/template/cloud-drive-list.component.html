@@ -58,7 +58,7 @@
         <div class="float-left">
             <button class="btn float-left mgr5 btn-success" id="create_cloud_disk" (click)="goTo('cloud-host-service/cloud-drive-order')"><i class="glyphicon glyphicon-plus"></i> {{'CLOUD_DRIVE_LIST.CREATE_CLOUD_HRAD_DISK' | translate}}</button>
             <unsubscribe #unsubscribeVm (onSuccess)="setDistList()" title="云硬盘退订" id="unsubscribe_cloud_disk" [subid]="radioSelected?.subInstanceId"></unsubscribe>
-            <button (click)="unsubscribeVm.open()" id="un_cloud_disk" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK' | translate}}</button>
+            <button *ngIf="!isMiddleState(radioSelected?.status)" (click)="unsubscribeVm.open()" id="un_cloud_disk" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> {{'CLOUD_DRIVE_LIST.UNSUBSCRIBE_DISK' | translate}}</button>
 
 
             <!--<div class="dropdown float-left  mgr5">
@@ -82,7 +82,7 @@
             <th class="text-center">{{'COMMON.CAPACITY_GB'| translate}}</th>
             <th class="text-center">{{'CLOUD_DRIVE_LIST.MOUNT_LOCATION_CLOUD_HOST_NAME' | translate}}</th>
             <th class="text-center">{{'COMMON.STATUS' | translate}}</th>
-            <th class="text-center">{{'COMMON.EXPIRE_DATE' | translate}}</th>
+            <!-- <th class="text-center">{{'COMMON.EXPIRE_DATE' | translate}}</th> -->
             <!--<th class="text-center">可卸载</th> -->
             <th class="text-center">{{'CLOUD_DRIVE_LIST.REGION' | translate}}</th>
             <th class="text-center">{{'COMMON.AVAILABLE_ZONE' | translate}}</th>
@@ -103,24 +103,24 @@
                 <div *ngIf="isMiddleState(dist.status)" class="loading-icon"></div>
                 {{dist.status | dict:service.computeStatus | async}}
             </td>
-            <td class="text-center">{{dist.expireDate | formatDate}}</td>
+            <!-- <td class="text-center">{{dist.expireDate | formatDate}}</td> -->
             <!--<td class="text-center">{{dist.unloadAble}}</td>-->
             <td class="text-center">{{dist.platformName}}</td>
             <td class="text-center">{{dist.zoneName}}</td>
             <td class="text-center">{{dist.useType}}</td>
             <td class="text-center">{{dist.sourceType | dict:service.dictSourceType | async}}</td>
             <td class="text-center">
-                <div class="dropdown">
+                <div class="dropdown" *ngIf="!isMiddleState(dist.status) && dist.status != 7">
                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="more_{{dist.id}}">
                     {{'COMMON.MORE_ACTIONS' | translate}}
                     <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " *ngIf="!dist.relyId"
+                        <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " *ngIf="!dist.relyId && [1, 10].indexOf(dist.status) > -1"
                                 href="javascript:" id="mount_{{dist.id}}">{{'CLOUD_DRIVE_LIST.MOUNT' | translate}}</a></li>
-                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" id="uninstall_{{dist.id}}" *ngIf="dist.relyId" href="javascript:">{{'CLOUD_DRIVE_LIST.UNINSTALL' | translate}}</a></li>
-                        <li *ngIf="dist.relyId" role="separator" class="divider"></li>
-                        <li *ngIf="dist.relyId" ><a (click)="diskReconfig.open(dist)" href="javascript:" id="open_{{dist.id}}">云硬盘扩容</a></li>
+                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" id="uninstall_{{dist.id}}" *ngIf="dist.relyId && [1, 10].indexOf(dist.status) > -1" href="javascript:">{{'CLOUD_DRIVE_LIST.UNINSTALL' | translate}}</a></li>
+                        <li *ngIf="dist.relyId && [1, 10].indexOf(dist.status) > -1" role="separator" class="divider"></li>
+                        <li *ngIf="dist.relyId && [1, 10].indexOf(dist.status) > -1" ><a (click)="diskReconfig.open(dist)" href="javascript:" id="open_{{dist.id}}">云硬盘扩容</a></li>
                     </ul>
                 </div>
             </td>

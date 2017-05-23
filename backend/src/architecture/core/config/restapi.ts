@@ -1058,7 +1058,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取某个VM产品目录详细信息",
         "id": "prod-mng.prod-edit-vm.detail",
         "method": "GET",
-        "url": "adminui/authsec/service/{id}/type/vm/detail "
+        "url": "adminui/authsec/service/{id}/type/vm/detail"
     },
     //DISK产品目录
     {
@@ -1191,6 +1191,13 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/services/pmservice/{id}"
     },
+    {
+        "desc": "为更新物理机产品目录获取物理机产品目录详情",
+        "id": "physical-service-edit.get",
+        "method": "GET",
+        "url": "adminui/authsec/services/PM//{id}"
+    },
+    
     //管理服务产品
     {
         "desc": "创建管理服务",
@@ -1267,10 +1274,16 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/middleware/template/search/condition/init"
     },
     {
-        "desc": "获取模板列表",
+        "desc": "获取数据库模板列表",
         "id": "template-mng-database-list.post",
         "method": "POST",
         "url": "adminui/authsec/database/template/list"
+    },
+    {
+        "desc": "获取中间件模板列表",
+        "id": "template-mng-middleware-list.post",
+        "method": "POST",
+        "url": "adminui/authsec/middleware/template/list"
     },
     {
         "desc": "创建数据库模板",
@@ -1282,7 +1295,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建中间件模板",
         "id": "template-mng-middleware.cre.post",
         "method": "POST",
-        "url": "adminui/authsec/middleware/insertTemplate"
+        "url": "adminui/authsec/middleware/Template"
     },
      {
         "desc": "更新数据库模板",
@@ -1292,9 +1305,9 @@ export let RestApis: RestApiModel[] = [
     },
     {
         "desc": "更新中间件模板",
-        "id": "template-mng-middleware.cre.post",
+        "id": "template-mng-middleware.cre.put",
         "method": "PUT",
-        "url": "adminui/authsec/middleware/updateTemplate"
+        "url": "adminui/authsec/middleware/Template"
     },
     //用户中心
     {
@@ -2880,13 +2893,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "管理服务列表",
         "id": "mtc-center.mng-service.list",
         "method": "POST",
-        "url": "servicemgmt/authsec/services/supervise/operation/{page}/{size}"
-    },
-    {
-        "desc": "管理服务详情",
-        "id": "mtc-center.mng-service.list",
-        "method": "GET",
-        "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
+        "url": "subinstancemgmt/authsec/subinstance/supervise/search/page"
     },
     {
         "desc": "服务跟进",
@@ -2904,7 +2911,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "服务详情",
         "id": "mtc-center.mng-detail.detail",
         "method": "GET",
-        "url": "servicemgmt/authsec/services/supervise/operation/{serviceId}"
+        "url": "subinstancemgmt/authsec/subinstance/supervise/{itemId}"
     },
     //告警通知
     {
@@ -2917,7 +2924,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "告警详细",
         "id":"trigger-detail.get",
         "method":"GET",
-        "url":"maintenancemgmt/noauth/trigger/detail/{triggerId}"
+        "url":"maintenancemgmt/noauth/trigger/detail/{itemId}"
      },
     {
         "desc": "告警更新",

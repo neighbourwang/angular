@@ -36,6 +36,7 @@ export class PhyImgMngAllocateComponent implements OnInit {
     noUsedPools:Array<Pool>;
 
     sourceId:string;
+
     ngOnInit() {
 
          this.router2.params.forEach((params: Params) => {
@@ -80,7 +81,8 @@ export class PhyImgMngAllocateComponent implements OnInit {
                 response=>{
                     this.layoutService.hide();
                     if(response && 100== response["resultCode"]){
-                        this.showAlert("PHY_IMG_MNG.ALLOCATE_SUCCESS");
+                        this.showAlert("PHY_IMG_MNG.ALLOCATE_SUCCESS", this.backToSource);
+                        
                     }else{
                         alert("Res.sync error");
                     }
@@ -94,17 +96,25 @@ export class PhyImgMngAllocateComponent implements OnInit {
     backToSource(){
         this.router.navigateByUrl('phy-mng/phy-img/phy-img-mng');
     }
-
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("PHY_IMG_MNG.ERROR");
+        this.showAlert("PHY_IMG_MNG.ERROR", this.error);
     }
-    showAlert(msg: string): void {
+    error(){
+
+    }
+
+    showAlert(msg: string, fun:Function): void {
         this.layoutService.hide();
 
         this.noticeTitle = "HOST_OPENSTACK_MNG.PROMPT";
         this.noticeMsg = msg;
+
+        this.notice.nof=()=>{
+            console.log("function");
+            fun.bind(this)();
+        }
         this.notice.open();
     }
 }

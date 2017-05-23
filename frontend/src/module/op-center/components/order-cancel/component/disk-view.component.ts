@@ -21,6 +21,7 @@ import * as _ from 'underscore';
 export class DiskViewComponent implements OnInit{
 	@Input()
 	private values:any;
+	private  specList=[];
 
 	private _obj:{//diskInstanceName:string;云硬盘实例名称
 		platform:string;//区域
@@ -33,15 +34,21 @@ export class DiskViewComponent implements OnInit{
 
 	ngOnInit(){
 		let getProperty = _.property("attrDisplayValue");
-		this._obj = {
-			// diskInstanceName: getProperty(this.values.find(n=>n.attrCode == "DISKINSNAME"))
-			 platform:getProperty(this.values.find(n=>n.attrCode == 'PLATFORM'))
-			,zone:getProperty(this.values.find(n=>n.attrCode == 'ZONE'))
-			,storage:getProperty(this.values.find(n=>n.attrCode == 'STORAGE'))
-			,capacity: getProperty(this.values.find(n=>n.attrCode == 'DISKSIZE'))
-			,instanceName: getProperty(this.values.find(n=>n.attrCode == 'DISKINSNAME'))
-			// ,vmName: getProperty(this.values.find(n=>n.attrCode == 'DISKMOUNTHOSTNAME')) || 'COMMON.NONE'
-			
-		};
+		if(this.values&&this.values.specList){
+			this.specList = this.values.specList;
+		}else if(this.values&&this.values.orderItems[0]){
+			this.specList = this.values.orderItems[0].specList;
+		}
+		if(this.specList!=null){
+			this._obj = {
+				// diskInstanceName: getProperty(this.values.find(n=>n.attrCode == "DISKINSNAME"))
+				platform:getProperty(this.specList.find(n=>n.attrCode == 'PLATFORM'))
+				,zone:getProperty(this.specList.find(n=>n.attrCode == 'ZONE'))
+				,storage:getProperty(this.specList.find(n=>n.attrCode == 'STORAGE'))
+				,capacity: getProperty(this.specList.find(n=>n.attrCode == 'DISKSIZE'))
+				,instanceName: getProperty(this.specList.find(n=>n.attrCode == 'DISKINSNAME'))
+			};
+		}
+		
 	}
 }

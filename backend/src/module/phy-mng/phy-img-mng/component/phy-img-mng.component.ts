@@ -254,8 +254,8 @@ export class PhyImgMngComponent implements OnInit {
             .then(
                 response=>{
                     this.layoutService.hide();
-                    this.createPopup.close();
-                    this.editPopup.close();
+                    // this.createPopup.close();
+                    // this.editPopup.close();
                     if(response && 100==response["resultCode"]){
                         this.showAlert("PHY_IMG_MNG.TEST_SUCCESS");
                     }else{

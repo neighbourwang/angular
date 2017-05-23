@@ -1,27 +1,49 @@
-<div class="page-content-header icon-create-product">{{'PROD_MNG.TEMPLATE_MANAGEMENT' | translate}}</div><!--模板管理-->
+<div class="page-content-header icon-create-product">{{'PROD_MNG.TEMPLATE_MANAGEMENT' | translate}}</div>
+<!--模板管理-->
 <div class="page-content" style="min-height:300px;">
-	<div style="padding-bottom: 10px;">		
+	<div style="padding-bottom: 10px;">
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="createTemplate()">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">{{'PROD_MNG.CREATE_TEMPLATE'|translate}}</span><!--创建模板-->
-        </button>		
+        </button>
+		<button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;width:60px; margin-left: 20px"
+		 (click)='onQuery()' id="onQuery">{{'COMMON.SEARCH' | translate}}</button>
+		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
+			<select class="form-control" [(ngModel)]="templateType">
+                 <option *ngFor="let item of templateTypeList;" [value]="item.value" >{{item.type}}</option>
+            </select>
+		</div>
+		<span class="pull-right" style="line-height: 34px;margin-left: 20px">{{'模板类型' | translate}}：</span>
+		<!--<div class="btn-group" style="float:right">
+			<button type="button" class="btn btn-default" *ngFor="let item of templateTypeList;let idx = index" (click)="chooseTemplateType(item,idx)"
+			 [ngClass]="{'btn-active': item.selected}">{{item.type}}</button>
+		</div>-->
+
 	</div>
 	<div class="table-container">
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<!--<th class="check-box-col"><input type="checkbox" (click)="switchSelectAll();" class="fox-cloud-checkbox" />{{'COMMON.SELECT_ALL' | translate}}</th>-->
-					<th>{{'编号' | translate}}</th><!--编号-->
-					<th>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}</th><!--模板名称-->
+					<th>{{'编号' | translate}}</th>
+					<!--编号-->
+					<th>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}</th>
+					<!--模板名称-->
 
-					<th>{{'SYS_SETUP.TEMPLATE_TYPE' | translate}}</th><!--模板类型-->
+					<th>{{'SYS_SETUP.TEMPLATE_TYPE' | translate}}</th>
+					<!--模板类型-->
 
-					<th>{{'PROD_MNG.SOFTWARE_TYPE' | translate}}</th><!--软件类型-->
+					<th>{{'PROD_MNG.SOFTWARE_TYPE' | translate}}</th>
+					<!--软件类型-->
 
-					<th>{{'PROD_MNG.SOFTWARE_VERSION' | translate}}</th><!--软件版本-->
-					<th>{{'PROD_MNG.DEPLOY_MODE' | translate}}</th><!--部署模式-->
-					<th>{{'PROD_MNG.RELATE_PRODUCT_SERVICE_COUNTS' | translate}}</th><!--关联产品目录数量-->
-					<th>{{'操作' | translate}}</th><!--关联产品目录数量-->
+					<th>{{'PROD_MNG.SOFTWARE_VERSION' | translate}}</th>
+					<!--软件版本-->
+					<th>{{'PROD_MNG.DEPLOY_MODE' | translate}}</th>
+					<!--部署模式-->
+					<th>{{'PROD_MNG.RELATE_PRODUCT_SERVICE_COUNTS' | translate}}</th>
+					<!--关联产品目录数量-->
+					<th>{{'操作' | translate}}</th>
+					<!--关联产品目录数量-->
 				</tr>
 			</thead>
 			<tbody>
@@ -29,22 +51,23 @@
 					<!--<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="selectTemplate(idx)"/></td>-->
 					<td>{{idx+1}}</td>
 					<td>
-						<a (click)="goDetail(item)" style="cursor: pointer">{{item.name}}</a>	
+						<a (click)="goDetail(item)" style="cursor: pointer">{{item.name}}</a>
 					</td>
 					<td>
 						<!--{{item.templateTpye}}-->
 						<span [ngSwitch]="item.templateTpye"> 
 							<template [ngSwitchCase]="database">{{'数据库模板' | translate}}</template>
+							<!--<template [ngSwitchCase]="Middleware">{{'数据库模板' | translate}}</template>-->
 							<template ngSwitchDefault>Unknown</template>							
 						</span>
-					</td>					
-					<td>{{item.type | dict:this.service.databaseTypeDic|async}}</td>								
-					<td>{{item.version}}</td>			
-					
+					</td>
+					<td>{{item.type | dict:this.service.databaseTypeDic|async}}</td>
+					<td>{{item.version}}</td>
+
 					<td>{{item.deploymentMode | dict:this.service.databaseDeployModeDic | async}}</td>
 					<td>{{item.relatedProdNum}}</td>
 					<td>
-						<button  class="fox-cloud-button-md fox-cloud-button-white" (click)="deleteTemplate(item)">{{'COMMON.DELETE' | translate}}</button>
+						<button class="fox-cloud-button-md fox-cloud-button-white" (click)="deleteTemplate(item)">{{'COMMON.DELETE' | translate}}</button>
 					</td>
 				</tr>
 			</tbody>
@@ -53,18 +76,21 @@
 </div>
 <fc-pagination #pagination tp={{tp}} (pf)="pageInfo($event)"></fc-pagination>
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="nof()"></fc-notice>
-<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="deleteCof()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccf()"></fc-confirm>
+<fc-confirm #deleteConfirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="deleteCof()" ct="HOST_OPENSTACK_MNG.CANCEL"
+ (cf)="ccf()"></fc-confirm>
 
-<fc-popup #createTemplatePop title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL" (cf)="ccd()">
+<fc-popup #createTemplatePop title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreate()" ct="HOST_OPENSTACK_MNG.CANCEL"
+ (cf)="ccd()">
 	<div class="row row-line-height">
 		<div class="form-group">
-			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.TEMPLATE_TYPE'| translate}}:</div> <!--选择模板目录-->
+			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'SYS_SETUP.TEMPLATE_TYPE'| translate}}:</div>
+			<!--选择模板目录-->
 			<div class="col-sm-7">
 				<select class="form-control" [(ngModel)]="templateType">
                     <option  [value]="0">{{'数据库'|translate}}</option>
                     <option  [value]="1">{{'中间件'|translate}}</option>
-                </select>				
+                </select>
 			</div>
 		</div>
-	</div>	 	
+	</div>
 </fc-popup>

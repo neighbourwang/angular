@@ -79,35 +79,50 @@ export class CheckMngListComponent implements OnInit{
 				obj.orderId = item.orderId;//订单id				
 				obj.orderCodeStr = item.orderNo;//订单编号
 				obj.serviceTypeIdStr = item.serviceType;//产品类型
-				obj.platformStr = item.platformName;//区域
-				obj.zoneStr = item.zoneName;// 可用区
+				// obj.platformStr = item.platformName;
+				// obj.zoneStr = item.zoneName;
 				obj.orderTypeName = item.orderType;//订单类型
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
 				obj.entStr = item.enterpriseName;// 企业
-				//费用
-				obj.billingModeNum =item.billingInfo ? item.billingInfo.billingMode: null; //计费模式
-				obj.billingDurationStr = item.period;//订单周期
-				obj.oneTimePriceNum = item.billingInfo ? item.billingInfo.basePrice: null;//一次性费用
-				if(item.billingInfo)
-				{
-					if(obj.billingModeNum == 0)//包年包月
-					{
-						obj.priceNum = item.billingInfo.basicPrice + item.billingInfo.cyclePrice
+
+
+				if(item.orderItems){
+					let orderItem :any=null;
+					for(let _item of item.orderItems){
+						if(_item.serviceType==3){
+							orderItem = item.orderItems[0];
+						}
+						
 					}
-					else if(obj.billingModeNum == 1)//按量
-					{
-						obj.priceNum = item.billingInfo.unitPrice;
+
+					if(orderItem!=null){
+
+					obj.platformStr = orderItem.platformName;//区域
+					obj.zoneStr = orderItem.zoneName;// 可用区
+					obj.specList = orderItem.specList;
+					//费用
+					if(orderItem.billingInfo){
+						obj.billingModeNum =orderItem.billingInfo ? orderItem.billingInfo.billingMode: null; //计费模式
+						obj.billingDurationStr = orderItem.period;//订单周期
+						obj.oneTimePriceNum = orderItem.billingInfo ? orderItem.billingInfo.basePrice: null;//一次性费用
+
+						if(obj.billingModeNum == 0)//包年包月
+						{
+							obj.priceNum = orderItem.billingInfo.basicPrice + orderItem.billingInfo.cyclePrice
+						}
+						else if(obj.billingModeNum == 1)//按量
+						{
+							obj.priceNum = orderItem.billingInfo.unitPrice;
+						}
+
 					}
 					
 				}
-
+			}
 				obj.createTimeStr = item.createDate;// 创建时间
 				// obj.checkResultId = ?? 审批结果	
-				obj.description = item.orderDesc; //描述	
-
-				obj.specList = item.specList;
-
+				obj.description = item.orderDesc; //描述
 			}
 		};
 		// this._listLoader.FakeDataFunc = (target:Array<CheckListItem>)=>{

@@ -5,6 +5,7 @@ import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ValidationService,
 
 import { PhyImg } from '../model/phy-img.model';
 import { PhyImgListService } from '../service/phy-imglist.service';
+import { Enterprise } from '../model/enterprise.model';
 @Component({
     selector: "phy-img-mng/imglist",
     templateUrl: "../template/physical-image-list.html",
@@ -119,7 +120,27 @@ export class PhyImgListComponent implements OnInit{
     //提交编辑
     commitEdit(){
         this.layoutService.show();
-        this.service.commitEdit(this.tempEdit).then(
+        // this.service.commitEdit(this.tempEdit).then(
+        //     response=>{
+        //         if(response && 100==response["resultCode"]){
+        //             this.layoutService.hide();
+        //             this.showAlert("PHY_IMG_MNG.EDIT_SUCCESS");
+        //             this.editPopup.close();
+        //             this.getPhyImgList();
+        //         }else{
+        //             alert("Res.sync error");
+        //         }
+        //     }
+        // )
+        // .catch((e)=>this.onRejected(e));
+        
+        if(this.ischangedType){
+            //如果改了私有镜像->公有镜像，要把所属企业清空
+            console.log("私有镜像->改为公有-开始");
+            this.tempEdit.enterpriseSelectedList = new Array<Enterprise>();
+            this.changeImageType(this.tempEdit.id);
+        }else{
+            this.service.commitEdit(this.tempEdit).then(
             response=>{
                 if(response && 100==response["resultCode"]){
                     this.layoutService.hide();
@@ -132,6 +153,7 @@ export class PhyImgListComponent implements OnInit{
             }
         )
         .catch((e)=>this.onRejected(e));
+        }
     }
 
     //启用
@@ -224,5 +246,41 @@ export class PhyImgListComponent implements OnInit{
 
     cancelEdit(){
 
+    }
+    //私有镜像改为公有镜像时
+    changeImageType(imgId:string){
+        let list = "";
+        this.service.commitAllo(imgId, list).then(
+            response=>{
+                if(response && 100==response["resultCode"]){
+                    console.log("私有镜像->改为公有-完成");
+                    this.service.commitEdit(this.tempEdit).then(
+                        response=>{
+                            if(response && 100==response["resultCode"]){
+                                this.layoutService.hide();
+                                this.showAlert("PHY_IMG_MNG.EDIT_SUCCESS");
+                                this.editPopup.close();
+                                this.getPhyImgList();
+                            }else{
+                                alert("Res.sync error");
+                            }
+                        }
+                    )
+                    .catch((e)=>this.onRejected(e));
+                }else{
+                    alert("Res.sync error");
+                }
+            }
+        ).catch((e)=>this.onRejected(e));
+    }
+    //编辑框中是否改了“私有镜像”->“公有镜像”,每次改变选择都会调用此方法
+    ischangedType:boolean;
+    ischangeType(typeId:number){
+        console.log("改变类型:"+typeId);
+        if(this.tempEdit.imageTypeId == 0){
+            this.ischangedType = false;
+        }else{
+            this.ischangedType = true;
+        }
     }
 }

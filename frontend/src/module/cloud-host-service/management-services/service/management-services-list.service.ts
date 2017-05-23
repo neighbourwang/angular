@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, SystemDictionaryService } from '../../../../architecture';
 
-// import { VmList,HandleVm, QuiryVmList } from '../model/pm-list.model';
-// import { VMInstanceLabelItem } from '../model/labe-iItem.model';
+import { SuperviseQueryCondition, PageParameter} from '../model/post.model';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -17,8 +16,26 @@ export class ManagementServicesListService {
 
     userInfo = this.restApi.getLoginInfo().userInfo;
 
-    fetchMgmtList(istQuery) {
-        return Promise.resolve([])
+    fetchMgmtList(istQuery:SuperviseQueryCondition) {
+        let api = this.restApiCfg.getRestApi('mngm-search-page');
+        return this.restApi.request(api.method, api.url, undefined, undefined, istQuery)
+            .then(res => {
+                if (res.resultCode !== "100") {
+                    throw "获取接口失败";
+                }
+                return res.resultContent;
+            });
+    }
+
+    fetchMngmDetail(itemId) {
+        let api = this.restApiCfg.getRestApi('mngm-detail');
+        return this.restApi.request(api.method, api.url, [{ key:"itemId", value:itemId}], undefined, undefined)
+            .then(res => {
+                if (res.resultCode !== "100") {
+                    throw "获取接口失败";
+                }
+                return res.resultContent;
+            })
     }
     
    
@@ -27,9 +44,13 @@ export class ManagementServicesListService {
         field : "STATUS"
     })
    
-    period = this.dict.get({    //服务对象
+    period = this.dict.get({    //服务类型
         owner : "SUPERVISE_SERVICE",
         field : "PERIOD"
+    })
+    type = this.dict.get({    //服务对象
+        owner : "SUPERVISE_SERVICE",
+        field : "TYPE"
     })
 
 

@@ -463,7 +463,7 @@ export class AliCloudVmService {
         if (queryObject.keyword != "") {
             switch (queryObject.criteria) {
                 case "instance_name":
-                    body.instanceName = queryObject.keyword;
+                    body.instanceName = "*" + queryObject.keyword + "*";;
                     break;
                 case "instance_ids":
                     let instanceIds: Array<string> = [];                    
@@ -507,6 +507,9 @@ export class AliCloudVmService {
                     break;
                 case "vswitch_id":
                     body.vswitchId = queryObject.keyword;
+                    break;
+                case "zoneId":
+                    body.zoneId = queryObject.keyword;
                     break;
                 default:
                     console.log("queryObject.keyword don't match any criteria");
@@ -728,6 +731,44 @@ export class AliCloudVmService {
         }
         console.log(body, "body");
         const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.allregion.instances");
+        return this.restApi.request(api.method, api.url, null, null, body);
+    }
+
+    
+
+    getInstanceKeypairTags(regionId: string, instanceId: string): Promise<any> {
+        const pathParams = [
+            {
+                key: "regionid",
+                value: regionId
+            },
+            {
+                key: "instanceid",
+                value: instanceId
+            }
+        ];
+        const body = {
+            "accessId": this.keysecret.accessId,
+            "accessSecret": this.keysecret.accessSecret
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.keypair.tags.get");
+        return this.restApi.request(api.method, api.url, pathParams, null, body);
+    }
+
+    getInstanceMonitorData(instanceId: string, startTime: string, endTime: string, period: string): Promise<any> {
+        const body = {
+            "accessinfo": {
+                "accessId": this.keysecret.accessId,
+                "accessSecret": this.keysecret.accessSecret
+            },
+            "endTime": endTime,
+            "instanceId": instanceId,
+            "period": period,//////////////////////////////////////////
+            "startTime": startTime
+        }
+        console.log(body, "body");
+        const api = this.restApiCfg.getRestApi("al-cloud.cloud-vm.monitor.data.get");
         return this.restApi.request(api.method, api.url, null, null, body);
     }
 

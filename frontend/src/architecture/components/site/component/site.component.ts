@@ -9,7 +9,7 @@ import { TranslateService } from 'ng2-translate';
 @Component({
 	selector: 'fc-root',
 	templateUrl: '../template/site.component.html',
-	styleUrls: ['../style/site.component.css']
+	styleUrls: ['../style/site.component.less']
 })
 export class SiteComponent implements OnInit {
 	title: string = 'Fox Cloud Portal!';

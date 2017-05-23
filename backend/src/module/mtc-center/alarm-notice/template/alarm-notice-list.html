@@ -1,20 +1,20 @@
 ﻿<div class="page-content-header icon-content-header-operation-center">
-    告警通知列表
+   {{'ALARM.ALARM_LIST'|translate}}
 </div>
 <div class="page-content">
     <div class="mgt5">
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoSet()">设置</button>
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="gotoSet()">{{'ALARM.SET_ALARM'|translate}}</button>
     </div>
     <div class="table-container mgt15">
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>选择</th>
-                <th>告警项</th>
-                <th>阀值</th>
-                <th>告警开关</th>
-                <th>告警方式</th>
-                <th >描述</th>
+                <th> {{'ALARM.SELECT'|translate}}</th>
+                <th>{{'ALARM.NOTICEC_NAME'|translate}}</th>
+                <th>{{'ALARM.THRESHOLD'|translate}}</th>
+                <th>{{'ALARM.SWITCHING'|translate}}</th>
+                <th>{{'ALARM.METHOD'|translate}}</th>
+                <th >{{'ALARM.DESCRIPTION'|translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -26,7 +26,7 @@
                 <td >
                  <div *ngFor="let v of item.threshold">{{v.name}}: {{v.symbol}} {{v.value}}</div>
                 </td>
-                <td>{{item.switch |dict:service.dictSwitch | async}}</td>
+                <td>{{item.switching |dict:service.dictSwitch | async}}</td>
                 <td>{{item.method | dict:service.dictMethod | async}}</td>
                 <td style="width:300px;word-break:break-all;">{{item.description}}</td>
             </tr>

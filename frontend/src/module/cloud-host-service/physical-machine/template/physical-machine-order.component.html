@@ -35,7 +35,7 @@
             <li>
                 <div class="col-md-1 li-title">
                     <p><span class="icon-specifications"></span>
-                        <br>{{'VM_INSTANCE.INSTANCE_CONFIGURATION'| translate}}</p>
+                        <br>规格信息</p>
                 </div>
                 <div class="col-md-12 li-content">
                     <div class="col-md-2 content-title">CPU数量</div>
@@ -151,7 +151,7 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-2 content-title">网络</div>
                     <div class="col-md-10">
-                        {{ selectedPhsical?.networkName }}
+                        {{ selectedPhsical?.pmNetworkVO?.networkName }}
                     </div>
                 </div>
             </li>
@@ -264,9 +264,9 @@
             <div class="cloud-line"></div>
             <h4 class="cloud-title font-green">{{'VM_INSTANCE.HOST_ONE_PRICE'|translate}}<!-- 云主机单价 --></h4>
             <p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}:
-                <font class="font-orange">{{'COMMON.$' | translate}}{{ phyProduct?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+                <font class="font-orange">{{ phyProduct?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
             <p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}
-                <font class="font-orange">{{'COMMON.$' | translate}}{{ phyProduct?.billingInfo.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue | dict:service.unitType | async }}</font>
+                <font class="font-orange">{{ phyProduct?.billingInfo.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue | dict:service.unitType | async }}</font>{{'COMMON.YUAN'|translate}}
             </p>
             <div class="cloud-p">
                 <p class="cloud-title">{{'VM_INSTANCE.TOTAL_COST'| translate}}：</p>
@@ -274,7 +274,7 @@
                     <tr>
                         <td>{{'COMMON.ONE_TIME_COSTS'|translate}}： </td>
                         <td>
-                            <font class="font-orange">{{'COMMON.$' | translate}}{{phyBasePrice}}</font>{{'COMMON.YUAN' | translate}}</td>
+                            <font class="font-orange">{{phyBasePrice}}</font>{{'COMMON.YUAN' | translate}}</td>
                     </tr>
                     <tr>
                         <td>
@@ -282,7 +282,7 @@
                                 <!-- 总周期费用 -->： </font>
                         </td>
                         <td>
-                            <font class="font-orange">{{'COMMON.$' | translate}}{{phyTotalPrice}}</font>{{'COMMON.YUAN'|translate}}<span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
+                            <font class="font-orange">{{phyTotalPrice}}</font>{{'COMMON.YUAN'|translate}}<span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
                     </tr>
                 </table>
                 <p class="mgt20">{{'VM_INSTANCE.BILLINGARR_TEXT'|translate}}

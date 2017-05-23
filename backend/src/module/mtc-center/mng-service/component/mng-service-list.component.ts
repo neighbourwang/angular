@@ -41,8 +41,8 @@ export class MngServiceListComponent implements OnInit{
     noticeTitle = "";
     noticeMsg = "";
 
-    pageIndex= 1;
-    pageSize= 10;
+    pageIndex= 0;
+    pageSize= 5;
     totalPage= 1;
 
     typeDic: Array<SystemDictionary>;
@@ -55,15 +55,17 @@ export class MngServiceListComponent implements OnInit{
     serviceId= "";
     serviceObjectCode= "";
     searchTypeCode: string;
-    keyWords: string;
+    keyWords= "";
     serviceStatus: string;
     data: Array<MngServiceList>;
     Info: string;
-    selectedProductId: string;
+    selectedServiceId: string;
     all: string;
     progress: string;
     complete: string;
     serviceNames: Array<ServiceNameList>;
+    instanceName= "";
+    instanceNo= "";
 
     ngOnInit() {
         this.service.searchDic.then(res =>{
@@ -85,14 +87,13 @@ export class MngServiceListComponent implements OnInit{
         console.log("searchTypeCode",this.searchTypeCode);
         this.pageIndex= pageIndex || this.pageIndex;
         this.layoutService.show();
-        this.service.getData(this.pageIndex, this.pageSize, this.serviceStatus, this.enterpriseId, this.serviceId, this.serviceObjectCode,
-            this.searchTypeCode, this.keyWords)
+        this.service.getData(this.pageIndex, this.pageSize, this.serviceStatus, this.enterpriseId, this.serviceId, this.instanceName, this.instanceNo )
             .then(
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.data= response["resultContent"];
-                        //this.totalPage= response.pageInfo.totalPage;
+                        this.totalPage= response.pageInfo.totalPage;
                         console.log("data",response["resultContent"]);
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
@@ -137,7 +138,7 @@ export class MngServiceListComponent implements OnInit{
     }
 
     selectAll(){
-        this.serviceStatus= "0";
+        this.serviceStatus= "";
         this.getData();
     }
 
@@ -151,6 +152,17 @@ export class MngServiceListComponent implements OnInit{
         this.getData();
     }
 
+    searchServiceMng(){
+        if(this.searchTypeCode == "0"){
+            this.instanceName= this.keyWords;
+            this.instanceNo= "";
+        }else{
+            this.instanceNo= this.keyWords;
+            this.instanceName= "";
+        }
+        this.getData();
+    }
+
     serviceUpdatePage(){
         const selectedService= this.data.find((p) =>{
             return p.selected;
@@ -159,7 +171,7 @@ export class MngServiceListComponent implements OnInit{
             this.showAlert("请选择需要跟进的服务");
         }else{
             this.type= "update";
-            this.selectedProductId= selectedService.serviceProductId;
+            this.selectedServiceId= selectedService.serviceId;
             this.Info= "";
             this.popUnit.open("服务状态更新");
         }
@@ -173,7 +185,7 @@ export class MngServiceListComponent implements OnInit{
             this.showAlert("请选择需要跟进的服务");
         }else{
             this.type= "follow";
-            this.selectedProductId= selectedService.serviceProductId;
+            this.selectedServiceId= selectedService.serviceId;
             this.Info= "";
             this.popUnit.open("服务跟进");
         }
@@ -181,7 +193,7 @@ export class MngServiceListComponent implements OnInit{
 
     serviceFollow(){
         this.layoutService.show();
-        this.service.serviceFollow(this.selectedProductId, this.Info)
+        this.service.serviceFollow(this.selectedServiceId, this.Info)
             .then(
                 response => {
                     this.layoutService.hide();
@@ -197,7 +209,7 @@ export class MngServiceListComponent implements OnInit{
 
     serviceUpdate(){
         this.layoutService.show();
-        this.service.serviceUpdate(this.selectedProductId, this.Info)
+        this.service.serviceUpdate(this.selectedServiceId, this.Info)
             .then(
                 response => {
                     this.layoutService.hide();

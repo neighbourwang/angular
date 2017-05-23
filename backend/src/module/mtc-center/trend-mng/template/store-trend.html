@@ -6,21 +6,21 @@
     <div>
         <div class="row row-line-height">
             <div class="col-md-10">
-                <div class="col-md-2 form-control-title">{{'COMMON.CLOUD_PLATFORM'|translate}}：</div><!--云平台-->
+                <div class="col-md-2 query-left-content">{{'COMMON.CLOUD_PLATFORM'|translate}}：</div><!--云平台-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion; selectedZone=defaultZone;">
                         <option [ngValue]="defaultPlf">{{'ASSIGN_MNG.ALL_PLATFORMS'|translate}}</option><!--所有平台-->
                         <option *ngFor="let plf of plfList" [ngValue]="plf">{{plf.platformName}}</option>
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title">Region/DC：</div>
+                <div class="col-md-2 query-left-content">Region/DC：</div>
                 <div class="col-md-2">              
                     <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedZone=defaultZone; ">
                         <option [ngValue]="defaultRegion">{{'ASSIGN_MNG.ALL_REGIONS'|translate}}</option><!--所有Region/DC-->
                         <option *ngFor="let reg of selectedPlf.region" [ngValue]="reg">{{reg.region}}</option>
                     </select>               
                 </div>
-                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.ZONE'|translate}}：</div><!--可用区-->
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.ZONE'|translate}}：</div><!--可用区-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="selectedZone" >
                         <option [ngValue]="defaultZone">{{'ASSIGN_MNG.ALL_ZONES'|translate}}</option><!--所有可用区-->
@@ -36,19 +36,19 @@
         </div>
         <div class="row row-line-height">
             <div class="col-md-10">
-                <div class="col-md-2 form-control-title">{{'TREND_MNG.DISK_STATUS'|translate}}：</div><!--云硬盘状态-->
+                <div class="col-md-2 query-left-content">{{'TREND_MNG.DISK_STATUS'|translate}}：</div><!--云硬盘状态-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.diskStatus">
                         <option *ngFor="let dStatus of service.diskStatusDic | async" [value]="dStatus.value">{{dStatus.displayValue}}</option>                 
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title">{{'TREND_MNG.DISK_CAPACITY'|translate}}：</div><!--云硬盘容量-->
+                <div class="col-md-2 query-left-content">{{'TREND_MNG.DISK_CAPACITY'|translate}}：</div><!--云硬盘容量-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.diskSize">
                         <option *ngFor="let dSize of service.diskSizeDic | async" [value]="dSize.value">{{dSize.displayValue}}</option>                 
                     </select>
                 </div>
-                <div class="col-md-2 form-control-title">{{'ASSIGN_MNG.PERIOD'|translate}}：</div><!--时间范围-->
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.PERIOD'|translate}}：</div><!--时间范围-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.period">
                         <option *ngFor="let p of service.trendPeridDic | async" [value]="p.value">{{p.displayValue}}</option>
@@ -66,11 +66,11 @@
     </div>
     <div class="clear"></div>
     <div class="mgt15" style="width:100%;border-bottom:solid 1px #00a982;"></div>
-    <div class="mgt20 mgb10" style="font-size:18px;font-weight:bold;">{{'TREND_MNG.BASIC_INFO'|translate}}：</div><!--基本信息-->
+    <div class="mgt20 mgb10 spaced-bold-title" >{{'TREND_MNG.BASIC_INFO'|translate}}：</div><!--基本信息-->
     <div class="row">
         <div class="col-md-6">
             <div class="table-container" style="max-height:256px;overflow-y:scroll;">
-                <table class="table table-container">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>{{'ASSIGN_MNG.ZONE'|translate}}</th><!--可用区-->
@@ -84,7 +84,7 @@
                             <td>{{z.name}}</td>
                             <td>{{z.sizeAttached}}</td>
                             <td>{{z.sizeUnattached}}</td>
-                            <td>{{z.availabe}}</td>
+                            <td>{{z.available}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -95,10 +95,10 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">{{'COMMON.CLOUD_HARD_DISK'|translate}}</h3><!--云硬盘-->
                 </div>
-                <div class="panel-body" style="height:216px;">
+                <div class="panel-body" >
                      <div class="row">
                          <div class="col-md-5 ">
-                                <div style="position:relative;">
+                                <div style="position:relative; height:186px; width: 186px; margin: 0; padding: 0;" >
                                     <div class="circle-mask"></div>
                                     <div class="circle-text">{{general.num}}个</div>
                                         <canvas baseChart
@@ -106,30 +106,31 @@
                                         [datasets]="diskCircle.DataSets "
                                         [chartType]="diskCircle.ChartType"
                                         [options]="diskCircle.Options"
-                                        [colors]="diskCircle.Colors">
+                                                [colors]="diskCircle.Colors"
+                                                >
                                     </canvas>
                                 </div>
                          </div>
                          <div class="col-md-6 col-md-offset-1">
                              <div style="margin-top:20px;margin-left:20px;">
                                 <div class="row" style="padding:5px 0;">
-                                    <span class="legend" style="background: #2bd2c8;"></span>&nbsp;0-50GB
+                                    <span class="legend circle-legend1" ></span>&nbsp;0-50GB
                                     <span style="margin-left:67px;">{{general.level1}}</span>
                                 </div>
                                 <div class="row" style="padding:5px 0;">
-                                    <span class="legend" style="background: #05ab83"></span>&nbsp;50-100GB
+                                    <span class="legend circle-legend2" ></span>&nbsp;50-100GB
                                     <span style="margin-left:51px;">{{general.level2}}</span>
                                 </div>
                                 <div class="row" style="padding:5px 0;">
-                                    <span class="legend" style="background: #c9cacc"></span>&nbsp;100-150GB
+                                    <span class="legend circle-legend3" ></span>&nbsp;100-150GB
                                     <span style="margin-left:44px;">{{general.level3}}</span>
                                 </div>
                                 <div class="row" style="padding:5px 0;">
-                                    <span class="legend" style="background: #85f46f"></span>&nbsp;150-200GB
+                                    <span class="legend circle-legend4" ></span>&nbsp;150-200GB
                                     <span style="margin-left:44px;">{{general.level4}}</span>
                                 </div>
                                  <div class="row" style="padding:5px 0;">
-                                    <span class="legend" style="background: #fa88ec"></span>&nbsp;200GB以上
+                                    <span class="legend circle-legend5" ></span>&nbsp;200GB以上
                                     <span style="margin-left:47px;">{{general.level5}}</span>
                                 </div>
                             </div>

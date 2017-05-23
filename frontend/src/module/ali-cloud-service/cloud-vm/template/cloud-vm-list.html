@@ -66,8 +66,11 @@
             <td class="text-center text-vertical-middle ">
                 <!-- <input type="radio" class="fox-cloud-radio" (click)="selectItem(i);" name="host-list">-->{{(i+1)}}</td>
             <td class="text-center text-vertical-middle active" style="position: relative;width: 220px;">
+                <a href="javascript:void(0);" (click)="selectItem(i); openVMDetailPage();">
                 {{instance.InstanceId}}
-                <br /> {{instance.InstanceName}}
+                <br /> 
+                {{instance.InstanceName}}
+                </a>
                 <span class="pull-right icon-edit2" (click)="instance.EnableEdit=true; onSelect(instance);" style="width: 30px; height: 18px; line-height: 30px;"></span>
                 <div *ngIf="instance.EnableEdit" class="popover fade bottom in" role="tooltip" id="popover316538" style="top:25px; left:150px; width:370px; max-width:1100px; display: block; z-index: 50;">
                     <div class="arrow" style="left: 30%;"></div>
@@ -91,7 +94,19 @@
             </td>
             <td class="text-center text-vertical-middle">{{instance.RegionName}}</td>
             <td class="text-center text-vertical-middle">{{instance.ZoneName}}</td>
-            <td class="text-left text-vertical-middle"><span style="display: block">内网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0] || ''}}</span><span>外网IP：{{instance.EipAddress.IpAddress || ''}}</span></td>
+
+            <td class="text-left text-vertical-middle" *ngIf="instance.InstanceNetworkType=='vpc'">
+                <static-tooltip [title]="instance.VpcAttributes.PrivateIpAddress.IpAddress.join(',')">
+                    <span style="display: block">私网IP：{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0] || ''}}</span>
+                </static-tooltip>
+                <span>EIP：{{instance.EipAddress.IpAddress || ''}}</span>
+            </td>
+            <td class="text-left text-vertical-middle" *ngIf="instance.InstanceNetworkType=='classic'">
+                <span style="display: block">内网IP：{{instance.InnerIpAddress.IpAddress[0] || ''}}</span>
+                <span style="display: block">外网IP：{{instance.PublicIpAddress.IpAddress[0] || ''}}</span>
+                <span>EIP：{{instance.EipAddress.IpAddress || ''}}</span>
+            </td>
+
             <td class="text-center text-vertical-middle">{{instance.InstanceNetworkType | dict:this.dictService.networkTypeDict | async}}</td>
             <td class="text-center text-vertical-middle">
                 <!--<img *ngIf="instance.Status=='Pending'||instance.Status=='Starting'||instance.Status=='Stopping'" src="../../../../../architecture/assets/images/icon_instance_starting.gif" /> -->
@@ -104,11 +119,11 @@
             <td class="text-center text-vertical-middle">
                 <span *ngIf="instance.Status=='Stopped'" class="icon_style icon-start" (click)="selectItem(i); startInstance();" name="startvm"></span>
                 <span *ngIf="instance.Status!='Stopped'" class="icon_style icon-stop" (click)="selectItem(i); stopInstance();" name="stopvm"></span>
-                <span class="icon_style icon-reboot" (click)="selectItem(i); reStartInstance();" name="restartvm"></span>
+                <span class="icon_style icon-reboot" (click)="selectItem(i); reStartInstance();" [style.cursor]="instance.Status=='Running'?'pointer':'no-drop'" name="restartvm"></span>
                 <span *ngIf="instance.EipAddress.IpAddress==''" class="icon_style icon-IPlock" (click)="selectItem(i); attachIPToInstance();" name="attachIP"></span>
                 <span *ngIf="instance.EipAddress.IpAddress!=''" class="icon_style icon-IPrelease" (click)="selectItem(i); detachIPToInstance();" name="detachIP"></span>
-                <span class="icon_style icon-remotelink" (click)="selectItem(i); remoteToInstance();" name="remotevm"></span>
-                <span class="icon_style icon-ali-delete3" (click)="selectItem(i); deleteInstance();" name="deletevm"></span>
+                <span class="icon_style icon-remotelink" (click)="selectItem(i); remoteToInstance();" [style.cursor]="instance.Status=='Running'?'pointer':'no-drop'" name="remotevm"></span>
+                <span class="icon_style icon-ali-delete3" (click)="selectItem(i); deleteInstance();" [style.cursor]="instance.Status=='Stopped'?'pointer':'no-drop'" name="deletevm"></span>
             </td>
         </tr>
     </table>
@@ -132,7 +147,7 @@
                 <div class="col-sm-12">
                     <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>弹性IP：</div>
                     <div class="col-sm-6">
-                        <select [(ngModel)]="selectedfreeip" (change)="freeIPChanged();">
+                        <select [(ngModel)]="selectedfreeip">
                         <option [ngValue]="defaultfreeip">请选择弹性IP</option>
                         <option *ngFor="let ip of freeips;" [ngValue]="ip">{{ip.IpAddress}}</option>
                         </select>
@@ -157,7 +172,7 @@
                 <div class="col-sm-12">
                     <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>弹性IP：</div>
                     <div class="col-sm-6">
-                        <select [(ngModel)]="selectedvmip" (change)="vmIPChanged();">
+                        <select [(ngModel)]="selectedvmip">
                         <option [ngValue]="defaultvmip">请选择弹性IP</option>
                         <option *ngFor="let ip of vmips;" [ngValue]="ip">{{ip.IpAddress}}</option>
                         </select>

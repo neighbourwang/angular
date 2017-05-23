@@ -112,7 +112,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取硬盘实例状态",
         "method": "GET",
         "id": "featch.disk.state",
-        "url": "/marketplace/authsec/subinstance/disk/{id}/state"
+        "url": "marketplace/authsec/subinstance/disk/{id}/state"
     },
     {
         "desc": "提交变更云硬盘配置",
@@ -259,6 +259,18 @@ export let RestApis: RestApiModel[] = [
         "id": "database.template.search",
         "url": "marketplace/authsec/database/template/search"
     },
+    {
+        "desc": "获取MD预加载数据",
+        "method": "GET",
+        "id": "middleware.template.init",
+        "url": "marketplace/authsec/middleware/template/search/condition/init"
+    },
+    {
+        "desc": "查询中间件模板",
+        "method": "POST",
+        "id": "middleware.template.search",
+        "url": "marketplace/authsec/middleware/template/search/dynamic"
+    },
     //物理机部分,
     {
         "desc": "获取区域列表",
@@ -297,10 +309,22 @@ export let RestApis: RestApiModel[] = [
         "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/page/{page}/size/{size} "
     },
     {
+        "desc": "物理机详情",
+        "method": "GET",
+        "id": "phymachine.detail",
+        "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/{pmId}"
+    },
+    {
         "desc": "获取物理机状态",
         "method": "POST",
         "id": "phymachine.product.state",
         "url": "marketplace/authsec/subinstance/pm/status/uuid/{uuid}"
+    },
+    {
+        "desc": "物理机操作（包括：暂停，取消暂定，恢复，软重启，硬重启）",
+        "method": "POST",
+        "id": "phymachine.subinstance.action",
+        "url": "marketplace/authsec/subinstance/pm/action"
     },
     //管理服务部分
     {
@@ -321,6 +345,19 @@ export let RestApis: RestApiModel[] = [
         "id": "mngm-attribute",
         "url": "marketplace/authsec/supervise/product/attribute"
     },
+    {
+        "desc": "分页获取管理服务列表",
+        "method": "POST",
+        "id": "mngm-search-page",
+        "url": "subinstancemgmt/authsec/subinstance/supervise/search/page"
+    },
+    {
+        "desc": "获取管理服务详情",
+        "method": "GET",
+        "id": "mngm-detail",
+        "url": "subinstancemgmt/authsec/subinstance/supervise/{itemId}"
+    },
+    
     // {
     //     "desc": "获取一个管理服务目录的基础信息",
     //     "method": "GET",
@@ -462,12 +499,12 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-search.cencel.post",
         "url": "marketplace/authsec/order/withdraw/order/{orderId}/reason/{reason}"
     },
-    // {
-    //     "desc": "根据subinstancesId获取管理服务详情",
-    //     "method": "GET",
-    //     "id": "op-center.order-search.subinstance.get",
-    //     "url": "marketplace/authsec/subinstance/supervise/subid/{subId}"
-    // },
+    {
+        "desc": "根据subinstancesId获取管理服务详情",
+        "method": "GET",
+        "id": "op-center.order-search.subinstance.get",
+        "url": "marketplace/authsec/subinstance/supervise/subid/{subId}"
+    },
 
     //订单查询
 
@@ -1075,6 +1112,18 @@ export let RestApis: RestApiModel[] = [
         "id": "al-cloud.cloud-vm.allregion.disks",
         "method": "POST",
         "url": "alicloud/authsec/alicloud/all/disks"
+    },
+    { //获取阿里云主机的keypair和Tags
+        "desc": "Query instance tags and key pair",
+        "id": "al-cloud.cloud-vm.keypair.tags.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/custom/querydetail/regionid/{regionid}/instanceid/{instanceid}"
+    },
+    { //获取阿里云主机的监控数据
+        "desc": "Query instance monitor data",
+        "id": "al-cloud.cloud-vm.monitor.data.get",
+        "method": "POST",
+        "url": "alicloud/authsec/alicloud/ecs/action/describeinstancemonitordata"
     },
 
     // 阿里云主账号管理

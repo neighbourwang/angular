@@ -7,7 +7,7 @@ import {
     PaginationComponent, PopupComponent, SystemDictionary
 } from "../../../../architecture";
 
-//import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
+import { StaticTooltipComponent } from "../../../../architecture/components/staticTooltip/staticTooltip.component";
 
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
@@ -67,7 +67,7 @@ export class AliCloudVmListComponent implements OnInit {
     confirmMsg = "";
 
     pageIndex:number = 1;
-    pageSize:number = 2;
+    pageSize:number = 10;
     totalPage:number = 1;
 
     listTimer = null;
@@ -301,7 +301,7 @@ export class AliCloudVmListComponent implements OnInit {
                     this.onRejected(e);
                 });
         },
-            60000);
+            300000);
     }
 
     instancesPollOps() {
@@ -433,6 +433,10 @@ export class AliCloudVmListComponent implements OnInit {
 
     reStartInstance() {
         this.selectedInstance = this.getSelected();
+        if(this.selectedInstance.Status != "Running") {
+            console.log("can't restarted");
+            return;
+        }
         if (this.selectedInstance) {
             this.restartvm.open();
         } else {
@@ -451,13 +455,14 @@ export class AliCloudVmListComponent implements OnInit {
             .then(
             response => {
                 this.layoutService.hide();
+                /*
                 if (response && 100 == response["resultCode"]) {
-                    this.showMsg("重启实例成功");
-                    this.getInstanceList();
+                    //this.showMsg("重启实例成功");
+                    //this.getInstanceList();
                 } else {
                     this.showMsg("重启实例失败");
                     return;
-                }
+                }*/
             })
             .then(() => {
                 this.restartvm.close();
@@ -471,6 +476,8 @@ export class AliCloudVmListComponent implements OnInit {
                     this.restartvm.open();
                 };
             });
+        this.selectedInstance.Status = "Stopping";
+        this.oneInstancePoll(this.selectedInstance);
     }
 
     cancelRestartInstanceModify() {
@@ -496,6 +503,11 @@ export class AliCloudVmListComponent implements OnInit {
                         }
                         this.freeips = result.EipAddresses.EipAddress;
                         console.log(this.freeips, "free ips!");
+                        if (this.freeips.length!=0){
+                            this.selectedfreeip = this.freeips[0];
+                        } else {
+                            this.selectedfreeip = this.defaultfreeip;
+                        }
                         this.allocateip.open();
                     } else {
                         this.showMsg("获取弹性IP失败");
@@ -511,13 +523,13 @@ export class AliCloudVmListComponent implements OnInit {
         }
 
     }
-
+/*
     freeIPChanged() {
         window.setTimeout(() => {
 
         }, 50);
     }
-
+*/
     acceptAttachIPToInstanceModify() {
         if (this.selectedfreeip != this.defaultfreeip) {
             this.layoutService.show();
@@ -576,6 +588,11 @@ export class AliCloudVmListComponent implements OnInit {
                         }
                         this.vmips = result.EipAddresses.EipAddress;
                         console.log(this.vmips, "Instance ips!");
+                        if (this.vmips.length!=0){
+                            this.selectedvmip = this.vmips[0];
+                        } else {
+                            this.selectedvmip = this.defaultvmip;
+                        }
                         this.unallocateip.open();
                     } else {
                         this.showMsg("获取弹性IP失败");
@@ -591,11 +608,13 @@ export class AliCloudVmListComponent implements OnInit {
         }
 
     }
-
+/*
     vmIPChanged() {
+        window.setTimeout(() => {
 
+        }, 50);
     }
-
+*/
     acceptDetachIPToInstanceModify() {
         if (this.selectedvmip != this.defaultvmip) {
             this.layoutService.show();
@@ -637,13 +656,17 @@ export class AliCloudVmListComponent implements OnInit {
 
     remoteToInstance() {
         this.selectedInstance = this.getSelected();
-        if (this.selectedInstance) {
-            this.showMsg("远程控制台Url, 有效时间为15秒，请尽快输入密码登陆！");
+        if (this.selectedInstance) { 
+            if(this.selectedInstance.Status != "Running") {
+                console.log("can't remoteToInstance");
+                return;
+            }           
             this.layoutService.show();
             this.service.remoteControlInstance(this.selectedInstance.RegionId, this.selectedInstance)
                 .then(
                 response => {
                     this.layoutService.hide();
+                    this.showMsg("远程控制台Url, 有效时间为15秒，请尽快输入密码登陆！");
                     console.log(response, "response!");
                     if (response && 100 == response["resultCode"]) {
                         console.log(this.remoteUrl, "remoteUrl!");
@@ -667,6 +690,10 @@ export class AliCloudVmListComponent implements OnInit {
     deleteInstance() {
         this.selectedInstance = this.getSelected();
         if (this.selectedInstance) {
+            if(this.selectedInstance.Status != "Stopped") {
+                console.log("can't remoteToInstance");
+                return;
+            }    
             this.confirmTitle = "释放实例";
             this.confirmMsg = "释放实例：" + this.selectedInstance.InstanceId;
             this.confirm.cof = () => { };
@@ -894,16 +921,29 @@ export class AliCloudVmListComponent implements OnInit {
     changePage(pageIndex?) {
         this.pageIndex = pageIndex || this.pageIndex;
         console.log(this.pageIndex, typeof this.pageIndex, "pageIndex!");
+        this.instances = [];
         if(this.pageIndex>this.totalPage)  {
-            this.pageIndex = this.totalPage;
+            //this.pageIndex = this.totalPage;
             console.log(this.pageIndex);
             return;
         }
         
-        this.clearInterval();
+        this.clearInterval();        
         this.instances = this.allinstances.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize);
         console.log(this.instances, "instances!");
         this.instancesPollOps();
+    }
+
+    openVMDetailPage() {
+        if(this.selectedInstance.InstanceId != "" || this.selectedInstance.InstanceId != null) {
+            this.router.navigate([
+            `ali-cloud-service/cloud-vm/cloud-vm-detail`,
+            {
+                "regionId": this.selectedInstance.RegionId,
+                "instanceId": this.selectedInstance.InstanceId
+            }
+            ]);
+        }
     }
 
 }

@@ -48,17 +48,31 @@
                         </select>
                     </td>
                     <td>
-                        <select class="form-control" [(ngModel)]="img.imageTypeId">
+                        <select class="form-control" [(ngModel)]="img.imageTypeId" (change)="ischangeType(i)">
                             <option *ngFor="let type of service.typeDic | async" [value]="type.value" >
                                 {{type.displayValue}}
                             </option>
                         </select>
                     </td>
-                    <td>
-                        <li *ngFor="let e of img.enterpriseSelectedList" style="display: inline-block; padding: 2px 5px;">
-                            {{e.com}}
-                        </li>
+                    <td style="max-width:300px;">
+                        <span *ngIf="img.imageTypeId==1">
+                            <li *ngFor="let e of img.enterpriseSelectedList" style="display: inline-block; padding: 2px 5px;">
+                                {{e.com}}
+                            </li>
+                        </span>
+                        <span *ngIf="img.imageTypeId==0">
+                            {{'COMMON.ALL' | translate}}</span>
                     </td>     
+                    <!--<td [ngSwitch]="img.imageTypeId" style="max-width:300px;">
+                        <li *ngSwitchCase="0">
+                            {{'COMMON.ALL' | translate}}
+                        </li>
+                        <li *ngSwitchCase="1">
+                            <span *ngFor="let e of img.enterpriseSelectedList" style=";display: inline-block; padding: 2px 5px;">
+                            {{e.com}}
+                            </span>
+                        </li>
+                    </td>     -->
                     <td [ngClass]="{'font-green':img.syncStatusId==0,'font-orange':img.syncStatusId==2}">
                         {{img.syncStatusName}}</td> 
                 </tr>

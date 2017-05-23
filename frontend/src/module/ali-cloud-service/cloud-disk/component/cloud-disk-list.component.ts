@@ -58,7 +58,7 @@ export class AliCloudDiskListComponent implements OnInit {
     confirmMsg = "";
 
     pageIndex = 1;
-    pageSize = 2;
+    pageSize = 10;
     totalPage = 1;
     listTimer = null;
 
@@ -205,15 +205,9 @@ export class AliCloudDiskListComponent implements OnInit {
         region.selected = true;
         this.queryObject.keyword = "";
         this.queryObject.criteria = "disk_name";
-        //this.getDiskList(region); // 列出对应region的disk list
         this.pageIndex = 1;
         this.pager.render(1);
         this.getDiskList(1);
-        /*
-        if (region.areas == null || region.areas.length == 0) {
-            this.getArea(region);
-        }
-        */
     }
 
     getDiskList(pageIndex?) {
@@ -239,21 +233,6 @@ export class AliCloudDiskListComponent implements OnInit {
                     this.totalPage = Math.ceil(this.alldisks.length / this.pageSize);
                     console.log(this.alldisks.length, this.totalPage, "TotalCount, this.totalPage!");
                     this.changePage();
-                    /*
-                    this.pageIndex = 1;
-                    this.pager.render(1);
-                    this.disks = this.alldisks.slice(0,this.pageIndex*this.pageSize);
-                    console.log(this.disks, "disks!");
-                    //this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
-                    //console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
-                    for(let i=0; i<this.disks.length; i++) {
-                        console.log(this.disks[i].DiskId, " == ");
-                    }
-                    
-                    console.log(this.disks, "this.disks!");
-                    if (this.disks.length != 0) {
-                        this.disksPollOps();
-                    }*/
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -282,21 +261,6 @@ export class AliCloudDiskListComponent implements OnInit {
                     this.totalPage = Math.ceil(this.alldisks.length / this.pageSize);
                     console.log(this.alldisks.length, this.totalPage, "TotalCount, this.totalPage!");
                     this.changePage();
-                    /*
-                    this.pageIndex = 1;
-                    this.pager.render(1);
-                    this.disks = this.alldisks.slice(0,this.pageIndex*this.pageSize);
-                    console.log(this.disks, "disks!");
-                    //this.disks = result.Disks.Disk;
-                    //this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
-                    //console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
-                    for(let i=0; i<this.disks.length; i++) {
-                        console.log(this.disks[i].DiskId, " == ");
-                    }
-                    console.log(this.disks, "this.disks!");
-                    if (this.disks.length != 0) {
-                        this.disksPollOps();
-                    }*/
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -305,7 +269,7 @@ export class AliCloudDiskListComponent implements OnInit {
         .catch((e) => {
                 this.onRejected(e);
             });
-        }, 600000 );
+        }, 300000 );
 
     }
 
@@ -413,8 +377,8 @@ export class AliCloudDiskListComponent implements OnInit {
         this.selectedDiskItem = this.getSelected();
         if (this.selectedDiskItem) {
             this.layoutService.show();
-            this.vmqueryObject.criteria = "instance_name";
-            this.vmqueryObject.keyword = "";
+            this.vmqueryObject.criteria = "zoneId";
+            this.vmqueryObject.keyword = this.selectedDiskItem.ZoneId;
             //this.vmService.getInstanceList(1, 100, this.choosenRegion.RegionId, this.vmqueryObject)
             this.vmService.getInstanceList(1, 100, this.selectedDiskItem.RegionId, this.vmqueryObject)
                 .then(
@@ -434,6 +398,7 @@ export class AliCloudDiskListComponent implements OnInit {
                             console.log(this.instances[i].InstanceId, " == ");
                         }
                         console.log(this.instances, "this.instances!");
+                        this.selectedInstanceId = "";
                         this.attachdisk.open();
                     } else {
                         this.showMsg("COMMON.GETTING_DATA_FAILED");
@@ -701,17 +666,9 @@ export class AliCloudDiskListComponent implements OnInit {
                     this.pager.render(1);
                     this.disks = this.alldisks.slice(0,this.pageIndex*this.pageSize);
                     console.log(this.disks, "disks!");
-                    //this.disks = result.Disks.Disk;
-                    //this.totalPage = Math.ceil(result.TotalCount/this.pageSize);
-                    //console.log(result.TotalCount, this.totalPage, "result.TotalCount, this.totalPage!");
                     for(let i=0; i<this.disks.length; i++) {
                         console.log(this.disks[i].DiskId, " == ");
                     }
-                    //console.log(this.disks, "this.disks!");
-                    /*
-                    if (this.disks.length != 0) {
-                        this.disksPollOps();
-                    }*/
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -726,8 +683,9 @@ export class AliCloudDiskListComponent implements OnInit {
     changePage(pageIndex?) {
         this.pageIndex = pageIndex || this.pageIndex;
         console.log(this.pageIndex, typeof this.pageIndex, "pageIndex!");
+        this.disks = [];
         if(this.pageIndex>this.totalPage) {
-            this.pageIndex = this.totalPage;
+            //this.pageIndex = this.totalPage;
             console.log(this.pageIndex);
             return;
         }
@@ -736,6 +694,18 @@ export class AliCloudDiskListComponent implements OnInit {
         this.disks = this.alldisks.slice((this.pageIndex-1)*this.pageSize,this.pageIndex*this.pageSize);
         console.log(this.disks, "disks!");
         this.disksPollOps();
+    }
+
+    openDiskDetailPage() {
+        if(this.selectedDiskItem.DiskId != null) {
+            this.router.navigate([
+            `ali-cloud-service/cloud-disk/cloud-disk-detail`,
+            {
+                "regionId": this.selectedDiskItem.RegionId,
+                "diskId": this.selectedDiskItem.DiskId
+            }
+            ]);
+        }
     }
 
 }

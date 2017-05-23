@@ -337,6 +337,8 @@ export class ProdDirListComponent implements OnInit {
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", { id: item.serviceId, type: 'edit' }]);
         } else if (item.serviceType == "1") {
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre", { id: item.serviceId, type: 'edit' }]);
+        }else if(item.serviceType=='4'){
+            this.router.navigate(["prod-mng/physical-prod-mng/prod-dirPhsical-cre", { id: item.serviceId, type: 'edit' }]);            
         }
     }
     //获取列表数据

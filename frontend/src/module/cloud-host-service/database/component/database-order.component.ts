@@ -67,7 +67,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		public dbv: Validation,
 		public dux: DispatchEvent,
 		public service: cloudHostServiceOrder,
-		private dbservice: DatabaseServiceOrder
+		public dbservice: DatabaseServiceOrder
 	) {
 		super(layoutService, router, v, dux, service)
 	
@@ -99,12 +99,15 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	}
 
 	private fetchDatabaseInit() {
+		this.layoutService.show()
 		this.dbservice.fetchDatabaseInit().then(res => {
+			this.layoutService.hide()
 			if(!res.items.length) return
 
 			this.dbInits = res.items
 			this.dbtypeChange(res.items[0])
 		})
+		.catch(e => this.layoutService.hide())
 	}
 
 	private dbtypeChange(value) {
@@ -273,6 +276,9 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.databaseValue.STORAGETYPE.attrValue = this.database.storageType;
 		this.databaseValue.TIMELINE = this.values.TIMELINE
 		this.databaseValue.TIMELINEUNIT = this.values.TIMELINEUNIT
+		this.databaseValue.DBTYPE.attrValue = this.dbInit.db.label
+		this.databaseValue.DBVERSION.attrValue = this.fetchTmIdsPost.version
+		this.databaseValue.DEPLOYMODE.attrValue = this.deploymentModeString
 
 		let payloadList = this.sendModuleToPay(this.databaseValue);
 		let payLoad = {

@@ -105,7 +105,7 @@ export class VmwareImgListService{
                 "os" : image.os,
                 "bitsType" : image.bitsType,
                 "type" : image.type,
-                "capacity" : image.capacity,
+                "capacity" : Number(image.capacity),
                 "description" : image.description
         };
         console.log(image, body, "(((((((((((((((((((((image and body)))))))))))))))))))))");

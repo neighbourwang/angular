@@ -146,18 +146,22 @@ export class OrderMngSearchComponent implements OnInit{
 
 
 				//费用
-				if(item.billingInfo)
-				{
-					obj.oncePrice = item.billingInfo.basePrice;//一次性费用
-					obj.periodType = item.billingInfo.periodType;
+				if(item.orderItems){
+					for (let orderItem of item.orderItems){
+						if(orderItem.billingInfo)
+							{
+								obj.oncePrice = orderItem.billingInfo.basePrice;//一次性费用
+								obj.periodType = orderItem.billingInfo.periodType;
 
-					if(item.billingInfo.billingMode == 0)//包月包年
-					{
-						obj.price = item.billingInfo.basicPrice;
-					}	
-					else if(item.billingInfo.billingMode == 1)//按量
-					{
-						obj.price = item.billingInfo.unitPrice;
+								if(orderItem.billingInfo.billingMode == 0)//包月包年
+								{
+									obj.price = orderItem.billingInfo.basicPrice;
+								}	
+								else if(orderItem.billingInfo.billingMode == 1)//按量
+								{
+									obj.price = orderItem.billingInfo.unitPrice;
+								}
+							}
 					}
 				}
 			}

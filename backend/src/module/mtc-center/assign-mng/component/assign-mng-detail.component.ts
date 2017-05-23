@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 
+import { chartColors } from "../../capacity-mng/model/color.mock";
 import {EntModel, DeptModel} from"../model/ent.model";
 import {PlfModel, RegionModel, ZoneModel} from"../model/plf.model";
 import {UsageState, ItemModel, PowerStatModel, DoughnutChart}from "../model/usage-state.model";
@@ -64,8 +65,10 @@ export class AssignMngDetailComponent implements OnInit {
     memInfo: ItemModel = new ItemModel();
     powerStat: PowerStatModel = new PowerStatModel();
     flavor: Object = new Object();
-    flavorName: Array<string>=new Array<string>();
-    flavorValue: Array<number>=new Array<number>();
+    flavorName: Array<string>;
+    flavorValue: Array<number> ;
+    pstName: Array<string>;
+    pstValue: Array<number>;
     cpuCircle: DoughnutChart = new DoughnutChart(); //cpu环形图
     memCircle: DoughnutChart = new DoughnutChart(); //mem环形图
     hyperList: Array<Hyper>;
@@ -170,10 +173,21 @@ export class AssignMngDetailComponent implements OnInit {
                     this.memInfo = response["resultContent"].mem;
                     this.powerStat = response["resultContent"].powerStat;
                     this.flavor = response["resultContent"].flavor;
+                    
+                    this.flavorName = new Array<string>();
+                    this.flavorValue = new Array<number>();
                     let flv = this.flavor;
                     for (var f in flv) {
                         this.flavorName.push(f);
                         this.flavorValue.push(flv[f]);
+                    }
+
+                    this.pstName = new Array<string>();
+                    this.pstValue = new Array<number>();
+                    let pst = this.powerStat;
+                    for (var p in pst) {
+                        this.pstName.push(p);
+                        this.pstValue.push(pst[p]);
                     }
                     //数据处理
                     this.getGraphData(this.cpuCircle, this.cpuInfo);
@@ -188,7 +202,7 @@ export class AssignMngDetailComponent implements OnInit {
 
     getGraphData(chart:DoughnutChart,source:ItemModel) {
         chart.DataSets = [{ data: [source.level1, source.level2, source.level3] }];
-        chart.Colors = [{ backgroundColor: ["#2bd2c8","#05ab83","#c9cacc"] }];
+        chart.Colors = [{ backgroundColor: [chartColors.circleLegend1,chartColors.circleLegend2,chartColors.circleLegend3] }];
         chart.ChartType = "doughnut";
         chart.Options = {
             cutoutPercentage: 70,
@@ -345,7 +359,10 @@ export class AssignMngDetailComponent implements OnInit {
                     this.memLine.SourceData = this.memList;
                     this.getLineGraph(this.cpuLine);
                     this.getLineGraph(this.memLine);
-                   
+                    console.log("cpu_value", this.cpuLine.DataSets);
+                    console.log("cpu_time", this.cpuLine.Labels);
+                    console.log("mem_value", this.memLine.DataSets);
+                    console.log("mem_time", this.memLine.Labels);
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -376,38 +393,32 @@ export class AssignMngDetailComponent implements OnInit {
 
             data: chart._data,
             label:_label,
-            fill: true,
-            lineTension: 0.1,
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderWidth: 2,
-            pointHoverRadius: 5,
-            pointHoverBorderWidth: 2,
-            pointRadius: 4,
-            pointHitRadius: 10,
-            spanGaps: false,
+            borderWidth: 2,
+            pointBorderWidth: 0,
+            pointRadius: 1,
+            pointHoverRadius: 3,
+            fill:false
         }
         ];
 
-        
          chart.options={
                        
                         scales: {
                             xAxes: [{
                                 display: true,
                                 ticks: {
-                                    userCallback: function(dataLabel, index) {
-                                        return index % 2 === 0 ? dataLabel : '';
-                                    }
+                                    maxTicksLimit:20
+                                    //userCallback: function (dataLabel, index) {
+                                    //    return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
+                                    //}
+
                                 }
                             }],
                             yAxes: [{
                                 display: true,
                                 ticks: {
                                     min: 0,
-                                    max:100
+                                    suggestedMax: 50
                                 },
                                 beginAtZero: false
                             }]
@@ -418,13 +429,13 @@ export class AssignMngDetailComponent implements OnInit {
         chart.ChartType= "line";
         
         chart.Colors = [
-            { // grey
-                backgroundColor: '#f9f9fb',
-                borderColor: '#2bd2c8',
-                pointBackgroundColor: '#f1f3f2',
-                pointBorderColor: '#2cd2c8',
-                pointHoverBackgroundColor: '#e8f0f2',
-                pointHoverBorderColor: '#6fdcd6'
+            { 
+                backgroundColor: chartColors.lineBg,
+                borderColor: chartColors.lineBorder,
+                pointBackgroundColor: chartColors.linePointBg,
+                pointBorderColor: chartColors.linePointBorder,
+                pointHoverBackgroundColor: chartColors.linePointHoverBg,
+                pointHoverBorderColor: chartColors.linePointHoverBorder
             }
         ];
     }

@@ -7,15 +7,18 @@ import { ManagementServicesOrderService } from '../service/management-services-o
 
 import { cloudHostServiceList } from '../../vm-instance/service/cloud-host-list.service';
 import { cloudDriveServiceList } from '../../cloud-drive/service/cloud-drive-list.service';
+import { PhysicalMachineListService } from '../../physical-machine/service/physical-machine-list.service';
 
 import { DispatchEvent } from "../../components/dispatch-event"
 
-import { SuperviseProductItem, ProductSimpleItem, ShoppingCartProfile } from '../model/service.model';
+import { SuperviseProductItem, ProductSimpleItem, ShoppingCartProfile, ServiceResAttributePair } from '../model/service.model';
 import { PostAttrList, PayLoad} from '../model/post.model';
 import { Values, ValuesAttr, Selected} from '../model/other.model';
 
 import { QuiryDistList } from '../../cloud-drive/model/dist-list.model';
 import { QuiryVmList } from '../../vm-instance/model/vm-list.model';
+import { PMServiceItem } from "../../physical-machine/model/service.model"
+import { PMServiceQuery } from "../../physical-machine/model/post.model"
 	
 const codeList = {
 	"0" : "VM",
@@ -68,6 +71,11 @@ export class ManagementServicesOrderComponent implements OnInit {
 	code: string;
 	description: string;
 
+	pmListQuery: PMServiceQuery = new PMServiceQuery;
+	pmCurrentPage: number = 1;
+	pmTotalPage: number = 0;
+	pmList:PMServiceItem[] = [];
+
 	check = {};
 
 	@ViewChild('cartButton') cartButton;
@@ -81,7 +89,8 @@ export class ManagementServicesOrderComponent implements OnInit {
 		private customV: Validation,
 		private service: ManagementServicesOrderService,
 		private diskService: cloudDriveServiceList,
-		private vmService: cloudHostServiceList
+		private vmService: cloudHostServiceList,
+		private pmService: PhysicalMachineListService
 	) {
 		this.v.result = {}
 		this.customV.result = {}  //自定义表单的一些验证
@@ -113,7 +122,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 		this.dux.subscribe("PRODUCT_INFO", () => { this.initPostData() })  //选取产品详情时 -》 填充postdata的一些能填充的信息
 		this.dux.subscribe("VM", () => { this.fetchVmlist() })  
 		this.dux.subscribe("DISK", () => { this.fetchDisklist() })
-		this.dux.subscribe("PHYSICAL", () => {})
+		this.dux.subscribe("PHYSICAL", () => { this.fetchPmList() })
 		this.dux.subscribe("DATABASES", () => { this.fetchVmlist() })
 		this.dux.subscribe("MIDDLEWARE", () => { this.fetchVmlist() })
 		this.dux.subscribe("ALI_VM", () => { this.customInput() })
@@ -220,7 +229,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				let returnData = new Selected;
 				returnData.REGION.attrValue = disk.platformName
 				returnData.ZONE.attrValue = disk.zoneName
-				returnData.instanceId = disk.uuid
+				returnData.INSTANCEID.attrValue = disk.uuid
 				returnData.INSTANCENAME.attrValue = disk.name
 
 				return returnData
@@ -269,12 +278,55 @@ export class ManagementServicesOrderComponent implements OnInit {
 				let [region, zone] = vm.regionZone.split(" ")
 				returnData.REGION.attrValue = region
 				returnData.ZONE.attrValue = zone
-				returnData.instanceId = vm.itemId
+				returnData.INSTANCEID.attrValue = vm.itemId
 				returnData.INSTANCENAME.attrValue = vm.instanceName
 
 				return returnData
 			})
 		console.log(this.selectedList)
+	}
+
+	//////物理机
+	private fetchPmList() {
+		this.layoutService.show()
+		this.pmService.fetchPMList(this.pmCurrentPage, this.pmListQuery)
+			.then(res => {
+				this.layoutService.hide()
+				if (res.resultCode !== "100" || !res.resultContent.length) return ;
+
+                this.pmTotalPage = res.pageInfo.totalPage
+				this.pmList = this.pmList.concat(res.resultContent)
+			})
+			.catch(e => this.layoutService.hide())
+	}
+	private pmNextPage() {
+		if(this.pmCurrentPage >= this.pmTotalPage) return
+		this.pmCurrentPage += 1
+		this.fetchPmList()
+	}
+	private reFetchPmList() {
+		this.pmCurrentPage = 1
+		this.pmList = []
+		this.fetchPmList()
+	}
+
+	/******************物理机的区域变化******************/
+	private regionClick(event) {
+		this.pmListQuery.regionId = event.region ? event.region.id : ""
+		this.reFetchPmList()
+	}
+	/******************物理机被选择******************/
+	private pmSelect() {
+		this.selectedList = this.pmList.filter(pm => (pm as any).isSelected)
+			.map(pm => {
+				let returnData = new Selected;
+				returnData.REGION.attrValue = pm.poolRegionInfo
+				returnData.ZONE.attrValue = ""
+				returnData.INSTANCEID.attrValue = pm.pmId
+				returnData.INSTANCENAME.attrValue = pm.pmName
+
+				return returnData
+			})
 	}
 
 	/******************自定义表单******************/
@@ -305,7 +357,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 			region: [ this.values.REGION.attrValue, [this.v.isUnBlank, this.v.isBase], "区域填写有误"],
 			zone: [this.values.ZONE.attrValue, [this.v.isUnBlank, this.v.isBase], "可用区填写有误"],
 			intanceType: [this.values.INSTANCETYPE.attrValue, [this.v.isUnBlank, this.v.isBase], "请选择实例类型"],
-			intanceId: [this.values.instanceId, [this.v.isUnBlank, this.v.isBase], "实例ID填写有误"],
+			intanceId: [this.values.INSTANCEID.attrValue, [this.v.isUnBlank, this.v.isBase], "实例ID填写有误"],
 			instanceName: [this.values.INSTANCENAME.attrValue, [this.v.isUnBlank, this.v.isBase], "实例名称填写有误"],
 		}
 
@@ -338,23 +390,27 @@ export class ManagementServicesOrderComponent implements OnInit {
 		if(this.selectedList.length) {   //如果是选择型的
 			valuesList = this.selectedList.map(select => Object.assign({} ,this.values, select))
 		}else {
-			if ( !this.values.instanceId ) return false
+			if ( !this.values.INSTANCEID.attrValue ) return false
 			valuesList = [this.values]
 		}
 
 		this.postDataList = valuesList.map(values => {
+			this.values.BILLINGTYPE.attrValue = this.productInfo.billingType
+			this.values.SERVICENAME.attrValue = this.product.name
+
 			let { attrList } = this.postData
 			attrList = attrList.map(attr => Object.assign({}, attr, values[attr.attrCode]))
-			return Object.assign({}, this.postData, { attrList }, { itemNo: this.makeItemNum() }, { relyItemNo: values.instanceId })
-		})
 
+			return Object.assign({}, this.postData, { attrList }, { itemNo: this.makeItemNum() })
+		})
 		console.log(this.postDataList)
+		return true;
 	}
 
 	addCart() {   //加入购物车
 		if (!this.checkInput()) return;
 
-		this.payLoadFormat();   //获取最新的的payload的对象
+		if(!this.payLoadFormat()) return this.showNotice("提示", "请选择至少一个实例");   //获取最新的的payload的对象
 		this.layoutService.show();
 		this.service.addCart(this.postDataList).then(res => {
 			this.layoutService.hide();
@@ -370,7 +426,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 	buyNow() {
 		if (!this.checkInput()) return;
 
-		this.payLoadFormat();   //获取最新的的payload的对象
+		if(!this.payLoadFormat()) return this.showNotice("提示", "请选择至少一个实例");   //获取最新的的payload的对象
 		this.layoutService.show();
 		this.service.saveOrder(this.postDataList).then(res => {
 			this.layoutService.hide();

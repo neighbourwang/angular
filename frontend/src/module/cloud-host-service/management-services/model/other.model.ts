@@ -12,14 +12,16 @@ class Values {
 	REMARK: ValuesAttr = new ValuesAttr;
 	SERVICEOBJECTCODE: ValuesAttr = new ValuesAttr;
 	TIMELINE: ValuesAttr = new ValuesAttr;
-	instanceId?: string;
+	INSTANCEID: ValuesAttr = new ValuesAttr;
+	BILLINGTYPE: ValuesAttr = new ValuesAttr;
+	SERVICENAME: ValuesAttr = new ValuesAttr;
 }
 
 class Selected {
 	REGION: ValuesAttr = new ValuesAttr;
 	ZONE: ValuesAttr = new ValuesAttr;
 	// INSTANCEID: ValuesAttr = new ValuesAttr;
-	instanceId?: string;
+	INSTANCEID: ValuesAttr = new ValuesAttr;
 	INSTANCENAME: ValuesAttr = new ValuesAttr;
 }
 

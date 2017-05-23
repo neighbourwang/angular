@@ -56,28 +56,48 @@ export class CheckMngHascheckComponent implements OnInit{
 				obj.serviceTypeIdStr = item.serviceType;//产品类型
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
-				obj.entStr = item.enterpriszeName;// 企业
-				//费用
-				obj.billingDurationStr = item.period;//订单周期
-				obj.oneTimePriceNum = item.billingInfo ? item.billingInfo.basePrice: "";//一次性费用
-				if(item.billingInfo)
-				{
-					obj.billingMode = item.billingInfo.billingMode;
-					if(item.billingInfo.billingMode == 0)//包年包月
-					{
-						obj.priceNum = item.billingInfo.basicPrice + item.billingInfo.cyclePrice
+				obj.entStr = item.enterpriseName;// 企业
+
+				if(item.orderItems){
+					let orderItem :any=item.orderItems[0];
+					for(let _item of item.orderItems){
+						if(_item.serviceType==3){
+					 	orderItem = _item;
 					}
-					else if(item.billingInfo.billingMode == 1)//按量
-					{
-						obj.priceNum = item.billingInfo.unitPrice;
+
+					if(orderItem!=null){
+						
+						obj.platformName = orderItem.platformName;
+						obj.zoneName = orderItem.zoneName;
+
+						if(orderItem.billingInfo){
+							obj.billingMode = orderItem.billingInfo.billingMode;
+							if(orderItem.billingInfo.billingMode == 0)//包年包月
+							{
+								obj.priceNum = orderItem.billingInfo.basicPrice + orderItem.billingInfo.cyclePrice
+							}
+							else if(orderItem.billingInfo.billingMode == 1)//按量
+							{
+								obj.priceNum = orderItem.billingInfo.unitPrice;
+							}
+							//费用
+							obj.billingDurationStr = orderItem.period;//订单周期
+							obj.oneTimePriceNum = orderItem.billingInfo ? orderItem.billingInfo.basePrice: "";//一次性费用
+
+							obj.specList = orderItem.specList; //获取产品信息
+						}
 					}
 				}
+			}
+
+				
+			
 
 				obj.createTimeStr = item.createDate;// 创建时间
 				// obj.checkResultId = ?? 审批结果	
 				obj.description = item.orderDesc; //描述		
 				
-				obj.specList = item.specList; //获取产品信息
+				
 
 			}
 		};

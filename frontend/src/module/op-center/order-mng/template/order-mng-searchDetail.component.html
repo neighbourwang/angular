@@ -82,8 +82,8 @@
 						
 								</popover-content>
 
-								<a *ngIf="item.serviceType==11" class="hands" [popover]="osPopover" >点击查看实例详情</a><!--管理服务(click)='loadSubinstanceDetailById(item.subinstanceId)'-->
-								<popover-content id="osPopover" #osPopover placement="right"[animation]="true" [closeOnClickOutside]="true">
+								<a *ngIf="item.serviceType==11" class="hands" [popover]="osPopover"  (click)='loadSubinstanceDetailById(item.subinstanceId)'>点击查看实例详情</a><!--管理服务-->
+								<popover-content id="osPopover" #osPopover  placement="right"[animation]="true" [closeOnClickOutside]="true">
 									<div *ngIf="item.serviceType==11"  class="table-container mgb20"><!--云主机-->
 										<table class="table table-bordered mgb20 text-center inner-table">
 											<thead>
@@ -191,7 +191,8 @@
 							
 
 								<vm-view [values]="item" *ngIf="item.serviceType==0"></vm-view><!--云主机-->
-								<disk-view [values]="item.specList" *ngIf="item.serviceType==1"></disk-view><!--云硬盘-->
+								<disk-view [values]="item" *ngIf="item.serviceType==1"></disk-view><!--云硬盘-->
+								<sql-view [values]="item" *ngIf="item.serviceType==3" ></sql-view>
 							</td>
 							<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 							<td class="text-center">{{item.quantity}}台</td>

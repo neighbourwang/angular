@@ -3,82 +3,82 @@
         {{'ASSIGN_MNG.PRIVATE_HYPER_MNG'|translate}}<!--私有云主机超分管理-->
     </div>
     <div class="page-content">
-        <div class="mgt5" style="font-size:18px;font-weight:bold;">{{'ASSIGN_MNG.FILTERS'|translate}}：</div><!--筛选条件-->
+        <div class="mgt5 spaced-bold-title">{{'ASSIGN_MNG.FILTERS'|translate}}：</div><!--筛选条件-->
         <div style="margin-right:30%;">
-        <div class="row row-line-height">
-            <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.ENT'|translate}}：</div><!--企业-->
-            <div class="col-md-2">
-                <select class="form-control" [(ngModel)]="selectedEnt" (change)="selectedDept=defaultDept;">
-                    <option [ngValue]="defaultEnt">{{'ASSIGN_MNG.ALL_ENTS'|translate}}</option><!--所有企业-->
-                    <option *ngFor="let ent of entList" [ngValue]="ent">{{ent.enterpriseName}}</option>
-                </select>
+            <div class="row row-line-height" style="font-size:16px;">
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.ENT'|translate}}：</div><!--企业-->
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="selectedEnt" (change)="selectedDept=defaultDept;">
+                        <option [ngValue]="defaultEnt">{{'ASSIGN_MNG.ALL_ENTS'|translate}}</option><!--所有企业-->
+                        <option *ngFor="let ent of entList" [ngValue]="ent">{{ent.enterpriseName}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.DEPT'|translate}}：</div><!--部门-->
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="selectedDept">
+                        <option [ngValue]="defaultDept">{{'ASSIGN_MNG.ALL_DEPTS'|translate}}</option><!--所有部门-->
+                        <option *ngFor="let dept of selectedEnt.department" [ngValue]="dept">{{dept.departmentName}}</option>
+                    </select>
+                </div>
             </div>
-            <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.DEPT'|translate}}：</div><!--部门-->
-            <div class="col-md-2">
-                <select class="form-control" [(ngModel)]="selectedDept">
-                    <option [ngValue]="defaultDept">{{'ASSIGN_MNG.ALL_DEPTS'|translate}}</option><!--所有部门-->
-                    <option *ngFor="let dept of selectedEnt.department" [ngValue]="dept">{{dept.departmentName}}</option>
-                </select>
+            <div class="row row-line-height">
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.PLATFORM'|translate}}：</div><!--平台-->
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion;selectedZone=defaultZone">
+                        <option [ngValue]="defaultPlf">{{'ASSIGN_MNG.ALL_PLATFORMS'|translate}}</option><!--所有平台-->
+                        <option *ngFor="let plf of plfList" [ngValue]="plf">{{plf.platformName}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2 query-left-content">Region/DC：</div>
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedZone=defaultZone">
+                        <option [ngValue]="defaultRegion">{{'ASSIGN_MNG.ALL_REGIONS'|translate}}</option><!--所有Region/DC-->
+                        <option *ngFor="let reg of selectedPlf.region" [ngValue]="reg">{{reg.region}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.ZONE'|translate}}：</div><!--可用区-->
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="selectedZone">
+                        <option [ngValue]="defaultZone">{{'ASSIGN_MNG.ALL_ZONES'|translate}}</option><!--所有可用区-->
+                        <option *ngFor="let z of selectedRegion.zone" [ngValue]="z">{{z.zoneName}}</option>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="row row-line-height">
-            <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.PLATFORM'|translate}}：</div><!--平台-->
-            <div class="col-md-2">
-                <select class="form-control" [(ngModel)]="selectedPlf" (change)="selectedRegion=defaultRegion;selectedZone=defaultZone">
-                    <option [ngValue]="defaultPlf">{{'ASSIGN_MNG.ALL_PLATFORMS'|translate}}</option><!--所有平台-->
-                    <option *ngFor="let plf of plfList" [ngValue]="plf" >{{plf.platformName}}</option>
-                </select>
+            <div class="row row-line-height">
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.CLOUD_HOST_STATE'|translate}}：</div><!--云主机状态-->
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="queryOpt.powerStatus">
+                        <option *ngFor="let s of service.powerStatusDic | async" [value]="s.value">{{s.displayValue}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.CLOUD_HOST_SPEC'|translate}}：</div><!--云主机规格-->
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="queryOpt.flaovarId">
+                        <option [value]="'all'">所有规格</option>
+                        <option *ngFor="let spec of cloudHostSpecList" [value]="spec">{{spec}}</option>
+                    </select>
+                </div>
             </div>
-            <div class="col-md-2 form-control-title" >Region/DC：</div>
-            <div class="col-md-2">
-                <select class="form-control" [(ngModel)]="selectedRegion" (change)="selectedZone=defaultZone">
-                    <option [ngValue]="defaultRegion">{{'ASSIGN_MNG.ALL_REGIONS'|translate}}</option><!--所有Region/DC-->
-                    <option *ngFor="let reg of selectedPlf.region" [ngValue]="reg">{{reg.region}}</option>
-                </select>
+            <div class="row row-line-height">
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.USAGE_RANK'|translate}}：</div><!--利用率排序-->
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="queryOpt.rate">
+                        <option *ngFor="let rate of service.rateDic | async" [value]="rate.value">{{rate.displayValue}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2 query-left-content">TOP：</div>
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="queryOpt.top">
+                        <option *ngFor="let top of service.topDic | async" [value]="top.value">{{top.displayValue}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.PERIOD'|translate}}：</div><!--时间范围-->
+                <div class="col-md-2">
+                    <select class="form-control" [(ngModel)]="queryOpt.period">
+                        <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
+                    </select>
+                </div>
             </div>
-            <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.ZONE'|translate}}：</div><!--可用区-->
-            <div class="col-md-2">
-                <select class="form-control" [(ngModel)]="selectedZone">
-                    <option [ngValue]="defaultZone">{{'ASSIGN_MNG.ALL_ZONES'|translate}}</option><!--所有可用区-->
-                    <option *ngFor="let z of selectedRegion.zone" [ngValue]="z">{{z.zoneName}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="row row-line-height">
-            <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.CLOUD_HOST_STATE'|translate}}：</div><!--云主机状态-->
-            <div class="col-md-2">
-                <select class="form-control" [(ngModel)]="queryOpt.powerStatus">
-                    <option *ngFor="let s of service.powerStatusDic | async" [value]="s.value">{{s.displayValue}}</option>
-                </select>
-            </div>
-            <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.CLOUD_HOST_SPEC'|translate}}：</div><!--云主机规格-->
-            <div class="col-md-2">
-                <select class="form-control" [(ngModel)]="queryOpt.flaovarId">
-                    <option [value]="'all'">所有规格</option>
-                    <option *ngFor="let spec of cloudHostSpecList" [value]="spec" >{{spec}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="row row-line-height">
-            <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.USAGE_RANK'|translate}}：</div><!--利用率排序-->
-            <div class="col-md-2">
-                <select class="form-control" [(ngModel)]="queryOpt.rate">              
-                    <option *ngFor="let rate of service.rateDic | async" [value]="rate.value">{{rate.displayValue}}</option>
-                </select>
-            </div>
-            <div class="col-md-2 form-control-title" >TOP：</div>
-            <div class="col-md-2">
-                <select class="form-control" [(ngModel)]="queryOpt.top">              
-                    <option *ngFor="let top of service.topDic | async" [value]="top.value">{{top.displayValue}}</option>     
-                </select>
-            </div>
-            <div class="col-md-2 form-control-title" >{{'ASSIGN_MNG.PERIOD'|translate}}：</div><!--时间范围-->
-            <div class="col-md-2">
-                <select class="form-control" [(ngModel)]="queryOpt.period">
-                    <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
-                </select>
-            </div>
-        </div>
         </div>
         <!--<div>{{queryOpt.enterpriseId}},{{queryOpt.departmentId}}</div>
         <div>{{queryOpt.platformId}},{{queryOpt.regionId}},{{queryOpt.zoneId}}</div>
@@ -93,37 +93,37 @@
         <div style="clear:both;"></div>
         <div class="row mgt15">
             <div class="col-md-4">
-                <div class="panel panel-default" >
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">{{'ASSIGN_MNG.CPU_USAGE_OVERVIEW'|translate}}</h3><!--CPU使用率概览-->
                     </div>
-                    <div class="panel-body" style="height:216px;">
-                         <div class="row">
+                    <div class="panel-body" >
+                        <div class="row">
                             <div class="col-md-6">
-                                <div style="position:relative;">
+                                <div style="position:relative; height:186px; width: 186px; margin: 0; padding: 0;">
                                     <div class="circle-mask"></div>
                                     <div class="circle-text">{{cpuInfo.num}}个</div>
-                                     <canvas baseChart
-                                     *ngIf="cpuCircle.DataSets"
-                                     [datasets]="cpuCircle.DataSets "
-                                     [chartType]="cpuCircle.ChartType"
-                                     [options]="cpuCircle.Options"
-                                     [colors]="cpuCircle.Colors">
-                                    </canvas>
-                               </div>
+                                    <canvas baseChart
+                                            *ngIf="cpuCircle.DataSets"
+                                            [datasets]="cpuCircle.DataSets "
+                                            [chartType]="cpuCircle.ChartType"
+                                            [options]="cpuCircle.Options"
+                                            [colors]="cpuCircle.Colors"
+                                           ></canvas>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div style="margin-top:40px;margin-left:20px;">
                                     <div class="row" style="padding:5px 0;">
-                                        <span class="legend" style="background: #2bd2c8;"></span>&nbsp;&lt;30%
+                                        <span class="legend circle-legend1"></span>&nbsp;&lt;30%
                                         <span style="margin-left:54px;">{{cpuInfo.level1}}</span>
                                     </div>
                                     <div class="row" style="padding:5px 0;">
-                                        <span class="legend" style="background: #05ab83"></span>&nbsp;30%-70%
+                                        <span class="legend circle-legend2"></span>&nbsp;30%-70%
                                         <span style="margin-left:30px;">{{cpuInfo.level2}}</span>
                                     </div>
                                     <div class="row" style="padding:5px 0;">
-                                        <span class="legend" style="background: #c9cacc"></span>&nbsp;&gt;70%
+                                        <span class="legend circle-legend3"></span>&nbsp;&gt;70%
                                         <span style="margin-left:54px;">{{cpuInfo.level3}}</span>
                                     </div>
                                 </div>
@@ -133,37 +133,37 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="panel panel-default" >
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">{{'ASSIGN_MNG.MEM_USAGE_OVERVIEW'|translate}}</h3>
                     </div>
-                    <div class="panel-body" style="height:216px;">
+                    <div class="panel-body" >
                         <div class="row">
                             <div class="col-md-6">
-                                <div style="position:relative;">
+                                <div style="position:relative;height:186px; width: 186px; margin: 0; padding: 0;">
                                     <div class="circle-mask"></div>
                                     <div class="circle-text">{{memInfo.num}}个</div>
-                                     <canvas baseChart
-                                     *ngIf="memCircle.DataSets"
-                                     [datasets]="memCircle.DataSets "
-                                     [chartType]="memCircle.ChartType"
-                                     [options]="memCircle.Options"
-                                     [colors]="memCircle.Colors">
-                                    </canvas>
-                               </div>
+                                    <canvas baseChart
+                                            *ngIf="memCircle.DataSets"
+                                            [datasets]="memCircle.DataSets "
+                                            [chartType]="memCircle.ChartType"
+                                            [options]="memCircle.Options"
+                                            [colors]="memCircle.Colors"
+                                            ></canvas>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div style="margin-top:40px;margin-left:20px;">
                                     <div class="row" style="padding:5px 0;">
-                                        <span class="legend" style="background: #2bd2c8;"></span>&nbsp;&lt;30%
+                                        <span class="legend circle-legend1"></span>&nbsp;&lt;30%
                                         <span style="margin-left:54px;">{{memInfo.level1}}</span>
                                     </div>
                                     <div class="row" style="padding:5px 0;">
-                                        <span class="legend" style="background: #05ab83"></span>&nbsp;30%-70%
+                                        <span class="legend circle-legend2"></span>&nbsp;30%-70%
                                         <span style="margin-left:30px;">{{memInfo.level2}}</span>
                                     </div>
                                     <div class="row" style="padding:5px 0;">
-                                        <span class="legend" style="background: #c9cacc"></span>&nbsp;&gt;70%
+                                        <span class="legend circle-legend3"></span>&nbsp;&gt;70%
                                         <span style="margin-left:54px;">{{memInfo.level3}}</span>
                                     </div>
                                 </div>
@@ -172,50 +172,38 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 " >
-                <div class="panel panel-default" >
+            <div class="col-md-2 ">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">{{'ASSIGN_MNG.CLOUD_HOST_RUNNING_STATE'|translate}}</h3><!--云主机运行状态-->
                     </div>
-                    <div class="panel-body" style="padding: 0; height: 216px; overflow-y: scroll;">                  
-                        <table class="table table-hover" >
+                    <div class="panel-body" style="padding: 0; height: 216px; overflow-y: scroll;">
+                        <table class="table table-hover">
                             <tbody>
-                                <tr>
-                                    <td>shutoff：</td>
-                                    <td>{{powerStat.shutoff}}</td>
+                                <tr *ngFor="let p of pstName let i=index">
+                                    <td>{{p}}：</td>
+                                    <td>{{pstValue[i]}}</td>
                                 </tr>
-                                <tr>
-                                    <td>reboot：</td>
-                                    <td>{{powerStat.reboot}}</td>
-                                </tr>
-                                <tr>
-                                    <td>startup：</td>
-                                    <td>{{powerStat.startup}}</td>
-                                </tr>
-                                <tr>
-                                    <td>pause：</td>
-                                    <td>{{powerStat.pause}}</td>
-                                </tr>
-                            
+
                             </tbody>
-                        </table>                    
+                        </table>
                     </div>
                 </div>
             </div>
             <div class="col-md-2">
-                <div class="panel panel-default" >
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">{{'ASSIGN_MNG.CLOUD_HOST_SPEC_INFO'|translate}}</h3><!--云主机规格信息-->
                     </div>
                     <div class="panel-body" style="padding: 0; height: 216px; overflow-y: scroll;">
                         <table class="table table-hover">
                             <tbody>
-                                <tr *ngFor="let f of flavorName let i=index">                              
+                                <tr *ngFor="let f of flavorName let i=index">
                                     <td>{{f}}：</td>
                                     <td>{{flavorValue[i]}}</td>
-                                </tr>                           
+                                </tr>
                             </tbody>
-                        </table>     
+                        </table>
                     </div>
                 </div>
             </div>
@@ -254,57 +242,62 @@
                 </tbody>
             </table>
         </div>
-    
+
     </div>
 </div>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>
-<fc-popup #exportAllData  title="{{title}}"  ot="{{'ASSIGN_MNG.EXPORT'|translate}}" (of)="acceptExport();" ct="{{'COMMON.CANCEL'|translate}}"   cssClass="minWidth900">
-    <div class="row row-line-height" >
-        
-            <div class="col-md-3 form-control-title" style="line-height: 50px;">
-                <input type="radio" name="chooseTime"  class="fox-cloud-radio" checked="checked" (click)="flag = 1;" />&nbsp;{{'ASSIGN_MNG.QUICK_SELECT'|translate}}：
-            </div>
-            <div class="col-md-4" style="margin-top:10px;">
-                <select class="form-control"[(ngModel)]="period" >
-                    <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
-                </select>
-            </div>
-        
+<fc-popup #exportAllData title="{{title}}" ot="{{'ASSIGN_MNG.EXPORT'|translate}}" (of)="acceptExport();" ct="{{'COMMON.CANCEL'|translate}}" cssClass="minWidth900">
+    <div class="row row-line-height">
+
+        <div class="col-md-3 form-control-title" style="line-height: 50px;">
+            <input type="radio" name="chooseTime" class="fox-cloud-radio" checked="checked" (click)="flag = 1;" />&nbsp;{{'ASSIGN_MNG.QUICK_SELECT'|translate}}：
+        </div>
+        <div class="col-md-4" style="margin-top:10px;">
+            <select class="form-control" [(ngModel)]="period">
+                <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
+            </select>
+        </div>
+
     </div>
-    <div class="row row-line-height">       
-            <div class="col-md-3 form-control-title" style="line-height: 50px;">
-                <input type="radio" name="chooseTime"  class="fox-cloud-radio" (click)="flag=2;" />&nbsp;{{'ASSIGN_MNG.PERIOD'|translate}}：
+    <div class="row row-line-height">
+        <div class="col-md-3 form-control-title" style="line-height: 50px;">
+            <input type="radio" name="chooseTime" class="fox-cloud-radio" (click)="flag=2;" />&nbsp;{{'ASSIGN_MNG.PERIOD'|translate}}：
+        </div>
+        <div class="col-md-9">
+            <div class="assign-mng float-left">
+                <date-picker (dateChanged)="StartDateChange($event)"></date-picker>
             </div>
-            <div class="col-md-9">
-                <div class="assign-mng float-left">
-                    <date-picker (dateChanged)="StartDateChange($event)" ></date-picker>
-                </div>
-                <div style="float: left; line-height: 50px; width: 40px; text-align: center;">{{'ASSIGN_MNG.TO'|translate}}</div>
-                <div class="assign-mng float-left">
-                    <date-picker (dateChanged)="EndDateChange($event)"></date-picker>
-                </div>
+            <div style="float: left; line-height: 50px; width: 40px; text-align: center;">{{'ASSIGN_MNG.TO'|translate}}</div>
+            <div class="assign-mng float-left">
+                <date-picker (dateChanged)="EndDateChange($event)"></date-picker>
             </div>
-     
+        </div>
+
     </div>
+    iv
     <!--<div>{{flag}}</div>
     <div>{{startDate}}</div>
     <div>{{endDate}}</div>-->
     <div style="height:200px;">
-       
+
     </div>
 </fc-popup>
 
 <!--详情页-->
 <div *ngIf="!showFirst">
     <div class="page-content-header icon-content-header-operation-center">
-       <!--{{'ASSIGN_MNG.CLOUD_HOST_DETAIL^^^'+hyperInfo.name |translate}}-->云主机{{hyperInfo.name}}详情
+        
+       <!--{{'ASSIGN_MNG.CLOUD_HOST_DETAIL^^^'+hyperIn
+        fo
+        .name |translate}}-->云主机{{hyperInfo.name}}详情
+        
         <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoAssignMng()">
             {{'ASSIGN_MNG.BACK_TO_HYPER_MNG'|translate}}<!--返回云主机超分管理-->
         </button>
     </div>
     <div class="page-content">
         <div class="table-container mgt10">
-            <table class="table table-hover" >
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>{{'ASSIGN_MNG.INSTANCE_NAME'|translate}}</th><!--实例名称-->
@@ -332,15 +325,15 @@
             </table>
         </div>
 
-        <div class="row mgt15" >
+        <div class="row mgt15">
             <div class="col-md-2">
                 <select class="form-control" [(ngModel)]="Period">
-                 <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
-            </select>
+                    <option *ngFor="let p of service.peridDic | async" [value]="p.value">{{p.displayValue}}</option>
+                </select>
             </div>
             <div class="col-md-2">
                 <button class="fox-cloud-button fox-cloud-button-white" (click)="refresh()">{{'CAPACITY_MNG.REFRESH'|translate}}</button><!--刷新-->
-            </div>       
+            </div>
         </div>
         <div class="mgt10" style="font-size:18px;">
             <div class="row row-line-height" style="margin:0;">
@@ -349,44 +342,46 @@
                 <div class="col-md-6">{{'CAPACITY_MNG.CPU_PEAK_TIME'|translate}}：{{hyperInfo.cpuTime}}</div><!--CPU峰值记录时间-->
             </div>
             <div class="row row-line-height" style="margin:0;">
-                <div class="col-md-3">{{'CAPACITY_MNG.MEMORY_AVERAGE_UTILIZATION'|translate}}： {{hyperInfo.mem}}%</div><!--内存平均使用率-->
-                <div class="col-md-3">{{'CAPACITY_MNG.MEMORY_PECK_VALUE_UTILIZATION'|translate}}： {{hyperInfo.memPeak}}%</div><!--内存峰值使用率-->
-                <div class="col-md-6">{{'CAPACITY_MNG.MEMORY_PEAK_TIME'|translate}}： {{hyperInfo.memTime}}</div><!--内存峰值记录时间-->
+                <div class="col-md-3">{{'CAPACITY_MNG.MEMORY_AVERAGE_UTILIZATION'|translate}}：{{hyperInfo.mem}}%</div><!--内存平均使用率-->
+                <div class="col-md-3">{{'CAPACITY_MNG.MEMORY_PECK_VALUE_UTILIZATION'|translate}}：{{hyperInfo.memPeak}}%</div><!--内存峰值使用率-->
+                <div class="col-md-6">{{'CAPACITY_MNG.MEMORY_PEAK_TIME'|translate}}：{{hyperInfo.memTime}}</div><!--内存峰值记录时间-->
             </div>
         </div>
         <div class="row mgt15">
-            <div class="col-md-6">
-                <div class="panel panel-default" >
+            <div class="col-md-12">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">{{'CAPACITY_MNG.CPU_UTILIZATION'|translate}}</h3><!--CPU使用率-->
                     </div>
                     <div class="panel-body">
-                        <canvas baseChart
-                              *ngIf="cpuLine.DataSets"
-                              [datasets]="cpuLine.DataSets "
-                              [chartType]="cpuLine.ChartType"
-                              [colors]="cpuLine.Colors"
-						      [labels]="cpuLine.Labels">
-                        </canvas>
+                        <canvas baseChart height="100"
+                                *ngIf="cpuLine.DataSets"
+                                [datasets]="cpuLine.DataSets "
+                                [chartType]="cpuLine.ChartType"
+                                [colors]="cpuLine.Colors"
+                                [options]="cpuLine.options"
+                                [labels]="cpuLine.Labels"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="panel panel-default" >
+        </div>
+        <div class="row mgt15">
+            <div class="col-md-12">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">{{'CAPACITY_MNG.MEMORY_UTILIZATION'|translate}}</h3><!--内存使用率-->
                     </div>
                     <div class="panel-body">
-                        <canvas baseChart
-                              *ngIf="memLine.DataSets"
-                              [datasets]="memLine.DataSets "
-                              [chartType]="memLine.ChartType"
-                              [colors]="memLine.Colors"
-						      [labels]="memLine.Labels">
-                        </canvas>
+                        <canvas baseChart height="100"
+                                *ngIf="memLine.DataSets"
+                                [datasets]="memLine.DataSets "
+                                [chartType]="memLine.ChartType"
+                                [colors]="memLine.Colors"
+                                [options]="memLine.options"
+                                [labels]="memLine.Labels"></canvas>
                     </div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </div>

@@ -1,0 +1,243 @@
+<div class="page-content cloud_host_order cloud_drive_order">
+
+    <h1 class="page-content-header">阿里云主机详情
+        <div style="display: inline-block; cursor: pointer;" (click)="goVMListPage();">
+            <span class="icon-back mgl20 mgr5"></span><span class="span_gray">返回阿里云主机列表</span>
+        </div>
+        <div class="pull-right" style="margin-bottom:10px; margin-right:20px;">
+            <button class="btn button-gray-gradient" [disabled]="instance.Status!='Running'" (click)="remoteToInstance();">控制台</button>
+            <button class="btn button-gray-gradient" [disabled]="instance.Status!='Stopped'" (click)="deleteInstance();">删除主机</button>
+        </div>
+    </h1>
+
+    <div class="col-md-4 mgt20 ">
+        <!-- Menu1 -->
+        <div class="vm_detail_menu">
+            <div class="menu_title">
+                <span class="icon-basic mgr5"></span> 基本信息
+                <div class="menu_right">
+                    <span class="glyphicon glyphicon-chevron-up" *ngIf="menu1open==true" (click)="closeMenu(1);"> </span>
+                    <span class="glyphicon glyphicon-chevron-down" *ngIf="menu1open==false" (click)="openMenu(1);"> </span>
+                </div>
+            </div>
+            <ul *ngIf="menu1open==true">
+                <li>实例名称：
+                    <span>{{instance.InstanceName || ''}}</span>
+                </li>
+
+                <li>实例ID：
+                    <span>{{instance.InstanceId || ''}}</span>
+                </li>
+
+                <li>所在可用区：
+                    <span>{{instance.ZoneName || ''}}</span>
+                </li>
+
+                <li>实例规格：
+                    <span>{{instance.InstanceType || ''}}</span>
+                </li>
+
+                <li>实例规格族：
+                    <span>{{instance.InstanceTypeFamily || ''}}</span>
+                </li>
+
+                <li>状态：
+                    <span>{{instance.Status | dict:this.dictService.instanceStatusDict | async}}</span>
+                </li>
+
+                <li>镜像ID：
+                    <span>{{instance.ImageId || ''}}</span>
+                </li>
+
+                <li>网络类型：
+                    <span>{{instance.InstanceNetworkType | dict:this.dictService.networkTypeDict | async}}</span>
+                </li>
+
+                <li>实例描述：
+                    <span>{{instance.Description || ''}}</span>
+                </li>
+
+                <li>密钥对名称：
+                    <span *ngIf="keypairs.KeyPair.length!=0">
+                        <static-tooltip [title]="displayKeyPairs(keypairs)">
+                        <span>{{keypairs.KeyPair[0].KeyPairName}} {{keypairs.KeyPair[0].KeyPairFingerPrint}}</span>
+                    </static-tooltip>
+                    </span>
+                </li>
+
+                <li>标签：
+                    <span *ngIf="tags.Tag.length!=0">
+                        <static-tooltip [title]="displayTags(tags)">
+                        <span>{{tags.Tag[0].TagKey}} {{tags.Tag[0].TagValue}}</span>
+                    </static-tooltip>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Menu2 -->
+        <div class="vm_detail_menu">
+
+            <div class="menu_title">
+                <span class="icon-setting mgr5"></span> 配置信息
+                <div class="menu_right">
+                    <span class="glyphicon glyphicon-chevron-down" *ngIf="menu2open==false" (click)="openMenu(2);"> </span>
+                    <span class="glyphicon glyphicon-chevron-up" *ngIf="menu2open==true" (click)="closeMenu(2);"> </span>
+                </div>
+            </div>
+            <ul *ngIf="menu2open==true">
+
+                <li>CPU：
+                    <span>{{instance.Cpu || ''}}</span>
+                </li>
+
+                <li>内存：
+                    <span>{{instance.Memory || ''}} MB</span>
+                </li>
+
+                <li>实例类型：
+                    <span>{{instance.IoOptimized | dict:this.dictService.ioOptimizedDict | async}}</span>
+                </li>
+
+                <li>操作系统：
+                    <span>{{instance.OSType || ''}}</span>
+                </li>
+
+                <li>弹性公网IP：
+                    <span>{{instance.EipAddress.IpAddress || ''}}</span>
+                </li>
+
+                <li>弹性公网IP实例ID：
+                    <span>{{instance.EipAddress.AllocationId || ''}}</span>
+                </li>
+
+                <li>私有IP：
+                    <span>{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0] || ''}}</span>
+                </li>
+
+                <li>带宽计费方式：
+                    <span>{{instance.InternetChargeType || ''}}</span>
+                </li>
+
+                <!--
+                <li>当前使用带宽：
+                    <span>{{instance.InstanceId || ''}}</span>
+                </li>
+                -->
+
+                <li>专有网络：
+                    <span>{{instance.VpcAttributes.VpcId || ''}}</span>
+                </li>
+
+                <li>虚拟交换机：
+                    <span>{{instance.VpcAttributes.VSwitchId || ''}}</span>
+                </li>
+
+                <li>NatIP：
+                    <span>{{instance.VpcAttributes.NatIpAddress || ''}}</span>
+                </li>
+
+            </ul>
+        </div>
+
+        <!-- Menu3 -->
+        <div class="vm_detail_menu">
+
+            <div class="menu_title">
+                <span class="icon-payment mgr5"></span> 付费信息
+                <div class="menu_right">
+                    <span class="glyphicon glyphicon-chevron-down" *ngIf="menu3open==false" (click)="openMenu(3);"> </span>
+                    <span class="glyphicon glyphicon-chevron-up" *ngIf="menu3open==true" (click)="closeMenu(3);"> </span>
+                </div>
+            </div>
+            <ul *ngIf="menu3open==true">
+                <li>付费方式：
+                    <span>{{instance.InstanceChargeType | dict:this.dictService.instanceChargeTypeDict | async}}</span>
+                </li>
+
+                <li>创建时间：
+                    <span>{{instance.CreationTime || ''}}</span>
+                </li>
+
+                <li>自动释放时间：
+                    <span>{{instance.ExpiredTime || ''}}</span>
+                </li>
+            </ul>
+        </div>
+
+
+
+
+    </div>
+
+    <div class="col-md-8 mgt20">
+        <div class="vm_detail_right">
+
+            <div class="label_menu_title">
+                <div class="mgt20" style="display: inline-block;">
+                    <span class="icon_chart mgr5"></span> <span>监控图表</span>
+                </div>
+
+                <div class="menu_right no-padding" style="display: inline-block;">
+                    <div class="float-left">
+                        <date-picker [initDate]="startTime" (dateChanged)="StartDateChange($event)"></date-picker>
+                    </div>
+                    <div class="float-left mgt10">
+                        <select [(ngModel)]="startHour" style="display: inline-block;height:34px;">
+                        <option value=''>时</option>
+                        <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
+                        </select> :
+                        <select [(ngModel)]="startMin" style="display: inline-block;height:34px;">
+                        <option value=''>分</option>
+                        <option *ngFor="let min of mins" [value]="min">{{min}}</option>
+                        </select>
+                    </div>
+
+                    <div style="float: left; line-height: 50px; width: 40px; text-align: center;">到</div>
+
+                    <div class="float-left">
+                        <date-picker [initDate]="endTime" (dateChanged)="EndDateChange($event)"></date-picker>
+                    </div>
+
+                    <div class="float-left mgt10">
+                        <select [(ngModel)]="endHour" style="display: inline-block;height:34px;">
+                        <option value=''>时</option>
+                        <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
+                        </select> :
+                        <select [(ngModel)]="endMin" style="display: inline-block;height:34px;">
+                        <option value=''>分</option>
+                        <option *ngFor="let min of mins"  [value]="min">{{min}}</option>
+                    </select>
+                    </div>
+
+                    <div class="float-left mgt10">
+                        <button class="btn button-gray-gradient" (click)="freshPage();">刷新</button>
+                    </div>
+
+                </div>
+            </div>
+            <!-- title -->
+
+            <div class="vm_detail_label">
+                <div class="div_button" [ngClass]='{"selected":xchart=="cpu"}' (click)="xchart='cpu'">CPU使用率</div>
+                <div class="div_button" [ngClass]='{"selected":xchart=="net"}' (click)="xchart='net'">网络(内网)</div>
+            </div>
+
+            <div *ngIf="xchart=='cpu'">
+                <canvas baseChart height="100" *ngIf="cpuChart.DataSets" [datasets]="cpuChart.DataSets " [chartType]="cpuChart.ChartType" [colors]="cpuChart.Colors" [options]="cpuChart.options" [labels]="cpuChart.Labels">
+                </canvas>
+            </div>
+
+            <div *ngIf="xchart=='net'">
+                <canvas baseChart height="100" *ngIf="netChart.DataSets" [datasets]="netChart.DataSets " [chartType]="netChart.ChartType" [colors]="netChart.Colors" [options]="netChart.options" [labels]="netChart.Labels">
+                </canvas>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<fc-confirm #confirm title="{{confirmTitle}}" msg="{{confirmMsg}}" ot="{{modalOKTitle}}" ct="{{modalCancelTitle}}"></fc-confirm>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}" (of)="okClicked()"></fc-notice>

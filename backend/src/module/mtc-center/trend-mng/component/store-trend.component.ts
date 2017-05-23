@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
+import { chartColors } from "../../capacity-mng/model/color.mock";
 import { PlfModel, RegionModel, ZoneModel } from "../model/plf.model";
 import {StoreQuery} from "../model/store-query.model";
 import {GeneralModel, zoneDisk, DoughnutChart} from "../model/general.model";
@@ -124,7 +125,15 @@ export class StoreTrendComponent implements OnInit {
 
     getCircleData(chart:DoughnutChart,source:GeneralModel) {
         chart.DataSets = [{ data: [source.level1, source.level2,source.level3, source.level4,source.level5]}];
-        chart.Colors = [{ backgroundColor: ["#2bd2c8","#05ab83","#c9cacc","#85f46f","#fa88ec"] }];
+        chart.Colors = [{
+            backgroundColor: [
+                chartColors.circleLegend1,
+                chartColors.circleLegend2,
+                chartColors.circleLegend3,
+                chartColors.circleLegend4,
+                chartColors.circleLegend5
+                ]        
+        }];
         chart.ChartType = "doughnut";
         chart.Options = {
             cutoutPercentage: 70,
@@ -183,13 +192,16 @@ export class StoreTrendComponent implements OnInit {
                 TempSeries.push({
                     name: zoneSeries[k].name,
                     type: 'bar',
-                    stack: '广告',
+                    stack: 'stack',
                     data: zoneSeries[k].data,
                     label: {
                         normal: {
                             show: true,
                             formatter: function (value) {
-                                return (value.data * 100).toFixed(1) + "%"
+                                if (value.data == 0) { return ""; }
+                                else {
+                                    return (value.data * 100).toFixed(1) + "%";
+                                }
                             }
                         }
                     }
@@ -206,7 +218,7 @@ export class StoreTrendComponent implements OnInit {
                         show: true,
                         formatter: function (value) {
                             
-                            return (value.data * zonesData[m].total[value.dataIndex]).toFixed(0);
+                            return (value.data * zonesData[m].total[value.dataIndex]).toFixed(0)+"GB";
                         },
                         textStyle: {
                             color: "#000"
@@ -224,11 +236,17 @@ export class StoreTrendComponent implements OnInit {
 
             let option = {
                 tooltip: {
-                    show: false,
+                    show: true
 
                 },
                 legend: {
-                    data: TempLegend
+                    data: TempLegend,
+                    formatter: function (name) {
+                        return echarts.format.truncateText(name.replace("主机规格:",""), 160, '14px Microsoft Yahei', '…');
+                    },
+                    tooltip: {
+                     show: true
+                    }
                 },
                 grid: {
                     left: '3%',
@@ -248,7 +266,7 @@ export class StoreTrendComponent implements OnInit {
                         axisLabel: {
                             formatter: function (value, index) {
 
-                                return value * 100 + "%";
+                                return (value * 100).toFixed(1) + "%";
                             }
                         }
                     }
