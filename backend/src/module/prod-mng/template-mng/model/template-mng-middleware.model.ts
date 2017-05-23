@@ -2,13 +2,15 @@ class MiddleWareModel {
   "bit": string;
   "bootStorageSize": number;
   "cpu": number;
-  "dbMiddlewareDiskTemplateModelList": Array<dbMiddlewareDiskTemplateModel>
+  "dbMiddlewareDiskTemplateModelList": Array<dbMiddlewareDiskTemplateModel>;
+  "diskInfoList":Array<dbMiddlewareDiskTemplateModel>;//编辑额外添加字段
   "deploymentMode": number;
   "id": string;
   "memory": number;
   "name": string;
   "os": string;
   "type": number;
+  "createTime":number;
   "version": string;
   "desc": string;
   "isDefault": 0;
@@ -31,7 +33,7 @@ class MiddleWareModel {
         minDiskSize: 100,
         mountPath: '/data',
         templateId: '',
-        useDisplay: '安装主目录'
+        useDisplay: '应用数据及日志'
       },
       // {
       //   usageType: 1,

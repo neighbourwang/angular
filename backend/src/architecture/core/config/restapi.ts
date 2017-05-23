@@ -1197,7 +1197,12 @@ export let RestApis: RestApiModel[] = [
         "method": "GET",
         "url": "adminui/authsec/services/PM//{id}"
     },
-    
+    {
+        "desc": "更新物理机服务",
+        "id": "physical-service-update.post",
+        "method": "POST",
+        "url": "adminui/authsec/services/type/PM"
+    },        
     //管理服务产品
     {
         "desc": "创建管理服务",
@@ -1257,10 +1262,16 @@ export let RestApis: RestApiModel[] = [
     //模板管理
     {
         "desc": "查询数据库模板",
-        "id": "prod-mng.template-mng.detail.search",
+        "id": "prod-mng.template-mng.database.search",
         "method": "POST",
         "url": "adminui/authsec/database/template/search/list/paging"
     },
+    {
+        "desc": "查询中间件模板",
+        "id": "prod-mng.template-mng.middleware.search",
+        "method": "POST",
+        "url": "adminui/authsec/middleware/template/search/paging"
+    },    
     {
         "desc": "获取数据库选项基础信息",
         "id": "template-mng-database.initInfo.get",

@@ -3,7 +3,7 @@ import { Router ,ActivatedRoute,Params } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 
-import { DatabaseModel, DatabaseOptions } from '../model/template-mng-database.model'
+import { DatabaseModel} from '../model/template-mng-database.model'
 import { TemplateListService } from '../service/template-mng-list.service';
 
 
@@ -128,7 +128,11 @@ export class TemplateMngListComponent implements OnInit {
     //去详情
     goDetail(tem) {
         console.log(tem);
-        this.router.navigate(['prod-mng/template-mng/template-database', { type: 'edit', id: tem.id }]);
+        if(tem.templateType=='database'){
+            this.router.navigate(['prod-mng/template-mng/template-database', { type: 'edit', id: tem.id }]);            
+        }else{
+            this.router.navigate(['prod-mng/template-mng/template-middleware', { type: 'edit', id: tem.id }]);            
+        }
     }
     pageInfo(page) {
         console.log(page);

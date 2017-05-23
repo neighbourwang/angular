@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 import { Validation, ValidationRegs } from '../../../../architecture';
 
-import { DatabaseModel, DatabaseOptions } from '../model/template-mng-database.model'
+import { DatabaseModel, TemplateOptions } from '../model/template-mng-database.model'
 import { DatabaseService } from '../service/template-mng-database.service'
 
 @Component({
@@ -32,7 +32,7 @@ export class DatabaseComponent implements OnInit {
     pagetitle: string;
     pageType: string;
     database: DatabaseModel = new DatabaseModel();
-    databaseOptionList: DatabaseOptions = new DatabaseOptions();
+    databaseOptionList: TemplateOptions = new TemplateOptions();
     storageTypeList = [
         {
             type: 'FileSystem',
@@ -48,7 +48,7 @@ export class DatabaseComponent implements OnInit {
     softwareTypeList: Array<any> = new Array<any>();
     ngOnInit() {
         this.database = new DatabaseModel();
-        this.databaseOptionList = new DatabaseOptions();
+        this.databaseOptionList = new TemplateOptions();
         console.log(this.database);
         console.log(this.databaseOptionList);
         this.route.params.forEach((params: Params) => {
