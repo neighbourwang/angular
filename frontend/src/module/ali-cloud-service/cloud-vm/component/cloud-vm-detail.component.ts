@@ -81,10 +81,12 @@ export class AliCloudVmDetailComponent implements OnInit {
                            '21','22','23','24','25','26','27','28','29','30',
                            '31','32','33','34','35','36','37','38','39','40',
                            '41','42','43','44','45','46','47','48','49','50',
-                           '51','52','53','54','55','56','57','58','59'];    
+                           '51','52','53','54','55','56','57','58','59']; 
 
-    startTime:string = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-    endTime:string = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+    today:Date = new Date();
+    startTime:string = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate();
+    endTime:string = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate();
 
     startHour: string = "00"; 
     startMin: string = "00";
@@ -362,15 +364,18 @@ export class AliCloudVmDetailComponent implements OnInit {
         let temp_time = new Array<any>();
         let max_value = 0;
         chart.SourceData.forEach((s)=>{
-            let date = "";
+            let date = new Date(new Date(s.TimeStamp).toLocaleString());
+            console.log(date, "TimeStamp");
+        let x = (date.getMonth()+1) + "/" + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes();
+            console.log(x, "x!");
+            temp_time.push(x);
 
             if (chart == this.cpuChart) {
                 if(max_value < s.CPU) {
                     max_value = s.CPU;
                 }
-                temp_value1.push(s.CPU);
-                date = new Date(s.TimeStamp).toLocaleString();
-                temp_time.push(new Date(date).getMonth() + "/" + new Date(date).getDate() + ' ' + new Date(date).getHours() + ":" + new Date(date).getMinutes());
+                temp_value1.push(s.CPU);                
+                //temp_time.push(date.getMonth() + "/" + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes());
             } else if(chart == this.netChart){
                 if(max_value < s.IntranetRX) {
                     max_value = s.IntranetRX;
@@ -380,9 +385,8 @@ export class AliCloudVmDetailComponent implements OnInit {
                 }
                 temp_value1.push(s.IntranetRX);
                 temp_value2.push(s.IntranetTX);
-                date = new Date(s.TimeStamp).toLocaleString();
                 //temp_time.push((new Date(s.TimeStamp)).toLocaleString().slice(-11, -6));
-                temp_time.push(new Date(date).getMonth() + "/" + new Date(date).getDate() + ' ' + new Date(date).getHours() + ":" + new Date(date).getMinutes());
+                //temp_time.push(date.getMonth() + "/" + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes());
             }
             
         })
@@ -419,7 +423,7 @@ export class AliCloudVmDetailComponent implements OnInit {
                                 display: true,
                                 ticks: {
                                     //maxRotation:0,
-                                    maxTicksLimit: 20
+                                    maxTicksLimit: 15
                                     /* 
                                     userCallback: function(dataLabel, index) {
                                         return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
@@ -486,7 +490,7 @@ export class AliCloudVmDetailComponent implements OnInit {
                                 display: true,
                                 ticks: {
                                     //maxRotation:0, 
-                                    maxTicksLimit: 20
+                                    maxTicksLimit: 15
                                     /*userCallback: function(dataLabel, index) {
                                         return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
                                     }*/
@@ -607,6 +611,11 @@ export class AliCloudVmDetailComponent implements OnInit {
 
         if(this.instance.Status!="Running") {
             this.showMsg("该云主机未运行");
+            return;
+        }
+
+        if(Math.ceil(Date.parse(this.endTime) - Date.parse(this.startTime))/(24*60*60*1000) >=15 ) {
+            this.showMsg("时间范围必须在15天以内");
             return;
         }
         
