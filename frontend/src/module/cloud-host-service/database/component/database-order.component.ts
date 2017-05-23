@@ -67,7 +67,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		public dbv: Validation,
 		public dux: DispatchEvent,
 		public service: cloudHostServiceOrder,
-		private dbservice: DatabaseServiceOrder
+		public dbservice: DatabaseServiceOrder
 	) {
 		super(layoutService, router, v, dux, service)
 	
