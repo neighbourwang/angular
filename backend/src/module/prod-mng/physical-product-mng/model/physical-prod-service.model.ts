@@ -42,6 +42,7 @@ class FlatResourcePool {
     "dataCenter": string;
     "description": string;
     selected: boolean;
+    disabled:boolean;    
 }
 class FlatUnitObj {
     "id": string;

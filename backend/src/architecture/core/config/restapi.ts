@@ -1202,7 +1202,13 @@ export let RestApis: RestApiModel[] = [
         "id": "physical-service-update.post",
         "method": "POST",
         "url": "adminui/authsec/services/type/PM"
-    },        
+    }, 
+    {
+        "desc": "获取物理机产品详情",
+        "id": "physical-product-detail.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/product/{id}"
+    },
     //管理服务产品
     {
         "desc": "创建管理服务",

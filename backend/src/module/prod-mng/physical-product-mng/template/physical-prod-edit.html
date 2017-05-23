@@ -16,100 +16,71 @@
 			<div class="col-md-12">
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PROD_NAME' | translate}}：</div>						
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PROD_NAME'|translate}}：</div>
+						<!--产品名称-->
 						<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.productName}">
-						<input type="text" [(ngModel)]="tempProductName" [disabled]="!editBasicInfo" (ngModelChange)="checkForm('productName')" name="productName"
-						 placeholder="{{'PROD_MNG.PROD_NAME' | translate}}" class="form-control">
-						<span *ngIf="v.result.productName" class="glyphicon glyphicon-remove form-control-feedback"></span>
-						<div *ngIf="v.result.productName" class="alert alert-danger" role="alert">{{v.result.productName}}</div>
-					</div>
+							<input type="text" [(ngModel)]="tempProductName" [disabled]="!editBasicInfo" (ngModelChange)="checkForm('productName')" name="productName"
+							 placeholder="{{'PROD_MNG.PROD_NAME' | translate}}" class="form-control">
+							<span *ngIf="v.result.productName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+							<div *ngIf="v.result.productName" class="alert alert-danger" role="alert">{{v.result.productName}}</div>
+						</div>
 					</div>
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT' | translate}}：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT'|translate}}：</div>
 						<!--产品目录-->
-						<div class="col-sm-4 form-control-title font-gray no-padding" style="text-align: left">
-							{{prodDir.serviceName}}
+						<div class="col-sm-4 no-padding">
+							<input type="text" class="form-control" disabled [(ngModel)]=" productService.physicalService.serviceName">
 						</div>
 					</div>
 				</div>
-				<div *ngIf="productType == '0'">
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray no-padding">
-								<div class="font-gray">CPU</div>
-								<div class="last-line-child font-gray">{{prodDir?.specification?.vcpu||0}}</div>
-								<div class="last-line-child font-gray">{{'COMMON.CORE' | translate}}（vCPU）</div>
-							</div>
-						</div>
-					</div>
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray no-padding">
-								<div class="font-gray">{{'COMMON.RAM' | translate}}</div>
-								<div class="last-line-child font-gray">{{prodDir?.specification?.mem||0}}</div>
-								<div class="last-line-child font-gray">{{'COMMON.MB' | translate}}（MB）</div>
-							</div>
-						</div>
-					</div>
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray no-padding">
-								<div class="font-gray">{{'PROD_MNG.ROOT_DISK_SIZE' | translate}}</div>
-								<!--启动盘大小-->
-
-								<div class="last-line-child font-gray">{{prodDir?.specification?.startupDisk||0}}</div>
-								<div class="last-line-child font-gray">GB</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div *ngIf="productType == '1'">
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray no-padding">
-								<div class="font-gray">{{'PROD_MNG.INIT_SIZE' | translate}}</div>
-								<!--初始大小-->
-
-								<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.initialSize||0}}</div>
-								<div class="last-line-child font-gray">GB</div>
-							</div>
-						</div>
-					</div>
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray no-padding">
-								<div class="font-gray">{{'COMMON.STEP' | translate}}</div>
-								<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.stepSize||0}}</div>
-								<div class="last-line-child font-gray">GB</div>
-							</div>
-						</div>
-					</div>
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray no-padding">
-								<div class="font-gray">{{'COMMON.MAX' | translate}}</div>
-								<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.maxSize||0}}</div>
-								<div class="last-line-child font-gray">GB</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title">标准规格：</div>
+						<div class="col-sm-4 no-padding">
+							<div style="border:1px solid #cfd8e7">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												{{"部件名称"}}
+											</th>
+											<th>{{'规格' | translate}}</th>
+											<th>{{'规格值' | translate}}</th>
+											<th>{{'数量' | translate}}</th>
+											<th>{{'总容量' | translate}}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let unit of productService.physicalService.phyMachinePartsFlavors; let idx = index;">
+											<td>
+												{{unit.partsName}}
+											</td>
+											<td>{{unit.specName}}</td>
+											<td>
+												{{unit.partsFlavorValue}}
+												<span *ngIf="unit.partsName=='磁盘'||unit.partsName=='内存'">GB</span>
+											</td>
+											<td>{{unit.partFlavorNum}}</td>
+											<td>
+												<span *ngIf="unit.capacity!=0">{{unit.capacity}}GB</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>						
+						<div class="col-sm-4 form-control-title">描述：</div>
 						<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
-						<textarea [disabled]="!editBasicInfo"  type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
-						 rows="3" [(ngModel)]="tempProductDesc" name="description">
+							<textarea [disabled]="!editBasicInfo" type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
+							 rows="3" [(ngModel)]="tempProductDesc" name="description">
                             </textarea>
-					</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -202,7 +173,7 @@
 							<!--基础周期价格-->
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
 								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempBasicCyclePrice">
-							</div>							
+							</div>
 						</div>
 					</div>
 					<div class="row row-line-height">
@@ -210,7 +181,7 @@
 							<div class="col-sm-4 form-control-title">{{'PROD_MNG.INCREMENT_CYCLE_PRICE' | translate}}：</div>
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
 								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempExtendCyclePrice">
-							</div>							
+							</div>
 						</div>
 					</div>
 					<div class="row row-line-height">
@@ -234,7 +205,7 @@
 							</div>
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
 								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempOneTimePrice">
-							</div>							
+							</div>
 						</div>
 					</div>
 					<div class="row row-line-height">
@@ -244,7 +215,7 @@
 							</div>
 							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
 								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempUnitPrice">
-							</div>							
+							</div>
 						</div>
 					</div>
 				</div>
@@ -269,6 +240,46 @@
 	</div>
 </div>
 <div *ngIf="Tabels[2].active">
+	<!--<div class="row" style="padding-top: 30px;">
+		<div class="col-md-12">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'选择资源池' | translate}}：</div>
+					<div class="col-sm-6 row-inline-radio">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+		</div>
+		<div class="col-sm-6">
+			<div style="border:1px solid #cfd8e7">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="check-box-col">
+								<input class="fox-cloud-checkbox" type="checkbox" [checked]="allSelected" (click)="selectAllResourcePool()" />{{'COMMON.SELECT_ALL'|
+								translate}}</th>
+							<th>{{'资源池' | translate}}</th>
+							<th>{{'描述' | translate}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let resourcePool of productService.physicalService.phyMachineAreaPoolsProfile; let idx = index;">
+							<td>
+								<input class="fox-cloud-checkbox" type="checkbox" [checked]="resourcePool.selected" [(ngModel)]="resourcePool.selected" (click)="selectResourcePool(idx)"
+								/>
+							</td>
+							<td class="no-nowrap">{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>
+							<td class="no-nowrap">{{resourcePool.description}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>-->
 	<div class="text-center mgt20">
 		<button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancelAddPlat();">
         <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
@@ -296,7 +307,7 @@
 				</div>
 				<div class="row row-line-height entdown">
 					<div class="col-sm-5 entBody">
-						<div style="position: relative;height:40px;" *ngFor="let ent1 of entList; let i=index">
+						<div style="position: relative;height:40px;" *ngFor="let ent1 of productService.enterpriseListForSelect; let i=index">
 							<span class="span2" (click)="selectEnterprise(ent1,i)" style="width:80%">{{ent1.name}}</span>
 							<span class="icon-tick" style="margin-top:5px;left:80%" *ngIf="ent1.selected"></span>
 							<!--<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" ">-->
@@ -334,7 +345,7 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
 				<div class="table-container">
-					<table class="table table-hover" *ngIf="productType == '0'">
+					<table class="table table-hover" >
 						<thead>
 							<tr>
 								<th>创建时间</th>
@@ -377,51 +388,7 @@
 								<!--<td>{{price.unitPrice}}</td>-->
 								<tr>
 						</tbody>
-					</table>
-					<table class="table table-hover" *ngIf="productType == '1'">
-						<thead>
-							<tr>
-								<th>创建时间</th>
-								<!--产品名称-->
-								<!--<th>{{'PROD_MNG.PRODUCT_CAT' | translate}}</th>-->
-								<!--产品目录-->
-								<th>产品目录</th>
-								<!--产品规格-->
-								<!--<th>{{'PROD_MNG.PRODUCT_SPEC' | translate}}</th>-->
-								<th>{{'COMMON.COUNT_CYCLE' | translate}}</th>
-								<!--计费周期-->
-								<!--<th>产品基础周期价格</th>-->
-								<!--<th>产品增量周期价格</th>-->
-
-								<th>{{'PROD_MNG.ONE_TIME_PRICE' | translate}}</th>
-								<!--一次性价格-->
-								<th>单位价格</th>
-								<!--产品名称-->
-							</tr>
-						</thead>
-						<tbody>
-							<tr *ngFor="let price of historyPriceList.productHistoryBillingProfileList; let idx = index;">
-								<td>{{price.createDate}}</td>
-								<td>{{historyPriceList.serviceName}}</td>
-								<!--<td>{{historyPriceList.productHistoryBillingProfileDiskItem}}</td>-->
-								<!--<td>{{historyPriceList.}}</td>-->
-								<td>
-									<span [ngSwitch]="price.billingCycle"> 
-										<template [ngSwitchCase]="0">{{'COMMON.BY_HOUR' | translate}}</template>
-										<template [ngSwitchCase]="1">{{'COMMON.BY_DAY' | translate}}</template>
-										<template [ngSwitchCase]="2">{{'COMMON.BY_WEEK' | translate}}</template>
-										<template [ngSwitchCase]="3">{{'COMMON.BY_MONTH1' | translate}}</template>							
-										<template [ngSwitchCase]="5">{{'COMMON.BY_YEAR1' | translate}}</template>							
-										<template ngSwitchDefault>Unknown</template>							
-									</span>
-								</td>
-								<!--<td>{{price.basicCyclePrice}}</td>-->
-								<!--<td>{{price.extendCyclePrice}}</td>-->
-								<td>{{price.oneTimePrice}}</td>
-								<td>{{price.unitPrice}}</td>
-								<tr>
-						</tbody>
-					</table>
+					</table>					
 				</div>
 			</div>
 			<div class="col-md-2"></div>

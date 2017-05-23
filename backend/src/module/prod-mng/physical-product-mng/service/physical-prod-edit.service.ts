@@ -15,7 +15,12 @@ export class PhysicalProductEditService {
         private restApiCfg: RestApiCfg,
         private restApi: RestApi,
         private layoutService:LayoutService
-    ) { }    
+    ) { } 
+    //获取物理机产品详情
+    getPhysicalProd(id:string){
+       let api = this.restApiCfg.getRestApi("physical-product-detail.get");
+        return this.restApi.request(api.method, api.url,[{key:'id',value:id}], undefined); 
+    }   
     //更新产品价格
     changProdPrice(data:any){
         let api = this.restApiCfg.getRestApi("ent-mng.prod-mng/price-edit");

@@ -70,7 +70,7 @@
 					<!--<td *ngIf="item.templateType!='database'">{{item.deploymentMode | dict:this.service.middlewareDeployModeDic | async}}</td>					-->
 					<td>{{item.relatedProdNum}}</td>
 					<td>
-						<button class="fox-cloud-button-md fox-cloud-button-white" (click)="deleteTemplate(item)">{{'COMMON.DELETE' | translate}}</button>
+						<button *ngIf="item.relatedProdNum==0" class="fox-cloud-button-md fox-cloud-button-white" (click)="deleteTemplate(item)">{{'COMMON.DELETE' | translate}}</button>
 					</td>
 				</tr>
 			</tbody>

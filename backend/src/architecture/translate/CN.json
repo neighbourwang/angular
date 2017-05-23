@@ -1592,6 +1592,7 @@
         "PUB_ENTERPRISE": "企业信息",
         "PLATFORM_INFORMATION": "平台信息",
         "ENTERPRISE_INFO": "企业信息",
+        "RESOURCEPOOL_INFO":"资源池信息",
         "HISTORYCAL_PRICE": "历史价格",
         "PLEASE_SELECT_VALUATION_CYCLE": "请选择计价周期",
         "PLEASE_SELECT_VALUATION_TYPE": "请选择计价模式",
