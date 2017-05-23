@@ -298,4 +298,9 @@ export class CheckMngHascheckComponent implements OnInit{
 		let itemLoader = new ItemLoader<ApproveItem>(false, "审批结果加载出错", "check-center.approve-info.get", this._restApiCfg, this._restApi);
 		orderItem.checkResult = itemLoader.Go(null, [{key:"orderId", value:orderItem.orderId}]);
 	}
+
+	changePage(pageNum: number) {
+		this.search(pageNum);
+	}
+
 }
