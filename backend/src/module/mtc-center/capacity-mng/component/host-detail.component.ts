@@ -3,8 +3,8 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { LayoutService, NoticeComponent, ValidationService, ConfirmComponent, PopupComponent } from "../../../../architecture";
 import { chartColors } from "../model/color.mock";
-import {HostInfo} from'../model/host-info.model';
-import {HostGraphModel, GraphItem,LineChart} from '../model/host-graph.model';
+import { HostInfo } from '../model/host-info.model';
+import { HostGraphModel, GraphItem, LineChart } from '../model/host-graph.model';
 //service
 import { HostDetailService } from "../service/host-detail.service";
 
@@ -20,7 +20,7 @@ export class HostDetailComponent implements OnInit {
         private service: HostDetailService,
         private router: Router,
         private layoutService: LayoutService,
-         private activatedRouter: ActivatedRoute,
+        private activatedRouter: ActivatedRoute,
         private validationService: ValidationService
     ) {
     }
@@ -31,7 +31,7 @@ export class HostDetailComponent implements OnInit {
     noticeTitle = "";
     noticeMsg = "";
     HostId: string;
-    Period="1";
+    Period = "1";
     hostInfo: HostInfo = new HostInfo();
     hostGraph: HostGraphModel = new HostGraphModel();
 
@@ -39,29 +39,29 @@ export class HostDetailComponent implements OnInit {
     memList: Array<GraphItem>;
     cpuChart = new LineChart();
     memChart = new LineChart();
-    
+
     ngOnInit() {
         this.activatedRouter.params.forEach((params: Params) => {
             if (params["host_Id"] != null) {
-                this.HostId = params["host_Id"];                
-                
+                this.HostId = params["host_Id"];
+
             }
-            
+
         });
         this.getHostDetail();
-    
+
         this.getHostGraph();
     }
 
     getHostDetail() {
-         this.layoutService.show();
-        this.service.getHostDetail(this.HostId,this.Period)
+        this.layoutService.show();
+        this.service.getHostDetail(this.HostId, this.Period)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && "100" == response["resultCode"]) {
                     this.hostInfo = response["resultContent"];
-                   
+
                 } else {
                     this.showAlert("COMMON.OPERATION_ERROR");
                 }
@@ -73,17 +73,17 @@ export class HostDetailComponent implements OnInit {
     //获取宿主机折线图数据
     getHostGraph() {
         this.layoutService.show();
-        this.service.getHostGraph(this.HostId,this.Period)
+        this.service.getHostGraph(this.HostId, this.Period)
             .then(
             response => {
                 this.layoutService.hide();
                 if (response && "100" == response["resultCode"]) {
                     this.cpuList = response["resultContent"].cpu;
                     this.memList = response["resultContent"].memory;
-                
+
                     this.cpuChart.SourceData = this.cpuList;
                     this.memChart.SourceData = this.memList;
-                    
+
                     this.getGraphData(this.cpuChart);
                     this.getGraphData(this.memChart);
                     console.log("cpu_value", this.cpuChart.DataSets);
@@ -103,14 +103,14 @@ export class HostDetailComponent implements OnInit {
         //获取_data
         let temp_value = new Array<number>();
         let temp_time = new Array<any>();
-        chart.SourceData.forEach((s)=>{
+        chart.SourceData.forEach((s) => {
             temp_value.push(s.value);
             temp_time.push(s.time);
         })
         chart._data = temp_value;
         chart.Labels = temp_time;
-        
-        let _label="";
+
+        let _label = "";
         if (chart == this.cpuChart) {
             _label = "CPU使用率";
         } else {
@@ -120,12 +120,12 @@ export class HostDetailComponent implements OnInit {
         chart.DataSets = [{
 
             data: chart._data,
-            label:_label,
+            label: _label,
             borderWidth: 2,
             pointBorderWidth: 0,
             pointRadius: 1,
             pointHoverRadius: 3,
-            fill:false
+            fill: false
         }
         ];
 
@@ -135,9 +135,10 @@ export class HostDetailComponent implements OnInit {
                             xAxes: [{
                                 display: true,
                                 ticks: {
-                                    userCallback: function(dataLabel, index) {
-                                        return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
-                                    }
+                                    maxTicksLimit:20
+                                    //userCallback: function (dataLabel, index) {
+                                    //    return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
+                                    //}
                                 }
                             }],
                             yAxes: [{
@@ -154,7 +155,7 @@ export class HostDetailComponent implements OnInit {
         chart.ChartType= "line";
         
         chart.Colors = [
-            { 
+            {
                 backgroundColor: chartColors.lineBg,
                 borderColor: chartColors.lineBorder,
                 pointBackgroundColor: chartColors.linePointBg,
@@ -163,17 +164,17 @@ export class HostDetailComponent implements OnInit {
                 pointHoverBorderColor: chartColors.linePointHoverBorder
             }
         ];
-     
+
     }
-    
+
 
     refresh() {
         this.getHostDetail();
         this.getHostGraph();
-        
+
     }
 
-    BacktoComputeRes(){
+    BacktoComputeRes() {
         this.router.navigate([`mtc-center/capacity-mng/compute-res`]);
     }
 
@@ -183,7 +184,7 @@ export class HostDetailComponent implements OnInit {
         this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
     }
 
-     showAlert(msg: string): void {
+    showAlert(msg: string): void {
         this.layoutService.hide();
 
         this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";

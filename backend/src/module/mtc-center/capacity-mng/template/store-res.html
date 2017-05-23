@@ -16,53 +16,54 @@
     <div class="table-container mgt10">
         <table class="table table-hover">
             <thead>
-                <tr>
-                    <th>{{'CAPACITY_MNG.NUMBER'|translate}}</th><!--编号-->
-                    <th>{{'CAPACITY_MNG.NAME'|translate}}</th><!--名称-->
-                    <th>{{'CAPACITY_MNG.DISPLAY_NAME'|translate}}</th><!--显示名称-->
-                    <th>{{'CAPACITY_MNG.STORAGE_TYPE'|translate}}</th><!--存储类型-->
-                    <th>{{'CAPACITY_MNG.TOTAL_CAPACITY'|translate}}</th><!--总容量（GB）-->
-                    <th>{{'CAPACITY_MNG.COPIES'|translate}}</th><!--副本数-->
-                    <th>{{'CAPACITY_MNG.QUOTA'|translate}}</th><!--配额%-->
-                    <th>{{'CAPACITY_MNG.DISTRIBUTION_RATE'|translate}}</th><!--分配率【云平台分配】-->
-                    <th>{{'CAPACITY_MNG.ACTUAL_UTILIZATION'|translate}}</th><!--实际利用率-->
-                    <th>{{'COMMON.STATUS'|translate}}</th>  <!--状态-->                  
-                </tr>
+            <tr>
+                <th>{{'CAPACITY_MNG.NUMBER'|translate}}</th><!--编号-->
+                <th>{{'CAPACITY_MNG.NAME'|translate}}</th><!--名称-->
+                <th>{{'CAPACITY_MNG.DISPLAY_NAME'|translate}}</th><!--显示名称-->
+                <th>{{'CAPACITY_MNG.STORAGE_TYPE'|translate}}</th><!--存储类型-->
+                <th>{{'CAPACITY_MNG.TOTAL_CAPACITY'|translate}}</th><!--总容量（GB）-->
+                <th>{{'CAPACITY_MNG.COPIES'|translate}}</th><!--副本数-->
+                <th>{{'CAPACITY_MNG.QUOTA'|translate}}</th><!--配额%-->
+                <th>{{'CAPACITY_MNG.DISTRIBUTION_RATE'|translate}}</th><!--分配率【云平台分配】-->
+                <th>{{'CAPACITY_MNG.ACTUAL_UTILIZATION'|translate}}</th><!--实际利用率-->
+                <th>{{'COMMON.STATUS'|translate}}</th>  <!--状态-->                  
+            </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let storage of storageList">
-                    <td>{{storage.order}}</td>
-                    <td><a href="javascript:void(0);" (click)="gotoStoreDetail(storage)">{{storage.storageName}}</a></td>
-                    <td>{{storage.displayName}}</td>
-                    <td>{{storage.storageType}}</td>
-                    <td>{{storage.capacity}}</td>
-                    <td>{{storage.copy}}</td>
-                    <td>{{storage.qurota}}</td>
-                    <td class="table-progress" > 
-                        <div>                  
+            <tr *ngFor="let storage of storageList">
+                <td>{{storage.order}}</td>
+                <td><a href="javascript:void(0);" (click)="gotoStoreDetail(storage)">{{storage.storageName}}</a></td>
+                <td>{{storage.displayName}}</td>
+                <td>{{storage.storageType}}</td>
+                <td>{{storage.capacity}}</td>
+                <td>{{storage.copy}}</td>
+                <td>{{storage.qurota}}</td>
+                <td class="table-progress" > 
+                    <div>                  
                         <div class="progress" >
                             <div class="progress-bar progress-bar-info"
                                  [style.width.%]="storage.rate">
                             </div>
                         </div>
                         <span class="progress-value">{{storage.rate}}%</span>
-                        </div>                     
-                    </td>
-                    <td class="table-progress" >   
-                       <div>                  
+                    </div>                     
+                </td>
+                <td class="table-progress" >   
+                    <div>                  
                         <div class="progress" >
                             <div class="progress-bar progress-bar-info"
                                  [style.width.%]="storage.usage">
                             </div>
                         </div>
                         <span class="progress-value">{{storage.usage}}%</span>
-                        </div>                            
-                     </td>
-                    <td style="width:60px;" [ngClass]="storage.status==1?'font-green':'font-orange'">{{storage.status| dict:this.service.statusDic | async}}</td>
-                </tr>
+                    </div>                            
+                </td>
+                <td style="width:60px;" [ngClass]="storage.status==1?'font-green':'font-orange'">{{storage.status| dict:this.service.statusDic | async}}</td>
+            </tr>
                 
             </tbody>
         </table>
     </div>
     
 </div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'COMMON.CONFIRM' | translate}}"></fc-notice>

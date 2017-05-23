@@ -88,8 +88,8 @@ export class AliCloudVmDetailComponent implements OnInit {
 
     startHour: string = "00";
     startMin: string = "00";
-    endHour: string = "23";
-    endMin: string = "59";
+    endHour: string = "01";
+    endMin: string = "00";
 
     xchart:string = "cpu";
 
@@ -400,10 +400,12 @@ export class AliCloudVmDetailComponent implements OnInit {
                             xAxes: [{
                                 display: true,
                                 ticks: {
-                                    //maxRotation:0, 
+                                    //maxRotation:0,
+                                    maxTicksLimit: 10
+                                    /* 
                                     userCallback: function(dataLabel, index) {
                                         return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
-                                    }
+                                    }*/
                                 }
                             }],
                             yAxes: [{
@@ -466,9 +468,10 @@ export class AliCloudVmDetailComponent implements OnInit {
                                 display: true,
                                 ticks: {
                                     //maxRotation:0, 
-                                    userCallback: function(dataLabel, index) {
+                                    maxTicksLimit: 10
+                                    /*userCallback: function(dataLabel, index) {
                                         return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
-                                    }
+                                    }*/
                                 }
                             }],
                             yAxes: [{

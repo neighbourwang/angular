@@ -28,6 +28,8 @@ export class PhyImgListSyncComponent implements OnInit{
     sourceName : string;
     phyImgList : Array<PhyImg>;
 
+    imgTypeChangedList : Array<number> = new Array<number>();
+
     ngOnInit(){
         this.router2.params.forEach((params: Params) => {
             this.sourceId = params['pmImagePoolId'];
@@ -51,7 +53,18 @@ export class PhyImgListSyncComponent implements OnInit{
         )
         .catch((e)=>this.onRejected(e));
     }
-
+    doSave(id:string, imgList:Array<PhyImg>){
+        this.service.saveSyncInfo(id, imgList).then(
+                response=>{
+                    if(response && 100 == response["resultCode"]){
+                        this.showAlert("保存成功");
+                        this.getSyncInfoList();
+                    }else{
+                        alert("Res.sync error");
+                    }
+                }
+            ).catch((e)=>this.onRejected(e));
+    }
     saveSyncInfo(){
         //选中的镜像
         let selectedList : Array<PhyImg> = new Array<PhyImg>();
@@ -62,19 +75,51 @@ export class PhyImgListSyncComponent implements OnInit{
         });
         if(selectedList.length>0){
             this.layoutService.show();
-            this.service.saveSyncInfo(this.sourceId, selectedList).then(
-                response=>{
-                    if(response && 100 == response["resultCode"]){
-                        this.showAlert("保存成功");
-                        this.getSyncInfoList();
+            this.imgTypeChangedList.forEach(i=>{
+                if(this.phyImgList[i].selected){
+                    if(this.phyImgList[i].imageTypeId==1){
+                        //公有改为私有
+                        console.log("公有改为私有镜像，需要手动重新分配企业");
+                        //this.showAlert("公有改为私有镜像，需要重新分配企业");
+                        this.doSave(this.phyImgList[i].id, selectedList);
+
+                    }else if(this.phyImgList[i].imageTypeId==0){
+                        //私有改为公有，先把所属企业设为空，再同步
+                        let list = "";
+                        this.service.commitAllo(this.phyImgList[i].id, list).then(
+                            response=>{
+                                if(response && 100==response["resultCode"]){
+                                    console.log("公有改为私有-完成");
+                                    this.doSave(this.phyImgList[i].id, selectedList);
+                                }else{
+                                    alert("Res.sync error");
+                                }
+                            }
+                        ).catch((e)=>this.onRejected(e));
                     }else{
-                        alert("Res.sync error");
+
                     }
                 }
-            ).catch((e)=>this.onRejected(e));
+            })
+
         }else{
             this.showAlert("请选择镜像");
         }
+    }
+
+//私有镜像改为公有镜像时
+    changeImageType(imgId:string){
+        let list = "";
+        this.service.commitAllo(imgId, list).then(
+            response=>{
+                this.layoutService.hide();
+                if(response && 100==response["resultCode"]){
+                    console.log("私有镜像->已改为公有");
+                }else{
+                    alert("Res.sync error");
+                }
+            }
+        ).catch((e)=>this.onRejected(e));
     }
 
     backToList(){
@@ -93,4 +138,18 @@ export class PhyImgListSyncComponent implements OnInit{
         this.noticeMsg = msg;
         this.notice.open();
     }
+
+    //编辑框中是否改了“私有镜像”->“公有镜像”,每次改变选择都会调用此方法
+    ischangedType:boolean;
+    ischangeType(index:number){
+        if(this.imgTypeChangedList.indexOf(index)==-1){
+            this.imgTypeChangedList.push(index);
+            this.ischangedType = true;
+        } else{
+            let t = this.imgTypeChangedList.indexOf(index);
+            this.imgTypeChangedList.splice(t,1);
+            this.ischangedType =  false;
+        }
+    }
+    
 }
