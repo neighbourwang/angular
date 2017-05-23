@@ -213,7 +213,7 @@ export class AssignMngDetailComponent implements OnInit {
     //获取Hyper列表
     getHyperList() {
         this.layoutService.show();
-        this.service.getHyperList(this.queryOpt)  //post 待完善
+        this.service.getHyperList(this.queryOpt)  
             .then(
             response => {
                 this.layoutService.hide();
@@ -277,7 +277,7 @@ export class AssignMngDetailComponent implements OnInit {
             //.catch((e) => this.onRejected(e));
     }
     exportAll() {
-        this.exportAllData.open("导出所有数据");
+        this.exportAllData.open("ASSIGN_MNG.EXPORT_ALL_DATA");//导出所有数据
     }
 
     gotoAssignDetail(HyperId: string) {
@@ -299,16 +299,16 @@ export class AssignMngDetailComponent implements OnInit {
    
     acceptExport() {
         if (!this.flag) {
-            this.showAlert("请选择！");
+            this.showAlert("ASSIGN_MNG.PLEASE_CHOOSE");//请选择！
             return;
         }
         if (this.flag == 2) {
             if ((!this.startDate) || (!this.endDate)) {
-                this.showAlert("请选择时间范围！");
+                this.showAlert("ASSIGN_MNG.PLEASE_CHOOSE_PERIOD");//请选择时间范围！
                 return;
             }
             if (this.startDate >= this.endDate) {
-                this.showAlert("开始日期必须小于结束日期！");
+                this.showAlert("ASSIGN_MNG.START_DATE_MUST_BE_LESS_THAN_END_DATE");//开始日期必须小于结束日期！
                 return;
             }
         }
@@ -456,13 +456,13 @@ export class AssignMngDetailComponent implements OnInit {
    onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+        this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 
     showAlert(msg: string): void {
     this.layoutService.hide();
 
-    this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
+    this.noticeTitle = "COMMON.PROMPT";
     this.noticeMsg = msg;
     this.notice.open();
    }
