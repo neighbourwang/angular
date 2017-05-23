@@ -53,6 +53,7 @@ export class MngServiceListComponent implements OnInit{
     enterpriseList:Array<Enterprise>;
     enterpriseId= "";
     serviceId= "";
+    serviceName= "";
     serviceObjectCode= "";
     searchTypeCode: string;
     keyWords= "";
@@ -87,7 +88,7 @@ export class MngServiceListComponent implements OnInit{
         console.log("searchTypeCode",this.searchTypeCode);
         this.pageIndex= pageIndex || this.pageIndex;
         this.layoutService.show();
-        this.service.getData(this.pageIndex, this.pageSize, this.serviceStatus, this.enterpriseId, this.serviceName, this.instanceName, this.instanceNo )
+        this.service.getData(this.pageIndex, this.pageSize, this.serviceStatus, this.enterpriseId, this.serviceName, this.instanceName, this.instanceNo, this.searchTypeCode )
             .then(
                 response => {
                     this.layoutService.hide();
