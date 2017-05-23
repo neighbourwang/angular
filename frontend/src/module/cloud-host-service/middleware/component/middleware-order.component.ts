@@ -109,7 +109,7 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 		this.middlewareValue.DEPLOYMODE.attrValue = this.database.deploymentMode;
 		this.middlewareValue.TIMELINE = this.values.TIMELINE
 		this.middlewareValue.TIMELINEUNIT = this.values.TIMELINEUNIT
-		this.middlewareValue.MIDDLEWARETYPE.attrValue = this.mwInit.middleware.value
+		this.middlewareValue.MIDDLEWARETYPE.attrValue = this.mwInit.middleware.label
 		this.middlewareValue.MIDDLEWAREVERSION.attrValue = this.fetchMWIdsPost.version
 
 		let payloadList = this.sendModuleToPay(this.middlewareValue);
