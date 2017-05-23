@@ -491,7 +491,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "根据subinstancesId获取管理服务详情",
         "method": "GET",
         "id": "op-center.order-search.subinstance.get",
-        "url": "marketplace/authsec/subinstance/supervise/subid/{subId}"
+        "url": "authsec/subinstance/supervise/subid/{subId}"
     },
 
     //订单查询
