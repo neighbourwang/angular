@@ -111,6 +111,7 @@ export class CheckMngListComponent implements OnInit{
 					obj.platformStr = orderItem.platformName;//区域
 					obj.zoneStr = orderItem.zoneName;// 可用区
 					obj.specList = orderItem.specList;
+
 					//费用
 					if(orderItem.billingInfo){
 						obj.billingModeNum =orderItem.billingInfo ? orderItem.billingInfo.billingMode: null; //计费模式
