@@ -121,7 +121,10 @@ export class ManagerServeServiceCreComponent implements OnInit {
     onCreateService() {
         console.log(this.managerServeService);
         let message = this.checkForm();
-        if (message) return;
+        if (message) {
+            this.notice.open('操作错误', message);
+            return;
+        }
         if (this.managerServeService.serviceObjectCode == '2') {
             this.managerServeService.pmPoolList=[];
             this.managerServeService.pmPoolList = this.resourcePooList.filter(ele => {
