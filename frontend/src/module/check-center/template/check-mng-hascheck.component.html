@@ -120,7 +120,7 @@
 								<machine-view  [values]="item" *ngIf="item.serviceTypeIdStr==4"></machine-view>
 								<vm-view [values]="item" *ngIf="item.serviceTypeIdStr==0"></vm-view><!-- 显示云主机 -->
 						 		<disk-view [values]="item" *ngIf="item.serviceTypeIdStr==1"></disk-view> <!--显示云硬盘--> 
-								<sql-view [values]="item" *ngIf="item.serviceType==3" ></sql-view>
+								<sql-view [values]="item" *ngIf="item.serviceTypeIdStr==3" ></sql-view>
 							</popover-content>
 						</td>
 						<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
@@ -132,9 +132,9 @@
 						<td>{{item.departmentStr}}</td>
 						<td>{{item.entStr}}</td>
 						<td>{{'COMMON.BILLING_MODE' | translate}} : {{item.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}<br>
-						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}} : {{item.billingDurationStr}}<br>
-						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}} : <span class="font-red">{{item.oneTimePriceNum}}</span><br>
-						 	{{'CHECK_CENTER.COST' | translate}} : <span class="font-red">{{item.priceNum}}</span></td>
+						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}} : {{item.billingDurationStr}}{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}<br>
+						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}} : <span class="font-red">￥{{item.oneTimePriceNum}}</span><br>
+						 	{{'CHECK_CENTER.COST' | translate}} : <span class="font-red">￥{{item.priceNum}}/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</span></td>
 						<td>{{item.createTimeStr}}</td>
 						<td>
 							<ul>

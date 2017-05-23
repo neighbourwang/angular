@@ -88,7 +88,7 @@
             <ul *ngIf="menu2open==true">
 
                 <li>CPU：
-                    <span>{{instance.Cpu || ''}}</span>
+                    <span>{{instance.Cpu || ''}} 核</span>
                 </li>
 
                 <li>内存：
@@ -100,7 +100,7 @@
                 </li>
 
                 <li>操作系统：
-                    <span>{{instance.OSType || ''}}</span>
+                    <span>{{instance.OSName || ''}}</span>
                 </li>
 
                 <li>弹性公网IP：
