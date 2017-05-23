@@ -83,7 +83,10 @@ export class ManagerServeProdCreStep1Component implements OnInit {
 
     next() {
         let message = this.checkForm();
-        if (message) return;
+        if (message) {
+            this.notice.open('操作错误', message);
+            return;
+        }
         this.route.navigate(["prod-mng/manager-serve/manager-serve-product-cre-step2"]);
     }
     //取消

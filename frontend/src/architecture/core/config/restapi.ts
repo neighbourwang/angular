@@ -259,6 +259,18 @@ export let RestApis: RestApiModel[] = [
         "id": "database.template.search",
         "url": "marketplace/authsec/database/template/search"
     },
+    {
+        "desc": "获取MD预加载数据",
+        "method": "GET",
+        "id": "middleware.template.init",
+        "url": "marketplace/authsec/middleware/template/search/condition/init"
+    },
+    {
+        "desc": "查询中间件模板",
+        "method": "POST",
+        "id": "middleware.template.search",
+        "url": "marketplace/authsec/middleware/template/search/dynamic"
+    },
     //物理机部分,
     {
         "desc": "获取区域列表",
@@ -491,7 +503,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "根据subinstancesId获取管理服务详情",
         "method": "GET",
         "id": "op-center.order-search.subinstance.get",
-        "url": "marketplace/authsec/subinstance/supervise/subid/{subId}"
+        "url": "authsec/subinstance/supervise/subid/{subId}"
     },
 
     //订单查询

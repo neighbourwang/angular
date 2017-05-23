@@ -50,10 +50,16 @@ export class MenuService {
 							"routing": "image-mng/image-mng"
 						},
 						{
-							"label": "数据库实例",
+							"label": "数据库订购",
 							"isOpen": true,
 							"isShow": true,
-							"routing": "cloud-host-service/database-list"
+							"routing": "cloud-host-service/database-order"
+						},
+						{
+							"label": "中间件订购",
+							"isOpen": true,
+							"isShow": true,
+							"routing": "cloud-host-service/middleware-order"
 						},
 					]
 				},

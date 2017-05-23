@@ -37,6 +37,12 @@ export class PhysicalServiceService {
        let api = this.restApiCfg.getRestApi("physical-service-edit.get");
 
         return this.restApi.request(api.method, api.url, [{key:'id',value:id}], undefined); 
+    }    
+    //更新物理机服务
+    updatePhysicalService(data:PhysicalService) {
+        let api = this.restApiCfg.getRestApi("physical-service-update.post");
+
+        return this.restApi.request(api.method, api.url, [], undefined,data);
     }
 }
   

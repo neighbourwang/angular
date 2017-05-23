@@ -1,6 +1,6 @@
-class DbTemplateInfo{
+class MWTemplateInfo{
 	version: string = "";
-	dbType: number = 0;
+	type: number = 0;
 	deploymentMode: number = 0;
 }
 
@@ -13,6 +13,6 @@ class MDproductReq {
 }
 
 export {
-	DbTemplateInfo,
+	MWTemplateInfo,
 	MDproductReq
 }

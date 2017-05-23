@@ -86,11 +86,16 @@ export class CheckMngListComponent implements OnInit {
 
 				if(item.orderItems){
 					let orderItem :any=item.orderItems[0];
-					for(let _item of item.orderItems){
-						if(_item.serviceType==3){
-							orderItem = _item;
+					if(item.orderItems>1){
+						for(let _item of item.orderItems){
+						if(_item.serviceType==0){
+								orderItem.platformName=_item.platformName;
+								orderItem.zoneName=_item.zoneName;
+							}
+							if(_item.serviceType==3){
+								orderItem.specList = _item.specList;
+							}	
 						}
-						
 					}
 
 					if(orderItem!=null){
@@ -99,6 +104,7 @@ export class CheckMngListComponent implements OnInit {
 
 							if(orderItem.billingInfo){
 								obj.billingMode = orderItem.billingInfo.billingMode;
+								obj.periodType = orderItem.billingInfo.periodType;
 								if(orderItem.billingInfo.billingMode == 0)//包年包月
 								{
 									obj.priceNum = orderItem.billingInfo.basicPrice + orderItem.billingInfo.cyclePrice

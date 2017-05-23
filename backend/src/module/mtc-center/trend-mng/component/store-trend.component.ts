@@ -289,13 +289,13 @@ export class StoreTrendComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+        this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 
     showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }

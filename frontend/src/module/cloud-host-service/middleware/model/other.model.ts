@@ -18,18 +18,15 @@ class DiskValue {
 }
 
 class MiddlewareValue {
-	STORAGETYPE : VlueList = new VlueList;
-	ARCHMODE : VlueList = new VlueList;
-	LISTENPOST : VlueList = new VlueList;
-	DBCHARSET : VlueList = new VlueList;
-	MAXCONNECTION : VlueList = new VlueList;
-	SYSPASSWORD : VlueList = new VlueList;
-	ASMPASSWORD : VlueList = new VlueList;
+    DEPLOYMODE : VlueList = new VlueList;
+    WEBLOGICACCOUNT : VlueList = new VlueList;
+    WEBLOGICPASSWORD : VlueList = new VlueList;
+    MOUNTPATH : VlueList = new VlueList;
+    USAGETYPE : VlueList = new VlueList;
+    MIDDLEWARETYPE : VlueList = new VlueList;
+    MIDDLEWAREVERSION : VlueList = new VlueList;
     TIMELINE : VlueList = new VlueList;
     TIMELINEUNIT : VlueList = new VlueList;
-    DBTYPE : VlueList = new VlueList;
-    DBVERSION : VlueList = new VlueList;
-    DEPLOYMODE : VlueList = new VlueList;
 }
 
 export {

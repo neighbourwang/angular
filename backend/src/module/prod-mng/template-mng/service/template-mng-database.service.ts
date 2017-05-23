@@ -15,7 +15,7 @@ export class DatabaseService {
     ) { }
     //获取数据库模板详情
     getTemplatedetail( data: any) {
-        let api = this.restApiCfg.getRestApi("prod-mng.template-mng.detail.search");
+        let api = this.restApiCfg.getRestApi("prod-mng.template-mng.database.search");
 
         return this.restApi.request(api.method, api.url, [], undefined, data);
     }

@@ -285,11 +285,8 @@
 
 <!--详情页-->
 <div *ngIf="!showFirst">
-    <div class="page-content-header icon-content-header-operation-center">
-        
-       <!--{{'ASSIGN_MNG.CLOUD_HOST_DETAIL^^^'+hyperIn
-        fo
-        .name |translate}}-->云主机{{hyperInfo.name}}详情
+    <div class="page-content-header icon-content-header-operation-center">  
+       {{'ASSIGN_MNG.CLOUD_HOST'|translate}}{{hyperInfo.name}}{{'ASSIGN_MNG.DETAIL'|translate}}
         
         <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" (click)="BacktoAssignMng()">
             {{'ASSIGN_MNG.BACK_TO_HYPER_MNG'|translate}}<!--返回云主机超分管理-->

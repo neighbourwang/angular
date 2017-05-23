@@ -11,7 +11,7 @@
 
 <!-- 暂时隐藏 ⤵️ -->
 <div style="display: none" class="col-md-12 btn-group areaAble" data-toggle="buttons"> 
-	<button class="btn mgb5 btn-default" name="setCurrentZone" (click)="resourcePoll = {};" [ngClass]="{'active': !resourcePoll?.id }">{{'COMMON.ALL' | translate}}</button>
+	<button class="btn mgb5 btn-default" name="setCurrentZone" id="resourcePoll" (click)="resourcePoll = {};" [ngClass]="{'active': !resourcePoll?.id }">{{'COMMON.ALL' | translate}}</button>
 
     <button *ngFor="let value of resourcePolls;" 
             (click)="resourcePoll = value;clickEmit()" 

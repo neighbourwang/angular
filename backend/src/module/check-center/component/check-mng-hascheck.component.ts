@@ -43,7 +43,7 @@ export class CheckMngHascheckComponent implements OnInit{
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
 		,private _layoutService:LayoutService
-		,private _dictServ:SystemDictionaryService){
+		,private _dictServ:DictService){
 
 		//计费模式字典
 		this._billinModeDic = new DicLoader(_restApiCfg, _restApi, "BILLING_MODE", "TYPE");
@@ -70,13 +70,21 @@ export class CheckMngHascheckComponent implements OnInit{
 				//obj.checkResultName = item.operation;//审批结果
 				//obj.checkResultName = '同意';
 				if(item.orderItems){
-					let orderItem :any=null;
-					for(let _item of item.orderItems){
-						if(_item.serviceType==3){
-							orderItem = item.orderItems[0];
+					let orderItem :any=item.orderItems[0];
+					if(item.orderItems.length>1){
+						for(let _item of item.orderItems){
+							if(_item.serviceType==0){
+								orderItem.platformName=_item.platformName;
+								orderItem.zoneName=_item.zoneName;
+							}
+							if(_item.serviceType==3){
+								orderItem.specList = _item.specList;
+							}	
 						}
+
 						
 					}
+					
 
 					if(orderItem!=null){
 
@@ -87,6 +95,7 @@ export class CheckMngHascheckComponent implements OnInit{
 					//费用
 					if(orderItem.billingInfo){
 						obj.billingModeNum =orderItem.billingInfo ? orderItem.billingInfo.billingMode: null; //计费模式
+						obj.periodType = orderItem.billingInfo.periodType;
 						obj.billingDurationStr = orderItem.period;//订单周期
 						obj.oneTimePriceNum = orderItem.billingInfo ? orderItem.billingInfo.basePrice: null;//一次性费用
 

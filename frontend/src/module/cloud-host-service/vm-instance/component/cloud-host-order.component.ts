@@ -351,7 +351,7 @@ export class cloudVmComponentOrder implements OnInit {
 			password: [this.values.PASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
 			passwordShadow: [this.passwordShadow, [this.v.equalTo(this.values.PASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
 			instancename: [this.values.INSTANCENAME.attrValue, [this.v.isInstanceName, this.v.isBase], "VM_INSTANCE.HOST_NAME_FORMAT_IS_NOT_CORRECT"],
-			timeline: [this.values.TIMELINE.attrValue.trim(), [this.v.isNumber, this.v.range(1,999), this.v.isUnBlank], "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION"],
+			timeline: [this.values.TIMELINE.attrValue.trim(), [this.v.isInteger, this.v.range(1,999), this.v.isUnBlank], "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION"],
 			timelineunit: [this.values.TIMELINEUNIT.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"],
 		}
 
@@ -431,7 +431,7 @@ export class cloudVmComponentOrder implements OnInit {
 		let payloadList = [];
 
 		for (let v in values) {
-			if(values[v].attrValueCode === "" && values[v].attrValue === "")  continue;
+			if((values[v].attrValueCode === "" && values[v].attrValue === "") || !this.attrList[v])  continue;
 			payloadList.push({
 				attrId: this.attrList[v].attrId,                  	//服务属性ID
 				attrCode: this.attrList[v].attrCode,              	//服务属性CODE

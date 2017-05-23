@@ -34,13 +34,13 @@
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title">{{'软件版本' | translate}}</div>
 					<div class="col-sm-1 no-padding">
-						<select class="form-control" [(ngModel)]="database.version">
+						<select  class="form-control" [(ngModel)]="database.version" style="min-width:120px;">
 							<option *ngFor="let version of databaseOptionList.items[0]?.version" [value]="version">{{version}}</option>
 						</select>
 					</div>
 					<div class="col-sm-2 form-control-title">{{'操作系统类型' | translate}}</div>
 					<div class="col-sm-1">
-						<select class="form-control" [(ngModel)]="database.os">
+						<select  class="form-control" [(ngModel)]="database.os" style="min-width:100px;">
                             <option [value]="os.code" *ngFor="let os of databaseOptionList.items[0]?.os">{{os.label}}</option>							
 							<!--<option value="0">Linux</option>
 							<option value="1">Windows</option>
@@ -49,7 +49,7 @@
 					</div>
 					<div class="col-sm-1 form-control-title">{{'位数' | translate}}</div>
 					<div class="col-sm-1">
-						<select class="form-control" [(ngModel)]="database.bit">
+						<select  class="form-control" [(ngModel)]="database.bit" style="min-width:100px;">
                             <option [value]="bit.code" *ngFor="let bit of databaseOptionList.items[0]?.bit">{{bit.label}}</option>														
 							<!--<option value="0">32bit</option>-->
 							<!--<option value="1">64bit</option>-->
