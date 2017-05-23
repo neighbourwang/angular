@@ -4,10 +4,10 @@
 	<div class="col-md-10 no-padding data-disk">
 		<div class="col-md-12 no-padding mgb10">
 			<div class="col-md-3 no-padding">
-				<select class="form-control" (change)="onChanges.emit('storage')" [(ngModel)]="list.storage">
+				<select class="form-control" id="onChanges_emit" (change)="onChanges.emit('storage')" [(ngModel)]="list.storage">
 					<option
 					*ngFor="let value of configs;"
-					[ngValue]="value" >{{ value.attrDisplayValue }}</option>
+					[ngValue]="value" id="onChanges_emit_{{value}}">{{ value.attrDisplayValue }}</option>
 				</select>
 			</div>
 			<div class="col-md-1 content-title2">{{'COMMON.CAPATITY'|translate}}</div>
@@ -17,11 +17,11 @@
 		            [max]="sendModule.diskmaxsize.attrValue" 
 		            [min]="sendModule.diskinitialsize.attrValue" 
 		            [stepCheck]=true
-		            [value]="sendModule.diskinitialsize.attrValue" (output)="outputValue($event, i)"></count-bar>
+		            [value]="sendModule.diskinitialsize.attrValue" id="sendModule_diskinitialsize" (output)="outputValue($event, i)"></count-bar>
 			</div>
 			<div class="col-md-1 content-title2">{{'COMMON.GB'|translate}}</div>
 			<div class="col-md-3 text-right">
-				<button (click)="delete(i)" class="btn button-gray-gradient"><span class="glyphicon glyphicon-remove"></span>{{'COMMON.DELETE'|translate}} </button>
+				<button (click)="delete(i)" id="delete_i" class="btn button-gray-gradient"><span class="glyphicon glyphicon-remove"></span>{{'COMMON.DELETE'|translate}} </button>
 			</div>
 		</div>
 	</div>
@@ -29,7 +29,7 @@
 	<div class="col-md-2 content-title">{{!this.forArr.length ? "VM_INSTANCE.DATA_DISK" : "" | translate}}</div>
 	<div class="col-md-10 add-disk-box">
 		<div class="col-md-3 content-title2 no-padding">
-			<button (click)="addDisk()" [disabled]="this.forArr.length === this.maxLenght" class="btn button-gray-gradient button-icon"><span class="glyphicon glyphicon-plus"></span>{{'VM_INSTANCE.ADD_DATA_DISK'|translate}}</button>
+			<button (click)="addDisk()" id="addDisk" [disabled]="this.forArr.length === this.maxLenght" class="btn button-gray-gradient button-icon"><span class="glyphicon glyphicon-plus"></span>{{'VM_INSTANCE.ADD_DATA_DISK'|translate}}</button>
 		</div>
 		<div class="col-md-7 no-padding disk-tip">{{'VM_INSTANCE.ADD_HEAD'|translate}}<span class="font-green">{{maxLenght}}</span>{{'VM_INSTANCE.ADD_MIDDLE'|translate}}<span class="font-orange">{{maxLenght - forArr.length}}</span>{{'VM_INSTANCE.ADD_TAIL'|translate}}</div>
 	</div>

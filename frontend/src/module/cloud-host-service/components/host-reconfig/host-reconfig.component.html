@@ -98,8 +98,8 @@
 				</div>
 		      
 			  	<div class="modal-footer">
-			        <button [disabled]="ot" (click)="setConfig()" class="btn button-confirm button-size-big">{{ot || 'DIALOG.CONFIRM' | translate }}</button> <!-- 确认 -->
-			        <button class="btn btn-default button-size-big" data-dismiss="modal">{{ct || 'DIALOG.CANCEL' | translate }}</button> <!-- 取消 -->
+			        <button [disabled]="ot" (click)="setConfig()" id="setConfig" class="btn button-confirm button-size-big">{{ot || 'DIALOG.CONFIRM' | translate }}</button> <!-- 确认 -->
+			        <button class="btn btn-default button-size-big" data-dismiss="modal"  id="setConfig_cancel">{{ct || 'DIALOG.CANCEL' | translate }}</button> <!-- 取消 -->
 			  	</div>
 	  	</div>
 	  	<!-- 变更完成 -->

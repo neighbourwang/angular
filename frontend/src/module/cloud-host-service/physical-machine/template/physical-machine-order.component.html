@@ -1,6 +1,6 @@
 <div class="page-content physical_order cloud_host_order">
     <div class="col-md-9">
-        <h1 (click)="payLoadFormat()" class="page-content-header">{{'VM_INSTANCE.PHYSICAL_MACHINE_ORDER'| translate}}</h1>
+        <h1 (click)="payLoadFormat()" id="payLoadFormat" class="page-content-header">{{'VM_INSTANCE.PHYSICAL_MACHINE_ORDER'| translate}}</h1>
         <ul class="left-box">
             <li>
                 <div class="col-md-1 li-title">
@@ -10,7 +10,7 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-2 content-title">区域</div>
                     <div class="col-md-10 btn-group" data-toggle="buttons">
-                        <label *ngFor="let r of regions;" class="btn btn-default" (click)="region = r; dux.dispatch('REGION')" [ngClass]="{'active': region?.id === r.id}">
+                        <label *ngFor="let r of regions;" class="btn btn-default" id="region_{{r.id}}" (click)="region = r; dux.dispatch('REGION')" [ngClass]="{'active': region?.id === r.id}">
                             <input type="radio" name="region" autocomplete="off"> {{ r.name }}
                         </label>
                     </div>
@@ -26,7 +26,7 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-2 content-title">资源池</div>
                     <div class="col-md-10 btn-group" data-toggle="buttons">
-                        <label *ngFor="let r of resourcePolls;" class="btn btn-default" (click)="resourcePoll = r; dux.dispatch('RESOURCEPOLL')" [ngClass]="{'active': resourcePoll?.id === r.id}">
+                        <label *ngFor="let r of resourcePolls;" class="btn btn-default" id="resourcePoll_{{r.id}}" (click)="resourcePoll = r; dux.dispatch('RESOURCEPOLL')" [ngClass]="{'active': resourcePoll?.id === r.id}">
                             <input type="radio" name="resourcePoll" autocomplete="off"> {{ r.poolName }}
                         </label>
                     </div>
@@ -40,37 +40,37 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-2 content-title">CPU数量</div>
                     <div class="col-md-10 btn-group">
-                        <button *ngFor="let c of cpuList;" (click)="cpu = c;dux.dispatch('SPEC');" class="btn btn-default" [ngClass]="{'active': cpu.value === c.value}">
+                        <button *ngFor="let c of cpuList;" id="cpu_{{c.value}}" (click)="cpu = c;dux.dispatch('SPEC');" class="btn btn-default" [ngClass]="{'active': cpu.value === c.value}">
                             {{ c.displayName }}
                         </button>
                     </div>
                     <div class="col-md-2 content-title">内存容量</div>
                     <div class="col-md-10 btn-group">
-                        <button style="padding: 5px 20px" *ngFor="let m of memList;" (click)="mem = m;dux.dispatch('SPEC');" class="btn btn-default mgb10" [ngClass]="{'active': mem.value === m.value}">
+                        <button style="padding: 5px 20px" *ngFor="let m of memList;" id="mem_{{m.value}}" (click)="mem = m;dux.dispatch('SPEC');" class="btn btn-default mgb10" [ngClass]="{'active': mem.value === m.value}">
                             {{ m.displayName }}
                         </button>
                     </div>
                     <div class="col-md-2 content-title">磁盘需求</div>
                     <div class="col-md-4 btn-group  no-padding mgb15">
-                        <label *ngFor="let items of diskRequirements" class="mgr20">
+                        <label *ngFor="let items of diskRequirements" class="mgr20" id="diskRequirements_{{items.value}}">
                             <input type="checkbox" name="diskRequirements" class="fox-cloud-checkbox fox-cloud-checkbox-white" [checked]="items.isSelected" (change)="items.isSelected = !items.isSelected; dux.dispatch('SPEC')"> {{items.displayName}}
                         </label>
                     </div>
                     <div class="col-md-2 content-title">类型</div>
                     <div class="col-md-4 btn-group no-padding mgb15">
-                        <label *ngFor="let items of diskTypes" class="mgr20">
+                        <label *ngFor="let items of diskTypes" class="mgr20"  id="diskTypes_{{items.value}}">
                             <input type="checkbox" class="fox-cloud-checkbox fox-cloud-checkbox-white" name="diskType" [checked]="items.isSelected" (change)="items.isSelected = !items.isSelected; dux.dispatch('SPEC')"> {{items.displayName}}
                         </label>
                     </div>
                     <div class="col-md-2 content-title">网卡需求</div>
                     <div class="col-md-4 btn-group  no-padding mgb15">
-                        <label *ngFor="let items of networkRequirements" class="mgr20">
+                        <label *ngFor="let items of networkRequirements" class="mgr20" id="networkRequirements_{{items.value}}">
                             <input type="checkbox" class="fox-cloud-checkbox fox-cloud-checkbox-white" name="networkRequirements" [checked]="items.isSelected" (change)="items.isSelected = !items.isSelected; dux.dispatch('SPEC')"> {{items.displayName}}
                         </label>
                     </div>
                     <div class="col-md-2 content-title">是否需要HBA卡</div>
                     <div class="col-md-4 btn-group no-padding mgb15">
-                        <label *ngFor="let items of needHBAList" class="mgr20">
+                        <label *ngFor="let items of needHBAList" class="mgr20" id="needHBAList_{{items.value}}">
                             <input type="radio" class="fox-cloud-radio fox-cloud-radio-white" name="needHBA" [checked]="HBA?.value === items.value" (change)="HBA = items; dux.dispatch('SPEC')"> {{items.displayName}}
                         </label>
                     </div>
@@ -137,8 +137,8 @@
                 <div class="col-md-12 li-content">
                     <div class="col-md-2 content-title">操作系统</div>
                     <div class="col-md-10">
-                        <select [(ngModel)]="values.OSYSTEM" class="form-control">
-                            <option *ngFor="let value of valuesList.OSYSTEM" [ngValue]="value">{{ value.attrDisplayValue }}</option>
+                        <select [(ngModel)]="values.OSYSTEM" class="form-control" id="values_OSYSTEM">
+                            <option *ngFor="let value of valuesList.OSYSTEM" [ngValue]="value" id="values_OSYSTEM_{{value}}">{{ value.attrDisplayValue }}</option>
                         </select>
                     </div>
                 </div>
@@ -202,12 +202,12 @@
                     <div class="col-md-12 no-padding mb20">
                         <div class="col-md-2 content-title">{{'COMMON.PURCHASE_DURATION'|translate}}</div>
                         <div class="col-md-2 no-padding mr10">
-                            <select [disabled]="timeForever" [(ngModel)]="values.TIMELINEUNIT" (ngModelChange)="dux.dispatch('TIMELINEUNIT');" class="form-control">
-                                <option *ngFor="let value of valuesList.TIMELINEUNIT;" [ngValue]="value">{{ value.attrDisplayValue | dict:service.unitType | async}}</option>
+                            <select [disabled]="timeForever" id="values_TIMELINEUNIT" [(ngModel)]="values.TIMELINEUNIT" (ngModelChange)="dux.dispatch('TIMELINEUNIT');" class="form-control">
+                                <option id="values_TIMELINEUNIT_{{value.attrDisplayValue}}" *ngFor="let value of valuesList.TIMELINEUNIT;" [ngValue]="value">{{ value.attrDisplayValue | dict:service.unitType | async}}</option>
                             </select>
                         </div>
                         <div class="col-md-2 no-padding mr10 has-feedback" [ngClass]="{'has-error': v.result.timeline }">
-                            <input [disabled]="timeForever" (keyup)="checkValue('timeline');dux.dispatch('TIMELINEUNIT');" [(ngModel)]="values.TIMELINE.attrValue" type="text" class="form-control">
+                            <input [disabled]="timeForever" id="values_TIMELINE" (keyup)="checkValue('timeline');dux.dispatch('TIMELINEUNIT');" [(ngModel)]="values.TIMELINE.attrValue" type="text" class="form-control">
                             <span *ngIf="v.result.timeline" class="glyphicon glyphicon-remove form-control-feedback"></span>
                             <div *ngIf="v.result.timeline" class="alert alert-danger" role="alert">{{v.result.timeline | translate}}</div>
                         </div>
@@ -220,7 +220,7 @@
                     <div class="col-md-12 no-padding mb20">
                         <div class="col-md-2 content-title">{{'COMMON.PURCHASE_AMOUNT'|translate}}</div>
                         <div class="col-md-2 no-padding mr10">
-                            <select [(ngModel)]="payLoad.quality" (ngModelChange)="dux.dispatch('TIMELINEUNIT');" class="form-control">
+                            <select [(ngModel)]="payLoad.quality" id="payLoad_quality" (ngModelChange)="dux.dispatch('TIMELINEUNIT');" class="form-control">
                                 <option [ngValue]="1">{{'COMMON.ONE_SET'| translate}}</option>
                                 <option [ngValue]="2">{{'COMMON.TWO_SET'| translate}}</option>
                                 <option [ngValue]="3">{{'COMMON.THREE_SET'| translate}}</option>
@@ -291,10 +291,10 @@
             </div>
             <div class="col-md-12 colud-order-button">
                 <div class="col-md-6">
-                    <button (click)="buyNow()" class="btn button-orange-deep">{{'COMMON.BUY_NOW'|translate}}</button>
+                    <button (click)="buyNow()" id="buyNow" class="btn button-orange-deep">{{'COMMON.BUY_NOW'|translate}}</button>
                 </div>
                 <div class="col-md-6">
-                    <button (click)="addCart()" class="btn button-orange-light">{{'COMMON.ADD_TO_SHOPPING_CART'|translate}}</button>
+                    <button (click)="addCart()" id="addCart" class="btn button-orange-light">{{'COMMON.ADD_TO_SHOPPING_CART'|translate}}</button>
                 </div>
             </div>
         </div>
