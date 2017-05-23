@@ -92,6 +92,9 @@
         "PERIOD": "时间范围",
         "EXPORT_ALL_DATA": "导出所有数据",
         "EXPORT_CURRENT_DATA": "导出当前数据",
+		"PLEASE_CHOOSE":"请选择！",
+		"PLEASE_CHOOSE_PERIOD":"请选择时间范围",
+		"START_DATE_MUST_BE_LESS_THAN_END_DATE":"开始日期必须小于结束日期！",
         "CONFIRM": "确认",
         "CPU_USAGE_OVERVIEW": "CPU使用率概览",
         "MEM_USAGE_OVERVIEW": "内存使用率概览",
@@ -107,7 +110,8 @@
         "TO": "至",
         "APPLICANT": "申请人",
         "BACK_TO_HYPER_MNG": "返回云主机超分管理",
-        "CLOUD_HOST_DETAIL": "云主机{{value_1}}详情"
+        "CLOUD_HOST": "云主机",
+		"DETAIL":"详情"
     },
     "TREND_MNG": {
         "COMPUTE_RES_TREND_ANALYSIS": "私有云平台计算资源用量分析",

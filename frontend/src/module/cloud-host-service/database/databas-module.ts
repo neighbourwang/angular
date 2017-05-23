@@ -13,8 +13,6 @@ import { DatabaseListComponent } from './component/database-list.component';
 
 import { DatabaseComponentOrder } from './component/database-order.component';
 
-import { subAddStorageComponent } from './component/sub-add-storage.component';
-
 import { DatabaseDetailComponent } from './component/database-detail.component';
 
 import { CloudHostComponents } from '../components/cloud-host-components.module';
@@ -40,7 +38,6 @@ import {DatabaseDetailService} from './service/database-detail.service';
     declarations: [
         DatabaseListComponent,
         DatabaseDetailComponent,
-        subAddStorageComponent,
         DatabaseComponentOrder
     ],
     exports: [
@@ -49,7 +46,6 @@ import {DatabaseDetailService} from './service/database-detail.service';
         DatabaseServiceOrder,
         DatabaseServiceList,
         DatabaseDetailService,
-        subAddStorageComponent
     ]
 
 })

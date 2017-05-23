@@ -2,25 +2,25 @@
 <div class="page-content">
 	<div>
 		<h1 class="page-content-header float-left">{{'VM_INSTANCE.CLOUD_HOST_DETAILS' | translate}}</h1>
-		<div class="float-left mgt5 mgl10 cursor-pointer" (click)="goToUrl('database-service/database-list')" id="goToUrl_database-list"><span class="icon-back"></span>{{'VM_INSTANCE.RETURNS_THE_CLOUD_HOST_LIST' | translate}}</div>
-		<button *ngIf="isEditState" (click)="saveEditToServer()" id="saveEditToServer" class="btn float-right btn-success"><i class="glyphicon glyphicon-plus"></i> 保存</button>
+		<div class="float-left mgt5 mgl10 cursor-pointer" (click)="goToUrl('middleware-service/middleware-list')"><span class="icon-back"></span>{{'VM_INSTANCE.RETURNS_THE_CLOUD_HOST_LIST' | translate}}</div>
+		<button *ngIf="isEditState" (click)="saveEditToServer()" class="btn float-right btn-success"><i class="glyphicon glyphicon-plus"></i> 保存</button>
 		<div class="dropdown float-right mgr5">
 			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				{{'VM_INSTANCE.MORE_ACTIONS' | translate}}
 				<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-				<li><a (click)="isEditState = true" id="isEditState_true" href="javascript:">{{'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | translate}}</a></li>
+				<li><a (click)="isEditState = true" href="javascript:">{{'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | translate}}</a></li>
 
 				<li>
-				  <unsubscribe #unsubscribeVm title="数据库退订" [subid]="vm?.subInstanceId"></unsubscribe>
-				  <a (click)="unsubscribeVm.open()" id="unsubscribeVm_open" href="javascript:">{{'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | translate}}</a>
+				  <unsubscribe #unsubscribeVm title="中间件退订" [subid]="vm?.subInstanceId"></unsubscribe>
+				  <a (click)="unsubscribeVm.open()" href="javascript:">{{'VM_INSTANCE.DELETE_THE_CLOUD_HOST' | translate}}</a>
 				</li>
 			</ul>
 		</div>
 
 		<open-console #openConsole [platformid]="vm?.platformId" [uuid]="vm?.uuid" [platformtype]="vm?.platformType"></open-console>
-		<button (click)="openConsole.open()" id="openConsole_open" class="btn button-gray-gradient float-right mgr5">
+		<button (click)="openConsole.open()" class="btn button-gray-gradient float-right mgr5">
 		  <span class="icon-controller"></span>{{'VM_INSTANCE.CONSOLE' | translate}}
 		</button>
 	</div>
@@ -41,7 +41,7 @@
 				  <div class="panel-body">
 					  <div class="line-box">
 						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.INSTANCE_NAME' | translate}}:</font></div>    
-						  <input *ngIf="isEditState" id="instanceDisplayName" class="form-control detail-edit-select" [(ngModel)]="postData.instanceDisplayName" type="text">
+						  <input *ngIf="isEditState" class="form-control detail-edit-select" [(ngModel)]="postData.instanceDisplayName" type="text">
 						  <span  *ngIf="!isEditState">{{vm?.instanceName}}</span>
 					  </div>
 					  <div class="line-box">
@@ -76,10 +76,10 @@
 						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.TYPE' | translate}}:</font></div>    
 						  <select
 							 *ngIf="isEditState"
-							[(ngModel)]="postData.useType" id="postData_useType" class="form-control detail-edit-select">
+							[(ngModel)]="postData.useType" class="form-control detail-edit-select">
 							  <option
 							  *ngFor="let value of service.useType | async"
-							  [ngValue]="value.value" id="postData_useType_{{value.value}}">{{ value.displayValue }}</option>
+							  [ngValue]="value.value" >{{ value.displayValue }}</option>
 						  </select>
 						  <span *ngIf="!isEditState">{{vm?.useType | dict:service.useType | async}}</span>
 					  </div>
@@ -88,10 +88,10 @@
 
 						  <select
 							 *ngIf="isEditState"
-							[(ngModel)]="postData.serviceLevel" id="postData_serviceLevel" class="form-control detail-edit-select">
+							[(ngModel)]="postData.serviceLevel" class="form-control detail-edit-select">
 							  <option
 							  *ngFor="let value of service.serviceLevel | async"
-							  [ngValue]="value.value" id="postData_serviceLeve_{{value.value}}">{{ value.displayValue }}</option>
+							  [ngValue]="value.value" >{{ value.displayValue }}</option>
 						  </select>
 						  <span *ngIf="!isEditState">{{vm?.serviceLevel | dict:service.serviceLevel | async}}</span>
 					  </div>
@@ -101,13 +101,13 @@
 						<div class="col-md-10 no-padding" *ngIf="isEditState">
 							<tag-input 
 								(onDatasChanged)="labelDatasChange($event)"
-								[datas]='postData.labelIds' id="postData_labelIds">
+								[datas]='postData.labelIds'>
 							</tag-input>
 						</div>
 					  </div>
 					  <div class="line-box">
 						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.DESCRIPTION' | translate}}:</font></div>    
-						  <input *ngIf="isEditState" class="form-control detail-edit-select" id="postData_description" [(ngModel)]="postData.description" type="text">
+						  <input *ngIf="isEditState" class="form-control detail-edit-select" [(ngModel)]="postData.description" type="text">
 						  <span  *ngIf="!isEditState">{{vm?.description}}</span>
 					  </div>
 				  </div>
@@ -155,7 +155,7 @@
 					  <div class="line-box">
 						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.BOOT_DISK' | translate}}:</font></div>    {{vm?.rootGb}}GB
 					  </div>
-					  <div (click)="goToUrl('database-service/cloud-drive-list')" id="goToUrl_cloud-drive-list" class="line-box cursor-pointer">
+					  <div (click)="goToUrl('middleware-service/cloud-drive-list')" class="line-box cursor-pointer">
 						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.DATA_DISK' | translate}}:</font></div>    {{vm?.diskCount}}
 					  </div>
 					  <div class="line-box">
@@ -192,7 +192,7 @@
 				<div id="collapseSixth" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSixth">
 				  <div class="panel-body">
 					
-					  <div (click)="goToUrl('op-center/order-mng/order-mng')" id="goToUrl_order-mng" class="line-box cursor-pointer">
+					  <div (click)="goToUrl('op-center/order-mng/order-mng')" class="line-box cursor-pointer">
 						  <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font></div>    {{vm?.itemId}}
 					  </div>
 					  <div class="line-box">
@@ -216,12 +216,12 @@
 				<div class="main-head">
 					<span class="icon-chart icon float-left"></span>
 					<span class="title float-left">监控图表</span>
-					<select [(ngModel)]="hours" (ngModelChange)="setGraph()" id="setGraph" class="form-control float-right mgt5 mgr5">
+					<select [(ngModel)]="hours" (ngModelChange)="setGraph()" class="form-control float-right mgt5 mgr5">
 						<option value="6">最近6小时</option>
 						<option value="12">最近12小时</option>
 						<option value="24">最近24小时</option>
 					</select>
-					<button (click)="fetchGraphData()" id="fetchGraphData" class="btn button-gray-gradient mgt5 mgr5 float-right ">
+					<button (click)="fetchGraphData()" class="btn button-gray-gradient mgt5 mgr5 float-right ">
 						<span class="icon-reset button-icon" ></span>刷新
 					</button>
 					<!-- <button class="float-right switch off" id='test_switch'>
@@ -253,7 +253,7 @@
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="detail_chart_c" >
 						<div class="chart-top-select">
-							<select class="form-control float-right mgt5 mgr5" >
+							<select class="form-control float-right mgt5 mgr5">
 								<option value="1">系统盘</option>
 								<option value="2">c:盘</option>
 								<option value="3">d:盘</option>

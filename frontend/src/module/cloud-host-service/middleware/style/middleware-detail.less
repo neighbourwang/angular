@@ -1,0 +1,181 @@
+@import "../../../../architecture/assets/style/constant.less";
+
+.info-menu {
+    .panel {
+        margin-bottom: -2px;
+    }
+    .panel-body {
+        padding: 0;
+        .line-box {
+            line-height: 26px;
+            padding: 10px 40px;
+            border-bottom: 1px solid #ddd;
+            overflow: auto;
+            font {
+                color: #99a0a8;
+            }
+        }
+    }
+    .panel-heading {
+        position: relative;
+        padding: 13px 15px;
+    }
+}
+
+.detail-edit-select {
+    display: inline-block;
+    width: 200px;
+    margin-left: 10px;
+}
+
+ .glyphicon-chevron-down{
+     position:absolute;
+     right:10px;
+     top:15px;
+     cursor:pointer;
+     color: #acb4b7;
+ }
+
+ //¼à¿ØÍ¼±ê×é¼þ
+ .host-detail-chart{
+    background: #f7f7f7;
+    border: 1px solid #dcdcdc;
+    //margin-top: 14px!important;
+    .main-head{
+        height: 45px;
+        border-bottom: 1px solid #dcdcdc;
+        .icon{
+            height: 45px;
+            width: 45px;
+            background-size: 26px;
+            display: inline-block;
+        }
+        .title{
+            line-height: 45px;
+        }
+        .button-icon{
+            padding-left: 25px;
+        }
+        select{
+            width: 120px;
+        }
+    }
+    .switch{
+        @on-icon: span;
+        width: 46px;
+        height: 20px;
+        background-color: @mainColor;
+        border: 0;
+        border-radius: 10px;
+        padding: 0;
+        margin: 12px 15px 0 5px;
+        @{on-icon}{
+            width: 18px;
+            height: 18px;
+            border-radius: 100%;
+            display: inline-block;
+            background-color: #eee;
+            float: right;
+            margin: 1px;
+        }
+        &.off{
+            background-color: #425563;
+            @{on-icon}{
+                float: left;
+            }
+        }
+    }
+    >.nav-tabs{
+        padding: 15px 15px 0 15px;
+        li.active>a{
+            border-top: 1px solid #ddd;
+            &:hover{
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-bottom: 1px solid transparent;
+            }
+        }
+        li>a{
+            &:hover{
+                color: @mainColor;
+                background-color: transparent;
+                border: 1px solid transparent;
+            }
+        }
+    }
+    .tab-content{
+        background-color: #fff;
+        overflow: hidden;
+    }
+    .chart-canvas{
+        padding: 30px;
+        background-color: #fff;
+    }
+    .chart-top-select{
+        overflow: hidden;
+        padding: 10px 10px 0 10px;
+        select{
+            width: 160px;
+            margin: 0;
+        }
+    }
+    .chart-box{
+        @tab-width: 120px;
+        margin: 15px;
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+        position: relative;
+        .chart-tab{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width:( @tab-width + 1px );
+            margin-top: -1px;
+            text-align: center;
+            li{
+                font-size: 14px;
+                height: 46px;
+                line-height: 46px;
+                &.active{
+                    background-color: #fff;
+                    border-bottom: 1px solid #ddd;
+                    border-top: 1px solid #ddd;
+                    a{
+                        color: @mainColor;
+                        &:hover {
+                        text-decoration: none;
+                        }
+                        &:active {
+                            text-decoration: none;
+                        }
+                        &:visited {
+                            text-decoration: none;
+                        }
+                        &:link{
+                            text-decoration: none;
+                        }
+                    }
+                }
+                a{
+                    color: #666;
+                    &:hover {
+                        text-decoration: none;
+                    }
+                    &:active {
+                        text-decoration: none;
+                    }
+                    &:visited {
+                        text-decoration: none;
+                    }
+                    &:link{
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+        >.tab-content{
+            margin-left: @tab-width;
+            border-left: 1px solid #ddd;
+        }
+    }
+}

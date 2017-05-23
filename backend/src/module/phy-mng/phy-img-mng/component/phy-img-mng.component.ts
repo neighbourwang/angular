@@ -100,6 +100,7 @@ export class PhyImgMngComponent implements OnInit {
     }
     //创建
     createPhyImgSource(){
+        this.tempCreate = new PhyImgSource();
         this.createPopup.open();
     }
     commitCreate(){

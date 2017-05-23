@@ -16,6 +16,7 @@ import { TranslateService } from 'ng2-translate';
 import { CheckCenterParam
 	, CheckListItem } from './../model';
 import * as _ from 'underscore';
+import {DictService} from '../../../architecture/core/service/dict-service';
 
 @Component({
 	selector: 'check-mng-list',
@@ -23,6 +24,8 @@ import * as _ from 'underscore';
 	styleUrls: ['../style/check-mng-list.less'],
 	providers: []	
 })
+
+
 
 export class CheckMngListComponent implements OnInit{ 
 	private _param:CheckCenterParam = new CheckCenterParam();
@@ -49,7 +52,8 @@ export class CheckMngListComponent implements OnInit{
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
 		, private translate: TranslateService
-		,private _layoutService:LayoutService){
+		,private _layoutService:LayoutService
+		, private _dictServ: DictService){
 
 		//多语言处理双向绑定的内容
 		translate.onLangChange.subscribe(() => {
@@ -88,10 +92,10 @@ export class CheckMngListComponent implements OnInit{
 
 
 				if(item.orderItems){
-					let orderItem :any=null;
+					let orderItem :any=item.orderItems[0];
 					for(let _item of item.orderItems){
 						if(_item.serviceType==3){
-							orderItem = item.orderItems[0];
+							orderItem = _item;
 						}
 						
 					}
@@ -104,6 +108,7 @@ export class CheckMngListComponent implements OnInit{
 					//费用
 					if(orderItem.billingInfo){
 						obj.billingModeNum =orderItem.billingInfo ? orderItem.billingInfo.billingMode: null; //计费模式
+						obj.periodType = orderItem.billingInfo.periodType;
 						obj.billingDurationStr = orderItem.period;//订单周期
 						obj.oneTimePriceNum = orderItem.billingInfo ? orderItem.billingInfo.basePrice: null;//一次性费用
 

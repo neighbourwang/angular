@@ -132,9 +132,9 @@
 						<td>{{item.departmentStr}}</td>
 						<td>{{item.entStr}}</td>
 						<td>{{'COMMON.BILLING_MODE' | translate}} : {{item.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}<br>
-						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}} : {{item.billingDurationStr}}<br>
-						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}} : <span class="font-red">{{item.oneTimePriceNum}}</span><br>
-						 	{{'CHECK_CENTER.COST' | translate}} : <span class="font-red">{{item.priceNum}}</span></td>
+						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}} : {{item.billingDurationStr}}{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}<br>
+						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}} : <span class="font-red">￥{{item.oneTimePriceNum}}</span><br>
+						 	{{'CHECK_CENTER.COST' | translate}} : <span class="font-red">￥{{item.priceNum}}/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</span></td>
 						<td>{{item.createTimeStr}}</td>
 						<td>
 							<ul>
