@@ -1398,7 +1398,8 @@
         "SPEC_VALUE_CANNOT_NULL": "规格值不能为空",
         "REFERENCE_CANNOT_NULL": "参考价值不能为空",
         "PARTSNAME_ONLY_CANBE_NUMBER": "磁盘和内存的规格值只能输入数字",
-        "REFERENCENAME_ONLY_CANBE_NUMBER": "参考价值只能输入数字"
+        "REFERENCENAME_ONLY_CANBE_NUMBER": "参考价值只能输入数字",
+        "CREATE_CANNOT_REPEATE": "同部件下，相同规格不允许重复创建"
     },
     "PHYSICAL_MNG": {
         "CONFIRM": "确认",
@@ -1980,7 +1981,7 @@
         "SUB_ACCOUNT_DETAIL": "子账号详情",
         "PLEASE_INPUT_SUB_ACCOUNT_LOGIN_NAME": "请填写子账号登录名!"
     },
-    
+
     "ALARM":{
         "ALARM_LIST":"告警通知列表",
         "SET_ALARM":"设置",
