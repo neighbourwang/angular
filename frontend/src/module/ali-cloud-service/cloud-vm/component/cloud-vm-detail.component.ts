@@ -86,7 +86,7 @@ export class AliCloudVmDetailComponent implements OnInit {
     startTime:string = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
     endTime:string = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
 
-    startHour: string = "00";
+    startHour: string = "00"; 
     startMin: string = "00";
     endHour: string = "01";
     endMin: string = "00";
@@ -236,6 +236,20 @@ export class AliCloudVmDetailComponent implements OnInit {
                     console.log(this.instance, "instance!");
 
                     if(this.instance.Status=="Running") {
+                        {
+                            let currentHour: number = new Date().getHours();
+                            console.log(currentHour);
+                            if (currentHour == 0) {
+                                this.startHour = "00";
+                                this.endHour = "01";
+                            } else if (currentHour == 23) {
+                                this.startHour = "22";
+                                this.endHour = "23";
+                            } else {
+                                this.startHour = (currentHour - 1).toString();
+                                this.endHour = (currentHour + 1).toString();
+                            }
+                        }
                         this.getInstanceMonitorData();
                     } else {
                         console.log("该云主机未运行,所以无监控数据");
@@ -286,6 +300,7 @@ export class AliCloudVmDetailComponent implements OnInit {
         let end = "";
         let utcstart = "";
         let utcend = "";
+        
         start =this.startTime + " " + this.startHour + ":" + this.startMin;
         end = this.endTime + " " + this.endHour + ":" + this.endMin;
         console.log(start, end, "start and end!");
