@@ -91,7 +91,7 @@ export class CapacityMngComponent implements OnInit {
     gotoComputeRes() {
         const selectedPf = this.pfList.find((pf) => { return pf.selected });
         if (!selectedPf) {
-            this.showAlert("请选择云平台");
+            this.showAlert("CAPACITY_MNG.PLEASE_CHOOSE_CLOUD_PLATFORM");
             return;
         }
         this.service.selectedPlatform = selectedPf;
@@ -112,13 +112,13 @@ export class CapacityMngComponent implements OnInit {
     onRejected(reason: any) {
         this.layoutService.hide();
         console.log(reason);
-        this.showAlert("NET_MNG_VM_IP_MNG.GETTING_DATA_FAILED");
+        this.showAlert("COMMON.GETTING_DATA_FAILED");
     }
 
      showAlert(msg: string): void {
         this.layoutService.hide();
 
-        this.noticeTitle = "NET_MNG_VM_IP_MNG.PROMPT";
+        this.noticeTitle = "COMMON.PROMPT";
         this.noticeMsg = msg;
         this.notice.open();
     }
