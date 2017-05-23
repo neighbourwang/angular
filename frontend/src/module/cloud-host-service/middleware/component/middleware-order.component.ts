@@ -21,45 +21,6 @@ import { MiddlewareValue, DiskValue, VlueList } from "../model/other.model"
 })
 export class MiddlewareComponentOrder extends DatabaseComponentOrder implements OnInit {
 
-	@ViewChild('confirm')
-	public confirmDialog: ConfirmComponent;
-
-	@ViewChild('notice')
-	public noticeDialog: NoticeComponent;
-
-	dbInits = [];
-	dbInit;
-
-	middlewares = [];   //中间件模板列表
-	middleware;   //选中的中间件模板
-
-	dbProductList = [];  //中间件产品列表
-	dbProduct;  //中间件产品
-
-	diskProducts = [];   //硬盘产品列表
-	diskSkuList = [];   //硬盘sku列表
-	vmItemNo: string //云主机的itemno
-
-	oneTimeTotalPrice:number = 0;
-	totalBilling:number = 0;
-	totalAnnual:number = 0;
-
-	middlewareValue: MiddlewareValue = new MiddlewareValue;
-	diskValue: DiskValue = new DiskValue;
-
-	asmpasswordShadow:string = ""
-	syspasswordShadow:string = ""
-
-	storageTypes = [{
-		value: "FS",
-		name: "文件系统(File System)"
-	}, {
-		value: "ASM",
-		name: "自动化存储管理(ASM)"
-	}];
-
-	fetchTmIdsPost: DbTemplateInfo = new DbTemplateInfo;   //获取模板id的post
-	fetchDBProductPost: MDproductReq = new MDproductReq;
 
 	constructor(
 		public layoutService: LayoutService,
@@ -94,12 +55,12 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 			if(!res.items.length) return
 
 			this.dbInits = res.items
-			this.dbtypeChange(res.items[0])
+			this.mdtypeChange(res.items[0])
 		})
 		.catch(e => this.layoutService.hide())
 	}
 
-	private dbtypeChange(value) {
+	private mdtypeChange(value) {
 		this.dbInit = value; 
 		this.fetchTmIdsPost.dbType = value.db.value; 
 
