@@ -60,11 +60,18 @@ export class CheckMngHascheckComponent implements OnInit{
 
 				if(item.orderItems){
 					let orderItem :any=item.orderItems[0];
-					for(let _item of item.orderItems){
-						if(_item.serviceType==3){
-					 	orderItem = _item;
+					if(item.orderItems>1){
+						for(let _item of item.orderItems){
+						if(_item.serviceType==0){
+								orderItem.platformName=_item.platformName;
+								orderItem.zoneName=_item.zoneName;
+							}
+							if(_item.serviceType==3){
+								orderItem.specList = _item.specList;
+							}	
+						}
 					}
-
+					
 					if(orderItem!=null){
 						
 						obj.platformName = orderItem.platformName;
@@ -89,7 +96,6 @@ export class CheckMngHascheckComponent implements OnInit{
 						}
 					}
 				}
-			}
 
 				
 			
