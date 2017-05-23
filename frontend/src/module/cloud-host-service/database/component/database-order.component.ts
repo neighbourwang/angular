@@ -67,7 +67,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		public dbv: Validation,
 		public dux: DispatchEvent,
 		public service: cloudHostServiceOrder,
-		private dbservice: DatabaseServiceOrder
+		public dbservice: DatabaseServiceOrder
 	) {
 		super(layoutService, router, v, dux, service)
 	
@@ -143,7 +143,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 				this.dbProductList = items
 				this.dbProduct = items.length ? items[0] : {}
 
-				this.dux.dispatch("SELECT_DB_PRODUCT")
+				if(items.length) this.dux.dispatch("SELECT_DB_PRODUCT")
 			})
 	}
 
@@ -156,9 +156,13 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.database.attrList.forEach(data => this.attrList[data.attrCode] = data )  //把数据库新加的attrList添加到老的list里面去
 
 		//做一些数据库的选项初始化的工作
+		this.databaseValueInit()
+		this.dux.dispatch("SET_DISK_PRODUCTS")
+	}
+
+	databaseValueInit() {
 		this.databaseValue.ARCHMODE.attrValue = "0";
 		this.databaseValue.DBCHARSET.attrValue = "0";
-		this.dux.dispatch("SET_DISK_PRODUCTS")
 	}
 
 	setListDiskValue() {  //把diskValue加入到 this.database.diskInfoList里面去

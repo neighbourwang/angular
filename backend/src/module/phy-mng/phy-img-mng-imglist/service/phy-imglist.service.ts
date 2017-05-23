@@ -133,7 +133,7 @@ export class PhyImgListService {
             }
         ]
         const api = this.restApiCfg.getRestApi("phy-mng.phy-img-mng.phyimglist.commit.allocate");
-        return this.restApi.request(api.method, api.url, pathParams, null, idlist);
+        return this.restApi.request(api.method, api.url, pathParams, null, {"str":idlist});
         
         //return new Promise(resovle => setTimeout(resovle, 200)).then(()=> {return ChangeStatusMock});
     }

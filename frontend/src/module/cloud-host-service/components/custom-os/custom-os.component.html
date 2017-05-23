@@ -3,7 +3,7 @@
         <div class="col-md-12">
         	<div class="col-md-3 left-name no-padding"><font>*</font>自定义镜像名称: </div>
             <div class="col-md-9 no-padding form-group has-feedback" [ngClass]="{'has-error':v.result.name}">
-                <input type="text" [(ngModel)]="name" (ngModelChange)="checkForm('name')" placeholder="镜像名称" class="form-control">
+                <input type="text" [(ngModel)]="name" (ngModelChange)="checkForm('name')" id="imageName" placeholder="镜像名称" class="form-control">
                  <span *ngIf="v.result.name" class="glyphicon glyphicon-remove form-control-feedback"></span>
                 <div class="tip-text" role="alert">2-68个字符，以大小写字母或者中文开头，可包含数字， "-", "_"</div>
             </div>

@@ -38,7 +38,7 @@
                 <td>{{item.specName}}</td>
                 <td>{{item.specValue}}</td>
                 <td>{{item.referencePrice}}</td>
-               <!-- <td>{{item.usedPMCount}}</td>-->
+                <!-- <td>{{item.usedPMCount}}</td>-->
             </tr>
             </tbody>
         </table>
@@ -57,10 +57,10 @@
             <div class="col-sm-3 form-control-title">{{'PHY_MNG_DEPART.PARTS_NAME' | translate}}:</div>
             <div class="col-sm-4">
                 <div class="input-select-container">
-                    <input type="text" [value]="selectedParts && selectedParts.partsName" #partsName>
+                    <input *ngIf="isEdit == true && selectedParts.editable == 1 || selectedParts.partsName == defaultParts" type="text" [value]="selectedParts.partsName" #partsName>
                     <select class="form-control" [(ngModel)]="selectedParts" (change)="selectedSpec=defaultSpec;">
                         <option *ngFor="let v of partslist" [ngValue]="v">{{v.partsName}}</option>
-                        <option [ngValue]="defaultParts">{{defaultParts.partsName}}</option>
+                        <option [ngValue]="defaultParts">{{'PHY_MNG_DEPART.OTHERS' | translate}}</option>
                     </select>
                 </div>
             </div>
@@ -74,10 +74,10 @@
             <div class="col-sm-3 form-control-title">{{'PHY_MNG_DEPART.SPEC_NAME' | translate}}:</div>
             <div class="col-sm-4">
                 <div class="input-select-container">
-                    <input type="text" [value]="selectedSpec && selectedSpec.specName" #specName>
+                    <input *ngIf="isEdit == true" type="text" [value]="selectedSpec.specName" #specName>
                     <select class="form-control" [(ngModel)]="selectedSpec">
                         <option *ngFor="let spec of selectedParts.specList" [ngValue]="spec">{{spec.specName}}</option>
-                        <option [ngValue]="defaultSpec">{{defaultSpec.specName}}</option>
+                        <option [ngValue]="defaultSpec">{{'PHY_MNG_DEPART.OTHERS' | translate}}</option>
                     </select>
                 </div>
             </div>

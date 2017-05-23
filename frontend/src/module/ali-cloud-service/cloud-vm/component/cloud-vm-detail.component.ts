@@ -81,15 +81,17 @@ export class AliCloudVmDetailComponent implements OnInit {
                            '21','22','23','24','25','26','27','28','29','30',
                            '31','32','33','34','35','36','37','38','39','40',
                            '41','42','43','44','45','46','47','48','49','50',
-                           '51','52','53','54','55','56','57','58','59'];    
+                           '51','52','53','54','55','56','57','58','59']; 
 
-    startTime:string = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-    endTime:string = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
 
-    startHour: string = "00";
+    today:Date = new Date();
+    startTime:string = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate();
+    endTime:string = this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate();
+
+    startHour: string = "00"; 
     startMin: string = "00";
-    endHour: string = "23";
-    endMin: string = "59";
+    endHour: string = "01";
+    endMin: string = "00";
 
     xchart:string = "cpu";
 
@@ -236,6 +238,20 @@ export class AliCloudVmDetailComponent implements OnInit {
                     console.log(this.instance, "instance!");
 
                     if(this.instance.Status=="Running") {
+                        {
+                            let currentHour: number = new Date().getHours();
+                            console.log(currentHour);
+                            if (currentHour == 0) {
+                                this.startHour = "00";
+                                this.endHour = "01";
+                            } else if (currentHour == 23) {
+                                this.startHour = "22";
+                                this.endHour = "23";
+                            } else {
+                                this.startHour = (currentHour - 1).toString();
+                                this.endHour = (currentHour + 1).toString();
+                            }
+                        }
                         this.getInstanceMonitorData();
                     } else {
                         console.log("该云主机未运行,所以无监控数据");
@@ -286,6 +302,7 @@ export class AliCloudVmDetailComponent implements OnInit {
         let end = "";
         let utcstart = "";
         let utcend = "";
+        
         start =this.startTime + " " + this.startHour + ":" + this.startMin;
         end = this.endTime + " " + this.endHour + ":" + this.endMin;
         console.log(start, end, "start and end!");
@@ -347,14 +364,18 @@ export class AliCloudVmDetailComponent implements OnInit {
         let temp_time = new Array<any>();
         let max_value = 0;
         chart.SourceData.forEach((s)=>{
-            
+            let date = new Date(new Date(s.TimeStamp).toLocaleString());
+            console.log(date, "TimeStamp");
+        let x = (date.getMonth()+1) + "/" + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes();
+            console.log(x, "x!");
+            temp_time.push(x);
 
             if (chart == this.cpuChart) {
                 if(max_value < s.CPU) {
                     max_value = s.CPU;
                 }
-                temp_value1.push(s.CPU);
-                temp_time.push((new Date(s.TimeStamp)).toLocaleString().slice(-11, -6));
+                temp_value1.push(s.CPU);                
+                //temp_time.push(date.getMonth() + "/" + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes());
             } else if(chart == this.netChart){
                 if(max_value < s.IntranetRX) {
                     max_value = s.IntranetRX;
@@ -364,7 +385,8 @@ export class AliCloudVmDetailComponent implements OnInit {
                 }
                 temp_value1.push(s.IntranetRX);
                 temp_value2.push(s.IntranetTX);
-                temp_time.push((new Date(s.TimeStamp)).toLocaleString().slice(-11, -6));
+                //temp_time.push((new Date(s.TimeStamp)).toLocaleString().slice(-11, -6));
+                //temp_time.push(date.getMonth() + "/" + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes());
             }
             
         })
@@ -400,10 +422,12 @@ export class AliCloudVmDetailComponent implements OnInit {
                             xAxes: [{
                                 display: true,
                                 ticks: {
-                                    //maxRotation:0, 
+                                    //maxRotation:0,
+                                    maxTicksLimit: 15
+                                    /* 
                                     userCallback: function(dataLabel, index) {
                                         return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
-                                    }
+                                    }*/
                                 }
                             }],
                             yAxes: [{
@@ -466,9 +490,10 @@ export class AliCloudVmDetailComponent implements OnInit {
                                 display: true,
                                 ticks: {
                                     //maxRotation:0, 
-                                    userCallback: function(dataLabel, index) {
+                                    maxTicksLimit: 15
+                                    /*userCallback: function(dataLabel, index) {
                                         return index % Math.ceil(chart.SourceData.length/10) === 0 ? dataLabel : '';
-                                    }
+                                    }*/
                                 }
                             }],
                             yAxes: [{
@@ -586,6 +611,11 @@ export class AliCloudVmDetailComponent implements OnInit {
 
         if(this.instance.Status!="Running") {
             this.showMsg("该云主机未运行");
+            return;
+        }
+
+        if(Math.ceil(Date.parse(this.endTime) - Date.parse(this.startTime))/(24*60*60*1000) >=15 ) {
+            this.showMsg("时间范围必须在15天以内");
             return;
         }
         

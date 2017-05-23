@@ -100,6 +100,7 @@ export class PhyImgMngComponent implements OnInit {
     }
     //创建
     createPhyImgSource(){
+        this.tempCreate = new PhyImgSource();
         this.createPopup.open();
     }
     commitCreate(){
@@ -254,8 +255,8 @@ export class PhyImgMngComponent implements OnInit {
             .then(
                 response=>{
                     this.layoutService.hide();
-                    this.createPopup.close();
-                    this.editPopup.close();
+                    // this.createPopup.close();
+                    // this.editPopup.close();
                     if(response && 100==response["resultCode"]){
                         this.showAlert("PHY_IMG_MNG.TEST_SUCCESS");
                     }else{
