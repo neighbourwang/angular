@@ -28,6 +28,11 @@ export class AliCloudVMDictService{
         field: "INSTANCE_CHARGE_TYPE"
     });
 
+    internetChargeTypeDict = this.dict.get({
+        owner: "ALICLOUD",
+        field: "NETWORK_CHARGE_TYPE"
+    });
+
     ioOptimizedDict = this.dict.get({
         owner: "ALICLOUD",
         field: "IO_OPTIMIZED"

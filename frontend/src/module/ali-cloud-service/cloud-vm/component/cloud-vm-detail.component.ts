@@ -12,7 +12,7 @@ import { StaticTooltipComponent } from "../../../../architecture/components/stat
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
 import { instanceListModel, VmQueryObject, FloatingIPAddressModel, 
-    TagsModel, KeyPairsModel, GraphItem, LineChart, chartColors } from "../model/cloud-vm.model";
+    TagsModel, KeyPairsModel, EipInfoModel, GraphItem, LineChart, chartColors } from "../model/cloud-vm.model";
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
@@ -106,6 +106,7 @@ export class AliCloudVmDetailComponent implements OnInit {
 
     tags: TagsModel = new TagsModel();
     keypairs: KeyPairsModel = new KeyPairsModel();
+    eipInfo: EipInfoModel = new EipInfoModel();
 
     cpuList: Array<GraphItem> = [];
     netList: Array<GraphItem> = [];
@@ -131,6 +132,7 @@ export class AliCloudVmDetailComponent implements OnInit {
 
     instanceStatusDictArray: Array<SystemDictionary> = [];
     instanceChargeTypeDictArray: Array<SystemDictionary> = [];
+    internetChargeTypeDictArray: Array<SystemDictionary> = [];
     ioOptimizedDictArray: Array<SystemDictionary> = [];
     networkTypeDictArray: Array<SystemDictionary> = [];
     ioOptimizedDetailDictArray: Array<SystemDictionary> = [];
@@ -182,6 +184,11 @@ export class AliCloudVmDetailComponent implements OnInit {
             .then((items) => {
                 this.instanceChargeTypeDictArray = items;
                 console.log(this.instanceChargeTypeDictArray, "this.instanceChargeTypeDictArray");
+            });
+        this.dictService.internetChargeTypeDict
+            .then((items) => {
+                this.internetChargeTypeDictArray = items;
+                console.log(this.internetChargeTypeDictArray, "this.internetChargeTypeDictArray");
             });
         this.dictService.ioOptimizedDict
             .then((items) => {
@@ -291,7 +298,8 @@ export class AliCloudVmDetailComponent implements OnInit {
                     
                     this.tags = response.resultContent.Tags;
                     this.keypairs = response.resultContent.KeyPairs;
-                    console.log(this.tags, this.keypairs, "tags, keypairs!");
+                    this.eipInfo = response.resultContent.EipInfo;
+                    console.log(this.tags, this.keypairs, this.eipInfo, "tags, keypairs, eipInfo!");
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;

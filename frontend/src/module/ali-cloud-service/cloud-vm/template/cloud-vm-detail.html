@@ -132,20 +132,19 @@
                 </li>
 
                 <li>带宽计费方式：
-                    <span>{{instance.InternetChargeType || ''}}</span>
+                    <span>{{eipInfo.InternetChargeType | dict:this.dictService.internetChargeTypeDict | async}}</span>
                 </li>
 
-                <!--
+
                 <li>当前使用带宽：
-                    <span>{{instance.InstanceId || ''}}</span>
+                    <span>{{eipInfo.Bandwidth || ''}} Mbps (峰值)</span>
                 </li>
-                -->
 
-                <li>专有网络：
+                <li *ngIf="instance.InstanceNetworkType=='vpc'">专有网络：
                     <span>{{instance.VpcAttributes.VpcId || ''}}</span>
                 </li>
 
-                <li>虚拟交换机：
+                <li *ngIf="instance.InstanceNetworkType=='vpc'">虚拟交换机：
                     <span>{{instance.VpcAttributes.VSwitchId || ''}}</span>
                 </li>
 
