@@ -9,37 +9,37 @@
 			<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<li class="hands"><a (click)="edit()">{{ 'COMMON.EDIT' | translate }}</a></li>
-				<li class="hands"><a (click)="modifyQuota()">{{ 'ENT_MNG.MODIFY_QUOTA' | translate }}</a></li>
+				<li class="hands"><a (click)="edit()" id="edit">{{ 'COMMON.EDIT' | translate }}</a></li>
+				<li class="hands"><a (click)="modifyQuota()" id="modifyQuota">{{ 'ENT_MNG.MODIFY_QUOTA' | translate }}</a></li>
 <!-- 				<li class="hands"><a (click)="setupCertInfo()">设置认证</a></li>
  -->			
  				<!--<li class="hands"><a (click)="manageAviPlatform()">{{ 'ENT_MNG.MANAGE_AVILABLE_PLATFORM' | translate }}</a></li>-->
  				<!--<li class="hands"><a (click)="setupProduct()">{{ 'ENT_MNG.SET_PRODUCT' | translate }}</a></li>-->
 				<!--<li class="hands"><a (click)="setupAdmin()">{{ 'ENT_MNG.SET_ADMIN' | translate }}</a></li>-->
 				<!--<li class="hands"><a (click)="setupCerts()">{{ 'ENT_MNG.MNG_AD_SOURCE' | translate }}</a></li>-->
-				<li class="hands"><a (click)="enable()">{{ 'COMMON.ENABLE' | translate }}</a></li>
-				<li class="hands"><a (click)="disable()">{{ 'COMMON.DISABLE' | translate }}</a></li>
-				<li class="hands"><a (click)="delete()">{{ 'COMMON.DELETE' | translate }}</a></li>
+				<li class="hands"><a (click)="enable()" id="enable">{{ 'COMMON.ENABLE' | translate }}</a></li>
+				<li class="hands"><a (click)="disable()" id="disable">{{ 'COMMON.DISABLE' | translate }}</a></li>
+				<li class="hands"><a (click)="delete()" id="delete">{{ 'COMMON.DELETE' | translate }}</a></li>
 			</ul>
 		</div>
 		<div class="pull-right" style="display: none">
-			<input type="text" class="form-control searchbox" placeholder="{{ 'COMMON.SEARCH' | translate }}" [(ngModel)]="criteria" />
-			<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
+			<input type="text" class="form-control searchbox" id="search_input" placeholder="{{ 'COMMON.SEARCH' | translate }}" [(ngModel)]="criteria" />
+			<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()" id="search"></span>
 		</div>
-		<button class="fox-cloud-button fox-cloud-button-green" (click)="create()">
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="create()" id="create">
 			<span class="glyphicon glyphicon-edit"></span>
 			<span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.CREATE_ENTERPRISE' | translate }}</span>
 		</button>
-		<button class="fox-cloud-button fox-cloud-button-green" (click)="manageAviPlatform()">
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="manageAviPlatform()" id="manageAviPlatform">
 			<span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.MANAGE_AVILABLE_PLATFORM' | translate }}</span>
 		</button>
-		<button class="fox-cloud-button fox-cloud-button-green" (click)="setupCerts()">
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="setupCerts()" id="setupCerts">
 			<span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.MNG_AD_SOURCE' | translate }}</span>
 		</button>
-		<button class="fox-cloud-button fox-cloud-button-green" (click)="setupProduct()">
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="setupProduct()" id="setupProduct">
 			<span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.SET_PRODUCT' | translate }}</span>
 		</button>
-		<button class="fox-cloud-button fox-cloud-button-green" (click)="setupAdmin()">
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="setupAdmin()" id="setupAdmin">
 			<span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.SET_ADMIN' | translate }}</span>
 		</button>
 		
@@ -63,7 +63,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let item of entEstMng.Items; let i=index">
+				<tr *ngFor="let item of entEstMng.Items; let i=index" id="entEstMng_{{item.enterpriseId}}">
 					<td>
 						<input type="radio" class="fox-cloud-radio"   name="entItems" (change)="selectItem(i)" value="{{i}}">
 					</td>
@@ -94,7 +94,7 @@
 			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.NAME' | translate }}:</div>
 			<div class="col-sm-4">
 				<div class="form-group has-feedback" [ngClass]="{'has-success':isSameName==1,'has-error':isSameName==2}">
-					<input type="text" class="form-control" placeholder="{{ 'COMMON.NAME' | translate }}" [(ngModel)]="entEst.BasicInfo.name" (blur)="checkName();" style="border-color: #ddd;">
+					<input type="text" id="name" class="form-control" placeholder="{{ 'COMMON.NAME' | translate }}" [(ngModel)]="entEst.BasicInfo.name" (blur)="checkName();" style="border-color: #ddd;">
 					<span *ngIf="isSameName==1" class="glyphicon glyphicon-ok form-control-feedback" ></span>
 					<span *ngIf="isSameName==2" class="glyphicon glyphicon-remove form-control-feedback" ></span>
 				</div>
@@ -105,7 +105,7 @@
 		<div class="form-group">
 			<div class="col-sm-4 form-control-title">{{ 'COMMON.DESCRIPTION' | translate }}:</div>
 			<div class="col-sm-4">
-				<textarea class="form-control input-control" placeholder="{{ 'COMMON.DESCRIPTION' | translate }}" rows="4" [(ngModel)]="entEst.BasicInfo.description"></textarea>
+				<textarea class="form-control input-control" id="description" placeholder="{{ 'COMMON.DESCRIPTION' | translate }}" rows="4" [(ngModel)]="entEst.BasicInfo.description"></textarea>
 			</div>
 		</div>
 	</div>
@@ -120,7 +120,7 @@
 				<div class="form-group">
 					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.VAILABLE_VCPU_NUM' | translate }}:</div>
 					<div class="col-sm-5">
-					    <input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.VAILABLE_VCPU_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.vcpuQuota">
+					    <input type="number" id="vcpu_num" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.VAILABLE_VCPU_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.vcpuQuota">
 					</div>
 					<div class="col-sm-1">
 					    <span class=" form-control-title mgl5">个</span>
@@ -131,7 +131,7 @@
 				<div class="form-group">
 					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.VAILABLE_RAM_NUM' | translate }}:</div>
 					<div class="col-sm-5">
-					    <input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.VAILABLE_RAM_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.memroyQuota">
+					    <input type="number" id="ram_num" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.VAILABLE_RAM_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.memroyQuota">
 					</div>
 					<div class="col-sm-1">
 					    <span class=" form-control-title ">GB</span>
@@ -142,7 +142,7 @@
 				<div class="form-group">
 					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_PYH_NUM' | translate }}:</div>
 					<div class="col-sm-5">
-					<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_PYH_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.physicalQuota">
+					<input type="number" id="pyh_num" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_PYH_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.physicalQuota">
 					</div>
 					<div class="col-sm-1">
 					    <span class=" form-control-title mgl5" >台</span>
@@ -153,7 +153,7 @@
 				<div class="form-group">
 					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.VAILABLE_STORAGE_QUOTA' | translate }}:</div>
 					<div class="col-sm-5">
-						<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.VAILABLE_STORAGE_QUOTA' | translate }}" [(ngModel)]="entEstResource.FirstItem.storageQuota">
+						<input type="number" id="storage_quota" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.VAILABLE_STORAGE_QUOTA' | translate }}" [(ngModel)]="entEstResource.FirstItem.storageQuota">
 					</div>
 					<div class="col-sm-1">
 					    <span class=" form-control-title ">GB</span>
@@ -164,7 +164,7 @@
 				<div class="form-group">
 					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_SNAPSHOT_NUM' | translate }}:</div>
 					<div class="col-sm-5">
-						<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_SNAPSHOT_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.snapShotQuota">
+						<input type="number" id="snapshot_num" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_SNAPSHOT_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.snapShotQuota">
 					</div>
 					<div class="col-sm-1">
 					    <span class=" form-control-title mgl5">个</span>
@@ -175,7 +175,7 @@
 				<div class="form-group">
 					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_IMAGE_NUM' | translate }}:</div>
 					<div class="col-sm-5">
-						<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_IMAGE_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.imageQuota">
+						<input type="number" id="image_num" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_IMAGE_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.imageQuota">
 					</div>
 					<div class="col-sm-1">
 					    <span class=" form-control-title mgl5" >个</span>
@@ -186,7 +186,7 @@
 				<div class="form-group">
 					<div class="col-sm-6 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.CAN_CREATE_FLOAT_IP_NUM' | translate }}:</div>
 					<div class="col-sm-5">
-						<input type="number" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_FLOAT_IP_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.floatIpQuota">
+						<input type="number" id="ip_num" class="form-control input-control wt280" placeholder="{{ 'ENT_MNG.CAN_CREATE_FLOAT_IP_NUM' | translate }}" [(ngModel)]="entEstResource.FirstItem.floatIpQuota">
 					</div>
 					<div class="col-sm-1">
 					    <span class=" form-control-title mgl5" >个</span>
@@ -205,7 +205,7 @@
 		<div class="form-group">
 			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL {{ 'COMMON.PATH' | translate }}:</div>
 			<div class="col-sm-4">
-				<input type="text" class="form-control input-control" placeholder="URL {{ 'COMMON.PATH' | translate }}" [(ngModel)]="entEst.BasicInfo.certUrl">
+				<input type="text" id="url" class="form-control input-control" placeholder="URL {{ 'COMMON.PATH' | translate }}" [(ngModel)]="entEst.BasicInfo.certUrl">
 			</div>
 		</div>
 	</div>
@@ -213,7 +213,7 @@
 		<div class="form-group">
 			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.USERNAME' | translate }}:</div>
 			<div class="col-sm-4">
-				<input type="text" class="form-control input-control" placeholder="{{ 'COMMON.USERNAME' | translate }}" [(ngModel)]="entEst.BasicInfo.contactorName">
+				<input type="text" id="contactorName" class="form-control input-control" placeholder="{{ 'COMMON.USERNAME' | translate }}" [(ngModel)]="entEst.BasicInfo.contactorName">
 			</div>
 		</div>
 	</div>
@@ -221,12 +221,12 @@
 		<div class="form-group">
 			<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.PASSWORD' | translate }}:</div>
 			<div class="col-sm-4">
-				<input type="password" class="form-control input-control" placeholder="{{ 'COMMON.PASSWORD' | translate }}" [(ngModel)]="entEst.BasicInfo.password">
+				<input type="password" id="password" class="form-control input-control" placeholder="{{ 'COMMON.PASSWORD' | translate }}" [(ngModel)]="entEst.BasicInfo.password">
 			</div>
 		</div>
 	</div>
   <div class="testPanel">
-      <button class="fox-cloud-button-lg fox-cloud-button-green" (click)="testAD()">
+      <button class="fox-cloud-button-lg fox-cloud-button-green" id="testAD" (click)="testAD()">
 		<span class="icon-button-label">{{ 'COMMON.TEST' | translate }}</span>
 	</button>
 	<div [ngSwitch]="ADflag">
