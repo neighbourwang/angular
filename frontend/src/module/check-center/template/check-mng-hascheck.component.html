@@ -63,11 +63,11 @@
 							<div>
 								<span class="float-left mgt15">{{'COMMON.CREATED_TIME' | translate}}&nbsp;:&nbsp;</span>
 								<div class="dropdown float-left">			
-									<date-picker (dateChanged)="onStartDateChange($event)"></date-picker>
+									<date-picker  #createDatePicker (dateChanged)="onStartDateChange($event)"></date-picker>
 								</div>
 								<span class="float-left form-control-title mgl10 mgr5">—</span>
 								<div class="dropdown float-left">			
-									<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
+									<date-picker  #expireDatePicker (dateChanged)="onEndDateChange($event)"></date-picker>
 								</div>
 							</div>
 						</td>

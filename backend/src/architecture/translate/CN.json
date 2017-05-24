@@ -165,7 +165,7 @@
         "CONFIRM_TO_REMOVE_ACCOUNT": "您选择删除机构 {{value_2}} 的帐号 {{value_1}}, 请确认",
         "CONFIRM_TO_REMOVE_AD_SOURCE": "确认删除认证源'{{value_1}}'?",
         "ENTERPRISE_TENANT_NAME": "企业（租户）名称",
-        "ENTER_ORDER_INFORMATION": "输入订单信息快速查询",
+        "ENTER_ORDER_INFORMATION": "输入订单号快速查询",
         "NOT_APPROVED_LIST_DATA_ERROR": "待审批列表加载错误",
         "NUMBER_OF_APPROVE": "查询到需要审核的订单数为",
         "ORDER_ATTRIBUTTION": "订单归属",

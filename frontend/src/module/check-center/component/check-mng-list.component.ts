@@ -16,7 +16,7 @@ import {
 import { CheckCenterParam, CheckListItem } from './../model';
 import { DictService } from '../../../architecture/core/service/dict-service';
 import { TranslateService } from 'ng2-translate';
-
+import { MyDatePicker  } from '../../../architecture/components/date-picker/my-date-picker.component';
 import * as _ from 'underscore';
 
 @Component({
@@ -46,6 +46,14 @@ export class CheckMngListComponent implements OnInit {
 	refuseDialog: PopupComponent;
 	@ViewChild("confirmAcceptDialog")
 	private _confirmAccept: ConfirmComponent;
+
+	
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
+
 
 	constructor(
 		private _restApiCfg: RestApiCfg
@@ -373,8 +381,11 @@ export class CheckMngListComponent implements OnInit {
 	}
 
 	resetParam() {
-		this._param.reset();
 		this._submiterLoader.clear();
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
+		this._param.reset();
+		
 	}
 
 }
