@@ -255,6 +255,18 @@ export class TagItemModel {
     TagKey: string = "";
 }
 
+export class EipInfoModel {
+    ChargeType: string = "";
+    Status: string = "";
+    AllocationTime: string = "";
+    InstanceId: string = "";
+    RegionId: string = "";
+    IpAddress: string = "";
+    AllocationId: string = "";
+    InternetChargeType: string = "";
+    Bandwidth: string = "";
+}
+
 //>>> FamilyTree
 export class instanceFamilyTreeTypeIdModel {
     LocalStorageAmount:number = 0;

@@ -126,7 +126,7 @@
 						<td>{{'COMMON.BILLING_MODE' | translate}} : {{item.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async | translate}}<br>
 						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}} : {{item.billingDurationStr}}{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}<br>
 						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}} : <span class="font-red">￥{{item.oneTimePriceNum}}</span><br>
-						 	{{'CHECK_CENTER.COST' | translate}} : <span class="font-red">￥{{item.priceNum}}/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</span></td>
+						 	<span *ngIf="item.showPrice">{{'CHECK_CENTER.COST' | translate}} : </span><span *ngIf="item.showPrice" class="font-red">￥{{item.priceNum}}/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</span></td>
 						<td>{{item.createTimeStr}}</td>
 						<td><button class=" button-gray-gradient" (click)="accept(item)">{{'CHECK_CENTER.AGREE' | translate}}</button><br><button class=" button-gray-gradient mgt10" (click)="refuse(item)">{{'CHECK_CENTER.REFUSE' | translate}}</button></td>
 					</tr>
