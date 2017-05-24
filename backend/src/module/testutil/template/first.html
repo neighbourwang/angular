@@ -1,46 +1,91 @@
 <div>
     <div>
-        <button>新增</button>
-        <button>查询</button>
-        <button>批量修改</button>
+        <a >新增</a>
+        <a (click)="toSearchPage()">查询</a>
+        <a >批量修改</a>
     </div>
     <br>
-    <div>
-        <div>微服务名称:
-            <input [(ngModel)]="entry.groupCase"/>
-        </div>
-        <br>
-        <div>二级功能:
-            <input [(ngModel)]="entry.groupFunc"/>
-        </div>
-        <br>
-        <div>
-            <div class="form-group">
-                请求参数:
-                <br>
-                <div class="col-sm-4 float-left">
-                <input type="text" rows="3" class="form-control" [(ngModel)]="entry.bodyVar"/>         
+        <div class="page-content">
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        微服务名称:
+                    </div>
+                    <div class="col-sm-4 " >
+                        <input type="text" class="form-control"[(ngModel)]="entry.groupCase"/>
+                    </div>
+                </div>
             </div>
-        </div>
-        <br>
-        <div>执行顺序(数字):
-            <input [(ngModel)]="entry.sequenceNum"/>
-        </div>
-        <br>
-        <div>下拉框前端:
-            <input [(ngModel)]="entry.methodHit"/>
-        </div>
-        <br>
-        <div>期望返回值:
-            <input [(ngModel)]="entry.resultExp"/>
-        </div>
-        <br>
-        <div>URL:
-            <input [(ngModel)]="entry.urlHit"/>
-        </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        二级功能:
+                    </div>
+                    <div class="col-sm-4 " >
+                        <input type="text" class="form-control"[(ngModel)]="entry.groupFunc"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        请求参数:
+                    </div>
+                    <div class="col-sm-4 ">
+                        <textarea rows="3"class="form-control" maxlength="200" [(ngModel)]="entry.bodyVar">
+                        </textarea>  
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        执行顺序(数字):
+                    </div>
+                    <div class="col-sm-4 " >
+                        <input type="number" class="form-control"[(ngModel)]="entry.sequenceNum"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        Method:
+                    </div>
+                    <div class="col-sm-4 " >
+                        <input type="text" class="form-control"[(ngModel)]="entry.methodHit"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        期望返回值:
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control"[(ngModel)]="entry.resultExp"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title">
+                        URL:
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"[(ngModel)]="entry.urlHit"/>
+                    </div>
+                </div>
+            </div>
+              
     </div>
-    <br>
-    <div>
-        <button (click)="insertone()">保存</button>
+    
+    <div class="text-center ">
+        <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="insertone()">
+            <span class="icon-button-label">保存</span>
+        </button>
     </div>
 </div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}" ct="{{'HOST_OPENSTACK_MNG.CANCEL' | translate}}"></fc-confirm>
