@@ -12,7 +12,7 @@ import { StaticTooltipComponent } from "../../../../architecture/components/stat
 //Model
 import { RegionModel, keysecretModel, AreaModel } from "../../cloud-disk/model/cloud-disk.model";
 import { instanceListModel, VmQueryObject, FloatingIPAddressModel, 
-    TagsModel, KeyPairsModel, GraphItem, LineChart, chartColors } from "../model/cloud-vm.model";
+    TagsModel, KeyPairsModel, EipInfoModel, GraphItem, LineChart, chartColors } from "../model/cloud-vm.model";
 
 //Service
 import { AliCloudDiskService } from "../../cloud-disk/service/cloud-disk.service";
@@ -106,6 +106,7 @@ export class AliCloudVmDetailComponent implements OnInit {
 
     tags: TagsModel = new TagsModel();
     keypairs: KeyPairsModel = new KeyPairsModel();
+    eipInfo: EipInfoModel = new EipInfoModel();
 
     cpuList: Array<GraphItem> = [];
     netList: Array<GraphItem> = [];
@@ -131,8 +132,10 @@ export class AliCloudVmDetailComponent implements OnInit {
 
     instanceStatusDictArray: Array<SystemDictionary> = [];
     instanceChargeTypeDictArray: Array<SystemDictionary> = [];
+    internetChargeTypeDictArray: Array<SystemDictionary> = [];
     ioOptimizedDictArray: Array<SystemDictionary> = [];
     networkTypeDictArray: Array<SystemDictionary> = [];
+    ioOptimizedDetailDictArray: Array<SystemDictionary> = [];
 
     private okCallback: Function = null;
     okClicked() {
@@ -182,6 +185,11 @@ export class AliCloudVmDetailComponent implements OnInit {
                 this.instanceChargeTypeDictArray = items;
                 console.log(this.instanceChargeTypeDictArray, "this.instanceChargeTypeDictArray");
             });
+        this.dictService.internetChargeTypeDict
+            .then((items) => {
+                this.internetChargeTypeDictArray = items;
+                console.log(this.internetChargeTypeDictArray, "this.internetChargeTypeDictArray");
+            });
         this.dictService.ioOptimizedDict
             .then((items) => {
                 this.ioOptimizedDictArray = items;
@@ -191,7 +199,12 @@ export class AliCloudVmDetailComponent implements OnInit {
             .then((items) => {
                 this.networkTypeDictArray = items;
                 console.log(this.networkTypeDictArray, "this.networkTypeDictArray");
-            });        
+            }); 
+        this.dictService.ioOptimizedDetailDict
+            .then((items) => {
+                this.ioOptimizedDetailDictArray = items;
+                console.log(this.ioOptimizedDetailDictArray, "this.ioOptimizedDetailDictArray");
+            });       
         
     }
 
@@ -248,9 +261,12 @@ export class AliCloudVmDetailComponent implements OnInit {
                                 this.startHour = "22";
                                 this.endHour = "23";
                             } else {
-                                this.startHour = (currentHour - 1).toString();
-                                this.endHour = (currentHour + 1).toString();
+                                let front = (currentHour - 1);
+                                let back = (currentHour + 1);
+                                this.startHour = front>=10?front.toString():('0'+ front.toString());
+                                this.endHour = back>=10?back.toString():('0'+ back.toString());
                             }
+                            console.log(this.startHour, this.endHour, "this.startHour, this.endHour!");
                         }
                         this.getInstanceMonitorData();
                     } else {
@@ -282,7 +298,8 @@ export class AliCloudVmDetailComponent implements OnInit {
                     
                     this.tags = response.resultContent.Tags;
                     this.keypairs = response.resultContent.KeyPairs;
-                    console.log(this.tags, this.keypairs, "tags, keypairs!");
+                    this.eipInfo = response.resultContent.EipInfo;
+                    console.log(this.tags, this.keypairs, this.eipInfo, "tags, keypairs, eipInfo!");
                 } else {
                     this.showMsg("COMMON.GETTING_DATA_FAILED");
                     return;
@@ -311,11 +328,14 @@ export class AliCloudVmDetailComponent implements OnInit {
         console.log(utcstart, utcend, "start2 and end2!");
         let period:string = "60";
 
-        if(start >= end) {
+        //if(start >= end) {
+        if(Math.ceil(Date.parse(utcend) - Date.parse(utcstart))/(24*60*60*1000) < 0) {
             console.log("startTime>endTime!");
             this.showMsg("请选择正确的时间段");
             return;
         }
+
+        console.log(utcstart, utcend, "utcstart, utcend!");
 
 
         this.layoutService.show();
@@ -365,9 +385,9 @@ export class AliCloudVmDetailComponent implements OnInit {
         let max_value = 0;
         chart.SourceData.forEach((s)=>{
             let date = new Date(new Date(s.TimeStamp).toLocaleString());
-            console.log(date, "TimeStamp");
+            //console.log(date, "TimeStamp");
         let x = (date.getMonth()+1) + "/" + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes();
-            console.log(x, "x!");
+            //console.log(x, "x!");
             temp_time.push(x);
 
             if (chart == this.cpuChart) {
