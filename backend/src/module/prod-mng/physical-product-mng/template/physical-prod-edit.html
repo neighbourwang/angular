@@ -1,0 +1,419 @@
+<!--<div class="page-content-header icon-create-product">{{'PROD_MNG.VIEW_PRODUCT' | translate}}</div>查看产品-->
+
+<div class="page-content-header icon-create-product" style="padding-bottom:10px;height:45px;">
+	{{'PROD_MNG.EDIT_PRODUCT' | translate}}
+	<button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" (click)='cancel()'>
+        <span class="icon-button-label" >{{'PROD_MNG.RETURN_PRODUCT_LIST' | translate}}</span>
+    </button>
+</div>
+<div class="mgt20" style="border-bottom:1px solid #ddd;padding-bottom:5px">
+	<button type="button" class="btn btn-default grayTab noBorder" *ngFor="let item of Tabels;let idx = index" (click)="changeTab(item,idx)"
+	 [ngClass]="{'btn-active': item.active}" style="margin-right:2px;">{{item.name | translate}}</button>
+</div>
+<div *ngIf="Tabels[0].active">
+	<div class="page-content fix-page-content">
+		<div class="row" style="padding-top: 30px;">
+			<div class="col-md-12">
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PROD_NAME'|translate}}：</div>
+						<!--产品名称-->
+						<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.productName}">
+							<input type="text" [(ngModel)]="tempProductName" [disabled]="!editBasicInfo" (ngModelChange)="checkForm('productName')" name="productName"
+							 placeholder="{{'PROD_MNG.PROD_NAME' | translate}}" class="form-control">
+							<span *ngIf="v.result.productName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+							<div *ngIf="v.result.productName" class="alert alert-danger" role="alert">{{v.result.productName}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT'|translate}}：</div>
+						<!--产品目录-->
+						<div class="col-sm-4 no-padding">
+							<input type="text" class="form-control" disabled [(ngModel)]=" productService.physicalService.serviceName">
+						</div>
+					</div>
+				</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title">标准规格：</div>
+						<div class="col-sm-4 no-padding">
+							<div style="border:1px solid #cfd8e7">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												{{"部件名称"}}
+											</th>
+											<th>{{'规格' | translate}}</th>
+											<th>{{'规格值' | translate}}</th>
+											<th>{{'数量' | translate}}</th>
+											<th>{{'总容量' | translate}}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let unit of productService.physicalService.phyMachinePartsFlavors; let idx = index;">
+											<td>
+												{{unit.partsName}}
+											</td>
+											<td>{{unit.specName}}</td>
+											<td>
+												{{unit.partsFlavorValue}}
+												<span *ngIf="unit.partsName=='磁盘'||unit.partsName=='内存'">GB</span>
+											</td>
+											<td>{{unit.partFlavorNum}}</td>
+											<td>
+												<span *ngIf="unit.capacity!=0">{{unit.capacity}}GB</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title">描述：</div>
+						<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
+							<textarea [disabled]="!editBasicInfo" type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
+							 rows="3" [(ngModel)]="tempProductDesc" name="description">
+                            </textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-center" *ngIf="!editBasicInfo">
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
+    </button>
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="this.editBasicInfo=true;" style="margin-left:40px;">
+        <span class="icon-button-label">{{'HOST_VMWARE_MNG.EDIT' | translate}}</span>
+    </button>
+	</div>
+	<div class="text-center" *ngIf="editBasicInfo">
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancelBasicEdit()">
+        <span class="icon-button-label">{{'COMMON.CANCEL' | translate}}</span>
+    </button>
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="saveBasic();" style="margin-left:40px;">
+        <span class="icon-button-label">{{'HOST_VMWARE_MNG.SAVE' | translate}}</span>
+    </button>
+	</div>
+</div>
+<div *ngIf="Tabels[1].active">
+	<div class="page-content fix-page-content">
+		<div class="row" style="padding-top: 30px;">
+			<div class="col-md-12">
+				<div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.COUNT_MODE' | translate}}：</div>
+                    <div class="col-sm-6 row-inline-radio">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="radio-inline row-inline-radio2 font-gray">
+                            		<input type="radio" name="billingTypeRadios" checked=true class="fox-cloud-radio" > {{'PROD_MNG.BY_YEAR_BY_MONTH' | translate}}<!--包年包月-->
+                       			</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-line-height">
+                <div class="form-group">
+                    <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'COMMON.COUNT_CYCLE' | translate}}：</div>
+                    <!--计费周期-->
+                    <div class="col-sm-6 row-inline-radio">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
+                           				<input type="radio" name="inlineRadioOption"  value="5" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle"  (click)="service.product.billingCycleClick=true;"> {{'COMMON.BY_YEAR' | translate}}<!--包年-->
+                       				</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
+                           				<input type="radio" name="inlineRadioOption"  value="3" class="fox-cloud-radio" [(ngModel)]="service.product.billingCycle" (click)="service.product.billingCycleClick=true;"> {{'COMMON.BY_MONTH' | translate}}<!--包月-->
+                       				</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
+                           				<input type="radio" name="inlineRadioOption"  value="1" class="fox-cloud-radio" [(ngModel)]="product.billingCycle" (click)="service.product.billingCycleClick=true;"> {{'COMMON.BY_DAY' | translate}}
+                       				</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="radio-inline row-inline-radio4 font-gray" style="width:100%">
+                           				<input type="radio" name="inlineRadioOption"  value="0" class="fox-cloud-radio" [(ngModel)]="product.billingCycle" (click)="service.product.billingCycleClick=true;"> {{'COMMON.BY_HOUR' | translate}}
+                       				</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">{{'PROD_MNG.BASIC_CYCLE_PRICE' | translate}}：</div>
+                        <!--基础周期价格-->
+                        <div class="col-sm-6">
+                            <count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=false [value]="product.basicCyclePrice||0" #basicCyclePrice (output)="outputValue($event,'basicCyclePrice')"></count-bar>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">{{'PROD_MNG.INCREMENT_CYCLE_PRICE' | translate}}：</div>
+                        <div class="col-sm-6">
+                            <count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=false [value]="product.extendCyclePrice||0" #extendCyclePrice (output)="outputValue($event,'extendCyclePrice')"></count-bar>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-line-height">
+                    <div class="form-group">
+                        <div class="col-sm-4 form-control-title">
+                            {{'PROD_MNG.ONE_TIME_PRICE' | translate}}：
+                            <!--一次性价格-->
+                        </div>
+                        <div class="col-sm-6">
+                            <count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=false [value]="product.oneTimePrice||0" #oneTimePrice (output)="outputValue($event,'oneTimePrice')"></count-bar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>附加部件：</div>
+					<div class="col-sm-4">
+						<div style="border:1px solid #cfd8e7">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th style="width:20%">
+											{{"部件名称"}}
+										</th>
+										<th style="width:15%">{{'规格' | translate}}</th>
+										<th style="width:15%">{{'规格值' | translate}}</th>
+										<th style="width:20%">{{'基础周期价格' | translate}}</th>
+										<th style="width:30%"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let unit of service.product.pmPartsBaseprises; let idx = index;">
+										<td>
+											{{unit.partsName}}
+										</td>
+										<td>{{unit.specName}}</td>
+										<td>
+                                            {{unit.specValue}}
+                                            <span *ngIf="unit.partsId=='2eeb0a38-167e-11e7-91af-0242ac110002'||unit.partsId=='35dc99bd-167e-11e7-91af-0242ac110002'">GB</span>
+                                        </td>
+										<td>
+                                            <span *ngIf="!unit.isEdit">{{unit.ajustmentPrice}}</span>                                           
+                                            <input *ngIf="unit.isEdit" class="form-control" type="number" [(ngModel)]="unit.temPrice" name="temPrice" style="height:20px">                                            
+                                        </td>										
+										<td>
+                                            <span *ngIf="!unit.isEdit" class="glyphicon glyphicon-edit pointer" (click)="unit.isEdit=true;unit.temPrice=unit.ajustmentPrice"></span>
+                                            <span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-remove pointer" (click)="unit.isEdit=false;unit.temPrice=unit.ajustmentPrice"></span>
+                                            <span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-saved pointer mgl10" (click)="unit.isEdit=false;unit.ajustmentPrice=unit.temPrice"></span>
+                                            <!--<button *ngIf="unit.isEdit" class="fox-cloud-button-md fox-cloud-button-white" (click)="unit.isEdit=false;unit.referencePrice=unit.temPrice">{{'COMMON.SAVE' | translate}}</button>-->
+                                            <!--<button *ngIf="unit.isEdit" class="fox-cloud-button-md fox-cloud-button-white" (click)="unit.isEdit=false;unit.temPrice=unit.referencePrice">{{'COMMON.CANCEL' | translate}}</button>-->
+                                        </td>
+									</tr>									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-center" *ngIf="!editPriceInfo">
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+        <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
+    </button>
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="editPriceInfo=true;" style="margin-left:40px;">
+        <span class="icon-button-label">{{'HOST_VMWARE_MNG.EDIT' | translate}}</span>
+    </button>
+	</div>
+	<div class="text-center" *ngIf="editPriceInfo">
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancelPriceEdit();">
+        <span class="icon-button-label">{{'COMMON.CANCEL' | translate}}</span>
+    </button>
+		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="savePrice();" style="margin-left:40px;">
+        <span class="icon-button-label">{{'COMMON.SAVE' | translate}}</span>
+    </button>
+	</div>
+</div>
+<div *ngIf="Tabels[2].active">
+	<div class="row" style="padding-top: 30px;">
+		<div class="col-md-12">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'选择资源池' | translate}}：</div>
+					<div class="col-sm-6 row-inline-radio">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+		</div>
+		<div class="col-sm-6">
+			<div style="border:1px solid #cfd8e7">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="check-box-col">
+								<input class="fox-cloud-checkbox" type="checkbox" [checked]="allSelected" (click)="selectAllResourcePool()" />{{'COMMON.SELECT_ALL'|
+								translate}}</th>
+							<th>{{'资源池' | translate}}</th>
+							<th>{{'描述' | translate}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let resourcePool of productService.physicalService.phyMachineAreaPoolsProfile; let idx = index;">
+							<td>
+								<input class="fox-cloud-checkbox" [disabled]="resourcePool.disabled" type="checkbox" [checked]="resourcePool.selected" [(ngModel)]="resourcePool.selected" (click)="selectResourcePool(idx)"
+								/>
+							</td>
+							<td class="no-nowrap">{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>
+							<td class="no-nowrap">{{resourcePool.description}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="text-center mgt20">
+		<button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancelAddPool();">
+        <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
+    </button>
+		<button class="fox-cloud-button-lg fox-cloud-button-white btn" [disabled]="!isAddPool" (click)="ccEditPlatform()" style="margin-left:40px;">
+        <span class="icon-button-label">{{'PROD_MNG.ADD' | translate}}</span>
+    </button>
+	</div>
+</div>
+<div *ngIf="Tabels[3].active">
+	<div class="page-content fix-page-content">
+		<div class="row row-line-height">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6 selectEnt">
+				<div class="row row-line-height entup">
+					<div class="col-sm-5 entHeader">
+						{{'PROD_MNG.ALL_ENTERPRISE' | translate}}
+						<!--全部企业-->
+					</div>
+					<div class="col-sm-2"></div>
+					<div class="col-sm-5 entHeader">
+						{{'PROD_MNG.SELECTED_ENTERPRISE' | translate}}
+						<!--选中的企业-->
+					</div>
+				</div>
+				<div class="row row-line-height entdown">
+					<div class="col-sm-5 entBody">
+						<div style="position: relative;height:40px;" *ngFor="let ent1 of productService.enterpriseListForSelect; let i=index">
+							<span class="span2" (click)="selectEnterprise(ent1,i)" style="width:80%">{{ent1.name}}</span>
+							<span class="icon-tick" style="margin-top:5px;left:80%" *ngIf="ent1.selected"></span>
+							<!--<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" ">-->
+							<div class="clear:both"></div>
+						</div>
+						<!--<div *ngFor="let ent1 of enterpriseList; let i=index">
+								<span class="span1">{{ent1.name}}</span>
+								<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" (click)="selectEnterprise(ent1,i)">
+							</div>-->
+					</div>
+					<div class="col-sm-2"></div>
+					<div class="col-sm-5 entBody">
+						<div *ngFor="let ent2 of updateEntObj.productEnterpiseReqs;let ii=index">
+							<span class="span2" (click)='unSelected(ent2,ii)'>{{ent2.name}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
+		<div class="text-center mgt20">
+			<button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancel();">
+        <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
+    </button>
+			<button class="fox-cloud-button-lg fox-cloud-button-white btn" [disabled]="!isAddEnter" (click)="ccAddEnt()" style="margin-left:40px;">
+        <span class="icon-button-label">{{'PROD_MNG.ADD' | translate}}</span>
+    </button>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="Tabels[4].active">
+	<div class="page-content fix-page-content">
+		<div class="row" style="padding-top: 30px;">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="table-container">
+					<table class="table table-hover" >
+						<thead>
+							<tr>
+								<th>创建时间</th>
+								<!--产品名称-->
+								<!--<th>{{'PROD_MNG.PRODUCT_CAT' | translate}}</th>-->
+								<!--产品目录-->
+								<th>产品目录</th>
+								<!--产品规格-->
+								<!--<th>{{'PROD_MNG.PRODUCT_SPEC' | translate}}</th>-->
+								<th>{{'COMMON.COUNT_CYCLE' | translate}}</th>
+								<!--计费周期-->
+								<th>产品基础周期价格</th>
+								<th>产品增量周期价格</th>
+
+								<th>{{'PROD_MNG.ONE_TIME_PRICE' | translate}}</th>
+								<!--一次性价格-->
+								<!--<th>单位价格</th>-->
+								<!--产品名称-->
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let price of historyPriceList.productHistoryBillingProfileList; let idx = index;">
+								<td>{{price.createDate}}</td>
+								<td>{{historyPriceList.serviceName}}</td>
+								<!--<td>{{historyPriceList.productHistoryBillingProfileDiskItem}}</td>-->
+								<!--<td>{{historyPriceList.}}</td>-->
+								<td>
+									<span [ngSwitch]="price.billingCycle"> 
+										<template [ngSwitchCase]="0">{{'COMMON.BY_HOUR' | translate}}</template>
+										<template [ngSwitchCase]="1">{{'COMMON.BY_DAY' | translate}}</template>
+										<template [ngSwitchCase]="2">{{'COMMON.BY_WEEK' | translate}}</template>
+										<template [ngSwitchCase]="3">{{'COMMON.BY_MONTH1' | translate}}</template>							
+										<template [ngSwitchCase]="5">{{'COMMON.BY_YEAR1' | translate}}</template>							
+										<template ngSwitchDefault>Unknown</template>							
+									</span>
+								</td>
+								<td>{{price.basicCyclePrice}}</td>
+								<td>{{price.extendCyclePrice}}</td>
+								<td>{{price.oneTimePrice}}</td>
+								<!--<td>{{price.unitPrice}}</td>-->
+								<tr>
+						</tbody>
+					</table>					
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+</div>
+
+
+
+<fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>
+
+<!--<fc-confirm #confirm title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM" (of)="cof()" ct="HOST_OPENSTACK_MNG.CANCEL"></fc-confirm>-->

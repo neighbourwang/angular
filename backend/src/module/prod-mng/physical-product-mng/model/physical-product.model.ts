@@ -25,6 +25,10 @@ class PhyMachineAreaPoolsProfile {
     "phyMachineResourcPoolsProfile": Array<PhyMachineResourcPoolsProfile>;
     "region": string;
     "regionId": string;
+    "pmPoolId": string;//for编辑
+    "poolName": string;//for编辑
+    "selected": boolean;
+    "disabled": boolean;
 }
 class PhyMachineResourcPoolsProfile {
     "pmPoolId": string;
@@ -50,5 +54,6 @@ class ProductEnterpriseReqs {
     "id": string;
     "name": string;
     "selected":boolean;
+    "disable":boolean;
 }
 export{ PhysicalProductModel,ProductEnterpriseReqs}

@@ -60,11 +60,18 @@ export class CheckMngHascheckComponent implements OnInit{
 
 				if(item.orderItems){
 					let orderItem :any=item.orderItems[0];
-					for(let _item of item.orderItems){
-						if(_item.serviceType==3){
-					 	orderItem = _item;
+					if(item.orderItems>1){
+						for(let _item of item.orderItems){
+						if(_item.serviceType==0){
+								orderItem.platformName=_item.platformName;
+								orderItem.zoneName=_item.zoneName;
+							}
+							if(_item.serviceType==3){
+								orderItem.specList = _item.specList;
+							}	
+						}
 					}
-
+					
 					if(orderItem!=null){
 						
 						obj.platformName = orderItem.platformName;
@@ -72,6 +79,9 @@ export class CheckMngHascheckComponent implements OnInit{
 
 						if(orderItem.billingInfo){
 							obj.billingMode = orderItem.billingInfo.billingMode;
+							if(obj.billingMode==3){
+								obj.showPrice = false;
+							}
 							obj.periodType = orderItem.billingInfo.periodType;
 							if(orderItem.billingInfo.billingMode == 0)//包年包月
 							{
@@ -89,7 +99,6 @@ export class CheckMngHascheckComponent implements OnInit{
 						}
 					}
 				}
-			}
 
 				
 			
@@ -292,4 +301,9 @@ export class CheckMngHascheckComponent implements OnInit{
 		let itemLoader = new ItemLoader<ApproveItem>(false, "审批结果加载出错", "check-center.approve-info.get", this._restApiCfg, this._restApi);
 		orderItem.checkResult = itemLoader.Go(null, [{key:"orderId", value:orderItem.orderId}]);
 	}
+
+	changePage(pageNum: number) {
+		this.search(pageNum);
+	}
+
 }

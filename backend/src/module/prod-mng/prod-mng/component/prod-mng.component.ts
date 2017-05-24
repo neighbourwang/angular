@@ -250,6 +250,8 @@ export class ProdMngComponent implements OnInit {
         // if(item.serviceType=='0'||item.serviceType=='1'||item.serviceType=='4'){
         if(item.serviceType=='0'||item.serviceType=='1'){
             this.router.navigate(["prod-mng/prod-mng/prod-detail", {id:item.id,type:item.serviceType}]);            
+        }else if(item.serviceType=='4'){
+            this.router.navigate(["prod-mng/physical-prod-mng/prod-mng-edit", {id:item.id,type:item.serviceType}]);                        
         }
     }
     backend(page: number, size: number, data: any) {

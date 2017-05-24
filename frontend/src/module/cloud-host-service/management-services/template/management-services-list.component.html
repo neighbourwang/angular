@@ -18,7 +18,7 @@
             管理服务名称
         </div>
         <div class="dropdown float-left col-md-1 no-padding mgr20 ">
-            <select class="form-control" [(ngModel)]="listQuery.instanceNo">
+            <select class="form-control" [(ngModel)]="listQuery.name">
                 <option value="">请选择</option>
                 <option
                  *ngFor="let v of productList; let i = index;"
@@ -29,10 +29,10 @@
             服务对象
         </div>
         <div class="dropdown float-left col-md-1 no-padding mgr20 ">
-            <select class="form-control" [(ngModel)]="listQuery.instanceName">
+            <select class="form-control" [(ngModel)]="listQuery.serviceObjectType">
                 <option value="">请选择</option>
                 <option
-                 *ngFor="let v of service.period | async; let i = index;"
+                 *ngFor="let v of service.type | async; let i = index;"
                  [ngValue]="v.value" >{{ v.displayValue }}</option>
             </select>
         </div>
@@ -40,7 +40,7 @@
             实例名称
         </div>
         <div class="input-group col-md-2 float-left mgr10">
-            <input class="form-control" type="email" [(ngModel)]="listQuery.name" placeholder="输入信息快速搜索">
+            <input class="form-control" type="email" [(ngModel)]="listQuery.instanceName" placeholder="输入信息快速搜索">
             <div class="input-group-addon"  (click)="fetchMgmtList()"><span class="glyphicon glyphicon-search"></span></div>
         </div>
         <div class="input-group float-left">
@@ -49,7 +49,7 @@
     </div>
     <div class="col-md-12 no-padding mgb20">
         <button class="btn float-left mgr5 btn-primary" (click)="goTo('cloud-host-service/management-services-order')"><i class="glyphicon glyphicon-plus"></i> 购买管理服务</button>
-        <button (click)="delectVm()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> 退订管理服务</button>
+        <!-- <button (click)="delectVm()" class="btn float-left mgr5 btn-danger"><i class="glyphicon glyphicon-trash"></i> 退订管理服务</button> -->
     </div>
     <table class="table table-hover">
         <tr>

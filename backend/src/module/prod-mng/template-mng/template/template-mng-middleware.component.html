@@ -7,7 +7,7 @@
 					<div class="col-sm-3 form-control-bold-title"><span class="asterisk">*</span>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}:</div>
 					<!--模板名称-->
 					<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.name}">
-						<input type="text" [(ngModel)]="middleware.name" (ngModelChange)="checkForm('name')" name="name" placeholder="{{'请输入模板名称' | translate}}"
+						<input type="text" [disabled]="pageType=='edit'" [(ngModel)]="middleware.name" (ngModelChange)="checkForm('name')" name="name" placeholder="{{'请输入模板名称' | translate}}"
 						 class="form-control">
 						<span *ngIf="v.result.name" class="glyphicon glyphicon-remove form-control-feedback"></span>
 						<div *ngIf="v.result.name" class="alert alert-danger" role="alert">{{v.result.name}}</div>

@@ -93,10 +93,16 @@ export class CheckMngListComponent implements OnInit{
 
 				if(item.orderItems){
 					let orderItem :any=item.orderItems[0];
-					for(let _item of item.orderItems){
-						if(_item.serviceType==3){
-							orderItem = _item;
-						}
+					if(item.orderItems.length>1){
+						for(let _item of item.orderItems){
+								if(_item.serviceType==0){
+									orderItem.platformName=_item.platformName;
+									orderItem.zoneName=_item.zoneName;
+								}
+								if(_item.serviceType==3){
+									orderItem.specList = _item.specList;
+								}	
+							}
 						
 					}
 
@@ -105,6 +111,7 @@ export class CheckMngListComponent implements OnInit{
 					obj.platformStr = orderItem.platformName;//区域
 					obj.zoneStr = orderItem.zoneName;// 可用区
 					obj.specList = orderItem.specList;
+
 					//费用
 					if(orderItem.billingInfo){
 						obj.billingModeNum =orderItem.billingInfo ? orderItem.billingInfo.billingMode: null; //计费模式

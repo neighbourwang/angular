@@ -43,6 +43,9 @@ export class ServiceViewComponent implements OnInit{
 			,instanceName: getProperty(this.specList.find(n=>n.attrCode == 'INSTANCENAME'))
             ,remark:getProperty(this.specList.find(n=>n.attrCode == 'REMARK'))
 			};
+     		this.values.platformName = this._obj.region;
+			this.values.zoneName = this._obj.zone;
+
 		}
 	}
 }
