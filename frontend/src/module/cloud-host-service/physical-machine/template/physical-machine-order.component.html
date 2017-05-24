@@ -266,7 +266,7 @@
             <p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}:
                 <font class="font-orange">{{ phyProduct?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
             <p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}
-                <font class="font-orange">{{ phyProduct?.billingInfo.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue | dict:service.unitType | async }}</font>{{'COMMON.YUAN'|translate}}
+                <font class="font-orange">{{ phyProduct?.billingInfo.basicPrice}}{{'COMMON.YUAN'|translate}} / {{ values.TIMELINEUNIT.attrDisplayValue | dict:service.unitType | async }}</font>
             </p>
             <div class="cloud-p">
                 <p class="cloud-title">{{'VM_INSTANCE.TOTAL_COST'| translate}}：</p>

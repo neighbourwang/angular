@@ -9,7 +9,7 @@
         <div class="float-left mgr20 btn-group" data-toggle="buttons">
             <label 
                 *ngFor="let value of service.status | async"
-                (click)="listQuery.state = value.value"
+                (click)="listQuery.state = value.value; fetchMgmtList()"
                 class="btn btn-default" [ngClass]="{'active': listQuery.state === value.value}"> 
                 <input type="radio" name="status" autocomplete="off" value="{{value.value}}"> {{ value.displayValue }}
             </label>
