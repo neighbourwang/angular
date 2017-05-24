@@ -431,7 +431,8 @@ export class cloudVmComponentOrder implements OnInit {
 		let payloadList = [];
 
 		for (let v in values) {
-			if((values[v].attrValueCode === "" && values[v].attrValue === "") || !this.attrList[v])  continue;
+			// console.log(v, values[v], this.attrList[v])
+			if(!this.attrList[v])  continue;
 			payloadList.push({
 				attrId: this.attrList[v].attrId,                  	//服务属性ID
 				attrCode: this.attrList[v].attrCode,              	//服务属性CODE

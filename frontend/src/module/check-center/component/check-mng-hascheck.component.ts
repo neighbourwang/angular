@@ -79,6 +79,9 @@ export class CheckMngHascheckComponent implements OnInit{
 
 						if(orderItem.billingInfo){
 							obj.billingMode = orderItem.billingInfo.billingMode;
+							if(obj.billingMode==3){
+								obj.showPrice = false;
+							}
 							obj.periodType = orderItem.billingInfo.periodType;
 							if(orderItem.billingInfo.billingMode == 0)//包年包月
 							{

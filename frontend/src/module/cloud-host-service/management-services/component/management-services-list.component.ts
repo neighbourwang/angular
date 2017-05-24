@@ -71,6 +71,7 @@ export class ManagementServicesListComponent implements OnInit {
 
 	fetchMgmtList() {
 		// this.layoutService.show();
+		if( this.listQuery.state == "0" )this.listQuery.state = ""
 		this.service.fetchMgmtList(this.listQuery).then(res => {
 			console.log(this.mgmtList)
 			this.mgmtList = res;
@@ -96,7 +97,7 @@ export class ManagementServicesListComponent implements OnInit {
 
 	resetSearch() {
 		this.listQuery = new SuperviseQueryCondition();
-		this.listQuery.instanceNo = this.productList.length ? this.productList[0].id : ""
+		this.fetchMgmtList()
 	}
 
 	goTo(url : string) {
