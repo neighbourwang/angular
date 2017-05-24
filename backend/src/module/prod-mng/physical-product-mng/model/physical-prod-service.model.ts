@@ -20,6 +20,7 @@ class ResourcePoolObj {
     "skuid":string;
     "phyMachineResourcPoolsProfile": Array<ResourcePool>;
     selected:boolean;
+    disabled:boolean;
     constructor() {
         this.regionId = '';
         this.region = '';
