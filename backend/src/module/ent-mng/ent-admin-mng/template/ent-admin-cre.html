@@ -8,7 +8,7 @@
                         <span class="asterisk">*</span>{{ 'COMMON.ENTERPRISE' | translate }}:
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" disabled="disabled" class="form-control" [value]="enterprise.name||''" placeholder="">
+                        <input id="name" type="text" disabled="disabled" class="form-control" [value]="enterprise.name||''" placeholder="">
                     </div>
                 </div>
             </div>
@@ -18,7 +18,7 @@
                         <span class="asterisk">*</span>{{ 'COMMON.ACCOUNT' | translate }}:
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" [disabled]="aid!=''" class="form-control" [(ngModel)]="admin.loginName" placeholder="">
+                        <input id="loginName" type="text" [disabled]="aid!=''" class="form-control" [(ngModel)]="admin.loginName" placeholder="">
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                         <span class="asterisk">*</span>{{ 'ENT_MNG.ADMINISTRATOR_NAME' | translate }}:
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="admin.userName" placeholder="">
+                        <input id="userName" type="text" class="form-control" [(ngModel)]="admin.userName" placeholder="">
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                         <span class="asterisk">*</span>{{ 'COMMON.CONTACT_PHONE' | translate }}:
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="admin.contactPhone" placeholder="">
+                        <input id="contactPhone" type="text" class="form-control" [(ngModel)]="admin.contactPhone" placeholder="">
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{ 'COMMON.DESCRIPTION' | translate }}:</div>
                     <div class="col-sm-4">
-                        <textarea class="form-control" rows="8" [(ngModel)]="admin.description" placeholder=""></textarea>
+                        <textarea id="description" class="form-control" rows="8" [(ngModel)]="admin.description" placeholder=""></textarea>
                     </div>
                 </div>
             </div>
@@ -54,10 +54,10 @@
     </div>
 </div>
 <div class="text-center">
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();" id="cancel">
         <span class="icon-button-label">{{ 'COMMON.CANCEL' | translate }}</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="createAndUpdate();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="createAndUpdate();" id="createAndUpdate">
         <span class="icon-button-label" *ngIf="isEdit">{{ "ENT_MNG.UPDATE_ADMINISTRATOR" | translate }}</span>
         <span class="icon-button-label" *ngIf="!isEdit">{{ "ENT_MNG.ADD_ADMINISTRATOR" | translate }}</span>
     </button>

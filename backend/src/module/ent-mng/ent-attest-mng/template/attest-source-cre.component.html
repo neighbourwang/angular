@@ -6,7 +6,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.AD_SOURCE' | translate }}:</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control font-gray" [(ngModel)]="attest.name" [disabled]="editAcc">
+						<input type="text" id="name" class="form-control font-gray" [(ngModel)]="attest.name" [disabled]="editAcc">
 					</div>
 				</div>
 			</div>
@@ -14,7 +14,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL {{ 'COMMON.PATH' | translate }}:</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control font-gray" [(ngModel)]="attest.url" [disabled]="edit||editAcc" >
+						<input type="text" class="form-control font-gray" id="url" [(ngModel)]="attest.url" [disabled]="edit||editAcc" >
 					</div>
 				</div>
 			</div>
@@ -22,7 +22,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.USERNAME' | translate }}(Full DN)：</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control  font-gray" [(ngModel)]="attest.userName" [disabled]="edit">
+						<input type="text" class="form-control  font-gray" id="userName" [(ngModel)]="attest.userName" [disabled]="edit">
 					</div>
 				</div>
 			</div>
@@ -33,10 +33,10 @@
 						<div class="row">
 							<div class="form-group">
 								<div class="col-sm-9">
-									<input type="password" class="form-control" [(ngModel)]="attest.password" [disabled]="edit">
+									<input type="password" id="password" class="form-control" [(ngModel)]="attest.password" [disabled]="edit">
 								</div>
 								<div *ngIf="type=='create'||type=='editAcc'" class="col-sm-3">
-									<button class="fox-cloud-button-md fox-cloud-button-white mgr20" (click)="testSource();" style="width:100%">
+									<button class="fox-cloud-button-md fox-cloud-button-white mgr20" id="testSource" (click)="testSource();" style="width:100%">
                                     <span class="icon-button-label">{{ 'COMMON.TEST' | translate }}</span>
                                     </button>
 								</div>
@@ -65,7 +65,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{ 'ENT_MNG.LOGIN_ACCOUNT_USERNAME_PRO' | translate }}:</div>
 					<div class="col-sm-4">
-						<input type="text" class="form-control font-gray" [(ngModel)]="attest.loginProp" [disabled]="edit||editAcc">
+						<input type="text" id="loginProp" class="form-control font-gray" [(ngModel)]="attest.loginProp" [disabled]="edit||editAcc">
 					</div>
 				</div>
 			</div>
@@ -73,7 +73,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title">{{ 'COMMON.DESCRIPTION' | translate }}:</div>
 					<div class="col-sm-4">
-						<textarea class="form-control font-gray" rows="4" placeholder="{{ 'COMMON.DESCRIPTION' | translate }}" [(ngModel)]="attest.desc" [disabled]="editAcc"></textarea>
+						<textarea class="form-control font-gray" id="description" rows="4" placeholder="{{ 'COMMON.DESCRIPTION' | translate }}" [(ngModel)]="attest.desc" [disabled]="editAcc"></textarea>
 					</div>
 				</div>
 			</div>
@@ -81,16 +81,16 @@
 	</div>
 </div>
 <div class="text-center">
-    <button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white mgr20" (click)="cancel();" id="cancel">
         <span class="icon-button-label">{{ 'COMMON.RETURN' | translate }}</span>
     </button>
-    <button *ngIf="type=='create' "class="fox-cloud-button-lg fox-cloud-button-white" (click)="onCreate();">
+    <button *ngIf="type=='create' "class="fox-cloud-button-lg fox-cloud-button-white" (click)="onCreate();" id="onCreate">
         <span class="icon-button-label">{{ 'COMMON.CREATE' | translate }}</span>
     </button>
-    <button *ngIf="edit" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onEdit();">
+    <button *ngIf="edit" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onEdit();" id="onEdit">
         <span class="icon-button-label">{{ 'COMMON.SAVE' | translate }}</span>
     </button>
-    <button *ngIf="editAcc" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onEditAcc();">
+    <button *ngIf="editAcc" class="fox-cloud-button-lg fox-cloud-button-white" (click)="onEditAcc();" id="onEditAcc">
         <span class="icon-button-label">{{ 'COMMON.SAVE' | translate }}</span>
     </button>
 </div>

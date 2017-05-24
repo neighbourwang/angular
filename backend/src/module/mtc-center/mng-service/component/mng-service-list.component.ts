@@ -48,25 +48,26 @@ export class MngServiceListComponent implements OnInit{
     typeDic: Array<SystemDictionary>;
     searchDic: Array<SystemDictionary>;
     statusDic: Array<SystemDictionary>;
+    serviceTypeDic: Array<SystemDictionary>;
 
     type: string;
     enterpriseList:Array<Enterprise>;
     enterpriseId= "";
-    serviceId= "";
-    serviceName= "";
-    serviceObjectCode= "";
+    serviceId= ""; //管理服务Id
+    serviceName= ""; //管理服务名称name
+    serviceObjectCode= "";  //服务对象
     searchTypeCode: string;
     keyWords= "";
-    serviceStatus: string;
+    serviceStatus= "";
     data: Array<MngServiceList>;
     Info: string;
     selectedServiceId: string;
     all: string;
     progress: string;
     complete: string;
-    serviceNames: Array<ServiceNameList>;
-    instanceName= "";
-    instanceNo= "";
+    serviceNames: Array<ServiceNameList>= new Array<ServiceNameList>();
+    instanceName= ""; //实例名称instanceName
+    instanceNo= ""; //服务编号serviceNo
 
     ngOnInit() {
         this.service.searchDic.then(res =>{
@@ -87,8 +88,12 @@ export class MngServiceListComponent implements OnInit{
         console.log("serviceStatus",this.serviceStatus);
         console.log("searchTypeCode",this.searchTypeCode);
         this.pageIndex= pageIndex || this.pageIndex;
+        let s= this.serviceNames.find((p)=>{
+            return p.serviceId == this.serviceId
+        });
+        this.serviceName =s &&s.serviceName || "";
         this.layoutService.show();
-        this.service.getData(this.pageIndex, this.pageSize, this.serviceStatus, this.enterpriseId, this.serviceName, this.instanceName, this.instanceNo, this.searchTypeCode )
+        this.service.getData(this.pageIndex, this.pageSize, this.serviceStatus, this.enterpriseId, this.serviceName, this.instanceName, this.instanceNo, this.serviceObjectCode )
             .then(
                 response => {
                     this.layoutService.hide();

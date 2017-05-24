@@ -23,7 +23,7 @@
                 <option value="">所有企业</option>
                 <option *ngFor="let v of enterpriseList" [value]="v.id">{{v.name}}</option>
             </select>
-        </div>{{enterpriseId}}
+        </div>
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">管理服务名称：</span>
         <div class="float-left pdr20 mgl5">
             <select [(ngModel)]="serviceId" class="pdl10 form-control" (ngModelChange)="getData()">
@@ -36,7 +36,7 @@
             <select [(ngModel)]="serviceObjectCode" class="pdl10 form-control" (ngModelChange)="getData()">
                 <option value="">所有</option>
                 <option *ngFor="let v of service.typeDic | async" [value]="v.value">{{v.displayValue}}</option>
-            </select>{{serviceObjectCode}}
+            </select>
         </div>
     </div>
     <div class="clear"></div>
@@ -45,11 +45,11 @@
             <select [(ngModel)]="searchTypeCode" class="pdl10 form-control">
                 <option *ngFor="let v of service.searchDic | async" [value]="v.value">{{v.displayValue}}</option>
             </select>
-        </div>{{searchTypeCode}}
+        </div>
         <div class="input-group col-md-2 float-left">
             <input [(ngModel)]="keyWords" type="text" class="form-control" placeholder="输入信息快速搜索">
             <div class="input-group-addon" (click)="searchServiceMng()"><span class="glyphicon glyphicon-search"></span></div>
-        </div>{{keyWords}}
+        </div>
         <button class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="reset()">重置</button>
 
         <button class="fox-cloud-button fox-cloud-button-white pull-right mgl10" (click)="serviceUpdatePage()">
@@ -74,26 +74,26 @@
                 <th>服务状态</th>
             </thead>
             <tbody>
-            <tr *ngFor="let item of data">
+            <tr *ngFor="let item of data; let i= index">
                 <td><input type="radio" class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
-                <td>{{item.serviceProductId}}</td>
+                <td>{{pageIndex*pageSize+i+1}}</td>
                 <td><a href="javascript:void(0);" (click)="gotoDetail(item);">{{item.serviceName}}</a></td>
                 <td>{{item.serviceObjectCode | dict: this.service.typeDic | async}}</td>
                 <td>
-<!--                    <ol class="no-padding">
+                    <ol class="no-padding">
                         <li>
-                            {{item.instance.instanceId}}
+                            {{item.instance?.instanceId}}
                         </li>
                     </ol>
                     <ol class="no-padding">
                         <li>
-                            {{item.instance.instanceName}}
+                            {{item.instance?.instanceName}}
                         </li>
-                    </ol>-->
+                    </ol>
                 </td>
-                <td><!--{{item.instance.instanceRegion}}--></td>
-                <td></td>
-                <td>{{item.serviceType | dict: this.service.typeDic | async}}</td>
+                <td>{{item.instance?.instanceRegion}}</td>
+                <td>{{item.enterpriseName}}</td>
+                <td>{{item.serviceType | dict: this.service.serviceTypeDic | async}}</td>
                 <td>{{item.serviceStatus | dict: this.service.statusDic | async}}</td>
             </tr>
             </tbody>

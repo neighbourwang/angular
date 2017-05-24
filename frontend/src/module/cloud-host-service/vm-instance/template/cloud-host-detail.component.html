@@ -216,10 +216,10 @@
 				<div class="main-head">
 					<span class="icon-chart icon float-left"></span>
 					<span class="title float-left">监控图表</span>
-					<select [(ngModel)]="hours" (ngModelChange)="setGraph()" id="setGraph" class="form-control float-right mgt5 mgr5">
+					<select [(ngModel)]="hours" (ngModelChange)="fetchGraphData()" id="setGraph" class="form-control float-right mgt5 mgr5">
 						<option value="6">最近6小时</option>
 						<option value="12">最近12小时</option>
-						<option value="24">最近24小时</option>
+						<option value="1">最近24小时</option>
 					</select>
 					<button (click)="fetchGraphData()" id="fetchGraphData" class="btn button-gray-gradient mgt5 mgr5 float-right ">
 						<span class="icon-reset button-icon" ></span>刷新
@@ -242,14 +242,14 @@
 							chartType="line"
 							[labels]="a_labels"
 							[datasets]="a_datasets"
-							[options]="a_options" ></canvas>
+							[options]="defaultOption" ></canvas>
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="detail_chart_b" >
 						<canvas baseChart class="chart-canvas"
 							chartType="line"
 							[labels]="b_labels"
 							[datasets]="b_datasets"
-							[options]="b_options" ></canvas>
+							[options]="defaultOption" ></canvas>
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="detail_chart_c" >
 						<!-- <div class="chart-top-select">
@@ -270,14 +270,14 @@
 										chartType="line"
 										[labels]="d_labels"
 										[datasets]="d_datasets"
-										[options]="d_options" ></canvas>
+										[options]="defaultOption" ></canvas>
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="detail_chart_c_2">
 									<canvas baseChart class="chart-canvas"
 										chartType="line"
 										[labels]="c_labels"
 										[datasets]="c_datasets"
-										[options]="c_options" ></canvas>
+										[options]="defaultOption" ></canvas>
 								</div>
 							</div>
 						</div>
@@ -287,7 +287,7 @@
 								chartType="line"
 								[labels]="e_labels"
 								[datasets]="e_datasets"
-								[options]="e_options" ></canvas>
+								[options]="defaultOption" ></canvas>
 					</div>
 				</div>
 			</div>
