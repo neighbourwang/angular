@@ -7,23 +7,23 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a (click)="modifyEntResQuota();">{{ 'COMMON.MODIFY' | translate }}</a></li>
-                <li><a (click)="deleteEntResQuota();">{{ 'COMMON.DELETE' | translate }}</a></li>
-                <li><a (click)="activeEntResQuota();">{{ 'COMMON.ACTIVATE' | translate }}</a></li>
-                <li><a (click)="deactiveEntResQuota();">{{ 'COMMON.DEACTIVATE' | translate }}</a></li>
+                <li><a (click)="modifyEntResQuota();" id="modifyEntResQuota">{{ 'COMMON.MODIFY' | translate }}</a></li>
+                <li><a (click)="deleteEntResQuota();" id="deleteEntResQuota">{{ 'COMMON.DELETE' | translate }}</a></li>
+                <li><a (click)="activeEntResQuota();" id="activeEntResQuota">{{ 'COMMON.ACTIVATE' | translate }}</a></li>
+                <li><a (click)="deactiveEntResQuota();" id="deactiveEntResQuota">{{ 'COMMON.DEACTIVATE' | translate }}</a></li>
             </ul>
         </div>
         <div class="dropdown pull-right">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 {{ 'HOST_VMWARE_MNG.SELECT_ENTERPRISE' | translate }}
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a (click)="switchEnt(null);">{{ 'HOST_VMWARE_MNG.ALL_ENTERPRISE' | translate }}</a></li>
-                <li *ngFor="let item of enterprises;"><a (click)="switchEnt(item.id);">{{item.name}}</a></li>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><a (click)="switchEnt(null);" id="switchEnt_null">{{ 'HOST_VMWARE_MNG.ALL_ENTERPRISE' | translate }}</a></li>
+                <li *ngFor="let item of enterprises;"><a (click)="switchEnt(item.id);" id="switchEnt_{{item.id}}">{{item.name}}</a></li>
             </ul>
         </div>
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="creation();" id="creation">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.CREATE_QUOTA' | translate }}</span>
         </button>
@@ -42,7 +42,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of entResQuotas; let idx = index;">
+                <tr *ngFor="let item of entResQuotas; let idx = index;" id="entResQuotas_{{item.id}}">
                     <td><input  class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="switchSelectIndividual(idx)" /></td>
                     <td>{{item.enterpriseName}}</td>
                     <td>{{item.regionName}}</td>

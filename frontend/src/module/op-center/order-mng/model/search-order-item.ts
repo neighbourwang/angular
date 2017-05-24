@@ -17,6 +17,7 @@ export class SearchOrderItem{
     departmentName: string = null;//所属部门
     oncePrice : string = null;//一次性费用
     price: string = null;//费用
+    showPrice:boolean = true;//是否显示费用，按次不显示费用
     periodType : number = null;//费用单位
 
     statusName: string = null;//用于界面显示

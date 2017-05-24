@@ -7,12 +7,12 @@ import { FirstService } from'../service/first.service';
 import { FirstModel } from'../model/first.model';
 
 @Component({
-    selector: "first",
-    templateUrl: "../template/first.html",
+    selector: "search",
+    templateUrl: "../template/search.html",
     styleUrls: [],
     providers: []
 })
-export class FirstComponent implements OnInit {
+export class SearchComponent implements OnInit {
     constructor(
         private router: Router,
         private layoutService: LayoutService,
@@ -35,23 +35,41 @@ export class FirstComponent implements OnInit {
 
     }
 
-    insertone(){
-        console.log(this.entry.bodyVar);
+    searchGroupName:string;
+    searchGroupFun:string;
+    bearer:string;
+
+    resultList:Array<FirstModel> = new Array<FirstModel>();
+
+    doSearch(){
+        if(this.searchGroupName == null){
+            this.showAlert("名称不能为空");
+            return;
+        }
+        if(this.searchGroupFun == null){
+            this.showAlert("二级功能不能为空");
+            return;
+        }
         this.layoutService.show();
-        this.service.insertone(this.entry).then(
-            response=>{
+        this.service.search(this.searchGroupName, this.searchGroupFun).then(
+            response =>{
                 this.layoutService.hide();
-                if(response && 100 == response["resultCode"]){
-                    this.showAlert("新增成功");
-                }else{
-                    this.showAlert("失败");
+                if (response && 100 == response["resultCode"]) {                    
+                        this.resultList = response.resultContent;
+                    } else {
+                        this.showAlert("Failed");
+                    }
                 }
-            }
-        ).catch((e) => this.onRejected(e));
+            )
+            .catch((e) => this.onRejected(e));
+
+    }
+    toInsertPage(){
+        this.router.navigateByUrl('testutil/first');
     }
 
-    toSearchPage(){
-        this.router.navigateByUrl('testutil/search');
+    delete(id:string){
+
     }
 
     onRejected(reason: any) {

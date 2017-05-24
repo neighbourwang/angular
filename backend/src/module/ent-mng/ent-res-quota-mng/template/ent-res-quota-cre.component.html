@@ -6,8 +6,8 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{ 'NET_MNG_VM_IP_MNG.ENTERPRISE_NAME' | translate }}:</div>
                     <div class="col-sm-4">
-                        <select class="form-control" [(ngModel)]="entResQuota.enterpriseId">
-                            <option *ngFor="let item of enterprises;" [value]="item.id">{{item.name}}</option>
+                        <select class="form-control" [(ngModel)]="entResQuota.enterpriseId" id="enterpriseId">
+                            <option *ngFor="let item of enterprises;" id="enterpriseId_{{item.id}}" [value]="item.id">{{item.name}}</option>
                         </select>
                     </div>
                 </div>
@@ -16,8 +16,8 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{ 'COMMON.ZONE' | translate }}:</div>
                     <div class="col-sm-4">
-                        <select class="form-control" [(ngModel)]="entResQuota.regionId">
-                            <option *ngFor="let item of regions;" [value]="item.id">{{item.name}}</option>
+                        <select class="form-control" [(ngModel)]="entResQuota.regionId" id="regionId">
+                            <option *ngFor="let item of regions;" [value]="item.id" id="regionId_{{item.id}}">{{item.name}}</option>
                         </select>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{ 'ENT_MNG.CLOUD_HOST_NUM' | translate }}:</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="entResQuota.vmQuota" placeholder="{{ 'ENT_MNG.CLOUD_HOST_NUM' | translate }}">
+                        <input type="text" class="form-control" id="vmQuota" [(ngModel)]="entResQuota.vmQuota" placeholder="{{ 'ENT_MNG.CLOUD_HOST_NUM' | translate }}">
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{ 'COMMON.STORAGE' | translate }} (GB):</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="entResQuota.storageQuota" placeholder="{{ 'COMMON.STORAGE' | translate }}">
+                        <input type="text" class="form-control" id="storageQuota" [(ngModel)]="entResQuota.storageQuota" placeholder="{{ 'COMMON.STORAGE' | translate }}">
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{ 'ENT_MNG.NETWORK_NUM' | translate }}:</div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" [(ngModel)]="entResQuota.networkQuota" placeholder="{{ 'ENT_MNG.NETWORK_NUM' | translate }}">
+                        <input type="text" class="form-control" id="networkQuota" [(ngModel)]="entResQuota.networkQuota" placeholder="{{ 'ENT_MNG.NETWORK_NUM' | translate }}">
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <div class="col-sm-4 form-control-title">{{ 'COMMON.DESCRIPTION' | translate }}:</div>
                     <div class="col-sm-4">
-                        <textarea class="form-control" rows="4" placeholder="{{ 'COMMON.DESCRIPTION' | translate }}"></textarea>
+                        <textarea class="form-control" rows="4" id="description" placeholder="{{ 'COMMON.DESCRIPTION' | translate }}"></textarea>
                     </div>
                 </div>
             </div>
@@ -58,10 +58,10 @@
     </div>
 </div>
 <div class="text-center">
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();" id="cancel">
         <span class="icon-button-label">{{ 'COMMON.CANCEL' | translate }}</span>
     </button>
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="next();" id='next'>
         <span class="icon-button-label">{{ 'ENT_MNG.CREATE_QUOTA_RESOURCE' | translate }}</span>
     </button>
 </div>

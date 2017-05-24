@@ -11,7 +11,7 @@ import { RestApi
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
 import {DictService} from '../../../architecture/core/service/dict-service';
-
+import { MyDatePicker  } from '../../../architecture/components/date-picker/my-date-picker.component';
 
 
 import { CheckCenterParam
@@ -26,6 +26,12 @@ import * as _ from 'underscore';
 })
 export class CheckMngHascheckComponent implements OnInit{
 	@ViewChild("notice") private _notice:NoticeComponent;
+
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
 	
 	private _param:CheckCenterParam = new CheckCenterParam();
 	private _entLoader:ItemLoader<{id:string; name:string}> = null; //企业列表
@@ -106,6 +112,8 @@ export class CheckMngHascheckComponent implements OnInit{
 						else if(obj.billingModeNum == 1)//按量
 						{
 							obj.priceNum = orderItem.billingInfo.unitPrice;
+						}else if(obj.billingModeNum ==3){
+							obj.showPrice = false;
 						}
 
 					}
@@ -333,10 +341,13 @@ export class CheckMngHascheckComponent implements OnInit{
 	}
 
 	resetParam(){
-		this._param.reset();
+		
 		this._departmentLoader.clear();
 		this._userListLoader.clear();
-		this._approverListLoader.clear();		
+		this._approverListLoader.clear();
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();		
+		this._param.reset();
 	}
 
 	onStartDateChange($event)

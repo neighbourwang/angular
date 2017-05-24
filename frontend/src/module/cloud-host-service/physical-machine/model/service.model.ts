@@ -138,6 +138,7 @@ class Values {
 	RESOURCEPOOL:ValuesType = new ValuesType;  // "资源池",…}
 	OSYSTEM: ValuesType = new ValuesType; //attrDisplayName: "操作系统",…}
 	TIMELINE: ValuesType = new ValuesType; //attrDisplayName: "购买时长",…}
+	REGION: ValuesType = new ValuesType; //attrDisplayName: "购买时长",…}
 }
 
 export {

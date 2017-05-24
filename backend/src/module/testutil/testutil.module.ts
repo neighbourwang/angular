@@ -6,6 +6,7 @@ import { TestUtilRouting } from './testutil.routing';
 
 //Components
 import { FirstComponent } from './component/First.component';
+import { SearchComponent } from './component/search.component';
 
 //Service
 import { FirstService } from './service/first.service';
@@ -16,7 +17,8 @@ import { FirstService } from './service/first.service';
         TestUtilRouting,
     ],
     declarations: [
-        FirstComponent
+        FirstComponent,
+        SearchComponent
     ],
     exports: [
     ],
