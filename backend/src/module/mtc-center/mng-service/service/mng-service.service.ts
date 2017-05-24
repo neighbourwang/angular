@@ -36,6 +36,11 @@ export class MngService {
         field: "STATUS"
     });
 
+    serviceTypeDic= this.dict.get({
+        owner: "SUPERVISE_SERVICE",
+        field: "PERIOD"
+    });
+
     //获取企业下拉列表
     getEnterprises(): Promise<any>{
         const api = this.restApiCfg.getRestApi("mtc-center.mng-service.enterprise");
@@ -53,7 +58,7 @@ export class MngService {
         const api= this.restApiCfg.getRestApi("mtc-center.mng-service.list");
         return this.restApi.request(api.method, api.url, null, null,
             {
-                "state": "",
+                "state": state,
                 "tenantId":tenantId,
                 "name": name,
                 "instanceName": instanceName,
