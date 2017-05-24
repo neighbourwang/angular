@@ -99,7 +99,15 @@ export class SubInstanceItemResp1{
     else
       return null;
   }
-
+	
+//按次计费不显示费用
+    get showPrice(){
+      if(this.billingInfo){
+          return this.billingInfo.billingMode==3 ? false : true;
+      }
+      return   true;
+    }
+		
   	//总费用- 一次性费用
      get totalOncePrice():number{
     if(this.billingInfo)

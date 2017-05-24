@@ -126,6 +126,8 @@ export class CheckMngListComponent implements OnInit{
 						else if(obj.billingModeNum == 1)//按量
 						{
 							obj.priceNum = orderItem.billingInfo.unitPrice;
+						}else if(obj.billingModeNum ==3){
+							obj.showPrice = false;
 						}
 
 					}

@@ -70,7 +70,7 @@
 					</tr>
 					<tr>
 						<td>{{ 'COMMON.EXPENSE' | translate}}</td>	
-						<td>￥{{_orderDetail.price}}/<span>{{_orderDetail.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
+						<td><span *ngIf="_orderDetail.showPrice">￥{{_orderDetail.price}}/<span>{{_orderDetail.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></span></td>
 						<td>{{ 'COMMON.DEPARTMENT' | translate}}</td>
 						<td>{{_orderDetail.department}}</td>
 					</tr>

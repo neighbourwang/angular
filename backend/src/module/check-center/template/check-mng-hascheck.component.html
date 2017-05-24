@@ -137,9 +137,9 @@
 							<td>{{item.departmentStr}}</td>
 							<td>{{item.entStr}}</td>
 							<td>{{ 'COMMON.COUNT_MODE' | translate }}: {{item.billingModeNum  | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}
-								<br/>{{ 'COMMON.ORDER_CYCLE' | translate }}: {{item.billingDurationStr}}{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}
+								<br/>{{ 'COMMON.ORDER_CYCLE' | translate }}: {{item.billingDurationStr}}{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}<span class="no-padding" *ngIf="!item.showPrice">次</span>
 								<br/>{{ 'COMMON.ONE_TIME_COSTS' | translate }}: ￥{{item.oneTimePriceNum}}
-								<br/>{{ 'COMMON.COST' | translate }}: ￥{{item.priceNum}}/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}
+								<span  *ngIf="item.showPrice"><br/>{{ 'COMMON.COST' | translate }}: ￥{{item.priceNum}}/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</span>
 							</td>
 							<td>{{item.createTimeStr}}<br>
 								<a class="hands" [popover]="checkPopover">{{ 'CHECK_CENTER.APPROVE_DETAILS' | translate }}>>>></a>

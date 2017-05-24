@@ -79,7 +79,13 @@ export class OrderDetailItem {
     else
       return null;
   }
-
+//按次计费不显示费用
+    get showPrice(){
+      if(this.productBillingItem){
+          return this.productBillingItem.billingMode==3 ? false : true;
+      }
+      return   true;
+    }
   relatedSubInstanceList:Array<OrderDetailItem> = [];//关联订单
 
   hisOrderList:Array<OrderDetailItem> = [];
