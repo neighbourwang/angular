@@ -96,23 +96,39 @@
                 </li>
 
                 <li>实例类型：
-                    <span>{{instance.IoOptimized | dict:this.dictService.ioOptimizedDict | async}}</span>
+                    <span>{{instance.IoOptimized | dict:this.dictService.ioOptimizedDetailDict | async}}</span>
                 </li>
 
                 <li>操作系统：
                     <span>{{instance.OSName || ''}}</span>
                 </li>
 
-                <li>弹性公网IP：
+                <!--vpc network-->
+                <li *ngIf="instance.InstanceNetworkType=='vpc'">弹性公网IP：
                     <span>{{instance.EipAddress.IpAddress || ''}}</span>
                 </li>
 
-                <li>弹性公网IP实例ID：
+                <li *ngIf="instance.InstanceNetworkType=='vpc'">弹性公网IP实例ID：
                     <span>{{instance.EipAddress.AllocationId || ''}}</span>
                 </li>
 
-                <li>私有IP：
-                    <span>{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0] || ''}}</span>
+                <li *ngIf="instance.InstanceNetworkType=='vpc'">私有IP：
+                    <static-tooltip [title]="instance.VpcAttributes.PrivateIpAddress.IpAddress.join(',')">
+                        <span>{{instance.VpcAttributes.PrivateIpAddress.IpAddress[0] || ''}}</span>
+                    </static-tooltip>
+                </li>
+
+                <!--classic network-->
+                <li *ngIf="instance.InstanceNetworkType=='classic'">内网IP：
+                    <static-tooltip [title]="instance.InnerIpAddress.IpAddress.join(',')">
+                        <span>{{instance.InnerIpAddress.IpAddress[0] || ''}}</span>
+                    </static-tooltip>
+                </li>
+
+                <li *ngIf="instance.InstanceNetworkType=='classic'">外网IP：
+                    <static-tooltip [title]="instance.PublicIpAddress.IpAddress.join(',')">
+                        <span>{{instance.PublicIpAddress.IpAddress[0] || ''}}</span>
+                    </static-tooltip>
                 </li>
 
                 <li>带宽计费方式：

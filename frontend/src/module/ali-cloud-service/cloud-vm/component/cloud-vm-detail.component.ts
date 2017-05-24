@@ -133,6 +133,7 @@ export class AliCloudVmDetailComponent implements OnInit {
     instanceChargeTypeDictArray: Array<SystemDictionary> = [];
     ioOptimizedDictArray: Array<SystemDictionary> = [];
     networkTypeDictArray: Array<SystemDictionary> = [];
+    ioOptimizedDetailDictArray: Array<SystemDictionary> = [];
 
     private okCallback: Function = null;
     okClicked() {
@@ -191,7 +192,12 @@ export class AliCloudVmDetailComponent implements OnInit {
             .then((items) => {
                 this.networkTypeDictArray = items;
                 console.log(this.networkTypeDictArray, "this.networkTypeDictArray");
-            });        
+            }); 
+        this.dictService.ioOptimizedDetailDict
+            .then((items) => {
+                this.ioOptimizedDetailDictArray = items;
+                console.log(this.ioOptimizedDetailDictArray, "this.ioOptimizedDetailDictArray");
+            });       
         
     }
 
@@ -248,9 +254,12 @@ export class AliCloudVmDetailComponent implements OnInit {
                                 this.startHour = "22";
                                 this.endHour = "23";
                             } else {
-                                this.startHour = (currentHour - 1).toString();
-                                this.endHour = (currentHour + 1).toString();
+                                let front = (currentHour - 1);
+                                let back = (currentHour + 1);
+                                this.startHour = front>=10?front.toString():('0'+ front.toString());
+                                this.endHour = back>=10?back.toString():('0'+ back.toString());
                             }
+                            console.log(this.startHour, this.endHour, "this.startHour, this.endHour!");
                         }
                         this.getInstanceMonitorData();
                     } else {
@@ -311,11 +320,14 @@ export class AliCloudVmDetailComponent implements OnInit {
         console.log(utcstart, utcend, "start2 and end2!");
         let period:string = "60";
 
-        if(start >= end) {
+        //if(start >= end) {
+        if(Math.ceil(Date.parse(utcend) - Date.parse(utcstart))/(24*60*60*1000) < 0) {
             console.log("startTime>endTime!");
             this.showMsg("请选择正确的时间段");
             return;
         }
+
+        console.log(utcstart, utcend, "utcstart, utcend!");
 
 
         this.layoutService.show();
@@ -365,9 +377,9 @@ export class AliCloudVmDetailComponent implements OnInit {
         let max_value = 0;
         chart.SourceData.forEach((s)=>{
             let date = new Date(new Date(s.TimeStamp).toLocaleString());
-            console.log(date, "TimeStamp");
+            //console.log(date, "TimeStamp");
         let x = (date.getMonth()+1) + "/" + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes();
-            console.log(x, "x!");
+            //console.log(x, "x!");
             temp_time.push(x);
 
             if (chart == this.cpuChart) {

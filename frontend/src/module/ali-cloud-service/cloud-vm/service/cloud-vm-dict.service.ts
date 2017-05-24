@@ -38,5 +38,10 @@ export class AliCloudVMDictService{
         field: "NETWORK_TYPE"
     });
 
+    ioOptimizedDetailDict = this.dict.get({
+        owner: "ALICLOUD",
+        field: "IO_OPTIMIZED_DETAIL"
+    });
+
     
 }
