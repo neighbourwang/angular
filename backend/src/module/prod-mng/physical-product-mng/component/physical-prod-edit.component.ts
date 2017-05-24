@@ -11,7 +11,7 @@ import { PhysicalProductService } from '../service/physical-prod-cre.service';
 
 
 //model
-import { PhysicalProductModel, ProductEnterpriseReqs } from '../model/physical-product.model';
+import { PhysicalProductModel, ProductEnterpriseReqs ,PmPartsBaseprises} from '../model/physical-product.model';
 import { PhysicalService, FlatResourcePool, ResourcePoolObj, PartsFlavor, UnitObj, Spec } from '../model/physical-prod-service.model';
 import { HistoryPriceList } from '../model/historyPrice.model';
 
@@ -36,6 +36,8 @@ export class PhysicalProdEditComponent implements OnInit {
 
     @ViewChild('notice')
     notice: NoticeComponent;
+    @ViewChild('unitPricePop')
+    unitPricePop:PopupComponent;
 
     product: PhysicalProductModel;
     productId: string;
@@ -75,6 +77,7 @@ export class PhysicalProdEditComponent implements OnInit {
                 //比对产品目录已选择资源池
                 this.allSelected =
                     this.product.phyMachineAreaPoolsProfile.length == this.productService.physicalService.phyMachineAreaPoolsProfile.length ? true : false;
+                if(this.allSelected)this.isCanAddPool=false;//如果开始就已经全被选也没必要添加了;
                 this.product.phyMachineAreaPoolsProfile.forEach(pool => {
                     this.productService.physicalService.phyMachineAreaPoolsProfile.forEach(Pool => {
                         if (pool.pmPoolId == Pool.pmPoolId) {
@@ -117,7 +120,6 @@ export class PhysicalProdEditComponent implements OnInit {
                     this.tempBasicCyclePrice = this.product.basicCyclePrice;
                     this.tempExtendCyclePrice = this.product.extendCyclePrice;
                     this.tempOneTimePrice = this.product.oneTimePrice;
-                    // this.tempUnitPrice = this.product.unitPrice;
                     //产品企业列表
                     this.updateEntObj.productEnterpiseReqs = JSON.parse(JSON.stringify(this.product.productEnterpiseReqs));
                     // console.log('产品', this.product);
@@ -193,33 +195,31 @@ export class PhysicalProdEditComponent implements OnInit {
     tempExtendCyclePrice: number;
     tempOneTimePrice: number;
     tempUnitPrice: number;
-    // cancelPriceEdit() {
-    //     this.tempBasicCyclePrice = this.product.basicCyclePrice;
-    //     this.tempExtendCyclePrice = this.product.extendCyclePrice;
-    //     this.tempOneTimePrice = this.product.oneTimePrice;
-    //     this.tempUnitPrice = this.product.unitPrice;
-    //     this.editPriceInfo = false;
-    // }
-    // savePrice() {
-    //     this.product.basicCyclePrice = this.tempBasicCyclePrice;
-    //     this.product.extendCyclePrice = this.tempExtendCyclePrice;
-    //     this.product.oneTimePrice = this.tempOneTimePrice;
-    //     this.product.unitPrice = this.tempUnitPrice;
-    //     this.editPriceInfo = false;
-    //     console.log(this.product);
-    //     this.layoutService.show();
-    //     this.service.changProdPrice(this.product).then(res => {
-    //         console.log(res);
-    //         // this.getProductDetail(this.productId)
-    //         this.getHistoryPrice(this.productId)
-    //         this.layoutService.hide();
-    //     }).catch(err => {
-    //         console.log(err);
-    //         this.layoutService.hide();
-    //     })
-    // }
+    cancelPriceEdit() {
+        this.tempBasicCyclePrice = this.product.basicCyclePrice;
+        this.tempExtendCyclePrice = this.product.extendCyclePrice;
+        this.tempOneTimePrice = this.product.oneTimePrice;
+        this.editPriceInfo = false;
+    }
+    savePrice() {
+        this.product.basicCyclePrice = this.tempBasicCyclePrice;
+        this.product.extendCyclePrice = this.tempExtendCyclePrice;
+        this.product.oneTimePrice = this.tempOneTimePrice;
+        this.editPriceInfo = false;
+        console.log(this.product);
+        this.layoutService.show();
+        this.service.updateProdPrice(this.product).then(res => {
+            console.log(res);
+            // this.getProductDetail(this.productId)
+            this.location.back();                     
+            this.layoutService.hide();
+        }).catch(err => {
+            console.log(err);
+            this.layoutService.hide();
+        })
+    }
     outputValue(e, num) {
-        this.product[num] = e;
+        this[num] = e;
     }
     //返回列表
     cancel() {
@@ -230,29 +230,34 @@ export class PhysicalProdEditComponent implements OnInit {
     allSelected: boolean = false;
     selectAllResourcePool() {
         this.allSelected = !this.allSelected;
-        this.productService.physicalService.phyMachineAreaPoolsProfile.forEach(ele => ele.selected = this.allSelected);
+        this.productService.physicalService.phyMachineAreaPoolsProfile.forEach(ele =>{
+            if(!ele.disabled)ele.selected = this.allSelected
+        });
     }
     //选择资源池
     selectResourcePool(idx) {
         console.log(idx);
         console.log(this.productService.physicalService.phyMachineAreaPoolsProfile[idx]);
         this.productService.physicalService.phyMachineAreaPoolsProfile[idx].selected = !this.productService.physicalService.phyMachineAreaPoolsProfile[idx].selected;
+        //判定是否添加了资源池
+        let list=
+        this.productService.physicalService.phyMachineAreaPoolsProfile.filter(pool=>{
+            if(pool.selected) return pool
+        })
+        console.log(list);
+        this.isAddPool=
+            list.length>this.product.phyMachineAreaPoolsProfile.length?true:false;
+        //判断是否全选
         for (let resourcePool of this.productService.physicalService.phyMachineAreaPoolsProfile) {
             if (resourcePool.selected == false) {
                 this.allSelected = false;
                 return;
             }
         }
-        this.allSelected = true;
+        this.allSelected = true;        
     }
+    isCanAddPool:boolean;//如果开始就全选也没必要添加了;
     isAddPool:boolean;
-    //是否资源池添加
-    isCanAddPool(){
-        if(this.allSelected){
-            this.isAddPool=false;
-            return ;
-        }
-    }
     //拼接资源池对象数组
     combineObj() {
         this.product.phyMachineAreaPoolsProfile = [];
@@ -287,6 +292,25 @@ export class PhysicalProdEditComponent implements OnInit {
         }
         console.log(this.product);
     }
+    //资源池添加
+    ccEditResourcePool(){
+        this.combineObj();
+        this.layoutService.show();
+        this.service.updateProdPool({
+            "phyMachineAreaPoolsProfile": this.product.phyMachineAreaPoolsProfile,
+            "productId": this.product.productId,
+            "serviceId":this.product.serviceId
+        }).then(res=>{
+            console.log(res);
+            this.location.back();
+            this.layoutService.hide();
+        }).catch(err=>{
+            this.layoutService.hide();            
+            console.error
+        })
+        console.log(this.product);
+    }
+    
     //编辑企业
     //选择企业
     selectEnterprise(ent, index) {
@@ -340,11 +364,29 @@ export class PhysicalProdEditComponent implements OnInit {
         this.layoutService.show();
         this.service.editProductEnterPrise(this.updateEntObj).then(res => {
             console.log(res);
-            this.getProductDetail(this.productId)
             this.layoutService.hide();
+            this.location.back();            
         }).catch(err => {
             console.log(err);
             this.layoutService.hide();
         })
     }
+    //部件历史价格
+    unitPriceList:Array<PmPartsBaseprises>;
+    viewUnitPrice(price){
+        console.log(price.billingId);
+        this.layoutService.show();
+        this.service.getProdUnitPrice(price.billingId).then(res=>{
+            console.log(res);
+            this.unitPriceList=res.resultContent.pmPartsBaseprises;
+            this.layoutService.hide();
+            if(this.unitPriceList.length>0){
+                this.unitPricePop.open('部件历史价格信息');                
+            }
+        }).catch(err=>{
+            console.error(err)
+            this.layoutService.hide();
+        })
+    }
+    ot(){}
 }
