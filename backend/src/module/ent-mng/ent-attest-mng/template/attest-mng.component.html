@@ -1,6 +1,6 @@
 <div class="page-content-header icon-content-header-enterprise-manage">
 	<span>{{ 'ENT_MNG.CERT_MANAGEMENT' | translate }}</span>
-    <button class="fox-cloud-button-sm fox-cloud-button-grey pull-right font-weight-normal" (click)="gotoEnterpriseList()">
+    <button class="fox-cloud-button-sm fox-cloud-button-grey pull-right font-weight-normal" id="gotoEnterpriseList" (click)="gotoEnterpriseList()">
         <span class="button-label">{{ 'ENT_MNG.BACK_ENTERPRISE_MANAGEMENT_LIST' | translate }}</span>
     </button>
 </div>
@@ -13,14 +13,14 @@
                 <span class="caret"></span>
             </button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				<li><a (click)="onEdit();">{{ 'COMMON.EDIT' | translate }}</a></li>
-				<li><a (click)="onEditAcc();">{{ 'ENT_MNG.MODIFY_AD_ACCOUNT' | translate }}</a></li>				
-				<li><a (click)="updateStatus('1');">{{ 'COMMON.ENABLE' | translate }}</a></li>                
-				<li><a (click)="updateStatus('3');">{{ 'COMMON.DISABLE' | translate }}</a></li>
-				<li><a (click)="onDelete('delete');">{{ 'COMMON.DELETE' | translate }}</a></li>
+				<li><a (click)="onEdit();" id="onEdit">{{ 'COMMON.EDIT' | translate }}</a></li>
+				<li><a (click)="onEditAcc();" id="onEditAcc">{{ 'ENT_MNG.MODIFY_AD_ACCOUNT' | translate }}</a></li>				
+				<li><a (click)="updateStatus('1');" id="updateStatus_1">{{ 'COMMON.ENABLE' | translate }}</a></li>                
+				<li><a (click)="updateStatus('3');" id="updateStatus_3">{{ 'COMMON.DISABLE' | translate }}</a></li>
+				<li><a (click)="onDelete('delete');" id="onDelete">{{ 'COMMON.DELETE' | translate }}</a></li>
 			</ul>
 		</div>		
-		<button class="fox-cloud-button fox-cloud-button-green" (click)="onCreate();">
+		<button class="fox-cloud-button fox-cloud-button-green" (click)="onCreate();" id="onCreate">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.CREATE_AD_SOURCE' | translate }}</span>
         </button>
@@ -38,7 +38,7 @@
 				</tr>
 			</thead>
 			 <tbody>
-            <tr *ngFor="let attest of attests;">
+            <tr *ngFor="let attest of attests;" id="attest_{{attest.id}}">
                 <td>
                     <input type="radio" class="fox-cloud-radio" name="group-admin" [checked]="attest.isSelect" (change)="attest.isSelect = $event.target.checked" />
                 </td>

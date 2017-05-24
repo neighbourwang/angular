@@ -38,7 +38,6 @@ export class PhysicalProdEditComponent implements OnInit {
     notice: NoticeComponent;
 
     product: PhysicalProductModel;
-    prodDir: PhysicalService;
     productId: string;
     productType: string;
     historyPriceList: Array<HistoryPriceList> = new Array<HistoryPriceList>();
@@ -67,22 +66,41 @@ export class PhysicalProdEditComponent implements OnInit {
             this.productId = params['id'];
             this.productType = params['type'];
         })
-        this.getProductDetail(this.productId);
+        this.getProductDetail(this.productId)
+            .then(() => {
+                //获取产品目录详情
+                return this.productService.getPhysicalService(this.product.serviceId);
+            })
+            .then(() => {
+                //比对产品目录已选择资源池
+                this.allSelected =
+                    this.product.phyMachineAreaPoolsProfile.length == this.productService.physicalService.phyMachineAreaPoolsProfile.length ? true : false;
+                this.product.phyMachineAreaPoolsProfile.forEach(pool => {
+                    this.productService.physicalService.phyMachineAreaPoolsProfile.forEach(Pool => {
+                        if (pool.pmPoolId == Pool.pmPoolId) {
+                            Pool.selected = true;
+                            Pool.disabled = true;
+                        }
+                    })
+                })
+                console.log(this.productService.physicalService.phyMachineAreaPoolsProfile);
+            })
+            .catch(err => console.error(err));
         //产品历史价格
         this.getHistoryPrice(this.productId);
         this.productService.getUnitList();
-        this.productService.getEnterPriseList().then(()=>{
+        this.productService.getEnterPriseList().then(() => {
             for (let ent of this.productService.enterpriseListForSelect) {
-            ent.selected = false;
-            ent.disable = false;
-            for (let entProd of this.updateEntObj.productEnterpiseReqs) {
-                if (ent.id == entProd.id) {
-                    ent.selected = true;
-                    ent.disable = true;
-                    entProd.disable = true;
+                ent.selected = false;
+                ent.disable = false;
+                for (let entProd of this.updateEntObj.productEnterpiseReqs) {
+                    if (ent.id == entProd.id) {
+                        ent.selected = true;
+                        ent.disable = true;
+                        entProd.disable = true;
+                    }
                 }
             }
-        }
         });
     }
     //请求产品详情
@@ -94,7 +112,6 @@ export class PhysicalProdEditComponent implements OnInit {
                     console.log('产品', response);
                     this.product = response.resultContent;
                     // this.product.id=this.productId;
-                    this.productService.getPhysicalService(this.product.serviceId);
                     this.tempProductName = this.product.name;
                     this.tempProductDesc = this.product.desc;
                     this.tempBasicCyclePrice = this.product.basicCyclePrice;
@@ -107,7 +124,7 @@ export class PhysicalProdEditComponent implements OnInit {
                     this.Tabels.forEach((ele) => {
                         ele.active = false;
                     })
-                    
+
                     this.Tabels[0].active = true;
                 }
                 this.layoutService.hide();
@@ -117,7 +134,6 @@ export class PhysicalProdEditComponent implements OnInit {
             console.error(err)
         })
     }
-
     // 获取产品历史价格信息
     getHistoryPrice(id) {
         this.layoutService.show();
@@ -203,66 +219,74 @@ export class PhysicalProdEditComponent implements OnInit {
     //     })
     // }
     outputValue(e, num) {
-        this[num] = e;
+        this.product[num] = e;
     }
     //返回列表
     cancel() {
         this.location.back();
     }
     //添加资源池
-    //选择全部资源池
-    // allSelected: boolean = false;
-    // selectAllResourcePool() {
-    //     this.allSelected = !this.allSelected;
-    //     this.service.physicalService.phyMachineAreaPoolsProfile.forEach(ele => ele.selected = this.allSelected);
-    // }
-    // //选择资源池
-    // selectResourcePool(idx){
-    //     console.log(idx);
-    //     console.log(this.service.physicalService.phyMachineAreaPoolsProfile[idx]);
-    //     this.service.physicalService.phyMachineAreaPoolsProfile[idx].selected=!this.service.physicalService.phyMachineAreaPoolsProfile[idx].selected;
-    //     for(let resourcePool of this.service.physicalService.phyMachineAreaPoolsProfile){
-    //         if(resourcePool.selected==false){
-    //             this.allSelected=false;
-    //             return;
-    //         }
-    //     }
-    //     this.allSelected=true;
-    // }
-    // //拼接资源池对象数组
-    // combineObj() {
-    //     this.service.product.phyMachineAreaPoolsProfile=[];
-    //     let list = this.service.physicalService.phyMachineAreaPoolsProfile.filter(ele => {
-    //         if (ele.selected == true)
-    //             return ele;
-    //     }).map(ele => ele.regionId);
-    //     let noRepeateList = [];
-    //     for (let l of list) {
-    //         if (noRepeateList.indexOf(l) === -1) {
-    //             noRepeateList.push(l);
-    //         }
-    //     }
-    //     let poolList: Array<ResourcePoolObj>;
-    //     for (let i of noRepeateList) {
-    //         let obj: ResourcePoolObj = new ResourcePoolObj();
-    //         obj.regionId = i;
-    //         for (let resource of this.service.physicalService.phyMachineAreaPoolsProfile) {
-    //             if (resource.selected && resource.regionId == i) {
-    //                 obj.region = resource.region;
-    //                 obj.areaDisplayName = resource.areaDisplayName;
-    //                 obj.phyMachineResourcPoolsProfile.push({
-    //                     "pmPoolId": resource.pmPoolId,
-    //                     "poolName": resource.poolName,
-    //                     "resourcePoolDisplayName": resource.resourcePoolDisplayName,
-    //                     "skuid":resource.skuid,
-    //                     selected: true
-    //                 })
-    //             }
-    //         }
-    //         this.service.product.phyMachineAreaPoolsProfile.push(obj);
-    //     }
-    //     console.log(this.service.product);
-    // }
+    选择全部资源池
+    allSelected: boolean = false;
+    selectAllResourcePool() {
+        this.allSelected = !this.allSelected;
+        this.productService.physicalService.phyMachineAreaPoolsProfile.forEach(ele => ele.selected = this.allSelected);
+    }
+    //选择资源池
+    selectResourcePool(idx) {
+        console.log(idx);
+        console.log(this.productService.physicalService.phyMachineAreaPoolsProfile[idx]);
+        this.productService.physicalService.phyMachineAreaPoolsProfile[idx].selected = !this.productService.physicalService.phyMachineAreaPoolsProfile[idx].selected;
+        for (let resourcePool of this.productService.physicalService.phyMachineAreaPoolsProfile) {
+            if (resourcePool.selected == false) {
+                this.allSelected = false;
+                return;
+            }
+        }
+        this.allSelected = true;
+    }
+    isAddPool:boolean;
+    //是否资源池添加
+    isCanAddPool(){
+        if(this.allSelected){
+            this.isAddPool=false;
+            return ;
+        }
+    }
+    //拼接资源池对象数组
+    combineObj() {
+        this.product.phyMachineAreaPoolsProfile = [];
+        let list = this.productService.physicalService.phyMachineAreaPoolsProfile.filter(ele => {
+            if (ele.selected == true)
+                return ele;
+        }).map(ele => ele.regionId);
+        let noRepeateList = [];
+        for (let l of list) {
+            if (noRepeateList.indexOf(l) === -1) {
+                noRepeateList.push(l);
+            }
+        }
+        let poolList: Array<ResourcePoolObj>;
+        for (let i of noRepeateList) {
+            let obj: ResourcePoolObj = new ResourcePoolObj();
+            obj.regionId = i;
+            for (let resource of this.productService.physicalService.phyMachineAreaPoolsProfile) {
+                if (resource.selected && resource.regionId == i) {
+                    obj.region = resource.region;
+                    obj.areaDisplayName = resource.areaDisplayName;
+                    obj.phyMachineResourcPoolsProfile.push({
+                        "pmPoolId": resource.pmPoolId,
+                        "poolName": resource.poolName,
+                        "resourcePoolDisplayName": resource.resourcePoolDisplayName,
+                        "skuid": resource.skuid,
+                        selected: true
+                    })
+                }
+            }
+            this.product.phyMachineAreaPoolsProfile.push(obj);
+        }
+        console.log(this.product);
+    }
     //编辑企业
     //选择企业
     selectEnterprise(ent, index) {

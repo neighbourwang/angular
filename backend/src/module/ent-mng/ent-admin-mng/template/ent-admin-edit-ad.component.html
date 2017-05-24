@@ -8,7 +8,7 @@
                     {{ 'COMMON.NAME' | translate }}
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" [(ngModel)]="admin.userName" placeholder="{{ 'COMMON.INPUT_NAME' | translate }}">
+                    <input type="text" id="userName" class="form-control" [(ngModel)]="admin.userName" placeholder="{{ 'COMMON.INPUT_NAME' | translate }}">
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
                     {{ 'COMMON.CONTACT_PHONE' | translate }}
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" [(ngModel)]="admin.contactPhone" placeholder="{{ 'COMMON.INPUT_PHONE' | translate }}">
+                    <input type="text" id="contactPhone" class="form-control" [(ngModel)]="admin.contactPhone" placeholder="{{ 'COMMON.INPUT_PHONE' | translate }}">
                 </div>
             </div>
         </div>
@@ -52,16 +52,16 @@
                     {{ 'COMMON.DESCRIPTION' | translate }}
                 </div>
                 <div class="col-sm-4">
-                    <textarea type="text" class="form-control" [(ngModel)]="admin.description" placeholder="{{ 'COMMON.INPUT_CONTACT_DESC' | translate }}" rows="3"></textarea>
+                    <textarea type="text" id="description" class="form-control" [(ngModel)]="admin.description" placeholder="{{ 'COMMON.INPUT_CONTACT_DESC' | translate }}" rows="3"></textarea>
                 </div>
             </div>
         </div>
      
         <div class="text-center">
-            <button class="fox-cloud-button-lg fox-cloud-button-white"  (click)="cancel()">
+            <button class="fox-cloud-button-lg fox-cloud-button-white"  (click)="cancel()" id="cancel">
                 <span class="icon-button-label"> {{ 'COMMON.CANCEL' | translate }}</span>
             </button>
-            <button class="fox-cloud-button-lg fox-cloud-button-white"  (click)="saveAccount()" style="margin-left : 10px">
+            <button class="fox-cloud-button-lg fox-cloud-button-white"  (click)="saveAccount()" id="saveAccount" style="margin-left : 10px">
                 <span class="icon-button-label"> {{ 'COMMON.SAVE' | translate }}</span>
             </button>
         </div>
