@@ -96,7 +96,6 @@ export class ManagementServicesListComponent implements OnInit {
 
 	resetSearch() {
 		this.listQuery = new SuperviseQueryCondition();
-		this.listQuery.instanceNo = this.productList.length ? this.productList[0].id : ""
 	}
 
 	goTo(url : string) {
