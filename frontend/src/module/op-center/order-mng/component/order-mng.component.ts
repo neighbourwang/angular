@@ -457,6 +457,8 @@ export class OrderMngComponent implements OnInit {
 			this.autoRenewItem.instanceId = orderItem.orderId;
 			this.autoRenewItem.status = orderItem.itemList[0].status;
 
+			
+
 			this.layoutService.show();
 			if (this.autoRenewItem.extendType == 0) {
 				this.autoRenewConfigItem.Go(null, [{ key: "_instanceId", value: orderItem.orderId }, { key: "_serviceType", value: orderItem.itemList[0].serviceType }])
@@ -480,6 +482,11 @@ export class OrderMngComponent implements OnInit {
 	};
 
 	submitRenew() {
+		if(this.autoRenewItem.serivceRenewWayProductItems.length==0){
+				this.showMsg('该已购服务不支持自动续订！');
+				// this.AutoRenewDialog.close();
+				return;
+		}
 		if (!this.autoRenewItem.isSelectedType) {
 			this.showMsg('请选择自动续订方式！');
 			return false
