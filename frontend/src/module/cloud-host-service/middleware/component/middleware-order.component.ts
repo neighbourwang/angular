@@ -105,7 +105,6 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 
 	getDict() {  //获取数据字典的值
 	 	Promise.all([this.mwservice.diskusage, this.dbservice.copylevel]).then(res => {   //获取这两个数据字典
-	 		console.log(this.diskusage)
 	 		this.diskusage = res[0]
 	 		this.copylevel = res[1]
 	 	})

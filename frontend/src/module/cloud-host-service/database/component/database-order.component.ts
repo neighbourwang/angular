@@ -165,12 +165,13 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	}
 
 	databaseValueInit() {
-		this.databaseValue.ARCHMODE.attrValue = "0";
-		this.databaseValue.DBCHARSET.attrValue = "0";
+		this.databaseValue.ARCHMODE.attrValue = "archivelog";
+		this.databaseValue.DBCHARSET.attrValue = "UTF8";
 	}
 
 	getDict() {  //获取数据字典的值
 	 	Promise.all([this.dbservice.diskusage, this.dbservice.copylevel]).then(res => {   //获取这两个数据字典
+	 		console.log(res)
 	 		this.diskusage = res[0]
 	 		this.copylevel = res[1]
 	 	})
