@@ -1,4 +1,4 @@
-<div class="page-content-header icon-create-product">{{'PROD_MNG.CREATE_PRODUCT_CAT' | translate}}: {{servcieTitle | translate}}</div>
+<div class="page-content-header icon-create-product">{{pageType | translate}}: {{servcieTitle | translate}}</div>
 <!--创建产品目录-->
 <div class="page-content">
 	<div class="row" style="padding-top: 30px;">
@@ -19,7 +19,7 @@
 				<div class="form-group">
 					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.SERVE_TEMPLATE' | translate}}:</div>
 					<div class="col-sm-4 form-group has-feedback no-padding">
-						<select class="form-control" [(ngModel)]="databaseMiddlewareService.serviceTemplateId">
+						<select class="form-control" [disabled]="pageType == '编辑产品目录'" [(ngModel)]="databaseMiddlewareService.serviceTemplateId">
                     		<option *ngFor="let template of serviceTemplatList; let idx=index" [value]="template.serviceTemplateId">{{template.serviceTemplateName}}</option>
 						</select>
 					</div>
@@ -88,7 +88,7 @@
 					</div>
 				</div>
 			</div>
-            <div class="row" *ngIf="databaseMiddlewareService.serverType!='1'">
+            <div class="row" *ngIf="databaseMiddlewareService.serverType=='0'">
 				<div class="col-sm-3">
 				</div>
 				<div class="col-sm-5 no-padding">
@@ -105,7 +105,7 @@
 							<tbody>
 								<tr  *ngFor="let plateform of _platformlist; let idx=index">
 									<td>
-										<input class="fox-cloud-checkbox" type="checkbox" [checked]="plateform.selected" [(ngModel)]="plateform.selected" (click)="selectOne(idx,_platformlist)"
+										<input class="fox-cloud-checkbox" type="checkbox" [disabled]="plateform.disabled" [checked]="plateform.selected" [(ngModel)]="plateform.selected" (click)="selectOne(idx,_platformlist)"
 										/>
 									</td>
 									<td>{{plateform.name}}</td>
@@ -123,7 +123,7 @@
         <span class="icon-button-label">{{'NET_MNG_OPENSTACK.CNACLE' | translate}}</span>
     </button>
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onCreateService();" style="margin-left:20px">
-        <span class="icon-button-label">{{'PHY_MNG_POOL.CREATE' | translate}}</span><!--创建-->
+        <span class="icon-button-label">{{'COMMON.SAVE' | translate}}</span><!--创建-->
     </button>
 </div>
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>

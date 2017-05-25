@@ -200,28 +200,23 @@ export class ProdDirListComponent implements OnInit {
                         //PROD_MNG.DELETE_SELECTED_PRODUCT=>您选择删除{{value_1}}产品,请确认；如果确认，此产品目录的数据将不能恢复。
                         this.deleteConfirm.open('PROD_MNG.REMOVE_PRODUCT_CAT', 'PROD_MNG.DELETE_SELECTED_PRODUCT^^^' + message);
                     }
-
                     break;
                 case 'publish':
                     if (prodDirList[0].status == '1') {
                         this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_CAT_HAS_BEEN_PUBLISHED') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_CAT_HAS_BEEN_PUBLISHED=>产品目录状态为已发布 
                     } else {
                         this.publishConfirm.open('PROD_MNG.PUBLISH_PRODUCT_CAT', 'PROD_MNG.PUBLISH_SELECTED_PRODUCT^^^' + message) //PROD_MNG.PUBLISH_SELECTED_PRODUCT=>您选择发布{{value1}}产品,请确认。
-
                     }
                     break;
                 case 'ccPublish':
                     if (prodDirList[0].status == '3') {
                         this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_CAT_IS_CANCELLED') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_CAT_IS_CANCELLED=>产品目录状态为取消发布 
 
-
                     } else {
                         this.ccPublishConfirm.open('PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT', 'PROD_MNG.CANCEL_SELECTED_PRODUCT^^^' + message) //PROD_MNG.CANCEL_PUBLISH_PRODUCT_CAT=>取消发布产品目录 
-
                     }
                     break;
             }
-
         }
     };
     deleteCof() {
@@ -236,7 +231,6 @@ export class ProdDirListComponent implements OnInit {
         })
     }
     //发布按钮
-
     publishCof() {
         let selectedList: Array<Proddir> = this.getProddir();
         console.log(selectedList[0]);
@@ -339,8 +333,8 @@ export class ProdDirListComponent implements OnInit {
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre", { id: item.serviceId, type: 'edit' }]);
         }else if(item.serviceType=='4'){
             this.router.navigate(["prod-mng/physical-prod-mng/prod-dirPhsical-cre", { id: item.serviceId, type: 'edit' }]);            
-        }else if(item.serviceType=='5'){
-            this.router.navigate(["prod-mng/database-middleware-mng/database-middleware-service-cre", { id: item.serviceId, type: 'edit' }]);            
+        }else if(item.serviceType=='5'||item.serviceType=='3'){
+            this.router.navigate(["prod-mng/database-middleware-mng/database-middleware-service-cre", { id: item.serviceId, type: item.serviceType }]);            
         }
     }
     //获取列表数据

@@ -6,6 +6,7 @@ import { DatabaseMiddlewareProdCreStep1Component } from './components/database-m
 import { DatabaseMiddlewareProdCreStep2Component } from './components/database-middleware-prod-cre-step2.component'
 import { DatabaseMiddlewareProdCreStep3Component } from './components/database-middleware-prod-cre-step3.component'
 import { DatabaseMiddlewareProdCreStep4Component } from './components/database-middleware-prod-cre-step4.component'
+import { DatabaseMiddlewareEditComponent } from './components/database-middleware-product-edit.component';
 
 export const  DatabaseMiddlewareRouting:ModuleWithProviders=RouterModule.forChild([
     {
@@ -27,5 +28,9 @@ export const  DatabaseMiddlewareRouting:ModuleWithProviders=RouterModule.forChil
     {
         path:'database-middleware-mng/database-middleware-product-cre-step4',
         component:DatabaseMiddlewareProdCreStep4Component
+    },
+    {
+        path:'database-middleware-mng/database-middleware-product-edit',
+        component:DatabaseMiddlewareEditComponent
     }
 ]);
