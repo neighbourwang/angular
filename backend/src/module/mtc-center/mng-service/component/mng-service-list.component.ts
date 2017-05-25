@@ -174,7 +174,7 @@ export class MngServiceListComponent implements OnInit{
             return p.selected;
         });
         if(!selectedService){
-            this.showAlert("请选择需要跟进的服务");
+            this.showAlert("请选择需要状态更新的服务");
         }else{
             this.type= "update";
             this.selectedServiceId= selectedService.serviceId;
