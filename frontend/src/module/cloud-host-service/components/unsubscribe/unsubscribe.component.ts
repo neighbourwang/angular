@@ -56,7 +56,10 @@ export class UnsubscribeComponent implements OnInit {
     }
 
     open() {
-        if(!this.subid) return this.onerror.emit("sbuid is null");
+        if(!this.subid) {
+            this.showNotice("提示", "该实例无法退订")
+            return this.onerror.emit("sbuid is null");
+        }
         
         this.resetData();
         this.layoutService.show();

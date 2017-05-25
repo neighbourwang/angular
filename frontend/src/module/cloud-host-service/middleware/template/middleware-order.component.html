@@ -170,7 +170,7 @@
                             </tr>
                             <tr *ngFor="let data of database?.diskInfoList; let i = index">
 								<td class="text-center">{{i + 1}}</td>
-								<td class="text-center">{{data.usageType}}</td>
+								<td class="text-center">{{data.usageType | dict:mwservice.diskusage | async}}</td>
 								<td class="text-center">
 									<select class="form-control" id="bootstorage" [(ngModel)]="data.storage"  (ngModelChange)="dux.dispatch('SET_DISK_PRODUCTS')">
 										<option

@@ -251,4 +251,15 @@ export class DatabaseServiceOrder {
 		owner: "DB",
 		field: "DBCHARSET"
 	});
+
+	diskusage = this.dict.get({    //数据库云硬盘用途
+		owner: "DB",
+		field: "DISKUSAGE"
+	});
+
+	copylevel = this.dict.get({    //数据库冗余级别
+		owner: "DB",
+		field: "COPYLEVEL"
+	});
+
 }

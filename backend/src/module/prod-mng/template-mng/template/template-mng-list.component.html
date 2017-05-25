@@ -63,12 +63,12 @@
 					</td>
 					<td>
 						<span *ngIf="item.templateType=='database'">{{item.type | dict:this.service.databaseTypeDic|async}}</span>
-						<span *ngIf="item.templateType!='database'">{{item.type | dict:this.service.middlewareTypeDic|async}}</span>
+						<span *ngIf="item.templateType=='middleware'">{{item.type | dict:this.service.middlewareTypeDic|async}}</span>
 					</td>
 					<td>{{item.version}}</td>
 					<td>
 						<span *ngIf="item.templateType=='database'">{{item.deploymentMode | dict:this.service.databaseDeployModeDic | async}}</span>
-						<span *ngIf="item.templateType!='database'">{{item.deploymentMode | dict:this.service.middlewareDeployModeDic | async}}</span>
+						<span *ngIf="item.templateType=='middleware'">{{item.deploymentMode | dict:this.service.middlewareDeployModeDic | async}}</span>
 					</td>
 					<td>{{item.relatedProdNum}}</td>
 					<td>

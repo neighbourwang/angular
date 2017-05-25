@@ -77,7 +77,8 @@ export class PhysicalProdEditComponent implements OnInit {
                 //比对产品目录已选择资源池
                 this.allSelected =
                     this.product.phyMachineAreaPoolsProfile.length == this.productService.physicalService.phyMachineAreaPoolsProfile.length ? true : false;
-                if(this.allSelected)this.isCanAddPool=false;//如果开始就已经全被选也没必要添加了;
+                this.isCanAddPool=
+                    this.allSelected?false:true;//如果开始就已经全被选也没必要添加了;
                 this.product.phyMachineAreaPoolsProfile.forEach(pool => {
                     this.productService.physicalService.phyMachineAreaPoolsProfile.forEach(Pool => {
                         if (pool.pmPoolId == Pool.pmPoolId) {
@@ -233,6 +234,13 @@ export class PhysicalProdEditComponent implements OnInit {
         this.productService.physicalService.phyMachineAreaPoolsProfile.forEach(ele =>{
             if(!ele.disabled)ele.selected = this.allSelected
         });
+        let list=
+        this.productService.physicalService.phyMachineAreaPoolsProfile.filter(pool=>{
+            if(pool.selected) return pool
+        })
+        console.log(list);
+        this.isAddPool=
+            list.length>this.product.phyMachineAreaPoolsProfile.length?true:false;
     }
     //选择资源池
     selectResourcePool(idx) {
@@ -256,7 +264,7 @@ export class PhysicalProdEditComponent implements OnInit {
         }
         this.allSelected = true;        
     }
-    isCanAddPool:boolean;//如果开始就全选也没必要添加了;
+    isCanAddPool:boolean=true;//如果开始就全选也没必要添加了;
     isAddPool:boolean;
     //拼接资源池对象数组
     combineObj() {
