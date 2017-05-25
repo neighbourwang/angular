@@ -11,8 +11,9 @@ import { PhysicalProductService } from '../service/physical-prod-cre.service';
 
 
 //model
-import { PhysicalProductModel } from '../model/physical-product.model';
+import { PhysicalProductModel, ProductEnterpriseReqs ,PmPartsBaseprises} from '../model/physical-product.model';
 import { PhysicalService, FlatResourcePool, ResourcePoolObj, PartsFlavor, UnitObj, Spec } from '../model/physical-prod-service.model';
+import { HistoryPriceList } from '../model/historyPrice.model';
 
 
 @Component({
@@ -24,29 +25,29 @@ import { PhysicalService, FlatResourcePool, ResourcePoolObj, PartsFlavor, UnitOb
 export class PhysicalProdEditComponent implements OnInit {
     constructor(
         private router: ActivatedRoute,
-        private getProductService: PhysicalProductService,
+        private productService: PhysicalProductService,
         private layoutService: LayoutService,
         private location: Location,
         private service: PhysicalProductEditService,
-        // private entListService: CreateProdStepService,
-        private v:Validation
-    ) { 
-        this.v.result={}
+        private v: Validation
+    ) {
+        this.v.result = {}
     }
 
     @ViewChild('notice')
     notice: NoticeComponent;
+    @ViewChild('unitPricePop')
+    unitPricePop:PopupComponent;
 
     product: PhysicalProductModel;
-    prodDir: PhysicalService;
     productId: string;
     productType: string;
-    // historyPriceList: Array<HistoryPriceList> = new Array<HistoryPriceList>();
-    // updateEntObj: Product = new Product();
+    historyPriceList: Array<HistoryPriceList> = new Array<HistoryPriceList>();
+    updateEntObj: PhysicalProductModel = new PhysicalProductModel();
     Tabels = [
         { name: 'CASE_MNG.CASE_INFO', active: true },
         { name: 'PROD_MNG.PRICING_INFORMATION', active: false },
-        { name: 'PROD_MNG.PLATFORM_INFO', active: false },
+        { name: 'PROD_MNG.RESOURCEPOOL_INFO', active: false },
         { name: 'PROD_MNG.ENTERPRISE_INFO', active: false },
         { name: 'PROD_MNG.HISTORYCAL_PRICE', active: false }
     ]
@@ -61,94 +62,92 @@ export class PhysicalProdEditComponent implements OnInit {
 
     ngOnInit() {
         this.product = new PhysicalProductModel();
-        this.prodDir = new PhysicalService();
+        this.productService.physicalService = new PhysicalService();
         console.log(this.router.params);
         this.router.params.forEach((params: Params) => {
             this.productId = params['id'];
             this.productType = params['type'];
         })
-        // this.getProductDetail(this.productId)
-        //     .then(() => {
-        //         if (this.productType == '0') {
-        //         } else if(this.productType == '1') {
-        //             console.log('cc')
-        //         }
-        //     })
-        //     .then(() => this.getHistoryPrice(this.productId))
-        //     .catch(err => {
-        //         console.error.bind(err);
-        //     });
-
+        this.getProductDetail(this.productId)
+            .then(() => {
+                //获取产品目录详情
+                return this.productService.getPhysicalService(this.product.serviceId);
+            })
+            .then(() => {
+                //比对产品目录已选择资源池
+                this.allSelected =
+                    this.product.phyMachineAreaPoolsProfile.length == this.productService.physicalService.phyMachineAreaPoolsProfile.length ? true : false;
+                if(this.allSelected)this.isCanAddPool=false;//如果开始就已经全被选也没必要添加了;
+                this.product.phyMachineAreaPoolsProfile.forEach(pool => {
+                    this.productService.physicalService.phyMachineAreaPoolsProfile.forEach(Pool => {
+                        if (pool.pmPoolId == Pool.pmPoolId) {
+                            Pool.selected = true;
+                            Pool.disabled = true;
+                        }
+                    })
+                })
+                console.log(this.productService.physicalService.phyMachineAreaPoolsProfile);
+            })
+            .catch(err => console.error(err));
+        //产品历史价格
+        this.getHistoryPrice(this.productId);
+        this.productService.getUnitList();
+        this.productService.getEnterPriseList().then(() => {
+            for (let ent of this.productService.enterpriseListForSelect) {
+                ent.selected = false;
+                ent.disable = false;
+                for (let entProd of this.updateEntObj.productEnterpiseReqs) {
+                    if (ent.id == entProd.id) {
+                        ent.selected = true;
+                        ent.disable = true;
+                        entProd.disable = true;
+                    }
+                }
+            }
+        });
     }
     //请求产品详情
-    // getProductDetail(id) {
-    //     this.layoutService.show();
-    //     return this.getProductService.getProduct(id).then((response) => {
-    //         if (response && 100 == response.resultCode) {
-    //             if (response.resultContent) {
-    //                 this.product = response.resultContent;
-    //                 // this.product.id=this.productId;
-    //                 this.tempProductName = this.product.name;
-    //                 this.tempProductDesc = this.product.desc;
-    //                 this.tempBasicCyclePrice = this.product.basicCyclePrice;
-    //                 this.tempExtendCyclePrice = this.product.extendCyclePrice;
-    //                 this.tempOneTimePrice = this.product.oneTimePrice;
-    //                 this.tempUnitPrice = this.product.unitPrice;
-    //                 //产品企业列表
-    //                 this.updateEntObj.productEnterpiseReqs = JSON.parse(JSON.stringify(this.product.productEnterpiseReqs));
-    //                 console.log('产品', this.product);
-    //                 this.Tabels.forEach((ele) => {
-    //                     ele.active = false;
-    //                 })
-    //                 this.Tabels[0].active = true;
-    //                 let list = this.product.productPlatformReqs.map(ele => ele.platformId);
-    //                 this.getEntListForAdd(list);
-    //             }
-    //             this.layoutService.hide();
-    //         }
-    //     }).catch((err) => {
-    //         this.layoutService.hide();
-    //         console.error(err)
-    //     })
-    // }
-    
-    //获取产品历史价格信息
-    // getHistoryPrice(id) {
-    //     this.layoutService.show();
-    //     this.service.getHistoryPrice(id).then(res => {
-    //         console.log('历史价格', res);
-    //         this.historyPriceList = res.resultContent;
-    //         this.layoutService.hide();
-    //     }).catch(err => {
-    //         this.layoutService.hide();
-    //         console.error(err);
-    //     })
-    // }
-    //获取所有可选企业列表
-    // entList: Array<Enterprise> = new Array<Enterprise>();;
-    // getEntListForAdd(list) {
-    //     return this.entListService.getEnterpriseList(list).then(res => {
-    //         console.log('ent', res);
-    //         if (res.resultCode == 100 && res.resultContent) {
-    //             this.entList = res.resultContent;
-    //             console.log(this.updateEntObj.productEnterpiseReqs);
-    //             for (let ent of this.entList) {
-    //                 ent.selected = false;
-    //                 ent.disable = false;
-    //                 for (let entProd of this.updateEntObj.productEnterpiseReqs) {
-    //                     if (ent.id == entProd.id) {
-    //                         ent.selected = true;
-    //                         ent.disable = true;
-    //                         entProd.disable = true;
-    //                     }
-    //                 }
-    //             }
-    //             console.log('editEnt', this.entList)
-    //         }
-    //     }).catch(err => {
-    //         console.error(err);
-    //     })
-    // }
+    getProductDetail(id) {
+        this.layoutService.show();
+        return this.service.getPhysicalProd(id).then((response) => {
+            if (response && 100 == response.resultCode) {
+                if (response.resultContent) {
+                    console.log('产品', response);
+                    this.product = response.resultContent;
+                    // this.product.id=this.productId;
+                    this.tempProductName = this.product.name;
+                    this.tempProductDesc = this.product.desc;
+                    this.tempBasicCyclePrice = this.product.basicCyclePrice;
+                    this.tempExtendCyclePrice = this.product.extendCyclePrice;
+                    this.tempOneTimePrice = this.product.oneTimePrice;
+                    //产品企业列表
+                    this.updateEntObj.productEnterpiseReqs = JSON.parse(JSON.stringify(this.product.productEnterpiseReqs));
+                    // console.log('产品', this.product);
+                    this.Tabels.forEach((ele) => {
+                        ele.active = false;
+                    })
+
+                    this.Tabels[0].active = true;
+                }
+                this.layoutService.hide();
+            }
+        }).catch((err) => {
+            this.layoutService.hide();
+            console.error(err)
+        })
+    }
+    // 获取产品历史价格信息
+    getHistoryPrice(id) {
+        this.layoutService.show();
+        this.service.getHistoryPrice(id).then(res => {
+            console.log('历史价格', res);
+            this.historyPriceList = res.resultContent;
+            this.layoutService.hide();
+        }).catch(err => {
+            this.layoutService.hide();
+            console.error(err);
+        })
+    }
     //编辑基本信息
     editBasicInfo: boolean = false;
     tempProductName: string;
@@ -163,11 +162,11 @@ export class PhysicalProdEditComponent implements OnInit {
         console.log(this.v.check(key, regs));
         return this.v.check(key, regs);
     }
-    cancelBasicEdit(){
-        this.tempProductName=this.product.name;
-        this.tempProductDesc=this.product.desc;
+    cancelBasicEdit() {
+        this.tempProductName = this.product.name;
+        this.tempProductDesc = this.product.desc;
         this.checkForm();
-        this.editBasicInfo = false;        
+        this.editBasicInfo = false;
     }
     saveBasic() {
         let message = this.checkForm();
@@ -196,32 +195,29 @@ export class PhysicalProdEditComponent implements OnInit {
     tempExtendCyclePrice: number;
     tempOneTimePrice: number;
     tempUnitPrice: number;
-    // cancelPriceEdit() {
-    //     this.tempBasicCyclePrice = this.product.basicCyclePrice;
-    //     this.tempExtendCyclePrice = this.product.extendCyclePrice;
-    //     this.tempOneTimePrice = this.product.oneTimePrice;
-    //     this.tempUnitPrice = this.product.unitPrice;
-    //     this.editPriceInfo = false;
-    // }
-    // savePrice() {
-    //     this.product.basicCyclePrice = this.tempBasicCyclePrice;
-    //     this.product.extendCyclePrice = this.tempExtendCyclePrice;
-    //     this.product.oneTimePrice = this.tempOneTimePrice;
-    //     this.product.unitPrice = this.tempUnitPrice;
-    //     this.editPriceInfo = false;
-    //     console.log(this.product);
-    //     this.layoutService.show();
-    //     this.service.changProdPrice(this.product).then(res => {
-    //         console.log(res);
-    //         // this.getProductDetail(this.productId)
-    //         this.getHistoryPrice(this.productId)
-    //         this.layoutService.hide();
-    //     }).catch(err => {
-    //         console.log(err);
-    //         this.layoutService.hide();
-    //     })
-    // }
-    //编辑平台
+    cancelPriceEdit() {
+        this.tempBasicCyclePrice = this.product.basicCyclePrice;
+        this.tempExtendCyclePrice = this.product.extendCyclePrice;
+        this.tempOneTimePrice = this.product.oneTimePrice;
+        this.editPriceInfo = false;
+    }
+    savePrice() {
+        this.product.basicCyclePrice = this.tempBasicCyclePrice;
+        this.product.extendCyclePrice = this.tempExtendCyclePrice;
+        this.product.oneTimePrice = this.tempOneTimePrice;
+        this.editPriceInfo = false;
+        console.log(this.product);
+        this.layoutService.show();
+        this.service.updateProdPrice(this.product).then(res => {
+            console.log(res);
+            // this.getProductDetail(this.productId)
+            this.location.back();                     
+            this.layoutService.hide();
+        }).catch(err => {
+            console.log(err);
+            this.layoutService.hide();
+        })
+    }
     outputValue(e, num) {
         this[num] = e;
     }
@@ -229,66 +225,168 @@ export class PhysicalProdEditComponent implements OnInit {
     cancel() {
         this.location.back();
     }
-
+    //添加资源池
+    选择全部资源池
+    allSelected: boolean = false;
+    selectAllResourcePool() {
+        this.allSelected = !this.allSelected;
+        this.productService.physicalService.phyMachineAreaPoolsProfile.forEach(ele =>{
+            if(!ele.disabled)ele.selected = this.allSelected
+        });
+    }
+    //选择资源池
+    selectResourcePool(idx) {
+        console.log(idx);
+        console.log(this.productService.physicalService.phyMachineAreaPoolsProfile[idx]);
+        this.productService.physicalService.phyMachineAreaPoolsProfile[idx].selected = !this.productService.physicalService.phyMachineAreaPoolsProfile[idx].selected;
+        //判定是否添加了资源池
+        let list=
+        this.productService.physicalService.phyMachineAreaPoolsProfile.filter(pool=>{
+            if(pool.selected) return pool
+        })
+        console.log(list);
+        this.isAddPool=
+            list.length>this.product.phyMachineAreaPoolsProfile.length?true:false;
+        //判断是否全选
+        for (let resourcePool of this.productService.physicalService.phyMachineAreaPoolsProfile) {
+            if (resourcePool.selected == false) {
+                this.allSelected = false;
+                return;
+            }
+        }
+        this.allSelected = true;        
+    }
+    isCanAddPool:boolean;//如果开始就全选也没必要添加了;
+    isAddPool:boolean;
+    //拼接资源池对象数组
+    combineObj() {
+        this.product.phyMachineAreaPoolsProfile = [];
+        let list = this.productService.physicalService.phyMachineAreaPoolsProfile.filter(ele => {
+            if (ele.selected == true)
+                return ele;
+        }).map(ele => ele.regionId);
+        let noRepeateList = [];
+        for (let l of list) {
+            if (noRepeateList.indexOf(l) === -1) {
+                noRepeateList.push(l);
+            }
+        }
+        let poolList: Array<ResourcePoolObj>;
+        for (let i of noRepeateList) {
+            let obj: ResourcePoolObj = new ResourcePoolObj();
+            obj.regionId = i;
+            for (let resource of this.productService.physicalService.phyMachineAreaPoolsProfile) {
+                if (resource.selected && resource.regionId == i) {
+                    obj.region = resource.region;
+                    obj.areaDisplayName = resource.areaDisplayName;
+                    obj.phyMachineResourcPoolsProfile.push({
+                        "pmPoolId": resource.pmPoolId,
+                        "poolName": resource.poolName,
+                        "resourcePoolDisplayName": resource.resourcePoolDisplayName,
+                        "skuid": resource.skuid,
+                        selected: true
+                    })
+                }
+            }
+            this.product.phyMachineAreaPoolsProfile.push(obj);
+        }
+        console.log(this.product);
+    }
+    //资源池添加
+    ccEditResourcePool(){
+        this.combineObj();
+        this.layoutService.show();
+        this.service.updateProdPool({
+            "phyMachineAreaPoolsProfile": this.product.phyMachineAreaPoolsProfile,
+            "productId": this.product.productId,
+            "serviceId":this.product.serviceId
+        }).then(res=>{
+            console.log(res);
+            this.location.back();
+            this.layoutService.hide();
+        }).catch(err=>{
+            this.layoutService.hide();            
+            console.error
+        })
+        console.log(this.product);
+    }
     
     //编辑企业
     //选择企业
-    // selectEnterprise(ent, index) {
-    //     if (!ent.disable) {
-    //         ent.selected = !ent.selected;
-    //         this.updateEntObj.productEnterpiseReqs = this.entList.filter((ele) => {
-    //             if (ele.selected == true) {
-    //                 return ele;
-    //             }
-    //         });
-    //     this.isAddEntConfirm();            
-    //     }
-    // }
-    // //
-    // unSelected(e, index) {
-    //     if (!e.disable) {
-    //         this.entList.map(ele => {
-    //             if (ele.id == e.id) {
-    //                 ele.selected = false;
-    //             }
-    //         })
-    //         this.updateEntObj.productEnterpiseReqs.splice(index, 1);
-    //     this.isAddEntConfirm();            
-    //     }
-    // }
-    // //确认添加企业
-    // isAddEnter: boolean = false;
-    // isAddEntConfirm() {
-    //     let updateList = this.updateEntObj.productEnterpiseReqs.map(ent => ent.id).sort();
-    //     let prodEntList = this.product.productEnterpiseReqs.map(ent => ent.id).sort();
-    //     if (updateList.length != prodEntList.length) {
-    //         return this.isAddEnter = true;
-    //     } else {
-    //         for (let i = 0; i < updateList.length; i++) {
-    //             for (let j = 0; j < prodEntList.length; j++) {
-    //                 if (updateList[i] != prodEntList[j]) {
-    //                     return this.isAddEnter = true;
-    //                 }
-    //             }
-    //             if (i == updateList.length) {
-    //                 return this.isAddEnter = false;
-    //             }
-    //         }
-    //     }
+    selectEnterprise(ent, index) {
+        if (!ent.disable) {
+            ent.selected = !ent.selected;
+            this.updateEntObj.productEnterpiseReqs = this.productService.enterpriseListForSelect.filter((ele) => {
+                if (ele.selected == true) {
+                    return ele;
+                }
+            });
+            this.isAddEntConfirm();
+        }
+    }
+    //
+    unSelected(e, index) {
+        if (!e.disable) {
+            this.productService.enterpriseListForSelect.forEach(ele => {
+                if (ele.id == e.id) {
+                    ele.selected = false;
+                }
+            })
+            this.updateEntObj.productEnterpiseReqs.splice(index, 1);
+            this.isAddEntConfirm();
+        }
+    }
+    //确认添加企业
+    isAddEnter: boolean = false;
+    isAddEntConfirm() {
+        let updateList = this.updateEntObj.productEnterpiseReqs.map(ent => ent.id).sort();
+        let prodEntList = this.product.productEnterpiseReqs.map(ent => ent.id).sort();
+        if (updateList.length != prodEntList.length) {
+            return this.isAddEnter = true;
+        } else {
+            for (let i = 0; i < updateList.length; i++) {
+                for (let j = 0; j < prodEntList.length; j++) {
+                    if (updateList[i] != prodEntList[j]) {
+                        return this.isAddEnter = true;
+                    }
+                }
+                if (i == updateList.length) {
+                    return this.isAddEnter = false;
+                }
+            }
+        }
 
-    // }
-    // ccAddEnt() {
-    //     this.updateEntObj.productId = this.product.productId;
-    //     this.updateEntObj.serviceId = this.product.serviceId;
-    //     console.log(this.updateEntObj.productEnterpiseReqs);
-    //     this.layoutService.show();
-    //     this.service.editProductEnterPrise(this.updateEntObj).then(res => {
-    //         console.log(res);
-    //         this.getProductDetail(this.productId)
-    //         this.layoutService.hide();
-    //     }).catch(err => {
-    //         console.log(err);
-    //         this.layoutService.hide();
-    //     })
-    // }
+    }
+    ccAddEnt() {
+        this.updateEntObj.productId = this.product.productId;
+        this.updateEntObj.serviceId = this.product.serviceId;
+        console.log(this.updateEntObj.productEnterpiseReqs);
+        this.layoutService.show();
+        this.service.editProductEnterPrise(this.updateEntObj).then(res => {
+            console.log(res);
+            this.layoutService.hide();
+            this.location.back();            
+        }).catch(err => {
+            console.log(err);
+            this.layoutService.hide();
+        })
+    }
+    //部件历史价格
+    unitPriceList:Array<PmPartsBaseprises>;
+    viewUnitPrice(price){
+        console.log(price.billingId);
+        this.layoutService.show();
+        this.service.getProdUnitPrice(price.billingId).then(res=>{
+            console.log(res);
+            this.unitPriceList=res.resultContent.pmPartsBaseprises;
+            this.layoutService.hide();
+            if(this.unitPriceList.length>0){
+                this.unitPricePop.open('部件历史价格信息');                
+            }
+        }).catch(err=>{
+            console.error(err)
+            this.layoutService.hide();
+        })
+    }
+    ot(){}
 }

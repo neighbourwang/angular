@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { RestApiCfg, RestApi, RestApiModel, SystemDictionaryService } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -11,7 +12,8 @@ export class TemplateListService {
         private http: Http,
         private restApiCfg: RestApiCfg,
         private restApi: RestApi,
-        private dict: SystemDictionaryService
+        private dict: SystemDictionaryService,
+        private layoutService:LayoutService
     ) { }
 
     // 条件数据库查询模板列表
@@ -27,16 +29,42 @@ export class TemplateListService {
         return this.restApi.request(api.method, api.url, [], undefined, data);
     }
     //获取数据库模板详情
-    getTemplatedetail( data: any) {
-        let api = this.restApiCfg.getRestApi("prod-mng.template-mng.detail.search");
+    getDatabseTemplatedetail( data: any) {
+        let api = this.restApiCfg.getRestApi("prod-mng.template-mng.database.search");
 
         return this.restApi.request(api.method, api.url, [], undefined, data);
     }
-    //更新数据库模板
-    putDatabaseTemplate(data: any) {
-        let api = this.restApiCfg.getRestApi("template-mng-database.update.put");
+    //获取中间件库模板详情
+    getMiddlewareTemplatedetail( data: any) {
+        let api = this.restApiCfg.getRestApi("prod-mng.template-mng.middleware.search");
 
         return this.restApi.request(api.method, api.url, [], undefined, data);
+    }
+    //更新数据库模板(通过status=0，实现删除功能)
+    putDatabaseTemplate(data: any) {
+        this.layoutService.show();
+        let api = this.restApiCfg.getRestApi("template-mng-database.update.put");
+
+        return this.restApi.request(api.method, api.url, [], undefined, data)
+        .then(()=>{
+            this.layoutService.hide();
+        }).catch(err=>{
+            this.layoutService.hide();
+            console.error(err);
+        });
+    }
+    //更新中间件模板(通过status=0，实现删除功能)
+    updateMiddlewareTemplate(data:any) {
+        this.layoutService.show();
+        let api = this.restApiCfg.getRestApi("template-mng-middleware.cre.put");
+
+        return this.restApi.request(api.method, api.url, [], undefined, data)
+        .then(()=>{
+            this.layoutService.hide();
+        }).catch(err=>{
+            this.layoutService.hide();
+            console.error(err);
+        });
     }
     //模板软件类型字典
     databaseTypeDic = this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise

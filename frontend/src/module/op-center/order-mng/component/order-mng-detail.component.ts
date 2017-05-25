@@ -32,6 +32,6 @@ export class OrderMngDetailComponent implements OnInit {
   checkOSInfo(id:string){
     //跳转到管理信息详情
     this.router.navigateByUrl(`cloud-host-service/management-services-list/${id}`);
-    alert("跳转");
+    // alert("跳转");
   }
 }

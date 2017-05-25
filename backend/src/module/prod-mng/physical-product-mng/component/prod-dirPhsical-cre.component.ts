@@ -65,6 +65,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
                 console.log(res);
                 this.physicalService = res.resultContent;
                 this.resourcePooList = JSON.parse(JSON.stringify(this.physicalService.pmResourcePools));
+                this.resourcePooList.forEach(ele =>ele.disabled=ele.selected);                
                 this.resourcePooList.sort((ele1, ele2) => {
                     return Number(ele1.regionId) - Number(ele2.regionId)
                 })

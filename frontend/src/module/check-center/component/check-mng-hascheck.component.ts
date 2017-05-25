@@ -11,6 +11,7 @@ import { RestApi
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
 import {DictService} from '../../../architecture/core/service/dict-service';
+import { MyDatePicker  } from '../../../architecture/components/date-picker/my-date-picker.component';
 import { CheckCenterParam,CheckListItem,ApproveItem } from './../model';
 import * as _ from 'underscore';
 
@@ -23,6 +24,14 @@ import * as _ from 'underscore';
 export class CheckMngHascheckComponent implements OnInit{
 	@ViewChild("notice") private _notice:NoticeComponent;
 	
+	
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
+
+
 	private _param:CheckCenterParam = new CheckCenterParam();
 	private _departmentLoader:ItemLoader<{id:string;name:string}> = null; //部门列表
 	private _submiterLoader:ItemLoader<{id:string;name:string}> = null;//提交者列表
@@ -79,6 +88,9 @@ export class CheckMngHascheckComponent implements OnInit{
 
 						if(orderItem.billingInfo){
 							obj.billingMode = orderItem.billingInfo.billingMode;
+							if(obj.billingMode==3){
+								obj.showPrice = false;
+							}
 							obj.periodType = orderItem.billingInfo.periodType;
 							if(orderItem.billingInfo.billingMode == 0)//包年包月
 							{
@@ -288,8 +300,11 @@ export class CheckMngHascheckComponent implements OnInit{
 	}
 
 	resetParam(){
-		this._param.reset();
+		
 		this._submiterLoader.clear();
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
+		this._param.reset();
 	}
 
 	

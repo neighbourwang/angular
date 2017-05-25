@@ -20,6 +20,7 @@ class ResourcePoolObj {
     "skuid":string;
     "phyMachineResourcPoolsProfile": Array<ResourcePool>;
     selected:boolean;
+    disabled:boolean;
     constructor() {
         this.regionId = '';
         this.region = '';
@@ -42,6 +43,7 @@ class FlatResourcePool {
     "dataCenter": string;
     "description": string;
     selected: boolean;
+    disabled:boolean;    
 }
 class FlatUnitObj {
     "id": string;

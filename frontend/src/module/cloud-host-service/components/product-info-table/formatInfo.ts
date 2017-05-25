@@ -78,7 +78,7 @@ export class formatInfo implements PipeTransform {
 			arr = [
 				{
 					attrDisplayName: "区域",
-					attrDisplayValue: info.PLATFORM.attrDisplayValue
+					attrDisplayValue: info.REGION.attrDisplayValue
 				},
 				{
 					attrDisplayName: info.RESOURCEPOOL.attrDisplayName,

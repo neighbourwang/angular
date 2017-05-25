@@ -47,7 +47,7 @@
 								<tbody>
 									<tr *ngFor="let unit of physicalService.phyMachinePartsFlavors; let idx = index;">
 										<td>
-											<input class="fox-cloud-radio" type="radio" [checked]="unit.selected" (click)="selectUnit(idx)" />
+											<input class="fox-cloud-radio"  type="radio" [checked]="unit.selected" (click)="selectUnit(idx)" />
 										</td>
 										<td>
 											{{unit.partsName}}
@@ -103,7 +103,7 @@
 							<tbody>
 								<tr *ngFor="let resourcePool of resourcePooList; let idx = index;">
 									<td>
-										<input class="fox-cloud-checkbox" type="checkbox" [checked]="resourcePool.selected" [(ngModel)]="resourcePool.selected" (click)="selectResourcePool(idx)"
+										<input class="fox-cloud-checkbox" type="checkbox" [disabled]="resourcePool.disabled" [checked]="resourcePool.selected" [(ngModel)]="resourcePool.selected" (click)="selectResourcePool(idx)"
 										/>
 									</td>
 									<td>{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>

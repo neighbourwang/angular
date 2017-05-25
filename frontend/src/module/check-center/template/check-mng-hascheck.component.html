@@ -63,11 +63,11 @@
 							<div>
 								<span class="float-left mgt15">{{'COMMON.CREATED_TIME' | translate}}&nbsp;:&nbsp;</span>
 								<div class="dropdown float-left">			
-									<date-picker (dateChanged)="onStartDateChange($event)"></date-picker>
+									<date-picker  #createDatePicker (dateChanged)="onStartDateChange($event)"></date-picker>
 								</div>
 								<span class="float-left form-control-title mgl10 mgr5">—</span>
 								<div class="dropdown float-left">			
-									<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
+									<date-picker  #expireDatePicker (dateChanged)="onEndDateChange($event)"></date-picker>
 								</div>
 							</div>
 						</td>
@@ -132,9 +132,9 @@
 						<td>{{item.departmentStr}}</td>
 						<td>{{item.entStr}}</td>
 						<td>{{'COMMON.BILLING_MODE' | translate}} : {{item.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}<br>
-						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}} : {{item.billingDurationStr}}{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}<br>
+						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}} : {{item.billingDurationStr}}{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}<span  style="margin: 0;" *ngIf="!item.showPrice">次</span><br>
 						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}} : <span class="font-red">￥{{item.oneTimePriceNum}}</span><br>
-						 	{{'CHECK_CENTER.COST' | translate}} : <span class="font-red">￥{{item.priceNum}}/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</span></td>
+						 	<span *ngIf="item.showPrice">{{'CHECK_CENTER.COST' | translate}} :</span> <span *ngIf="item.showPrice" class="font-red">￥{{item.priceNum}}/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</span></td>
 						<td>{{item.createTimeStr}}</td>
 						<td>
 							<ul>

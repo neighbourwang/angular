@@ -1,6 +1,6 @@
 <div class="enterpriseManage">
     <div class="page-content-header icon-content-header-enterprise-manage">{{ 'ENT_MNG.MANAGE_AVILABLE_PLATFORM' | translate }}
-		<button class="pull-right fox-cloud-button fox-cloud-button-white" style="margin-top:-10px;" (click)="cancel()"><span>{{ 'ENT_MNG.BACK_ENTERPRISE_LIST' | translate }}</span></button>
+		<button class="pull-right fox-cloud-button fox-cloud-button-white" style="margin-top:-10px;" (click)="cancel()" id="cancel_h"><span>{{ 'ENT_MNG.BACK_ENTERPRISE_LIST' | translate }}</span></button>
 	</div>
     <div class="page-content">
         <div class="firstPanel">
@@ -14,7 +14,7 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr  *ngFor="let selectedPlatformItem of selectedPlatformLoader.Items" >
+			            <tr  *ngFor="let selectedPlatformItem of selectedPlatformLoader.Items" id="selectedPlatformLoader_{{selectedPlatformItem.id}}">
 			                <td>{{selectedPlatformItem.name}}</td>
 			                <td>{{selectedPlatformItem.typeName}}</td>
 			            </tr>               
@@ -36,7 +36,7 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr *ngFor="let platformItem of platformLoader.Items;let i=index"> <!--value="{{platformItem.isSelected}}"-->
+			            <tr *ngFor="let platformItem of platformLoader.Items;let i=index" id="platformLoader_{{platformItem.id}}"> <!--value="{{platformItem.isSelected}}"-->
 							<td><input type="checkbox" class="fox-cloud-checkbox"  (change)="selectItem(i)" /></td>
 			                <td>{{platformItem.name}}</td>
 			                <td>{{platformItem.typeName}}</td>
@@ -50,8 +50,8 @@
 		</div>
 
 		<div class="firstPanel mgt20" style="width:300px;">
-			<button class="fox-cloud-button-white fox-cloud-button-lg mgr20 mgt20" (click)="cancel();"><span>取消</span></button>
-		 	<button class="fox-cloud-button-green fox-cloud-button-lg" (click)="save();"><span>保存</span></button>
+			<button class="fox-cloud-button-white fox-cloud-button-lg mgr20 mgt20" (click)="cancel();" id="cancel"><span>取消</span></button>
+		 	<button class="fox-cloud-button-green fox-cloud-button-lg" (click)="save();" id="save"><span>保存</span></button>
 		 </div>
     </div>
 </div>

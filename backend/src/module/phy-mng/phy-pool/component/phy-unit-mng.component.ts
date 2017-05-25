@@ -170,7 +170,7 @@ export class PhyUnitMngComponent implements OnInit{
     creOredit(){
         this.criteria.partsId= this.selectedParts.partsId;
         this.criteria.specId= this.selectedSpec.specId;
-        if(!this.isEdit){
+        if(!this.partsName){
             this.criteria.partsName= (this.selectedParts.partsName != this.defaultParts.partsName)? this.selectedParts.partsName : this.criteria.partsName;
             this.criteria.specName= (this.selectedSpec.specName != this.defaultSpec.specName)? this.selectedSpec.specName : this.criteria.specName
         }else{
@@ -273,6 +273,8 @@ export class PhyUnitMngComponent implements OnInit{
                             this.getPartsList();
                             this.creUnit.close();
                             console.log(response.resultContent, "edit");
+                        }else if(response && 10051001 == response["resultCode"]){
+                            this.showAlert("PHY_MNG_DEPART.ALREADY_EXIST");
                         } else {
                             this.showAlert("COMMON.OPERATION_ERROR");
                         }

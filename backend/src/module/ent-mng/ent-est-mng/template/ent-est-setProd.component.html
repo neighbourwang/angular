@@ -1,18 +1,18 @@
 <div class="page-content-header icon-content-header-enterprise-manage">{{ 'ENT_MNG.ENTERPRISE_PRODUCT_SET' | translate }}: {{entName}}
-<button class="pull-right fox-cloud-button fox-cloud-button-white" (click)="return()" style="margin-top: -10px;"><span>{{ 'ENT_MNG.BACK_ENTERPRISE_LIST' | translate }}</span></button>
+<button class="pull-right fox-cloud-button fox-cloud-button-white" id="return" (click)="return()" style="margin-top: -10px;"><span>{{ 'ENT_MNG.BACK_ENTERPRISE_LIST' | translate }}</span></button>
 </div> 
 
 <div class="page-content">
 	<div class="setProdPanel green-border">
 		<div class="titlePanel">
 			<span class="form-control-title">{{ 'ENT_MNG.SELECTED_PRODUCTS' | translate }}</span>
-			<div class="pull-right chevron-down-bt" (click)="showEntProdList=!showEntProdList">
+			<div class="pull-right chevron-down-bt" (click)="showEntProdList=!showEntProdList" id="showEntProdList">
 				<span class="glyphicon glyphicon-chevron-down"></span>
 				<span class="glyphicon glyphicon-chevron-down chevron-down-bt-second"></span>
 			</div>
 			<div class="pull-right" style="display: none">
-				<input type="text" class="form-control searchbox gray-searchbox" placeholder="{{ 'COMMON.SEARCH' | translate }}" [(ngModel)]="criteria" />
-				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()"></span>
+				<input type="text" class="form-control searchbox gray-searchbox" id="search_input_prod" placeholder="{{ 'COMMON.SEARCH' | translate }}" [(ngModel)]="criteria" />
+				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()" id="search_prod"></span>
 			</div>
 				
 		</div>
@@ -32,7 +32,7 @@
 					</tr>
 				</thead>
 				<tbody *ngIf="showEntProdList">
-					<tr *ngFor="let item of entProdItems.items">
+					<tr *ngFor="let item of entProdItems.items" id="entProdItems_{{item.id}}">
 						<td>{{item.name}}</td>
 						<td>{{item.category}}</td>
 						<td>{{item.type}}</td>
@@ -51,13 +51,13 @@
 	<div class="setProdPanel green-border">
 		<div class="titlePanel">
 			<span class="form-control-title">{{ 'ENT_MNG.ALL_PRODUCTS_LIST' | translate }}</span>
-			<div class="pull-right chevron-down-bt" (click)="showProdList=!showProdList">
+			<div class="pull-right chevron-down-bt" (click)="showProdList=!showProdList" id="showProdList_ed">
 				<span class="glyphicon glyphicon-chevron-down"></span>
 				<span class="glyphicon glyphicon-chevron-down chevron-down-bt-second"></span>
 			</div>
 			<div class="pull-right" style="display: none">
-				<input type="text" class="form-control searchbox gray-searchbox" placeholder="{{ 'COMMON.SEARCH' | translate }}" [(ngModel)]="criteria" />
-				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()" ></span>
+				<input type="text" class="form-control searchbox gray-searchbox" id="search_box" placeholder="{{ 'COMMON.SEARCH' | translate }}" [(ngModel)]="criteria" />
+				<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()" id="search_box_on"></span>
 			</div>
 				
 		</div>
@@ -77,7 +77,7 @@
 					</tr>
 				</thead>
 				<tbody *ngIf="showProdList">
-					<tr *ngFor="let item of prodItems.items">
+					<tr *ngFor="let item of prodItems.items" id="prodItems_{{item.id}}">
 						<td>{{item.name}}</td>
 						<td>{{item.category}}</td>
 						<td>{{item.type}}</td>

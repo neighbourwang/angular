@@ -1202,7 +1202,32 @@ export let RestApis: RestApiModel[] = [
         "id": "physical-service-update.post",
         "method": "POST",
         "url": "adminui/authsec/services/type/PM"
-    },        
+    }, 
+    {
+        "desc": "获取物理机产品详情",
+        "id": "physical-product-detail.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/product/{id}"
+    },
+    {
+        "desc": "更新物理机产品资源池",
+        "id": "physical-product-resourcePool-update.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/PMproduct/resourcepool"
+    },
+    {
+        "desc": "更新物理机产品价格信息",
+        "id": "physical-product-price-update.post",
+        "method": "PUT",
+        "url": "adminui/authsec/product/billing"
+    },
+    {
+        "desc": "查看物理机部件历史产品价格信息",
+        "id": "physical-product-unitprice.get",
+        "method": "GET",
+        "url": "adminui/authsec/product/{id}/PMHistoryPrice"
+    }, 
+       
     //管理服务产品
     {
         "desc": "创建管理服务",

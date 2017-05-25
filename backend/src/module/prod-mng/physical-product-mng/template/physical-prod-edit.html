@@ -16,100 +16,71 @@
 			<div class="col-md-12">
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PROD_NAME' | translate}}：</div>						
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PROD_NAME'|translate}}：</div>
+						<!--产品名称-->
 						<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.productName}">
-						<input type="text" [(ngModel)]="tempProductName" [disabled]="!editBasicInfo" (ngModelChange)="checkForm('productName')" name="productName"
-						 placeholder="{{'PROD_MNG.PROD_NAME' | translate}}" class="form-control">
-						<span *ngIf="v.result.productName" class="glyphicon glyphicon-remove form-control-feedback"></span>
-						<div *ngIf="v.result.productName" class="alert alert-danger" role="alert">{{v.result.productName}}</div>
-					</div>
+							<input type="text" [(ngModel)]="tempProductName" [disabled]="!editBasicInfo" (ngModelChange)="checkForm('productName')" name="productName"
+							 placeholder="{{'PROD_MNG.PROD_NAME' | translate}}" class="form-control">
+							<span *ngIf="v.result.productName" class="glyphicon glyphicon-remove form-control-feedback"></span>
+							<div *ngIf="v.result.productName" class="alert alert-danger" role="alert">{{v.result.productName}}</div>
+						</div>
 					</div>
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT' | translate}}：</div>
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.PRODUCT_CAT'|translate}}：</div>
 						<!--产品目录-->
-						<div class="col-sm-4 form-control-title font-gray no-padding" style="text-align: left">
-							{{prodDir.serviceName}}
+						<div class="col-sm-4 no-padding">
+							<input type="text" class="form-control" disabled [(ngModel)]=" productService.physicalService.serviceName">
 						</div>
 					</div>
 				</div>
-				<div *ngIf="productType == '0'">
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray no-padding">
-								<div class="font-gray">CPU</div>
-								<div class="last-line-child font-gray">{{prodDir?.specification?.vcpu||0}}</div>
-								<div class="last-line-child font-gray">{{'COMMON.CORE' | translate}}（vCPU）</div>
-							</div>
-						</div>
-					</div>
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray no-padding">
-								<div class="font-gray">{{'COMMON.RAM' | translate}}</div>
-								<div class="last-line-child font-gray">{{prodDir?.specification?.mem||0}}</div>
-								<div class="last-line-child font-gray">{{'COMMON.MB' | translate}}（MB）</div>
-							</div>
-						</div>
-					</div>
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray no-padding">
-								<div class="font-gray">{{'PROD_MNG.ROOT_DISK_SIZE' | translate}}</div>
-								<!--启动盘大小-->
-
-								<div class="last-line-child font-gray">{{prodDir?.specification?.startupDisk||0}}</div>
-								<div class="last-line-child font-gray">GB</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div *ngIf="productType == '1'">
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray no-padding">
-								<div class="font-gray">{{'PROD_MNG.INIT_SIZE' | translate}}</div>
-								<!--初始大小-->
-
-								<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.initialSize||0}}</div>
-								<div class="last-line-child font-gray">GB</div>
-							</div>
-						</div>
-					</div>
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray no-padding">
-								<div class="font-gray">{{'COMMON.STEP' | translate}}</div>
-								<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.stepSize||0}}</div>
-								<div class="last-line-child font-gray">GB</div>
-							</div>
-						</div>
-					</div>
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title"></div>
-							<div class="col-sm-4 row-line-child font-gray no-padding">
-								<div class="font-gray">{{'COMMON.MAX' | translate}}</div>
-								<div class="mid-line-child border-gray font-gray">{{prodDir?.specification?.maxSize||0}}</div>
-								<div class="last-line-child font-gray">GB</div>
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title">标准规格：</div>
+						<div class="col-sm-4 no-padding">
+							<div style="border:1px solid #cfd8e7">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												{{"部件名称"}}
+											</th>
+											<th>{{'规格' | translate}}</th>
+											<th>{{'规格值' | translate}}</th>
+											<th>{{'数量' | translate}}</th>
+											<th>{{'总容量' | translate}}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let unit of productService.physicalService.phyMachinePartsFlavors; let idx = index;">
+											<td>
+												{{unit.partsName}}
+											</td>
+											<td>{{unit.specName}}</td>
+											<td>
+												{{unit.partsFlavorValue}}
+												<span *ngIf="unit.partsName=='磁盘'||unit.partsName=='内存'">GB</span>
+											</td>
+											<td>{{unit.partFlavorNum}}</td>
+											<td>
+												<span *ngIf="unit.capacity!=0">{{unit.capacity}}GB</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row row-line-height">
 					<div class="form-group">
-						<div class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>						
+						<div class="col-sm-4 form-control-title">描述：</div>
 						<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
-						<textarea [disabled]="!editBasicInfo"  type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
-						 rows="3" [(ngModel)]="tempProductDesc" name="description">
+							<textarea [disabled]="!editBasicInfo" type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
+							 rows="3" [(ngModel)]="tempProductDesc" name="description">
                             </textarea>
-					</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -141,15 +112,9 @@
 						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'PROD_MNG.COUNT_MODE' | translate}}：</div>
 						<div class="col-sm-6 row-inline-radio">
 							<div class="row">
-								<div class="col-sm-6" *ngIf="productType == '0'">
+								<div class="col-sm-6">
 									<label class="radio-inline row-inline-radio2 font-gray">
-                            		<input type="radio" name="billingTypeRadios" checked=true class="fox-cloud-radio" > {{'PROD_MNG.BY_YEAR_BY_MONTH' | translate}}<!--包年包月-->
-
-                       			</label>
-								</div>
-								<div class="col-sm-6" *ngIf="productType == '1'">
-									<label class="radio-inline row-inline-radio2 font-gray">
-                            		<input type="radio" name="billingTypeRadios" checked=true class="fox-cloud-radio" > {{'COMMON.BY_VOLUMN' | translate}}
+                            		<input type="radio" name="billingTypeRadios" disabled checked=true class="fox-cloud-radio" > {{'PROD_MNG.BY_YEAR_BY_MONTH' | translate}}<!--包年包月-->
                        			</label>
 								</div>
 							</div>
@@ -166,12 +131,12 @@
 									<div class="row">
 										<div class="col-sm-6">
 											<label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  [checked]="product.billingCycle=='5'" disabled class="fox-cloud-radio" > {{'COMMON.BY_YEAR' | translate}}<!--包年-->
+                           				<input type="radio" name="inlineRadioOption" disabled  [value]=5 class="fox-cloud-radio" [(ngModel)]="product.billingCycle" > {{'COMMON.BY_YEAR' | translate}}<!--包年-->
                        				</label>
 										</div>
 										<div class="col-sm-6">
 											<label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  [checked]="product.billingCycle=='3'" disabled class="fox-cloud-radio" > {{'COMMON.BY_MONTH' | translate}}<!--包月-->
+                           				<input type="radio" name="inlineRadioOption" disabled  [value]=3 class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> {{'COMMON.BY_MONTH' | translate}}<!--包月-->
                        				</label>
 										</div>
 									</div>
@@ -180,12 +145,12 @@
 									<div class="row">
 										<div class="col-sm-6">
 											<label class="radio-inline row-inline-radio4 font-gray" style="width:60%">
-                           				<input type="radio" name="inlineRadioOption"  [checked]="product.billingCycle=='1'" disabled class="fox-cloud-radio" > {{'COMMON.BY_DAY' | translate}}
+                           				<input type="radio" name="inlineRadioOption" disabled  [value]=1 class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> {{'COMMON.BY_DAY' | translate}}
                        				</label>
 										</div>
 										<div class="col-sm-6">
 											<label class="radio-inline row-inline-radio4 font-gray" style="width:100%">
-                           				<input type="radio" name="inlineRadioOption"  [checked]="product.billingCycle=='0'" disabled class="fox-cloud-radio"> {{'COMMON.BY_HOUR' | translate}}
+                           				<input type="radio" name="inlineRadioOption" disabled  [value]=0 class="fox-cloud-radio" [(ngModel)]="product.billingCycle"> {{'COMMON.BY_HOUR' | translate}}
                        				</label>
 										</div>
 									</div>
@@ -195,22 +160,24 @@
 						</div>
 					</div>
 				</div>
-				<div *ngIf="productType == '0'">
+				<div>
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title">{{'PROD_MNG.BASIC_CYCLE_PRICE' | translate}}：</div>
 							<!--基础周期价格-->
-							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
-								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempBasicCyclePrice">
-							</div>							
+							<div class="col-sm-6">
+								<count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=!editPriceInfo [value]="tempBasicCyclePrice||0"
+								 #basicCyclePrice (output)="outputValue($event,'tempBasicCyclePrice')"></count-bar>
+							</div>
 						</div>
 					</div>
 					<div class="row row-line-height">
 						<div class="form-group">
 							<div class="col-sm-4 form-control-title">{{'PROD_MNG.INCREMENT_CYCLE_PRICE' | translate}}：</div>
-							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
-								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempExtendCyclePrice">
-							</div>							
+							<div class="col-sm-6">
+								<count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=!editPriceInfo [value]="tempExtendCyclePrice||0"
+								 #extendCyclePrice (output)="outputValue($event,'tempExtendCyclePrice')"></count-bar>
+							</div>
 						</div>
 					</div>
 					<div class="row row-line-height">
@@ -219,39 +186,62 @@
 								{{'PROD_MNG.ONE_TIME_PRICE' | translate}}：
 								<!--一次性价格-->
 							</div>
-							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
-								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempOneTimePrice">
+							<div class="col-sm-6">
+								<count-bar [default]=0 [step]=10 [decimal]=true [max]=200000 [min]=0 [disabled]=!editPriceInfo [value]="tempOneTimePrice||0"
+								 #oneTimePrice (output)="outputValue($event,'tempOneTimePrice')"></count-bar>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div *ngIf="productType == '1'">
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title">
-								{{'PROD_MNG.ONE_TIME_PRICE' | translate}}：
-								<!--一次性价格-->
+				<div class="row row-line-height">
+					<div class="form-group">
+						<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>附加部件：</div>
+						<div class="col-sm-4">
+							<div style="border:1px solid #cfd8e7">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th style="width:20%">
+												{{"部件名称"}}
+											</th>
+											<th style="width:15%">{{'规格' | translate}}</th>
+											<th style="width:15%">{{'规格值' | translate}}</th>
+											<th style="width:20%">{{'基础周期价格' | translate}}</th>
+											<th style="width:30%"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let unit of product.pmPartsBaseprises; let idx = index;">
+											<td>
+												{{unit.partsName}}
+											</td>
+											<td>{{unit.specName}}</td>
+											<td>
+												{{unit.specValue}}
+												<span *ngIf="unit.partsName=='磁盘'||unit.partsName=='内存'">GB</span>
+											</td>
+											<td>
+												<span *ngIf="!unit.isEdit">{{unit.ajustmentPrice}}</span>
+												<input *ngIf="unit.isEdit" class="form-control" type="number" [(ngModel)]="unit.temPrice" name="temPrice" style="height:20px">
+											</td>
+											<td>
+												<span *ngIf="!unit.isEdit" class="glyphicon glyphicon-edit pointer" (click)="unit.isEdit=true;unit.temPrice=unit.ajustmentPrice"></span>
+												<span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-remove pointer" (click)="unit.isEdit=false;unit.temPrice=unit.ajustmentPrice"></span>
+												<span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-saved pointer mgl10" (click)="unit.isEdit=false;unit.ajustmentPrice=unit.temPrice"></span>
+												<!--<button *ngIf="unit.isEdit" class="fox-cloud-button-md fox-cloud-button-white" (click)="unit.isEdit=false;unit.referencePrice=unit.temPrice">{{'COMMON.SAVE' | translate}}</button>-->
+												<!--<button *ngIf="unit.isEdit" class="fox-cloud-button-md fox-cloud-button-white" (click)="unit.isEdit=false;unit.temPrice=unit.referencePrice">{{'COMMON.CANCEL' | translate}}</button>-->
+											</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
-							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
-								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempOneTimePrice">
-							</div>							
-						</div>
-					</div>
-					<div class="row row-line-height">
-						<div class="form-group">
-							<div class="col-sm-4 form-control-title">{{'PROD_MNG.UNIT_PRICE' | translate}}：
-								<!--单位价格-->
-							</div>
-							<div class="col-sm-2 form-control-title font-gray" style="text-align: left">
-								<input type="text" class="form-control" [disabled]="!editPriceInfo" type=number [(ngModel)]="tempUnitPrice">
-							</div>							
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="text-center" *ngIf="!editPriceInfo">
+	<div class="text-center mgt30" *ngIf="!editPriceInfo">
 		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
         <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
     </button>
@@ -259,7 +249,7 @@
         <span class="icon-button-label">{{'HOST_VMWARE_MNG.EDIT' | translate}}</span>
     </button>
 	</div>
-	<div class="text-center" *ngIf="editPriceInfo">
+	<div class="text-center mgt30" *ngIf="editPriceInfo">
 		<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancelPriceEdit();">
         <span class="icon-button-label">{{'COMMON.CANCEL' | translate}}</span>
     </button>
@@ -269,11 +259,52 @@
 	</div>
 </div>
 <div *ngIf="Tabels[2].active">
-	<div class="text-center mgt20">
-		<button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancelAddPlat();">
+	<div class="row" style="padding-top: 30px;">
+		<div class="col-md-12">
+			<div class="row row-line-height">
+				<div class="form-group">
+					<div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'选择资源池' | translate}}：</div>
+					<div class="col-sm-6 row-inline-radio">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+		</div>
+		<div class="col-sm-6">
+			<div style="border:1px solid #cfd8e7">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="check-box-col">
+								<input class="fox-cloud-checkbox" [disabled]="!isCanAddPool" type="checkbox" [checked]="allSelected" (click)="selectAllResourcePool()"
+								/>{{'COMMON.SELECT_ALL'| translate}}
+							</th>
+							<th>{{'资源池' | translate}}</th>
+							<th>{{'描述' | translate}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let resourcePool of productService.physicalService.phyMachineAreaPoolsProfile; let idx = index;">
+							<td>
+								<input class="fox-cloud-checkbox" [disabled]="resourcePool.disabled" type="checkbox" [checked]="resourcePool.selected" [(ngModel)]="resourcePool.selected"
+								 (click)="selectResourcePool(idx)" />
+							</td>
+							<td class="no-nowrap">{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>
+							<td class="no-nowrap">{{resourcePool.description}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="text-center mgt30">
+		<button class="fox-cloud-button-lg fox-cloud-button-white btn" (click)="cancel();">
         <span class="icon-button-label">{{'NET_MNG_VM_PORT.BACK' | translate}}</span>
     </button>
-		<button class="fox-cloud-button-lg fox-cloud-button-white btn" [disabled]="!isAddPlat" (click)="ccEditPlatform()" style="margin-left:40px;">
+		<button class="fox-cloud-button-lg fox-cloud-button-white btn" [disabled]="!isAddPool" (click)="ccEditResourcePool()" style="margin-left:40px;">
         <span class="icon-button-label">{{'PROD_MNG.ADD' | translate}}</span>
     </button>
 	</div>
@@ -296,7 +327,7 @@
 				</div>
 				<div class="row row-line-height entdown">
 					<div class="col-sm-5 entBody">
-						<div style="position: relative;height:40px;" *ngFor="let ent1 of entList; let i=index">
+						<div style="position: relative;height:40px;" *ngFor="let ent1 of productService.enterpriseListForSelect; let i=index">
 							<span class="span2" (click)="selectEnterprise(ent1,i)" style="width:80%">{{ent1.name}}</span>
 							<span class="icon-tick" style="margin-top:5px;left:80%" *ngIf="ent1.selected"></span>
 							<!--<input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="ent1.selected" ">-->
@@ -334,7 +365,7 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
 				<div class="table-container">
-					<table class="table table-hover" *ngIf="productType == '0'">
+					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>创建时间</th>
@@ -348,8 +379,8 @@
 								<!--计费周期-->
 								<th>产品基础周期价格</th>
 								<th>产品增量周期价格</th>
-
 								<th>{{'PROD_MNG.ONE_TIME_PRICE' | translate}}</th>
+								<th>产品附件部件历史价格</th>
 								<!--一次性价格-->
 								<!--<th>单位价格</th>-->
 								<!--产品名称-->
@@ -374,51 +405,10 @@
 								<td>{{price.basicCyclePrice}}</td>
 								<td>{{price.extendCyclePrice}}</td>
 								<td>{{price.oneTimePrice}}</td>
-								<!--<td>{{price.unitPrice}}</td>-->
-								<tr>
-						</tbody>
-					</table>
-					<table class="table table-hover" *ngIf="productType == '1'">
-						<thead>
-							<tr>
-								<th>创建时间</th>
-								<!--产品名称-->
-								<!--<th>{{'PROD_MNG.PRODUCT_CAT' | translate}}</th>-->
-								<!--产品目录-->
-								<th>产品目录</th>
-								<!--产品规格-->
-								<!--<th>{{'PROD_MNG.PRODUCT_SPEC' | translate}}</th>-->
-								<th>{{'COMMON.COUNT_CYCLE' | translate}}</th>
-								<!--计费周期-->
-								<!--<th>产品基础周期价格</th>-->
-								<!--<th>产品增量周期价格</th>-->
-
-								<th>{{'PROD_MNG.ONE_TIME_PRICE' | translate}}</th>
-								<!--一次性价格-->
-								<th>单位价格</th>
-								<!--产品名称-->
-							</tr>
-						</thead>
-						<tbody>
-							<tr *ngFor="let price of historyPriceList.productHistoryBillingProfileList; let idx = index;">
-								<td>{{price.createDate}}</td>
-								<td>{{historyPriceList.serviceName}}</td>
-								<!--<td>{{historyPriceList.productHistoryBillingProfileDiskItem}}</td>-->
-								<!--<td>{{historyPriceList.}}</td>-->
 								<td>
-									<span [ngSwitch]="price.billingCycle"> 
-										<template [ngSwitchCase]="0">{{'COMMON.BY_HOUR' | translate}}</template>
-										<template [ngSwitchCase]="1">{{'COMMON.BY_DAY' | translate}}</template>
-										<template [ngSwitchCase]="2">{{'COMMON.BY_WEEK' | translate}}</template>
-										<template [ngSwitchCase]="3">{{'COMMON.BY_MONTH1' | translate}}</template>							
-										<template [ngSwitchCase]="5">{{'COMMON.BY_YEAR1' | translate}}</template>							
-										<template ngSwitchDefault>Unknown</template>							
-									</span>
+									<button class="fox-cloud-button-md fox-cloud-button-white" (click)="viewUnitPrice(price)">{{'点击查看部件历史价格' | translate}}</button>
 								</td>
-								<!--<td>{{price.basicCyclePrice}}</td>-->
-								<!--<td>{{price.extendCyclePrice}}</td>-->
-								<td>{{price.oneTimePrice}}</td>
-								<td>{{price.unitPrice}}</td>
+								<!--<td>{{price.unitPrice}}</td>-->
 								<tr>
 						</tbody>
 					</table>
@@ -427,6 +417,42 @@
 			<div class="col-md-2"></div>
 		</div>
 	</div>
+	<fc-popup #unitPricePop title="{{title}}" ot="" (of)="ot()" ct=""
+	 (cf)="ccd()">
+		<div class="row row-line-height">
+			<div class="col-sm-12">
+				<div style="border:1px solid #cfd8e7">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>
+									{{"部件名称"}}
+								</th>
+								<th>{{'规格' | translate}}</th>
+								<th>{{'规格值' | translate}}</th>
+								<th>{{'基础周期价格' | translate}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let unit of unitPriceList; let idx = index;">
+								<td>
+									{{unit.partsName}}
+								</td>
+								<td>{{unit.specName}}</td>
+								<td>
+									{{unit.specValue}}
+									<span *ngIf="unit.partsName=='磁盘'||unit.partsName=='内存'">GB</span>
+								</td>
+								<td>
+									{{unit.ajustmentPrice}}
+								</td>								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</fc-popup>
 </div>
 
 
