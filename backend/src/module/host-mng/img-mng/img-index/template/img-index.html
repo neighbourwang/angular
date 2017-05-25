@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let plf of platforms let i=index"  >
+                <tr *ngFor="let plf of platforms let i=index"  id="platforms_{{plf.id}}">
                     <td>{{(pageIndex-1)*pageSize+i+1}}</td>
 
                     <td><a href="javascript:void(0);" (click)="choosePage(plf);">{{plf.name}}</a></td>

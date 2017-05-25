@@ -206,28 +206,6 @@ export class CheckMngListComponent implements OnInit {
 
 	//搜索
 	search(pageNum: number = 1) {
-		/*
-		{
-  "approverId": "string",
-  "approverStatus": "string",
-  "createTime": "2016-12-28T02:22:56.512Z",
-  "enterpriseId": "string",
-  "expireTime": "2016-12-28T02:22:56.512Z",
-  "orderCode": "string",
-  "orderType": "string",
-  "organization": "string",
-  "pageParameter": {
-    "currentPage": 0,
-    "offset": 0,
-    "size": 0,
-    "sort": {},
-    "totalPage": 0
-  },
-  "serviceType": "string",
-  "status": "string",
-  "userId": "string"
-}
-*/
 
 		let param = {
 			approverStatus: '0'//'0';//approvalStatus代表未审批
@@ -246,6 +224,13 @@ export class CheckMngListComponent implements OnInit {
 
 		};
 
+		if(this.createDatePicker&&this.createDatePicker.invalidDate){
+			this.showMsg('创建时间不合法');
+			return;
+		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
+			this.showMsg('到期时间不合法');
+			return;
+		}
 
 		//匹配后台搜索框参数/authsec/backend/approval/orders/search/paging 
 		this._layoutService.show();
@@ -382,10 +367,17 @@ export class CheckMngListComponent implements OnInit {
 
 	resetParam() {
 		this._submiterLoader.clear();
-		this.createDatePicker.removeBtnClicked();
-		this.expireDatePicker.removeBtnClicked();
 		this._param.reset();
-		
+		if(this.createDatePicker.invalidDate){
+			this.showMsg('创建时间不合法！')
+		}else{
+			this.createDatePicker.removeBtnClicked();
+		}
+		if(this.expireDatePicker.invalidDate){
+			this.showMsg('到期时间不合法！')
+		}else{
+			this.expireDatePicker.removeBtnClicked();
+		}
 	}
 
 }

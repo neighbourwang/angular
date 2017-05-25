@@ -70,8 +70,8 @@ export class PhyUnitMngComponent implements OnInit{
     ngOnInit (){
         console.log('init');
         //this.layoutService.show();
-        this.defaultParts.partsName= "其它";
-        this.defaultSpec.specName= "其它";
+        this.defaultParts.partsName= "PHY_MNG_DEPART.OTHERS";
+        this.defaultSpec.specName= "PHY_MNG_DEPART.OTHERS";
         this.getData();
         this.getPartsList();
     }
@@ -147,6 +147,8 @@ export class PhyUnitMngComponent implements OnInit{
             this.criteria= editParts;
             if(this.partsName){
                 this.partsName.nativeElement.value = this.criteria.partsName;
+            }
+            if(this.specName){
                 this.specName.nativeElement.value = this.criteria.specName;
             }
             this.selectedParts= this.partslist.find((p)=>{
@@ -170,12 +172,19 @@ export class PhyUnitMngComponent implements OnInit{
     creOredit(){
         this.criteria.partsId= this.selectedParts.partsId;
         this.criteria.specId= this.selectedSpec.specId;
+
         if(!this.partsName){
             this.criteria.partsName= (this.selectedParts.partsName != this.defaultParts.partsName)? this.selectedParts.partsName : this.criteria.partsName;
-            this.criteria.specName= (this.selectedSpec.specName != this.defaultSpec.specName)? this.selectedSpec.specName : this.criteria.specName
         }else{
-            this.criteria.partsName= (this.partsName.nativeElement.value != this.defaultParts.partsName) ? this.partsName.nativeElement.value : this.criteria.partsName;
-            this.criteria.specName=  (this.specName.nativeElement.value != this.defaultSpec.specName ) ? this.specName.nativeElement.value : this.criteria.specName;
+            //this.criteria.partsName= (this.partsName.nativeElement.value != this.defaultParts.partsName) ? this.partsName.nativeElement.value : this.criteria.partsName;
+            this.criteria.partsName= this.partsName.nativeElement.value;
+        }
+
+        if(!this.specName){
+            this.criteria.specName= (this.selectedSpec.specName != this.defaultSpec.specName)? this.selectedSpec.specName : this.criteria.specName;
+        }else{
+            //this.criteria.specName= (this.specName.nativeElement.value != this.defaultSpec.specName ) ? this.specName.nativeElement.value : this.criteria.specName;
+            this.criteria.specName= this.specName.nativeElement.value;
         }
 
         if (this.validationService.isBlank(this.criteria.partsName)) {
@@ -262,7 +271,7 @@ export class PhyUnitMngComponent implements OnInit{
                     }
                 )
                 .catch((e) => this.onRejected(e));
-        }else if(this.isEdit && this.noReapeat){
+        }else if(this.isEdit){
             this.layoutService.show();
             this.service.edit(this.criteria)
                 .then(

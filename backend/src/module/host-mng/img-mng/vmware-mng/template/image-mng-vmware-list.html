@@ -1,5 +1,5 @@
 ﻿<div class="page-content-header icon-content-header-purchasing"> {{ 'HOST_VMWARE_MNG.IMAGE_MANAGEMENT' | translate }}----{{platformName | translate}}
-    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" key="boe/image-mng.html" (click)="ImgMngPage()">
+    <button class=" fox-cloud-button-md fox-cloud-button-white pull-right" style="padding:2px 15px;font-size:14px" key="boe/image-mng.html" id="ImgMngPage" (click)="ImgMngPage()">
         {{'HOST_VMWARE_MNG.RETURN_IMAGE_MANAGEMENT' | translate}}
     </button>
 </div>
@@ -7,35 +7,35 @@
     <div class="mgt15 ">
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">{{'HOST_VMWARE_MNG.IMAGE_TYPE' | translate}}：</span>
         <div class="float-left pdr20">
-            <select class="pdl10 form-control" [(ngModel)]="queryOpt.type">
-                    <option [value]="" value="">{{'HOST_VMWARE_MNG.SELECT_IMAGE' | translate}}</option>
+            <select class="pdl10 form-control" [(ngModel)]="queryOpt.type" id="queryOpt_type">
+                    <option [value]="" id="queryOpt_type_null" value="">{{'HOST_VMWARE_MNG.SELECT_IMAGE' | translate}}</option>
                     <!-- <option *ngFor="let td of typeDictArray" [value]="td.value"><span  *ngIf="td.value!='1'">{{td.displayValue}}</span></option> -->
-                    <option [value]="'0'">{{'HOST_VMWARE_MNG.PUBLIC_IMAGE' | translate}}</option>
-                    <option [value]="'2'">{{'HOST_VMWARE_MNG.ENTERPRISE_IMAGE' | translate}}</option>
+                    <option [value]="'0'"  id="queryOpt_type_0">{{'HOST_VMWARE_MNG.PUBLIC_IMAGE' | translate}}</option>
+                    <option [value]="'2'"  id="queryOpt_type_2">{{'HOST_VMWARE_MNG.ENTERPRISE_IMAGE' | translate}}</option>
                 </select>
         </div>
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">{{'HOST_VMWARE_MNG.AFFILIATED_ENTERPRISE' | translate}}：</span>
         <div class="float-left">
-            <select class="pdl10 form-control" [(ngModel)]="queryOpt.tenantId">
-                    <option [value]="" value="">{{'HOST_VMWARE_MNG.SELECT_ENTERPRISE' | translate}}</option>
-                    <option *ngFor="let ent of vmwareents" [value]="ent.id">{{ent.name}}</option>
+            <select class="pdl10 form-control" [(ngModel)]="queryOpt.tenantId" id="queryOpt_tenantId">
+                    <option [value]="" id="queryOpt_tenantId_null" value="">{{'HOST_VMWARE_MNG.SELECT_ENTERPRISE' | translate}}</option>
+                    <option *ngFor="let ent of vmwareents" id="queryOpt_tenantId_{{ent.id}}"  [value]="ent.id">{{ent.name}}</option>
                 </select>
         </div>
-        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10" (click)="realQueryOpt.type = queryOpt.type; realQueryOpt.tenantId = queryOpt.tenantId; filter();"><span class="icon-button-label">{{'HOST_VMWARE_MNG.ENSURE' | translate}} </span> </button>
+        <button type="button" class="fox-cloud-button fox-cloud-button-white mgl10" id="realQueryOpt_type" (click)="realQueryOpt.type = queryOpt.type; realQueryOpt.tenantId = queryOpt.tenantId; filter();"><span class="icon-button-label">{{'HOST_VMWARE_MNG.ENSURE' | translate}} </span> </button>
     </div>
     <div style="clear:both"></div>
     <div class="mgb20 " style="margin-top:20px">
-        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-sync-vmware.html" (click)="VmwareImgSyncPage()">{{'HOST_VMWARE_MNG.SYNC_IMAGE' | translate}}</button>
-        <button class="fox-cloud-button fox-cloud-button-green" key="boe/image-ent-set-vmware.html" (click)="VmwareImgEntSetup()">{{'HOST_VMWARE_MNG.SET_ENTERPRISE' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green mgr10" key="boe/image-sync-vmware.html" id="VmwareImgSyncPage" (click)="VmwareImgSyncPage()">{{'HOST_VMWARE_MNG.SYNC_IMAGE' | translate}}</button>
+        <button class="fox-cloud-button fox-cloud-button-green" key="boe/image-ent-set-vmware.html" id="VmwareImgEntSetup" (click)="VmwareImgEntSetup()">{{'HOST_VMWARE_MNG.SET_ENTERPRISE' | translate}}</button>
         <div class="dropdown pull-right">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              {{'HOST_VMWARE_MNG.MORE_OPERATION' | translate}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="#myModal" data-toggle="modal" (click)="editImage()">{{'HOST_VMWARE_MNG.EDIT' | translate}}</a></li>
-                <li><a href="javascript:" (click)="enableImage()">{{'HOST_VMWARE_MNG.ENABLE' | translate}}</a></li>
-                <li><a href="javascript:" (click)="disableImage()">{{'HOST_VMWARE_MNG.DISABLE' | translate}}</a></li>
+                <li><a href="#myModal" data-toggle="modal" (click)="editImage()" id="editImage">{{'HOST_VMWARE_MNG.EDIT' | translate}}</a></li>
+                <li><a href="javascript:" (click)="enableImage()" id="enableImage">{{'HOST_VMWARE_MNG.ENABLE' | translate}}</a></li>
+                <li><a href="javascript:" (click)="disableImage()" id="disableImage">{{'HOST_VMWARE_MNG.DISABLE' | translate}}</a></li>
             </ul>
         </div>
     </div>
@@ -56,7 +56,7 @@
             </thead>
 
             <tbody>
-                <tr *ngFor="let img of vmwareimgs; let i=index">
+                <tr *ngFor="let img of vmwareimgs; let i=index" id="vmwareimgs_{{img.id}}">
                     <td><input type="radio" name="image" class="fox-cloud-radio" [checked]="img.checked" (change)="selectItem(i)" value="{{i}}"></td>
                     <td title="{{img.description}}">
                         <div class="tenant-description-c">{{img.name}} </div>
@@ -75,8 +75,8 @@
                                     </div>
                                 </form>
                                 <div class="pull-right" style="margin-bottom:10px;">
-                                    <button class=" fox-cloud-button fox-cloud-button-white" (click)="onSave(img)">{{'HOST_VMWARE_MNG.SAVE' | translate}}</button>
-                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="onCancel(); img.nameEditing=false;">{{'HOST_VMWARE_MNG.CANCEL' | translate}}</button>
+                                    <button class=" fox-cloud-button fox-cloud-button-white" (click)="onSave(img)" id="vmwareimgs_{{img.id}}_onSave">{{'HOST_VMWARE_MNG.SAVE' | translate}}</button>
+                                    <button class="fox-cloud-button fox-cloud-button-white" (click)="onCancel(); img.nameEditing=false;" id="vmwareimgs_{{img.id}}_onCancel">{{'HOST_VMWARE_MNG.CANCEL' | translate}}</button>
                                 </div>
                             </div>
 
@@ -94,7 +94,7 @@
                                         <th style="background-color:#00a982;color:white">{{'HOST_VMWARE_MNG.ALL_ENTERPRISE' | translate}}</th>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let tenant of img.tenants">
+                                        <tr *ngFor="let tenant of img.tenants" id="tenant_{{tenant.id}}">
                                             <td>{{tenant.name}}</td>
                                         </tr>
                                     </tbody>
@@ -161,7 +161,7 @@
             <div class="form-group">
                 <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_DISPLAY_NAME' | translate}}：</div>
                 <div class="col-sm-7">
-                    <input type="string" class="form-control input-control" [(ngModel)]="changedimg.displayName">
+                    <input type="string" id="displayName" class="form-control input-control" [(ngModel)]="changedimg.displayName">
                 </div>
             </div>
         </div>
@@ -169,8 +169,8 @@
             <div class="form-group">
                 <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.OS' | translate}}：</div>
                 <div class="col-sm-7">
-                    <select [(ngModel)]="changedimg.os">
-                            <option *ngFor="let os of this.osDictArray" [value]="os.value">{{os.displayValue}}</option>
+                    <select [(ngModel)]="changedimg.os" id="os">
+                            <option *ngFor="let os of this.osDictArray" id="os_{{os.value}}" [value]="os.value">{{os.displayValue}}</option>
                         </select>
                 </div>
             </div>
@@ -179,8 +179,8 @@
             <div class="form-group">
                 <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.BIT' | translate}}：</div>
                 <div class="col-sm-7">
-                    <select [(ngModel)]="changedimg.bitsType">
-                            <option *ngFor="let bit of this.bitDictArray" [value]="bit.value">{{bit.displayValue}}</option>
+                    <select [(ngModel)]="changedimg.bitsType" id="bitsType">
+                            <option *ngFor="let bit of this.bitDictArray" id="bitsType_{{bit.value}}" [value]="bit.value">{{bit.displayValue}}</option>
                         </select>
                 </div>
             </div>
@@ -191,7 +191,7 @@
                 <div class="col-sm-7">
                     <!-- <span>{{ changedimg.capacity | formatCapacity}}</span> -->
                     <!-- <input type="string" class="form-control input-control" [ngModel]="capacity" (ngModelChange)="capacity=$event"> GB -->
-                    <input type="string" class="form-control input-control" [(ngModel)]="capacity" style="width:70%; display:inline;"> GB
+                    <input type="string" class="form-control input-control" id="capacity" [(ngModel)]="capacity" style="width:70%; display:inline;"> GB
                 </div>
             </div>
         </div>
@@ -199,9 +199,9 @@
             <div class="form-group">
                 <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'HOST_VMWARE_MNG.IMAGE_TYPE' | translate}}：</div>
                 <div class="col-sm-7">
-                    <select [(ngModel)]="changedimg.type">
-                            <option [value]="'0'">{{'HOST_VMWARE_MNG.PUBLIC_IMAGE' | translate}}</option>
-                            <option [value]="'2'">{{'HOST_VMWARE_MNG.ENTERPRISE_IMAGE' | translate}}</option>
+                    <select [(ngModel)]="changedimg.type" id="changedimg">
+                            <option [value]="'0'" id="changedimg_0">{{'HOST_VMWARE_MNG.PUBLIC_IMAGE' | translate}}</option>
+                            <option [value]="'2'" id="changedimg_1">{{'HOST_VMWARE_MNG.ENTERPRISE_IMAGE' | translate}}</option>
                             <!-- <option *ngFor="let type of this.typeDict" [value]="type.value">{{type.displayValue}}</option> -->
                         </select>
                 </div>
@@ -211,7 +211,7 @@
             <div class="form-group">
                 <div class="col-sm-5 form-control-title">{{'HOST_VMWARE_MNG.DESCRIPTION' | translate}}：</div>
                 <div class="col-sm-7">
-                    <input type="string" class="form-control input-control" [(ngModel)]="changedimg.description">
+                    <input type="string" class="form-control input-control" id="description" [(ngModel)]="changedimg.description">
                 </div>
             </div>
         </div>

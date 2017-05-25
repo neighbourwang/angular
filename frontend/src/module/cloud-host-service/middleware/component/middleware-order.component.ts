@@ -1,5 +1,5 @@
 /************************************/
-//直接继承的数据库，所以里面的数据database之类的都是指的中间件 
+//继承的数据库，所以里面的数据database之类的都是指的中间件 
 //把调用的接口和提交订单时候发送的数据改动了一下
 /************************************/
 import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
@@ -57,6 +57,7 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 		this.fetchConfig()
 		this.fetchMiddlewareInit()
 		this.setMWdefaultValue()
+		this.getDict()
 	}
 
 	makeMWSubScriber() {
@@ -102,11 +103,18 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 		}).catch(res => this.layoutService.hide())
 	}
 
+	getDict() {  //获取数据字典的值
+	 	Promise.all([this.mwservice.diskusage, this.dbservice.copylevel]).then(res => {   //获取这两个数据字典
+	 		this.diskusage = res[0]
+	 		this.copylevel = res[1]
+	 	})
+	}	
+
 	formatDB():any[] {
 		let errorMsg = this.checkDbValue()
 		if(errorMsg) return [errorMsg];
 
-		this.middlewareValue.DEPLOYMODE.attrValue = this.database.deploymentMode;
+		this.middlewareValue.DEPLOYMODE.attrValue = this.database.deploymentModeString;
 		this.middlewareValue.TIMELINE = this.values.TIMELINE
 		this.middlewareValue.TIMELINEUNIT = this.values.TIMELINEUNIT
 		this.middlewareValue.MIDDLEWARETYPE.attrValue = this.mwInit.middleware.label
@@ -126,6 +134,10 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 		}
 
 		return [payLoad]
+	}
+
+	get deploymentModeString () {
+		return this.mwInit ? this.mwInit.mode.filter(m => m.value === this.fetchMWIdsPost.deploymentMode)[0].label : ""
 	}
 
 	checkDbValue(key?: string) {

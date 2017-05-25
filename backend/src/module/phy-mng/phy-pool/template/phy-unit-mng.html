@@ -74,7 +74,7 @@
             <div class="col-sm-3 form-control-title">{{'PHY_MNG_DEPART.SPEC_NAME' | translate}}:</div>
             <div class="col-sm-4">
                 <div class="input-select-container">
-                    <input *ngIf="isEdit == true" type="text" [value]="selectedSpec.specName" #specName>
+                    <input *ngIf="isEdit == true && selectedSpec.editable == 1 || selectedSpec.specName == defaultSpec" type="text" [value]="selectedSpec.specName" #specName>
                     <select class="form-control" [(ngModel)]="selectedSpec">
                         <option *ngFor="let spec of selectedParts.specList" [ngValue]="spec">{{spec.specName}}</option>
                         <option [ngValue]="defaultSpec">{{'PHY_MNG_DEPART.OTHERS' | translate}}</option>

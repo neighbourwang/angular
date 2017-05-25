@@ -69,7 +69,33 @@ export class SearchComponent implements OnInit {
     }
 
     delete(id:string){
+        this.layoutService.show();
+        this.service.delete(id).then(
+            response =>{
+                this.layoutService.hide();
+                if (response && 100 == response["resultCode"]) {   
+                        this.doSearch();
+                    } else {
+                        this.showAlert("Failed");
+                    }
+                }
+        )
+        .catch((e) => this.onRejected(e));
+    }
 
+    excute(){
+        this.layoutService.show();
+        this.service.excute(this.searchGroupName, this.searchGroupFun, this.bearer).then(
+            response =>{
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {   
+                            this.showAlert("response:"+response.resultContent);
+                        } else {
+                            this.showAlert("Failed");
+                        }
+                    }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     onRejected(reason: any) {
