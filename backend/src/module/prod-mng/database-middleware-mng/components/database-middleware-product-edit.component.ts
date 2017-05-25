@@ -262,16 +262,12 @@ export class DatabaseMiddlewareEditComponent implements OnInit {
         }else if (updateList.length > prodEntList.length) {
             return this.isAddEnter = true;
         } else {
-            for (let i = 0; i < updateList.length; i++) {
-                for (let j = 0; j < prodEntList.length; j++) {
-                    if (updateList[i] != prodEntList[j]) {
-                        return this.isAddEnter = true;
-                    }
-                }
-                if (i == updateList.length) {
-                    return this.isAddEnter = false;
-                }
+             for (let i = 0; i < updateList.length; i++) {
+               if(prodEntList.indexOf(updateList[i])==-1){
+                   return this.isAddEnter = false;
+               };               
             }
+            return this.isAddEnter = false;
         }
     }
     ccAddEnt() {
