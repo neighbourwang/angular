@@ -78,7 +78,7 @@ export class formatInfo implements PipeTransform {
 			arr = [
 				{
 					attrDisplayName: "区域",
-					attrDisplayValue: info.PLATFORM.attrDisplayValue
+					attrDisplayValue: info.REGION.attrDisplayValue
 				},
 				{
 					attrDisplayName: info.RESOURCEPOOL.attrDisplayName,
@@ -134,6 +134,36 @@ export class formatInfo implements PipeTransform {
 				{
 					attrDisplayName: "产品名称",
 					attrDisplayValue: info.INSTANCENAME.attrDisplayValue
+				}
+			]
+		}else if (serviceType == 3){  //数据库
+			arr = [
+				{
+					attrDisplayName: "产品名称",
+					attrDisplayValue: info.DBTYPE.attrDisplayValue + info.DEPLOYMODE.attrDisplayValue
+				},
+				{
+					attrDisplayName: "数据库类型",
+					attrDisplayValue: info.DBTYPE.attrDisplayValue
+				},
+				{
+					attrDisplayName: "数据库版本",
+					attrDisplayValue: info.DBVERSION.attrDisplayValue
+				}
+			]
+		}else if (serviceType == 5){  //中间件
+			arr = [
+				{
+					attrDisplayName: "产品名称",
+					attrDisplayValue: info.MIDDLEWARETYPE.attrDisplayValue + info.DEPLOYMODE.attrDisplayValue
+				},
+				{
+					attrDisplayName: "中间件类型",
+					attrDisplayValue: info.MIDDLEWARETYPE.attrDisplayValue
+				},
+				{
+					attrDisplayName: "中间件版本",
+					attrDisplayValue: info.MIDDLEWAREVERSION.attrDisplayValue
 				}
 			]
 		}

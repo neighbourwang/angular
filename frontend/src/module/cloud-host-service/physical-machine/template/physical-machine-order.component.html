@@ -257,7 +257,7 @@
             <h4 class="cloud-title font-green">操作系统</h4>
             <p class="cloud-p">操作系统: {{ values?.OSYSTEM.attrDisplayValue}}</p>
             <h4 class="cloud-title font-green">网络</h4>
-            <p class="cloud-p">网络: {{ selectedPhsical?.networkName}}</p>
+            <p class="cloud-p">网络: {{ selectedPhsical?.pmNetworkVO?.networkName}}</p>
             <h4 class="cloud-title font-green">{{'COMMON.PURCHASE_AMOUNT'|translate}}</h4>
             <p class="cloud-p">{{'COMMON.PURCHASE_DURATION'|translate}}: {{ values.TIMELINE?.attrValue}} {{ values.TIMELINEUNIT.attrDisplayValue | dict:service.unitType | async}} </p>
             <p class="cloud-p">{{'COMMON.PURCHASE_AMOUNT'|translate}}: {{payLoad.quality}}台</p>
@@ -266,7 +266,7 @@
             <p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}:
                 <font class="font-orange">{{ phyProduct?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
             <p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}
-                <font class="font-orange">{{ phyProduct?.billingInfo.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue | dict:service.unitType | async }}</font>{{'COMMON.YUAN'|translate}}
+                <font class="font-orange">{{ phyProduct?.billingInfo.basicPrice}}{{'COMMON.YUAN'|translate}} / {{ values.TIMELINEUNIT.attrDisplayValue | dict:service.unitType | async }}</font>
             </p>
             <div class="cloud-p">
                 <p class="cloud-title">{{'VM_INSTANCE.TOTAL_COST'| translate}}：</p>

@@ -101,6 +101,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 
 	private makeSubscriber() {
 		this.dux.subscribe("REGION", () => { this.fetchResourcePoll() })
+		this.dux.subscribe("REGION", () => { this.setRegionValue() })
 		this.dux.subscribe("SPEC", () => { this.changedSpec() })
 		this.dux.subscribe("RESOURCEPOLL", () => { this.changedSpec() })
 		this.dux.subscribe("RESOURCEPOLL", () => { this.setOs() })
@@ -127,7 +128,12 @@ export class PhysicalMachineOrderComponent implements OnInit {
 	/****资源池*****/
 	private fetchResourcePoll() {
 		this.service.fetchResourcePoll(this.region.id).then(res => {
-			if(!res.length) return this.resourcePolls = []
+			if(!res.length) {
+				this.resourcePolls = []
+				this.phsicalList = []
+				this.phyProduct = null
+				return false;
+			}
 
 			this.resourcePolls = res;
 			this.resourcePoll = this.resourcePolls[0]
@@ -268,7 +274,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 			password: [this.values.PASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8,30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
 			passwordShadow: [this.passwordShadow, [this.v.equalTo(this.values.PASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"],
 			instancename: [this.values.INSTANCENAME.attrValue, [this.v.isInstanceName, this.v.isBase], "VM_INSTANCE.HOST_NAME_FORMAT_IS_NOT_CORRECT"],
-			timeline: [this.values.TIMELINE.attrValue.trim(), [this.v.isNumber, this.v.range(1,999), this.v.isUnBlank], "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION"],
+			timeline: [this.values.TIMELINE.attrValue.trim(), [this.v.isInteger, this.v.range(1,999), this.v.isUnBlank], "VM_INSTANCE.PURCHASE_DURATION_DESCRIPTION"],
 			timelineunit: [this.values.TIMELINEUNIT.attrValue, [this.v.isUnBlank], "VM_INSTANCE.PLEASE_SELECT_TIMELINE_UNIT"],
 		}
 
@@ -283,11 +289,15 @@ export class PhysicalMachineOrderComponent implements OnInit {
 		return true;
 	}
 
+	private setRegionValue() {
+		this.values.REGION.attrValue = this.region.name
+	}
+
 	private valuesListToPay(): PostAttrList[] {   //把valuesList转换成数组
 		let payloadList = [];
 
 		for (let v in this.values) {
-			if(this.values[v].attrValueCode === "" && this.values[v].attrValue === "")  continue;
+			// if(this.values[v].attrValueCode === "" && this.values[v].attrValue === "")  continue;
 
 			payloadList.push({
 				attrId: this.attrList[v].attrId,                  	//服务属性ID

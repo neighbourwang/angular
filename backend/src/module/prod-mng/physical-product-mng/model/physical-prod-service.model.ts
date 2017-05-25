@@ -1,6 +1,7 @@
 class PhysicalService {
     "desc": string;
     "phyMachineAreaPoolsProfile": Array<ResourcePoolObj>;
+    "pmResourcePools":Array<ResourcePoolObj>;//编辑时获取详情字段不一样
     "phyMachinePartsFlavors": Array<PartsFlavor>;
     "serviceName": string;
     "serviceId":string;
@@ -19,6 +20,7 @@ class ResourcePoolObj {
     "skuid":string;
     "phyMachineResourcPoolsProfile": Array<ResourcePool>;
     selected:boolean;
+    disabled:boolean;
     constructor() {
         this.regionId = '';
         this.region = '';
@@ -41,6 +43,7 @@ class FlatResourcePool {
     "dataCenter": string;
     "description": string;
     selected: boolean;
+    disabled:boolean;    
 }
 class FlatUnitObj {
     "id": string;

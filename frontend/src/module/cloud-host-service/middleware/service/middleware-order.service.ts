@@ -27,20 +27,7 @@ export class MiddlewareServiceOrder {
 		return request;
 	}
 
-	fetchShoppingMDproducts(postData): Promise<any> {
-		const api = this.restApiCfg.getRestApi("shopping.MDproducts");
-
-		const request = this.restApi.request(api.method, api.url, undefined, undefined, postData)
-			.then(res => {
-				if (res.resultCode !== "100") {
-					throw "";
-				}
-				return res.resultContent;
-			});
-		return request;
-	}
-
-	fetchMiddlewareSearch(postData): Promise<any> {
+	fetchMiddleWareSearch(postData): Promise<any> {
 		const api = this.restApiCfg.getRestApi("middleware.template.search");
 
 		const request = this.restApi.request(api.method, api.url, undefined, undefined, postData)
@@ -242,13 +229,14 @@ export class MiddlewareServiceOrder {
 	}
 
 
-	archmode = this.dict.get({    //归档模式
-		owner: "DB",
-		field: "ARCHMODE"
+	deploymentMode = this.dict.get({    //归档模式
+		owner: "MIDDLEWARE",
+		field: "DEPLOYMENT_MODE"
 	});
 
-	dbcharset = this.dict.get({    //实例归属
-		owner: "DB",
-		field: "DBCHARSET"
+	diskusage = this.dict.get({    //中间件云硬盘用途
+		owner: "MIDDLEWARE",
+		field: "DISKUSAGE"
 	});
+
 }

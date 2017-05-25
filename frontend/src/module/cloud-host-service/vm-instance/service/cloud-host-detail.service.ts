@@ -53,7 +53,7 @@ export class cloudHostDetailService {
         return request;
     }
 
-    getVmCpuMemGraph(vmid:string) : Promise<any>{
+    getVmCpuMemGraph(vmid:string, period:string) : Promise<any>{
         const api = this.restApiCfg.getRestApi("hosts.hyper.graph");
 
         let pathParams = [
@@ -63,7 +63,7 @@ export class cloudHostDetailService {
             },
             {
                 key: 'period',
-                value: "1"
+                value: period
             }
         ];
         const request = this.restApi.request(api.method, api.url, pathParams, undefined)

@@ -218,7 +218,10 @@ export class ProdDirDiskCreComponent implements OnInit {
     onSubmit() {
         //重新刷新选择平台
         let message = this.checkForm();
-        if (message) return;
+        if (message) {
+            this.notice.open('操作错误', message);
+            return;
+        }
         if (this.prodDir.specification.maxSize == 0 || this.prodDir.specification.stepSize == 0) {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.PRODUCT_SPEC_ERROR'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.PRODUCT_SPEC_ERROR=>产品规格数据设置错误 
             return;

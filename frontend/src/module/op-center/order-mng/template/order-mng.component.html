@@ -89,7 +89,7 @@
 				</div>
 				 <!--(click)="resetParam()"-->
 				<div class="input-group float-left">
-					<button class="btn button-gray-gradient" (click)="loadUserType()"><span class="glyphicon glyphicon-repeat" id="search_text_reset"></span> {{ 'COMMON.RESET' | translate }}</button>
+					<button class="btn button-gray-gradient" (click)="resetParam()"><span class="glyphicon glyphicon-repeat" id="search_text_reset"></span> {{ 'COMMON.RESET' | translate }}</button>
 				</div>
 			</div>
 			<table class="table">
@@ -222,12 +222,12 @@
 					</td>
 					<td>{{prodItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async}}</td>
 					<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>
-					<td>{{prodItem.period}} {{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</td>
+					<td>{{prodItem.period}} {{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}<label *ngIf="!prodItem.showPrice">次</label></td>
 					<td>{{prodItem.quantity}}台</td>
 					<td style="width: 125px;">
 						<ul>
 							<li><span>{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}</span></li>
-							<li><span>费用:￥{{prodItem.price}}/</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></li>
+							<li *ngIf="prodItem.showPrice"><span>费用:￥{{prodItem.price}}/</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></li>
 						</ul>	
 					</td>
 					<td class="font-green">{{prodItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') |async}}</td>

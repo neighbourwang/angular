@@ -77,7 +77,7 @@
 					</tr>
 					<tr>
 						<td>{{ 'COMMON.COST' | translate}}</td>	
-						<td>￥{{_detailLoader.FirstItem.price}}/<span>{{_detailLoader.FirstItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
+						<td><span  *ngIf="_detailLoader.FirstItem.showPrice">￥{{_detailLoader.FirstItem.price}}/<span>{{_detailLoader.FirstItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></span></td>
 						<td>{{ 'COMMON.DEPARTMENT' | translate}}</td>
 						<td>{{_detailLoader.FirstItem.department}}</td>
 					</tr>
@@ -122,7 +122,7 @@
 						<td>
 							<ul>
 								<li>{{ 'COMMON.ONE_TIME_COSTS' | translate}}: {{ 'COMMON.$' | translate}}{{relatedOrder.oneTimePrice}}</li>
-								<li>{{ 'COMMON.COST' | translate}}: {{ 'COMMON.$' | translate}}{{relatedOrder.price}}/G/{{ 'COMMON.BY_HOUR' | translate}}</li>
+								<li >{{ 'COMMON.COST' | translate}}: {{ 'COMMON.$' | translate}}{{relatedOrder.price}}/G/{{ 'COMMON.BY_HOUR' | translate}}</li>
 							</ul>
 						</td>
 						<td>{{relatedOrder.expireDate}}</td>

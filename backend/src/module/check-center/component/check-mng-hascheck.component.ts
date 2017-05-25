@@ -11,7 +11,7 @@ import { RestApi
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
 import {DictService} from '../../../architecture/core/service/dict-service';
-
+import { MyDatePicker  } from '../../../architecture/components/date-picker/my-date-picker.component';
 
 
 import { CheckCenterParam
@@ -26,6 +26,12 @@ import * as _ from 'underscore';
 })
 export class CheckMngHascheckComponent implements OnInit{
 	@ViewChild("notice") private _notice:NoticeComponent;
+
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
 	
 	private _param:CheckCenterParam = new CheckCenterParam();
 	private _entLoader:ItemLoader<{id:string; name:string}> = null; //企业列表
@@ -43,7 +49,7 @@ export class CheckMngHascheckComponent implements OnInit{
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
 		,private _layoutService:LayoutService
-		,private _dictServ:SystemDictionaryService){
+		,private _dictServ:DictService){
 
 		//计费模式字典
 		this._billinModeDic = new DicLoader(_restApiCfg, _restApi, "BILLING_MODE", "TYPE");
@@ -70,13 +76,21 @@ export class CheckMngHascheckComponent implements OnInit{
 				//obj.checkResultName = item.operation;//审批结果
 				//obj.checkResultName = '同意';
 				if(item.orderItems){
-					let orderItem :any=null;
-					for(let _item of item.orderItems){
-						if(_item.serviceType==3){
-							orderItem = item.orderItems[0];
+					let orderItem :any=item.orderItems[0];
+					if(item.orderItems.length>1){
+						for(let _item of item.orderItems){
+							if(_item.serviceType==0){
+								orderItem.platformName=_item.platformName;
+								orderItem.zoneName=_item.zoneName;
+							}
+							if(_item.serviceType==3){
+								orderItem.specList = _item.specList;
+							}	
 						}
+
 						
 					}
+					
 
 					if(orderItem!=null){
 
@@ -87,6 +101,7 @@ export class CheckMngHascheckComponent implements OnInit{
 					//费用
 					if(orderItem.billingInfo){
 						obj.billingModeNum =orderItem.billingInfo ? orderItem.billingInfo.billingMode: null; //计费模式
+						obj.periodType = orderItem.billingInfo.periodType;
 						obj.billingDurationStr = orderItem.period;//订单周期
 						obj.oneTimePriceNum = orderItem.billingInfo ? orderItem.billingInfo.basePrice: null;//一次性费用
 
@@ -97,6 +112,8 @@ export class CheckMngHascheckComponent implements OnInit{
 						else if(obj.billingModeNum == 1)//按量
 						{
 							obj.priceNum = orderItem.billingInfo.unitPrice;
+						}else if(obj.billingModeNum ==3){
+							obj.showPrice = false;
 						}
 
 					}
@@ -221,27 +238,6 @@ export class CheckMngHascheckComponent implements OnInit{
 	search(pageNum:number = 1){
 
 		let param = _.extend({}, this._param);
-
-// {
-//   "approverId": "string",
-//   "approverStatus": "string",
-//   "createTime": "2017-01-03T08:21:18.762Z",
-//   "enterpriseId": "string",
-//   "expireTime": "2017-01-03T08:21:18.762Z",
-//   "orderCode": "string",
-//   "orderType": "string",
-//   "organization": "string",
-//   "pageParameter": {
-//     "currentPage": 0,
-//     "offset": 0,
-//     "size": 0,
-//     "sort": {},
-//     "totalPage": 0
-//   },
-//   "serviceType": "string",
-//   "status": "string",
-//   "userId": "string"
-// }
 		//匹配后台搜索框参数
 		param.approverStatus = 3;//approvalStatus代表已审批
         param.orderCode = this._param.quickSearchStr;//输入订单号快速查询 ？
@@ -258,6 +254,14 @@ export class CheckMngHascheckComponent implements OnInit{
 			currentPage:pageNum
 			,size:10
 		};
+		if(this.createDatePicker&&this.createDatePicker.invalidDate){
+			this.showMsg('开始时间不合法');
+			return;
+		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
+			this.showMsg('结束时间不合法');
+			return;
+		}
+
 		this._layoutService.show();
 		this._listLoader.clear();
 		this._listLoader.TotalPages = 1;//清空页码
@@ -324,10 +328,21 @@ export class CheckMngHascheckComponent implements OnInit{
 	}
 
 	resetParam(){
-		this._param.reset();
+		
 		this._departmentLoader.clear();
 		this._userListLoader.clear();
-		this._approverListLoader.clear();		
+		this._approverListLoader.clear();
+		if(this.createDatePicker.invalidDate){
+			this.showMsg('开始时间不合法！')
+		}else{
+			this.createDatePicker.removeBtnClicked();
+		}
+		if(this.expireDatePicker.invalidDate){
+			this.showMsg('结束时间不合法！')
+		}else{
+			this.expireDatePicker.removeBtnClicked();
+		}	
+		this._param.reset();
 	}
 
 	onStartDateChange($event)

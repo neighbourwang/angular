@@ -16,6 +16,8 @@ import { TranslateService } from 'ng2-translate';
 import { CheckCenterParam
 	, CheckListItem } from './../model';
 import * as _ from 'underscore';
+import {DictService} from '../../../architecture/core/service/dict-service';
+import { MyDatePicker  } from '../../../architecture/components/date-picker/my-date-picker.component';
 
 @Component({
 	selector: 'check-mng-list',
@@ -23,6 +25,8 @@ import * as _ from 'underscore';
 	styleUrls: ['../style/check-mng-list.less'],
 	providers: []	
 })
+
+
 
 export class CheckMngListComponent implements OnInit{ 
 	private _param:CheckCenterParam = new CheckCenterParam();
@@ -41,15 +45,23 @@ export class CheckMngListComponent implements OnInit{
 
 
 	@ViewChild("notice") private _notice:NoticeComponent;
+
 	@ViewChild("refuseDialog")
 		refuseDialog: PopupComponent;
 	@ViewChild("confirmAcceptDialog")
 	private _confirmAccept:ConfirmComponent;
+
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
 		, private translate: TranslateService
-		,private _layoutService:LayoutService){
+		,private _layoutService:LayoutService
+		, private _dictServ: DictService){
 
 		//多语言处理双向绑定的内容
 		translate.onLangChange.subscribe(() => {
@@ -88,11 +100,17 @@ export class CheckMngListComponent implements OnInit{
 
 
 				if(item.orderItems){
-					let orderItem :any=null;
-					for(let _item of item.orderItems){
-						if(_item.serviceType==3){
-							orderItem = item.orderItems[0];
-						}
+					let orderItem :any=item.orderItems[0];
+					if(item.orderItems.length>1){
+						for(let _item of item.orderItems){
+								if(_item.serviceType==0){
+									orderItem.platformName=_item.platformName;
+									orderItem.zoneName=_item.zoneName;
+								}
+								if(_item.serviceType==3){
+									orderItem.specList = _item.specList;
+								}	
+							}
 						
 					}
 
@@ -101,9 +119,11 @@ export class CheckMngListComponent implements OnInit{
 					obj.platformStr = orderItem.platformName;//区域
 					obj.zoneStr = orderItem.zoneName;// 可用区
 					obj.specList = orderItem.specList;
+
 					//费用
 					if(orderItem.billingInfo){
 						obj.billingModeNum =orderItem.billingInfo ? orderItem.billingInfo.billingMode: null; //计费模式
+						obj.periodType = orderItem.billingInfo.periodType;
 						obj.billingDurationStr = orderItem.period;//订单周期
 						obj.oneTimePriceNum = orderItem.billingInfo ? orderItem.billingInfo.basePrice: null;//一次性费用
 
@@ -114,6 +134,8 @@ export class CheckMngListComponent implements OnInit{
 						else if(obj.billingModeNum == 1)//按量
 						{
 							obj.priceNum = orderItem.billingInfo.unitPrice;
+						}else if(obj.billingModeNum ==3){
+							obj.showPrice = false;
 						}
 
 					}
@@ -201,28 +223,6 @@ export class CheckMngListComponent implements OnInit{
 
 	//搜索
 	search(pageNum:number = 1){
-/*
-{
-  "approverId": "string",
-  "approverStatus": "string",
-  "createTime": "2017-01-03T07:29:47.705Z",
-  "enterpriseId": "string",
-  "expireTime": "2017-01-03T07:29:47.705Z",
-  "orderCode": "string",
-  "orderType": "string",
-  "organization": "string",
-  "pageParameter": {
-    "currentPage": 0,
-    "offset": 0,
-    "size": 0,
-    "sort": {},
-    "totalPage": 0
-  },
-  "serviceType": "string",
-  "status": "string",
-  "userId": "string"
-}
-*/
 		let param = _.extend({}, this._param);
 
 		
@@ -242,6 +242,15 @@ export class CheckMngListComponent implements OnInit{
 			currentPage:pageNum
 			,size:10
 		};
+
+		if(this.createDatePicker&&this.createDatePicker.invalidDate){
+			this.showMsg('开始时间不合法');
+			return;
+		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
+			this.showMsg('结束时间不合法');
+			return;
+		}
+
 		this._layoutService.show();
 		this._listLoader.clear();//清空列表
 		this._listLoader.TotalPages = 1;//清空页码
@@ -367,9 +376,20 @@ export class CheckMngListComponent implements OnInit{
 	}
 
 	resetParam(){
-		this._param.reset();
+		
 		this._departmentLoader.clear();		
 		this._userListLoader.clear();
+		if(this.createDatePicker.invalidDate){
+			this.showMsg('开始时间不合法！')
+		}else{
+			this.createDatePicker.removeBtnClicked();
+		}
+		if(this.expireDatePicker.invalidDate){
+			this.showMsg('结束时间不合法！')
+		}else{
+			this.expireDatePicker.removeBtnClicked();
+		}
+		this._param.reset();
 	}
 
 	onStartDateChange($event)

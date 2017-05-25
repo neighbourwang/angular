@@ -55,11 +55,11 @@
 							<div>
 								<span class="float-left mgt15">{{'COMMON.CREATED_TIME' | translate}}&nbsp;:&nbsp;</span>
 								<div class="dropdown float-left">			
-									<date-picker (dateChanged)="onStartDateChange($event)"></date-picker>
+									<date-picker #createDatePicker (dateChanged)="onStartDateChange($event)"></date-picker>
 								</div>
 								<span class="float-left form-control-title mgl10 mgr5">—</span>
 								<div class="dropdown float-left">			
-									<date-picker (dateChanged)="onEndDateChange($event)"></date-picker>
+									<date-picker #expireDatePicker (dateChanged)="onEndDateChange($event)"></date-picker>
 								</div>
 							</div>
 						</td>
@@ -108,11 +108,11 @@
 								<!--<ul>
 									<li *ngFor="let spec of item.specList">{{spec.attrDisplayName}}:{{spec.attrDisplayValue}}</li>
 								</ul>-->
-								<service-view  [values]="item" *ngIf="item.serviceType==11"></service-view>
-								<machine-view  [values]="item" *ngIf="item.serviceType==4"></machine-view>
+								<service-view  [values]="item" *ngIf="item.serviceTypeIdStr==11"></service-view>
+								<machine-view  [values]="item" *ngIf="item.serviceTypeIdStr==4"></machine-view>
 								<vm-view [values]="item" *ngIf="item.serviceTypeIdStr==0"></vm-view><!--显示云主机 -->
 						 		<disk-view [values]="item" *ngIf="item.serviceTypeIdStr==1"></disk-view><!--显示云硬盘  -->
-								<sql-view [values]="item" *ngIf="item.serviceType==3" ></sql-view>
+								<sql-view [values]="item" *ngIf="item.serviceTypeIdStr==3" ></sql-view>
 							</popover-content>
 						</td>
 						<td>{{item.serviceTypeName | translate}}</td>
@@ -124,9 +124,9 @@
 						<td>{{item.departmentStr}}</td>
 						<td>{{item.entStr}}</td>
 						<td>{{'COMMON.BILLING_MODE' | translate}} : {{item.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async | translate}}<br>
-						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}} : {{item.billingDurationStr}}<br>
-						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}} : <span class="font-red">{{item.oneTimePriceNum}}</span><br>
-						 	{{'CHECK_CENTER.COST' | translate}} : <span class="font-red">{{item.priceNum}}</span></td>
+						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}} : {{item.billingDurationStr}}{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}<span style="margin: 0;" *ngIf="!item.showPrice">次</span><br>
+						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}} : <span class="font-red">￥{{item.oneTimePriceNum}}</span><br>
+						 	<span *ngIf="item.showPrice">{{'CHECK_CENTER.COST' | translate}} : </span><span *ngIf="item.showPrice" class="font-red">￥{{item.priceNum}}/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</span></td>
 						<td>{{item.createTimeStr}}</td>
 						<td><button class=" button-gray-gradient" (click)="accept(item)">{{'CHECK_CENTER.AGREE' | translate}}</button><br><button class=" button-gray-gradient mgt10" (click)="refuse(item)">{{'CHECK_CENTER.REFUSE' | translate}}</button></td>
 					</tr>

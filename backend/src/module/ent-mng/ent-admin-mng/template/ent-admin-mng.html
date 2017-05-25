@@ -2,7 +2,7 @@
     <span>
         {{ 'ENT_MNG.ENTERPRISE_ADMINSTRATOR_SET' | translate }}: {{enterprise.name}}
     </span>
-    <button class="fox-cloud-button-sm fox-cloud-button-grey pull-right font-weight-normal" (click)="gotoEnterpriseList()">
+    <button class="fox-cloud-button-sm fox-cloud-button-grey pull-right font-weight-normal" id="gotoEnterpriseList" (click)="gotoEnterpriseList()">
         <span class="button-label">{{ 'ENT_MNG.BACK_ENTERPRISE_MANAGEMENT_LIST' | translate }}</span>
     </button>
 </div>
@@ -15,25 +15,25 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin-left: 10px;">
                 <li>
-                    <a href="javascript:void(0);" (click)="editAdmin();">{{ 'COMMON.EDIT' | translate }}</a>
+                    <a href="javascript:void(0);" (click)="editAdmin();" id="editAdmin">{{ 'COMMON.EDIT' | translate }}</a>
                 </li>
                 <li *ngIf="enterprise && enterprise.authMode =='0'">
-                    <a href="javascript:void(0);" (click)="resetPassword();">{{ 'ENT_MNG.RESET_PASSWORD' | translate }}</a>
+                    <a href="javascript:void(0);" (click)="resetPassword();" id="resetPassword">{{ 'ENT_MNG.RESET_PASSWORD' | translate }}</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                    <a href="javascript:void(0);" (click)="change2Status(1);">{{ 'COMMON.ENABLE' | translate }}</a>
+                    <a href="javascript:void(0);" (click)="change2Status(1);" id="change2Status_1">{{ 'COMMON.ENABLE' | translate }}</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" (click)="change2Status(3);">{{ 'COMMON.DISABLE' | translate }}</a>
+                    <a href="javascript:void(0);" (click)="change2Status(3);" id="change2Status_3">{{ 'COMMON.DISABLE' | translate }}</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                    <a href="javascript:void(0);" (click)="deleteAdmins();">{{ 'COMMON.DELETE' | translate }}</a>
+                    <a href="javascript:void(0);" (click)="deleteAdmins();" id="deleteAdmins">{{ 'COMMON.DELETE' | translate }}</a>
                 </li>
             </ul>
         </div>
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="openCrAccountPop()">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="openCrAccountPop()" id="openCrAccountPop">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">{{ 'ENT_MNG.CREATE_ADMINISTRATOR' | translate }}</span>
         </button>
@@ -54,7 +54,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let admin of admins;" (click)="selectAdmin(admin)">
+                <tr *ngFor="let admin of admins;" (click)="selectAdmin(admin)" id="admin_{{admin.id}}">
                     <td>
                         <input type="radio" class="fox-cloud-radio" name="group-admin" [checked]="admin.isSelect" (change)="admin.isSelect = $event.target.checked" />
                     </td>
@@ -81,8 +81,8 @@
         <div class="form-group">
             <div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{ 'COMMON.AD_SOURCE' | translate }}:</div>
             <div class="col-sm-6">
-                <select class="form-control" [(ngModel)]="authenticationSource">
-                    <option *ngFor="let item of authenticationSourceList;" [value]="item.id">{{item.name}}</option>
+                <select class="form-control" [(ngModel)]="authenticationSource" id="authenticationSourceList">
+                    <option *ngFor="let item of authenticationSourceList;" [value]="item.id" id="authenticationSourceList_{{item.id}}">{{item.name}}</option>
                 </select>
             </div>
         </div>

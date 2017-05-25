@@ -16,7 +16,7 @@ import {
 import { CheckCenterParam, CheckListItem } from './../model';
 import { DictService } from '../../../architecture/core/service/dict-service';
 import { TranslateService } from 'ng2-translate';
-
+import { MyDatePicker  } from '../../../architecture/components/date-picker/my-date-picker.component';
 import * as _ from 'underscore';
 
 @Component({
@@ -46,6 +46,14 @@ export class CheckMngListComponent implements OnInit {
 	refuseDialog: PopupComponent;
 	@ViewChild("confirmAcceptDialog")
 	private _confirmAccept: ConfirmComponent;
+
+	
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
+
 
 	constructor(
 		private _restApiCfg: RestApiCfg
@@ -86,11 +94,16 @@ export class CheckMngListComponent implements OnInit {
 
 				if(item.orderItems){
 					let orderItem :any=item.orderItems[0];
-					for(let _item of item.orderItems){
-						if(_item.serviceType==3){
-							orderItem = _item;
+					if(item.orderItems>1){
+						for(let _item of item.orderItems){
+						if(_item.serviceType==0){
+								orderItem.platformName=_item.platformName;
+								orderItem.zoneName=_item.zoneName;
+							}
+							if(_item.serviceType==3){
+								orderItem.specList = _item.specList;
+							}	
 						}
-						
 					}
 
 					if(orderItem!=null){
@@ -99,6 +112,10 @@ export class CheckMngListComponent implements OnInit {
 
 							if(orderItem.billingInfo){
 								obj.billingMode = orderItem.billingInfo.billingMode;
+								if(obj.billingMode==3){
+									obj.showPrice = false;
+								}
+								obj.periodType = orderItem.billingInfo.periodType;
 								if(orderItem.billingInfo.billingMode == 0)//包年包月
 								{
 									obj.priceNum = orderItem.billingInfo.basicPrice + orderItem.billingInfo.cyclePrice
@@ -189,28 +206,6 @@ export class CheckMngListComponent implements OnInit {
 
 	//搜索
 	search(pageNum: number = 1) {
-		/*
-		{
-  "approverId": "string",
-  "approverStatus": "string",
-  "createTime": "2016-12-28T02:22:56.512Z",
-  "enterpriseId": "string",
-  "expireTime": "2016-12-28T02:22:56.512Z",
-  "orderCode": "string",
-  "orderType": "string",
-  "organization": "string",
-  "pageParameter": {
-    "currentPage": 0,
-    "offset": 0,
-    "size": 0,
-    "sort": {},
-    "totalPage": 0
-  },
-  "serviceType": "string",
-  "status": "string",
-  "userId": "string"
-}
-*/
 
 		let param = {
 			approverStatus: '0'//'0';//approvalStatus代表未审批
@@ -229,6 +224,13 @@ export class CheckMngListComponent implements OnInit {
 
 		};
 
+		if(this.createDatePicker&&this.createDatePicker.invalidDate){
+			this.showMsg('创建时间不合法');
+			return;
+		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
+			this.showMsg('到期时间不合法');
+			return;
+		}
 
 		//匹配后台搜索框参数/authsec/backend/approval/orders/search/paging 
 		this._layoutService.show();
@@ -364,8 +366,18 @@ export class CheckMngListComponent implements OnInit {
 	}
 
 	resetParam() {
-		this._param.reset();
 		this._submiterLoader.clear();
+		this._param.reset();
+		if(this.createDatePicker.invalidDate){
+			this.showMsg('创建时间不合法！')
+		}else{
+			this.createDatePicker.removeBtnClicked();
+		}
+		if(this.expireDatePicker.invalidDate){
+			this.showMsg('到期时间不合法！')
+		}else{
+			this.expireDatePicker.removeBtnClicked();
+		}
 	}
 
 }

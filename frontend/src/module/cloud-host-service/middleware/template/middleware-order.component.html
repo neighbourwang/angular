@@ -1,4 +1,4 @@
-<div class="page-content cloud_host_order middleware-order">
+<div class="page-content cloud_host_order database-order">
 	<div class="col-md-9">
 		<h1 (click)="dbPayLoadFormat()" class="page-content-header">创建中间件</h1>
 		<ul class="left-box">
@@ -28,36 +28,36 @@
 			</li>
 			<li>
 				<div class="col-md-1 li-title">                  
-					<p><span class="icon-db"></span><br>中间件选项</p>
+					<p><span class="icon-cm"></span><br>中间件选项</p>
 				</div>
 				<div class="col-md-12 li-content">
 					<div class="col-md-2 content-title">类型：</div>
 					<div class="col-md-10 btn-group no-padding pdb15" data-toggle="buttons">
-						<label *ngFor="let value of dbInits;" 
-								id="dbInits_{{value.db.value}}" 
+						<label *ngFor="let value of mwInits;" 
+								id="dbInits_{{value.middleware.value}}" 
 								class="btn btn-default" 
 								(click)="dbtypeChange(value)"
-								[ngClass]="{'active': fetchTmIdsPost.dbType === value.db.value}">
-							<input type="radio" name="location" autocomplete="off" value="{{value.db.value}}"> {{ value.db.label }}
+								[ngClass]="{'active': fetchMWIdsPost.type === value.middleware.value}">
+							<input type="radio" name="location" autocomplete="off" value="{{value.middleware.value}}"> {{ value.middleware.label }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">版本：</div>
 					<div class="col-md-4 btn-group no-padding pdb15" data-toggle="buttons">
-						<label *ngFor="let value of dbInit?.version;" 
+						<label *ngFor="let value of mwInit?.version;" 
 								id="dbVersion_{{value}}" 
 								class="btn btn-default" 
-								(click)="fetchTmIdsPost.version = value; dux.dispatch('DB_TYPE_CHANGE')"
-								[ngClass]="{'active': fetchTmIdsPost.version === value}">
+								(click)="fetchMWIdsPost.version = value; dux.dispatch('MW_TYPE_CHANGE')"
+								[ngClass]="{'active': fetchMWIdsPost.version === value}">
 							<input type="radio" name="location" autocomplete="off" value="{{value}}"> {{ value }}
 						</label>
 					</div>
 					<div class="col-md-2 content-title">部署模式：</div>
 					<div class="col-md-4 btn-group no-padding pdb15" data-toggle="buttons">
-						<label *ngFor="let value of dbInit?.mode;" 
+						<label *ngFor="let value of mwInit?.mode;" 
 								id="dbMode_{{value.value}}" 
 								class="btn btn-default" 
-								(click)="fetchTmIdsPost.deploymentMode = value.value; dux.dispatch('DB_TYPE_CHANGE')"
-								[ngClass]="{'active': fetchTmIdsPost.deploymentMode === value.value}">
+								(click)="fetchMWIdsPost.deploymentMode = value.value; dux.dispatch('MW_TYPE_CHANGE')"
+								[ngClass]="{'active': fetchMWIdsPost.deploymentMode === value.value}">
 							<input type="radio" name="location" autocomplete="off" value="{{value.value}}"> {{ value.label }}
 						</label>
 					</div>
@@ -159,18 +159,6 @@
 							<div class="col-md-6 content-title2">{{'COMMON.GB'| translate}}</div>
 						</div>
 					</div>
-					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">中间件存储类型</div>
-						<div class="col-md-10 no-padding">
-	                        <label *ngFor="let storage of storageTypes" class="mgr20">
-	                            <input type="radio" 
-										class="fox-cloud-radio" 
-										name="needHBA" 
-										[disabled]="storage.value !== middleware?.storageType"
-										[checked]="storage.value === middleware?.storageType" > {{storage.name}}
-	                        </label>
-						</div>
-					</div>
 					 <div class="col-md-12">
                         <table class="table table-all-boder">
                             <tr>
@@ -178,13 +166,11 @@
                                 <th class="text-center">云硬盘用途</th>
                                 <th class="text-center">云硬盘类型</th>
                                 <th class="text-center">配置</th>
-                                <th *ngIf="middleware?.storageType==='ASM'" class="text-center">磁盘组名称</th>
-                                <th *ngIf="middleware?.storageType==='ASM'" class="text-center">冗余级别</th>
                                 <th class="text-center">挂载目录</th>
                             </tr>
-                            <tr *ngFor="let data of middleware?.diskInfoList; let i = index">
+                            <tr *ngFor="let data of database?.diskInfoList; let i = index">
 								<td class="text-center">{{i + 1}}</td>
-								<td class="text-center">{{data.usageType}}</td>
+								<td class="text-center">{{data.usageType | dict:mwservice.diskusage | async}}</td>
 								<td class="text-center">
 									<select class="form-control" id="bootstorage" [(ngModel)]="data.storage"  (ngModelChange)="dux.dispatch('SET_DISK_PRODUCTS')">
 										<option
@@ -198,8 +184,6 @@
 							            [min]="data.minDiskSize" 
 							            [value]="data.minDiskSize" (output)="outputValue($event, i)"></count-bar>
 								</td>
-								<td *ngIf="middleware?.storageType==='ASM'" class="text-center">{{data.diskGroup}}</td>
-								<td *ngIf="middleware?.storageType==='ASM'" class="text-center">{{data.copyLevel}}</td>
 								<td class="text-center">{{data.mountPath}}</td>
                             </tr>
                         </table>
@@ -211,98 +195,48 @@
 					<p><span class="icon-adjust"></span><br>部署参数</p>
 				</div>
 				<div class="col-md-12 li-content">
-					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-12 no-padding mgb20">
-							<div class="col-md-2 content-title">归档模式</div>
-							<div class="col-md-3 no-padding">
-								<select [(ngModel)]="middlewareValue.ARCHMODE.attrValue" class="form-control" id="securitygroup">
-									<option
-									 *ngFor="let value of dbservice.archmode | async;"
-									 [ngValue]="value.value" id="securitygroup_{{value.attrValue}}">{{ value.displayValue }}</option>
-								</select>
-							</div>
-							<div class="col-md-1"></div>
-							<div class="col-md-2 content-title">监听端口</div>
-							<div class="col-md-3 no-padding mr10 has-feedback" [ngClass]="{'has-error': dbv.result.listenpost }">
-								<input (keyup)="checkDbValue('listenpost');dux.dispatch('ARCHMODE');" 
-									   [(ngModel)]="middlewareValue.LISTENPOST.attrValue" type="text" class="form-control" id="input_archmode">
-						        <span *ngIf="dbv.result.listenpost" class="glyphicon glyphicon-remove form-control-feedback"></span>
-						        <div *ngIf="dbv.result.listenpost" class="alert alert-danger" role="alert">{{dbv.result.listenpost | translate}}</div>
-							</div>
-						</div>
-
-						<div class="col-md-12 no-padding">
-							<div class="col-md-2 content-title">中间件字符集</div>
-							<div class="col-md-3 no-padding">
-								<select [(ngModel)]="middlewareValue.DBCHARSET.attrValue" class="form-control" id="securitygroup">
-									<option
-									 *ngFor="let value of dbservice.dbcharset | async;"
-									 [ngValue]="value.value" id="securitygroup_{{value.attrValue}}">{{ value.displayValue }}</option>
-								</select>
-							</div>
-							<div class="col-md-1"></div>
-							<div class="col-md-2 content-title">允许最大连接数</div>
-							<div class="col-md-3 no-padding mr10 has-feedback" [ngClass]="{'has-error': dbv.result.maxconnection }">
-								<input (keyup)="checkDbValue('maxconnection');dux.dispatch('MAXCONNECTION');" 
-									   [(ngModel)]="middlewareValue.MAXCONNECTION.attrValue" type="text" class="form-control" id="input_maxconnection">
-						        <span *ngIf="dbv.result.maxconnection" class="glyphicon glyphicon-remove form-control-feedback"></span>
-						        <div *ngIf="dbv.result.maxconnection" class="alert alert-danger" role="alert">{{dbv.result.maxconnection | translate}}</div>
-							</div>
+					
+					<div class="col-md-12 no-padding mgb20">
+						<div class="col-md-2 content-title">部署模式</div>
+						<div class="col-md-3 no-padding">
+							{{database?.deploymentMode | dict: mwservice.deploymentMode | async}}
 						</div>
 					</div>
-				</div>
-			</li>
-			<li>
-				<div class="col-md-1 li-title">
-					<p><span class="icon-userset"></span><br>中间件<br/>系统用户</p>
-				</div>
-				<div class="col-md-12 li-content li-password">
 
+					<div class="col-md-12 no-padding mgb20">
+						<div class="col-md-2 content-title">weblogic用户名</div>
+						<div class="col-md-4 no-padding has-feedback mgt5" [ngClass]="{'has-error': dbv.result.weblogicUser}">
+							<input type="text" 
+								(keyup) = "checkDbValue('weblogicUser')"
+								[(ngModel)]="middlewareValue.WEBLOGICACCOUNT.attrValue" class="form-control" placeholder="" id="login_password">
+					        <span *ngIf="dbv.result.weblogicUser" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					        <div *ngIf="dbv.result.weblogicUser" class="alert alert-danger" role="alert">{{dbv.result.weblogicUser | translate}}</div>
+						</div>
+					</div>
 					<div class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">中间件系统用户<br/>(Sys、System)密码</div>
-						<div class="col-md-4 no-padding has-feedback mgt5" [ngClass]="{'has-error': dbv.result.syspassword}">
+						<div class="col-md-2 content-title">密码</div>
+						<div class="col-md-4 no-padding has-feedback mgt5" [ngClass]="{'has-error': dbv.result.mwpassword}">
 							<input type="password" 
-								(keyup) = "checkDbValue('syspassword')"
-								[(ngModel)]="middlewareValue.SYSPASSWORD.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWORD'| translate}}" id="login_password">
-					        <span *ngIf="dbv.result.syspassword" class="glyphicon glyphicon-remove form-control-feedback"></span>
-					        <div *ngIf="dbv.result.syspassword" class="alert alert-danger" role="alert">{{dbv.result.syspassword | translate}}</div>
+								(keyup) = "checkDbValue('mwpassword')"
+								[(ngModel)]="middlewareValue.WEBLOGICPASSWORD.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWORD'| translate}}" id="login_password">
+					        <span *ngIf="dbv.result.mwpassword" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					        <div *ngIf="dbv.result.mwpassword" class="alert alert-danger" role="alert">{{dbv.result.mwpassword | translate}}</div>
 						</div>
 						<div class="col-md-5 text-tip  pdb0">{{'VM_INSTANCE.PASSWORD_COMPLEXITY_DESCRIPTION'| translate}}</div>
 					</div>
 
 					<div class="col-md-12 no-padding mb20">
 						<div class="col-md-2 content-title">{{'VM_INSTANCE.CONFIRM_PASSWORD'| translate}}</div>
-						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': dbv.result.syspasswordShadow }">
+						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': dbv.result.mwpasswordShadow }">
 
-							<input type="password" class="form-control" (keyup)="checkDbValue('syspasswordShadow')"  [(ngModel)]="syspasswordShadow"  placeholder="{{'VM_INSTANCE.ENTER_PASSWORD_AGAIN'| translate}}" id="login_confirm_password">
-					        <span *ngIf="dbv.result.syspasswordShadow" class="glyphicon glyphicon-remove form-control-feedback"></span>
-					        <div *ngIf="dbv.result.syspasswordShadow" class="alert alert-danger" role="alert">{{dbv.result.syspasswordShadow | translate}}</div>
-						</div>
-					</div>
-
-					<div *ngIf="middleware?.storageType==='ASM'" class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">ASM管理密码</div>
-						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': dbv.result.asmpassword}">
-							<input type="password" 
-								(keyup) = "checkDbValue('asmpassword')"
-								[(ngModel)]="middlewareValue.ASMPASSWORD.attrValue" class="form-control" placeholder="{{'VM_INSTANCE.PLEASE_ENTER_HOST_PASSWORD'| translate}}" id="login_password">
-					        <span *ngIf="dbv.result.asmpassword" class="glyphicon glyphicon-remove form-control-feedback"></span>
-					        <div *ngIf="dbv.result.asmpassword" class="alert alert-danger" role="alert">{{dbv.result.asmpassword | translate}}</div>
-						</div>
-						<div class="col-md-5 text-tip  pdb0">{{'VM_INSTANCE.PASSWORD_COMPLEXITY_DESCRIPTION'| translate}}</div>
-					</div>
-
-					<div *ngIf="middleware?.storageType==='ASM'" class="col-md-12 no-padding mb20">
-						<div class="col-md-2 content-title">{{'VM_INSTANCE.CONFIRM_PASSWORD'| translate}}</div>
-						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': dbv.result.asmpasswordShadow }">
-
-							<input type="password" class="form-control" (keyup)="checkDbValue('asmpasswordShadow')"  [(ngModel)]="asmpasswordShadow"  placeholder="{{'VM_INSTANCE.ENTER_PASSWORD_AGAIN'| translate}}" id="login_confirm_password">
-					        <span *ngIf="dbv.result.asmpasswordShadow" class="glyphicon glyphicon-remove form-control-feedback"></span>
-					        <div *ngIf="dbv.result.asmpasswordShadow" class="alert alert-danger" role="alert">{{dbv.result.asmpasswordShadow | translate}}</div>
+							<input type="password" class="form-control" (keyup)="checkDbValue('mwpasswordShadow')"  [(ngModel)]="mwpasswordShadow"  placeholder="{{'VM_INSTANCE.ENTER_PASSWORD_AGAIN'| translate}}" id="login_confirm_password">
+					        <span *ngIf="dbv.result.mwpasswordShadow" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					        <div *ngIf="dbv.result.mwpasswordShadow" class="alert alert-danger" role="alert">{{dbv.result.mwpasswordShadow | translate}}</div>
 						</div>
 					</div>
 				</div>
 			</li>
+			
 			<li>
 				<div class="col-md-1 li-title">
 					<p><span class="icon-network"></span><br>{{'VM_INSTANCE.NET'| translate}}</p>
@@ -437,35 +371,35 @@
             <p class="cloud-p">{{'VM_INSTANCE.MIRROR_NAME'| translate}}: {{ values.OS?.attrDisplayValue}}</p>
             <h4 class="cloud-title font-green">{{'VM_INSTANCE.STORE'| translate}}</h4>
             <p class="cloud-p">{{'VM_INSTANCE.BOOT_DISK'| translate}}: {{ values.BOOTSTORAGE?.attrDisplayValue}} / {{ values.BOOTSIZE?.attrValue}}GB</p>
-            <p class="cloud-p" *ngFor="let disk of middleware?.diskInfoList;let i = index;"> 云硬盘{{i+1}}:  {{disk?.storage?.attrDisplayValue}} / {{disk?.diskValue?.DISKSIZE.attrValue}}GB</p>
+            <p class="cloud-p" *ngFor="let disk of database?.diskInfoList;let i = index;"> 云硬盘{{i+1}}:  {{disk?.storage?.attrDisplayValue}} / {{disk?.diskValue?.DISKSIZE.attrValue}}GB</p>
             <h4 class="cloud-title font-green">实例类型</h4>
             <p class="cloud-p">类型: {{dbInit?.db.label}}</p>
-            <p class="cloud-p">版本: {{fetchTmIdsPost.version}}</p>
+            <p class="cloud-p">版本: {{fetchMWIdsPost.version}}</p>
             <p class="cloud-p">部署模式: {{deploymentModeString}}</p>
             <h4 class="cloud-title font-green">{{'COMMON.PURCHASE_AMOUNT'|translate}}</h4>
             <p class="cloud-p">{{'COMMON.PURCHASE_DURATION'|translate}}: {{ values.TIMELINEUNIT.attrDisplayValue}} / {{ values.TIMELINE?.attrValue}}</p>
             <div class="cloud-line"></div>
             <h4 class="cloud-title font-green">{{'VM_INSTANCE.HOST_ONE_PRICE'|translate}}<!--   云主机单价 --></h4>
             <p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}:
-                <font class="font-orange">{{'COMMON.$' | translate}}{{ vmProduct?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+                <font class="font-orange">{{'COMMON.$' | translate}}{{ vmProduct?.billingInfo?.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
             <p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}
                 <!-- 周期费用 -->:
-                <font class="font-orange">{{'COMMON.$' | translate}}{{vmProduct?.billingInfo.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue }}</font>
+                <font class="font-orange">{{'COMMON.$' | translate}}{{vmProduct?.billingInfo?.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue }}</font>
             </p>
             <h4 class="cloud-title font-green">中间件单价</h4>
             <p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}:
-                <font class="font-orange">{{'COMMON.$' | translate}}{{ dbProduct?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+                <font class="font-orange">{{'COMMON.$' | translate}}{{ dbProduct?.billingInfo?.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
             <p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}
                 <!-- 周期费用 -->:
-                <font class="font-orange">{{'COMMON.$' | translate}}{{dbProduct?.billingInfo.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue }}</font>
+                <font class="font-orange">{{'COMMON.$' | translate}}{{dbProduct?.billingInfo?.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue }}</font>
             </p>
             <h4 class="cloud-title font-green">云硬盘单价<!--   云硬盘单价 --></h4>
 
-            <ng-container *ngFor="let disk of middleware?.diskInfoList;let i = index;">
+            <ng-container *ngFor="let disk of database?.diskInfoList;let i = index;">
                 <p class="cloud-title">云硬盘{{1+i}}：</p>
                 <p class="cloud-p" *ngIf="!diskProducts[i]">没有匹配到相应的云硬盘产品</p>
 				<p class="cloud-p" *ngIf="diskProducts[i]">云硬盘类型: {{disk?.storage?.attrDisplayValue}}</p>
-				<p class="cloud-p" *ngIf="diskProducts[i]">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{ diskProducts[i]?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+				<p class="cloud-p" *ngIf="diskProducts[i]">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{ diskProducts[i]?.billingInfo?.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
 				<p class="cloud-p" *ngIf="diskProducts[i]">{{'VM_INSTANCE.BY_VOLUMN_COSTS'| translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{diskProducts[i]?.billingInfo.unitPrice}}/GB/{{ diskProducts[i]?.billingInfo.unitType | dict:service.unitType | async }}</font></p>
             </ng-container>
             <div class="cloud-p">

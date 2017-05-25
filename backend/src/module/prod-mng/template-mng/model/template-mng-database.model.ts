@@ -15,6 +15,7 @@ class DatabaseModel {
   "templateType": string;//模板类型
   "version": string;//版本
   "deploymentMode":number;//缺
+  "createTime":number;
   constructor() {
     this.cpu=2;
     this.memory=4;
@@ -66,7 +67,7 @@ class diskProfile {
   "usageType":number;
   "minSizeValid":boolean;
 }
-class DatabaseOptions{
+class TemplateOptions{
   items:Array<DatabaseOption>;
   constructor(){
     this.items=new Array<DatabaseOption>();
@@ -95,4 +96,4 @@ class mode {
   "label": string;
   "value": number
 }
-export { DatabaseModel,DatabaseOptions}
+export { DatabaseModel,TemplateOptions}

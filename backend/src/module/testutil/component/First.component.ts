@@ -37,7 +37,21 @@ export class FirstComponent implements OnInit {
 
     insertone(){
         console.log(this.entry.bodyVar);
-        this.service.insertone(this.entry);
+        this.layoutService.show();
+        this.service.insertone(this.entry).then(
+            response=>{
+                this.layoutService.hide();
+                if(response && 100 == response["resultCode"]){
+                    this.showAlert("新增成功");
+                }else{
+                    this.showAlert("失败");
+                }
+            }
+        ).catch((e) => this.onRejected(e));
+    }
+
+    toSearchPage(){
+        this.router.navigateByUrl('testutil/search');
     }
 
     onRejected(reason: any) {

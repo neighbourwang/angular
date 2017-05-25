@@ -11,6 +11,7 @@ import { RestApi
 	, DicLoader
 	, ItemLoader } from '../../../architecture';
 import {DictService} from '../../../architecture/core/service/dict-service';
+import { MyDatePicker  } from '../../../architecture/components/date-picker/my-date-picker.component';
 import { CheckCenterParam,CheckListItem,ApproveItem } from './../model';
 import * as _ from 'underscore';
 
@@ -23,6 +24,14 @@ import * as _ from 'underscore';
 export class CheckMngHascheckComponent implements OnInit{
 	@ViewChild("notice") private _notice:NoticeComponent;
 	
+	
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
+
+
 	private _param:CheckCenterParam = new CheckCenterParam();
 	private _departmentLoader:ItemLoader<{id:string;name:string}> = null; //部门列表
 	private _submiterLoader:ItemLoader<{id:string;name:string}> = null;//提交者列表
@@ -60,11 +69,18 @@ export class CheckMngHascheckComponent implements OnInit{
 
 				if(item.orderItems){
 					let orderItem :any=item.orderItems[0];
-					for(let _item of item.orderItems){
-						if(_item.serviceType==3){
-					 	orderItem = _item;
+					if(item.orderItems>1){
+						for(let _item of item.orderItems){
+						if(_item.serviceType==0){
+								orderItem.platformName=_item.platformName;
+								orderItem.zoneName=_item.zoneName;
+							}
+							if(_item.serviceType==3){
+								orderItem.specList = _item.specList;
+							}	
+						}
 					}
-
+					
 					if(orderItem!=null){
 						
 						obj.platformName = orderItem.platformName;
@@ -72,6 +88,10 @@ export class CheckMngHascheckComponent implements OnInit{
 
 						if(orderItem.billingInfo){
 							obj.billingMode = orderItem.billingInfo.billingMode;
+							if(obj.billingMode==3){
+								obj.showPrice = false;
+							}
+							obj.periodType = orderItem.billingInfo.periodType;
 							if(orderItem.billingInfo.billingMode == 0)//包年包月
 							{
 								obj.priceNum = orderItem.billingInfo.basicPrice + orderItem.billingInfo.cyclePrice
@@ -88,7 +108,6 @@ export class CheckMngHascheckComponent implements OnInit{
 						}
 					}
 				}
-			}
 
 				
 			
@@ -178,30 +197,7 @@ export class CheckMngHascheckComponent implements OnInit{
 
 	//搜索
 	search(pageNum:number = 1){
-
-/*
-{
-  "approverId": "string",
-  "approverStatus": "string",
-  "createTime": "2016-12-29T02:00:32.480Z",
-  "enterpriseId": "string",
-  "expireTime": "2016-12-29T02:00:32.480Z",
-  "orderCode": "string",
-  "orderType": "string",
-  "organization": "string",
-  "pageParameter": {
-    "currentPage": 0,
-    "offset": 0,
-    "size": 0,
-    "sort": {},
-    "totalPage": 0
-  },
-  "serviceType": "string",
-  "status": "string",
-  "userId": "string"
-}
-*/
-		this._layoutService.show();
+		
 		let param = {
 			approverStatus: '1'//'0';//approvalStatus代表未审批
 	        ,orderCode: this._param.quickSearchStr//输入订单号快速查询 ？
@@ -219,7 +215,15 @@ export class CheckMngHascheckComponent implements OnInit{
 			}
 			
 		};
-		
+
+		if(this.createDatePicker&&this.createDatePicker.invalidDate){
+			this.showMsg('创建时间不合法');
+			return;
+		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
+			this.showMsg('到期时间不合法');
+			return;
+		}
+		this._layoutService.show();
 		this._listLoader.clear();
 		this._listLoader.TotalPages = 1;
 		this._listLoader.Go(pageNum, null, param)
@@ -281,8 +285,19 @@ export class CheckMngHascheckComponent implements OnInit{
 	}
 
 	resetParam(){
-		this._param.reset();
+		
 		this._submiterLoader.clear();
+		if(this.createDatePicker.invalidDate){
+			this.showMsg('创建时间不合法！')
+		}else{
+			this.createDatePicker.removeBtnClicked();
+		}
+		if(this.expireDatePicker.invalidDate){
+			this.showMsg('到期时间不合法！')
+		}else{
+			this.expireDatePicker.removeBtnClicked();
+		}
+		this._param.reset();
 	}
 
 	
@@ -291,4 +306,9 @@ export class CheckMngHascheckComponent implements OnInit{
 		let itemLoader = new ItemLoader<ApproveItem>(false, "审批结果加载出错", "check-center.approve-info.get", this._restApiCfg, this._restApi);
 		orderItem.checkResult = itemLoader.Go(null, [{key:"orderId", value:orderItem.orderId}]);
 	}
+
+	changePage(pageNum: number) {
+		this.search(pageNum);
+	}
+
 }

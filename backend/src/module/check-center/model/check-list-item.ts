@@ -17,8 +17,9 @@ export class CheckListItem{
 	billingModeName: string = null;//计费模式名称
 	billingDurationStr: string = null;//订单周期
 	oneTimePriceNum: number = null;//一次性费用
-	priceNum: number = null;//费用
-
+	priceNum: number = null;//费用\
+	showPrice:boolean = true;//按次不显示费用和周期
+    periodType:string = null;
 
 	createTimeStr: string = null;//创建时间
 	checkResultId: number = null;//审批结果

@@ -80,7 +80,10 @@ export class ProdMngCreStep1Component implements OnInit {
     next() {
         console.log(this.service.product.name);
         let message = this.checkForm();
-        if (message) return;
+        if (message) {
+            this.notice.open('操作错误', message);
+            return;
+        }
         this.route.navigate(["prod-mng/prod-mng/prod-mng-cre-2"]);
     }
     //取消

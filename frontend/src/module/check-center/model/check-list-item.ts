@@ -22,7 +22,8 @@ export class CheckListItem{
 	billingDurationStr: string = null;//订单周期
 	oneTimePriceNum: number = null;//一次性费用
 	priceNum: number = null;//费用
-
+	periodType:number = null;
+	showPrice:boolean = true;//按次不显示费用
 
 	createTimeStr: string = null;//创建时间
 	checkResultId: number = null;//审批结果
