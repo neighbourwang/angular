@@ -72,7 +72,8 @@
         "MEMORY_PEAK_TIME": "内存峰值记录时间",
         "CPU_UTILIZATION": "CPU使用率",
         "MEMORY_UTILIZATION": "内存使用率",
-        "PLEASE_CHOOSE_CLOUD_PLATFORM": "请选择云平台"
+        "PLEASE_CHOOSE_CLOUD_PLATFORM": "请选择云平台",
+		"BLOCK":"块"
     },
     "ASSIGN_MNG": {
         "PRIVATE_HYPER_MNG": "私有云主机超分管理",
