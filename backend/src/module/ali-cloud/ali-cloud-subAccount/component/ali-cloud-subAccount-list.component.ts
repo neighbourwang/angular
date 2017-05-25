@@ -86,6 +86,8 @@ export class AliCloudSubAccountListComponent implements OnInit{
             )
             .catch((e) => this.onRejected(e));
     }
+
+    
      //启用子账号
     enableAccount(){
         const account=this.accountList.find((e)=>{return e.isSelect});
