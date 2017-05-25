@@ -2,6 +2,7 @@ import {Tenant} from './tenant.model'
 export class Image {
 
     id: string;
+    uuid: string;
     name: string;
     displayName: string;
     os: string;

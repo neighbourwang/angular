@@ -57,17 +57,19 @@
 						<!--{{item.templateType}}-->
 						<span [ngSwitch]="item.templateType"> 
 							<template [ngSwitchCase]="'database'">{{'数据库模板' | translate}}</template>
-							<template [ngSwitchCase]="'Middleware'">{{'中间件模板' | translate}}</template>
+							<template [ngSwitchCase]="'middleware'">{{'中间件模板' | translate}}</template>
 							<template ngSwitchDefault>Unknown</template>							
 						</span>
 					</td>
-					<!--<td *ngIf="item.templateType=='database'">{{item.type | dict:this.service.databaseTypeDic|async}}</td>-->
-					<td>{{item.type | dict:this.service.databaseTypeDic|async}}</td>
-					<!--<td *ngIf="item.templateType!='database'">{{item.type | dict:this.service.middlewareTypeDic|async}}</td>-->
+					<td>
+						<span *ngIf="item.templateType=='database'">{{item.type | dict:this.service.databaseTypeDic|async}}</span>
+						<span *ngIf="item.templateType=='middleware'">{{item.type | dict:this.service.middlewareTypeDic|async}}</span>
+					</td>
 					<td>{{item.version}}</td>
-					<td>{{item.deploymentMode | dict:this.service.databaseDeployModeDic | async}}</td>
-					<!--<td *ngIf="item.templateType=='database'">{{item.deploymentMode | dict:this.service.databaseDeployModeDic | async}}</td>-->
-					<!--<td *ngIf="item.templateType!='database'">{{item.deploymentMode | dict:this.service.middlewareDeployModeDic | async}}</td>					-->
+					<td>
+						<span *ngIf="item.templateType=='database'">{{item.deploymentMode | dict:this.service.databaseDeployModeDic | async}}</span>
+						<span *ngIf="item.templateType=='middleware'">{{item.deploymentMode | dict:this.service.middlewareDeployModeDic | async}}</span>
+					</td>
 					<td>{{item.relatedProdNum}}</td>
 					<td>
 						<button *ngIf="item.relatedProdNum==0" class="fox-cloud-button-md fox-cloud-button-white" (click)="deleteTemplate(item)">{{'COMMON.DELETE' | translate}}</button>
