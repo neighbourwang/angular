@@ -216,7 +216,7 @@ export class OrderMngSearchComponent implements OnInit{
 	}
 
 	search(pageNumber:number = 1){
-		this.layoutService.show();
+		
 
 		let param = _.extend({}, this._param);
 		param.pageParameter = {
@@ -227,28 +227,15 @@ export class OrderMngSearchComponent implements OnInit{
 		param.expireTime = param.expireDate;
 		param.userId = param.buyerId;
 		param.orderCode = param.searchText;//快速查询只支持搜索输入订单编号
+		if(this.createDatePicker&&this.createDatePicker.invalidDate){
+			this.showMsg('创建时间不合法');
+			return;
+		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
+			this.showMsg('到期时间不合法');
+			return;
+		}
 		
-		//没有定义快速搜索字段
-// {
-//   "approverId": "string",
-//   "approverStatus": "string",
-//   "createTime": "2016-12-29T02:00:32.480Z",
-//   "enterpriseId": "string",
-//   "expireTime": "2016-12-29T02:00:32.480Z",
-//   "orderCode": "string",
-//   "orderType": "string",
-//   "organization": "string",
-//   "pageParameter": {
-//     "currentPage": 0,
-//     "offset": 0,
-//     "size": 0,
-//     "sort": {},
-//     "totalPage": 0
-//   },
-//   "serviceType": "string",
-//   "status": "string",
-//   "userId": "string"
-// }
+		this.layoutService.show();
 		this._orderLoader.clear();
 		this._orderLoader.TotalPages = 1;//清空页码
 		this._orderLoader.Go(pageNumber, null, param)
@@ -298,8 +285,16 @@ export class OrderMngSearchComponent implements OnInit{
 
 	resetParam(){
 		this._buyerLoader.clear();
-		this.createDatePicker.removeBtnClicked();
-		this.expireDatePicker.removeBtnClicked();
+		if(this.createDatePicker.invalidDate){
+			this.showMsg('创建时间不合法！')
+		}else{
+			this.createDatePicker.removeBtnClicked();
+		}
+		if(this.expireDatePicker.invalidDate){
+			this.showMsg('到期时间不合法！')
+		}else{
+			this.expireDatePicker.removeBtnClicked();
+		}
 		this._param.reset();
 		
 	}

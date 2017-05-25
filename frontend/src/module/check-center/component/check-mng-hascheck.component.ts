@@ -197,30 +197,7 @@ export class CheckMngHascheckComponent implements OnInit{
 
 	//搜索
 	search(pageNum:number = 1){
-
-/*
-{
-  "approverId": "string",
-  "approverStatus": "string",
-  "createTime": "2016-12-29T02:00:32.480Z",
-  "enterpriseId": "string",
-  "expireTime": "2016-12-29T02:00:32.480Z",
-  "orderCode": "string",
-  "orderType": "string",
-  "organization": "string",
-  "pageParameter": {
-    "currentPage": 0,
-    "offset": 0,
-    "size": 0,
-    "sort": {},
-    "totalPage": 0
-  },
-  "serviceType": "string",
-  "status": "string",
-  "userId": "string"
-}
-*/
-		this._layoutService.show();
+		
 		let param = {
 			approverStatus: '1'//'0';//approvalStatus代表未审批
 	        ,orderCode: this._param.quickSearchStr//输入订单号快速查询 ？
@@ -238,7 +215,15 @@ export class CheckMngHascheckComponent implements OnInit{
 			}
 			
 		};
-		
+
+		if(this.createDatePicker&&this.createDatePicker.invalidDate){
+			this.showMsg('创建时间不合法');
+			return;
+		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
+			this.showMsg('到期时间不合法');
+			return;
+		}
+		this._layoutService.show();
 		this._listLoader.clear();
 		this._listLoader.TotalPages = 1;
 		this._listLoader.Go(pageNum, null, param)
@@ -302,8 +287,16 @@ export class CheckMngHascheckComponent implements OnInit{
 	resetParam(){
 		
 		this._submiterLoader.clear();
-		this.createDatePicker.removeBtnClicked();
-		this.expireDatePicker.removeBtnClicked();
+		if(this.createDatePicker.invalidDate){
+			this.showMsg('创建时间不合法！')
+		}else{
+			this.createDatePicker.removeBtnClicked();
+		}
+		if(this.expireDatePicker.invalidDate){
+			this.showMsg('到期时间不合法！')
+		}else{
+			this.expireDatePicker.removeBtnClicked();
+		}
 		this._param.reset();
 	}
 
