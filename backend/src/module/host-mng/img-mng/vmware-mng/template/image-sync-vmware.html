@@ -5,7 +5,7 @@
             <tr>
                 <th style="text-align:left;">{{'HOST_VMWARE_MNG.SYNC_IMAGE' | translate}}：{{platformName}}({{'HOST_VMWARE_MNG.TYPE' | translate}}：VMware)</th>
                 <th style="text-align:right;">
-                    <button class=" fox-cloud-button fox-cloud-button-white " key="boe/image-mng.html" (click)="VmwareImgListPage()">
+                    <button class=" fox-cloud-button fox-cloud-button-white " key="boe/image-mng.html" id="VmwareImgListPage" (click)="VmwareImgListPage()">
                         <span class="icon-button-label">{{'HOST_VMWARE_MNG.RETURN_IMAGE_MANAGEMENT' | translate}}</span>
                     </button>
                 </th>
@@ -29,7 +29,7 @@
                 </tr>             
             </thead>
             <tbody>
-                <tr *ngFor="let syncimg of vmwaresyncimgs; let i=index;">
+                <tr *ngFor="let syncimg of vmwaresyncimgs; let i=index;" id="syncimg_{{syncimg.uuid}}">
                     <td><input type="checkbox" name="1" class="fox-cloud-checkbox" [checked]="syncimg.checked" (change)="selectItem(i)" value="{{i}}">
                     </td>
                     <td>{{i+1}}</td>
@@ -45,8 +45,8 @@
                     <td>
                         <div *ngIf="syncimg.syncResult==0">
                             <!--<input type="text" class="form-control" [(ngModel)]="syncimg.os" /> -->
-                            <select [(ngModel)]="syncimg.os">
-                                <option *ngFor="let os of this.osDictArray" [value]="os.value">{{os.displayValue}}</option>
+                            <select [(ngModel)]="syncimg.os" id="syncimg_{{syncimg.uuid}}_os">
+                                <option *ngFor="let os of this.osDictArray" [value]="os.value"  id="syncimg_{{syncimg.uuid}}_os_{{os.value}}">{{os.displayValue}}</option>
                             </select>
                         </div>
                         <div *ngIf="syncimg.syncResult!=0">
@@ -55,8 +55,8 @@
                     </td>
                     <td>
                         <div *ngIf="syncimg.syncResult==0" style="padding-top:2px">
-                        <select [(ngModel)]="syncimg.bitsType">
-                            <option *ngFor="let bit of this.bitDictArray" [value]="bit.value">{{bit.displayValue}}</option>
+                        <select [(ngModel)]="syncimg.bitsType" id="syncimg_{{syncimg.uuid}}_bit">
+                            <option *ngFor="let bit of this.bitDictArray" [value]="bit.value" id="syncimg_{{syncimg.uuid}}_bit_{{bit.value}}">{{bit.displayValue}}</option>
                         </select>
                         </div>
                         <div  *ngIf="syncimg.syncResult!=0">
@@ -79,9 +79,9 @@
                      -->
                     <td>
                         <div *ngIf="syncimg.syncResult==0" style="padding-top:2px">
-                        <select [(ngModel)]="syncimg.type">
-                            <option [value]="'0'">{{'HOST_VMWARE_MNG.PUBLIC_IMAGE' | translate}}</option>
-                            <option [value]="'2'">{{'HOST_VMWARE_MNG.ENTERPRISE_IMAGE' | translate}}</option>
+                        <select [(ngModel)]="syncimg.type" id="syncimg_{{syncimg.uuid}}_type">
+                            <option [value]="'0'"  id="syncimg_{{syncimg.uuid}}_type_0">{{'HOST_VMWARE_MNG.PUBLIC_IMAGE' | translate}}</option>
+                            <option [value]="'2'"  id="syncimg_{{syncimg.uuid}}_type_1">{{'HOST_VMWARE_MNG.ENTERPRISE_IMAGE' | translate}}</option>
                             <!-- <option *ngFor="let type of this.typeDict" [value]="type.value">{{type.displayValue}}</option> -->
                         </select>
                         </div>
@@ -97,10 +97,10 @@
 </div>
 <div class="text-center " style="margin-top:50px">   
     
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareImgListPage()">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareImgListPage()" id="VmwareImgListPage">
         <span class="icon-button-label">{{'HOST_VMWARE_MNG.RETURN' | translate}}</span>
     </button> 
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareSyncImages()">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="VmwareSyncImages()" id="VmwareSyncImages">
         <span class="icon-button-label">{{'HOST_VMWARE_MNG.SYNC' | translate}}</span>
     </button>
 </div>

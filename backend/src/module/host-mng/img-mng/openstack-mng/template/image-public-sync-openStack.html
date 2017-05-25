@@ -8,7 +8,7 @@
                     {{platformName}}
                     {{'HOST_OPENSTACK_MNG.COULD_PLATFORM' | translate}}(OpenStack)</th>
                 <th style="text-align:right;">
-                    <button class=" fox-cloud-button fox-cloud-button-white "(click)="back()">
+                    <button class=" fox-cloud-button fox-cloud-button-white "(click)="back()" id="back">
                         <span class="icon-button-label" >{{'HOST_OPENSTACK_MNG.RETURN_IMAGE_MANAGEMENT' | translate}}</span>
                     </button>
                 </th>
@@ -32,7 +32,7 @@
                 </tr>               
             </thead>
             <tbody>
-                <tr *ngFor="let image of images;let i=index" >
+                <tr *ngFor="let image of images;let i=index" id="image_{{image.uuid}}">
                     <td >
                         <input type="checkbox" class="fox-cloud-checkbox" name="radio" [checked]="image.selected" (change)="image.selected = $event.target.checked" />
                     </td>
@@ -50,10 +50,10 @@
                     </td>
                     <td >
                         <div *ngIf="image.syncResult==0" style="padding-top:2px">
-                             <select class="form-control"[(ngModel)]="image.os">
+                             <select class="form-control"[(ngModel)]="image.os"  id="image_os_{{image.uuid}}">
                                  <option selected="selected" ></option>
                                 <!--<option *ngFor = "let os of osDic" [ngValue]="os.value" >{{getDicText(os.value,osDic)}}</option>-->
-                                <option *ngFor = "let os of service.osDic | async" [ngValue]="os.value" >{{os.displayValue}}</option>
+                                <option *ngFor = "let os of service.osDic | async" [ngValue]="os.value" id="image_os_{{image.uuid}}_{{os.value}}">{{os.displayValue}}</option>
                             </select>
                         </div>
                         <div *ngIf="image.syncResult!=0">
@@ -62,10 +62,10 @@
                     </td>
                     <td>
                         <div *ngIf="image.syncResult==0" style="padding-top:2px">
-                            <select class="form-control"[(ngModel)]="image.bitsType">
+                            <select class="form-control"[(ngModel)]="image.bitsType" id="image_bitsType_{{image.uuid}}">
                                 <option selected="selected" ></option>
                                 <!--<option *ngFor = "let type of bits_typeDic" [ngValue]="type.value" >{{getDicText(type.value,bits_typeDic)}}</option>-->
-                                <option *ngFor = "let type of service.bits_typeDic | async" [ngValue]="type.value" >{{type.displayValue}}</option>
+                                <option *ngFor = "let type of service.bits_typeDic | async" [ngValue]="type.value" id="image_os_{{image.uuid}}_{{type.value}}">{{type.displayValue}}</option>
                             </select>
                         </div>
                         <div *ngIf="image.syncResult!=0">
@@ -87,10 +87,10 @@
 
 <div class="text-center " style="margin-top:50px">       
     
-    <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="back()">
+    <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="back()" id="back">
         <span class="icon-button-label">{{'HOST_OPENSTACK_MNG.RETURN' | translate}}</span>
     </button> 
-    <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="doSync()">
+    <button class="fox-cloud-button-lg fox-cloud-button-white"(click)="doSync()"  id="doSync">
         <span class="icon-button-label">{{'HOST_OPENSTACK_MNG.SYNC' | translate}}</span>
     </button>
 </div>
