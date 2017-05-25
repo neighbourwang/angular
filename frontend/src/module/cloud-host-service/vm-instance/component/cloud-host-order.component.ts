@@ -249,9 +249,9 @@ export class cloudVmComponentOrder implements OnInit {
 		setTimeout(res => {
 			this.isZoneSupportOs = !!filteredList.length;
 		}, 0);
-		this.bootsizeList = filteredList;
+		this.bootsizeList = filteredList.filter(list => list.platformIds.indexOf(this.values.PLATFORM.attrValueId) > -1);   //过滤可用平台
 		if( this.bootsizeList.length ){
-			this.values.BOOTSIZE = filteredList[0];
+			this.values.BOOTSIZE = this.bootsizeList[0];
 			this.dux.dispatch("BOOTSIZE")
 		}
 	}

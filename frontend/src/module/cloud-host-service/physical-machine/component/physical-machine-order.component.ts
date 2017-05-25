@@ -132,6 +132,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 				this.resourcePolls = []
 				this.phsicalList = []
 				this.phyProduct = null
+				this.resourcePoll = null
 				return false;
 			}
 

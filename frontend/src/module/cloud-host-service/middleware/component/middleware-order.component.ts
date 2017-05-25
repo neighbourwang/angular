@@ -120,7 +120,7 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 		let errorMsg = this.checkDbValue()
 		if(errorMsg) return [errorMsg];
 
-		this.middlewareValue.DEPLOYMODE.attrValue = this.database.deploymentModeString;
+		this.middlewareValue.DEPLOYMODE.attrValue = this.deploymentModeString;
 		this.middlewareValue.TIMELINE = this.values.TIMELINE
 		this.middlewareValue.TIMELINEUNIT = this.values.TIMELINEUNIT
 		this.middlewareValue.MIDDLEWARETYPE.attrValue = this.mwInit.middleware.label
@@ -143,7 +143,6 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 	}
 
 	get deploymentModeString () {
-		console.log(this.mwInit, this.fetchMWIdsPost.deploymentMode)
 		return this.mwInit ? this.mwInit.mode.filter(m => m.value == this.fetchMWIdsPost.deploymentMode)[0].label : ""
 	}
 
