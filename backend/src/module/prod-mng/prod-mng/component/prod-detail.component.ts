@@ -223,6 +223,7 @@ export class ProdDetailComponent implements OnInit {
         }).then(res => {
             console.log(res);
             this.layoutService.hide();
+            this.location.back()            
         }).catch(err => {
             console.log(err);
             this.layoutService.hide();
@@ -252,7 +253,7 @@ export class ProdDetailComponent implements OnInit {
         this.service.changProdPrice(this.product).then(res => {
             console.log(res);
             // this.getProductDetail(this.productId)
-            this.getHistoryPrice(this.productId)
+            this.location.back()
             this.layoutService.hide();
         }).catch(err => {
             console.log(err);
@@ -317,6 +318,7 @@ export class ProdDetailComponent implements OnInit {
                     this.layoutService.show();
                     this.service.editProductPlatform(this.updateProdPlatform).then(res => {
                         console.log(res);
+                        this.location.back()
                         this.getProductDetail(this.productId)
                         this.layoutService.hide();
                     }).catch(err => {
@@ -370,7 +372,9 @@ export class ProdDetailComponent implements OnInit {
     isAddEntConfirm() {
         let updateList = this.updateEntObj.productEnterpiseReqs.map(ent => ent.id).sort();
         let prodEntList = this.product.productEnterpiseReqs.map(ent => ent.id).sort();
-        if (updateList.length != prodEntList.length) {
+        if(updateList.length==0){
+            return this.isAddEnter = false;
+        }else if (updateList.length != prodEntList.length) {
             return this.isAddEnter = true;
         } else {
             for (let i = 0; i < updateList.length; i++) {
@@ -393,8 +397,8 @@ export class ProdDetailComponent implements OnInit {
         this.layoutService.show();
         this.service.editProductEnterPrise(this.updateEntObj).then(res => {
             console.log(res);
-            this.getProductDetail(this.productId)
             this.layoutService.hide();
+            this.location.back()
         }).catch(err => {
             console.log(err);
             this.layoutService.hide();

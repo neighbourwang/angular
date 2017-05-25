@@ -185,6 +185,7 @@ export class PhysicalProdEditComponent implements OnInit {
         }).then(res => {
             console.log(res);
             this.layoutService.hide();
+            this.location.back();                                 
         }).catch(err => {
             console.log(err);
             this.layoutService.hide();
@@ -212,8 +213,8 @@ export class PhysicalProdEditComponent implements OnInit {
         this.service.updateProdPrice(this.product).then(res => {
             console.log(res);
             // this.getProductDetail(this.productId)
-            this.location.back();                     
             this.layoutService.hide();
+            this.location.back();                                 
         }).catch(err => {
             console.log(err);
             this.layoutService.hide();
@@ -310,8 +311,8 @@ export class PhysicalProdEditComponent implements OnInit {
             "serviceId":this.product.serviceId
         }).then(res=>{
             console.log(res);
-            this.location.back();
             this.layoutService.hide();
+            this.location.back();            
         }).catch(err=>{
             this.layoutService.hide();            
             console.error
@@ -349,7 +350,11 @@ export class PhysicalProdEditComponent implements OnInit {
     isAddEntConfirm() {
         let updateList = this.updateEntObj.productEnterpiseReqs.map(ent => ent.id).sort();
         let prodEntList = this.product.productEnterpiseReqs.map(ent => ent.id).sort();
-        if (updateList.length != prodEntList.length) {
+        console.log(updateList);
+        console.log(prodEntList);
+        if(updateList.length==0){
+            return this.isAddEnter = false;
+        }else if (updateList.length > prodEntList.length) {
             return this.isAddEnter = true;
         } else {
             for (let i = 0; i < updateList.length; i++) {

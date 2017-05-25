@@ -58,10 +58,6 @@ export class DatabaseMiddlewareProdService {
 
         return this.restApi.request(api.method, api.url, [], undefined,data);
     }
-    //获取中间件数据库产品详情
-    getDatabaseMiddlewareProductDetail(id:string) {
-        let api = this.restApiCfg.getRestApi("database-middleware-product.get");
-        return this.restApi.request(api.method, api.url, [{key:'id',value:id}], undefined)
-    }
+    
 }
   

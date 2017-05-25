@@ -6,6 +6,7 @@ import { DatabaseMiddlewareServiceCreComponent } from './components/database-mid
 import { DatabaseMiddlewareRouting } from './database-middleware.routing'
 import { DatabaseMiddlewareService } from './service/database-middleware-service.service';
 import { DatabaseMiddlewareProdService } from './service/database-middleware-prod.service';
+import { DataBaseMiddlewareProdEditService } from './service/database-middleware-prod-edit.service';
 
 import { DatabaseMiddlewareProdCreStep1Component } from './components/database-middleware-prod-cre-step1.component';
 import { DatabaseMiddlewareProdCreStep2Component } from './components/database-middleware-prod-cre-step2.component';
@@ -30,7 +31,8 @@ import { DatabaseMiddlewareEditComponent } from './components/database-middlewar
     ],
     providers:[
         DatabaseMiddlewareService,
-        DatabaseMiddlewareProdService
+        DatabaseMiddlewareProdService,
+        DataBaseMiddlewareProdEditService
     ],
     exports:[]
 })

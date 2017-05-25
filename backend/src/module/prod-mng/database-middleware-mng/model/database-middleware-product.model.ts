@@ -10,6 +10,7 @@ class DatabaseMiddlewareProductModel {
     "platformSimpleItemResp": Array<Platform>;
     "productEnterpiseReqs": Array<Enterprise>;
     "resourcPoolsProfiles":Array<ResourcPool>;
+    "productPlatformReqs":Array<Platform>;//编辑
     "productId": string;
     "serviceId": string;
     "unitPrice": number;
@@ -35,12 +36,15 @@ class Platform {
     "name": string;
     "selected": boolean;
     "displayName":string;    
-    "skuID": string
+    "skuID": string;
+    "platformId":string;
+    "platformName":string;
 }
 class Enterprise {
     "id": string;
     "name": string;
     selected:boolean;
+    "disabled":boolean;
 }
 class ResourcPool{
     "pmPoolId": string;

@@ -252,6 +252,8 @@ export class ProdMngComponent implements OnInit {
             this.router.navigate(["prod-mng/prod-mng/prod-detail", {id:item.id,type:item.serviceType}]);            
         }else if(item.serviceType=='4'){
             this.router.navigate(["prod-mng/physical-prod-mng/prod-mng-edit", {id:item.id,type:item.serviceType}]);                        
+        }else if(item.serviceType=='3'||item.serviceType=='5'){
+            this.router.navigate(["prod-mng/database-middleware-mng/database-middleware-product-edit", {id:item.id,serviceName:item.serviceName}]);                                    
         }
     }
     backend(page: number, size: number, data: any) {
