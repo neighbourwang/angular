@@ -24,6 +24,12 @@ import { MiddlewareValue, DiskValue, VlueList } from "../model/other.model"
 })
 export class MiddlewareComponentOrder extends DatabaseComponentOrder implements OnInit {
 
+	@ViewChild('confirm')
+	public confirmDialog: ConfirmComponent;
+
+	@ViewChild('notice')
+	public noticeDialog: NoticeComponent;
+
 	mwInits = [];
 	mwInit;
 
@@ -137,7 +143,8 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 	}
 
 	get deploymentModeString () {
-		return this.mwInit ? this.mwInit.mode.filter(m => m.value === this.fetchMWIdsPost.deploymentMode)[0].label : ""
+		console.log(this.mwInit, this.fetchMWIdsPost.deploymentMode)
+		return this.mwInit ? this.mwInit.mode.filter(m => m.value == this.fetchMWIdsPost.deploymentMode)[0].label : ""
 	}
 
 	checkDbValue(key?: string) {
