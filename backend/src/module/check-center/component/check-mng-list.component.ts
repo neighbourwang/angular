@@ -17,6 +17,7 @@ import { CheckCenterParam
 	, CheckListItem } from './../model';
 import * as _ from 'underscore';
 import {DictService} from '../../../architecture/core/service/dict-service';
+import { MyDatePicker  } from '../../../architecture/components/date-picker/my-date-picker.component';
 
 @Component({
 	selector: 'check-mng-list',
@@ -44,10 +45,17 @@ export class CheckMngListComponent implements OnInit{
 
 
 	@ViewChild("notice") private _notice:NoticeComponent;
+
 	@ViewChild("refuseDialog")
 		refuseDialog: PopupComponent;
 	@ViewChild("confirmAcceptDialog")
 	private _confirmAccept:ConfirmComponent;
+
+	@ViewChild("createDatePicker")
+  	private createDatePicker: MyDatePicker;
+
+	@ViewChild("expireDatePicker")
+  	private expireDatePicker: MyDatePicker;
 	constructor(
 		private _restApiCfg:RestApiCfg
 		,private _restApi:RestApi
@@ -126,6 +134,8 @@ export class CheckMngListComponent implements OnInit{
 						else if(obj.billingModeNum == 1)//按量
 						{
 							obj.priceNum = orderItem.billingInfo.unitPrice;
+						}else if(obj.billingModeNum ==3){
+							obj.showPrice = false;
 						}
 
 					}
@@ -379,9 +389,12 @@ export class CheckMngListComponent implements OnInit{
 	}
 
 	resetParam(){
-		this._param.reset();
+		
 		this._departmentLoader.clear();		
 		this._userListLoader.clear();
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
+		this._param.reset();
 	}
 
 	onStartDateChange($event)

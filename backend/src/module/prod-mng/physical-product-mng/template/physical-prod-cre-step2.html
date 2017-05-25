@@ -1,6 +1,6 @@
 <div class="page-content-header icon-create-product">{{'PROD_MNG.CREATE_PRODUCT'| translate}}</div>
 <!--创建产品-->
-<div class="page-content fix-page-content">
+<div class="page-content">
     <div class="row navigator-progress">
         <div class="col-md-3"><span class="mark">1</span><span>{{'COMMON.BASIC_INFO'|translate}}<!--基本信息--></span><span class="icon-tick"></span></div>
         <div class="col-md-3 active"><span class="mark">2</span><span>{{'PROD_MNG.COUNT_MODE'|translate}}<!--资源同步--></span></div>
@@ -124,7 +124,7 @@
 										<td>{{unit.specName}}</td>
 										<td>
                                             {{unit.specValue}}
-                                            <span *ngIf="unit.partsId=='2eeb0a38-167e-11e7-91af-0242ac110002'||unit.partsId=='35dc99bd-167e-11e7-91af-0242ac110002'">GB</span>
+                                            <span *ngIf="unit.partsName=='内存'||unit.partsName=='磁盘'">GB</span>
                                         </td>
 										<td>
                                             <span *ngIf="!unit.isEdit">{{unit.ajustmentPrice}}</span>                                           

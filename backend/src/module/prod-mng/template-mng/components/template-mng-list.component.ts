@@ -1,9 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router ,ActivatedRoute,Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 
-import { DatabaseModel} from '../model/template-mng-database.model'
+import { DatabaseModel } from '../model/template-mng-database.model'
 import { TemplateListService } from '../service/template-mng-list.service';
 
 
@@ -30,12 +30,12 @@ export class TemplateMngListComponent implements OnInit {
     createTemplatePop: PopupComponent;
 
     @ViewChild('deleteConfirm')
-    deleteConfirm:ConfirmComponent;
+    deleteConfirm: ConfirmComponent;
 
     @ViewChild('notice')
-    notice:NoticeComponent;
+    notice: NoticeComponent;
 
-    tp:number//页数
+    tp: number//页数
     templateType: string = '0';
     templateList: Array<DatabaseModel> = new Array<DatabaseModel>();
     templateTypeList = [
@@ -52,8 +52,8 @@ export class TemplateMngListComponent implements OnInit {
     ];
 
     ngOnInit() {
-        this.route.params.forEach((params:Params)=>{
-            this.templateType=params['type'];
+        this.route.params.forEach((params: Params) => {
+            this.templateType = params['type'];
         })
         console.log(this.templateType);
         this.onQuery();
@@ -63,17 +63,17 @@ export class TemplateMngListComponent implements OnInit {
     }
 
     //选择模板类型
-    chooseTemplateType(item,idx){
-        this.templateTypeList.forEach(tem=>tem.selected=false);
-        item.selected=true;
+    chooseTemplateType(item, idx) {
+        this.templateTypeList.forEach(tem => tem.selected = false);
+        item.selected = true;
     }
-    onQuery(){
+    onQuery() {
         // (this.templateType=='0')&&(this.getDatabaseTemplateList(1));
         // (this.templateType=='1')&&(this.getMiddlewareTemplateList(1));
-        if(this.templateType=='1'){
+        if (this.templateType == '1') {
             this.getMiddlewareTemplateList(1);
-        }else{
-            this.templateType='0';
+        } else {
+            this.templateType = '0';
             this.getDatabaseTemplateList(1);
         }
     }
@@ -106,7 +106,7 @@ export class TemplateMngListComponent implements OnInit {
         })
     }
     //查询中间模板列表
-    getMiddlewareTemplateList(page){
+    getMiddlewareTemplateList(page) {
         let pageParameter = {
             "currentPage": page,
             "offset": 0,
@@ -128,28 +128,32 @@ export class TemplateMngListComponent implements OnInit {
     //去详情
     goDetail(tem) {
         console.log(tem);
-        if(tem.templateType=='database'){
-            this.router.navigate(['prod-mng/template-mng/template-database', { type: 'edit', id: tem.id }]);            
-        }else{
-            this.router.navigate(['prod-mng/template-mng/template-middleware', { type: 'edit', id: tem.id }]);            
+        if (tem.templateType == 'database') {
+            this.router.navigate(['prod-mng/template-mng/template-database', { type: 'edit', id: tem.id }]);
+        } else {
+            this.router.navigate(['prod-mng/template-mng/template-middleware', { type: 'edit', id: tem.id }]);
         }
     }
     pageInfo(page) {
         console.log(page);
-        this.getDatabaseTemplateList(page);
+        if (this.templateType == '1') {
+            this.getMiddlewareTemplateList(page);
+        } else {
+            this.getDatabaseTemplateList(page);
+        }
     }
 
     //选择的模板ID
-    selectedId:string='';
-    deleteTemplate(item){
-        this.selectedId=item.id;
-        this.deleteConfirm.open('删除模板',"你选择删除 '"+item.name+"' 模板")
+    selectedId: string = '';
+    deleteTemplate(item) {
+        this.selectedId = item.id;
+        this.deleteConfirm.open('删除模板', "你选择删除 '" + item.name + "' 模板")
     }
-    ccd(){
-        this.selectedId='';
+    ccd() {
+        this.selectedId = '';
     }
     deleteCof() {
-        if(this.selectedId==''){
+        if (this.selectedId == '') {
             this.notice.open('请选择模板');
             return;
         }
@@ -160,17 +164,36 @@ export class TemplateMngListComponent implements OnInit {
             "sort": {},
             "totalPage": 0
         }
-        this.service.getTemplatedetail({id:this.selectedId, pageParameter}).then(res => {
-            res.resultContent[0].status = 0;
-            res.resultContent[0].diskProfileList=JSON.parse(JSON.stringify(res.resultContent[0].diskInfoList));
-            this.selectedId=='';
-            return this.service.putDatabaseTemplate(res.resultContent[0]);
-        }).then(() => {
-            this.getDatabaseTemplateList(1);
-        }).catch(err => {
-            console.error(err);
-            this.layoutService.hide();
-        })
+        if (this.templateType == '1') {
+            this.layoutService.show();            
+            this.service.getMiddlewareTemplatedetail({ id: this.selectedId, pageParameter }).then(res => {
+                res.resultContent[0].status = 0;
+                res.resultContent[0].diskProfileList = JSON.parse(JSON.stringify(res.resultContent[0].diskInfoList));
+                this.selectedId == '';
+                this.layoutService.hide();
+                return this.service.updateMiddlewareTemplate(res.resultContent[0]);
+            }).then(() => {
+                this.getMiddlewareTemplateList(1);                
+            }).catch(err => {
+                console.error(err);
+                this.layoutService.hide();
+            })
+        } else {
+            this.layoutService.show();            
+            this.service.getDatabseTemplatedetail({ id: this.selectedId, pageParameter }).then(res => {
+                res.resultContent[0].status = 0;
+                res.resultContent[0].diskProfileList = JSON.parse(JSON.stringify(res.resultContent[0].diskInfoList));
+                this.selectedId == '';
+                this.layoutService.hide();
+                return this.service.putDatabaseTemplate(res.resultContent[0]);
+            }).then(() => {
+                this.getDatabaseTemplateList(1);
+            }).catch(err => {
+                console.error(err);
+                this.layoutService.hide();
+            })
+        }
+
     }
-    
+
 }

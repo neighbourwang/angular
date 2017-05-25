@@ -1,0 +1,69 @@
+<div>
+    <div>
+        <a (click)="toInsertPage()"> 新增</a>
+        <a >查询</a>
+        <a >批量修改</a>
+    </div>
+    <br>
+    <div>
+        <div class="col-md-4">
+            <div>微服务名称:
+                <input [(ngModel)]="searchGroupName"/>
+            </div>
+            <br>
+            <div>二级功能:
+                <input [(ngModel)]="searchGroupFun"/>
+            </div>
+            <br>
+            <div>
+                Bearer:
+                <input [(ngModel)]="bearer"/>
+            </div>
+            <br>
+        </div>
+        <div class="col-md-2">
+            <button (click)="doSearch()">查询</button>
+            
+        </div>
+        <div class="col-md-2">
+            <button (click)="doSearch()">执行组</button>
+            
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="table-container mgt20">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td>微服务名称</td>
+                        <td>二级功能</td>
+                        <td>执行顺序</td>
+                        <td>Metdod</td>
+                        <td>期望返回值</td>
+                        <td>URL</td>
+                        <td>status</td>
+                        <td>lastupdate</td>
+                        <td>操作</td>         
+                    </tr>             
+                </thead>
+                <tbody>
+                    <tr *ngFor="let entry of resultList">
+                        <td>{{entry.groupCase}}</td>
+                        <td>{{entry.groupFunc}}</td>
+                        <td>{{entry.sequenceNum}}</td>
+                        <td>{{entry.methodHit}}</td>
+                        <td>{{entry.resultExp}}</td>
+                        <td>{{entry.urlHit}}</td>
+                        <td>status</td>
+                        <td>lastupdate</td>
+                        <td>
+                            <button (click)="delete(entry.id)">删除</button>
+                            </td>     
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}"></fc-notice>
+<fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}" ct="{{'HOST_OPENSTACK_MNG.CANCEL' | translate}}"></fc-confirm>

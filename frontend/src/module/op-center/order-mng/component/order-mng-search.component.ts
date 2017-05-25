@@ -160,6 +160,8 @@ export class OrderMngSearchComponent implements OnInit{
 								else if(orderItem.billingInfo.billingMode == 1)//按量
 								{
 									obj.price = orderItem.billingInfo.unitPrice;
+								}else if(orderItem.billingInfo.billingMode == 3){//按次
+									obj.showPrice = false;
 								}
 							}
 					}

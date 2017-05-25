@@ -173,10 +173,11 @@ export class PhyNetSetupResourceComponent implements OnInit {
     next(): void {
         //console.log(this.selectedPmpools.length, "this.selectedPmpools.length");
         if (this.selectedPmpools.length == 0) {
-            this.showAlert("PHY_NET_MNG.PLEASE_CHOOSE_RES_POOL");
+            this.showMsg("PHY_NET_MNG.PLEASE_CHOOSE_RES_POOL");
             this.second_step = false;
             this.first_step = true;
             this.showclosebtn = false;
+            return;
         }
         let pmpool_id_array: Array<string> = [];
         pmpool_id_array = this.selectedPmpools.map((pool) => {

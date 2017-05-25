@@ -18,6 +18,7 @@ class PhysicalProductModel {
         this.phyMachineAreaPoolsProfile=new Array<PhyMachineAreaPoolsProfile>();
         this.pmPartsBaseprises=new Array<PmPartsBaseprises>();
         this.productEnterpiseReqs=new Array<ProductEnterpriseReqs>();
+        this.billingCycleClick=false;
     }
 }
 class PhyMachineAreaPoolsProfile {
@@ -56,4 +57,4 @@ class ProductEnterpriseReqs {
     "selected":boolean;
     "disable":boolean;
 }
-export{ PhysicalProductModel,ProductEnterpriseReqs}
+export{ PhysicalProductModel,ProductEnterpriseReqs,PmPartsBaseprises}
