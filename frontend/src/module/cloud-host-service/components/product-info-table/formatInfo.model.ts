@@ -36,6 +36,11 @@ class Info {
 	OSYSTEM: attrList = new attrList;
 	SERVICEOBJECTCODE: attrList = new attrList;
 	REGION: attrList = new attrList;
+	DBVERSION: attrList = new attrList;
+	DBTYPE: attrList = new attrList;
+	DEPLOYMODE: attrList = new attrList;
+	MIDDLEWAREVERSION: attrList = new attrList;
+	MIDDLEWARETYPE: attrList = new attrList;
 }
 export {
     Info,

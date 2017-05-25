@@ -234,4 +234,9 @@ export class MiddlewareServiceOrder {
 		field: "DEPLOYMENT_MODE"
 	});
 
+	diskusage = this.dict.get({    //中间件云硬盘用途
+		owner: "MIDDLEWARE",
+		field: "DISKUSAGE"
+	});
+
 }
