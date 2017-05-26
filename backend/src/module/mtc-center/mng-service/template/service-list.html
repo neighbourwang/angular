@@ -91,7 +91,7 @@
                         </li>
                     </ol>
                 </td>
-                <td>{{item.instance?.instanceRegion}}</td>
+                <td>{{item.instance?.instanceAvailableZone}}</td>
                 <td>{{item.enterpriseName}}</td>
                 <td>{{item.serviceType | dict: this.service.serviceTypeDic | async}}</td>
                 <td>{{item.serviceStatus | dict: this.service.statusDic | async}}</td>

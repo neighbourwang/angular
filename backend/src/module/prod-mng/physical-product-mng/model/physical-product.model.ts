@@ -40,6 +40,9 @@ class PhyMachineResourcPoolsProfile {
 }
 class PmPartsBaseprises {
     "ajustmentPrice": number;
+    isEdit: boolean;
+    temPrice:number;
+    priceValid:boolean;
     "id": string;
     "partsId": string;
     "partsName": string;

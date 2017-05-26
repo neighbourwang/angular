@@ -23,6 +23,7 @@ export class PopupComponent implements OnInit {
     cssClass: string;
     showTitle: String;
     enableOKButton: boolean =true;
+    id: String;
 
 
     constructor(private dialogTranslate: DialogTranslate) {
@@ -39,6 +40,7 @@ export class PopupComponent implements OnInit {
     ngOnChanges() {
         this.param = this.dialogTranslate.getParam(this.title);
         this.showTitle = this.dialogTranslate.getText(this.title);
+        this.id = this.dialogTranslate.getId(this.showTitle);
     }
     cof() {
         this.of.emit();
@@ -55,6 +57,7 @@ export class PopupComponent implements OnInit {
         title && (this.title = title);
         this.param = this.dialogTranslate.getParam(this.title);
         this.showTitle = this.dialogTranslate.getText(this.title);
+        this.id = this.dialogTranslate.getId(this.showTitle);
         this.dialog.cssClass = this.cssClass;
         this.dialog.open();
     }

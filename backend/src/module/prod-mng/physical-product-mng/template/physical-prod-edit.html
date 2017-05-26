@@ -104,7 +104,7 @@
 	</div>
 </div>
 <div *ngIf="Tabels[1].active">
-	<div class="page-content fix-page-content">
+	<div class="page-content">
 		<div class="row" style="padding-top: 30px;">
 			<div class="col-md-12">
 				<div class="row row-line-height">
@@ -207,7 +207,7 @@
 											<th style="width:15%">{{'规格' | translate}}</th>
 											<th style="width:15%">{{'规格值' | translate}}</th>
 											<th style="width:20%">{{'基础周期价格' | translate}}</th>
-											<th style="width:30%"></th>
+											<!--<th style="width:30%"></th>-->
 										</tr>
 									</thead>
 									<tbody>
@@ -220,17 +220,15 @@
 												{{unit.specValue}}
 												<span *ngIf="unit.partsName=='磁盘'||unit.partsName=='内存'">GB</span>
 											</td>
-											<td>
-												<span *ngIf="!unit.isEdit">{{unit.ajustmentPrice}}</span>
-												<input *ngIf="unit.isEdit" class="form-control" type="number" [(ngModel)]="unit.temPrice" name="temPrice" style="height:20px">
+											<td [ngClass]="{'has-error':!unit.priceValid}">
+												<span *ngIf="!editPriceInfo">{{unit.ajustmentPrice}}</span>
+												<input *ngIf="editPriceInfo" class="form-control" type="number" min=0 [(ngModel)]="unit.temPrice" (ngModelChange)="adjustUnitPrice(unit)" name="temPrice" style="height:20px">
 											</td>
-											<td>
+											<!--<td>
 												<span *ngIf="!unit.isEdit" class="glyphicon glyphicon-edit pointer" (click)="unit.isEdit=true;unit.temPrice=unit.ajustmentPrice"></span>
 												<span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-remove pointer" (click)="unit.isEdit=false;unit.temPrice=unit.ajustmentPrice"></span>
 												<span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-saved pointer mgl10" (click)="unit.isEdit=false;unit.ajustmentPrice=unit.temPrice"></span>
-												<!--<button *ngIf="unit.isEdit" class="fox-cloud-button-md fox-cloud-button-white" (click)="unit.isEdit=false;unit.referencePrice=unit.temPrice">{{'COMMON.SAVE' | translate}}</button>-->
-												<!--<button *ngIf="unit.isEdit" class="fox-cloud-button-md fox-cloud-button-white" (click)="unit.isEdit=false;unit.temPrice=unit.referencePrice">{{'COMMON.CANCEL' | translate}}</button>-->
-											</td>
+											</td>-->
 										</tr>
 									</tbody>
 								</table>
