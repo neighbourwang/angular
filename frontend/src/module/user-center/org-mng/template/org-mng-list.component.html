@@ -174,7 +174,9 @@
 	</tr>
 	<tr *ngFor='let organ of orgs;let idx=index'>
 		<td class="text-center">{{idx+1}}</td>
-		<td class="text-center active">{{organ.name}}</td>
+		<td class="text-center active">
+            <span (click)="view(organ)">{{organ.name}}</span>            
+        </td>
 		<td class="text-center">{{organ.headCount}}</td>
 		<!--<td class="text-center">{{organ.leaderName}}</td>-->
 		<td class="text-center">

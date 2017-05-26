@@ -28,6 +28,9 @@ export class OrgMngCrComponent implements OnInit {
   @Input()
   editId: string;
 
+  // @Input()
+  // isView:boolean;
+
   @ViewChild("orgForm")
   'orgForm': NgForm;
 
@@ -63,7 +66,7 @@ export class OrgMngCrComponent implements OnInit {
     console.log(this.countAvailable);
     this.org = new Org();
     this.org.resource = new Resource();
-    console.log(this.editId);
+    console.log(this.editId);    
     if (this.isEdit) {
       this.getUserList();
       this.getOrgDetail();
@@ -91,7 +94,6 @@ export class OrgMngCrComponent implements OnInit {
           console.error(err);
         });
     }
-
   }
   ngOnInit() {
 
