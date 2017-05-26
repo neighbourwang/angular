@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
 //service
@@ -8,9 +8,6 @@ import { ProdDirListService } from '../service/prodDirList.service';
 import { PlatformsActiveService } from '../../prod-dir-mng/service/platform.service';
 //model
 import { ProdList } from '../model/prodList.model'
-
-
-
 @Component({
     selector: 'prod-mng',
     templateUrl: '../template/prod-mng.component.html',
@@ -25,8 +22,8 @@ export class ProdMngComponent implements OnInit {
         private PlatformsActiveService: PlatformsActiveService,
         private ProdListService: ProdListService,
         private ProdDirListService: ProdDirListService,
+        private route: ActivatedRoute
     ) { }
-
 
     // 产品数组
     productList: Array<ProdList> = new Array<ProdList>();
@@ -35,8 +32,6 @@ export class ProdMngComponent implements OnInit {
     tp: number = 0;
     // 每页显示的数据条数
     pp: number = 10;
-
-
     @ViewChild('publishConfirm')
     publishConfirm: ConfirmComponent;
 
@@ -66,7 +61,17 @@ export class ProdMngComponent implements OnInit {
     prodDirTypeCre: string = '';
     //初始化
     ngOnInit() {
-        this.backend(1, this.pp, {})
+        this.route.params.forEach((params: Params) => {
+            if (params['serviceId']) {
+                console.log(params['serviceId'])
+                this.prodDirId = params['serviceId'];
+            }
+        })
+        if (this.prodDirId) {
+            this.query();
+        } else {
+            this.backend(1, this.pp, {})
+        }
         this.getActivePlatform()
         this.getEnterpriseList()
         this.getServiceList();

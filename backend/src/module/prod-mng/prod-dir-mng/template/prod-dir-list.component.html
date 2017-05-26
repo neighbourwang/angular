@@ -41,7 +41,6 @@
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="creation();" id="creation">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">{{'PROD_MNG.CREATE_PRODUCT_CAT' | translate}}</span><!--创建产品目录-->
-
         </button>
 	</div>
 	<div class="table-container">
@@ -54,10 +53,8 @@
 						{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}
 					</th>
 					<!--产品目录名称-->
-
 					<th>{{'PROD_MNG.PRODUCT_CAT_CLASS' | translate}}</th>
 					<!--产品目录类别-->
-
 					<th>{{'PROD_MNG.PRODUCT_SPEC' | translate}}</th>
 					<th>{{'ENT_MNG.PRODUCT_NUM' | translate}}</th>
 					<!--产品数量-->
@@ -75,7 +72,9 @@
 					</td>
 					<td>{{item.serviceTemplateName}}</td>
 					<td>{{item.specification}}</td>
-					<td>{{item.productNum}}</td>
+					<td>
+						<a (click)="goProdList(item)" style="cursor: pointer">{{item.productNum}}</a>
+					</td>
 					<td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
 						{{item.status| dict:this.service.versionDic | async}}
 						<!--<span [ngSwitch]="item.status">
