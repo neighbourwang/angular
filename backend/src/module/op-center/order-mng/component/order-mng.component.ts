@@ -339,28 +339,8 @@ export class OrderMngComponent implements OnInit{
 	}
 
 	search(pageNumber:number = 1){
-		/*
-		{
-		"createDate": "2017-01-05T06:05:54.900Z",
-		"creatorId": "string",
-		"enterpriseId": "string",
-		"expireDate": "2017-01-05T06:05:54.900Z",
-		"organization": "string",
-		"pageParameter": {
-			"currentPage": 0,
-			"offset": 0,
-			"size": 0,
-			"sort": {},
-			"totalPage": 0
-		},
-		"platformId": "string",
-		"searchText": "string",
-		"serviceType": "string",
-		"status": "string",
-		"zoneId": "string"
-		}
-				*/
-		this.layoutService.show();
+		
+		
 
 		let param = _.extend({}, this._param);
 
@@ -374,6 +354,14 @@ export class OrderMngComponent implements OnInit{
 			currentPage:pageNumber-1//后台页码从0开始
 			,size:10
 		};
+		if(this.createDatePicker&&this.createDatePicker.invalidDate){
+			this.showMsg('到期时间不合法');
+			return;
+		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
+			this.showMsg('到期时间不合法');
+			return;
+		}
+		this.layoutService.show();
 		this._orderLoader.clear();//清空列表
 		this._orderLoader.TotalPages = 1;//清空页码
 		this._orderLoader.Go(pageNumber, null, param)

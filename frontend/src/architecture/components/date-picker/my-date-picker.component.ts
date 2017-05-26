@@ -142,7 +142,10 @@ export class MyDatePicker implements OnChanges ,OnInit {
     }
 
     userDateInput(event:any):void {
+        
         this.invalidDate = false;
+        this.selectionDayTxt = event.target.value;
+        console.log(this.selectionDayTxt);
         if(event.target.value.length === 0) {
             this.removeBtnClicked();
         }
@@ -150,6 +153,7 @@ export class MyDatePicker implements OnChanges ,OnInit {
             let date:IMyDate = this.validatorService.isDateValid(event.target.value, this.dateFormat, this.minYear, this.maxYear);
             if(date.day !== 0 && date.month !== 0 && date.year !== 0) {
                 this.selectDate({ day: date.day, month: date.month, year: date.year });
+                // alert('sssssss2');
             }
             else {
                 this.invalidDate = true;

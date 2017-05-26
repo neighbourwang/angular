@@ -6,11 +6,14 @@ import { DatabaseMiddlewareServiceCreComponent } from './components/database-mid
 import { DatabaseMiddlewareRouting } from './database-middleware.routing'
 import { DatabaseMiddlewareService } from './service/database-middleware-service.service';
 import { DatabaseMiddlewareProdService } from './service/database-middleware-prod.service';
+import { DataBaseMiddlewareProdEditService } from './service/database-middleware-prod-edit.service';
 
-import { DatabaseMiddlewareProdCreStep1Component } from './components/database-middleware-prod-cre-step1.component'
-import { DatabaseMiddlewareProdCreStep2Component } from './components/database-middleware-prod-cre-step2.component'
-import { DatabaseMiddlewareProdCreStep3Component } from './components/database-middleware-prod-cre-step3.component'
-import { DatabaseMiddlewareProdCreStep4Component } from './components/database-middleware-prod-cre-step4.component'
+import { DatabaseMiddlewareProdCreStep1Component } from './components/database-middleware-prod-cre-step1.component';
+import { DatabaseMiddlewareProdCreStep2Component } from './components/database-middleware-prod-cre-step2.component';
+import { DatabaseMiddlewareProdCreStep3Component } from './components/database-middleware-prod-cre-step3.component';
+import { DatabaseMiddlewareProdCreStep4Component } from './components/database-middleware-prod-cre-step4.component';
+
+import { DatabaseMiddlewareEditComponent } from './components/database-middleware-product-edit.component';
 
 @NgModule({
     imports:[
@@ -23,11 +26,13 @@ import { DatabaseMiddlewareProdCreStep4Component } from './components/database-m
         DatabaseMiddlewareProdCreStep1Component,
         DatabaseMiddlewareProdCreStep2Component,
         DatabaseMiddlewareProdCreStep3Component,
-        DatabaseMiddlewareProdCreStep4Component        
+        DatabaseMiddlewareProdCreStep4Component,
+        DatabaseMiddlewareEditComponent        
     ],
     providers:[
         DatabaseMiddlewareService,
-        DatabaseMiddlewareProdService
+        DatabaseMiddlewareProdService,
+        DataBaseMiddlewareProdEditService
     ],
     exports:[]
 })

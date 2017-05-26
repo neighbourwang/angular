@@ -40,6 +40,21 @@ export class PhysicalProdCreStep2Component implements OnInit {
     outputValue(e, num) {
         this.service.product[num] = e;
     }
+    //调整部件价格
+    adjustUnitPrice(unit){
+        if(unit.temPrice<0){
+            return unit.priceValid=false;
+        }else{
+            return unit.priceValid=true;
+        }
+    }
+    saveUnitPrice(unit){
+        if(unit.temPrice<0){
+            return unit.priceValid=false;
+        }
+        unit.isEdit=false;
+        unit.ajustmentPrice=unit.temPrice
+    }
     // 下一步
     ccf() { }
     previous(){
@@ -49,6 +64,11 @@ export class PhysicalProdCreStep2Component implements OnInit {
         if(!this.service.product.billingCycleClick){
             this.notice.open('COMMON.OPERATION_ERROR','PROD_MNG.PLEASE_SELECT_VALUATION_CYCLE');
             return;
+        }
+        for(let unit of this.service.product.pmPartsBaseprises){
+            if(unit.isEdit){
+                return this.notice.open('COMMON.OPERATION_ERROR','请先保存部件价格编辑')
+            }
         }
         this.service.product.basicCyclePrice=
             this.service.product.basicCyclePrice?this.service.product.basicCyclePrice:0;

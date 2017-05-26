@@ -35,6 +35,9 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	dbProductList = [];  //数据库产品列表
 	dbProduct;  //数据库产品
 
+	diskusage = []   //云硬盘用途
+	copylevel = []  //冗余级别
+
 	diskProducts = [];   //硬盘产品列表
 	diskSkuList = [];   //硬盘sku列表
 	vmItemNo: string //云主机的itemno
@@ -83,6 +86,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.makeDbSubScriber()
 		this.fetchConfig()
 		this.fetchDatabaseInit()
+		this.getDict()
 	}
 
 	makeDbSubScriber() {
@@ -161,24 +165,34 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	}
 
 	databaseValueInit() {
-		this.databaseValue.ARCHMODE.attrValue = "0";
-		this.databaseValue.DBCHARSET.attrValue = "0";
+		this.databaseValue.ARCHMODE.attrValue = "archivelog";
+		this.databaseValue.DBCHARSET.attrValue = "UTF8";
 	}
 
+	getDict() {  //获取数据字典的值
+	 	Promise.all([this.dbservice.diskusage, this.dbservice.copylevel]).then(res => {   //获取这两个数据字典
+	 		console.log(res)
+	 		this.diskusage = res[0]
+	 		this.copylevel = res[1]
+	 	})
+	}	
 	setListDiskValue() {  //把diskValue加入到 this.database.diskInfoList里面去
 		let lists = this.database.diskInfoList;
-		if(!lists.length) return;
+		if(!lists.length || !this.diskusage.length || !this.copylevel.length) return;
 
 		for (let list of lists) {
+			let copylevel = this.copylevel.filter(level => level.value == list.copyLevel)[0]
+			let diskusage = this.diskusage.filter(usage => usage.value == list.usageType)[0]
+
 			list.diskValue = new DiskValue
 		    list.diskValue.PLATFORM = this.values.PLATFORM; 
 		    list.diskValue.ZONE = this.values.ZONE; 
 			list.diskValue.STORAGE = list.storage; 
-			list.diskValue.COPYLEVEL.attrValue = list.copyLevel
+			list.diskValue.COPYLEVEL.attrValue = copylevel ? copylevel.code : "";
+			list.diskValue.USAGETYPE.attrValue = diskusage? diskusage.code : "" ; 
 			list.diskValue.DISKSIZE.attrValue = list.diskSize || list.minDiskSize; 
 			list.diskValue.MOUNTPATH.attrValue = list.mountPath; 
 			list.diskValue.DISKGROUP.attrValue = list.diskGroup; 
-			list.diskValue.USAGETYPE.attrValue = list.usageType; 
 		}
 	}
 

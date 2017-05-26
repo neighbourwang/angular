@@ -96,12 +96,12 @@ export class PhysicalProdEditComponent implements OnInit {
         this.productService.getEnterPriseList().then(() => {
             for (let ent of this.productService.enterpriseListForSelect) {
                 ent.selected = false;
-                ent.disable = false;
+                ent.disabled = false;
                 for (let entProd of this.updateEntObj.productEnterpiseReqs) {
                     if (ent.id == entProd.id) {
                         ent.selected = true;
-                        ent.disable = true;
-                        entProd.disable = true;
+                        ent.disabled = true;
+                        entProd.disabled = true;
                     }
                 }
             }
@@ -121,6 +121,12 @@ export class PhysicalProdEditComponent implements OnInit {
                     this.tempBasicCyclePrice = this.product.basicCyclePrice;
                     this.tempExtendCyclePrice = this.product.extendCyclePrice;
                     this.tempOneTimePrice = this.product.oneTimePrice;
+                    //部件价格信息
+                    this.product.pmPartsBaseprises.forEach(unit=>{
+                        unit.temPrice=unit.ajustmentPrice;
+                        unit.isEdit=false;
+                        unit.priceValid=true;
+                    })
                     //产品企业列表
                     this.updateEntObj.productEnterpiseReqs = JSON.parse(JSON.stringify(this.product.productEnterpiseReqs));
                     // console.log('产品', this.product);
@@ -185,6 +191,7 @@ export class PhysicalProdEditComponent implements OnInit {
         }).then(res => {
             console.log(res);
             this.layoutService.hide();
+            this.location.back();                                 
         }).catch(err => {
             console.log(err);
             this.layoutService.hide();
@@ -196,24 +203,45 @@ export class PhysicalProdEditComponent implements OnInit {
     tempExtendCyclePrice: number;
     tempOneTimePrice: number;
     tempUnitPrice: number;
+    //调整部件价格
+    adjustUnitPrice(unit){
+        if(unit.temPrice<0){
+            return unit.priceValid=false;
+        }else{
+            return unit.priceValid=true;
+        }
+    }
     cancelPriceEdit() {
         this.tempBasicCyclePrice = this.product.basicCyclePrice;
         this.tempExtendCyclePrice = this.product.extendCyclePrice;
         this.tempOneTimePrice = this.product.oneTimePrice;
+        this.product.pmPartsBaseprises.forEach(unit=>{
+            unit.temPrice=unit.ajustmentPrice;
+            unit.isEdit=false;
+        });
         this.editPriceInfo = false;
     }
     savePrice() {
+        for(let unit of this.product.pmPartsBaseprises){
+            if(unit.temPrice<0){
+                return unit.priceValid=false;
+            }
+        }
         this.product.basicCyclePrice = this.tempBasicCyclePrice;
         this.product.extendCyclePrice = this.tempExtendCyclePrice;
         this.product.oneTimePrice = this.tempOneTimePrice;
         this.editPriceInfo = false;
+        this.product.pmPartsBaseprises.forEach(unit=>{
+            unit.ajustmentPrice=unit.temPrice;
+            unit.isEdit=false;
+        })
         console.log(this.product);
         this.layoutService.show();
         this.service.updateProdPrice(this.product).then(res => {
             console.log(res);
             // this.getProductDetail(this.productId)
-            this.location.back();                     
             this.layoutService.hide();
+            this.location.back();                                 
         }).catch(err => {
             console.log(err);
             this.layoutService.hide();
@@ -310,8 +338,8 @@ export class PhysicalProdEditComponent implements OnInit {
             "serviceId":this.product.serviceId
         }).then(res=>{
             console.log(res);
-            this.location.back();
             this.layoutService.hide();
+            this.location.back();            
         }).catch(err=>{
             this.layoutService.hide();            
             console.error
@@ -322,7 +350,7 @@ export class PhysicalProdEditComponent implements OnInit {
     //编辑企业
     //选择企业
     selectEnterprise(ent, index) {
-        if (!ent.disable) {
+        if (!ent.disabled) {
             ent.selected = !ent.selected;
             this.updateEntObj.productEnterpiseReqs = this.productService.enterpriseListForSelect.filter((ele) => {
                 if (ele.selected == true) {
@@ -330,11 +358,12 @@ export class PhysicalProdEditComponent implements OnInit {
                 }
             });
             this.isAddEntConfirm();
+            console.log(this.isAddEnter);
         }
     }
     //
     unSelected(e, index) {
-        if (!e.disable) {
+        if (!e.disabled) {
             this.productService.enterpriseListForSelect.forEach(ele => {
                 if (ele.id == e.id) {
                     ele.selected = false;
@@ -342,6 +371,7 @@ export class PhysicalProdEditComponent implements OnInit {
             })
             this.updateEntObj.productEnterpiseReqs.splice(index, 1);
             this.isAddEntConfirm();
+            console.log(this.isAddEnter);
         }
     }
     //确认添加企业
@@ -349,21 +379,18 @@ export class PhysicalProdEditComponent implements OnInit {
     isAddEntConfirm() {
         let updateList = this.updateEntObj.productEnterpiseReqs.map(ent => ent.id).sort();
         let prodEntList = this.product.productEnterpiseReqs.map(ent => ent.id).sort();
-        if (updateList.length != prodEntList.length) {
+        if(updateList.length==0){
+            return this.isAddEnter = false;
+        }else if (updateList.length > prodEntList.length) {
             return this.isAddEnter = true;
         } else {
             for (let i = 0; i < updateList.length; i++) {
-                for (let j = 0; j < prodEntList.length; j++) {
-                    if (updateList[i] != prodEntList[j]) {
-                        return this.isAddEnter = true;
-                    }
-                }
-                if (i == updateList.length) {
-                    return this.isAddEnter = false;
-                }
+               if(prodEntList.indexOf(updateList[i])==-1){
+                   return this.isAddEnter = false;
+               };               
             }
+            return this.isAddEnter = false;
         }
-
     }
     ccAddEnt() {
         this.updateEntObj.productId = this.product.productId;

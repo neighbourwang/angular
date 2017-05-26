@@ -7,6 +7,7 @@ class DatabaseMiddlewareServiceModel {
     "serviceName": string;
     "serviceTemplateId": string;
     "serviceTemplateName": string;
+    "serviceId":string;
     constructor(){
         this.serverType='';
         this.platformSimpleItemResp=new Array<PlatformSimpleItem>();
@@ -19,6 +20,7 @@ class PlatformSimpleItem {
     "id": string;
     "name": string;
     "selected": boolean;
+    "disabled":boolean;
     "skuID": string;
 }
 class ResourcPool {

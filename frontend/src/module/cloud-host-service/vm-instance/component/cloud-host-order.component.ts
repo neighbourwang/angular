@@ -249,9 +249,9 @@ export class cloudVmComponentOrder implements OnInit {
 		setTimeout(res => {
 			this.isZoneSupportOs = !!filteredList.length;
 		}, 0);
-		this.bootsizeList = filteredList;
+		this.bootsizeList = filteredList.filter(list => list.platformIds.indexOf(this.values.PLATFORM.attrValueId) > -1);   //过滤可用平台
 		if( this.bootsizeList.length ){
-			this.values.BOOTSIZE = filteredList[0];
+			this.values.BOOTSIZE = this.bootsizeList[0];
 			this.dux.dispatch("BOOTSIZE")
 		}
 	}
@@ -419,7 +419,7 @@ export class cloudVmComponentOrder implements OnInit {
 				this.showNotice("提示", "加入购物车失败")
 			})
 		})
-		.catch(e => this.showNotice("提示", e))
+		.catch(e => {this.showNotice("提示", e)})
 	}
 
 	public itemNum: number = 0;
@@ -529,7 +529,6 @@ export class cloudVmComponentOrder implements OnInit {
 	showNotice(title: string, msg: string) {
 		this.modalTitle = title;
 		this.modalMessage = msg;
-
 		this.noticeDialog.open();
 	}
 	modalAction() { }

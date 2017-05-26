@@ -126,14 +126,14 @@
                                             {{unit.specValue}}
                                             <span *ngIf="unit.partsName=='内存'||unit.partsName=='磁盘'">GB</span>
                                         </td>
-										<td>
+										<td [ngClass]="{'has-error':!unit.priceValid}">
                                             <span *ngIf="!unit.isEdit">{{unit.ajustmentPrice}}</span>                                           
-                                            <input *ngIf="unit.isEdit" class="form-control" type="number" [(ngModel)]="unit.temPrice" name="temPrice" style="height:20px">                                            
+                                            <input *ngIf="unit.isEdit" class="form-control" type="number"  min=0 [(ngModel)]="unit.temPrice" (ngModelChange)="adjustUnitPrice(unit)" name="temPrice" style="height:20px">                                            
                                         </td>										
 										<td>
                                             <span *ngIf="!unit.isEdit" class="glyphicon glyphicon-edit pointer" (click)="unit.isEdit=true;unit.temPrice=unit.ajustmentPrice"></span>
                                             <span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-remove pointer" (click)="unit.isEdit=false;unit.temPrice=unit.ajustmentPrice"></span>
-                                            <span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-saved pointer mgl10" (click)="unit.isEdit=false;unit.ajustmentPrice=unit.temPrice"></span>
+                                            <span *ngIf="unit.isEdit" class="glyphicon glyphicon-floppy-saved pointer mgl10" (click)="saveUnitPrice(unit)"></span>
                                             <!--<button *ngIf="unit.isEdit" class="fox-cloud-button-md fox-cloud-button-white" (click)="unit.isEdit=false;unit.referencePrice=unit.temPrice">{{'COMMON.SAVE' | translate}}</button>-->
                                             <!--<button *ngIf="unit.isEdit" class="fox-cloud-button-md fox-cloud-button-white" (click)="unit.isEdit=false;unit.temPrice=unit.referencePrice">{{'COMMON.CANCEL' | translate}}</button>-->
                                         </td>

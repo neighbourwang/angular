@@ -40,6 +40,9 @@ class PhyMachineResourcPoolsProfile {
 }
 class PmPartsBaseprises {
     "ajustmentPrice": number;
+    isEdit: boolean;
+    temPrice:number;
+    priceValid:boolean;
     "id": string;
     "partsId": string;
     "partsName": string;
@@ -55,6 +58,6 @@ class ProductEnterpriseReqs {
     "id": string;
     "name": string;
     "selected":boolean;
-    "disable":boolean;
+    "disabled":boolean;
 }
 export{ PhysicalProductModel,ProductEnterpriseReqs,PmPartsBaseprises}
