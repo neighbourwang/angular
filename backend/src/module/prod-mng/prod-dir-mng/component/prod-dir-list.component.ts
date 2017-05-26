@@ -403,5 +403,10 @@ export class ProdDirListComponent implements OnInit {
             size: this.pp
         });
     }
-
+    //点击产品数量去产品列表
+    goProdList(item){
+        if(item.productNum>0){
+            this.router.navigate(["prod-mng/prod-mng/prod-mng", { serviceId: item.serviceId}]);                        
+        }
+    }
 }
