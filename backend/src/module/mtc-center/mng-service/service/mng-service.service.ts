@@ -58,7 +58,7 @@ export class MngService {
         const api= this.restApiCfg.getRestApi("mtc-center.mng-service.list");
         return this.restApi.request(api.method, api.url, null, null,
             {
-                "state": state,
+                "state": "",
                 "tenantId":tenantId,
                 "name": name,
                 "instanceName": instanceName,

@@ -143,6 +143,7 @@ export class MyDatePicker implements OnChanges ,OnInit {
 
     userDateInput(event:any):void {
         this.invalidDate = false;
+        this.selectionDayTxt = event.target.value;
         if(event.target.value.length === 0) {
             this.removeBtnClicked();
         }

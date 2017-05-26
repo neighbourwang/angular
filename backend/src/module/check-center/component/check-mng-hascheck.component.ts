@@ -332,16 +332,8 @@ export class CheckMngHascheckComponent implements OnInit{
 		this._departmentLoader.clear();
 		this._userListLoader.clear();
 		this._approverListLoader.clear();
-		if(this.createDatePicker.invalidDate){
-			this.showMsg('开始时间不合法！')
-		}else{
-			this.createDatePicker.removeBtnClicked();
-		}
-		if(this.expireDatePicker.invalidDate){
-			this.showMsg('结束时间不合法！')
-		}else{
-			this.expireDatePicker.removeBtnClicked();
-		}	
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();	
 		this._param.reset();
 	}
 
