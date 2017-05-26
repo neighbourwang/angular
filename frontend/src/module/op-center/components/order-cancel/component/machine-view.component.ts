@@ -83,7 +83,7 @@ export class MachineViewComponent implements OnInit{
 			this.specList = this.values.specList;
 
 			this._obj = {
-			platform:getProperty(this.specList.find(n=>n.attrCode == 'PLATFORM'))//无
+			platform:getProperty(this.specList.find(n=>n.attrCode == 'REGION'))
 			,resourcePool:getProperty(this.specList.find(n=>n.attrCode == 'RESOURCEPOOL'))
 			,cpu: []
 			,mem: []
@@ -111,5 +111,9 @@ export class MachineViewComponent implements OnInit{
 		}else{
 			this._obj.password='未设置';
 		}
+		if(this._obj.platform&&this._obj.platform!=null){
+			this.values.platformName = this._obj.platform;
+		}
+		
 	}
 }
