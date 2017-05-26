@@ -121,6 +121,12 @@ export class PhysicalProdEditComponent implements OnInit {
                     this.tempBasicCyclePrice = this.product.basicCyclePrice;
                     this.tempExtendCyclePrice = this.product.extendCyclePrice;
                     this.tempOneTimePrice = this.product.oneTimePrice;
+                    //部件价格信息
+                    this.product.pmPartsBaseprises.forEach(unit=>{
+                        unit.temPrice=unit.ajustmentPrice;
+                        unit.isEdit=false;
+                        unit.priceValid=true;
+                    })
                     //产品企业列表
                     this.updateEntObj.productEnterpiseReqs = JSON.parse(JSON.stringify(this.product.productEnterpiseReqs));
                     // console.log('产品', this.product);
@@ -197,17 +203,38 @@ export class PhysicalProdEditComponent implements OnInit {
     tempExtendCyclePrice: number;
     tempOneTimePrice: number;
     tempUnitPrice: number;
+    //调整部件价格
+    adjustUnitPrice(unit){
+        if(unit.temPrice<0){
+            return unit.priceValid=false;
+        }else{
+            return unit.priceValid=true;
+        }
+    }
     cancelPriceEdit() {
         this.tempBasicCyclePrice = this.product.basicCyclePrice;
         this.tempExtendCyclePrice = this.product.extendCyclePrice;
         this.tempOneTimePrice = this.product.oneTimePrice;
+        this.product.pmPartsBaseprises.forEach(unit=>{
+            unit.temPrice=unit.ajustmentPrice;
+            unit.isEdit=false;
+        });
         this.editPriceInfo = false;
     }
     savePrice() {
+        for(let unit of this.product.pmPartsBaseprises){
+            if(unit.temPrice<0){
+                return unit.priceValid=false;
+            }
+        }
         this.product.basicCyclePrice = this.tempBasicCyclePrice;
         this.product.extendCyclePrice = this.tempExtendCyclePrice;
         this.product.oneTimePrice = this.tempOneTimePrice;
         this.editPriceInfo = false;
+        this.product.pmPartsBaseprises.forEach(unit=>{
+            unit.ajustmentPrice=unit.temPrice;
+            unit.isEdit=false;
+        })
         console.log(this.product);
         this.layoutService.show();
         this.service.updateProdPrice(this.product).then(res => {

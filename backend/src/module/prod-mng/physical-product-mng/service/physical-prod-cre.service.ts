@@ -32,6 +32,7 @@ export class PhysicalProductService {
                 this.product.pmPartsBaseprises=res.resultContent;
                 this.product.pmPartsBaseprises.forEach(ele=>{
                     ele.ajustmentPrice=ele.referencePrice;
+                    ele.priceValid=true;
                 })
             }
             this.layoutService.hide();

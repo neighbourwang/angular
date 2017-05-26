@@ -53,8 +53,7 @@ class FlatUnitObj {
     "specName": string;
     "specValue": string;
     "referencePrice": number;
-    isEdit: boolean;
-    temPrice:number;
+    
 }
 class PartsFlavor {
     "partFlavorNum": number;
@@ -69,6 +68,8 @@ class PartsFlavor {
     "specId": string;
     "specName": string;
     "capacity":number;
+    "temPrice":number;
+    "isEdit":boolean;
     selected:boolean;
     constructor(){
         this.partsFlavorValue=0;
