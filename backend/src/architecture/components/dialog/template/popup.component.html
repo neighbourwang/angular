@@ -1,16 +1,16 @@
-<modal #dialog backdrop="false" style="z-index: 50" id="popup_{{showTitle}}">
+<modal #dialog backdrop="false" style="z-index: 50" id="popup_{{id}}">
     <modal-header show-close="true" class="fox-cloud-modal-header">{{showTitle | translate:param }}</modal-header>
-    <modal-body class="fox-cloud-modal-body" id="popup_body_{{showTitle}}">
+    <modal-body class="fox-cloud-modal-body" id="popup_body_{{id}}">
         <ng-content></ng-content>
     </modal-body>
     <modal-footer class="fox-cloud-modal-footer">
-        <button *ngIf="ct !=''" class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="ccf()" name="ccf_{{showTitle}}">
+        <button *ngIf="ct !=''" class="fox-cloud-button-lg fox-cloud-button-white" data-dismiss="modal" (click)="ccf()" name="ccf_{{id}}">
             <span class="icon-button-label">{{ct | translate}}</span><!-- 取消 -->
         </button>
-        <button *ngIf="test "class="fox-cloud-button-lg fox-cloud-button-white" (click)="ctest()" name="ctest_{{showTitle}}" style="margin-left: 30px">
+        <button *ngIf="test "class="fox-cloud-button-lg fox-cloud-button-white" (click)="ctest()" name="ctest_{{id}}" style="margin-left: 30px">
             <span class="icon-button-label">{{test | translate}}</span><!-- 测试 -->
         </button>
-        <button *ngIf="ot != ''" class="fox-cloud-button-lg fox-cloud-button-white" [disabled]="!enableOKButton" (click)="cof()" name="cof_{{showTitle}}" style="margin-left: 30px">
+        <button *ngIf="ot != ''" class="fox-cloud-button-lg fox-cloud-button-white" [disabled]="!enableOKButton" (click)="cof()" name="cof_{{id}}" style="margin-left: 30px">
             <span class="icon-button-label">{{ot | translate}}</span><!-- 确认 -->
         </button>
     </modal-footer>
