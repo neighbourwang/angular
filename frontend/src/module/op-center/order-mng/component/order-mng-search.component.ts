@@ -228,10 +228,10 @@ export class OrderMngSearchComponent implements OnInit{
 		param.userId = param.buyerId;
 		param.orderCode = param.searchText;//快速查询只支持搜索输入订单编号
 		if(this.createDatePicker&&this.createDatePicker.invalidDate){
-			this.showMsg('创建时间不合法');
+			this.showMsg('提交时间不合法！');
 			return;
 		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
-			this.showMsg('到期时间不合法');
+			this.showMsg('提交时间不合法！');
 			return;
 		}
 		
@@ -285,16 +285,8 @@ export class OrderMngSearchComponent implements OnInit{
 
 	resetParam(){
 		this._buyerLoader.clear();
-		if(this.createDatePicker.invalidDate){
-			this.showMsg('创建时间不合法！')
-		}else{
-			this.createDatePicker.removeBtnClicked();
-		}
-		if(this.expireDatePicker.invalidDate){
-			this.showMsg('到期时间不合法！')
-		}else{
-			this.expireDatePicker.removeBtnClicked();
-		}
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
 		this._param.reset();
 		
 	}

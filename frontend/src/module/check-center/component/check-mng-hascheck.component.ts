@@ -217,10 +217,10 @@ export class CheckMngHascheckComponent implements OnInit{
 		};
 
 		if(this.createDatePicker&&this.createDatePicker.invalidDate){
-			this.showMsg('创建时间不合法');
+			this.showMsg('创建时间不合法!');
 			return;
 		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
-			this.showMsg('到期时间不合法');
+			this.showMsg('创建时间不合法!');
 			return;
 		}
 		this._layoutService.show();
@@ -287,16 +287,8 @@ export class CheckMngHascheckComponent implements OnInit{
 	resetParam(){
 		
 		this._submiterLoader.clear();
-		if(this.createDatePicker.invalidDate){
-			this.showMsg('创建时间不合法！')
-		}else{
-			this.createDatePicker.removeBtnClicked();
-		}
-		if(this.expireDatePicker.invalidDate){
-			this.showMsg('到期时间不合法！')
-		}else{
-			this.expireDatePicker.removeBtnClicked();
-		}
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
 		this._param.reset();
 	}
 

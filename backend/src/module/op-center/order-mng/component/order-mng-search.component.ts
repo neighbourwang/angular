@@ -376,16 +376,8 @@ export class OrderMngSearchComponent implements OnInit{
 
 	resetParam(){
 		this._param.reset();
-		if(this.createDatePicker.invalidDate){
-			this.showMsg('提交时间不合法！')
-		}else{
-			this.createDatePicker.removeBtnClicked();
-		}
-		if(this.expireDatePicker.invalidDate){
-			this.showMsg('提交时间不合法！')
-		}else{
-			this.expireDatePicker.removeBtnClicked();
-		}
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
 		this._departmentLoader.clear();
 		this._buyerLoader.clear();
 		

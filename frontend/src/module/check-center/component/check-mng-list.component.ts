@@ -225,10 +225,11 @@ export class CheckMngListComponent implements OnInit {
 		};
 
 		if(this.createDatePicker&&this.createDatePicker.invalidDate){
-			this.showMsg('创建时间不合法');
+			this.showMsg('创建时间不合法!');
 			return;
-		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
-			this.showMsg('到期时间不合法');
+		}
+		if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
+			this.showMsg('创建时间不合法!');
 			return;
 		}
 
@@ -367,17 +368,9 @@ export class CheckMngListComponent implements OnInit {
 
 	resetParam() {
 		this._submiterLoader.clear();
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
 		this._param.reset();
-		if(this.createDatePicker.invalidDate){
-			this.showMsg('创建时间不合法！')
-		}else{
-			this.createDatePicker.removeBtnClicked();
-		}
-		if(this.expireDatePicker.invalidDate){
-			this.showMsg('到期时间不合法！')
-		}else{
-			this.expireDatePicker.removeBtnClicked();
-		}
 	}
 
 }

@@ -484,7 +484,6 @@ export class OrderMngComponent implements OnInit {
 	submitRenew() {
 		if(this.autoRenewItem.serivceRenewWayProductItems.length==0){
 				this.showMsg('该已购服务不支持自动续订！');
-				// this.AutoRenewDialog.close();
 				return;
 		}
 		if (!this.autoRenewItem.isSelectedType) {
@@ -640,10 +639,10 @@ export class OrderMngComponent implements OnInit {
 		};
 
 		if(this.createDatePicker&&this.createDatePicker.invalidDate){
-			this.showMsg('创建时间不合法');
+			this.showMsg('到期时间不合法！');
 			return;
 		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
-			this.showMsg('到期时间不合法');
+			this.showMsg('到期时间不合法！');
 			return;
 		}
 
@@ -955,16 +954,8 @@ export class OrderMngComponent implements OnInit {
 
 	resetParam() {
 		this._buyerLoader.clear();
-		if(this.createDatePicker.invalidDate){
-			this.showMsg('创建时间不合法！')
-		}else{
-			this.createDatePicker.removeBtnClicked();
-		}
-		if(this.expireDatePicker.invalidDate){
-			this.showMsg('到期时间不合法！')
-		}else{
-			this.expireDatePicker.removeBtnClicked();
-		}
+		this.createDatePicker.removeBtnClicked();
+		this.expireDatePicker.removeBtnClicked();
 		this._param.reset();
 	}
   cancelSuccess($event){
