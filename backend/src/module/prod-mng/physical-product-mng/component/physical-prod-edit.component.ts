@@ -11,7 +11,7 @@ import { PhysicalProductService } from '../service/physical-prod-cre.service';
 
 
 //model
-import { PhysicalProductModel, ProductEnterpriseReqs ,PmPartsBaseprises} from '../model/physical-product.model';
+import { PhysicalProductModel, ProductEnterpriseReqs, PmPartsBaseprises } from '../model/physical-product.model';
 import { PhysicalService, FlatResourcePool, ResourcePoolObj, PartsFlavor, UnitObj, Spec } from '../model/physical-prod-service.model';
 import { HistoryPriceList } from '../model/historyPrice.model';
 
@@ -37,7 +37,7 @@ export class PhysicalProdEditComponent implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
     @ViewChild('unitPricePop')
-    unitPricePop:PopupComponent;
+    unitPricePop: PopupComponent;
 
     product: PhysicalProductModel;
     productId: string;
@@ -74,11 +74,27 @@ export class PhysicalProdEditComponent implements OnInit {
                 return this.productService.getPhysicalService(this.product.serviceId);
             })
             .then(() => {
+                this.productService.getEnterPriseList().then(() => {
+                    for (let ent of this.productService.enterpriseListForSelect) {
+                        ent.selected = false;
+                        ent.disabled = false;
+                        for (let entProd of this.updateEntObj.productEnterpiseReqs) {
+                            if (ent.id == entProd.id) {
+                                ent.selected = true;
+                                ent.disabled = true;
+                                entProd.disabled = true;
+                            }
+                        }
+                    }
+                    console.log(this.productService.enterpriseListForSelect);
+                });
+            })
+            .then(() => {
                 //比对产品目录已选择资源池
                 this.allSelected =
                     this.product.phyMachineAreaPoolsProfile.length == this.productService.physicalService.phyMachineAreaPoolsProfile.length ? true : false;
-                this.isCanAddPool=
-                    this.allSelected?false:true;//如果开始就已经全被选也没必要添加了;
+                this.isCanAddPool =
+                    this.allSelected ? false : true;//如果开始就已经全被选也没必要添加了;
                 this.product.phyMachineAreaPoolsProfile.forEach(pool => {
                     this.productService.physicalService.phyMachineAreaPoolsProfile.forEach(Pool => {
                         if (pool.pmPoolId == Pool.pmPoolId) {
@@ -93,19 +109,7 @@ export class PhysicalProdEditComponent implements OnInit {
         //产品历史价格
         this.getHistoryPrice(this.productId);
         this.productService.getUnitList();
-        this.productService.getEnterPriseList().then(() => {
-            for (let ent of this.productService.enterpriseListForSelect) {
-                ent.selected = false;
-                ent.disabled = false;
-                for (let entProd of this.updateEntObj.productEnterpiseReqs) {
-                    if (ent.id == entProd.id) {
-                        ent.selected = true;
-                        ent.disabled = true;
-                        entProd.disabled = true;
-                    }
-                }
-            }
-        });
+
     }
     //请求产品详情
     getProductDetail(id) {
@@ -122,10 +126,10 @@ export class PhysicalProdEditComponent implements OnInit {
                     this.tempExtendCyclePrice = this.product.extendCyclePrice;
                     this.tempOneTimePrice = this.product.oneTimePrice;
                     //部件价格信息
-                    this.product.pmPartsBaseprises.forEach(unit=>{
-                        unit.temPrice=unit.ajustmentPrice;
-                        unit.isEdit=false;
-                        unit.priceValid=true;
+                    this.product.pmPartsBaseprises.forEach(unit => {
+                        unit.temPrice = unit.ajustmentPrice;
+                        unit.isEdit = false;
+                        unit.priceValid = true;
                     })
                     //产品企业列表
                     this.updateEntObj.productEnterpiseReqs = JSON.parse(JSON.stringify(this.product.productEnterpiseReqs));
@@ -191,7 +195,7 @@ export class PhysicalProdEditComponent implements OnInit {
         }).then(res => {
             console.log(res);
             this.layoutService.hide();
-            this.location.back();                                 
+            this.location.back();
         }).catch(err => {
             console.log(err);
             this.layoutService.hide();
@@ -204,36 +208,36 @@ export class PhysicalProdEditComponent implements OnInit {
     tempOneTimePrice: number;
     tempUnitPrice: number;
     //调整部件价格
-    adjustUnitPrice(unit){
-        if(unit.temPrice<0){
-            return unit.priceValid=false;
-        }else{
-            return unit.priceValid=true;
+    adjustUnitPrice(unit) {
+        if (unit.temPrice < 0) {
+            return unit.priceValid = false;
+        } else {
+            return unit.priceValid = true;
         }
     }
     cancelPriceEdit() {
         this.tempBasicCyclePrice = this.product.basicCyclePrice;
         this.tempExtendCyclePrice = this.product.extendCyclePrice;
         this.tempOneTimePrice = this.product.oneTimePrice;
-        this.product.pmPartsBaseprises.forEach(unit=>{
-            unit.temPrice=unit.ajustmentPrice;
-            unit.isEdit=false;
+        this.product.pmPartsBaseprises.forEach(unit => {
+            unit.temPrice = unit.ajustmentPrice;
+            unit.isEdit = false;
         });
         this.editPriceInfo = false;
     }
     savePrice() {
-        for(let unit of this.product.pmPartsBaseprises){
-            if(unit.temPrice<0){
-                return unit.priceValid=false;
+        for (let unit of this.product.pmPartsBaseprises) {
+            if (unit.temPrice < 0) {
+                return unit.priceValid = false;
             }
         }
         this.product.basicCyclePrice = this.tempBasicCyclePrice;
         this.product.extendCyclePrice = this.tempExtendCyclePrice;
         this.product.oneTimePrice = this.tempOneTimePrice;
         this.editPriceInfo = false;
-        this.product.pmPartsBaseprises.forEach(unit=>{
-            unit.ajustmentPrice=unit.temPrice;
-            unit.isEdit=false;
+        this.product.pmPartsBaseprises.forEach(unit => {
+            unit.ajustmentPrice = unit.temPrice;
+            unit.isEdit = false;
         })
         console.log(this.product);
         this.layoutService.show();
@@ -241,7 +245,7 @@ export class PhysicalProdEditComponent implements OnInit {
             console.log(res);
             // this.getProductDetail(this.productId)
             this.layoutService.hide();
-            this.location.back();                                 
+            this.location.back();
         }).catch(err => {
             console.log(err);
             this.layoutService.hide();
@@ -259,16 +263,16 @@ export class PhysicalProdEditComponent implements OnInit {
     allSelected: boolean = false;
     selectAllResourcePool() {
         this.allSelected = !this.allSelected;
-        this.productService.physicalService.phyMachineAreaPoolsProfile.forEach(ele =>{
-            if(!ele.disabled)ele.selected = this.allSelected
+        this.productService.physicalService.phyMachineAreaPoolsProfile.forEach(ele => {
+            if (!ele.disabled) ele.selected = this.allSelected
         });
-        let list=
-        this.productService.physicalService.phyMachineAreaPoolsProfile.filter(pool=>{
-            if(pool.selected) return pool
-        })
+        let list =
+            this.productService.physicalService.phyMachineAreaPoolsProfile.filter(pool => {
+                if (pool.selected) return pool
+            })
         console.log(list);
-        this.isAddPool=
-            list.length>this.product.phyMachineAreaPoolsProfile.length?true:false;
+        this.isAddPool =
+            list.length > this.product.phyMachineAreaPoolsProfile.length ? true : false;
     }
     //选择资源池
     selectResourcePool(idx) {
@@ -276,13 +280,13 @@ export class PhysicalProdEditComponent implements OnInit {
         console.log(this.productService.physicalService.phyMachineAreaPoolsProfile[idx]);
         this.productService.physicalService.phyMachineAreaPoolsProfile[idx].selected = !this.productService.physicalService.phyMachineAreaPoolsProfile[idx].selected;
         //判定是否添加了资源池
-        let list=
-        this.productService.physicalService.phyMachineAreaPoolsProfile.filter(pool=>{
-            if(pool.selected) return pool
-        })
+        let list =
+            this.productService.physicalService.phyMachineAreaPoolsProfile.filter(pool => {
+                if (pool.selected) return pool
+            })
         console.log(list);
-        this.isAddPool=
-            list.length>this.product.phyMachineAreaPoolsProfile.length?true:false;
+        this.isAddPool =
+            list.length > this.product.phyMachineAreaPoolsProfile.length ? true : false;
         //判断是否全选
         for (let resourcePool of this.productService.physicalService.phyMachineAreaPoolsProfile) {
             if (resourcePool.selected == false) {
@@ -290,10 +294,10 @@ export class PhysicalProdEditComponent implements OnInit {
                 return;
             }
         }
-        this.allSelected = true;        
+        this.allSelected = true;
     }
-    isCanAddPool:boolean=true;//如果开始就全选也没必要添加了;
-    isAddPool:boolean;
+    isCanAddPool: boolean = true;//如果开始就全选也没必要添加了;
+    isAddPool: boolean;
     //拼接资源池对象数组
     combineObj() {
         this.product.phyMachineAreaPoolsProfile = [];
@@ -329,24 +333,24 @@ export class PhysicalProdEditComponent implements OnInit {
         console.log(this.product);
     }
     //资源池添加
-    ccEditResourcePool(){
+    ccEditResourcePool() {
         this.combineObj();
         this.layoutService.show();
         this.service.updateProdPool({
             "phyMachineAreaPoolsProfile": this.product.phyMachineAreaPoolsProfile,
             "productId": this.product.productId,
-            "serviceId":this.product.serviceId
-        }).then(res=>{
+            "serviceId": this.product.serviceId
+        }).then(res => {
             console.log(res);
             this.layoutService.hide();
-            this.location.back();            
-        }).catch(err=>{
-            this.layoutService.hide();            
+            this.location.back();
+        }).catch(err => {
+            this.layoutService.hide();
             console.error
         })
         console.log(this.product);
     }
-    
+
     //编辑企业
     //选择企业
     selectEnterprise(ent, index) {
@@ -379,15 +383,15 @@ export class PhysicalProdEditComponent implements OnInit {
     isAddEntConfirm() {
         let updateList = this.updateEntObj.productEnterpiseReqs.map(ent => ent.id).sort();
         let prodEntList = this.product.productEnterpiseReqs.map(ent => ent.id).sort();
-        if(updateList.length==0){
+        if (updateList.length == 0) {
             return this.isAddEnter = false;
-        }else if (updateList.length > prodEntList.length) {
+        } else if (updateList.length > prodEntList.length) {
             return this.isAddEnter = true;
         } else {
             for (let i = 0; i < updateList.length; i++) {
-               if(prodEntList.indexOf(updateList[i])==-1){
-                   return this.isAddEnter = false;
-               };               
+                if (prodEntList.indexOf(updateList[i]) == -1) {
+                    return this.isAddEnter = false;
+                };
             }
             return this.isAddEnter = false;
         }
@@ -400,28 +404,28 @@ export class PhysicalProdEditComponent implements OnInit {
         this.service.editProductEnterPrise(this.updateEntObj).then(res => {
             console.log(res);
             this.layoutService.hide();
-            this.location.back();            
+            this.location.back();
         }).catch(err => {
             console.log(err);
             this.layoutService.hide();
         })
     }
     //部件历史价格
-    unitPriceList:Array<PmPartsBaseprises>;
-    viewUnitPrice(price){
+    unitPriceList: Array<PmPartsBaseprises>;
+    viewUnitPrice(price) {
         console.log(price.billingId);
         this.layoutService.show();
-        this.service.getProdUnitPrice(price.billingId).then(res=>{
+        this.service.getProdUnitPrice(price.billingId).then(res => {
             console.log(res);
-            this.unitPriceList=res.resultContent.pmPartsBaseprises;
+            this.unitPriceList = res.resultContent.pmPartsBaseprises;
             this.layoutService.hide();
-            if(this.unitPriceList.length>0){
-                this.unitPricePop.open('部件历史价格信息');                
+            if (this.unitPriceList.length > 0) {
+                this.unitPricePop.open('部件历史价格信息');
             }
-        }).catch(err=>{
+        }).catch(err => {
             console.error(err)
             this.layoutService.hide();
         })
     }
-    ot(){}
+    ot() { }
 }
