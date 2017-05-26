@@ -58,5 +58,6 @@ export class DatabaseMiddlewareProdService {
 
         return this.restApi.request(api.method, api.url, [], undefined,data);
     }
+    
 }
   

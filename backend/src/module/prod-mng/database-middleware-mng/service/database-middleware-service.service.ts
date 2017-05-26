@@ -39,7 +39,7 @@ export class DatabaseMiddlewareService {
         let api = this.restApiCfg.getRestApi("prod-mng-database-plateforms.get");
         return this.restApi.request(api.method, api.url, undefined, undefined);
     }
-    //创建管理服务产品目录    
+    //创建数据库中间件产品目录    
     postDatabaseMiddlewareService(data:DatabaseMiddlewareServiceModel) {
         let api = this.restApiCfg.getRestApi("database-middleware-service-create.post");
 
@@ -50,5 +50,16 @@ export class DatabaseMiddlewareService {
       owner : "GLOBAL",
       field : "SERVER_TYPE"    
    })
+   //获取中间件数据库服务目录详情forEdit   
+    getDatabaseMiddlewareServiceEdit(id:string) {
+        let api = this.restApiCfg.getRestApi("database-middleware-service-edit.get");
+        return this.restApi.request(api.method, api.url, [{key:'id',value:id}], undefined)
+    }
+    //更新数据库中间件产品目录
+    putDatabaseMiddlewareService(data:DatabaseMiddlewareServiceModel) {
+        let api = this.restApiCfg.getRestApi("database-middleware-service-update.put");
+
+        return this.restApi.request(api.method, api.url, [], undefined,data);
+    }
 }
   

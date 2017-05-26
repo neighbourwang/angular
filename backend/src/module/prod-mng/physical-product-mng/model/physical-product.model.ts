@@ -55,6 +55,6 @@ class ProductEnterpriseReqs {
     "id": string;
     "name": string;
     "selected":boolean;
-    "disable":boolean;
+    "disabled":boolean;
 }
 export{ PhysicalProductModel,ProductEnterpriseReqs,PmPartsBaseprises}

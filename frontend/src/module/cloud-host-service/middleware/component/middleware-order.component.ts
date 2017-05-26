@@ -24,6 +24,12 @@ import { MiddlewareValue, DiskValue, VlueList } from "../model/other.model"
 })
 export class MiddlewareComponentOrder extends DatabaseComponentOrder implements OnInit {
 
+	@ViewChild('confirm')
+	public confirmDialog: ConfirmComponent;
+
+	@ViewChild('notice')
+	public noticeDialog: NoticeComponent;
+
 	mwInits = [];
 	mwInit;
 
@@ -114,7 +120,7 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 		let errorMsg = this.checkDbValue()
 		if(errorMsg) return [errorMsg];
 
-		this.middlewareValue.DEPLOYMODE.attrValue = this.database.deploymentModeString;
+		this.middlewareValue.DEPLOYMODE.attrValue = this.deploymentModeString;
 		this.middlewareValue.TIMELINE = this.values.TIMELINE
 		this.middlewareValue.TIMELINEUNIT = this.values.TIMELINEUNIT
 		this.middlewareValue.MIDDLEWARETYPE.attrValue = this.mwInit.middleware.label
@@ -137,7 +143,7 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 	}
 
 	get deploymentModeString () {
-		return this.mwInit ? this.mwInit.mode.filter(m => m.value === this.fetchMWIdsPost.deploymentMode)[0].label : ""
+		return this.mwInit ? this.mwInit.mode.filter(m => m.value == this.fetchMWIdsPost.deploymentMode)[0].label : ""
 	}
 
 	checkDbValue(key?: string) {

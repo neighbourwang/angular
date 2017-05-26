@@ -1284,6 +1284,24 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "adminui/authsec/product/middeware"
     },
+    {
+        "desc": "获取中间件数据库服务目录详情forEdit",
+        "id": "database-middleware-service-edit.get",
+        "method": "GET",
+        "url": "adminui/authsec/services/middleWarepre/{id}"
+    },    
+    {
+        "desc": "更新数据库中间件服务目录",
+        "id": "database-middleware-service-update.put",
+        "method": "PUT",
+        "url": "adminui/authsec/services/type/middleware"
+    },
+     {
+        "desc": "获取中间件数据库产品详情forEdit",
+        "id": "database-middleware-product.get",
+        "method": "GET",
+        "url": "adminui/authsec/enterprises/product/{id}"
+    }, 
     //模板管理
     {
         "desc": "查询数据库模板",

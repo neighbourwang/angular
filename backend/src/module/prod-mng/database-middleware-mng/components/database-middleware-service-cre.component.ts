@@ -31,24 +31,36 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
     //PrivateCloud   
     serviceType: string;//服务类型
     servcieTitle: string;//创建服务器标题
+    pageType: string;
     resourcePooList: Array<ResourcPool>;
     _platformlist: Array<PlatformSimpleItem>;
     serviceTemplatList: Array<ServiceTemplat>;
     databaseMiddlewareService: DatabaseMiddlewareServiceModel = new DatabaseMiddlewareServiceModel();//数据库中间件服务
     ngOnInit() {
         this.router.params.forEach((params: Params) => {
-            this.serviceType = params['type'];
-            this.servcieTitle =
-                this.serviceType == 'MiddleWare' ? '中间件服务器' : '数据库服务器';
-            //PublicCloud
-            this.databaseMiddlewareService.serverType =
-                params['code'] == 'PrivateCloud' ? '0' : params['code'] == 'PhyMachine' ? '1' : '2';
+            if (params['id']) {
+                this.databaseMiddlewareService.serviceId = params['id'];
+                this.getEditServiceDetail();
+                this.pageType = '编辑产品目录';
+                this.servcieTitle =
+                    params['type'] == '5' ? '中间件服务器' : '数据库服务器';
+                this.serviceType =
+                    params['type'] == '5' ? 'MiddleWare' : 'Database';
+                // this.servcieTitle=this.databaseMiddlewareService.
+            } else {
+                this.pageType = '新建产品目录'
+                this.serviceType = params['type'];
+                this.servcieTitle =
+                    this.serviceType == 'MiddleWare' ? '中间件服务器' : '数据库服务器';
+                this.databaseMiddlewareService.serverType =
+                    params['code'] == 'PrivateCloud' ? '0' : params['code'] == 'PhyMachine' ? '1' : '2';
+                // (this.databaseMiddlewareService.serverType == '1') && this.getResourcePoolList();//物理机暂不实现
+                (this.databaseMiddlewareService.serverType == '0') && this.getPlateForm();
+            }
         });
-        console.log(this.serviceType, this.databaseMiddlewareService.serverType);
         (this.serviceType == 'Database') && this.getDatabaseServeTemplateList();
         (this.serviceType == 'MiddleWare') && this.getMiddleWareServeTemplateList();
-        (this.databaseMiddlewareService.serverType == '1') && this.getResourcePoolList();
-        (this.databaseMiddlewareService.serverType != '1') && this.getPlateForm();
+
     }
     //获取中间件服务模板列表
     getMiddleWareServeTemplateList() {
@@ -123,7 +135,26 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
             this.layoutService.hide();
         })
     }
+    //编辑时获取目录详情
+    getEditServiceDetail() {
+        this.service.getDatabaseMiddlewareServiceEdit(this.databaseMiddlewareService.serviceId).then(res => {
+            console.log(res);
+            this.databaseMiddlewareService = res.resultContent;
+            if (this.databaseMiddlewareService.serverType != '1') {
+                this._platformlist = JSON.parse(JSON.stringify(res.resultContent.platformSimpleItemResp));
+                for (let plat of this._platformlist) {
+                    if (!plat) continue;
+                    plat.disabled = plat.selected
+                }
+            } else {
+                //资源池
+            }
 
+        }).catch(err => {
+            console.error(err);
+            this.layoutService.hide();
+        })
+    }
     //选择全部资源池或平台
     allSelected: boolean = false;
     selectAll(list) {
@@ -144,7 +175,7 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            serviceName: [this.databaseMiddlewareService.serviceName, [this.v.isBase, this.v.maxLength(20),this.v.isUnBlank], "产品目录名称格式不正确"],
+            serviceName: [this.databaseMiddlewareService.serviceName, [this.v.isBase, this.v.maxLength(20), this.v.isUnBlank], "产品目录名称格式不正确"],
 
             description: [this.databaseMiddlewareService.desc, [this.v.maxLength(68)], "描述输入错误"],
 
@@ -167,19 +198,19 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
                 this.databaseMiddlewareService.serviceType = tem.serviceTemplatType;
             }
         });
-        if (this.databaseMiddlewareService.serverType == '1') {
-            this.databaseMiddlewareService.resourcPoolsProfiles = [];
-            this.databaseMiddlewareService.resourcPoolsProfiles = this.resourcePooList.filter(ele => {
-                if (ele.selected) {
-                    ele.poolName = ele.region + '地区-' + ele.poolName;
-                    return ele
-                }
-            })
-            if (this.databaseMiddlewareService.resourcPoolsProfiles.length == 0) {
-                this.notice.open('COMMON.OPERATION_ERROR', '请选择资源池信息')
+        if (this.databaseMiddlewareService.serverType == '1'||this.databaseMiddlewareService.serverType == '2') {
+            // this.databaseMiddlewareService.resourcPoolsProfiles = [];
+            // this.databaseMiddlewareService.resourcPoolsProfiles = this.resourcePooList.filter(ele => {
+            //     if (ele.selected) {
+            //         ele.poolName = ele.region + '地区-' + ele.poolName;
+            //         return ele
+            //     }
+            // })
+            // if (this.databaseMiddlewareService.resourcPoolsProfiles.length == 0) {
+                this.notice.open('提示', '准备开发')
                 return
-            }
-        } else if (this.databaseMiddlewareService.serverType != '1') {
+            // }
+        } else if (this.databaseMiddlewareService.serverType == '0') {
             this.databaseMiddlewareService.platformSimpleItemResp = [];
             this._platformlist.forEach(ele => {
                 if (ele.selected) {
@@ -191,16 +222,30 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
                 return
             }
         }
-        console.log(this.databaseMiddlewareService);
-        this.layoutService.show();
-        this.service.postDatabaseMiddlewareService(this.databaseMiddlewareService).then(res => {
-            console.log(res);
-            this.layoutService.hide();
-            this.location.back();
-        }).catch(err => {
-            console.error(err);
-            this.layoutService.hide();
-        })
+        //编辑还是新建
+        if (this.databaseMiddlewareService.serviceId) {
+            this.layoutService.show();
+            this.service.putDatabaseMiddlewareService(this.databaseMiddlewareService).then(res => {
+                console.log(res);
+                this.layoutService.hide();
+                this.location.back();
+            }).catch(err => {
+                console.error(err);
+                this.layoutService.hide();
+            })
+        } else {
+            console.log(this.databaseMiddlewareService);
+            this.layoutService.show();
+            this.service.postDatabaseMiddlewareService(this.databaseMiddlewareService).then(res => {
+                console.log(res);
+                this.layoutService.hide();
+                this.location.back();
+            }).catch(err => {
+                console.error(err);
+                this.layoutService.hide();
+            })
+        }
+
     }
     cancel() {
         this.location.back();

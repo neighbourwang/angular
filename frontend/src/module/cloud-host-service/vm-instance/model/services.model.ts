@@ -7,6 +7,7 @@ class VlueList {
     sku?:SkuMap;
     capacity?: number;
     osType?: number;
+    platformIds?: string[];
 }
 
 class OrderService {
