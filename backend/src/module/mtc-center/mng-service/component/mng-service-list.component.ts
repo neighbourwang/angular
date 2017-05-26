@@ -42,7 +42,7 @@ export class MngServiceListComponent implements OnInit{
     noticeMsg = "";
 
     pageIndex= 0;
-    pageSize= 5;
+    pageSize= 10;
     totalPage= 1;
 
     typeDic: Array<SystemDictionary>;
@@ -87,7 +87,7 @@ export class MngServiceListComponent implements OnInit{
     getData(pageIndex?) {
         console.log("serviceStatus",this.serviceStatus);
         console.log("searchTypeCode",this.searchTypeCode);
-        this.pageIndex= pageIndex || this.pageIndex;
+        this.pageIndex= (pageIndex-1) || 0;
         let s= this.serviceNames.find((p)=>{
             return p.serviceId == this.serviceId
         });
