@@ -77,8 +77,7 @@ export class CreateProdStepService{
             console.error(err)
         });
     }
-    //根据平台获取企业列表
-    
+    //根据平台获取企业列表    
     getEnterpriseList(list) {
         let api = this.restApiCfg.getRestApi("prod-mng.prod-enterprise.post");
 

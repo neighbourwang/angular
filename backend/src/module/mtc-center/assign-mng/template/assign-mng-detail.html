@@ -54,7 +54,7 @@
                 <div class="col-md-2 query-left-content">{{'ASSIGN_MNG.CLOUD_HOST_SPEC'|translate}}：</div><!--云主机规格-->
                 <div class="col-md-2">
                     <select class="form-control" [(ngModel)]="queryOpt.flaovarId">
-                        <option [value]="'all'">所有规格</option>
+                        <option [value]="'all'">{{'TREND_MNG.ALL_SPECS'|translate}}</option><!--所有规格-->
                         <option *ngFor="let spec of cloudHostSpecList" [value]="spec">{{spec}}</option>
                     </select>
                 </div>

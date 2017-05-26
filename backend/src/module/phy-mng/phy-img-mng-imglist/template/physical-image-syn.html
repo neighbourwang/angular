@@ -23,7 +23,7 @@
             <tbody>
                 <tr>
                     <tr *ngFor = "let img of phyImgList; let i=index ">
-                    <td><input type="radio" class="fox-cloud-radio" name="radio"[checked]="img.selected"(change)="img.selected = $event.target.checked"/>
+                    <td><input type="radio" class="fox-cloud-radio" name="radio"[checked]="img.selected"(change)="img.selected = $event.target.checked;clearOther(i)"/>
                     </td>
                     <td>{{i+1}}</td>
                     <td>

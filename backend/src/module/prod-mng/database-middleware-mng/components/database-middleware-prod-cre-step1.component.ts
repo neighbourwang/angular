@@ -12,6 +12,7 @@ import { DatabaseMiddlewareServiceModel, ResourcPool, PlatformSimpleItem } from 
 
 // service;
 import { DatabaseMiddlewareProdService } from '../service/database-middleware-prod.service';
+
 @Component({
     templateUrl: '../template/database-middleware-prod-cre-step1.component.html',
     styleUrls: [],

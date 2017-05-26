@@ -28,7 +28,7 @@ class MiddleWareModel {
     this.templateType='middleware';
     this.dbMiddlewareDiskTemplateModelList = [
       {
-        usageType: 0,
+        usageType: 1,
         id: '',
         minDiskSize: 100,
         mountPath: '/data',

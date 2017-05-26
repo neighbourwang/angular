@@ -324,29 +324,8 @@ export class OrderMngSearchComponent implements OnInit{
 	// }
 
 	search(pageNumber:number = 1){
-		/*
-{
-  "approverId": "string",
-  "approverStatus": "string",
-  "createTime": "2017-01-03T07:29:47.768Z",
-  "enterpriseId": "string",
-  "expireTime": "2017-01-03T07:29:47.768Z",
-  "orderCode": "string",
-  "orderType": "string",
-  "organization": "string",
-  "pageParameter": {
-    "currentPage": 0,
-    "offset": 0,
-    "size": 0,
-    "sort": {},
-    "totalPage": 0
-  },
-  "serviceType": "string",
-  "status": "string",
-  "userId": "string"
-}
-		*/
-		this.layoutService.show();
+
+	
 
 		let param = _.extend({}, this._param);
 
@@ -364,6 +343,14 @@ export class OrderMngSearchComponent implements OnInit{
 			currentPage:pageNumber
 			,size:10
 		};
+		if(this.createDatePicker&&this.createDatePicker.invalidDate){
+			this.showMsg('提交时间不合法！');
+			return;
+		}else if(this.expireDatePicker&&this.expireDatePicker.invalidDate){
+			this.showMsg('提交时间不合法！');
+			return;
+		}
+		this.layoutService.show();
 		this._orderLoader.clear();
 		this._orderLoader.TotalPages = 1;//清空页码
 		this._orderLoader.Go(pageNumber, null, param)
@@ -373,26 +360,6 @@ export class OrderMngSearchComponent implements OnInit{
 			this.layoutService.hide();
 		});
 	}
-
-// {
-//   "approverId": "string",
-//   "createTime": "2016-12-13T08:14:41.275Z",
-//   "enterpriseId": "string",
-//   "expireTime": "2016-12-13T08:14:41.275Z",
-//   "orderCode": "string",
-//   "orderType": "string",
-//   "organization": "string",
-//   "pageParameter": {
-//     "currentPage": 0,
-//     "offset": 0,
-//     "size": 0,
-//     "sort": {},
-//     "totalPage": 0
-//   },
-//   "serviceId": "string",
-//   "status": "string",
-//   "userId": "string"
-// }
 
 	onSubmitTimeChange($event){
 		this._param.createDate = $event.formatted;

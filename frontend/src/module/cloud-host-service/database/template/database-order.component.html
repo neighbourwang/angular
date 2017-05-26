@@ -150,9 +150,9 @@
 							</div>
 							<div class="col-md-1 content-title2">{{'COMMON.CAPATITY'| translate}}</div>
 							<div class="col-md-2 no-padding">
-								<select [(ngModel)]="values.BOOTSIZE" class="form-control" id="bootsize">
+								<select [(ngModel)]="values.BOOTSIZE" (ngModelChange)="dux.dispatch('BOOTSIZE')" class="form-control" id="bootsize">
 									<option
-									*ngFor="let value of bootsizeList | filterPlatform: values.PLATFORM?.attrValueId;"
+									*ngFor="let value of bootsizeList"
 									[ngValue]="value" id="bootsize_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>
@@ -184,7 +184,7 @@
                             </tr>
                             <tr *ngFor="let data of database?.diskInfoList; let i = index">
 								<td class="text-center">{{i + 1}}</td>
-								<td class="text-center">{{data.usageType}}</td>
+								<td class="text-center">{{data.usageType | dict:dbservice.diskusage | async}}</td>
 								<td class="text-center">
 									<select class="form-control" id="bootstorage" [(ngModel)]="data.storage"  (ngModelChange)="dux.dispatch('SET_DISK_PRODUCTS')">
 										<option
@@ -199,7 +199,7 @@
 							            [value]="data.minDiskSize" (output)="outputValue($event, i)"></count-bar>
 								</td>
 								<td *ngIf="database?.storageType==='ASM'" class="text-center">{{data.diskGroup}}</td>
-								<td *ngIf="database?.storageType==='ASM'" class="text-center">{{data.copyLevel}}</td>
+								<td *ngIf="database?.storageType==='ASM'" class="text-center">{{data.copyLevel | dict:dbservice.copylevel | async}}</td>
 								<td class="text-center">{{data.mountPath}}</td>
                             </tr>
                         </table>
@@ -218,7 +218,7 @@
 								<select [(ngModel)]="databaseValue.ARCHMODE.attrValue" class="form-control" id="securitygroup">
 									<option
 									 *ngFor="let value of dbservice.archmode | async;"
-									 [ngValue]="value.value" id="securitygroup_{{value.attrValue}}">{{ value.displayValue }}</option>
+									 [ngValue]="value.code" id="securitygroup_{{value.attrValue}}">{{ value.displayValue }}</option>
 								</select>
 							</div>
 							<div class="col-md-1"></div>
@@ -237,7 +237,7 @@
 								<select [(ngModel)]="databaseValue.DBCHARSET.attrValue" class="form-control" id="securitygroup">
 									<option
 									 *ngFor="let value of dbservice.dbcharset | async;"
-									 [ngValue]="value.value" id="securitygroup_{{value.attrValue}}">{{ value.displayValue }}</option>
+									 [ngValue]="value.code" id="securitygroup_{{value.attrValue}}">{{ value.displayValue }}</option>
 								</select>
 							</div>
 							<div class="col-md-1"></div>
