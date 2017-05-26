@@ -22,4 +22,8 @@ export class DialogTranslate {
             return {value: ''};
         }
     };
+
+    getId(val?: String): String{
+        return val.replace(/[&\|\\\*^%$#@\-:： ；。，,.]/g,"")
+    }
 }
