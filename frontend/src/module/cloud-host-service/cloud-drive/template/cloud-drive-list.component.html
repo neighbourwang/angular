@@ -116,11 +116,11 @@
                     <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " *ngIf="!dist.relyId && [1, 10].indexOf(dist.status) > -1"
+                        <li><a (click)="mountDisk = dist;diskPlatformId = dist.platformId;vmDialog.open(); " *ngIf="[1].indexOf(dist.status) > -1"
                                 href="javascript:" id="mount_{{dist.id}}">{{'CLOUD_DRIVE_LIST.MOUNT' | translate}}</a></li>
-                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" id="uninstall_{{dist.id}}" *ngIf="dist.relyId && [1, 10].indexOf(dist.status) > -1" href="javascript:">{{'CLOUD_DRIVE_LIST.UNINSTALL' | translate}}</a></li>
-                        <li *ngIf="dist.relyId && [1, 10].indexOf(dist.status) > -1" role="separator" class="divider"></li>
-                        <li *ngIf="dist.relyId && [1, 10].indexOf(dist.status) > -1" ><a (click)="diskReconfig.open(dist)" href="javascript:" id="open_{{dist.id}}">云硬盘扩容</a></li>
+                        <li><a (click)="handleDist('unmount', dist, '卸载云硬盘')" id="uninstall_{{dist.id}}" *ngIf="[5, 10].indexOf(dist.status) > -1" href="javascript:">{{'CLOUD_DRIVE_LIST.UNINSTALL' | translate}}</a></li>
+                        <li *ngIf="[10].indexOf(dist.status) > -1" role="separator" class="divider"></li>
+                        <li *ngIf="[10].indexOf(dist.status) > -1" ><a (click)="diskReconfig.open(dist)" href="javascript:" id="open_{{dist.id}}">云硬盘扩容</a></li>
                     </ul>
                 </div>
             </td>
@@ -138,3 +138,124 @@
 
 <disk-reconfig (onSuccess)="setDistList()" #diskReconfig></disk-reconfig>
 
+<!-- 
+
+空闲 1  挂载
+挂载中 5 卸载
+已使用 10 卸载
+      扩容
+
+
+ {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "ATTACHING",
+      "value": "0",
+      "displayValue": "ATTACHING"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "AVAILABLE",
+      "value": "1",
+      "displayValue": "AVAILABLE"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "BACKING_UP",
+      "value": "2",
+      "displayValue": "BACKING_UP"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "CREATING",
+      "value": "3",
+      "displayValue": "CREATING"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "DELETING",
+      "value": "4",
+      "displayValue": "DELETING"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "DETACHING",
+      "value": "5",
+      "displayValue": "DETACHING"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "DOWNLOADING",
+      "value": "6",
+      "displayValue": "DOWNLOADING"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "ERROR",
+      "value": "7",
+      "displayValue": "ERROR"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "ERROR_DELETING",
+      "value": "8",
+      "displayValue": "ERROR_DELETING"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "ERROR_RESTORING",
+      "value": "9",
+      "displayValue": "ERROR_RESTORING"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "IN_USE",
+      "value": "10",
+      "displayValue": "IN_USE"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "RESTORING_BACKUP",
+      "value": "11",
+      "displayValue": "RESTORING_BACKUP"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "UNRECOGNIZED",
+      "value": "12",
+      "displayValue": "UNRECOGNIZED"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "UPLOADING",
+      "value": "13",
+      "displayValue": "UPLOADING"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "DELETED",
+      "value": "14",
+      "displayValue": "DELETED"
+    },
+    {
+      "owner": "VOLUME",
+      "field": "STATUS",
+      "code": "EXPANDING",
+      "value": "15",
+      "displayValue": "EXPANDING"
+    },
+ -->

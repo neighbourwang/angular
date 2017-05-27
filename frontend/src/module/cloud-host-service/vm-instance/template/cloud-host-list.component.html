@@ -124,29 +124,29 @@
 			<!-- <td class="text-center">生产</td> -->
 			<!-- <td class="text-center">关键</td> -->
 			<td class="text-center">
-				<div *ngIf="['0','7','14', '16'].indexOf(vm.vmState) > -1" class="dropdown">
+				<div *ngIf="['0','7','14', '16', '25', '26', '27', '28'].indexOf(vm.vmState) > -1" class="dropdown">
 					<button class="btn btn-default dropdown-toggle" type="button" [attr.id]="'dropdownMenu'+(index+3)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="more_{{vm.itemId}}">
 					{{'COMMON.MORE_ACTIONS'| translate}}
 					<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
 						<li><a *ngIf="['14'].indexOf(vm.vmState) > -1" (click)="handleVm('start', vm, '启动')" href="javascript:" id="cloud_control_on_{{vm.itemId}}">{{'COMMON.START'| translate}}</a></li>
-						<li><a *ngIf="['0'].indexOf(vm.vmState) > -1" (click)="handleVm('stop', vm, '关机')" href="javascript:" id="cloud_control_off_{{vm.itemId}}">{{'COMMON.SHUTDOWN'| translate}}</a></li>
+						<li><a *ngIf="['0', '7', '26', '27', '28'].indexOf(vm.vmState) > -1" (click)="handleVm('stop', vm, '关机')" href="javascript:" id="cloud_control_off_{{vm.itemId}}">{{'COMMON.SHUTDOWN'| translate}}</a></li>
 						<!-- <li><a (click)="handleVm('stop', vm)" href="javascript:">停止</a></li> -->
 						<li><a *ngIf="['0'].indexOf(vm.vmState) > -1" (click)="handleVm('pause', vm, '暂停')" href="javascript:" id="cloud_control_pause_{{vm.itemId}}">{{'COMMON.PAUSE'| translate}}</a></li>
 						<li><a *ngIf="['7'].indexOf(vm.vmState) > -1" (click)="handleVm('unpause', vm , '恢复')" href="javascript:" id="cloud_control_go_{{vm.itemId}}">{{'COMMON.RESTORE'| translate}}</a></li>
 						<!-- <li><a (click)="handleVm('resume', vm)" href="javascript:">恢复</a></li> -->
-						<li><a *ngIf="['0','14'].indexOf(vm.vmState) > -1" (click)="handleVm('hardReboot', vm , '硬重启')" href="javascript:"  id="cloud_control_hard_{{vm.itemId}}">{{'COMMON.HARD_REBOOT'| translate}}</a></li>
-						<li><a *ngIf="['0','14'].indexOf(vm.vmState) > -1" (click)="handleVm('softReboot', vm , '软重启')" href="javascript:" id="cloud_control_soft_{{vm.itemId}}">{{'COMMON.SOFT_RESTART'| translate}}</a></li>
+						<li><a *ngIf="['0', '7', '14', '25', '26', '27', '28'].indexOf(vm.vmState) > -1" (click)="handleVm('hardReboot', vm , '硬重启')" href="javascript:"  id="cloud_control_hard_{{vm.itemId}}">{{'COMMON.HARD_REBOOT'| translate}}</a></li>
+						<li><a *ngIf="['0', '7', '14', '25', '26', '27', '28'].indexOf(vm.vmState) > -1" (click)="handleVm('softReboot', vm , '软重启')" href="javascript:" id="cloud_control_soft_{{vm.itemId}}">{{'COMMON.SOFT_RESTART'| translate}}</a></li>
 						<li><a *ngIf="['0'].indexOf(vm.vmState) > -1 && vm.publicIP && vm.platformType === '0'" (click)="handleVm('unbindFloatingIp', vm, '解绑浮动IP')" href="javascript:"  id="cloud_control_remove_id_{{vm.itemId}}">{{'VM_INSTANCE.UNBIND_FLOATING_IP'| translate}}</a></li>
 						<!-- <li><a (click)="handleVm('suspend', vm)" href="javascript:">挂起</a></li> -->
 						<li><a *ngIf="['0','14','7'].indexOf(vm.vmState) > -1 && !vm.publicIP && vm.platformType === '0'" (click)="handleVm('bindFloatingIp', vm, '绑定浮动IP')" href="javascript:"  id="cloud_control_bind_id_{{vm.itemId}}">{{'VM_INSTANCE.BIND_FLOATING_IP'| translate}}</a></li>
 						<li>
 							<open-console #console [platformid]="vm.platformId" [uuid]="vm.uuid" [platformtype]="vm.platformType"></open-console>
-							<a *ngIf="['0'].indexOf(vm.vmState) > -1" (click)="console.open()" href="javascript:" id="cloud_control_open_{{vm.itemId}}">{{'VM_INSTANCE.VIEW_CONSOLE'| translate}}</a>
+							<a *ngIf="['0', '7', '14', '25', '26', '27', '28'].indexOf(vm.vmState) > -1" (click)="console.open()" href="javascript:" id="cloud_control_open_{{vm.itemId}}">{{'VM_INSTANCE.VIEW_CONSOLE'| translate}}</a>
 						</li>
 						<li role="separator" class="divider"></li>
-						<li><a (click)="hostReconfig.open(vm)" href="javascript:" id="cloud_control_change_{{vm.itemId}}">配置变更</a></li>
+						<li><a  *ngIf="['0', '14'].indexOf(vm.vmState) > -1" (click)="hostReconfig.open(vm)" href="javascript:" id="cloud_control_change_{{vm.itemId}}">配置变更</a></li>
 						<custom-os [uuid]="vm.uuid" [platformid]="vm.platformId" #customos id="cloud_control_platform"></custom-os>
 						<li><a *ngIf="['0','7','14','16'].indexOf(vm.vmState) > -1 && vm.platformType === '0'" (click)="customos.open()" href="javascript:" id="cloud_control_custom_{{vm.itemId}}">创建自定义镜像</a></li>
 					</ul>
@@ -162,15 +162,44 @@
 <host-reconfig #hostReconfig (onSuccess)="setHostList()"></host-reconfig>
 
 
-<!-- 显示可对云主机进行的操作，下拉列表类型，选项值为：
--	查看控制台、创建镜像、创建快照、更改配置、挂载云硬盘、卸载云硬盘、启动、软重启、硬重启、关机、暂停、恢复、绑定浮动地址、解绑浮动地址。
--	解绑和绑定是2显示1的状态，即已绑定浮动地址的云主机就显示 解绑浮动地址。
--	暂停和恢复是2显示1的状态，即暂停状态的云主机只显示 恢复，恢复状态的云主机只显示 暂停。
--	关机状态的云主机，下拉列表中只显示查看控制台、软/硬重启、启动、绑定浮动IP。
--	运行状态的云主机，下拉列表中只显示 查看控制台、软/硬重启、关机、暂停、绑定浮动IP。
-暂停状态的云主机，下拉列表中只显示 查看控制台、恢复、绑定浮动IP。 -->
 
-  <!-- {
+<!-- 
+创建中 1    	无
+运行中 0    	关机
+         	暂停
+         	硬重启
+         	软重启
+         	查看控制台
+         	配置变更
+关机中 25   	硬重启
+         	软重启
+         	查看控制台
+硬/软重启中 26	关机
+         	硬重启
+         	软重启
+         	查看控制台
+暂停中  27  	关机
+         	硬重启
+         	软重启
+         	查看控制台
+已关机  14  	开机
+         	硬重启
+         	软重启
+         	查看控制台
+         	配置变更
+启动中  28  	关机
+         	硬重启
+         	软重启
+         	查看控制台
+配置变更中    	无操作
+已暂停  7   	恢复
+         	关机
+         	硬重启
+         	软重启
+         	查看控制台
+删除中      	无 -->
+
+    <!-- {
       "owner": "COMPUTE",
       "field": "STATUS",
       "code": "ACTIVE",
@@ -309,4 +338,66 @@
       "code": "VERIFY_RESIZE",
       "value": "19",
       "displayValue": "VERIFY_RESIZE"
+    },
+        "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "CLONEING",
+      "value": "20",
+      "displayValue": "CLONEING"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "CLONE_FAILED",
+      "value": "21",
+      "displayValue": "CLONE_FAILED"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "CONFIGING",
+      "value": "22",
+      "displayValue": "CONFIGING"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "PASSWD",
+      "value": "23",
+      "displayValue": "PASSWD"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "CONFIG_FAILED",
+      "value": "24",
+      "displayValue": "CONFIG_FAILED"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "SHUTINGOFF",
+      "value": "25",
+      "displayValue": "SHUTINGOFF"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "REBOOTING",
+      "value": "26",
+      "displayValue": "REBOOTING"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "PAUSING",
+      "value": "27",
+      "displayValue": "PAUSING"
+    },
+    {
+      "owner": "COMPUTE",
+      "field": "STATUS",
+      "code": "BOOTING",
+      "value": "28",
+      "displayValue": "BOOTING"
     }, -->
