@@ -275,7 +275,8 @@
             <p class="cloud-p">服务名称: {{product?.name}}</p>
             <p class="cloud-p">服务类型: {{productInfo?.billingType == 0 ? "包年包月" : "按次计费"}}</p>
             <h4 class="cloud-title font-green">实例</h4>
-            <p class="cloud-p">实例类型: {{ values.INSTANCETYPE.attrValue | dict: service.instanceList | async }} {{ productInfo?.serviceObjectCode  | dict: service.instanceList | async }}
+            <p *ngIf="productInfo?.billingType != 0" class="cloud-p">实例类型: {{ values.INSTANCETYPE.attrValue | dict: service.instanceList | async }}
+            <p *ngIf="productInfo?.billingType == 0" class="cloud-p">实例类型: {{ productInfo?.serviceObjectCode  | dict: service.instanceList | async }}
             </p>
             <p class="cloud-p">实例数量: {{selectLength}}</p>
             <h4 class="cloud-title font-green">购买量</h4>

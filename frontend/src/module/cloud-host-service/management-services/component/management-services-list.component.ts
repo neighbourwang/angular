@@ -71,7 +71,6 @@ export class ManagementServicesListComponent implements OnInit {
 
 	fetchMgmtList() {
 		// this.layoutService.show();
-		if( this.listQuery.state == "0" )this.listQuery.state = ""
 		this.service.fetchMgmtList(this.listQuery).then(res => {
 			console.log(this.mgmtList)
 			this.mgmtList = res;
