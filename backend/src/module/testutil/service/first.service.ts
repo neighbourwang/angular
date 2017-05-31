@@ -14,7 +14,7 @@ export class FirstService {
         private restApi: RestApi,        
         private dict: SystemDictionaryService,
     ) { }
-
+    baseurl:string="http://15.114.100.31:30072/zerotest/authsec/";
     search(name:string, fun:string): Promise<any>{
         const pathParams = [
             {
@@ -26,12 +26,12 @@ export class FirstService {
                 value:fun
             }
         ];
-        const url: string= "http://15.114.100.31:30072/zerotest/authsec/zerotest/test/groupcase/{groupcase}/groupfunc/{groupfunc}";
+        const url: string= this.baseurl+"zerotest/test/groupcase/{groupcase}/groupfunc/{groupfunc}";
         return this.restApi.request("get", url, pathParams, null, null);
     }
     
     insertone(one: FirstModel): Promise<any>{
-        const url: string= "http://15.114.100.31:30072/zerotest/authsec/zerotest/test";
+        const url: string= this.baseurl+"zerotest/test";
         return this.restApi.request("post", url , null, null, one);
     }
 
@@ -42,17 +42,27 @@ export class FirstService {
                 value: id
             }
         ];
-         const url: string= "http://15.114.100.31:30072/zerotest/authsec/zerotest/test/id/{id}";
+         const url: string= this.baseurl+"zerotest/test/id/{id}";
         return this.restApi.request("delete", url , pathParams, null, null);
     }
 
-    excute(searchGroupName:string, searchGroupFun:string, bearer:string){
-         const url: string= "http://15.114.100.31:30072/zerotest/authsec/test/zeroTests";
+    excuteGroup(searchGroupName:string, searchGroupFun:string, bearer:string): Promise<any>{
+         const url: string = this.baseurl+"test/zeroTests";
         return this.restApi.request("post", url , null, null,
                     {
                         "bearer": bearer,
                     "groupcase": searchGroupName,
                     "groupfunc": searchGroupFun
                 });
+    }
+
+    updateOne(one: FirstModel): Promise<any>{
+        const url: string = this.baseurl+"zerotest/update";
+        return this.restApi.request("put", url , null, null, one);
+    }
+
+    excuteOne(one: FirstModel){
+        const url: string = this.baseurl+"test/zeromtest";
+        return this.restApi.request("post", url, null, null, one);
     }
 }

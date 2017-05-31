@@ -25,6 +25,8 @@ export class SearchComponent implements OnInit {
 
     @ViewChild("notice")
     notice: ConfirmComponent;
+    @ViewChild("popup")
+    edit: PopupComponent;
 
     noticeTitle = "";
     noticeMsg = "";
@@ -40,6 +42,8 @@ export class SearchComponent implements OnInit {
     bearer:string;
 
     resultList:Array<FirstModel> = new Array<FirstModel>();
+
+    tempEdit:FirstModel = new FirstModel();
 
     doSearch(){
         if(this.searchGroupName == null){
@@ -82,9 +86,9 @@ export class SearchComponent implements OnInit {
         .catch((e) => this.onRejected(e));
     }
 
-    excute(){
+    excuteGroup(){
         this.layoutService.show();
-        this.service.excute(this.searchGroupName, this.searchGroupFun, this.bearer).then(
+        this.service.excuteGroup(this.searchGroupName, this.searchGroupFun, this.bearer).then(
             response =>{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {   
@@ -96,6 +100,63 @@ export class SearchComponent implements OnInit {
             )
             .catch((e) => this.onRejected(e));
     }
+    //执行一个
+    excuteOne(id:string){
+        this.layoutService.show();
+        let one: FirstModel;
+        this.resultList.forEach((e)=>{
+            if(e.id==id){
+                one=e;
+                return;
+            }
+        })
+
+        this.service.excuteOne(one).then(
+            response=>{
+                this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {   
+                        this.showAlert("response:"+response.resultContent);
+                }
+            }
+        )
+        .catch((e) => this.onRejected(e));
+    }
+
+    //修改一个
+    modify(id:string){
+        this.layoutService.show();
+        let one: FirstModel;
+        this.resultList.forEach((e)=>{
+            if(e.id==id){
+                one=e;
+                return;
+            }
+        })
+
+        this.service.updateOne(one).then(
+             response=>{
+                this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {   
+                        this.showAlert("修改成功");
+                        this.doSearch();
+                }
+             }
+        )
+        .catch((e) => this.onRejected(e));
+    }
+
+    openModify(id:string){
+        let one: FirstModel = new FirstModel();
+        this.resultList.forEach((e)=>{
+            if(e.id==id){
+                one=e;
+                return;
+            }
+        })
+        this.tempEdit = one;
+        this.edit.open();
+    }
+
 
     onRejected(reason: any) {
         this.layoutService.hide();

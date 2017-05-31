@@ -79,6 +79,7 @@
     "$": "$ ",
     "YUAN": "",
     "GB": "GB",
+    "COUNT":"piece",
     "ONE_SET": "one set",
     "TWO_SET": "two set",
     "THREE_SET": "three set",
