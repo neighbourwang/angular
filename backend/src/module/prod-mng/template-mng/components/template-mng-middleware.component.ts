@@ -82,7 +82,7 @@ export class MiddlewareComponent implements OnInit {
             this.middleware = res.resultContent[0];
             this.middleware.dbMiddlewareDiskTemplateModelList = JSON.parse(JSON.stringify(this.middleware.diskInfoList));
             this.middleware.dbMiddlewareDiskTemplateModelList.forEach(disk => {
-                (disk.usageType == 0) && (disk.useDisplay = '应用数据及日志');
+                (disk.usageType == 1) && (disk.useDisplay = '应用数据及日志');
             })
             this.middleware.dbMiddlewareDiskTemplateModelList.sort((a, b) => a.usageType - b.usageType);//排下序
             console.log(this.middleware);
