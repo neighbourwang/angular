@@ -11,6 +11,7 @@ import {VmViewComponent} from './component/vm-view.component';
 import {MachineViewComponent} from './component/machine-view.component';
 import {ServiceViewComponent} from './component/service-view.component';
 import {SqlViewComponent} from './component/sql-view.component';
+import {MiddleWareViewComponent} from './component/middleWare-view.component';
 import { OrderCancelService } from './service/order-cancel.service';
 
 @NgModule({
@@ -24,7 +25,8 @@ import { OrderCancelService } from './service/order-cancel.service';
         DiskViewComponent,
         MachineViewComponent,
         ServiceViewComponent,
-        SqlViewComponent
+        SqlViewComponent,
+        MiddleWareViewComponent
     ],
     exports: [
         OrderMngCancelComponent,
@@ -32,7 +34,8 @@ import { OrderCancelService } from './service/order-cancel.service';
         DiskViewComponent,
         MachineViewComponent,
         ServiceViewComponent,
-        SqlViewComponent
+        SqlViewComponent,
+        MiddleWareViewComponent
         
     ],
     providers: [

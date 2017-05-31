@@ -7,15 +7,12 @@ import * as _ from 'underscore';
 	selector:'sql-view'
 	,template:`
 	<ul>
-		<li>区域: {{_obj.platform}}</li>
 
-		<li>可用区: {{_obj.zone}}</li>
+		<li *ngIf="_obj.instanceName" >产品名称: {{_obj.instanceName}}</li>
 
-		<li>产品名称: {{_obj.instanceName}}</li>
+		<li *ngIf="_obj.type" >数据库类型: {{_obj.type}}</li>
 
-		<li>数据库类型: {{_obj.type}}</li>
-
-		<li>数据库版本:{{_obj.version}}</li>
+		<li *ngIf="_obj.version" >数据库版本:{{_obj.version}}</li>
 	</ul>
 	`
 })

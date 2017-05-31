@@ -214,12 +214,16 @@
 				</tr>
 				<tr *ngFor="let prodItem of orderItem.itemList">
 					<td class="order-title">
-						<service-view  [values]="prodItem" *ngIf="prodItem.serviceType==11"></service-view>
-						<machine-view  [values]="prodItem" *ngIf="prodItem.serviceType==4"></machine-view>
-						<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0"></vm-view>
-						<!-- 显示云主机 -->
-						<disk-view [values]="prodItem" *ngIf="prodItem.serviceType==1"></disk-view>
-						<!-- 显示云硬盘 -->
+						<service-view  [values]="prodItem" *ngIf="prodItem.serviceType==11"></service-view><!-- 管理服务 -->
+						<machine-view  [values]="prodItem" *ngIf="prodItem.serviceType==4"></machine-view><!-- 物理机 -->
+						<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0"></vm-view><!-- 云主机 -->
+						
+						<disk-view [values]="prodItem" *ngIf="prodItem.serviceType==1"></disk-view><!-- 云硬盘 -->
+						
+
+						<sql-view [values]="prodItem" *ngIf="prodItem.serviceType==3" ></sql-view><!-- 数据库 -->
+
+						<middleware-view [values]="prodItem" *ngIf="prodItem.serviceType==5" ></middleware-view><!-- 中间件 -->
 					</td>
 					<td>{{prodItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async}}</td>
 					<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>

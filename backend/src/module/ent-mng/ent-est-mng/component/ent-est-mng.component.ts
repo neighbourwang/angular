@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { DicLoader, ItemLoader, RestApi, RestApiCfg, LayoutService, NoticeComponent, PopupComponent, ConfirmComponent, SystemDictionaryService, SystemDictionary } from '../../../../architecture';
 import { CertMethod, Status, EntEstItem, EntEst,Platform,ResourceQuota
-  , EntEstCreResourceQuota} from '../model';
+  , EntEstCreResourceQuota,EntProdItem} from '../model';
 
 import { EntEstCreService, Paging } from './../service/ent-est-cre.service';
 import * as _ from 'underscore';
@@ -50,6 +50,8 @@ export class EntEstMngComponent implements OnInit {
   private resourceQuotaLoader:ItemLoader<ResourceQuota>= null;//平台获取配额
   private totalResourceQuotas:EntEstCreResourceQuota =new EntEstCreResourceQuota();
   // private isValidateCompleted :boolean = false;
+
+   private entProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();//可用产品
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -387,22 +389,32 @@ manageAviPlatform(){
         this.showMsg("ENT_MNG.CANNOT_ENABLE_ENABLED_ENTERPRISE");
       }
       else {
-        this.confirmedHandler = ()=>{
-        this.service.updateEntStatus(this.getSelected().enterpriseId, Status.Active)
-        .then(ret=>{
-          this.search(null);
-        })
-        .catch(err=>{
-          console.log("企业启用失败", err);
-          this.showMsg("ENT_MNG.FAIL_TO_ENABLE_ENTERPRISE");
-        })
-      };
-      this.confirm.open("ENT_MNG.ENABLE_ENTERPRISE", `ENT_MNG.CONFIRM_ENABLE_ENTERPRISE^^^${this.getSelected().enterpriseName}`);
-      }
-      
+        let entId = this.entEstMng.Items.filter(n=>n.checked).map(n=>n.enterpriseId);
+         this.service.loadEntProdItems(this.entProdItems, this.showError, this, entId[0]
+      ,()=>this.enableConfime()); 
     }
   }
+  }
 
+enableConfime(){
+      if(this.entProdItems.items.length<=0){
+            this.showMsg("该企业下无产品无法启用！");
+            return;
+           }else{
+              this.confirmedHandler = ()=>{
+              this.service.updateEntStatus(this.getSelected().enterpriseId, Status.Active)
+              .then(ret=>{
+                this.search(null);
+              })
+              .catch(err=>{
+                console.log("企业启用失败", err);
+                this.showMsg("ENT_MNG.FAIL_TO_ENABLE_ENTERPRISE");
+              })
+            };
+            this.confirm.open("ENT_MNG.ENABLE_ENTERPRISE", `ENT_MNG.CONFIRM_ENABLE_ENTERPRISE^^^${this.getSelected().enterpriseName}`);
+  
+}
+}
   //禁用
   disable(){
     if(this.getSelected())

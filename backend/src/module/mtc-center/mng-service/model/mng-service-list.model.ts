@@ -9,6 +9,7 @@ export class MngServiceList{
     enterpriseName: string;
     serviceType: string;
     serviceStatus: string;
+    serviceNo: string;
 
     selected: boolean;
 
