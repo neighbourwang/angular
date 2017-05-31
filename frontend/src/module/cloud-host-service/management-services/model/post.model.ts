@@ -29,7 +29,7 @@ class SuperviseQueryCondition {
     pageParameter :PageParameter = new PageParameter; //, optional): 分页信息 ,
     serviceNo :string=""; //, optional): 管理服务编号 ,
     serviceObjectType :string=""; //, optional): 服务对象 ,
-    state :string=""; //, optional): 服务状态:所有， 已完成，进行中 ,
+    state :string="0"; //, optional): 服务状态:所有， 已完成，进行中 ,
     tenantId :string=""; //, optional): 所属企业
 }
 class PageParameter {

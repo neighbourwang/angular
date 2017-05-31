@@ -56,10 +56,10 @@
         <div style="padding : 30px 10px;border : 1px solid #ddd;border-left:none">
             <div class="mgb20">
                 <div class="no-nowrap" style="width:50%;float: left"> 
-                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.physicalMachineQuota||0">{{service.entResourceObj.physicalMachineQuota||0}}</span>
+                     {{ 'COMMON.TOTAL' | translate }}<span class="font-green" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.physicalMachineQuota||0">{{service.entResourceObj.physicalMachineQuota||0}}</span><span>{{'SHOPPING_CART.SET' | translate}}</span>
                 </div>
                 <div class="no-nowrap" style="width:50%;float: left">
-                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.physicalMachineQuota-service.entResourceObj.realUsedPhysicalMachineQuota||0">{{service.entResourceObj.physicalMachineQuota-service.entResourceObj.realUsedPhysicalMachineQuota||0}}</span>
+                     {{ 'COMMON.REMAIN' | translate }}<span class="font-orange" style="font-size: 20px;padding : 0 5px" [title]="service.entResourceObj.physicalMachineQuota-service.entResourceObj.realUsedPhysicalMachineQuota||0">{{service.entResourceObj.physicalMachineQuota-service.entResourceObj.realUsedPhysicalMachineQuota||0}}</span><span>{{'SHOPPING_CART.SET' | translate}}</span>
                 </div>
                 <div style="clear : both">
                 </div>

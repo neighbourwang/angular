@@ -54,6 +54,8 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 		this.v.result = {};
 		this.dbv.result = {};
 		this.dux.reset();
+
+		this.fetchDBProductPost.serviceType = "5";  //获取中间件的产品是5
 	};
 
 	ngOnInit() {

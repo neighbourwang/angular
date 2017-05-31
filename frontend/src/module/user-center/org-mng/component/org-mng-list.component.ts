@@ -213,7 +213,6 @@ export class OrgMngListComponent implements OnInit {
   //         this.creOrgPop.open('ORG_MNG_LIST.EDIT_DEPARTMENT');
   //         this.temporary = true;
   //       }, 0);
-  //       this.editId = org.id;
-    
+  //       this.editId = org.id;    
   }
 }
