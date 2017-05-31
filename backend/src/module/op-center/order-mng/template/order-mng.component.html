@@ -141,6 +141,8 @@
 							<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0"></vm-view><!-- 显示云主机 -->
 						 	<disk-view [values]="prodItem" *ngIf="prodItem.serviceType==1"></disk-view><!-- 显示云硬盘 -->
 							<sql-view  [values]="prodItem" *ngIf="prodItem.serviceType==3"></sql-view>
+
+							<middleware-view [values]="prodItem" *ngIf="prodItem.serviceType==5" ></middleware-view><!-- 中间件 -->
 						</td>
 						<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async | translate}}</td>
 						<td>{{prodItem.period}}<span *ngIf="prodItem.period>0">{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>

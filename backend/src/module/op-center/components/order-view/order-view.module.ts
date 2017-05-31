@@ -12,6 +12,7 @@ import {ServiceViewComponent
         ,SqlViewComponent
         ,VmViewComponent
         ,DiskViewComponent
+        ,MiddleWareViewComponent
          } from './component';
 
 @NgModule({
@@ -27,6 +28,7 @@ import {ServiceViewComponent
         ,SqlViewComponent
         ,VmViewComponent
         ,DiskViewComponent
+        ,MiddleWareViewComponent
        
     ],
     exports: [
@@ -35,6 +37,7 @@ import {ServiceViewComponent
         ,SqlViewComponent
         ,VmViewComponent
         ,DiskViewComponent
+        ,MiddleWareViewComponent
     ],
     providers: []
 
