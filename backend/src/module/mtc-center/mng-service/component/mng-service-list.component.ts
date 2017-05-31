@@ -52,7 +52,7 @@ export class MngServiceListComponent implements OnInit{
 
     type: string;
     enterpriseList:Array<Enterprise>;
-    enterpriseId= "";
+    enterpriseId= "All";
     serviceId= ""; //管理服务Id
     serviceName= ""; //管理服务名称name
     serviceObjectCode= "";  //服务对象

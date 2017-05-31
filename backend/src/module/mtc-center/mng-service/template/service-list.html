@@ -20,7 +20,7 @@
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>
         <div class="float-left pdr20 mgl5">
             <select [(ngModel)]="enterpriseId" (ngModelChange)="getData()" class="pdl10 form-control" style="width: 137px;">
-                <option value="">所有企业</option>
+                <option value="All">所有企业</option>
                 <option *ngFor="let v of enterpriseList" [value]="v.id">{{v.name}}</option>
             </select>
         </div>
