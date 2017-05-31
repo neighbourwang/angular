@@ -39,7 +39,7 @@
                     <button class="fox-cloud-button fox-cloud-button-white " (click)="doSearch()">查询</button>
                 </div>
                 <div class="row row-line-height">
-                    <button class="fox-cloud-button fox-cloud-button-white " (click)="excute()">执行组</button>
+                    <button class="fox-cloud-button fox-cloud-button-white " (click)="excuteGroup()">执行组</button>
                 </div>
             </div>
         </div>
@@ -70,6 +70,9 @@
                         <td>status</td>
                         <td>{{entry.lastUpdate}}</td>
                         <td>
+                    
+                            <button class="fox-cloud-button fox-cloud-button-white " (click)="openModify(entry.id)">修改</button>
+                            <button class="fox-cloud-button fox-cloud-button-white " (click)="excuteOne(entry.id)">执行</button>
                             <button class="fox-cloud-button fox-cloud-button-white " (click)="delete(entry.id)">删除</button>
                             </td>     
                     </tr>
@@ -80,3 +83,69 @@
 </div>
 <fc-notice #notice title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}"></fc-notice>
 <fc-confirm #confirm title="{{noticeTitle}}" msg="{{noticeMsg}}" ot="{{'HOST_OPENSTACK_MNG.CONFIRM' | translate}}" ct="{{'HOST_OPENSTACK_MNG.CANCEL' | translate}}"></fc-confirm>
+
+<fc-popup #edit title="修改" ot="{{ 'COMMON.SAVE' | translate }}" (of)="saveEdit();" ct="{{ 'COMMON.CANCEL' | translate }}" (cf)="cancelEdit();">
+        
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>微服务名称:</div>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="tempEdit.groupCase" />
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>二级功能:</div>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control"  [(ngModel)]="tempEdit.groupFunc" />
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>URL:</div>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="tempEdit.urlHit" />
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>执行顺序(数字):</div>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control"  [(ngModel)]="tempEdit.sequenceNum" />
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>Method:</div>
+                <div class="col-sm-4">
+                    <select class="form-control"[(ngModel)]="entry.methodHit">
+                            <option [value]="'GET'">GET</option>
+                            <option [value]="'POST'">POST</option>
+                            <option [value]="'PUT'">PUT</option>
+                            <option [value]="'DELETE'">DELETE</option>
+                        </select>
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>期望返回值:</div>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="tempEdit.resultExp" />
+                </div>
+            </div>
+        </div>
+        <div class="row row-line-height">
+            <div class="form-group">
+                <div class="col-sm-4 form-control-title">请求参数:</div>
+                <div class="col-sm-6">
+                    <textarea rows="3"class="form-control" maxlength="200" [(ngModel)]="tempEdit.bodyVar">
+                    </textarea>               
+                </div>
+            </div>
+        </div>
+</fc-popup>
