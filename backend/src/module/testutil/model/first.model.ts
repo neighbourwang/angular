@@ -7,4 +7,5 @@ export class FirstModel{
     resultExp: string;
     sequenceNum: number;//执行顺序(数字)
     urlHit: string;//url
+    lastUpdate:string;
 }

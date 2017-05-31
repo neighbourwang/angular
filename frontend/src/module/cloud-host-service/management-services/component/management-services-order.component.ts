@@ -230,7 +230,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				returnData.REGION.attrValue = disk.platformName
 				returnData.ZONE.attrValue = disk.zoneName
 				returnData.INSTANCEID.attrValue = disk.uuid
-				returnData.INSTANCENAME.attrValue = disk.name
+				returnData.RELYSUBINSTANCENAME.attrValue = disk.name
 
 				return returnData
 			})
@@ -279,7 +279,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				returnData.REGION.attrValue = region
 				returnData.ZONE.attrValue = zone
 				returnData.INSTANCEID.attrValue = vm.itemId
-				returnData.INSTANCENAME.attrValue = vm.instanceName
+				returnData.RELYSUBINSTANCENAME.attrValue = vm.instanceName
 
 				return returnData
 			})
@@ -323,7 +323,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				returnData.REGION.attrValue = pm.poolRegionInfo
 				returnData.ZONE.attrValue = ""
 				returnData.INSTANCEID.attrValue = pm.pmId
-				returnData.INSTANCENAME.attrValue = pm.pmName
+				returnData.RELYSUBINSTANCENAME.attrValue = pm.pmName
 
 				return returnData
 			})
@@ -358,7 +358,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 			zone: [this.values.ZONE.attrValue, [this.v.isUnBlank, this.v.isBase], "可用区填写有误"],
 			intanceType: [this.values.INSTANCETYPE.attrValue, [this.v.isUnBlank, this.v.isBase], "请选择实例类型"],
 			intanceId: [this.values.INSTANCEID.attrValue, [this.v.isUnBlank, this.v.isBase], "实例ID填写有误"],
-			instanceName: [this.values.INSTANCENAME.attrValue, [this.v.isUnBlank, this.v.isBase], "实例名称填写有误"],
+			instanceName: [this.values.RELYSUBINSTANCENAME.attrValue, [this.v.isUnBlank, this.v.isBase], "实例名称填写有误"],
 		}
 
 		return this.customV.check(key, regs);
@@ -397,6 +397,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 		this.postDataList = valuesList.map(values => {
 			this.values.BILLINGTYPE.attrValue = this.productInfo.billingType
 			this.values.SERVICENAME.attrValue = this.product.name
+			this.values.INSTANCENAME.attrValue = this.product.name
 
 			let { attrList } = this.postData
 			attrList = attrList.map(attr => Object.assign({}, attr, values[attr.attrCode]))
@@ -455,6 +456,6 @@ export class ManagementServicesOrderComponent implements OnInit {
 	}
 
 	get selectedName() {
-		return this.selectedList.map(s => s.INSTANCENAME.attrValue)
+		return this.selectedList.map(s => s.RELYSUBINSTANCENAME.attrValue)
 	}
 }

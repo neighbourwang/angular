@@ -66,56 +66,56 @@
 
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">vCPU {{ 'COMMON.QUANTITY' | translate }}( {{ 'COMMON.CORE' | translate }} )</div>
-                            <div class="col-md-3 content-title" style="text-align : center ;margin-top:7px">
-                                <count-bar id="vcpu" [default]=0 [step]=1 [max]="maxAvailable.vcpu" [min]="resource.usedCpu||0" [disabled]=false [value]="resource.vcpu||0" (output)="outputValue($event,'vcpu','cpuQuota')"></count-bar>
+                            <div class="col-md-3 content-title" style="text-align : center ;">
+                                <count-bar id="vcpu" [default]=0 [step]=1 [max]="maxAvailable.vcpu" [min]="resource.usedCpu||0" [disabled]="isView" [value]="resource.vcpu||0" (output)="outputValue($event,'vcpu','cpuQuota')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">{{resource.usedCpu||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.cpuQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'USER_CENTER.RAM_QUANTITY' | translate }} (GB)</div>
-                            <div class="col-md-3 content-title" style="text-align : center ;margin-top:7px">
-                                <count-bar id="mem" [default]=0 [step]=0.5 [decimal]="true" [max]="maxAvailable.mem" [min]="resource.usedMem||0" [disabled]=false [value]="resource.mem||0" (output)="outputValue($event,'mem','memQuota')"></count-bar>
+                            <div class="col-md-3 content-title" style="text-align : center ;">
+                                <count-bar id="mem" [default]=0 [step]=0.5 [decimal]="true" [max]="maxAvailable.mem" [min]="resource.usedMem||0" [disabled]="isView" [value]="resource.mem||0" (output)="outputValue($event,'mem','memQuota')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">{{resource.usedMem||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.memQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'USER_CENTER.PHYSICAL_QUANTITY' | translate }}</div>
-                            <div class="col-md-3 content-title" style="text-align : center ;margin-top:7px">
-                                <count-bar id="usedPhysical" [default]=0 [step]=1 [max]="maxAvailable.physical" [min]="resource.usedPhysical||0" [disabled]=false [value]="resource.physical||0" (output)="outputValue($event,'physical','physicalMachineQuota')"></count-bar>
+                            <div class="col-md-3 content-title" style="text-align : center ;">
+                                <count-bar id="usedPhysical" [default]=0 [step]=1 [max]="maxAvailable.physical" [min]="resource.usedPhysical||0" [disabled]="isView" [value]="resource.physical||0" (output)="outputValue($event,'physical','physicalMachineQuota')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">{{resource.usedPhysical||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.physicalMachineQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'USER_CENTER.STORAGE_LIMIT' | translate }}(GB)</div>
-                            <div class="col-md-3 content-title" style="text-align : center ;margin-top:7px">
-                                <count-bar id="usedStorage" [default]=0 [step]=1 [max]="maxAvailable.storage" [min]="resource.usedStorage||0" [disabled]=false [value]="resource.storage||0" (output)="outputValue($event,'storage','storageQuota')"></count-bar>
+                            <div class="col-md-3 content-title" style="text-align : center ;">
+                                <count-bar id="usedStorage" [default]=0 [step]=1 [max]="maxAvailable.storage" [min]="resource.usedStorage||0" [disabled]="isView" [value]="resource.storage||0" (output)="outputValue($event,'storage','storageQuota')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">{{resource.usedStorage||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.storageQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'USER_CENTER.SNAPSHOT_QUANTITY' | translate }}</div>
-                            <div class="col-md-3 content-title" style="text-align : center ;margin-top:7px">
-                                <count-bar id="usedSnapshot" [default]=0 [step]=1 [max]="maxAvailable.snapshot" [min]="resource.usedSnapshot||0" [disabled]=false [value]="resource.snapshot||0" (output)="outputValue($event,'snapshot','snapshotQuota')"></count-bar>
+                            <div class="col-md-3 content-title" style="text-align : center ;">
+                                <count-bar id="usedSnapshot" [default]=0 [step]=1 [max]="maxAvailable.snapshot" [min]="resource.usedSnapshot||0" [disabled]="isView" [value]="resource.snapshot||0" (output)="outputValue($event,'snapshot','snapshotQuota')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">{{resource.usedSnapshot||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.snapshotQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'USER_CENTER.MIRROR_QUANTITY' | translate }}</div>
-                            <div class="col-md-3 content-title" style="text-align : center ;margin-top:7px">
-                                <count-bar id="usedImage" [default]=0 [step]=1 [max]="maxAvailable.image" [min]="resource.usedImage||0" [disabled]=false [value]="resource.image||0" (output)="outputValue($event,'image','imageQuota')"></count-bar>
+                            <div class="col-md-3 content-title" style="text-align : center ;">
+                                <count-bar id="usedImage" [default]=0 [step]=1 [max]="maxAvailable.image" [min]="resource.usedImage||0" [disabled]="isView" [value]="resource.image||0" (output)="outputValue($event,'image','imageQuota')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">{{resource.usedImage||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.imageQuota||0}}</div>
                         </div>
                         <div class="col-md-12 no-padding " style="height : 50px ; line-height : 49px; border-bottom:1px solid #ddd">
                             <div class="col-md-3 content-title bg-gray" style="text-align : center ;border-right:1px solid #ddd">{{ 'COMMON.FLOAT' | translate }} IP {{ 'COMMON.PATH' | translate }}</div>
-                            <div class="col-md-3 content-title" style="text-align : center ;margin-top:7px">
-                                <count-bar id="usedIpaddress" [default]=0 [step]=1 [max]="maxAvailable.ipaddress" [min]="resource.usedIpaddress||0" [disabled]=false [value]="resource.ipaddress||0" (output)="outputValue($event,'ipaddress','floatIpQuota')"></count-bar>
+                            <div class="col-md-3 content-title" style="text-align : center ;">
+                                <count-bar id="usedIpaddress" [default]=0 [step]=1 [max]="maxAvailable.ipaddress" [min]="resource.usedIpaddress||0" [disabled]="isView" [value]="resource.ipaddress||0" (output)="outputValue($event,'ipaddress','floatIpQuota')"></count-bar>
                             </div>
                             <div class="col-md-3 content-title" style="text-align : center">{{resource.usedIpaddress||0}}</div>
                             <div class="col-md-3 content-title" style="text-align : center">{{countAvailable.floatIpQuota||0}}</div>

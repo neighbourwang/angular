@@ -201,5 +201,19 @@ export class OrgMngListComponent implements OnInit {
     });;
     
   }
-  ccf() { }
+  ccf() {
+    this.isView=false;
+   }
+  //查看组织详情
+  isView:boolean=false;
+  view(org){
+  //   this.isView=true;
+  //   this.temporary = false;
+  //       window.setTimeout(() => {
+  //         this.creOrgPop.open('ORG_MNG_LIST.EDIT_DEPARTMENT');
+  //         this.temporary = true;
+  //       }, 0);
+  //       this.editId = org.id;
+    
+  }
 }

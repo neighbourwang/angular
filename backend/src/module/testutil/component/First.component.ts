@@ -36,8 +36,18 @@ export class FirstComponent implements OnInit {
     }
 
     insertone(){
-        console.log(this.entry.bodyVar);
         this.layoutService.show();
+        let nowtime = new Date();
+        //this.entry.lastupdatetime = nowtime.toTimeString();
+        
+        if(this.entry.groupCase == null
+            || this.entry.groupFunc == null
+            || this.entry.urlHit == null 
+            || this.entry.methodHit == null
+            || this. entry.urlHit == null ){
+            this.showAlert("*不能空");
+            return;
+        }
         this.service.insertone(this.entry).then(
             response=>{
                 this.layoutService.hide();

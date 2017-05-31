@@ -175,6 +175,8 @@ export class MngServiceListComponent implements OnInit{
         });
         if(!selectedService){
             this.showAlert("请选择需要状态更新的服务");
+        }else if(selectedService.serviceStatus != "1"){
+            this.showAlert("只有服务状态为进行中的才能点击此按钮");
         }else{
             this.type= "update";
             this.selectedServiceId= selectedService.serviceId;
@@ -189,6 +191,8 @@ export class MngServiceListComponent implements OnInit{
         });
         if(!selectedService){
             this.showAlert("请选择需要跟进的服务");
+        }else if(selectedService.serviceStatus == "2"){
+            this.showAlert("此服务已关闭");
         }else{
             this.type= "follow";
             this.selectedServiceId= selectedService.serviceId;

@@ -46,9 +46,8 @@ export class SearchComponent implements OnInit {
             this.showAlert("名称不能为空");
             return;
         }
-        if(this.searchGroupFun == null){
-            this.showAlert("二级功能不能为空");
-            return;
+        if(this.searchGroupFun == null || ""==this.searchGroupFun ){
+            this.searchGroupFun = "0";
         }
         this.layoutService.show();
         this.service.search(this.searchGroupName, this.searchGroupFun).then(
