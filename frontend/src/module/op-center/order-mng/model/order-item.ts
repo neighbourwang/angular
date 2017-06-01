@@ -12,7 +12,8 @@ export class SubInstanceResp {
   showInstance : boolean = true;//是否展示实例名称
   relySubinstanceId : number = null; //是否挂载了主机的标识
   extendType: number = null;//, optional): 订单的自动续订状态
-
+  showCommonStyle :boolean = true; 
+  
   isChecked:boolean= false;
 
   get isMachine():boolean{//云主机
@@ -48,6 +49,7 @@ export class SubInstanceItemResp {
   publicIp:string;
   osType:string;
   subinstanceNo:string;//数据库中间件的子编号
+
 
   pmEntity:PhysicalMachine= new PhysicalMachine();
   showSpecList:boolean = false;//已购服务配置和订单查询配置不一致
