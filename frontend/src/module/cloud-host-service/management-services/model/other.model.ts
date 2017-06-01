@@ -16,6 +16,7 @@ class Values {
 	BILLINGTYPE: ValuesAttr = new ValuesAttr;
 	SERVICENAME: ValuesAttr = new ValuesAttr;
 	RELYSUBINSTANCENAME:  ValuesAttr = new ValuesAttr;
+	TIMELINEUNIT: ValuesAttr = new ValuesAttr;
 }
 
 class Selected {
