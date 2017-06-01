@@ -257,6 +257,7 @@ export class MngServiceListComponent implements OnInit{
         this.enterpriseId= "All";
         this.serviceId= "";
         this.serviceObjectCode= "";
+        this.pager.render(1);
         this.getData();
     }
 
