@@ -47,6 +47,7 @@ export class SubInstanceItemResp {
   privateIp:string;
   publicIp:string;
   osType:string;
+  subinstanceNo:string;//数据库中间件的子编号
 
   pmEntity:PhysicalMachine= new PhysicalMachine();
   showSpecList:boolean = false;//已购服务配置和订单查询配置不一致
