@@ -199,7 +199,7 @@
 
 				<tr>
 					<td class=" font-green leftAlign pdl20 orderNo-title" colspan="6"><span>{{orderItem.purchaseDate}}</span> <span class="pointer mgl10 float-none"  (click)="showDetail(orderItem)" id="detail_show_{{orderItem.orderId}}">{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate }}: {{orderItem.orderNo}}</span></td>
-					<!--<td class="orderNo-title" colspan="5">	
+					<td class="orderNo-title" colspan="5">	
 						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType > 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)" id="autoRenew_off_{{orderItem.orderId}}">取消自动续订</button>
 						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType == 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)" id="autoRenew_on_{{orderItem.orderId}}">自动续订</button>
 
@@ -210,7 +210,7 @@
 						
 						<button class="mgr2 pull-right button-gray-gradient" (click)="showDetail(orderItem)" id="show_detail_{{orderItem.orderId}}" id="show_detail_{{orderItem.orderId}}">{{ 'COMMON.DETAILS' | translate }}</button>
 
-					</td>-->
+					</td>
 				</tr>
 				<tr>
 					<td  colspan="11" class="pdl20 pdr20 pdt20" >
