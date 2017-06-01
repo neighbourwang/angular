@@ -178,6 +178,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 		})
 
 		this.values.TIMELINE.attrValue = "1";
+		this.values.TIMELINEUNIT.attrValue = this.productInfo.billingCycleType || "";
 		this.checkValue("timeline")
 
 		this.selectedList = []
