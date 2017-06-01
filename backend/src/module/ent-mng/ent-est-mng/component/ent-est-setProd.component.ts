@@ -16,7 +16,8 @@ export class EntEstSetProdComponent implements OnInit {
   @ViewChild("notice")
   notice: NoticeComponent;
 
-  private entProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();//可用产品
+  private entProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();//当前页可用产品
+  private allEntProdItems: Paging<EntProdItem> = new Paging<EntProdItem>();//所有可用产品
   private prodItems: Paging<EntProdItem> = new Paging<EntProdItem>();//所有产品
   private entName:string = "";
   private entId: string = "";
@@ -72,6 +73,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
   removeItem(entProdItem: EntProdItem)
   {
     this.entProdItems.items.splice(this.entProdItems.items.indexOf(entProdItem), 1);
+    this.allEntProdItems.items.splice(this.entProdItems.items.indexOf(entProdItem), 1);
     this.prodItems.items.push(entProdItem);
     this.saveChanges();
   }
@@ -80,6 +82,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
   addItem(prodItem: EntProdItem)
   {
     this.entProdItems.items.push(prodItem);
+    this.allEntProdItems.items.push(prodItem);
     this.prodItems.items.splice(this.prodItems.items.indexOf(prodItem), 1);
     this.saveChanges();
   }
@@ -87,7 +90,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
   //保存企业产品的变更
   saveChanges()
   {
-    this.service.updateEntProducts(this.entProdItems.items, this.entId)
+    this.service.updateEntProducts(this.allEntProdItems.items, this.entId)
     .then(ret=>{
 
     })
@@ -136,13 +139,15 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
 
     this.entProdItems.currentPage = page;
     this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId
-      ,()=>{this.updateWithDic();}); 
+      ,5,()=>{this.updateWithDic();}); 
   }
 
   refreshData(){
     //已选产品entProdItems
     this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId
-      ,()=>{this.updateWithDic();});
+      ,5,()=>{this.updateWithDic();});
+    this.service.loadEntProdItems(this.allEntProdItems, this.showError, this, this.entId
+      ,1000,()=>{this.updateWithDic();});
       //未选产品
     this.service.loadAvailProdItems(this.prodItems, this.showError, this, this.entId
       ,()=>{this.updateWithDic();}); 
