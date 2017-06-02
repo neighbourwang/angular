@@ -221,7 +221,7 @@
                     <div class="col-md-6">
                         <div class="col-md-2 no-padding">实例名称</div> 
                         <div class="col-md-6 no-padding has-feedback" [ngClass]="{'has-error': customV.result.instanceName }">
-                            <input (keyup)="customCheckValue('instanceName');" [(ngModel)]="values.INSTANCENAME.attrValue" type="text" class="form-control">
+                            <input (keyup)="customCheckValue('instanceName');" [(ngModel)]="values.RELYSUBINSTANCENAME.attrValue" type="text" class="form-control">
                             <span *ngIf="customV.result.instanceName" class="glyphicon glyphicon-remove form-control-feedback"></span>
                             <div *ngIf="customV.result.instanceName" class="alert alert-danger" role="alert">{{customV.result.instanceName | translate}}</div>
                         </div>

@@ -35,7 +35,7 @@ export class MngServiceSetComponent implements OnInit{
     completeDic: Array<SystemDictionary>;
 
     complete: string;
-    minutes: string;
+    minutes= "";
 
     ngOnInit() {
         this.service.completeDic.then(res =>{
@@ -47,6 +47,11 @@ export class MngServiceSetComponent implements OnInit{
     setMngService(){
         if(!this.validationService.isNumber(this.minutes)){
             this.showAlert("时间只能输入数字");
+            return;
+        }
+
+        if(this.complete == "1" && this.validationService.isBlank(this.minutes)){
+            this.showAlert("请输入时间");
             return;
         }
         this.layoutService.show();

@@ -147,7 +147,6 @@ export class cloudVmComponentOrder implements OnInit {
 	//设置有ralyid子层的订阅者
 	private setMapValueSubscriber() {
 		for (let code in this.attrList) {
-
 			if (code === "OS" || code === "NETWORKTYPE") this.attrList[code].relyAttrId = ""   //去掉OS和NETWORKTYPE的relyid 因为他们是通过远程获取的
 
 			if (this.attrList[code].relyAttrId) {
@@ -163,6 +162,8 @@ export class cloudVmComponentOrder implements OnInit {
 					if (!this.attrList[code].mapValueList || !this.values[subCode]) return false    //如果父层没有mapvaluelist 返回
 
 					let valueList = this.attrList[code].mapValueList[this.values[subCode].attrValueId] || []
+
+					if( ["MEM"].indexOf(code) > -1 ) valueList = this.filterPlatform(valueList)   //如果是列表里面的code 则需要根据平台过滤
 					this.setValueListAndValue(code, valueList)
 				})
 			}
@@ -171,6 +172,9 @@ export class cloudVmComponentOrder implements OnInit {
 
 	//设置默认值 并派发事件
 	private setValueListAndValue(code, list?) {
+		if(code === "MEM"){
+			console.log(list)
+		}
 		list = list ? list : this.attrList[code].valueList
 
 		if (code === "IMAGETYPE") list = list.concat(this.tempImagetype) //后端未实现 临时添加
@@ -239,6 +243,10 @@ export class cloudVmComponentOrder implements OnInit {
 		this.values.USERNAME.attrValue = this.values.OS.osType == 0 ? "administrtor" : "root";
 	}
 
+	private filterPlatform(filteredList) {  //根据平台过滤列表
+		return filteredList.filter(list => list.platformIds.indexOf(this.values.PLATFORM.attrValueId) > -1)
+	}
+
 	private oSfilterBootsize(): VlueList[] {  //根据os的大小过滤bootsize的大小
 		if (!this.values.OS) return this.bootsizeList = [];
 
@@ -249,7 +257,7 @@ export class cloudVmComponentOrder implements OnInit {
 		setTimeout(res => {
 			this.isZoneSupportOs = !!filteredList.length;
 		}, 0);
-		this.bootsizeList = filteredList.filter(list => list.platformIds.indexOf(this.values.PLATFORM.attrValueId) > -1);   //过滤可用平台
+		this.bootsizeList = this.filterPlatform(filteredList);   //过滤可用平台
 		if( this.bootsizeList.length ){
 			this.values.BOOTSIZE = this.bootsizeList[0];
 			this.dux.dispatch("BOOTSIZE")

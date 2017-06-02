@@ -137,7 +137,11 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	}
 
 	private fetchShoppingMDproducts() {   //获取数据库产品
-		if( !this.values.PLATFORM.attrValue || !this.fetchDBProductPost.templateIds.length) return;  //当没有id或者云平台时
+		if( !this.values.PLATFORM.attrValue || !this.fetchDBProductPost.templateIds.length){   //当没有id或者云平台时
+			this.dbProductList = []
+			this.dbProduct = undefined
+			return;  
+		}
 
 		this.fetchDBProductPost.platformId = this.values.PLATFORM.attrValue;
 		this.dbservice.fetchShoppingMDproducts(this.fetchDBProductPost)
@@ -346,6 +350,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 
 	checkDbValue(key?: string) {
 		let regs: any = {
+			dbProduct: [this.dbProduct, [this.v.isUnBlank], "请选择数据库产品"],
 			listenpost: [this.databaseValue.LISTENPOST.attrValue, [this.v.isUnBlank, this.v.isNumber], "监听端口输入不正确"],
 			maxconnection: [this.databaseValue.MAXCONNECTION.attrValue, [this.v.isUnBlank, this.v.isNumber], "最大连接数输入不正确"],
 			syspassword: [this.databaseValue.SYSPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
