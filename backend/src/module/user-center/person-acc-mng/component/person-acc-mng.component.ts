@@ -138,11 +138,10 @@ export class PersonAccMngComponent implements OnInit {
         this.checkForm();
         this.edit = false;
     }
-
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            userName: [this.personAcc.userName, [this.v.isBase, this.v.isUnBlank], "用户名输入格式不正确"],
+            userName: [this.personAcc.userName, [this.v.isBase, this.v.isUnBlank,this.v.minLength(2),this.v.maxLength(50)], "用户名输入格式不正确"],
             // loginName: [this.account.loginName, [this.v.isEmail, this.v.isUnBlank], "USER_CENTER.ACCOUNT_FORMAT_ERROR"],
             //验证email
             // baseInput: [this.baseInput, [this.v.isBase, this.v.isUnBlank], "不能包含特殊字符"],
@@ -156,7 +155,10 @@ export class PersonAccMngComponent implements OnInit {
     //submit edit
     onSubmit() {
         let message = this.checkForm();
-        if (message) return;
+        if(message){
+            this.notice.open('OPERATION_ERROR',message)
+            return ;
+        }
         if (this.personAcc.phone) {
             if (!this.validationService.isMoblie(this.personAcc.phone)) {
                 this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.MOBILE_PHONE_INPUT_ERROR'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.MOBILE_PHONE_INPUT_ERROR=>手机号码输入错误 

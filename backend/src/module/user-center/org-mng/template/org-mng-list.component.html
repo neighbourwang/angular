@@ -40,7 +40,7 @@
             <tbody>
             <tr *ngFor="let item of orgs;let idx = index">
                 <td (click)="chooseItem(idx)"><input class="fox-cloud-radio" type="radio" name="isSelected" [disabled]="item.isDefault" title="USER_CENTER.DONOT_TOUCH_DEFAULT_ORG" [checked]="item.selected"/></td>
-                <td>{{idx+1}}</td>
+                <td>{{currentPage*pp+idx+1}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.headCount}}</td>
                 <!--<td>{{item.leaderName}}</td>-->

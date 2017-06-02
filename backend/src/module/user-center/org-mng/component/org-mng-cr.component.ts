@@ -260,7 +260,7 @@ export class OrgMngCrComponent implements OnInit{
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            name: [this.org.name, [this.v.isBase, this.v.isUnBlank], "机构名称输入格式不正确"],           
+            name: [this.org.name, [this.v.isBase, this.v.isUnBlank,this.v.maxLength(50),this.v.minLength(2)], "机构名称输入格式不正确"],          
            
             description: [this.org.description, [this.v.maxLength(68)], "描述输入错误"],
         }
@@ -269,7 +269,10 @@ export class OrgMngCrComponent implements OnInit{
     }
     create(){
         let message = this.checkForm();
-        if(message) return ;
+        if(message){
+            this.notice.open('COMMON.OPERATION_ERROR',message)
+            return ;
+        }
         this.layoutService.show();
         if(this.isCreate){
             this.service.createOrg(this.org).then(
@@ -289,8 +292,8 @@ export class OrgMngCrComponent implements OnInit{
             this.service.editOrg(this.orgId,this.org).then(
                 res => {
                     console.log(res);
-                    this.layoutService.hide();
-                     this.router.navigateByUrl('user-center/org-mng/org-mng-list');
+                    this.layoutService.hide();                    
+                    this.router.navigateByUrl('user-center/org-mng/org-mng-list');
                 }
             ).catch(
                 err => {
@@ -306,7 +309,6 @@ cancel(){
     this.router.navigateByUrl('user-center/org-mng/org-mng-list');
 }
 
-nof(){}
-    
+nof(){}    
 
 } 
