@@ -63,8 +63,14 @@ export class DatabaseMiddlewareProdCreStep4Component implements OnInit {
         console.log(this.service.databaseMiddlewareProduct);                
         this.LayoutService.show();
         this.service.postDatabaseMiddlewareProduct(this.service.databaseMiddlewareProduct).then(res=>{
-            this.LayoutService.hide();
-            this.route.navigate(["prod-mng/prod-mng/prod-mng"]);            
+            this.LayoutService.hide();                        
+            if(res&&res.resultCode==12001001){
+                    this.notice.open('COMMON_ERROR','产品名称已存在');
+                }else if(res.resultCode==100){
+                    this.route.navigate(["prod-mng/prod-mng/prod-mng"]);                                                 
+                }else{
+                    this.notice.open('COMMON_ERROR',res.resultContent);
+                }
         }).catch(err=>{
             this.LayoutService.hide();            
             console.error(err);

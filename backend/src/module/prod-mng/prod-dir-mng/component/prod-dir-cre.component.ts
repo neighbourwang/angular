@@ -243,9 +243,16 @@ export class ProdDirCreComponent implements OnInit {
             this.prodDir.serviceTemplateId = '';
             this.LayoutService.show();
             this.CreateProdDirService.postVmProdDir(this.prodDir).then(response => {
-                console.log(response);
-                this.LayoutService.hide();
-                this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+                this.LayoutService.hide();                
+                if(response&&response.resultCode==12001001){
+                    this.notice.open('COMMON_ERROR','产品目录名称已存在');
+                    this.prodDir.platformList=[];
+                }else if(response.resultCode==100){
+                    console.log(response);
+                    this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+                }else{
+                    this.notice.open('COMMON_ERROR',response.resultCode);
+                }               
             }).catch(err => {
                 console.error(err);
                 this.LayoutService.hide();

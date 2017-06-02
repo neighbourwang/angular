@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 
 import {
     LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, SystemDictionaryService,
-    dictPipe
+    dictPipe, StaticTooltipComponent
 } from '../../../../architecture';
 //service
 import { ProdDirListService } from '../service/prod-dir-list.service';
@@ -47,7 +47,6 @@ export class ProdDirListComponent implements OnInit {
         private dict: SystemDictionaryService
 
     ) { }
-
     // 产品目录数组
     prodDirList: Array<Proddir> = new Array<Proddir>();
 
@@ -193,9 +192,9 @@ export class ProdDirListComponent implements OnInit {
                 case 'delete':
                     if (prodDirList[0].status == '1') {
                         this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT=>不能删除状态为已发布的产品目录 
-                    } else if(prodDirList[0].productNum>0){
+                    } else if (prodDirList[0].productNum > 0) {
                         this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.NOT_ALLOW_TO_DELETE_PRODUCT_CAT_WITH_PRODUCT') //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT=>不能删除状态为已发布的产品目录                         
-                    }else{
+                    } else {
                         console.log(prodDirList);
                         //PROD_MNG.DELETE_SELECTED_PRODUCT=>您选择删除{{value_1}}产品,请确认；如果确认，此产品目录的数据将不能恢复。
                         this.deleteConfirm.open('PROD_MNG.REMOVE_PRODUCT_CAT', 'PROD_MNG.DELETE_SELECTED_PRODUCT^^^' + message);
@@ -265,18 +264,18 @@ export class ProdDirListComponent implements OnInit {
         //跳转
         console.log(this.vmProdDirSpecList);
         // if (this.vmProdDirSpecList.length==0) {
-            this.layoutService.show();
-            this.service.getProdDirSpecList().then(res => {
-                console.log(res);
-                this.vmProdDirSpecList = res.resultContent;
-                this.prodDirSpec = this.vmProdDirSpecList[0];
-                this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录
-                this.layoutService.hide();
-            }).catch(err => {
-                console.error(err);
-                this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录                
-                this.layoutService.hide();
-            })
+        this.layoutService.show();
+        this.service.getProdDirSpecList().then(res => {
+            console.log(res);
+            this.vmProdDirSpecList = res.resultContent;
+            this.prodDirSpec = this.vmProdDirSpecList[0];
+            this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录
+            this.layoutService.hide();
+        }).catch(err => {
+            console.error(err);
+            this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录                
+            this.layoutService.hide();
+        })
         // } else {
         //     this.createProdDir.open('PROD_MNG.CREATE_PRODUCT_CAT'); //PROD_MNG.CREATE_PRODUCT_CAT=>创建产品目录
         // }
@@ -289,7 +288,7 @@ export class ProdDirListComponent implements OnInit {
     }
 
     servObjCode: string = 'MAINFRAME';//服务对象code值;
-    serverTypeCode:string='PrivateCloud';//服务器类型code
+    serverTypeCode: string = 'PrivateCloud';//服务器类型code
     otcreate() {
         if (this.prodDirTypeCode == 'VITRUALMACHINE_SERVICE') {
             if (this.prodDirSpec.cpu) {
@@ -309,19 +308,19 @@ export class ProdDirListComponent implements OnInit {
             //管理服务
             this.service.dictServiceObjList.then(arrs => {
                 if (!$.isArray(arrs)) return "";  //如果不是arr返回空
-                    // console.log(arrs);                
+                // console.log(arrs);                
                 arrs = arrs.filter(arr => arr.code == this.servObjCode); //过滤字典
                 if (arrs.length) {   //是否取到了值
                     // console.log(arrs[0]);
-                    this.router.navigate(["prod-mng/manager-serve/manager-serve-service-cre", { type: 'new' ,code:arrs[0].value,objName:arrs[0].displayValue}]);                   
+                    this.router.navigate(["prod-mng/manager-serve/manager-serve-service-cre", { type: 'new', code: arrs[0].value, objName: arrs[0].displayValue }]);
                 }
                 return "";
             });
-        }else if(this.prodDirTypeCode=='Database'||this.prodDirTypeCode=='MiddleWare'){
+        } else if (this.prodDirTypeCode == 'Database' || this.prodDirTypeCode == 'MiddleWare') {
             //中间件
             console.log(this.serverTypeCode);
             console.log(this.service.serverTypeDic);
-            this.router.navigate(['prod-mng/database-middleware-mng/database-middleware-service-cre',{type:this.prodDirTypeCode,code:this.serverTypeCode}])
+            this.router.navigate(['prod-mng/database-middleware-mng/database-middleware-service-cre', { type: this.prodDirTypeCode, code: this.serverTypeCode }])
         }
     }
     //去编辑详情
@@ -331,10 +330,10 @@ export class ProdDirListComponent implements OnInit {
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dir-cre", { id: item.serviceId, type: 'edit' }]);
         } else if (item.serviceType == "1") {
             this.router.navigate(["prod-mng/prod-dir-mng/prod-dirDisk-cre", { id: item.serviceId, type: 'edit' }]);
-        }else if(item.serviceType=='4'){
-            this.router.navigate(["prod-mng/physical-prod-mng/prod-dirPhsical-cre", { id: item.serviceId, type: 'edit' }]);            
-        }else if(item.serviceType=='5'||item.serviceType=='3'){
-            this.router.navigate(["prod-mng/database-middleware-mng/database-middleware-service-cre", { id: item.serviceId, type: item.serviceType }]);            
+        } else if (item.serviceType == '4') {
+            this.router.navigate(["prod-mng/physical-prod-mng/prod-dirPhsical-cre", { id: item.serviceId, type: 'edit' }]);
+        } else if (item.serviceType == '5' || item.serviceType == '3') {
+            this.router.navigate(["prod-mng/database-middleware-mng/database-middleware-service-cre", { id: item.serviceId, type: item.serviceType }]);
         }
     }
     //获取列表数据
@@ -363,14 +362,32 @@ export class ProdDirListComponent implements OnInit {
                         proddir.specification = content.specification;
                         proddir.status = content.status;
                         proddir.isSelected = false;
+                        proddir.phyMachinePartsFlavors=content.phyMachinePartsFlavors;
+                        // proddir.specContent=content.phyMachinePartsFlavors;
                         backend.push(proddir);
                     }
                     let pageInfo = response.pageInfo;
-
                     this.tp = pageInfo.totalPage;
-
-                    this.prodDirList = backend;
-
+                    this.prodDirList = backend;   
+                    //规格编辑
+                    this.prodDirList.forEach(dir=>{
+                        //物理机产品目录
+                        //<p>部件名+部件规格+部件规格值+数量</p>
+                        if(dir.serviceType=='4'&&dir.phyMachinePartsFlavors.length>=0){
+                            // dir.phyMachinePartsFlavors.forEach(unit=>{
+                            //     if(unit.partsCode=='DISK'||unit.partsCode=='MEM'){
+                            //         unit.partsFlavorValue+='G';
+                            //     }
+                            // })
+                            dir.specification=dir.phyMachinePartsFlavors[0].partsName+' '+dir.phyMachinePartsFlavors[0].specName+' '+dir.phyMachinePartsFlavors[0].partsFlavorValue+' '+dir.phyMachinePartsFlavors[0].partFlavorNum+'...'
+                            dir.specContent='';
+                            for(let spec of dir.phyMachinePartsFlavors){
+                                dir.specContent+='<p>'+spec.partsName+' '+spec.specName+' '+spec.partsFlavorValue+' '+spec.partFlavorNum+'</p>'  
+                            }                            
+                            console.log(dir.specContent);
+                        }
+                    });
+                    console.log(this.prodDirList);                 
                 } else {
 
                 }
@@ -404,9 +421,9 @@ export class ProdDirListComponent implements OnInit {
         });
     }
     //点击产品数量去产品列表
-    goProdList(item){
-        if(item.productNum>0){
-            this.router.navigate(["prod-mng/prod-mng/prod-mng", { serviceId: item.serviceId}]);                        
+    goProdList(item) {
+        if (item.productNum > 0) {
+            this.router.navigate(["prod-mng/prod-mng/prod-mng", { serviceId: item.serviceId }]);
         }
     }
 }

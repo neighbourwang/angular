@@ -5,13 +5,8 @@
     <div class="row row-line-height mgt30">
         <div class="form-group">
             <div class="col-sm-4 form-control-title mgl5"><span class="asterisk">*</span>自动完成:</div>
-            <div class="col-md-1" style="line-height:34px">
-                <input class="fox-cloud-radio" type="radio">
-                <span class="mgl5">开启</span>
-            </div>
-            <div class="col-md-1" style="line-height:34px">
-                <input class="fox-cloud-radio" type="radio">
-                <span class="mgl5">关闭</span>
+            <div class="col-md-1" style="line-height:34px" *ngFor="let v of service.completeDic | async">
+                <input class="fox-cloud-radio" type="radio" name="radio" (change)="complete= v.value;" [checked]="complete=== v.value">&nbsp;{{v.displayValue}}
             </div>
         </div>
     </div>
@@ -19,7 +14,7 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title">自动完成等待时间:</div>
             <div class="col-sm-4">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" [(ngModel)]="minutes">
             </div>
             <div class="col-sm-1" style="line-height:34px">分钟</div>
         </div>
@@ -30,7 +25,7 @@
   <!--  <button type="button" class="fox-cloud-button-lg fox-cloud-button-white mgr20">
         <span class="icon-button-label">取消</span>
     </button>-->
-    <button type="button" class="fox-cloud-button-lg fox-cloud-button-white">
+    <button type="button" class="fox-cloud-button-lg fox-cloud-button-white" (click)="setMngService()">
         <span class="icon-button-label">保存</span>
     </button>
 </div>
