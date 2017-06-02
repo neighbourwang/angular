@@ -333,19 +333,19 @@ export class PhysicalEditComponent implements OnInit {
     addPartConfirm(){  
         console.log(this.selectedPart,this.selectedSpace)
          if(!this.selectedPart.specList.length){
-            this.showAlert("请选择部件名称！")
+            this.showAlert("PHYSICAL_MNG.PLEASE_SELECT_PARTS_NAME")
             return;
         }
         if(!this.selectedSpace.specValues.length){
-            this.showAlert("请选择部件规格！")
+            this.showAlert("PHYSICAL_MNG.PLEASE_SELECT_PARTS_SPEC")
             return;
         }
         if(!this.popSpecValue){
-            this.showAlert("请选择部件规格值！")
+            this.showAlert("PHYSICAL_MNG.PLEASE_SELECT_PARTS_SPEC_VALUE")
             return;
         }
-        if(!this.popNumber ){
-            this.showAlert("请选择部件数量！")
+        if(!this.popNumber ||parseInt(this.popNumber) < 1 || parseInt(this.popNumber) == 0){
+            this.showAlert("PHYSICAL_MNG.PLEASE_SELECT_PARTS_NUMBER")          
             return;
         }  
         if(this.isEdit){//编辑
