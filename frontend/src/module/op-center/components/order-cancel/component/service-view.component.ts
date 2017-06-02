@@ -10,7 +10,7 @@ import * as _ from 'underscore';
 		<li *ngIf="_obj.instanceName"><span style="display:block;width:150px;word-wrap:break-word;">管理服务名称: {{_obj.instanceName}}</span></li>
 	</ul>
 	`
-	,styleUrls: ['../style/common-style.less']
+	// ,styleUrls: ['../style/common-style.less']
 })
 export class ServiceViewComponent implements OnInit{
 	@Input()

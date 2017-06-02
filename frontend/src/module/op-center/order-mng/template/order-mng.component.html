@@ -220,7 +220,7 @@
 							</thead>
 							<tbody>
 								<tr >
-									<td >
+									<td class="order-title">
 										<service-view  [values]="prodItem" *ngIf="prodItem.serviceType==11"></service-view><!-- 管理服务 -->
 										<machine-view  [values]="prodItem" *ngIf="prodItem.serviceType==4"></machine-view><!-- 物理机 -->
 										<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0"></vm-view><!-- 云主机 -->

@@ -51,7 +51,7 @@ import * as _ from 'underscore';
 	</ul>
 
 	`
-	,styleUrls: ['../style/common-style.less']
+	// ,styleUrls: ['../style/common-style.less']
 })
 
 export class MachineViewComponent implements OnInit{

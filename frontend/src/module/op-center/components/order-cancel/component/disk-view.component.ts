@@ -17,7 +17,7 @@ import * as _ from 'underscore';
 		<li  *ngIf="_obj.instanceName" ><span style="display:block;width:150px;word-wrap:break-word;">实例名称: {{_obj.instanceName}}</span></li>
 	</ul>
 	`
-	,styleUrls: ['../style/common-style.less']
+	// ,styleUrls: ['../style/common-style.less']
 })
 export class DiskViewComponent implements OnInit{
 	@Input()
