@@ -5,7 +5,7 @@ import { LayoutService, NoticeComponent , ConfirmComponent, PopupComponent, Pagi
 //model
 
 //service
-import { MngService } from '../service/mng-service.service';
+import { MngSetService } from '../service/mng-set.service';
 
 @Component({
     selector:"mng-service-set",
@@ -17,7 +17,7 @@ import { MngService } from '../service/mng-service.service';
 export class MngServiceSetComponent implements OnInit{
     constructor(
         private router : Router,
-        private service : MngService,
+        private service : MngSetService,
         private layoutService : LayoutService,
         private validationService: ValidationService
     ){
@@ -32,9 +32,40 @@ export class MngServiceSetComponent implements OnInit{
     noticeTitle = "";
     noticeMsg = "";
 
+    completeDic: Array<SystemDictionary>;
+
+    complete: string;
+    minutes: string;
 
     ngOnInit() {
+        this.service.completeDic.then(res =>{
+            this.complete= res[0].value
+        });
+        console.log(this.service.completeDic);
+    }
 
+    setMngService(){
+        if(!this.validationService.isNumber(this.minutes)){
+            this.showAlert("时间只能输入数字");
+            return;
+        }
+        this.layoutService.show();
+        this.service.setMngService(this.complete,this.minutes)
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.service.completeDic.then(res =>{
+                            this.complete= res[0].value
+                        });
+                        this.minutes= "";
+                        this.showAlert("设置成功");
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     showAlert(msg: string): void {
