@@ -19,10 +19,36 @@
     serviceName: string;
     serviceType:string;
     serviceTemplateName: string;
+    phyMachinePartsFlavors:Array<PartsFlavor>;
     specification:string;
+    specContent:string;
     status: string;
     isSelected : boolean;
     constructor() {
+    }
+}
+class PartsFlavor {
+    "partFlavorNum": number;
+    "partsCode": string;
+    "partsDisplayName": string;
+    "partsFlavorDisplayName": string;
+    "partsFlavorValue": number;
+    "partsFlavorValueDisplayName": string;
+    "partsFlavorValueName": string;
+    "partsId": string;
+    "partsName": string;
+    "specId": string;
+    "specName": string;
+    "capacity":number;
+    selected:boolean;
+    constructor(){
+        this.partsFlavorValue=0;
+        this.partsId='';
+        this.partsName='';
+        this.specId='';
+        this.specName='';
+        this.partFlavorNum=0;
+        this.capacity=0;
     }
 }
 export{

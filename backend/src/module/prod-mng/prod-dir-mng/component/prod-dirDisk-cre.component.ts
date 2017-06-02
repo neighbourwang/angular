@@ -252,9 +252,15 @@ export class ProdDirDiskCreComponent implements OnInit {
         if (this.type == 'new') {
             this.LayoutService.show();
             this.CreateProdDirService.postDiskProdDir(this.prodDir).then(response => {
-                console.log(response)
-                this.LayoutService.hide();
-                this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+                 this.LayoutService.hide();                
+                if(response&&response.resultCode==12001001){
+                    this.notice.open('COMMON_ERROR','产品目录名称已存在');
+                }else if(response.resultCode==100){
+                    console.log(response);
+                    this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+                }else{
+                    this.notice.open('COMMON_ERROR',response.resultCode);
+                }
             }).catch(err => {
                 console.error(err);
                 this.LayoutService.hide();
@@ -263,9 +269,15 @@ export class ProdDirDiskCreComponent implements OnInit {
             console.log(this.prodDir);
             this.LayoutService.show();
             this.CreateProdDirService.editDiskProdDir(this.serviceId, this.prodDir).then(response => {
-                console.log(response);
-                this.LayoutService.hide();
-                this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+                 this.LayoutService.hide();                
+                if(response&&response.resultCode==12001001){
+                    this.notice.open('COMMON_ERROR','产品目录名称已存在');
+                }else if(response.resultCode==100){
+                    console.log(response);
+                    this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+                }else{
+                    this.notice.open('COMMON_ERROR',response.resultCode);
+                }
             }).catch(err => {
                 console.error(err);
                 this.LayoutService.hide();

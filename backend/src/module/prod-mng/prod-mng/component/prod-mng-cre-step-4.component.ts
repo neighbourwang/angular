@@ -31,31 +31,31 @@ export class ProdMngCreStep4Component implements OnInit {
 
     @ViewChild('notice')
     notice: NoticeComponent;
-    
+
     platformIdList = new Array();
     //平台列表是否发生改变
-    isPlatformChange: boolean=false;
-    ngOnInit() {        
+    isPlatformChange: boolean = false;
+    ngOnInit() {
         //获取企业列表
         this.service.product.productPlatformReqs.forEach(ele => {
             this.platformIdList.push(ele.platformId)
         });
-        console.log('compare',this.service.comparePlatIdList);
+        console.log('compare', this.service.comparePlatIdList);
         //获取平台列表是否发生改变        
-        if(this.service.comparePlatIdList.length==0||this.service.comparePlatIdList.length!=this.platformIdList.length){
-            this.isPlatformChange=true;
-        }else{
+        if (this.service.comparePlatIdList.length == 0 || this.service.comparePlatIdList.length != this.platformIdList.length) {
+            this.isPlatformChange = true;
+        } else {
             this.platformIdList.sort();
             this.service.comparePlatIdList.sort();
-            for(let i=0;i<this.service.comparePlatIdList.length;i++){
-                for(let j=0;j<this.platformIdList.length;i++){
-                    if(this.service.comparePlatIdList[i]!=this.platformIdList[j]){
-                        this.isPlatformChange=true;
+            for (let i = 0; i < this.service.comparePlatIdList.length; i++) {
+                for (let j = 0; j < this.platformIdList.length; i++) {
+                    if (this.service.comparePlatIdList[i] != this.platformIdList[j]) {
+                        this.isPlatformChange = true;
                         return;
                     }
                 }
-                if(i=this.service.comparePlatIdList.length){
-                    return this.isPlatformChange=false;
+                if (i = this.service.comparePlatIdList.length) {
+                    return this.isPlatformChange = false;
                 }
             }
         }
@@ -63,24 +63,24 @@ export class ProdMngCreStep4Component implements OnInit {
         console.log(this.isPlatformChange);
         if (this.isPlatformChange) {
             this.service.product.productEnterpiseReqs = [];
-            this.service.product.enterpriseListForSelect=[];
+            this.service.product.enterpriseListForSelect = [];
             this.layoutService.show();
             this.service.getEnterpriseList(this.platformIdList).then(response => {
-                console.log('企业', response);                
+                console.log('企业', response);
                 this.layoutService.hide();
                 if (!response.resultContent || response.resultContent.length == 0) {
                     this.notice.open('提示', '根据所选平台列表暂时没有对应的可供发布企业');
-                }else{
+                } else {
                     // if (response && 100 == response.resultCode) {
-                //比对ID列表更新为上次请求的ID的列表；
-                this.service.comparePlatIdList=JSON.parse(JSON.stringify(this.platformIdList));
-                this.service.product.enterpriseListForSelect = response.resultContent
-                this.service.product.enterpriseListForSelect.forEach(ele=>{
-                    ele.selected=false;
-                });
-                // } else {
+                    //比对ID列表更新为上次请求的ID的列表；
+                    this.service.comparePlatIdList = JSON.parse(JSON.stringify(this.platformIdList));
+                    this.service.product.enterpriseListForSelect = response.resultContent
+                    this.service.product.enterpriseListForSelect.forEach(ele => {
+                        ele.selected = false;
+                    });
+                    // } else {
 
-                // }
+                    // }
                 }
             }).catch(err => {
                 console.error(err);
@@ -91,8 +91,8 @@ export class ProdMngCreStep4Component implements OnInit {
 
     //选择企业
     selectEnterprise(ent, index) {
-        ent.selected=!ent.selected;
-        console.log(ent);        
+        ent.selected = !ent.selected;
+        console.log(ent);
         this.service.product.productEnterpiseReqs = this.service.product.enterpriseListForSelect.filter((ele) => {
             if (ele.selected == true) {
                 return ele;
@@ -107,12 +107,12 @@ export class ProdMngCreStep4Component implements OnInit {
     unSelected(e, index) {
         // this.service.product.enterpriseListForSelect.push(ent);
         // this.service.product.productEnterpiseReqs.splice(index, 1);
-        this.service.product.enterpriseListForSelect.map(ele=>{
-           if(ele.id==e.id){
-               ele.selected=false;
-           } 
+        this.service.product.enterpriseListForSelect.map(ele => {
+            if (ele.id == e.id) {
+                ele.selected = false;
+            }
         })
-        this.service.product.productEnterpiseReqs.splice(index,1);
+        this.service.product.productEnterpiseReqs.splice(index, 1);
     }
 
 
@@ -127,13 +127,14 @@ export class ProdMngCreStep4Component implements OnInit {
         console.log(this.service.product);
         this.layoutService.show();
         this.PostProduct.postProduct(this.service.product).then(response => {
-            console.log('产品', response);
             this.layoutService.hide();
-            // if (response && 100 == response.resultCode) {
-            this.route.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true })
-            // } else {
-
-            // }
+            if (response && response.resultCode == 12001001) {
+                this.notice.open('COMMON_ERROR', '产品名称已存在');
+            } else if (response.resultCode == 100) {
+                this.route.navigate(["prod-mng/prod-mng/prod-mng"]);
+            } else {
+                this.notice.open('COMMON_ERROR', response.resultContent);
+            }
         }).catch(err => {
             console.error(err);
             this.layoutService.hide();
