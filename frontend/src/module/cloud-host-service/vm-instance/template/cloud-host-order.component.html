@@ -70,7 +70,7 @@
 					<div class="col-md-2 content-title">{{'COMMON.RAM'| translate}}</div>
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
-							*ngFor="let value of valuesList.MEM | filterPlatform: values.PLATFORM?.attrValueId"
+							*ngFor="let value of valuesList.MEM"
 							(click)="values.MEM = value;dux.dispatch('MEM')"
 							class="btn btn-default" [ngClass]="{'active': values.MEM?.attrValueId === value.attrValueId}" id="mem_{{value.attrValue}}">
 							<input type="radio" name="mem" autocomplete="off"  value="{{value.attrValue}}"> {{ value.attrDisplayValue }}
@@ -134,7 +134,7 @@
 							<div class="col-md-2 no-padding">
 								<select [(ngModel)]="values.BOOTSIZE" class="form-control" id="bootsize">
 									<option
-									*ngFor="let value of bootsizeList | filterPlatform: values.PLATFORM?.attrValueId;"
+									*ngFor="let value of bootsizeList"
 									[ngValue]="value" id="bootsize_{{value.attrValue}}">{{ value.attrDisplayValue }}</option>
 								</select>
 							</div>
