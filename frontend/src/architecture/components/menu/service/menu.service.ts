@@ -60,13 +60,7 @@ export class MenuService {
 							"isOpen": true,
 							"isShow": true,
 							"routing": "cloud-host-service/middleware-order"
-						},
-						{
-							"label": "中间件订购2",
-							"isOpen": true,
-							"isShow": true,
-							"routing": "cloud-host-service/middleware-order"
-						},
+						}
 					]
 				},
 				{
