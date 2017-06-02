@@ -60,7 +60,7 @@ export class MenuService {
 							"isOpen": true,
 							"isShow": true,
 							"routing": "cloud-host-service/middleware-order"
-						},
+						}
 					]
 				},
 				{
