@@ -62,8 +62,14 @@ export class ManagerServeProdCreStep4Component implements OnInit {
         console.log(this.service.managerServeProduct);                
         this.LayoutService.show();
         this.service.postManagerServeProduct(this.service.managerServeProduct).then(res=>{
-            this.LayoutService.hide();
-            this.route.navigate(["prod-mng/prod-mng/prod-mng"]);            
+            this.LayoutService.hide();                
+                if(res&&res.resultCode==12001001){
+                    this.notice.open('COMMON_ERROR','产品目录名称已存在');
+                }else if(res.resultCode==100){
+                    this.route.navigateByUrl('prod-mng/prod-mng/prod-mng', { skipLocationChange: true });
+                }else{
+                    this.notice.open('COMMON_ERROR',res.resultCode);
+                }            
         }).catch(err=>{
             this.LayoutService.hide();            
             console.error(err);

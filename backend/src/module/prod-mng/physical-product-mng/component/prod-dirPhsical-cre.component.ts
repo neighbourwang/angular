@@ -334,18 +334,30 @@ export class PhsicalProdDirCreComponent implements OnInit {
         if (this.physicalService.serviceId) {
             this.physicalService.pmResourcePools=[];//清空无用数据;
             this.service.updatePhysicalService(this.physicalService).then(res => {
-                console.log(res);
-                this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
-                this.layoutService.hide();
+                 this.layoutService.hide();                
+                if(res&&res.resultCode==12001001){
+                    this.notice.open('COMMON_ERROR','产品目录名称已存在');
+                }else if(res.resultCode==100){
+                    console.log(res);
+                    this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+                }else{
+                    this.notice.open('COMMON_ERROR',res.resultCode);
+                }
             }).catch(err => {
                 console.error(err);
                 this.layoutService.hide();
             })
         } else {
             this.service.postPhysicalService(this.physicalService).then(res => {
-                console.log(res);
-                this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
-                this.layoutService.hide();
+                this.layoutService.hide();                
+                if(res&&res.resultCode==12001001){
+                    this.notice.open('COMMON_ERROR','产品目录名称已存在');
+                }else if(res.resultCode==100){
+                    console.log(res);
+                    this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
+                }else{
+                    this.notice.open('COMMON_ERROR',res.resultCode);
+                }
             }).catch(err => {
                 console.error(err);
                 this.layoutService.hide();
