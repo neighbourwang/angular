@@ -71,19 +71,15 @@
 						<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{item.serviceName}}</a>
 					</td>
 					<td>{{item.serviceTemplateName}}</td>
-					<td>{{item.specification}}</td>
+					<td>
+						<static-tooltip [title]="item.specContent"><a href="javascript:void(0);" class="a-active">{{item.specification}}</a></static-tooltip>
+						<!--{{item.specification}}-->
+					</td>
 					<td>
 						<a (click)="goProdList(item)" style="cursor: pointer">{{item.productNum}}</a>
 					</td>
 					<td [ngClass]="{'font-green':item.status =='1' ,'font-orange':item.status == '3'}">
-						{{item.status| dict:this.service.versionDic | async}}
-						<!--<span [ngSwitch]="item.status">
-                            <template [ngSwitchCase]="1">{{'PROD_MNG.HAS_PUBLISHED' | translate}}</template>
-
-                            <template [ngSwitchCase]="3">{{'PROD_MNG.NOT_PUBLISHED_YET' | translate}}</template>
-
-                            <template ngSwitchDefault>Unknown</template>
-                        </span>-->
+						{{item.status| dict:this.service.versionDic | async}}				
 					</td>
 					<td>{{item.description}}</td>
 				</tr>

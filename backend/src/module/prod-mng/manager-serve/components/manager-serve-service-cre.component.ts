@@ -154,9 +154,14 @@ export class ManagerServeServiceCreComponent implements OnInit {
         console.log(this.managerServeService);
         this.LayoutService.show(); 
         this.service.postManagerServeService(this.managerServeService).then(res=>{
-            console.log(res);
-            this.LayoutService.hide();
-            this.location.back();            
+             this.LayoutService.hide();                
+                if(res&&res.resultCode==12001001){
+                    this.notice.open('COMMON_ERROR','产品目录名称已存在');
+                }else if(res.resultCode==100){
+                    this.location.back();
+                }else{
+                    this.notice.open('COMMON_ERROR',res.resultCode);
+                }            
         }).catch(err=>{
             console.error(err);
             this.LayoutService.hide();            
