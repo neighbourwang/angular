@@ -7,7 +7,8 @@ export class SubInstanceResp {
   purchaseDate: string = null;//, optional): 对应UI界面中的下单时间, 映射到后端的createDate
 
   canRenew:boolean = true;
-
+  
+  showCommonStyle :boolean = true; 
 }
 
 export class SubInstanceItemResp {
@@ -28,6 +29,8 @@ export class SubInstanceItemResp {
   osType:string;
   pmEntity:PhysicalMachine= new PhysicalMachine();
   showSpecList:boolean = false;//已购服务配置和订单查询配置不一致
+
+ 
   get billingMode():number{//包装计费模式
     return this.billingInfo ? this.billingInfo.billingMode : null;
   }

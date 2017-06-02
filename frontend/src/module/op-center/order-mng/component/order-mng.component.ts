@@ -101,6 +101,8 @@ export class OrderMngComponent implements OnInit {
 
 	private showInstance: boolean = true;
 
+	
+
 	//自动续订
 	private autoRenewItem: AutoRenewItem = new AutoRenewItem();
 	private autoRenewConfigItem: ItemLoader<any> = null;
@@ -328,6 +330,9 @@ export class OrderMngComponent implements OnInit {
 				let orderItem = target[i];
 
 				reloadstruct(orderItem.itemList);
+				if (orderItem.itemList && orderItem.itemList.length >1) {
+					orderItem.showCommonStyle = false;
+				}
 
 				if (orderItem.itemList && orderItem.itemList.length > 0) {
 		           

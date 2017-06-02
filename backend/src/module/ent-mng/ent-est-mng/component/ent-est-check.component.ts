@@ -329,7 +329,7 @@ sysDicCallback(sf: boolean, systemDictionarys: Array<SystemDictionary>) {
 
   loadEntProdItems(){
     this.service.loadEntProdItems(this.entProdItems, this.showError, this, this.entId
-      ,()=>{
+      ,5,()=>{
         this.updateWithDic();
       }); 
   }

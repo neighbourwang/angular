@@ -391,7 +391,7 @@ manageAviPlatform(){
       else {
         let entId = this.entEstMng.Items.filter(n=>n.checked).map(n=>n.enterpriseId);
          this.service.loadEntProdItems(this.entProdItems, this.showError, this, entId[0]
-      ,()=>this.enableConfime()); 
+      ,1000,()=>this.enableConfime()); 
     }
   }
   }

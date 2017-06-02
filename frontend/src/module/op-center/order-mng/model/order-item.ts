@@ -12,7 +12,8 @@ export class SubInstanceResp {
   showInstance : boolean = true;//是否展示实例名称
   relySubinstanceId : number = null; //是否挂载了主机的标识
   extendType: number = null;//, optional): 订单的自动续订状态
-
+  showCommonStyle :boolean = true; 
+  
   isChecked:boolean= false;
 
   get isMachine():boolean{//云主机
@@ -35,6 +36,7 @@ export class SubInstanceResp {
 
 export class SubInstanceItemResp {
   billingInfo: ProductBillingItem = null;//, optional): 产品计费详细信息 ,
+  purchaseDate:string=null;
   createDate: string = null;//, optional): 创建时间 ,
   expireDate: string = null;//, optional): 过期时间 ,
   instanceName: string = null;//, optional): 实例名称 ,
@@ -47,6 +49,8 @@ export class SubInstanceItemResp {
   privateIp:string;
   publicIp:string;
   osType:string;
+  subinstanceNo:string;//数据库中间件的子编号
+
 
   pmEntity:PhysicalMachine= new PhysicalMachine();
   showSpecList:boolean = false;//已购服务配置和订单查询配置不一致

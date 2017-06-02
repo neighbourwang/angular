@@ -69,7 +69,7 @@
             <td class="text-center active"> <a href="javascript:" (click)="openDetail(mgmt.serviceId)">{{mgmt.serviceName}}</a></td>
             <td class="text-center">{{mgmt.serviceObjectCode | dict: service.type | async}}</td>
             <td class="text-center">{{mgmt.instance?.instanceId}}/{{mgmt.instance?.instanceName}}</td>
-            <td class="text-center">{{mgmt.instance?.instanceRegion}}</td>
+            <td class="text-center">{{mgmt.zoneId}}</td>
             <td class="text-center">{{mgmt.serviceType | dict: service.period | async}}</td>
             <td class="text-center">{{mgmt.serviceStatus | dict: service.status | async}}</td>
         </tr>

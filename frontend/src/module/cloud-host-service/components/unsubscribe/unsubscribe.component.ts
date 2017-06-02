@@ -57,7 +57,7 @@ export class UnsubscribeComponent implements OnInit {
 
     open() {
         if(!this.subid) {
-            this.showNotice("提示", "该实例无法退订")
+            this.showNotice("提示", "未选择实例")
             return this.onerror.emit("sbuid is null");
         }
         

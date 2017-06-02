@@ -193,7 +193,8 @@ export class EntEstCreService{
 		,errorHandler:Function
 		,caller: any
 		,entId: string
-		,successHandler:()=>void):void
+		,size:number,
+		successHandler:()=>void):void
 	{
 		let localParams:Array<any> = [{
 			key:"enterpriseId"
@@ -201,9 +202,9 @@ export class EntEstCreService{
 		}];
 
 		let pageParameter = {
-		  "currentPage": entProdItems.currentPage == 0? 0: entProdItems.currentPage,
+		  "currentPage": entProdItems.currentPage == 0? 0: entProdItems.currentPage-1,
 		  "offset": 0,
-		  "size": 5,
+		  "size": size,
 		  "sort": {},
 		  "totalPage": 0
 		};
@@ -258,7 +259,7 @@ export class EntEstCreService{
 		}];
 
 		let pageParameter = {
-		  "currentPage": prodItems.currentPage == 0? 1: prodItems.currentPage,
+		  "currentPage": prodItems.currentPage == 0? 0: prodItems.currentPage-1,
 		  "offset": 0,
 		  "size": 5,
 		  "sort": {},

@@ -93,7 +93,7 @@
 					<button class="btn button-gray-gradient" (click)="resetParam()"><span class="glyphicon glyphicon-repeat" id="search_text_reset"></span> {{ 'COMMON.RESET' | translate }}</button>
 				</div>
 			</div>
-			<table class="table">
+			<table class="table table-gap">
 				<tbody>
 					<tr class="none-border">
 						<td *ngIf="isAdmin">
@@ -195,11 +195,11 @@
 				</thead>
 			</table>
 
-			<table class="table _table" *ngFor="let orderItem of _orderLoader.Items">
+			<table class="table bgGrren mgt20 mgb20" *ngFor="let orderItem of _orderLoader.Items">
 
 				<tr>
-					<td class=" font-green leftAlign pdl20" colspan="6"><span>{{orderItem.purchaseDate}}</span> <span class="pointer mgl10 float-none"  (click)="showDetail(orderItem)" id="detail_show_{{orderItem.orderId}}">{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate }}: {{orderItem.orderNo}}</span></td>
-					<td colspan="6">	
+					<td class=" font-green leftAlign pdl20 orderNo-title" colspan="6"><span>{{orderItem.purchaseDate}}</span> <span class="pointer mgl10 float-none"  (click)="showDetail(orderItem)" id="detail_show_{{orderItem.orderId}}">{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate }}: {{orderItem.orderNo}}</span></td>
+					<td class="orderNo-title" colspan="5">	
 						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType > 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)" id="autoRenew_off_{{orderItem.orderId}}">取消自动续订</button>
 						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType == 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)" id="autoRenew_on_{{orderItem.orderId}}">自动续订</button>
 
@@ -212,35 +212,47 @@
 
 					</td>
 				</tr>
-				<tr *ngFor="let prodItem of orderItem.itemList">
-					<td class="order-title">
-						<service-view  [values]="prodItem" *ngIf="prodItem.serviceType==11"></service-view><!-- 管理服务 -->
-						<machine-view  [values]="prodItem" *ngIf="prodItem.serviceType==4"></machine-view><!-- 物理机 -->
-						<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0"></vm-view><!-- 云主机 -->
-						
-						<disk-view [values]="prodItem" *ngIf="prodItem.serviceType==1"></disk-view><!-- 云硬盘 -->
-						
+				<tr>
+					<td  colspan="11"  [ngClass]="{'no-padding':orderItem.showCommonStyle}">
+						<table class="table table-hover _table "  *ngFor="let prodItem of orderItem.itemList" [ngClass]="{'mgb10':!orderItem.showCommonStyle}" >
+							<thead>
+								<th colspan="11"  *ngIf="prodItem.subinstanceNo" ><span *ngIf="prodItem.purchaseDate" class="mgr10">{{prodItem.purchaseDate}}</span><span>已购服务编号：{{prodItem.subinstanceNo}}</span></th>
+							</thead>
+							<tbody>
+								<tr >
+									<td >
+										<service-view  [values]="prodItem" *ngIf="prodItem.serviceType==11"></service-view><!-- 管理服务 -->
+										<machine-view  [values]="prodItem" *ngIf="prodItem.serviceType==4"></machine-view><!-- 物理机 -->
+										<vm-view [values]="prodItem" *ngIf="prodItem.serviceType==0"></vm-view><!-- 云主机 -->
+										
+										<disk-view [values]="prodItem" *ngIf="prodItem.serviceType==1"></disk-view><!-- 云硬盘 -->
+										
 
-						<sql-view [values]="prodItem" *ngIf="prodItem.serviceType==3" ></sql-view><!-- 数据库 -->
+										<sql-view [values]="prodItem" *ngIf="prodItem.serviceType==3" ></sql-view><!-- 数据库 -->
 
-						<middleware-view [values]="prodItem" *ngIf="prodItem.serviceType==5" ></middleware-view><!-- 中间件 -->
+										<middleware-view [values]="prodItem" *ngIf="prodItem.serviceType==5" ></middleware-view><!-- 中间件 -->
+									</td>
+									<td>{{prodItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async}}</td>
+									<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>
+									<td>{{prodItem.period}} {{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}<label *ngIf="!prodItem.showPrice">次</label></td>
+									<td>{{prodItem.quantity}}台</td>
+									<td style="width: 125px;">
+										<ul>
+											<li><span>{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}</span></li>
+											<li *ngIf="prodItem.showPrice"><span>费用:￥{{prodItem.price}}/</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></li>
+										</ul>	
+									</td>
+									<td class="font-green">{{prodItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') |async}}</td>
+									<td>{{prodItem.createDate}}</td>
+									<td>{{prodItem.expireDate}}</td>
+									<td><span style="display:block;width:80px;word-wrap:break-word;">{{prodItem.buyer}}</span></td>
+									<td>{{prodItem.departmentName}}</td>
+								</tr>
+							</tbody>
+						</table>
 					</td>
-					<td>{{prodItem.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') |async}}</td>
-					<td>{{prodItem.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}</td>
-					<td>{{prodItem.period}} {{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}<label *ngIf="!prodItem.showPrice">次</label></td>
-					<td>{{prodItem.quantity}}台</td>
-					<td style="width: 125px;">
-						<ul>
-							<li><span>{{ 'COMMON.ONE_TIME_COSTS' | translate }}:￥{{prodItem.oneTimePrice}}</span></li>
-							<li *ngIf="prodItem.showPrice"><span>费用:￥{{prodItem.price}}/</span><span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></li>
-						</ul>	
-					</td>
-					<td class="font-green">{{prodItem.status | dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') |async}}</td>
-					<td>{{prodItem.createDate}}</td>
-					<td>{{prodItem.expireDate}}</td>
-					<td><span style="display:block;width:80px;word-wrap:break-word;">{{prodItem.buyer}}</span></td>
-					<td>{{prodItem.departmentName}}</td>
 				</tr>
+				
 			</table>
 		</div>
 		<fc-pagination tp={{_orderLoader.TotalPages}} (pf)="changePage($event)"></fc-pagination>
