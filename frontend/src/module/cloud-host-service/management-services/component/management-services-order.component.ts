@@ -321,8 +321,8 @@ export class ManagementServicesOrderComponent implements OnInit {
 		this.selectedList = this.pmList.filter(pm => (pm as any).isSelected)
 			.map(pm => {
 				let returnData = new Selected;
-				returnData.REGION.attrValue = pm.poolRegionInfo
-				returnData.ZONE.attrValue = ""
+				returnData.REGION.attrValue = ""
+				returnData.ZONE.attrValue = pm.poolRegionInfo
 				returnData.INSTANCEID.attrValue = pm.pmId
 				returnData.RELYSUBINSTANCENAME.attrValue = pm.pmName
 

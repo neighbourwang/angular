@@ -41,26 +41,29 @@
 							<input type="radio" name="location" autocomplete="off" value="{{value.db.value}}"> {{ value.db.label }}
 						</label>
 					</div>
-					<div class="col-md-2 content-title">版本：</div>
-					<div class="col-md-4 btn-group no-padding pdb15" data-toggle="buttons">
-						<label *ngFor="let value of dbInit?.version;" 
-								id="dbVersion_{{value}}" 
-								class="btn btn-default" 
-								(click)="fetchTmIdsPost.version = value; dux.dispatch('DB_TYPE_CHANGE')"
-								[ngClass]="{'active': fetchTmIdsPost.version === value}">
-							<input type="radio" name="location" autocomplete="off" value="{{value}}"> {{ value }}
-						</label>
+					<div class="col-md-12 no-padding">
+						<div class="col-md-2 content-title">版本：</div>
+						<div class="col-md-4 btn-group no-padding pdb15" data-toggle="buttons">
+							<label *ngFor="let value of dbInit?.version;" 
+									id="dbVersion_{{value}}" 
+									class="btn btn-default" 
+									(click)="fetchTmIdsPost.version = value; dux.dispatch('DB_TYPE_CHANGE')"
+									[ngClass]="{'active': fetchTmIdsPost.version === value}">
+								<input type="radio" name="location" autocomplete="off" value="{{value}}"> {{ value }}
+							</label>
+						</div>
+						<div class="col-md-2 content-title">部署模式：</div>
+						<div class="col-md-4 btn-group no-padding pdb15" data-toggle="buttons">
+							<label *ngFor="let value of dbInit?.mode;" 
+									id="dbMode_{{value.value}}" 
+									class="btn btn-default" 
+									(click)="fetchTmIdsPost.deploymentMode = value.value; dux.dispatch('DB_TYPE_CHANGE')"
+									[ngClass]="{'active': fetchTmIdsPost.deploymentMode === value.value}">
+								<input type="radio" name="location" autocomplete="off" value="{{value.value}}"> {{ value.label }}
+							</label>
+						</div>
 					</div>
-					<div class="col-md-2 content-title">部署模式：</div>
-					<div class="col-md-4 btn-group no-padding pdb15" data-toggle="buttons">
-						<label *ngFor="let value of dbInit?.mode;" 
-								id="dbMode_{{value.value}}" 
-								class="btn btn-default" 
-								(click)="fetchTmIdsPost.deploymentMode = value.value; dux.dispatch('DB_TYPE_CHANGE')"
-								[ngClass]="{'active': fetchTmIdsPost.deploymentMode === value.value}">
-							<input type="radio" name="location" autocomplete="off" value="{{value.value}}"> {{ value.label }}
-						</label>
-					</div>
+
 					<div class="col-md-2 content-title">产品列表：</div>
 					<div class="col-md-10 no-padding" >
 						<select [(ngModel)]="dbProduct" (ngModelChange)="dux.dispatch('SELECT_DB_PRODUCT')" class="form-control" id="startupsource">
