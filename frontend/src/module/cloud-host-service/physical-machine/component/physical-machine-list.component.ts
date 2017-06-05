@@ -34,6 +34,7 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 	modalOKTitle: string = '';
 
 	queryField: number = 0;
+	radioSelected:any;
 
 	pmListQuery: PMServiceQuery = new PMServiceQuery;
 	currentPage: number = 1;
@@ -94,6 +95,7 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 			.then(res => {
 				this.layoutService.hide()
 				this.list = res;
+				this.radioSelected = undefined;
 				this.checkListMiddleState();
 			})
 			.catch(e => this.layoutService.hide())

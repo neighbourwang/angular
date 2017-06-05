@@ -31,6 +31,8 @@ export class ManagementServicesListComponent implements OnInit {
 	mgmtList: any[] = []
 	mgmt:any;
 
+	radioSelected:any;
+
 	modalTitle: string = '';
 	modalMessage: string = '';
 	modalOKTitle: string = '';
@@ -74,6 +76,7 @@ export class ManagementServicesListComponent implements OnInit {
 		this.service.fetchMgmtList(this.listQuery).then(res => {
 			console.log(this.mgmtList)
 			this.mgmtList = res;
+			this.radioSelected = undefined;
 		})
 	}
 

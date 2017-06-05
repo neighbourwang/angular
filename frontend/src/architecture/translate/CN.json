@@ -279,7 +279,7 @@
     "ANNUAL_SUBSCRIPTION": "包年包月",
     "PRODUCT_ORDER_DESCRIPTION": "不同区域之间的产品内网不互通；订购后不支持更换区域，请谨慎选择！",
     "DEFINITION_OF_PUBLIC_IMAGE_AND_CUSTOM_IMAGE": "公共镜像即基础操作系统，自定义镜像为企业根据基础操作系统做过额外配置或优化后的操作系统",
-    "PASSWORD_COMPLEXITY_DESCRIPTION": "密码复杂度：8-30个字符，且同时包括三项（大写字母，小写字母，数字和特殊符号）",
+    "PASSWORD_COMPLEXITY_DESCRIPTION": "密码复杂度：8-30个字符，且同时包括四项（大写字母，小写字母，数字和特殊符号）",
     "PASSWORD_FORMAT_IS_NOT_CORRECT": "密码格式不正确",
     "TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT": "两次密码输入不一致",
     "HOST_NAME_FORMAT_IS_NOT_CORRECT": "主机名称格式不正确",
