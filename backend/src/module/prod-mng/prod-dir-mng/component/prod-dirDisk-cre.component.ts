@@ -254,12 +254,12 @@ export class ProdDirDiskCreComponent implements OnInit {
             this.CreateProdDirService.postDiskProdDir(this.prodDir).then(response => {
                  this.LayoutService.hide();                
                 if(response&&response.resultCode==12001001){
-                    this.notice.open('COMMON_ERROR','产品目录名称已存在');
+                    this.notice.open('COMMON.ERROR','产品目录名称已存在');
                 }else if(response.resultCode==100){
                     console.log(response);
                     this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
                 }else{
-                    this.notice.open('COMMON_ERROR',response.resultCode);
+                    this.notice.open('COMMON.ERROR',response.resultCode);
                 }
             }).catch(err => {
                 console.error(err);
@@ -271,12 +271,12 @@ export class ProdDirDiskCreComponent implements OnInit {
             this.CreateProdDirService.editDiskProdDir(this.serviceId, this.prodDir).then(response => {
                  this.LayoutService.hide();                
                 if(response&&response.resultCode==12001001){
-                    this.notice.open('COMMON_ERROR','产品目录名称已存在');
+                    this.notice.open('COMMON.ERROR','产品目录名称已存在');
                 }else if(response.resultCode==100){
                     console.log(response);
                     this.router.navigateByUrl('prod-mng/prod-dir-mng/prod-dir-mng', { skipLocationChange: true })
                 }else{
-                    this.notice.open('COMMON_ERROR',response.resultCode);
+                    this.notice.open('COMMON.ERROR',response.resultCode);
                 }
             }).catch(err => {
                 console.error(err);

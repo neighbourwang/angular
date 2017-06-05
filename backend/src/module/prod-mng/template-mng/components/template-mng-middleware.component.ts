@@ -91,10 +91,10 @@ export class MiddlewareComponent implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            name: [this.middleware.name, [this.v.isBase,this.v.maxLength(11), this.v.isUnBlank], "模板名称格式不正确"],
-            bootStorageSize: [this.middleware.bootStorageSize, [this.v.isUnBlank, this.v.isNumber, this.v.min(20)], '启动盘设置不正确'],
-            cpu: [this.middleware.cpu, [this.v.isUnBlank, this.v.isNumber, this.v.min(2)], 'CPU设置不正确'],
-            memory: [this.middleware.memory, [this.v.isUnBlank, this.v.isNumber, this.v.min(4)], '内存设置不正确']
+            name: [this.middleware.name, [this.v.isBase,this.v.maxLength(20), this.v.isUnBlank], "模板名称格式不正确"],
+            bootStorageSize: [this.middleware.bootStorageSize, [this.v.isUnBlank, this.v.maxLength(6),,this.v.isNumber, this.v.min(20)], '启动盘设置不正确'],
+            cpu: [this.middleware.cpu, [this.v.isUnBlank, this.v.isNumber,this.v.maxLength(2),, this.v.min(2)], 'CPU设置不正确'],
+            memory: [this.middleware.memory, [this.v.isUnBlank, this.v.isNumber,this.v.maxLength(6), this.v.min(4)], '内存设置不正确']
         }
         console.log(this.v.check(key, regs));
         return this.v.check(key, regs);

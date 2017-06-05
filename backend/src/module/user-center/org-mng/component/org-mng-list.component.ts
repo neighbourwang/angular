@@ -33,7 +33,7 @@ export class OrgMngListComponent implements OnInit {
     tp: number = 0;
     // 每页显示的数据条数
     pp: number = 10;
-
+    currentPage:number=0;
     // confirm 的头部 
     confirmTitle: string;
     // confirm 的内容
@@ -59,6 +59,8 @@ export class OrgMngListComponent implements OnInit {
                 this.orgs = res.resultContent;
                 let pageInfo = res.pageInfo;
                 this.tp = pageInfo.totalPage;
+                this.pp =pageInfo.pageSize;
+                this.currentPage=pageInfo.currentPage;
                 console.log(this.orgs);
                 this.layoutService.hide();
             }

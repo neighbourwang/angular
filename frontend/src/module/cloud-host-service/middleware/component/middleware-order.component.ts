@@ -150,6 +150,7 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 
 	checkDbValue(key?: string) {
 		let regs: any = {
+			dbProduct: [this.dbProduct, [this.v.isUnBlank], "请选择中间件产品"],
 			weblogicUser: [this.middlewareValue.WEBLOGICACCOUNT.attrValue, [this.v.isUnBlank, this.v.isBase], "weblogic用户名输入不正确"],
 			mwpassword: [this.middlewareValue.WEBLOGICPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
 			mwpasswordShadow: [this.mwpasswordShadow, [this.v.equalTo(this.middlewareValue.WEBLOGICPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"]

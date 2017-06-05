@@ -1,4 +1,9 @@
-<div class="page-content-header icon-create-product">{{pagetitle | translate}}</div><!--创建模板-->
+<div class="page-content-header icon-create-product" style="padding-bottom:10px;height:45px;">{{pagetitle | translate}}
+	<button class="fox-cloud-button-md fox-cloud-button-white" style="float:right" (click)='cancel()'>
+        <span class="icon-button-label">返回模板列表</span>
+    </button>
+</div>
+<!--创建模板-->
 <div class="page-content">
 	<div class="row" style="padding-top: 30px;">
 		<div class="col-md-12">
@@ -7,8 +12,8 @@
 					<div class="col-sm-3 form-control-bold-title"><span class="asterisk">*</span>{{'SYS_SETUP.TEMPLATE_NAME' | translate}}:</div>
 					<!--模板名称-->
 					<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.name}">
-						<input type="text" [disabled]="pageType=='edit'" [(ngModel)]="database.name" (ngModelChange)="checkForm('name')" name="name" placeholder="{{'请输入模板名称' | translate}}"
-						 class="form-control">
+						<input type="text" [disabled]="pageType=='edit'" [(ngModel)]="database.name" (ngModelChange)="checkForm('name')" name="name"
+						 placeholder="{{'请输入模板名称' | translate}}" class="form-control">
 						<span *ngIf="v.result.name" class="glyphicon glyphicon-remove form-control-feedback"></span>
 						<div *ngIf="v.result.name" class="alert alert-danger" role="alert">{{v.result.name}}</div>
 					</div>
@@ -24,8 +29,7 @@
 					<div class="col-sm-3 form-control-title">{{'软件类型' | translate}}</div>
 					<div class="col-sm-5 no-padding">
 						<div class="btn-group">
-							<button type="button" class="btn btn-default" *ngFor="let item of softwareTypeList;let idx = index"
-							 [ngClass]="{'btn-active': true}">{{item.label}}</button>
+							<button type="button" class="btn btn-default" *ngFor="let item of softwareTypeList;let idx = index" [ngClass]="{'btn-active': true}">{{item.label}}</button>
 						</div>
 					</div>
 				</div>
@@ -34,13 +38,13 @@
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title">{{'软件版本' | translate}}</div>
 					<div class="col-sm-1 no-padding">
-						<select  class="form-control" [(ngModel)]="database.version" style="min-width:120px;">
+						<select class="form-control" [(ngModel)]="database.version" style="min-width:120px;">
 							<option *ngFor="let version of databaseOptionList.items[0]?.version" [value]="version">{{version}}</option>
 						</select>
 					</div>
 					<div class="col-sm-2 form-control-title">{{'操作系统类型' | translate}}</div>
 					<div class="col-sm-1">
-						<select  class="form-control" [(ngModel)]="database.os" style="min-width:100px;">
+						<select class="form-control" [(ngModel)]="database.os" style="min-width:100px;">
                             <option [value]="os.code" *ngFor="let os of databaseOptionList.items[0]?.os">{{os.label}}</option>							
 							<!--<option value="0">Linux</option>
 							<option value="1">Windows</option>
@@ -49,7 +53,7 @@
 					</div>
 					<div class="col-sm-1 form-control-title">{{'位数' | translate}}</div>
 					<div class="col-sm-1">
-						<select  class="form-control" [(ngModel)]="database.bit" style="min-width:100px;">
+						<select class="form-control" [(ngModel)]="database.bit" style="min-width:100px;">
                             <option [value]="bit.code" *ngFor="let bit of databaseOptionList.items[0]?.bit">{{bit.label}}</option>														
 							<!--<option value="0">32bit</option>-->
 							<!--<option value="1">64bit</option>-->
@@ -61,7 +65,8 @@
 				<div class="form-group">
 					<div class="col-sm-3 form-control-title">{{'部署模式' | translate}}</div>
 					<div class="col-sm-2 no-padding from-control" *ngFor="let mode of databaseOptionList.items[0]?.mode">
-						<input type="radio" class="fox-cloud-radio" [value]="mode.value" [(ngModel)]="database.deploymentMode" name="deployMode" style="margin-right:10px;">{{mode.label}}
+						<input type="radio" class="fox-cloud-radio" [value]="mode.value" [(ngModel)]="database.deploymentMode" name="deployMode"
+						 style="margin-right:10px;">{{mode.label}}
 					</div>
 				</div>
 			</div>
@@ -83,7 +88,8 @@
 					</div>
 					<div class="col-sm-3 form-inline has-feedback" [ngClass]="{'has-error':v.result.bootStorageSize}">
 						<span>启动盘大小(Gb)</span>
-						<input type="text" class="form-control" [(ngModel)]="database.bootStorageSize" (ngModelChange)="checkForm('bootStorageSize')" style="display: inline;width:100px">
+						<input type="text" class="form-control" [(ngModel)]="database.bootStorageSize" (ngModelChange)="checkForm('bootStorageSize')"
+						 style="display: inline;width:100px">
 					</div>
 				</div>
 			</div>
@@ -145,8 +151,8 @@
 									<td>{{idx + 1}}</td>
 									<td>{{item.useDisplay}}</td>
 									<td>
-										<div  class="has-feedback">
-											<input class="form-control" [(ngModel)]="item.minDiskSize" style="display: inline;width:100px">											
+										<div class="has-feedback">
+											<input class="form-control" [(ngModel)]="item.minDiskSize" style="display: inline;width:100px">
 										</div>
 									</td>
 									<td>

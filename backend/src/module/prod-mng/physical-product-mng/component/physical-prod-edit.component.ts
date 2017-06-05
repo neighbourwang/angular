@@ -58,6 +58,8 @@ export class PhysicalProdEditComponent implements OnInit {
             ele.active = false;
         })
         item.active = true;
+        item.name=='CASE_MNG.CASE_INFO'&&this.cancelPriceEdit();
+        item.name=='PROD_MNG.PRICING_INFORMATION'&&this.cancelBasicEdit();
     }
 
     ngOnInit() {
@@ -109,7 +111,6 @@ export class PhysicalProdEditComponent implements OnInit {
         //产品历史价格
         this.getHistoryPrice(this.productId);
         this.productService.getUnitList();
-
     }
     //请求产品详情
     getProductDetail(id) {
@@ -209,7 +210,7 @@ export class PhysicalProdEditComponent implements OnInit {
     tempUnitPrice: number;
     //调整部件价格
     adjustUnitPrice(unit) {
-        if (unit.temPrice < 0) {
+        if (!unit.temPrice||unit.temPrice < 0) {
             return unit.priceValid = false;
         } else {
             return unit.priceValid = true;
@@ -227,7 +228,8 @@ export class PhysicalProdEditComponent implements OnInit {
     }
     savePrice() {
         for (let unit of this.product.pmPartsBaseprises) {
-            if (unit.temPrice < 0) {
+            if (!unit.temPrice||unit.temPrice < 0) {
+                this.notice.open('COMMON.OPERATION_ERROR','附加部件价格设置错误')
                 return unit.priceValid = false;
             }
         }

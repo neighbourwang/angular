@@ -2252,7 +2252,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取物理机资源池列表",
         "id": "phy-mng.phy-pool.phylist.data",
         "method": "POST",
-        "url": "pmresourcemgmt/noauth/pmpools/page/{page}/size/{size}"
+        "url": "pmresourcemgmt/authsec/pmpools/page/{page}/size/{size}"
     },
     {
         "desc": "删除/禁用/启用物理机资源池",
@@ -2264,7 +2264,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建物理机资源池",
         "id": "phy-mng.phy-pool.phylist.creat",
         "method": "POST",
-        "url": "pmresourcemgmt/noauth/pmpool"
+        "url": "pmresourcemgmt/authsec/pmpool"
     },
     {
         "desc": "编辑物理机资源池",
@@ -2288,19 +2288,19 @@ export let RestApis: RestApiModel[] = [
         "desc": "分页获取物理机部件列表",
         "id": "phy-mng.phy-pool.parts.data",
         "method": "POST",
-        "url": "pmresourcemgmt/noauth/pm/parts/page/{page}/size/{size}"
+        "url": "pmresourcemgmt/authsec/pm/parts/page/{page}/size/{size}"
     },
     {
         "desc": "物理机联动列表",
         "id": "phy-mng.phy-pool.parts.speclist",
         "method": "GET",
-        "url": "pmresourcemgmt/noauth/pm/parts/partsList"
+        "url": "pmresourcemgmt/authsec/pm/parts/partsList"
     },
     {
         "desc": "添加物理机部件",
         "id": "phy-mng.phy-pool.parts.create",
         "method": "POST",
-        "url": "pmresourcemgmt/noauth/pm/parts"
+        "url": "pmresourcemgmt/authsec/pm/parts"
     },
     {
         "desc": "删除物理机部件",
@@ -2375,7 +2375,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "查询物理机已有的部件和规格清单",
         "id": "physical-mng.physical.partList.get",
         "method": "GET",
-        "url": "pmresourcemgmt/noauth/pm/parts/specvaluelist"
+        "url": "pmresourcemgmt/authsec/pm/parts/specvaluelist"
     },
     {
         "desc": "编辑物理机部件",
@@ -2389,7 +2389,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "添加物理机网络",
         "id": "phy-mng.phy-net-mng.network.create",
         "method": "POST",
-        "url": "pmnetworkmgmt/noauth/pmnetwork"
+        "url": "pmnetworkmgmt/authsec/pmnetwork"
     },
     {
         "desc": "编辑物理机网络",
@@ -2401,7 +2401,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取物理机网络列表",
         "id": "phy-mng.phy-net-mng.network.list",
         "method": "POST",
-        "url": "pmnetworkmgmt/noauth/pmnetwork/page/{page}/size/{size}"
+        "url": "pmnetworkmgmt/authsec/pmnetwork/page/{page}/size/{size}"
     },
     {
         "desc": "根据pmNetworkId获取网络信息",
@@ -2517,7 +2517,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取镜像源列表",
         "id":"phy-mng.phy-img-mng.phyimgsource.getlist",
         "method":"POST",
-        "url":"pmimagemgmt/noauth/pmimage/pool/page/{page}/size/{size}"
+        "url":"pmimagemgmt/authsec/pmimage/pool/page/{page}/size/{size}"
     },
     {
         "desc": "物理机镜像池状态修改",
@@ -2529,7 +2529,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建镜像源提交",
         "id":"phy-mng.phy-img-mng.phyimgsource.commit.create",
         "method":"POST",
-        "url":"pmimagemgmt/noauth/pmimage/pool"
+        "url":"pmimagemgmt/authsec/pmimage/pool"
     },
     {
         "desc": "编辑镜像源提交",

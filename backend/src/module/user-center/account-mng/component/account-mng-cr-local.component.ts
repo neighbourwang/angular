@@ -188,7 +188,7 @@ export class AccountMngCrLocal implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            userName: [this.account.userName, [this.v.isBase, this.v.isUnBlank], "用户名输入格式不正确"],
+            userName: [this.account.userName, [this.v.isBase, this.v.isUnBlank,this.v.maxLength(50),this.v.minLength(2)], "用户名输入格式不正确"],
             loginName: [this.account.loginName, [this.v.isEmail, this.v.isUnBlank], "USER_CENTER.ACCOUNT_FORMAT_ERROR"],
             //验证email
             // baseInput: [this.baseInput, [this.v.isBase, this.v.isUnBlank], "不能包含特殊字符"],
@@ -203,9 +203,11 @@ export class AccountMngCrLocal implements OnInit {
     }
     //创建
     create() {
-        let errorMessage = this.checkForm();   //不传入参数则验证regs里所有规则
-        if (errorMessage) return ;
-        console.log(this.account);
+        let message = this.checkForm();   //不传入参数则验证regs里所有规则
+        if(message){
+            this.notice.open('OPERATION_ERROR',message)
+            return ;
+        }
         if (this.account.roles.length < 1) {
             this.notice.open('COMMON.OPERATION_ERROR', 'USER_CENTER.SELECT_ROLE'); //COMMON.OPERATION_ERROR=>操作错误  //USER_CENTER.SELECT_ROLE=>请选择角色 
             return
