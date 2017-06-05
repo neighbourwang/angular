@@ -14,5 +14,27 @@ export class ProdList {
       "status": number;
       "description": string;
       "isSelected" : boolean
-
+      dataBaseServiceTemplateSpecResp: DatabaseSpec;
+      middleWareServiceTemplateSpecResp:{
+        serviceTemplateId: string;
+        serviceTemplateName: string;
+        deploymentMode: string;
+        version: string;
+        middleWareType: string;
+       
+    };
+}
+class DatabaseSpec {
+    serviceTemplateId: string;
+    serviceTemplateName: string;
+    deploymentMode: number;
+    version: string;
+    dbType: number;
+     constructor(){
+            this.serviceTemplateId='';
+        this.serviceTemplateName='';
+        this.deploymentMode=0;
+        this.version='';
+        this.dbType=0;
+        }
 }
