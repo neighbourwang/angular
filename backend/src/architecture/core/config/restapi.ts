@@ -2389,7 +2389,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "添加物理机网络",
         "id": "phy-mng.phy-net-mng.network.create",
         "method": "POST",
-        "url": "authsec/pmnetwork"
+        "url": "pmnetworkmgmt/authsec/pmnetwork"
     },
     {
         "desc": "编辑物理机网络",
@@ -2401,7 +2401,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取物理机网络列表",
         "id": "phy-mng.phy-net-mng.network.list",
         "method": "POST",
-        "url": "authsec/pmnetwork/page/{page}/size/{size}"
+        "url": "pmnetworkmgmt/authsec/pmnetwork/page/{page}/size/{size}"
     },
     {
         "desc": "根据pmNetworkId获取网络信息",
