@@ -282,13 +282,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "按条件查询匹配的物理机信息",
         "method": "POST",
         "id": "post.pmlist.detail",
-        "url": "pmresourcemgmt/noauth/pmmgmt/order/pmlist"
+        "url": "pmresourcemgmt/authsec/pmmgmt/order/pmlist"
     },
     {
         "desc": "根据区域得到相关的资源池列表",
         "method": "GET",
         "id": "region.pmpool.list",
-        "url": "pmresourcemgmt/noauth/pmmgmt/order/pmpool/{regionId}/list"
+        "url": "pmresourcemgmt/authsec/pmmgmt/order/pmpool/{regionId}/list"
     },
     {
         "desc": "根据pmImagePoolId显示资源池的分配信息",
@@ -306,7 +306,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "分页获取物理机服务列表",
         "method": "POST",
         "id": "phymachine.product.page",
-        "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/page/{page}/size/{size} "
+        "url": "pmresourcemgmt/authsec/pmpools/order/pmservice/page/{page}/size/{size} "
     },
     {
         "desc": "物理机详情",
