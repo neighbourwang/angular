@@ -117,6 +117,7 @@ class PMServiceItem {
 	serviceLevel :string = ""; //, optional),
 	serviceType :string = ""; //, optional),
 	status :string = ""; //, optional)
+	pmstatus :string = ""; //, optional)
 }
 
 class ValuesList {

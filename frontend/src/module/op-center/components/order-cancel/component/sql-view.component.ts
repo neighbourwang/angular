@@ -15,7 +15,7 @@ import * as _ from 'underscore';
 		<li *ngIf="_obj.version">数据库版本:{{_obj.version}}</li>
 	</ul>
 	`
-	,styleUrls: ['../style/common-style.less']
+	// ,styleUrls: ['../style/common-style.less']
 })
 export class SqlViewComponent implements OnInit{
 	@Input()

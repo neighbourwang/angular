@@ -34,6 +34,7 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 	modalOKTitle: string = '';
 
 	queryField: number = 0;
+	radioSelected:any;
 
 	pmListQuery: PMServiceQuery = new PMServiceQuery;
 	currentPage: number = 1;
@@ -68,14 +69,14 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 	checkListMiddleState() {
 		if(this.destroyed) return false;  //如果组件被销毁了 return
 
-		let mkPromise = (pm) => this.isMiddleState(pm.status) ? this.service.fetchPMState(pm.uuid) : false
+		let mkPromise = (pm) => this.isMiddleState(pm.pmstatus) || !pm.pmstatus ? this.service.fetchPMState(pm.pmId) : false
 		let fecthMiddleStateList = this.list.map(mkPromise)
 
 		if(!fecthMiddleStateList.filter(l => l).length) return false;   //如果没有中间状态了 则不再循环
 
 		Promise.all(fecthMiddleStateList).then(res => {
 			res.forEach((pm, i) => {
-				if(pm) this.list[i].status = pm
+				if(pm) this.list[i].pmstatus = pm.status
 			})
 			setTimeout(this.checkListMiddleState.bind(this) , 10 * 1000)
 		})
@@ -94,6 +95,7 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 			.then(res => {
 				this.layoutService.hide()
 				this.list = res;
+				this.radioSelected = undefined;
 				this.checkListMiddleState();
 			})
 			.catch(e => this.layoutService.hide())

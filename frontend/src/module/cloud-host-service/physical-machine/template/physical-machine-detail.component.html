@@ -13,7 +13,7 @@
                 <!-- <li><a (click)="isEditState = true" href="javascript:">{{'VM_INSTANCE.EDIT_THE_CLOUD_HOST' | translate}}</a></li> -->
 
                 <li>
-                  <unsubscribe #unsubscribeVm title="物理机退订" [subid]="pm?.subInstanceId"></unsubscribe>
+                  <unsubscribe #unsubscribeVm title="物理机退订" [subid]="pm?.subinstanceId"></unsubscribe>
                   <a (click)="unsubscribeVm.open()" href="javascript:">删除物理机</a>
                 </li>
             </ul>

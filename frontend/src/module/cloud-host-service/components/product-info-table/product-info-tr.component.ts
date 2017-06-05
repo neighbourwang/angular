@@ -57,6 +57,8 @@ console.log(this.itemList)
 			oncePrice:number = 0;
 
 			this.itemList.forEach(item => {
+				if(!item.billingInfo) return false;
+				
 				oncePrice += item.billingInfo.basePrice;
 				if(item.billingInfo.basicPrice) {   //主机价格计算
 					if(!billingArr[item.billingInfo.periodType]) billingArr[item.billingInfo.periodType] = 0;  //计算周期价格

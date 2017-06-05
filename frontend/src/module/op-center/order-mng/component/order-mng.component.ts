@@ -696,6 +696,11 @@ export class OrderMngComponent implements OnInit {
 		let list = this.selectedOrderItem.itemList[0].specList;
 
 		let items = [];
+		if(this._renewSetting.value<0){
+			this.showMsg('月份不能为负数！');
+			return;
+		}
+
 		for (let item of list) {
 			if (item.attrCode == 'TIMELINEUNIT') {
 				items.push(item);
@@ -733,49 +738,6 @@ export class OrderMngComponent implements OnInit {
 			}
 		]
 
-		// 	[
-		// 	{
-		// 	"attrId": this.selectedOrderItem.orderId,
-		// 	"attrCode": "TIMELINEUNIT",
-		// 	"attrDisplayValue":items[0].attrDisplayValue,
-		// 	"attrDisplayName": "时长单位",
-		// 	"attrValueId": "",
-		// 	"attrValue": "5",
-		// 	"attrValueCode": items[0].attrValueCode
-		// 	},
-		// 	{
-		// 	"attrId": this.selectedOrderItem.orderId,
-		// 	"attrCode": "TIMELINE",
-		// 	"attrDisplayName": "购买时长",
-		// 	"attrDisplayValue": "",
-		// 	"attrValueId": "",
-		// 	"attrValue": this._renewSetting.value.toString(),
-		// 	"attrValueCode": ""
-		// 	}
-		// ]
-		
-
-    //   let param =
-	//    [
-	// 		{	"attrId": this.selectedOrderItem.orderId,
-	// 			"attrCode": "TIMELINEUNIT",
-	// 			"attrDisplayName": "时长单位",
-	// 			"attrValueCode":items[0].attrValueCode,
-	// 			"attrDisplayValue": "按月",
-	// 			"valueUnit": '',
-	// 			"attrOrderSeq": '',
-	// 			"description": ''
-	// 		},
-	// 		{	"attrId": this.selectedOrderItem.orderId,
-	// 			"attrCode": "TIMELINE",
-	// 			"attrDisplayName": "购买时长",
-	// 			"attrValueCode": "",
-	// 			"attrDisplayValue": this._renewSetting.value.toString(),
-	// 			"valueUnit": '',
-	// 			"attrOrderSeq": '',
-	// 			"description": ''
-	// 		}
-	// 	]
 		this.layoutService.show();
 		this._renewHandler.Go(null, [{ key: "_subId", value: this.selectedOrderItem.orderId }], param)
 			.then(success => {

@@ -84,6 +84,7 @@ export class cloudHostListComponent implements OnInit, OnDestroy {
 			
 		}).then(list => {
 			this.vmList = list;
+			this.radioSelected = new VmList;
 			this.checkListMiddleState();
 		}).catch(error => {
 			this.layoutService.hide();

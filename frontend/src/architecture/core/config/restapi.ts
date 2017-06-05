@@ -315,6 +315,12 @@ export let RestApis: RestApiModel[] = [
         "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/{pmId}"
     },
     {
+        "desc": "查询物理机状态",
+        "method": "GET",
+        "id": "phymachine.status",
+        "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/powerstatus/{pmId}"
+    },
+    {
         "desc": "获取物理机状态",
         "method": "POST",
         "id": "phymachine.product.state",
@@ -326,6 +332,7 @@ export let RestApis: RestApiModel[] = [
         "id": "phymachine.subinstance.action",
         "url": "marketplace/authsec/subinstance/pm/action"
     },
+
     //管理服务部分
     {
         "desc": "获取管理服务产品",

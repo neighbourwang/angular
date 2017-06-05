@@ -107,8 +107,8 @@
             <td class="text-center">{{pm.publicIP}}</td>
             <td class="text-center">{{pm.poolRegionInfo}}</td>
             <td class="text-center">
-                <div *ngIf="isMiddleState(pm.status)" class="loading-icon"></div>
-                {{pm.status | dict:service.computeStatus | async}}
+                <div *ngIf="isMiddleState(pm.pmstatus)" class="loading-icon"></div>
+                {{pm.pmstatus | dict:service.computeStatus | async}}
             </td>
             <td class="text-center">{{pm.expireDate}}</td>
             <td class="text-center">{{pm.appendService}}</td>

@@ -400,7 +400,7 @@
                 <p class="cloud-p" *ngIf="!diskProducts[i]">没有匹配到相应的云硬盘产品</p>
 				<p class="cloud-p" *ngIf="diskProducts[i]">云硬盘类型: {{disk?.storage?.attrDisplayValue}}</p>
 				<p class="cloud-p" *ngIf="diskProducts[i]">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{ diskProducts[i]?.billingInfo?.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
-				<p class="cloud-p" *ngIf="diskProducts[i]">{{'VM_INSTANCE.BY_VOLUMN_COSTS'| translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{diskProducts[i]?.billingInfo.unitPrice}}/GB/{{ diskProducts[i]?.billingInfo.unitType | dict:service.unitType | async }}</font></p>
+				<p class="cloud-p" *ngIf="diskProducts[i]">{{'VM_INSTANCE.BY_VOLUMN_COSTS'| translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{diskProducts[i]?.billingInfo?.unitPrice}}/GB/{{ diskProducts[i]?.billingInfo?.unitType | dict:service.unitType | async }}</font></p>
             </ng-container>
             <div class="cloud-p">
                 <p class="cloud-title">{{'VM_INSTANCE.TOTAL_COST'| translate}}：</p>
