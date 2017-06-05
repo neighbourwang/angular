@@ -2517,7 +2517,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取镜像源列表",
         "id":"phy-mng.phy-img-mng.phyimgsource.getlist",
         "method":"POST",
-        "url":"pmimagemgmt/noauth/pmimage/pool/page/{page}/size/{size}"
+        "url":"pmimagemgmt/authsec/pmimage/pool/page/{page}/size/{size}"
     },
     {
         "desc": "物理机镜像池状态修改",
@@ -2529,7 +2529,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建镜像源提交",
         "id":"phy-mng.phy-img-mng.phyimgsource.commit.create",
         "method":"POST",
-        "url":"pmimagemgmt/noauth/pmimage/pool"
+        "url":"pmimagemgmt/authsec/pmimage/pool"
     },
     {
         "desc": "编辑镜像源提交",
