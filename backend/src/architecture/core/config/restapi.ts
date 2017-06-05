@@ -1202,7 +1202,7 @@ export let RestApis: RestApiModel[] = [
         "id": "physical-service-update.post",
         "method": "POST",
         "url": "adminui/authsec/services/type/PM"
-    }, 
+    },
     {
         "desc": "获取物理机产品详情",
         "id": "physical-product-detail.get",
@@ -1226,8 +1226,8 @@ export let RestApis: RestApiModel[] = [
         "id": "physical-product-unitprice.get",
         "method": "GET",
         "url": "adminui/authsec/product/{id}/PMHistoryPrice"
-    }, 
-       
+    },
+
     //管理服务产品
     {
         "desc": "创建管理服务",
@@ -1289,7 +1289,7 @@ export let RestApis: RestApiModel[] = [
         "id": "database-middleware-service-edit.get",
         "method": "GET",
         "url": "adminui/authsec/services/middleWarepre/{id}"
-    },    
+    },
     {
         "desc": "更新数据库中间件服务目录",
         "id": "database-middleware-service-update.put",
@@ -1301,7 +1301,7 @@ export let RestApis: RestApiModel[] = [
         "id": "database-middleware-product.get",
         "method": "GET",
         "url": "adminui/authsec/enterprises/product/{id}"
-    }, 
+    },
     //模板管理
     {
         "desc": "查询数据库模板",
@@ -1314,7 +1314,7 @@ export let RestApis: RestApiModel[] = [
         "id": "prod-mng.template-mng.middleware.search",
         "method": "POST",
         "url": "adminui/authsec/middleware/template/search/paging"
-    },    
+    },
     {
         "desc": "获取数据库选项基础信息",
         "id": "template-mng-database.initInfo.get",
@@ -2389,7 +2389,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "添加物理机网络",
         "id": "phy-mng.phy-net-mng.network.create",
         "method": "POST",
-        "url": "pmnetworkmgmt/noauth/pmnetwork"
+        "url": "authsec/pmnetwork"
     },
     {
         "desc": "编辑物理机网络",
@@ -2401,7 +2401,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取物理机网络列表",
         "id": "phy-mng.phy-net-mng.network.list",
         "method": "POST",
-        "url": "pmnetworkmgmt/noauth/pmnetwork/page/{page}/size/{size}"
+        "url": "authsec/pmnetwork/page/{page}/size/{size}"
     },
     {
         "desc": "根据pmNetworkId获取网络信息",
@@ -2966,6 +2966,12 @@ export let RestApis: RestApiModel[] = [
         "id": "mtc-center.mng-detail.detail",
         "method": "GET",
         "url": "subinstancemgmt/authsec/subinstance/supervise/{itemId}"
+    },
+    {
+        "desc": "一次性管理服务系统设置",
+        "id": "mtc-center.mng-set.set",
+        "method": "POST",
+        "url": "subinstancemgmt/authsec/subinstance/supervise/set"
     },
     //告警通知
     {

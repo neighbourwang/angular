@@ -65,11 +65,11 @@
         </tr>
         <tr *ngFor="let mgmt of mgmtList;let i = index">
             <td class="text-center"> <input type="radio" class="fox-cloud-radio" (change)="radioSelected=mgmt;" name="disk-list" id="mgmt_radio_{{mgmt.serviceId}}"></td>
-            <td class="text-center">{{i+1}}</td>
+            <td class="text-center">{{mgmt.serviceNo}}</td>
             <td class="text-center active"> <a href="javascript:" (click)="openDetail(mgmt.serviceId)">{{mgmt.serviceName}}</a></td>
             <td class="text-center">{{mgmt.serviceObjectCode | dict: service.type | async}}</td>
             <td class="text-center">{{mgmt.instance?.instanceId}}/{{mgmt.instance?.instanceName}}</td>
-            <td class="text-center">{{mgmt.instance?.instanceRegion}}</td>
+            <td class="text-center">{{mgmt.zoneId}}</td>
             <td class="text-center">{{mgmt.serviceType | dict: service.period | async}}</td>
             <td class="text-center">{{mgmt.serviceStatus | dict: service.status | async}}</td>
         </tr>

@@ -143,7 +143,7 @@ export class MngServiceListComponent implements OnInit{
             .catch((e) => this.onRejected(e));
     }
 
-    selectAll(){
+/*    selectAll(){
         this.serviceStatus= "";
         this.getData();
     }
@@ -156,7 +156,7 @@ export class MngServiceListComponent implements OnInit{
     selectComplete(){
         this.serviceStatus= "2";
         this.getData();
-    }
+    }*/
 
     searchServiceMng(){
         if(this.searchTypeCode == "0"){
@@ -251,6 +251,14 @@ export class MngServiceListComponent implements OnInit{
 
     reset(){
         this.keyWords= "";
+        this.instanceName= "";
+        this.instanceNo= "";
+        this.serviceStatus= "0";
+        this.enterpriseId= "All";
+        this.serviceId= "";
+        this.serviceObjectCode= "";
+        this.pager.render(1);
+        this.getData();
     }
 
     selected(item: MngServiceList){

@@ -14,6 +14,7 @@ import {MngServiceRouting} from './mng-service.routing';
 //service
 import { MngService} from './service/mng-service.service';
 import { MngDetailService} from './service/mng-detail.service';
+import { MngSetService} from './service/mng-set.service';
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import { MngDetailService} from './service/mng-detail.service';
     ],
     providers:[
         MngService,
-        MngDetailService
+        MngDetailService,
+        MngSetService
     ]
 })
 

@@ -5,35 +5,35 @@
     <div class="mgt10">
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">服务状态：</span>
         <div class="btn-group" data-toggle="buttons">
-            <button class="btn btn-default active mgl5" (click)="selectAll()">
-                <input type="radio">{{all}}
+            <button class="btn btn-default mgl5" (click)="serviceStatus= v.value; getData();"  *ngFor="let v of service.statusDic | async" [ngClass]="{'active': serviceStatus === v.value}">
+                <input type="radio" [value]="v.value">{{v.displayValue}}
             </button>
-            <button class="btn btn-default mgl15" (click)="selectProgress()">
+      <!--      <button class="btn btn-default mgl15" (click)="selectProgress()">
                 <input type="radio">{{progress}}
             </button>
             <button class="btn btn-default mgl15" (click)="selectComplete()">
                 <input type="radio">{{complete}}
-            </button>
+            </button>-->
         </div>
     </div>
     <div class="mgt15">
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">所属企业：</span>
         <div class="float-left pdr20 mgl5">
-            <select [(ngModel)]="enterpriseId" (ngModelChange)="getData()" class="pdl10 form-control" style="width: 137px;">
+            <select [(ngModel)]="enterpriseId" (ngModelChange)="getData();pager.render(1);" class="pdl10 form-control" style="width: 137px;">
                 <option value="All">所有企业</option>
                 <option *ngFor="let v of enterpriseList" [value]="v.id">{{v.name}}</option>
             </select>
         </div>
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">管理服务名称：</span>
         <div class="float-left pdr20 mgl5">
-            <select [(ngModel)]="serviceId" class="pdl10 form-control" (ngModelChange)="getData()">
+            <select [(ngModel)]="serviceId" class="pdl10 form-control" (ngModelChange)="getData();pager.render(1);">
                 <option value="">所有</option>
                 <option *ngFor="let v of serviceNames" [value]="v.serviceId">{{v.serviceName}}</option>
             </select>
         </div>
         <span class="float-left" style="display:inline-block;font-size:16px;padding:6px 0">服务对象：</span>
         <div class="float-left pdr20 mgl5">
-            <select [(ngModel)]="serviceObjectCode" class="pdl10 form-control" (ngModelChange)="getData()">
+            <select [(ngModel)]="serviceObjectCode" class="pdl10 form-control" (ngModelChange)="getData();pager.render(1);">
                 <option value="">所有</option>
                 <option *ngFor="let v of service.typeDic | async" [value]="v.value">{{v.displayValue}}</option>
             </select>
@@ -48,9 +48,9 @@
         </div>
         <div class="input-group col-md-2 float-left">
             <input [(ngModel)]="keyWords" type="text" class="form-control" placeholder="输入信息快速搜索">
-            <div class="input-group-addon" (click)="searchServiceMng()"><span class="glyphicon glyphicon-search"></span></div>
+            <div class="input-group-addon" (click)="searchServiceMng();pager.render(1);"><span class="glyphicon glyphicon-search"></span></div>
         </div>
-        <button class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="reset()">重置</button>
+        <button class="fox-cloud-button fox-cloud-button-white mgl15" style="height:34px" (click)="reset();pager.render(1);">重置</button>
 
         <button class="fox-cloud-button fox-cloud-button-white pull-right mgl10" (click)="serviceUpdatePage()">
             <span class="icon-button-label icon-left-button-label">服务状态更新</span>
@@ -74,9 +74,9 @@
                 <th>服务状态</th>
             </thead>
             <tbody>
-            <tr *ngFor="let item of data; let i= index">
+            <tr *ngFor="let item of data">
                 <td><input type="radio" class="fox-cloud-radio" [checked]="item.selected" (change)="selected(item)"/></td>
-                <td>{{pageIndex*pageSize+i+1}}</td>
+                <td>{{item.serviceNo}}</td>
                 <td><a href="javascript:void(0);" (click)="gotoDetail(item);">{{item.serviceName}}</a></td>
                 <td>{{item.serviceObjectCode | dict: this.service.typeDic | async}}</td>
                 <td>

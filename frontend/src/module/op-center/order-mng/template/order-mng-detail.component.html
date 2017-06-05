@@ -109,7 +109,7 @@
 						<td>{{item.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 						<td>{{item.specification}}</td>
 						<td>{{item.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async}}</td>
-						<td class="font-green">{{item.statusName}}</td>
+						<td class="font-green">{{item.status| dict:_dictServ.getDic('SUBINSTANCE', 'STATUS') |async}}</td>
 						<td>
 							<ul>
 								<li>{{ 'COMMON.ONE_TIME_COSTS' | translate}}: {{item.oneTimePrice}}</li>

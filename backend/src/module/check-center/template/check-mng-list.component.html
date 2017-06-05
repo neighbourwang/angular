@@ -115,7 +115,7 @@
 								placement="right"
 								[animation]="true" 
 								[closeOnClickOutside]="true" >
-								<machine-view  [values]="item" *ngIf="item.serviceType==4"></machine-view><!--物理机 -->
+								<machine-view  [values]="item" *ngIf="item.serviceTypeIdStr==4"></machine-view><!--物理机 -->
 								<vm-view [values]="item" *ngIf="item.serviceTypeIdStr==0"></vm-view> <!--显示云主机 -->
 						 		<disk-view [values]="item" *ngIf="item.serviceTypeIdStr==1"></disk-view><!--显示云硬盘 -->
 								<sql-view  [values]="item" *ngIf="item.serviceTypeIdStr==3"></sql-view><!--数据库 -->

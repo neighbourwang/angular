@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, } from '
 import { Router } from '@angular/router';
 import { NgForm } from "@angular/forms";
 
-import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, CountBarComponent ,ValidationService, Validation, ValidationRegs} from '../../../../architecture';
 //service
 import { OrgMngService } from '../service/org-mng.service';
 //model
@@ -20,8 +20,11 @@ export class OrgMngCrComponent implements OnInit {
   constructor(
     private layoutService: LayoutService,
     private router: Router,
-    private service: OrgMngService
-  ) { }
+    private service: OrgMngService,
+    private v:Validation
+  ) { 
+    this.v.result={};
+  }
 
   @Input()
   isEdit: boolean;
@@ -135,8 +138,21 @@ export class OrgMngCrComponent implements OnInit {
         console.error(err);
       });
   }
+
+  //验证
+    checkValue(key?: string) {
+        const regs: ValidationRegs = {
+            name: [this.org.name, [this.v.isBase,this.v.maxLength(50),this.v.minLength(2), this.v.isUnBlank], "用户名输入格式不正确"],
+            //手机号码验证
+            description: [this.org.description, [this.v.maxLength(68)], "描述输入错误"],
+        }
+        return this.v.check(key, regs);
+    }
+
   //保存 给父组件调用
   save():Promise<boolean> {
+    let message=this.checkValue();
+    if(message){ return Promise.reject('error')};
     this.org.resource = this.resource;
     console.log(this.org);
     if (this.orgForm.valid || this.org.isDefault) {

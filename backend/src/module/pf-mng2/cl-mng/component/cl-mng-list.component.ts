@@ -41,6 +41,8 @@ export class ClMngListComponent implements OnInit {
     tp: number = 0;
     // 每页显示的数据条数
     pp: number = 10;
+    //当前页数
+    currentPage:number=0;
 
 
     @ViewChild('removeConfirm')
@@ -292,7 +294,7 @@ export class ClMngListComponent implements OnInit {
                     let pageInfo = response.pageInfo;
 
                     this.tp = pageInfo.totalPage;
-
+                    this.currentPage=pageInfo.currentPage-1;
                     this.platforms = backend;
                 } else {
                     this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_INFO_ERROR');
