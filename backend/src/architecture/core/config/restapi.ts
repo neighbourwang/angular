@@ -2294,7 +2294,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "物理机联动列表",
         "id": "phy-mng.phy-pool.parts.speclist",
         "method": "GET",
-        "url": "pmresourcemgmt/noauth/pm/parts/partsList"
+        "url": "pmresourcemgmt/authsec/pm/parts/partsList"
     },
     {
         "desc": "添加物理机部件",
