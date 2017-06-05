@@ -2375,7 +2375,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "查询物理机已有的部件和规格清单",
         "id": "physical-mng.physical.partList.get",
         "method": "GET",
-        "url": "pmresourcemgmt/noauth/pm/parts/specvaluelist"
+        "url": "pmresourcemgmt/authsec/pm/parts/specvaluelist"
     },
     {
         "desc": "编辑物理机部件",
