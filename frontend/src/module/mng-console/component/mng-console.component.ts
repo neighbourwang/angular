@@ -46,6 +46,8 @@ export class MngConsoleComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        window.scrollTo(0,0)
+
         this.userInfo = this.service.getUserInfo;
         this.setEntResoure();
         this.quotaEntResoure();
