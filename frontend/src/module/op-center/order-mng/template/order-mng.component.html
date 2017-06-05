@@ -216,7 +216,7 @@
 					<td  colspan="11"  [ngClass]="{'no-padding':orderItem.showCommonStyle}">
 						<table class="table table-hover _table "  *ngFor="let prodItem of orderItem.itemList" [ngClass]="{'mgb10':!orderItem.showCommonStyle}" >
 							<thead>
-								<th colspan="11"  *ngIf="prodItem.subinstanceNo" ><span *ngIf="prodItem.purchaseDate" class="mgr10">{{prodItem.purchaseDate}}</span><span>已购服务编号：{{prodItem.subinstanceNo}}</span></th>
+								<th colspan="11"  *ngIf="!orderItem.showCommonStyle" ><span *ngIf="prodItem.purchaseDate" class="mgr10">{{prodItem.purchaseDate}}</span><span  *ngIf="prodItem.subinstanceNo">已购服务编号：{{prodItem.subinstanceNo}}</span></th>
 							</thead>
 							<tbody>
 								<tr >

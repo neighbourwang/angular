@@ -3,7 +3,7 @@
 </div>
 <div class="page-content">
     <div style="margin-bottom:10px">
-        <button class="fox-cloud-button fox-cloud-button-green" (click)="createAccount();">
+        <button class="fox-cloud-button fox-cloud-button-green" (click)="createAccount();" id="createAccount">
             <span class="glyphicon glyphicon-edit"></span>
             <span class="icon-button-label icon-left-button-label">{{'ALI_CLOUD.ADD_SUB_ACCOUNT' | translate}}</span>
         </button>
@@ -13,16 +13,16 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="javascript:void(0);" (click)="enableAccount();">{{'ALI_CLOUD.ENABLE' | translate}}</a></li>
-                <li><a href="javascript:void(0);" (click)="disableAccount();">{{'ALI_CLOUD.DISABLE' | translate}}</a></li>
-                <li><a href="javascript:void(0);" (click)="deleteAccount();">{{'ALI_CLOUD.DELETE' | translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="enableAccount();" id="enableAccount">{{'ALI_CLOUD.ENABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="disableAccount();" id="disableAccount">{{'ALI_CLOUD.DISABLE' | translate}}</a></li>
+                <li><a href="javascript:void(0);" (click)="deleteAccount();" id="deleteAccount">{{'ALI_CLOUD.DELETE' | translate}}</a></li>
             </ul>
         </div>
         <div class="pull-right mgl10">
-            <button class="fox-cloud-button fox-cloud-button-green" (click)="setEntprise();">{{'ALI_CLOUD.SET_ENTERPRISE' | translate}}</button>
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="setEntprise();" id="setEntprise">{{'ALI_CLOUD.SET_ENTERPRISE' | translate}}</button>
         </div>
         <div class="pull-right">
-            <button class="fox-cloud-button fox-cloud-button-green" (click)="editAccount();">{{'ALI_CLOUD.EDIT' | translate}}</button>
+            <button class="fox-cloud-button fox-cloud-button-green" (click)="editAccount();" id="editAccount">{{'ALI_CLOUD.EDIT' | translate}}</button>
         </div>
     </div>
     <div class="table-container">
@@ -40,7 +40,7 @@
               </tr>
             </thead> 
             <tbody>
-                <tr *ngFor="let item of accountList |orderBy:'!lastUpdate'">
+                <tr *ngFor="let item of accountList |orderBy:'!lastUpdate'" id="accountList_{{item.id}}">
                     <td>
                          <input type="radio" name="aliAccount" class="fox-cloud-radio" (change)="getSelectAccount(item);"[checked]="item.isSelect" />
                     </td>

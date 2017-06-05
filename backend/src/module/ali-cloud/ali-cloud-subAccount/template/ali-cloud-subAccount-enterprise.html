@@ -8,7 +8,7 @@
             <div class="col-sm-3">
                <span style="line-height:34px">{{changeEntName}}</span>     
             </div>
-           <button class="fox-cloud-button fox-cloud-button-white " (click)="changeEnt();"> {{'ALI_CLOUD.RESET'|translate}} </button>
+           <button id="changeEnt" class="fox-cloud-button fox-cloud-button-white " (click)="changeEnt();"> {{'ALI_CLOUD.RESET'|translate}} </button>
         </div>
     </div>
     <div  style="margin-left:260px;width:570px">
@@ -23,9 +23,9 @@
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let item of enterpriseList "  >
-                        <tr *ngIf="item.visible == 'true'">
+                        <tr *ngIf="item.visible == 'true'" id="enterpriseList_{{item.id}}">
                             <td >
-                                <input type="radio" name="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);">
+                                <input type="radio" name="entprise" id="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);">
                             </td>
                             <td>{{item.tenantName}}</td>
                             <td [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}"> 
@@ -51,10 +51,10 @@
     </div>
 </div>
 <div class="text-center mgt20">
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="gotoAccountList();">
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="gotoAccountList();" id="gotoAccountList">
         <span class="icon-button-label">{{'ALI_CLOUD.CANCEL'|translate}}</span>
     </button>   
-    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="setEnterprise();" >
+    <button class="fox-cloud-button-lg fox-cloud-button-white" (click)="setEnterprise();"  id="setEnterprise">
         <span class="icon-button-label">{{'ALI_CLOUD.SAVE'|translate}}</span>
     </button>
 </div>
