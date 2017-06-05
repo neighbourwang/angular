@@ -129,11 +129,11 @@ export class ProdMngCreStep4Component implements OnInit {
         this.PostProduct.postProduct(this.service.product).then(response => {
             this.layoutService.hide();
             if (response && response.resultCode == 12001001) {
-                this.notice.open('COMMON_ERROR', '产品名称已存在');
+                this.notice.open('COMMON.ERROR', '产品名称已存在');
             } else if (response.resultCode == 100) {
                 this.route.navigate(["prod-mng/prod-mng/prod-mng"]);
             } else {
-                this.notice.open('COMMON_ERROR', response.resultContent);
+                this.notice.open('COMMON.ERROR', response.resultContent);
             }
         }).catch(err => {
             console.error(err);

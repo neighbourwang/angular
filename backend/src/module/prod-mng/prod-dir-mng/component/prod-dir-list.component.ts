@@ -63,7 +63,6 @@ export class ProdDirListComponent implements OnInit {
     prodDirTypeCode: string;;
     queryProDirTypeId: string = '';
     ngOnInit() {
-        console.log(this.service.serverTypeDic);
         //获得激活云平台数据
         this.PlatformsActiveService.getPlatformsActive().then(response => {
             console.log('激活云平台数据', response);
@@ -96,7 +95,6 @@ export class ProdDirListComponent implements OnInit {
             "platformId": '',
             "size": this.pp,
         });
-        console.log(this.service.dictServiceObjList);
     }
     data: any = {
         "categoryId": "",
@@ -384,7 +382,19 @@ export class ProdDirListComponent implements OnInit {
                             for(let spec of dir.phyMachinePartsFlavors){
                                 dir.specContent+='<p>'+spec.partsName+' '+spec.specName+' '+spec.partsFlavorValue+' '+spec.partFlavorNum+'</p>'  
                             }                            
-                            console.log(dir.specContent);
+                            // console.log(dir.specContent);
+                        }
+                        if(dir.serviceType='3'){
+                            let dbType='';
+                            let deploy='';
+                            // console.log(dir.dataBaseServiceTemplateSpecResp.dbType);
+                            this.dictPipe.transform('0',this.service.databaseTypeDic).then(res =>{
+                                console.log(res);
+                            });
+                            // this.dictPipe.transform(String(dir.dataBaseServiceTemplateSpecResp.deploymentMode),this.service.databaseDeployModeDic).then(res => deploy=res);
+                            dir.specification=dbType+' '+deploy+' '+dir.dataBaseServiceTemplateSpecResp.version;
+                            console.log(Boolean(''));
+                            console.log(Boolean(' '));
                         }
                     });
                     console.log(this.prodDirList);                 

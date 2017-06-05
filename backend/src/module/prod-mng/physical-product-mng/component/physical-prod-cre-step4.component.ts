@@ -68,11 +68,11 @@ export class PhysicalProdCreStep4Component implements OnInit {
         this.service.postPhysicalProduct(this.service.product).then(res=>{
              this.LayoutService.hide();                        
             if(res&&res.resultCode==12001001){
-                    this.notice.open('COMMON_ERROR','产品名称已存在');
+                    this.notice.open('COMMON.ERROR','产品名称已存在');
                 }else if(res.resultCode==100){
                     this.route.navigate(["prod-mng/prod-mng/prod-mng"]);                                                 
                 }else{
-                    this.notice.open('COMMON_ERROR',res.resultContent);
+                    this.notice.open('COMMON.ERROR',res.resultContent);
                 }           
         }).catch(err=>{
             this.LayoutService.hide();            

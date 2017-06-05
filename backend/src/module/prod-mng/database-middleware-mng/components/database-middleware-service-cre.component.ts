@@ -228,12 +228,12 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
             this.service.putDatabaseMiddlewareService(this.databaseMiddlewareService).then(res => {
                 this.layoutService.hide();                
                 if(res&&res.resultCode==12001001){
-                    this.notice.open('COMMON_ERROR','产品目录名称已存在');
+                    this.notice.open('COMMON.ERROR','产品目录名称已存在');
                 }else if(res.resultCode==100){
                     console.log(res);
                     this.location.back();                    
                 }else{
-                    this.notice.open('COMMON_ERROR',res.resultCode);
+                    this.notice.open('COMMON.ERROR',res.resultCode);
                 }
             }).catch(err => {
                 console.error(err);
@@ -245,12 +245,12 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
             this.service.postDatabaseMiddlewareService(this.databaseMiddlewareService).then(res => {
                 this.layoutService.hide();                
                 if(res&&res.resultCode==12001001){
-                    this.notice.open('COMMON_ERROR','产品目录名称已存在');
+                    this.notice.open('COMMON.ERROR','产品目录名称已存在');
                 }else if(res.resultCode==100){
                     console.log(res);
                     this.location.back();
                 }else{
-                    this.notice.open('COMMON_ERROR',res.resultCode);
+                    this.notice.open('COMMON.ERROR',res.resultCode);
                 }
             }).catch(err => {
                 console.error(err);
