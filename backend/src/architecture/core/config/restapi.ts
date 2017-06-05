@@ -2252,7 +2252,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取物理机资源池列表",
         "id": "phy-mng.phy-pool.phylist.data",
         "method": "POST",
-        "url": "pmresourcemgmt/noauth/pmpools/page/{page}/size/{size}"
+        "url": "pmresourcemgmt/authsec/pmpools/page/{page}/size/{size}"
     },
     {
         "desc": "删除/禁用/启用物理机资源池",
@@ -2264,7 +2264,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "创建物理机资源池",
         "id": "phy-mng.phy-pool.phylist.creat",
         "method": "POST",
-        "url": "pmresourcemgmt/noauth/pmpool"
+        "url": "pmresourcemgmt/authsec/pmpool"
     },
     {
         "desc": "编辑物理机资源池",
@@ -2288,7 +2288,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "分页获取物理机部件列表",
         "id": "phy-mng.phy-pool.parts.data",
         "method": "POST",
-        "url": "pmresourcemgmt/noauth/pm/parts/page/{page}/size/{size}"
+        "url": "pmresourcemgmt/authsec/pm/parts/page/{page}/size/{size}"
     },
     {
         "desc": "物理机联动列表",
@@ -2300,7 +2300,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "添加物理机部件",
         "id": "phy-mng.phy-pool.parts.create",
         "method": "POST",
-        "url": "pmresourcemgmt/noauth/pm/parts"
+        "url": "pmresourcemgmt/authsec/pm/parts"
     },
     {
         "desc": "删除物理机部件",
