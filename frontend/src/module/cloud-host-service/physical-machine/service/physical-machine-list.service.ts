@@ -104,8 +104,8 @@ export class PhysicalMachineListService {
         field : "OWNER_TYPE"
     });
     computeStatus = this.dict.get({    //获取状态列表
-        owner : "PMRESOURCE",
-        field : "STATUS"
+        owner : "PM",
+        field : "POWER_OO_STATUS"
     });
 
 }

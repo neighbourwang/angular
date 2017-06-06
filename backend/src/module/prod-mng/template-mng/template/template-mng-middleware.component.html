@@ -80,16 +80,16 @@
 					<div class="col-sm-3 form-control-title">{{'云主机' | translate}}</div>
 					<div class="col-sm-2 form-inline has-feedback" [ngClass]="{'has-error':v.result.cpu}">
 						<span>CPU(核)</span>
-						<input type="text" class="form-control" [(ngModel)]="middleware.cpu" (ngModelChange)="checkForm('cpu')" style="display: inline;width:100px">
+						<input type="text" class="form-control" [(ngModel)]="middleware.cpu" (ngModelChange)="checkForm('cpu')" style="display: inline;width:100px;padding-right:12px" maxlength='5'>
 					</div>
 					<div class="col-sm-2 form-inline has-feedback" [ngClass]="{'has-error':v.result.memory}">
 						<span>内存(G)</span>
-						<input type="text" class="form-control" [(ngModel)]="middleware.memory" (ngModelChange)="checkForm('memory')" style="display: inline;width:100px">
+						<input type="text" class="form-control" [(ngModel)]="middleware.memory" (ngModelChange)="checkForm('memory')" style="display: inline;width:100px;padding-right:12px" maxlength='8'>
 					</div>
 					<div class="col-sm-3 form-inline has-feedback" [ngClass]="{'has-error':v.result.bootStorageSize}">
 						<span>启动盘大小(Gb)</span>
 						<input type="text" class="form-control" [(ngModel)]="middleware.bootStorageSize" (ngModelChange)="checkForm('bootStorageSize')"
-						 style="display: inline;width:100px">
+						 style="display: inline;width:100px;padding-right:12px" maxlength='8'>
 					</div>
 				</div>
 			</div>
@@ -116,10 +116,10 @@
 									<td>{{idx + 1}}</td>
 									<td>{{item.useDisplay}}</td>
 									<td>
-										<input class="form-control" [(ngModel)]="item.minDiskSize" style="display: inline;width:100px">
+										<input class="form-control" [(ngModel)]="item.minDiskSize" style="display: inline;width:120px" maxlength="10">
 									</td>
 									<td>
-										<input class="form-control" [(ngModel)]="item.mountPath" style="display: inline;width:150px">
+										<input class="form-control" [(ngModel)]="item.mountPath" style="display: inline;" maxlength="50">
 									</td>
 								</tr>
 							</tbody>

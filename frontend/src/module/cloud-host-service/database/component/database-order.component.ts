@@ -168,6 +168,17 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.dux.dispatch("SET_DISK_PRODUCTS")
 	}
 
+	customSetValueList(code, valueList) {
+		if( code === "MEM" && this.database && this.database.memory ) {
+			// return valueList.filter(value => +value.attrValue > this.database.memory * 1024 )
+		}
+		if( code === "CPU" && this.database && this.database.cpu ) {
+			// return valueList.filter(value => +value.attrValue > this.database.cpu )
+		}
+
+		return valueList;
+	}
+
 	databaseValueInit() {
 		this.databaseValue.ARCHMODE.attrValue = "archivelog";
 		this.databaseValue.DBCHARSET.attrValue = "UTF8";
