@@ -164,7 +164,7 @@ export class cloudVmComponentOrder implements OnInit {
 
 					if( ["MEM"].indexOf(code) > -1 ) valueList = this.filterPlatform(valueList)   //如果是列表里面的code 则需要根据平台过滤
 					valueList = this.customSetValueList(code, valueList)    //继承云主机的页面如果有一些自定义的valueList可覆盖此方法, 物理机和中间件需要根据模板的最小规格来过滤cpu和mem
-
+console.log(code, valueList)
 					this.setValueListAndValue(code, valueList)
 				})
 			}
@@ -175,7 +175,7 @@ export class cloudVmComponentOrder implements OnInit {
 
 	//设置默认值 并派发事件
 	private setValueListAndValue(code, list?) {
-		if(code === "MEM"){
+		if(code === "OS"){
 			console.log(list)
 		}
 		list = list ? list : this.attrList[code].valueList
@@ -183,7 +183,7 @@ export class cloudVmComponentOrder implements OnInit {
 		if (code === "IMAGETYPE") list = list.concat(this.tempImagetype) //后端未实现 临时添加
 
 		this.valuesList[code] = list
-		this.values[code] = this.valuesList[code].length ? this.valuesList[code][0] : new Values
+		this.values[code] = this.valuesList[code].length ? this.valuesList[code][0] : new VlueList
 
 		this.dux.dispatch(code)  //派发当前的code的subscriber
 		if (["ZONE", "PLATFORM", "CPU", "MEM", "BOOTSIZE"].indexOf(code) > -1) this.dux.dispatch("FINDE_VMSKU")   //如果是这五个触发 匹配sku的事件
@@ -235,7 +235,6 @@ export class cloudVmComponentOrder implements OnInit {
 
 			this.setValueListAndValue("OS", list)
 		}).catch(error => {
-			this.setValueListAndValue("OS", []);
 			this.layoutService.hide()
 		})
 	}
@@ -251,7 +250,7 @@ export class cloudVmComponentOrder implements OnInit {
 	}
 
 	private oSfilterBootsize(): VlueList[] {  //根据os的大小过滤bootsize的大小
-		if (!this.values.OS) return [];
+		if (!this.values.OS.attrValueCode) return this.bootsizeList = [];
 
 		const filteredList = this.valuesList.BOOTSIZE.filter(bootSizeObj =>
 			parseInt(bootSizeObj.attrValue) * 1024 * 1024 * 1024 >= this.values.OS.capacity
@@ -263,7 +262,6 @@ export class cloudVmComponentOrder implements OnInit {
 		this.bootsizeList = this.filterPlatform(filteredList);   //过滤可用平台
 		if( this.bootsizeList.length ){
 			this.values.BOOTSIZE = this.bootsizeList[0];
-			console.count()
 			this.dux.dispatch("BOOTSIZE")   
 			this.dux.dispatch("FINDE_VMSKU")   
 		}

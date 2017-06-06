@@ -22,9 +22,9 @@
 				<li class="hands"><a (click)="delete()" id="delete">{{ 'COMMON.DELETE' | translate }}</a></li>
 			</ul>
 		</div>
-		<div class="pull-right" style="display: none">
+		<div class="pull-right">
 			<input type="text" class="form-control searchbox" id="search_input" placeholder="{{ 'COMMON.SEARCH' | translate }}" [(ngModel)]="criteria" />
-			<span class="glyphicon glyphicon-search searchbox-incon" (click)="search()" id="search"></span>
+			<span class="glyphicon glyphicon-search searchbox-incon" (click)="box_search()" id="search"></span>
 		</div>
 		<button class="fox-cloud-button fox-cloud-button-green" (click)="create()" id="create">
 			<span class="glyphicon glyphicon-edit"></span>
@@ -73,9 +73,9 @@
 					<td>{{item.imageQuota }}</td>
 					<td>{{item.productNumber }}</td>
 					<!--<td>{{item.orderNumber}}</td>-->
-					<td>{{item.usedVCpuRate }}%</td>
-					<td>{{item.usedMemRate}}%</td>
-					<td>{{item.usedStorageRate}}%</td>
+					<td>{{item.usedVCpuRate||0}}%</td>
+					<td>{{item.usedMemRate||0}}%</td>
+					<td>{{item.usedStorageRate||0}}%</td>
 					<td [ngClass]="{'validateInfo':item.status==1,'warnInfo':item.status!=1}">{{item.statusName}}</td>
 					<td>{{item.desc}}</td>
 				</tr>
