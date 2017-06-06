@@ -113,7 +113,6 @@ export class cloudVmComponentOrder implements OnInit {
 		this.dux.subscribe("OS", () => { this.osChanged() })
 		this.dux.subscribe("OS", () => { this.oSfilterBootsize() })
 		this.dux.subscribe("FINDE_VMSKU", () => { this.getSkuMap("vm") })
-		this.dux.subscribe("FINDE_VMSKU", () => { this.oSfilterBootsize() })  //选择新的云主机的话会重新计算启动盘的大小
 		this.dux.subscribe("FINDE_DISKSKU", () => { this.getSkuMap("disk") })
 		this.dux.subscribe("SET_TIME_UNIT", () => { this.setTimeUnit() })
 		this.dux.subscribe("SET_VMPRICE", () => { this.setVmPrice() })
@@ -164,11 +163,15 @@ export class cloudVmComponentOrder implements OnInit {
 					let valueList = this.attrList[code].mapValueList[this.values[subCode].attrValueId] || []
 
 					if( ["MEM"].indexOf(code) > -1 ) valueList = this.filterPlatform(valueList)   //如果是列表里面的code 则需要根据平台过滤
+					valueList = this.customSetValueList(code, valueList)    //继承云主机的页面如果有一些自定义的valueList可覆盖此方法, 物理机和中间件需要根据模板的最小规格来过滤cpu和mem
+
 					this.setValueListAndValue(code, valueList)
 				})
 			}
 		}
 	}
+
+	customSetValueList(code, valueList) { return valueList }
 
 	//设置默认值 并派发事件
 	private setValueListAndValue(code, list?) {
@@ -248,7 +251,7 @@ export class cloudVmComponentOrder implements OnInit {
 	}
 
 	private oSfilterBootsize(): VlueList[] {  //根据os的大小过滤bootsize的大小
-		if (!this.values.OS) return this.bootsizeList = [];
+		if (!this.values.OS) return [];
 
 		const filteredList = this.valuesList.BOOTSIZE.filter(bootSizeObj =>
 			parseInt(bootSizeObj.attrValue) * 1024 * 1024 * 1024 >= this.values.OS.capacity
@@ -260,7 +263,9 @@ export class cloudVmComponentOrder implements OnInit {
 		this.bootsizeList = this.filterPlatform(filteredList);   //过滤可用平台
 		if( this.bootsizeList.length ){
 			this.values.BOOTSIZE = this.bootsizeList[0];
-			this.dux.dispatch("BOOTSIZE")
+			console.count()
+			this.dux.dispatch("BOOTSIZE")   
+			this.dux.dispatch("FINDE_VMSKU")   
 		}
 	}
 
