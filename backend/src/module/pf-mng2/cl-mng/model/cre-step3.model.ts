@@ -12,6 +12,7 @@ export class ZoneListModel {
     displayName: string; //显示名称
     displayNameValid: boolean;
     hostnum: number;//宿主机 数量
+    hostContent:any;
     memSize: number;//总内存数
     vcpunum: number;//物理cpu总核数
     usageQuota: number; //云主机机配额
