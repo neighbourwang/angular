@@ -295,6 +295,13 @@ export class ProdMngComponent implements OnInit {
                                 prod.serviceSpecification=dbType+' '+deploy+' '+prod.middleWareServiceTemplateSpecResp.version;                                
                             });
                         }
+                        if(prod.serviceType=='4'&&prod.phyMachinePartsFlavors.length>0){
+                            prod.serviceSpecification=prod.phyMachinePartsFlavors[0].partsName+' '+prod.phyMachinePartsFlavors[0].specName+' '+prod.phyMachinePartsFlavors[0].partsFlavorValue+' '+prod.phyMachinePartsFlavors[0].partFlavorNum+'...'
+                            prod.specContent='';
+                            for(let spec of prod.phyMachinePartsFlavors){
+                                prod.specContent+='<p>'+spec.partsName+' '+spec.specName+' '+spec.partsFlavorValue+' '+spec.partFlavorNum+'</p>'  
+                            } 
+                        }
                     })
                 }
                 this.layoutService.hide();

@@ -7,6 +7,7 @@ export class ProdList {
       "serviceName": string;
       "serviceType": string;
       "serviceSpecification": string;
+      "specContent":any;
       "billingCycle": number;
       "recurringPrice": number;
       "basicPrice": number;
@@ -23,6 +24,7 @@ export class ProdList {
         middleWareType: string;
        
     };
+    phyMachinePartsFlavors:Array<PartsFlavor>;
 }
 class DatabaseSpec {
     serviceTemplateId: string;
@@ -37,4 +39,28 @@ class DatabaseSpec {
         this.version='';
         this.dbType=0;
         }
+}
+class PartsFlavor {
+    "partFlavorNum": number;
+    "partsCode": string;
+    "partsDisplayName": string;
+    "partsFlavorDisplayName": string;
+    "partsFlavorValue": number;
+    "partsFlavorValueDisplayName": string;
+    "partsFlavorValueName": string;
+    "partsId": string;
+    "partsName": string;
+    "specId": string;
+    "specName": string;
+    "capacity": number;
+    selected: boolean;
+    constructor() {
+        this.partsFlavorValue = 0;
+        this.partsId = '';
+        this.partsName = '';
+        this.specId = '';
+        this.specName = '';
+        this.partFlavorNum = 0;
+        this.capacity = 0;
+    }
 }

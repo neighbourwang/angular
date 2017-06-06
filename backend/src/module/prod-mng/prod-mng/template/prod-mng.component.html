@@ -85,7 +85,10 @@
 						</span>
 					</td>-->
 					<td>{{item.serviceType | dict:ProdListService.productTypeDic|async}}</td>								
-					<td>{{item.serviceSpecification}}</td>					
+					<td>
+						<!--{{item.serviceSpecification}}-->
+						<static-tooltip [title]="item.specContent"><a href="javascript:void(0);" class="a-active">{{item.serviceSpecification}}</a></static-tooltip>
+					</td>					
 					<td>
 						<span *ngIf="item.billingType=='3'">{{'COMMON.BY_TIMES'|translate}}</span>
 						<span *ngIf="item.billingType!='3'" [ngSwitch]="item.billingCycle"> 
