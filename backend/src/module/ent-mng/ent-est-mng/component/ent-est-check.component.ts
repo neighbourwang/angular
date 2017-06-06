@@ -155,26 +155,26 @@ export class EntEstCheckComponent implements OnInit {
         
 
          // obj.usedCpuRate = item.usedCpuRate;//CPU配额使用率
-        obj.usedCpuRate = Number(((item.usedCpuQuota/item.cpuQuota)*100).toFixed(2));
+        obj.usedCpuRate = item.cpuQuota==0?0:Number(((item.usedCpuQuota/item.cpuQuota)*100).toFixed(2));
 
         // obj.usedFloatIpRate= item.usedFloatIpRate;// 浮动IP配额配额
-        obj.usedFloatIpRate=Number(((item.usedFloatIpQuota/item.floatIpQuota)*100).toFixed(2));
+        obj.usedFloatIpRate=item.floatIpQuota==0?0:Number(((item.usedFloatIpQuota/item.floatIpQuota)*100).toFixed(2));
 
         // obj.usedImageRate = item.usedImageRate;//镜像配额使用率
-        obj.usedImageRate =Number(((item.usedImageQuota/item.imageQuota)*100).toFixed(2));
+        obj.usedImageRate =item.imageQuota==0?0:Number(((item.usedImageQuota/item.imageQuota)*100).toFixed(2));
 
         // obj.usedMemRate  = item.usedMemRate;//内存使用率
-        obj.usedMemRate =Number(((item.usedMemQuota/item.memQuota)*100).toFixed(2));
+        obj.usedMemRate =item.memQuota==0?0:Number(((item.usedMemQuota/item.memQuota)*100).toFixed(2));
 
         // obj.usedPhysicalMachineRate = item.usedPhysicalMachineRate;//物理机配额使用率
-        obj.usedPhysicalMachineRate = Number(((item.usedPhysicalMachineQuota/item.physicalMachineQuota)*100).toFixed(2));
+        obj.usedPhysicalMachineRate = item.physicalMachineQuota==0?0:Number(((item.usedPhysicalMachineQuota/item.physicalMachineQuota)*100).toFixed(2));
 
         // obj.usedSnapshotRate = item.usedSnapshotRate; //快照配额使用率
-        obj.usedSnapshotRate = Number(((item.usedSnapshotQuota/item.snapshotQuota)*100).toFixed(2)); 
+        obj.usedSnapshotRate = item.snapshotQuota==0?0:Number(((item.usedSnapshotQuota/item.snapshotQuota)*100).toFixed(2)); 
 
         // obj.usedStorageRate = item.usedStorageRate;//储存使用率
 
-        obj.usedStorageRate =Number(((item.usedStorageQuota/item.storageQuota)*100).toFixed(2));
+        obj.usedStorageRate =item.storageQuota==0?0:Number(((item.usedStorageQuota/item.storageQuota)*100).toFixed(2));
   
       }
     };

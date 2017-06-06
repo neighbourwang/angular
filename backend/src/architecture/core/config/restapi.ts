@@ -694,6 +694,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/enterprises/resouces/quotas/page/{_page}/size/{_size}"
     }
     , {
+        "desc": "企业信息列表搜索框",
+        "id": "ent-mng.ent-est-mng.enterprise-search.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/resouces/quotas/page/{_page}/size/{_size}"
+    }
+    , {
         "desc": "加载企业配额数据",
         "id": "ent-mng.ent-est-mng.enterprise.resourcequota.get",
         "method": "GET",
