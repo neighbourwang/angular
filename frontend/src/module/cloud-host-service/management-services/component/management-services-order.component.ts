@@ -120,11 +120,11 @@ export class ManagementServicesOrderComponent implements OnInit {
 		this.dux.subscribe("PRODUCT", () => { this.fetchProductInfo() })   //选取产品时 -》 获取产品详情 
 		this.dux.subscribe("PRODUCT_INFO", () => { this.countPrice() })    //选取产品详情时 -》 计算产品价格
 		this.dux.subscribe("PRODUCT_INFO", () => { this.initPostData() })  //选取产品详情时 -》 填充postdata的一些能填充的信息
-		this.dux.subscribe("VM", () => { this.fetchVmlist() })  
-		this.dux.subscribe("DISK", () => { this.fetchDisklist() })
-		this.dux.subscribe("PHYSICAL", () => { this.fetchPmList() })
-		this.dux.subscribe("DATABASES", () => { this.fetchVmlist() })
-		this.dux.subscribe("MIDDLEWARE", () => { this.fetchVmlist() })
+		this.dux.subscribe("VM", () => { this.reFetchVmList() })  
+		this.dux.subscribe("DISK", () => { this.reFetchDiskList() })
+		this.dux.subscribe("PHYSICAL", () => { this.reFetchPmList() })
+		this.dux.subscribe("DATABASES", () => { this.reFetchVmList() })
+		this.dux.subscribe("MIDDLEWARE", () => { this.reFetchVmList() })
 		this.dux.subscribe("ALI_VM", () => { this.customInput() })
 		this.dux.subscribe("ALI_DISK", () => { this.customInput() })
 		this.dux.subscribe("LOAD_BALANCE", () => { this.customInput() })
@@ -401,9 +401,10 @@ export class ManagementServicesOrderComponent implements OnInit {
 			this.values.INSTANCENAME.attrValue = this.product.name
 
 			let { attrList } = this.postData
+
 			attrList = attrList.map(attr => Object.assign({}, attr, values[attr.attrCode]))
 
-			return Object.assign({}, this.postData, { attrList }, { itemNo: this.makeItemNum() })
+			return Object.assign({}, this.postData, { attrList }, { itemNo: this.makeItemNum() }, { relyItemNo: values.INSTANCEID.attrValue })
 		})
 		console.log(this.postDataList)
 		return true;

@@ -24,21 +24,17 @@ class Proddir {
     specContent: string;
     status: string;
     isSelected: boolean;
-    dataBaseServiceTemplateSpecResp: {
-        serviceTemplateId: string;
-        serviceTemplateName: string;
-        deploymentMode: string;
-        version: string;
-        dbType: string
-    };
+    dataBaseServiceTemplateSpecResp: DatabaseSpec;
     middleWareServiceTemplateSpecResp: {
         serviceTemplateId: string;
         serviceTemplateName: string;
         deploymentMode: string;
         version: string;
-        dbType: string
+        middleWareType: string;
+       
     };
     constructor() {
+        
     }
 }
 class DatabaseSpec {
@@ -46,7 +42,14 @@ class DatabaseSpec {
     serviceTemplateName: string;
     deploymentMode: number;
     version: string;
-    dbType: number
+    dbType: number;
+     constructor(){
+            this.serviceTemplateId='';
+        this.serviceTemplateName='';
+        this.deploymentMode=0;
+        this.version='';
+        this.dbType=0;
+        }
 }
 class PartsFlavor {
     "partFlavorNum": number;

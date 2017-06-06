@@ -361,6 +361,8 @@ export class ProdDirListComponent implements OnInit {
                         proddir.status = content.status;
                         proddir.isSelected = false;
                         proddir.phyMachinePartsFlavors=content.phyMachinePartsFlavors;
+                        proddir.dataBaseServiceTemplateSpecResp=JSON.parse(JSON.stringify(content.dataBaseServiceTemplateSpecResp));
+                        proddir.middleWareServiceTemplateSpecResp=JSON.parse(JSON.stringify(content.middleWareServiceTemplateSpecResp));
                         // proddir.specContent=content.phyMachinePartsFlavors;
                         backend.push(proddir);
                     }
@@ -371,12 +373,7 @@ export class ProdDirListComponent implements OnInit {
                     this.prodDirList.forEach(dir=>{
                         //物理机产品目录
                         //<p>部件名+部件规格+部件规格值+数量</p>
-                        if(dir.serviceType=='4'&&dir.phyMachinePartsFlavors.length>=0){
-                            // dir.phyMachinePartsFlavors.forEach(unit=>{
-                            //     if(unit.partsCode=='DISK'||unit.partsCode=='MEM'){
-                            //         unit.partsFlavorValue+='G';
-                            //     }
-                            // })
+                        if(dir.serviceType=='4'&&dir.phyMachinePartsFlavors.length>=0){                            
                             dir.specification=dir.phyMachinePartsFlavors[0].partsName+' '+dir.phyMachinePartsFlavors[0].specName+' '+dir.phyMachinePartsFlavors[0].partsFlavorValue+' '+dir.phyMachinePartsFlavors[0].partFlavorNum+'...'
                             dir.specContent='';
                             for(let spec of dir.phyMachinePartsFlavors){
@@ -384,17 +381,25 @@ export class ProdDirListComponent implements OnInit {
                             }                            
                             // console.log(dir.specContent);
                         }
-                        if(dir.serviceType='3'){
+                        if(dir.serviceType=='3'){
                             let dbType='';
                             let deploy='';
-                            // console.log(dir.dataBaseServiceTemplateSpecResp.dbType);
-                            this.dictPipe.transform('0',this.service.databaseTypeDic).then(res =>{
-                                console.log(res);
+                            Promise.all([
+                                this.dictPipe.transform(dir.dataBaseServiceTemplateSpecResp['dbType'],this.service.databaseTypeDic).then(res =>dbType=res),
+                                this.dictPipe.transform(dir.dataBaseServiceTemplateSpecResp.deploymentMode,this.service.databaseDeployModeDic).then(res => deploy=res)                                
+                            ]).then(()=>{
+                                dir.specification=dbType+' '+deploy+' '+dir.dataBaseServiceTemplateSpecResp.version;                                
                             });
-                            // this.dictPipe.transform(String(dir.dataBaseServiceTemplateSpecResp.deploymentMode),this.service.databaseDeployModeDic).then(res => deploy=res);
-                            dir.specification=dbType+' '+deploy+' '+dir.dataBaseServiceTemplateSpecResp.version;
-                            console.log(Boolean(''));
-                            console.log(Boolean(' '));
+                        };
+                        if(dir.serviceType=='5'){
+                            let dbType='';
+                            let deploy='';
+                            Promise.all([
+                                this.dictPipe.transform(dir.middleWareServiceTemplateSpecResp.middleWareType,this.service.middlewareTypeDic).then(res =>dbType=res),
+                                this.dictPipe.transform(dir.middleWareServiceTemplateSpecResp.deploymentMode,this.service.middlewareDeployModeDic).then(res => deploy=res)                                
+                            ]).then(()=>{
+                                dir.specification=dbType+' '+deploy+' '+dir.middleWareServiceTemplateSpecResp.version;                                
+                            });
                         }
                     });
                     console.log(this.prodDirList);                 

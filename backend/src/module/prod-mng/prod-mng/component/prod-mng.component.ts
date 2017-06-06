@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent ,dictPipe, } from '../../../../architecture';
 //service
 import { ProdListService } from '../service/prodList.service';
 import { ProdDirListService } from '../service/prodDirList.service';
@@ -22,7 +22,8 @@ export class ProdMngComponent implements OnInit {
         private PlatformsActiveService: PlatformsActiveService,
         private ProdListService: ProdListService,
         private ProdDirListService: ProdDirListService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private dictPipe:dictPipe
     ) { }
 
     // 产品数组
@@ -273,6 +274,28 @@ export class ProdMngComponent implements OnInit {
                         this.notice.open('提示', '未找到相关产品信息');
                     }
                     this.tp = response.pageInfo.totalPage;
+                    this.productList.forEach(prod=>{
+                        if(prod.serviceType=='3'){
+                            let dbType='';
+                            let deploy='';
+                            Promise.all([
+                                this.dictPipe.transform(prod.dataBaseServiceTemplateSpecResp['dbType'],this.ProdListService.databaseTypeDic).then(res =>dbType=res),
+                                this.dictPipe.transform(prod.dataBaseServiceTemplateSpecResp.deploymentMode,this.ProdListService.databaseDeployModeDic).then(res => deploy=res)                                
+                            ]).then(()=>{
+                                prod.serviceSpecification=dbType+' '+deploy+' '+prod.dataBaseServiceTemplateSpecResp.version;                                
+                            });
+                        };
+                        if(prod.serviceType=='5'){
+                            let dbType='';
+                            let deploy='';
+                            Promise.all([
+                                this.dictPipe.transform(prod.middleWareServiceTemplateSpecResp.middleWareType,this.ProdListService.middlewareTypeDic).then(res =>dbType=res),
+                                this.dictPipe.transform(prod.middleWareServiceTemplateSpecResp.deploymentMode,this.ProdListService.middlewareDeployModeDic).then(res => deploy=res)                                
+                            ]).then(()=>{
+                                prod.serviceSpecification=dbType+' '+deploy+' '+prod.middleWareServiceTemplateSpecResp.version;                                
+                            });
+                        }
+                    })
                 }
                 this.layoutService.hide();
             }

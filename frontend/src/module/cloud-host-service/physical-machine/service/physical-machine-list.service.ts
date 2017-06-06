@@ -45,13 +45,13 @@ export class PhysicalMachineListService {
                             });
     }
 
-    fetchPMState(uuid): Promise<any> {
-        const api = this.restApiCfg.getRestApi("phymachine.product.state");
+    fetchPMState(pmId): Promise<any> {
+        const api = this.restApiCfg.getRestApi("phymachine.status");
 
         let pathParams = [
             {
-                key: 'uuid',
-                value: uuid
+                key: 'pmId',
+                value: pmId
             }
         ];
 

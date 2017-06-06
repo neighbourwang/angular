@@ -450,17 +450,17 @@
             <div class="cloud-line"></div>
             <h4 class="cloud-title font-green">{{'VM_INSTANCE.HOST_ONE_PRICE'|translate}}<!--   云主机单价 --></h4>
             <p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}:
-                <font class="font-orange">{{'COMMON.$' | translate}}{{ vmProduct?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+                <font class="font-orange">{{'COMMON.$' | translate}}{{ vmProduct?.billingInfo?.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
             <p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}
                 <!-- 周期费用 -->:
-                <font class="font-orange">{{'COMMON.$' | translate}}{{vmProduct?.billingInfo.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue }}</font>
+                <font class="font-orange">{{'COMMON.$' | translate}}{{vmProduct?.billingInfo?.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue }}</font>
             </p>
             <h4 class="cloud-title font-green">数据库单价</h4>
             <p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}:
-                <font class="font-orange">{{'COMMON.$' | translate}}{{ dbProduct?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+                <font class="font-orange">{{'COMMON.$' | translate}}{{ dbProduct?.billingInfo?.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
             <p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}
                 <!-- 周期费用 -->:
-                <font class="font-orange">{{'COMMON.$' | translate}}{{dbProduct?.billingInfo.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue }}</font>
+                <font class="font-orange">{{'COMMON.$' | translate}}{{dbProduct?.billingInfo?.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue }}</font>
             </p>
             <h4 class="cloud-title font-green">云硬盘单价<!--   云硬盘单价 --></h4>
 
@@ -468,8 +468,8 @@
                 <p class="cloud-title">云硬盘{{1+i}}：</p>
                 <p class="cloud-p" *ngIf="!diskProducts[i]">没有匹配到相应的云硬盘产品</p>
 				<p class="cloud-p" *ngIf="diskProducts[i]">云硬盘类型: {{disk?.storage?.attrDisplayValue}}</p>
-				<p class="cloud-p" *ngIf="diskProducts[i]">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{ diskProducts[i]?.billingInfo.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
-				<p class="cloud-p" *ngIf="diskProducts[i]">{{'VM_INSTANCE.BY_VOLUMN_COSTS'| translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{diskProducts[i]?.billingInfo.unitPrice}}/GB/{{ diskProducts[i]?.billingInfo.unitType | dict:service.unitType | async }}</font></p>
+				<p class="cloud-p" *ngIf="diskProducts[i]">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{ diskProducts[i]?.billingInfo?.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+				<p class="cloud-p" *ngIf="diskProducts[i]">{{'VM_INSTANCE.BY_VOLUMN_COSTS'| translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{diskProducts[i]?.billingInfo?.unitPrice}}/GB/{{ diskProducts[i]?.billingInfo?.unitType | dict:service.unitType | async }}</font></p>
             </ng-container>
             <div class="cloud-p">
                 <p class="cloud-title">{{'VM_INSTANCE.TOTAL_COST'| translate}}：</p>

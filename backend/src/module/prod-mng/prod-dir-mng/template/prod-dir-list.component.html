@@ -137,7 +137,7 @@
 			<div class="form-group">
 				<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'PHYSICAL_MNG.SERVER_TYPE' | translate}}: </div>
 				<div class="col-sm-6">
-					<select class="form-control" [(ngModel)]="serverTypeCode" id="serverTypeCode">
+					<select class="form-control" [(ngModel)]="serverTypeCode" id="serverTypeCode" disabled>
                     <option *ngFor="let obj of service.serverTypeDic | async; let idx=index" id="serverTypeCode_{{obj.code}}" [value]="obj.code">{{obj.displayValue}}</option>
                 </select>
 				</div>

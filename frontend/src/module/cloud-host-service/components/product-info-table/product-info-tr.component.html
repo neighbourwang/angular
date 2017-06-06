@@ -11,8 +11,8 @@
         </table>
     </td>
     <td class="text-center table-text-middle">{{items.serviceType | dict:service.dictProductType | async}}</td>
-    <td class="text-center table-text-middle">{{items.billingInfo.billingMode | dict:service.packageBilling | async}}</td>
-    <td *ngIf="items.billingPeriod || items.period" class="text-center table-text-middle">{{items.billingPeriod || items.period}}{{items.billingInfo.periodType | dict:service.weekly | async}}</td>
+    <td class="text-center table-text-middle">{{items.billingInfo?.billingMode | dict:service.packageBilling | async}}</td>
+    <td *ngIf="items.billingPeriod || items.period" class="text-center table-text-middle">{{items.billingPeriod || items.period}}{{items.billingInfo?.periodType | dict:service.weekly | async}}</td>
     <td *ngIf="!(items.billingPeriod || items.period)" class="text-center table-text-middle"></td>
 
     <td class="text-center table-text-middle">
@@ -20,30 +20,30 @@
             <tr>
                 <td>{{'COMMON.ONE_TIME_COSTS' | translate}}:</td>
                 <td>
-                    <font class="font-orange">{{'COMMON.$' | translate}}{{items.billingInfo.basePrice}}</font>
+                    <font class="font-orange">{{'COMMON.$' | translate}}{{items.billingInfo?.basePrice}}</font>
                 </td>
             </tr>
-            <tr *ngIf="items.billingInfo.basicPrice">
+            <tr *ngIf="items.billingInfo?.basicPrice">
                 <td>{{'SHOPPING_CART.BASICPRICE' | translate}}:</td>
                 <td>
                     <font class="font-orange">
-                        {{'COMMON.$' | translate}}{{items.billingInfo.basicPrice}}/{{items.billingInfo.periodType | dict:service.weekly | async}}
+                        {{'COMMON.$' | translate}}{{items.billingInfo?.basicPrice}}/{{items.billingInfo?.periodType | dict:service.weekly | async}}
                     </font>
                 </td>
             </tr>
-            <!--                 <tr *ngIf="items.billingInfo.unitPrice">
+            <!--                 <tr *ngIf="items.billingInfo?.unitPrice">
                     <td>{{'SHOPPING_CART.INCREMENTAL_CYCLE_COST' | translate}}:</td>
                     <td>
                         <font class="font-orange">
-                        {{'COMMON.$' | translate}}{{items.billingInfo.unitPrice}}/GB/{{items.billingInfo.periodType | dict:service.weekly | async}}
+                        {{'COMMON.$' | translate}}{{items.billingInfo?.unitPrice}}/GB/{{items.billingInfo?.periodType | dict:service.weekly | async}}
                         </font>
                     </td>
                 </tr> -->
-            <tr *ngIf="items.billingInfo.unitPrice">
+            <tr *ngIf="items.billingInfo?.unitPrice">
                 <td>周期费用</td>
                 <td>
                     <font class="font-orange">
-                        {{'COMMON.$' | translate}}{{items.billingInfo.unitPrice}}/GB/{{items.billingInfo.periodType | dict:service.weekly | async}}
+                        {{'COMMON.$' | translate}}{{items.billingInfo?.unitPrice}}/GB/{{items.billingInfo?.periodType | dict:service.weekly | async}}
                     </font>
                 </td>
             </tr>

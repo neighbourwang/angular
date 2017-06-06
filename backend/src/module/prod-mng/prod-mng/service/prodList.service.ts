@@ -30,5 +30,25 @@ export class ProdListService {
     productTypeDic=this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise
       owner : "GLOBAL",
       field : "SERVICE_TYPE"    
-   })
+   });
+   //模板软件类型字典
+    databaseTypeDic = this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise
+        owner: "DB",
+        field: "DB_TYPE"
+    })
+    //数据库模板部署模式字典
+    databaseDeployModeDic=this.dict.get({
+        owner:'DB',
+        field:'DEPLOYMENT_MODE'
+    })
+    //中间件模板部署模式字典
+    middlewareDeployModeDic=this.dict.get({
+        owner:'MIDDLEWARE',
+        field:'DEPLOYMENT_MODE'
+    })
+    //中间件模板类型字典
+    middlewareTypeDic = this.dict.get({      //这里的调用的方法为promise 所以dictProductType是一个promise
+        owner: "MIDDLEWARE",
+        field: "TYPE"
+    })
 }
