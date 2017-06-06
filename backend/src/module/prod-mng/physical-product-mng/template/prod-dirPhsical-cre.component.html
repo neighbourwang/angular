@@ -47,7 +47,7 @@
 								<tbody>
 									<tr *ngFor="let unit of physicalService.phyMachinePartsFlavors; let idx = index;">
 										<td>
-											<input class="fox-cloud-radio"  type="radio" [checked]="unit.selected" (click)="selectUnit(idx)" />
+											<input class="fox-cloud-radio" type="radio" [checked]="unit.selected" (click)="selectUnit(idx)" />
 										</td>
 										<td>
 											{{unit.partsName}}
@@ -59,7 +59,7 @@
 										</td>
 										<td>{{unit.partFlavorNum}}</td>
 										<td>
-											<span *ngIf="unit.capacity!=0">{{unit.capacity}}GB</span>									
+											<span *ngIf="unit.capacity!=0">{{unit.capacity}}GB</span>
 										</td>
 									</tr>
 								</tbody>
@@ -94,8 +94,7 @@
 							<thead>
 								<tr>
 									<th class="check-box-col">
-										<input class="fox-cloud-checkbox" type="checkbox" [checked]="allSelected" (click)="selectAllResourcePool()" />
-										{{'COMMON.SELECT_ALL'| translate}}</th>
+										<input class="fox-cloud-checkbox" type="checkbox" [checked]="allSelected" (click)="selectAllResourcePool()" />										{{'COMMON.SELECT_ALL'| translate}}</th>
 									<th>{{'资源池' | translate}}</th>
 									<th>{{'描述' | translate}}</th>
 								</tr>
@@ -103,8 +102,8 @@
 							<tbody>
 								<tr *ngFor="let resourcePool of resourcePooList; let idx = index;">
 									<td>
-										<input class="fox-cloud-checkbox" type="checkbox" [disabled]="resourcePool.disabled" [checked]="resourcePool.selected" [(ngModel)]="resourcePool.selected" (click)="selectResourcePool(idx)"
-										/>
+										<input class="fox-cloud-checkbox" type="checkbox" [disabled]="resourcePool.disabled" [checked]="resourcePool.selected" [(ngModel)]="resourcePool.selected"
+										 (click)="selectResourcePool(idx)" />
 									</td>
 									<td>{{resourcePool.region+'地区-'+resourcePool.poolName}}</td>
 									<td>{{resourcePool.description}}</td>
@@ -121,12 +120,15 @@
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();">
         <span class="icon-button-label">{{'NET_MNG_OPENSTACK.CNACLE' | translate}}</span>
     </button>
-	<button  class="fox-cloud-button-lg fox-cloud-button-white" (click)="onCreateService();" style="margin-left:20px">
+	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="onCreateService();" style="margin-left:20px">
         <span class="icon-button-label">{{'COMMON.SAVE' | translate}}</span><!--创建-->
     </button>
 </div>
 <fc-popup #newUnitPop title="{{title}}" ot="NET_MNG_VM_IP_MNG.CREATE" (of)="otcreateUnit()" ct="HOST_OPENSTACK_MNG.CANCEL"
  (cf)="ccf()">
+ 	<div class="row row-line-height" *ngIf="hasSameUnit">
+		<div style="color:#fe8d6b;font-size: 16px;padding-left: 30px"><span class="asterisk">*</span>{{'相同部件信息已存在，请重新输入' | translate}}</div>
+	</div>
 	<div class="row row-line-height">
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'部件名称' | translate}}:</div>
@@ -149,7 +151,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row row-line-height">
+	<div class="row row-line-height">		
 		<div class="form-group">
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'规格值' | translate}}:</div>
 			<div class="col-sm-4">
@@ -170,9 +172,11 @@
 			<div class="col-sm-5 form-control-title"><span class="asterisk">*</span>{{'数量' | translate}}:</div>
 			<div class="col-sm-5">
 				<input type="number" min=0 [ngClass]="{'validErr':!specNumberValid}" class="form-control" name="specId" [(ngModel)]="newUnitObj.partFlavorNum"
-				 (ngModelChange)="specNumberValid=newUnitObj.partFlavorNum!=''?true:false">
+				 (ngModelChange)="changeSpecNum()">
 			</div>
 		</div>
 	</div>
+
+
 </fc-popup>
 <fc-notice #notice title="{{title}}" msg="{{msg}}" ot="HOST_OPENSTACK_MNG.CONFIRM"></fc-notice>
