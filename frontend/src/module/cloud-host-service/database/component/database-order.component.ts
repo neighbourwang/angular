@@ -240,6 +240,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	setTotalPrice() {
 		this.setListDiskValue()
 		let billingList = [];
+		
 		[...this.diskProducts, this.dbProduct, this.vmProduct].forEach((prod, i) => {
 			if(prod) {
 				let disksize = this.database.diskInfoList[i] && this.database.diskInfoList[i].diskValue 
