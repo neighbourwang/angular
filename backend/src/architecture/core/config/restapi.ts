@@ -2326,7 +2326,7 @@ export let RestApis: RestApiModel[] = [
          "desc": "添加物理机",
         "id": "physical-mng.physical.create",
         "method": "POST",
-        "url": "pmresourcemgmt/noauth/pmpool/pm"
+        "url": "pmresourcemgmt/authsec/pmpool/pm"
     },
     {
          "desc": "查看物理机",
