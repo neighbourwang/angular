@@ -124,7 +124,7 @@
 							</popover-content>
 						</td>
 						<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
-						<td>{{item.platformName}}<br/>
+						<td><span *ngIf="item.platformName">{{item.platformName}}<br/></span>
 						     {{item.zoneName}}</td>
 						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 						<td>{{item.description}}</td>

@@ -697,6 +697,7 @@ export class OrderMngComponent implements OnInit {
 
 		let items = [];
 		if(this._renewSetting.value<0){
+			
 			this.showMsg('月份不能为负数！');
 			return;
 		}
@@ -838,6 +839,8 @@ export class OrderMngComponent implements OnInit {
 		PACKAGE_BILLING PERIOD_TYPE 3 MONTHLY 按月
 		PACKAGE_BILLING PERIOD_TYPE 5 YEARLY 按年
 		*/
+		let value = this._renewSetting.value;
+
 		if (this.selectedOrderItem
 			&& !_.isEmpty(this.selectedOrderItem.itemList)
 			&& this.selectedOrderItem.itemList[0].billingInfo
