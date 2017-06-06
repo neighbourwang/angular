@@ -203,7 +203,10 @@ export class PfDetailComponent implements OnInit {
                     ele.quotaPercentage =
                         ele.quotaPercentage ? ele.quotaPercentage : 0;
                     ele.quotaPercentDisplay = ele.quotaPercentage * 100;
-                })
+                    if(ele.hosts.length>0){
+                        ele.hostContent='<p>'+ele.hosts.join('</p><p>')+'</p>';
+                    }
+                });
                 console.log('zoneList', res);
                 this.layoutService.hide();
             }
