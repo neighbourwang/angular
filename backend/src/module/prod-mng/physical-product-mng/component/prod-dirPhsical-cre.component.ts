@@ -115,6 +115,19 @@ export class PhsicalProdDirCreComponent implements OnInit {
     specIdValid: boolean = true;
     specValueValid: boolean = true;
     specNumberValid: boolean = true;
+    hasSameUnit:boolean=false;
+    changeSpecNum(){
+        this.specNumberValid=
+            this.newUnitObj.partFlavorNum!=0?true:false;
+        //判定是否相同部件信息已存在
+        for(let unit of this.physicalService.phyMachinePartsFlavors){
+            if(unit.specId ==this.newUnitObj.specId&&unit.specName == this.newUnitObj.specName&&unit.partsFlavorValue==this.newUnitObj.partsFlavorValue&&unit.partFlavorNum== this.newUnitObj.partFlavorNum){
+                return this.hasSameUnit=true;
+            }else{
+                return this.hasSameUnit=false;                
+            }
+        }
+    }
     otcreateUnit() {
         console.log(this.selectedPartId);
         console.log(this.selectedSpecId);
@@ -136,12 +149,13 @@ export class PhsicalProdDirCreComponent implements OnInit {
             this.specNumberValid = false;
             return;
         }
-        if (this.selectedPartId == '35dc99bd-167e-11e7-91af-0242ac110002' || this.selectedPartId == '2eeb0a38-167e-11e7-91af-0242ac110002') {
+        if(this.hasSameUnit) return;
+        if (this.newUnitObj.partsName == '内存' || this.newUnitObj.partsName == '磁盘') {
             this.newUnitObj.capacity = this.newUnitObj.partFlavorNum * this.newUnitObj.partsFlavorValue;
         } else {
             this.newUnitObj.capacity = 0;
         }
-        console.log(this.newUnitObj);
+        console.log(this.newUnitObj);       
         if (this.isEditUnit) {
             this.physicalService.phyMachinePartsFlavors[this.selectedUnitIdex].specId = this.newUnitObj.specId;
             this.physicalService.phyMachinePartsFlavors[this.selectedUnitIdex].specName = this.newUnitObj.specName;
@@ -165,6 +179,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
         this.specValueValid = true;
         this.specNumberValid = true;
         this.isEditUnit = false;
+        this.hasSameUnit=false;
     }
     //选择部件规格
     selectedPartId: string = '';
