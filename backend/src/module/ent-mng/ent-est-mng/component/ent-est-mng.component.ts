@@ -37,6 +37,9 @@ export class EntEstMngComponent implements OnInit {
   private entEst: EntEst = new EntEst();
   private dic:SystemDictionary[];
   private entEstMng:ItemLoader<EntEstItem> = null;
+
+  private entEstMngItems:ItemLoader<EntEstItem> = null;//搜索框搜索
+
   private entEstResource:ItemLoader<EntEstCreResourceQuota> = null;
   private statusDic:DicLoader = null;
   private _certUpdateHandler:ItemLoader<any> = null;
@@ -65,6 +68,7 @@ export class EntEstMngComponent implements OnInit {
     this._certUpdateHandler = new ItemLoader<any>(false, "ENT_MNG.ENT_CERT_UPDATE_FAILED", "ent-mng.ent-est-mng.enterprise.updateauth", restApiCfg, restApi);
 
     this.entEstMng = new ItemLoader<EntEstItem>(true, "ENT_MNG.ENT_MNG_LIST_DATA_ERROR", "ent-mng.ent-est-mng.enterprise.get", restApiCfg, restApi);
+    this.entEstMngItems = new ItemLoader<EntEstItem>(true, "ENT_MNG.ENT_MNG_LIST_DATA_ERROR", "ent-mng.ent-est-mng.enterprise-search.post", restApiCfg, restApi);
     
     //配置企业配额加载
     this.entEstResource = new ItemLoader<EntEstCreResourceQuota>(true, "ENT_MNG.ENT_QUOTA_DATA_ERROR", "ent-mng.ent-est-mng.enterprise.resourcequota.get", restApiCfg, restApi);
@@ -134,6 +138,22 @@ export class EntEstMngComponent implements OnInit {
   search(page:number){
     this.layoutService.show();
     this.entEstMng.Go(page)
+    .then(success=>{
+      this.statusDic.UpdateWithDic(success);
+      this.layoutService.hide();
+    }, err=>{
+      this.showMsg(err);
+      this.layoutService.hide();
+    })
+  }
+
+  box_search(page:number=1){
+
+    let param = {
+      name:this.criteria
+    }
+    this.layoutService.show();
+    this.entEstMngItems.Go(page,[{key:'_page',value:page},{key:'_size',value:10}],param)
     .then(success=>{
       this.statusDic.UpdateWithDic(success);
       this.layoutService.hide();
