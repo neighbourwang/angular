@@ -2420,7 +2420,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "网络资源分配：根据pmNetworkId显示资源池的分配信息",
         "id": "phy-mng.phy-net-mng.network.pmpool.list",
         "method": "GET",
-        "url": "pmnetworkmgmt/noauth/pmnetwork/{pmNetworkId}/assign/pmpool"
+        "url": "pmnetworkmgmt/authsec/pmnetwork/{pmNetworkId}/assign/pmpool"
     },
     {
         "desc": "网络资源分配：根据pmNetworkId和已选择的资源池ID(逗号分割)显示对应物理机信息",
@@ -2541,7 +2541,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取资源池分配列表",
         "id":"phy-mng.phy-img-mng.phyimgsource.getallolist",
         "method":"GET",
-        "url":"pmimagemgmt/noauth/pmimage/pool/{pmImagePoolId}/pmpool/list"
+        "url":"pmimagemgmt/authsec/pmimage/pool/{pmImagePoolId}/pmpool/list"
     },
     {
         "desc": "分配资源池提交",

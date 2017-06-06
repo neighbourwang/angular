@@ -129,7 +129,7 @@
 							</popover-content>
 							</td>
 							<td>{{item.serviceTypeName}}</td>
-							<td>{{item.platformStr}}<br/>
+							<td><span *ngIf="item.platformStr">{{item.platformStr}}<br/></span>
 								{{item.zoneStr}}</td>
 							<td>{{item.orderTypeNum}}</td>
 							<td>{{item.description}}</td>
