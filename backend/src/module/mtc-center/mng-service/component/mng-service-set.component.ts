@@ -61,10 +61,8 @@ export class MngServiceSetComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.service.completeDic.then(res =>{
-                            this.complete= res[0].value
+                            this.showAlert("设置成功");
                         });
-                        this.minutes= "";
-                        this.showAlert("设置成功");
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
