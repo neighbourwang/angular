@@ -116,7 +116,7 @@
 							</popover-content>
 						</td>
 						<td>{{item.serviceTypeName | translate}}</td>
-						<td>{{item.platformName}}<br/>
+						<td><span *ngIf="item.platformName">{{item.platformName}}<br/></span>
 						     {{item.zoneName}}</td>
 						<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async | translate}}</td>
 						<td>{{item.description}}</td>

@@ -195,7 +195,7 @@
 				</thead>
 			</table>
 
-			<table class="table bgGrren mgt20 mgb20" *ngFor="let orderItem of _orderLoader.Items">
+			<table class="table bgGrren mgt20 " *ngFor="let orderItem of _orderLoader.Items">
 
 				<tr>
 					<td class=" font-green leftAlign pdl20 orderNo-title" colspan="6"><span>{{orderItem.purchaseDate}}</span> <span class="pointer mgl10 float-none"  (click)="showDetail(orderItem)" id="detail_show_{{orderItem.orderId}}">{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate }}: {{orderItem.orderNo}}</span></td>
@@ -213,7 +213,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td  colspan="11"  [ngClass]="{'no-padding':orderItem.showCommonStyle}">
+					<td  colspan="11"  class="pdl10 pdr10 pdt10 no-padding" [ngClass]="{'pdb10':orderItem.showCommonStyle}">
 						<table class="table table-hover _table "  *ngFor="let prodItem of orderItem.itemList" [ngClass]="{'mgb10':!orderItem.showCommonStyle}" >
 							<thead>
 								<th colspan="11"  *ngIf="!orderItem.showCommonStyle" ><span *ngIf="prodItem.purchaseDate" class="mgr10">{{prodItem.purchaseDate}}</span><span  *ngIf="prodItem.subinstanceNo">已购服务编号：{{prodItem.subinstanceNo}}</span></th>
