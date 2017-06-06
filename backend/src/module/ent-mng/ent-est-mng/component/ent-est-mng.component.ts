@@ -153,8 +153,10 @@ export class EntEstMngComponent implements OnInit {
       name:this.criteria
     }
     this.layoutService.show();
+    this.entEstMng.Items.splice(0,this.entEstMng.Items.length);
     this.entEstMngItems.Go(page,[{key:'_page',value:page},{key:'_size',value:10}],param)
     .then(success=>{
+      this.entEstMng = this.entEstMngItems;
       this.statusDic.UpdateWithDic(success);
       this.layoutService.hide();
     }, err=>{
