@@ -43,7 +43,7 @@ export class PhysicalListService {
     dicPower = this.dict.get(
                 {      
                     owner : "PM",
-                    field : "POWER_STATUS"    //电源状态
+                    field : "POWER_OO_STATUS"    //电源状态
                 }             
     );
 
@@ -104,6 +104,18 @@ export class PhysicalListService {
         ];
 
         const api = this.restApiCfg.getRestApi("physical-mng.physical.statusChange");
+        return this.restApi.request(api.method, api.url, pathParams, null,null);
+    }
+
+    //获取物理机电源状态
+    getPhysicalPowerStatus(id:string):Promise<any>{      
+         const pathParams = [
+            {
+                key: "pmId",
+                value: id
+            },
+        ];
+        const api = this.restApiCfg.getRestApi("physical-mng.physical.power.status");
         return this.restApi.request(api.method, api.url, pathParams, null,null);
     }
 
