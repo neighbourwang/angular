@@ -17,6 +17,7 @@ class Values {
 	SERVICENAME: ValuesAttr = new ValuesAttr;
 	RELYSUBINSTANCENAME:  ValuesAttr = new ValuesAttr;
 	TIMELINEUNIT: ValuesAttr = new ValuesAttr;
+	relyItemNo;
 }
 
 class Selected {
@@ -25,6 +26,7 @@ class Selected {
 	// INSTANCEID: ValuesAttr = new ValuesAttr;
 	INSTANCEID: ValuesAttr = new ValuesAttr;
 	RELYSUBINSTANCENAME: ValuesAttr = new ValuesAttr;
+	relyItemNo;
 }
 
 export {
