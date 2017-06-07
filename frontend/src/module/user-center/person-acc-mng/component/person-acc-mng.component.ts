@@ -194,9 +194,9 @@ export class PersonAccMngComponent implements OnInit {
     //表单验证
     checkPasswordForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象           
-            password: [this.accPwd.password, [this.v.isUnBlank,this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
+            password: [this.accPwd.password, [this.v.isUnBlank], "密码不能为空"], //password不需要进行长度和isPassword的验证，新密码需要这2项验证
             //两次验证[密码验证，8-16个字]
-            newPassword: [this.accPwd.newPassword, [this.v.isUnBlank,this.v.isPassword, this.v.lengthRange(8, 16)], "密码输入不正确"],
+            newPassword: [this.accPwd.newPassword, [this.v.isUnBlank,this.v.isPassword, this.v.lengthRange(8, 16)], "新密码要求长度8--16,同时包括三项（大写字母，小写字母，数字和特殊符号）"],
             //两次验证[密码验证，8-16个字]
             confirmPwd: [this.accPwd.confirmPwd, [this.v.isUnBlank,this.v.equalTo(this.accPwd.newPassword)], "两次密码输入不一致"],
             //再次输入密码验证
