@@ -120,6 +120,7 @@
 						 		<disk-view [values]="item" *ngIf="item.serviceTypeIdStr==1"></disk-view><!--显示云硬盘 -->
 								<sql-view  [values]="item" *ngIf="item.serviceTypeIdStr==3"></sql-view><!--数据库 -->
 								<service-view  [values]="item" *ngIf="item.serviceTypeIdStr==11"></service-view><!--管理服务 -->
+								<middleware-view [values]="item" *ngIf="item.serviceTypeIdStr==5" ></middleware-view><!-- 中间件 -->
 						</popover-content>
 					    </td>
 						<td>{{item.serviceTypeName}}</td>

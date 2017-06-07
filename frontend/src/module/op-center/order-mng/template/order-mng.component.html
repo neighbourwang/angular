@@ -202,8 +202,8 @@
 					<td class="orderNo-title" colspan="5">	
 						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType > 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)" id="autoRenew_off_{{orderItem.orderId}}">取消自动续订</button>
 						<button *ngIf="!orderItem.canContinueRenew && orderItem.extendType == 0 && orderItem.canRenew" class="mgr2 pull-right button-gray-gradient" (click)="autoRenew(orderItem)" id="autoRenew_on_{{orderItem.orderId}}">自动续订</button>
-
-						<unsubscribe #unsubscribeVm title="{{ 'ORDER_MNG.ORDERS_UNSUBSCRIBE' | translate }}" [subid]="orderItem?.orderId" (onSuccess)='cancelSuccess($event)'></unsubscribe>
+ <!--(onSuccess)='cancelSuccess($event)'-->
+						<unsubscribe #unsubscribeVm title="{{ 'ORDER_MNG.ORDERS_UNSUBSCRIBE' | translate }}" [subid]="orderItem?.orderId"></unsubscribe>
 						<button *ngIf="orderItem.canCancel" class="mgr2 pull-right button-gray-gradient" (click)="unsubscribeVm.open()" id="unsubscribeVm_{{orderItem.orderId}}">{{ 'COMMON.UNSUBSCRIBE' | translate }}</button>
 
 						<button *ngIf="orderItem.canRenew" class="pull-right button-gray-gradient" (click)="renewSelect(orderItem)" id="renewSelect_{{orderItem.orderId}}">{{ 'COMMON.RENEW' | translate }}</button>
@@ -271,7 +271,7 @@
 					<h4 class="modal-title" id="myModalLabel">{{ 'ORDER_MNG.PURCHASED_SERVICES_NUMBER' | translate }} {{_orderDetailLoader.FirstItem.instanceCode}}</h4>
 				</div>
 				<div class="modal-body">
-					<order-mng-detail [orderDetail]="_orderDetailLoader.FirstItem"></order-mng-detail>
+					<order-mng-detail [orderDetail]="_orderDetailLoader.FirstItem" (onSuccess)="goManage($event);"></order-mng-detail>
 				</div>
 
 				<div class="modal-footer">

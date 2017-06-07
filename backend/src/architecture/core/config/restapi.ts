@@ -2389,6 +2389,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "pmresourcemgmt/noauth/pmpool/pm/{pm_id}/pmparts"
     },
+    {
+        "desc": "获取物理机电源状态",
+        "id": "physical-mng.physical.power.status",
+        "method": "GET",
+        "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/powerstatus/{pmId}"     
+    },
 
     //物理机网络管理
     {
@@ -2602,13 +2608,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取镜像的同步信息列表",
         "id":"phy-mng.phy-img-mng.phyimglist.sync.getinfo",
         "method":"GET",
-        "url":"pmimagemgmt/noauth/pmimage/image/{pmImagePoolId}/list"
+        "url":"pmimagemgmt/authsec/pmimage/image/{pmImagePoolId}/list"
     },
     {
         "desc": "保存镜像的同步信息列表",
         "id":"phy-mng.phy-img-mng.phyimglist.sync.saveinfo",
         "method":"POST",
-        "url":"pmimagemgmt/noauth/pmimage/image/{pmImagePoolId}/savesync"
+        "url":"pmimagemgmt/authsec/pmimage/image/{pmImagePoolId}/savesync"
     },
 
     //Email设置

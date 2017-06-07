@@ -94,6 +94,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.dux.subscribe("DB_PRODUCT_CHANGE", () => { this.fetchShoppingMDproducts() })   //数据库产品有变化时候 （模板id，云平台）
 		this.dux.subscribe("PLATFORM", () => { this.fetchShoppingMDproducts() })   //云平台有变化时
 		this.dux.subscribe("ZONE", () => { this.setDiskPrice() })   //zone有变化时重新计算云硬盘
+		// this.dux.subscribe("SELECT_DB_PRODUCT", () => { this.setProductName() })   //设置产品的名称到post列表
 		this.dux.subscribe("SELECT_DB_PRODUCT", () => { this.databaseChange() })   //选择产品列表触发的时间
 		this.dux.subscribe("SELECT_DB_PRODUCT", () => { this.setTotalPrice() })   //选择产品列表触发的时间
 		this.dux.subscribe("SET_DISK_PRODUCTS", () => { this.setDiskProducts() })   //设置云硬盘的列表
@@ -275,6 +276,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	 		let payLoad = {
 	 			skuId: this.diskSkuList[i].skuId,
 	 			productId: this.diskProducts[i].productId,
+	 			// productName: this.diskProducts[i].productName,
 	 			attrList: payloadList,
 	 			itemNo: this.makeItemNum(),
 	 			totalPrice: this.diskTotalPrice,
@@ -297,6 +299,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 			payLoad = {
 				skuId: this.vmSku.skuId,
 				productId: this.vmProduct.productId,
+				// productName: this.vmProduct.productName,
 				attrList: payloadList,
 				itemNo: this.vmItemNo,
 				totalPrice: this.vmTotalPrice,
@@ -323,6 +326,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		let payLoad = {
 			skuId: this.dbProduct.skuId,
 			productId: this.dbProduct.productId,
+			// productName: this.dbProduct.productName,
 			attrList: payloadList,
 			itemNo: this.makeItemNum(),
 			totalPrice: this.diskTotalPrice,

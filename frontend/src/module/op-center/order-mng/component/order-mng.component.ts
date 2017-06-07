@@ -5,6 +5,8 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { DictService } from '../../../../architecture/core/service/dict-service';
 
 import { MyDatePicker  } from '../../../../architecture/components/date-picker/my-date-picker.component';
+import { UnsubscribeComponent  } from '../../../../module/cloud-host-service/components/unsubscribe/unsubscribe.component';
+
 import {
 	ListItem
 	, OrderMngParam
@@ -52,7 +54,8 @@ export class OrderMngComponent implements OnInit {
 	@ViewChild("AutoRenewDialog")
 	AutoRenewDialog: PopupComponent;
 
- 
+ 	@ViewChild("unsubscribeVm")
+  	private unsubscribeVm: UnsubscribeComponent;
 	//订单详情加载
 	private _orderDetailLoader: ItemLoader<OrderDetailItem> = null;
 
@@ -930,8 +933,14 @@ export class OrderMngComponent implements OnInit {
 	}
   cancelSuccess($event){
 	  console.log($event);
+	  
 	  this.search(this.currentPage); 
   }
-
+goManage($event){
+	let id = $event;
+	$('#orderDetail').modal('hide');
+	this.router.navigateByUrl(`cloud-host-service/management-services-list/${id}`);
+	// alert("ssssssss");
+}
  
 }

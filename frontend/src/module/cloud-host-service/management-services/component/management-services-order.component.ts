@@ -232,6 +232,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				returnData.ZONE.attrValue = disk.zoneName
 				returnData.INSTANCEID.attrValue = disk.uuid
 				returnData.RELYSUBINSTANCENAME.attrValue = disk.name
+				returnData.relyItemNo = disk.subInstanceId
 
 				return returnData
 			})
@@ -281,6 +282,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				returnData.ZONE.attrValue = zone
 				returnData.INSTANCEID.attrValue = vm.itemId
 				returnData.RELYSUBINSTANCENAME.attrValue = vm.instanceName
+				returnData.relyItemNo = vm.subinstanceId
 
 				return returnData
 			})
@@ -325,6 +327,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				returnData.ZONE.attrValue = pm.poolRegionInfo
 				returnData.INSTANCEID.attrValue = pm.pmId
 				returnData.RELYSUBINSTANCENAME.attrValue = pm.pmName
+				returnData.relyItemNo = pm.subinstanceId
 
 				return returnData
 			})
@@ -404,7 +407,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 
 			attrList = attrList.map(attr => Object.assign({}, attr, values[attr.attrCode]))
 
-			return Object.assign({}, this.postData, { attrList }, { itemNo: this.makeItemNum() }, { relyItemNo: values.INSTANCEID.attrValue })
+			return Object.assign({}, this.postData, { attrList }, { itemNo: this.makeItemNum() }, { relyItemNo: values.relyItemNo })
 		})
 		console.log(this.postDataList)
 		return true;

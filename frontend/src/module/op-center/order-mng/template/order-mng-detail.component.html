@@ -15,7 +15,7 @@
 					<tr>
 						<td>{{ 'ORDER_MNG.PRODUCT_TYPE' | translate}}</td>
 						<td>{{_orderDetail.productType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>	
-						<td><span *ngIf="_orderDetail.productType==0||_orderDetail.productType==1||_orderDetail.productType==2||_orderDetail.productType==11">{{ 'COMMON.ZONE' | translate}}/{{ 'COMMON.AVAILABLE_ZONE' | translate}}</span><!--云主机云硬盘，数据库中间件-->
+						<td><span *ngIf="_orderDetail.productType==0||_orderDetail.productType==1||_orderDetail.productType==3||_orderDetail.productType==11">{{ 'COMMON.ZONE' | translate}}/{{ 'COMMON.AVAILABLE_ZONE' | translate}}</span><!--云主机云硬盘，数据库中间件-->
 							<span  *ngIf="_orderDetail.productType==4">区域资源池</span><!--物理机-->
 						</td>
 						<td><span *ngIf="_orderDetail.productType==0||_orderDetail.productType==1||_orderDetail.productType==2||_orderDetail.productType==11">{{_orderDetail.platform}} {{_orderDetail.zone}}</span>
