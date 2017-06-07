@@ -100,6 +100,7 @@ export class PhysicalListComponent implements OnInit {
                     if (response && 100 == response["resultCode"]) {
                         this.layoutService.hide();
                         this.physicalList = response["resultContent"];
+                        this.physicalList.forEach((e)=>{e.pmHealthExam=""})
                         console.log("物理机list",this.physicalList);
                         console.log("物理机查询参数",this.pmQuery,this.queryParam);
                         this.totalPage = response.pageInfo.totalPage;

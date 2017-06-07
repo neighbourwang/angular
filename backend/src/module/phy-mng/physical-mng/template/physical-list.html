@@ -81,7 +81,7 @@
                                 <td>{{physical.pmILOAddr}}</td>
                                 <td>{{physical.pmLocation}}</td>
                                 <td  [ngClass]="{'font-orange': physical.pmPowerStatus=='1' ||  physical.pmPowerStatus=='-1','font-green': physical.pmPowerStatus=='2'}">{{physical.pmPowerStatus| dict:service.dicPower | async}}</td>
-                                <td [ngClass]="{'font-orange': physical.pmUseageStatus=='0','font-green': physical.pmUseageStatus=='1'}">{{physical.pmUseageStatus| dict:service.dicUseage | async}}</td>
+                                <td [ngClass]="{'font-orange': physical.pmUseageStatus=='0','font-green': physical.pmUseageStatus=='2'}">{{physical.pmUseageStatus| dict:service.dicUseage | async}}</td>
                                 <td [ngClass]="{'font-orange': physical.pmMainStatus=='0','font-green': physical.pmMainStatus=='1'}">{{physical.pmMainStatus| dict:service.dicMain | async}}</td>
                                 <td [ngClass]="{'font-orange': physical.pmHealthExam=='0','font-green': physical.pmHealthExam=='1'}">{{physical.pmHealthExam | dict:service.dicHealth | async}}</td>														
                             </tr>                                                             
