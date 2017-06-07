@@ -258,7 +258,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.totalAnnual = 0;
 		billingList.forEach(billing => {
 			this.oneTimeTotalPrice += billing.basePrice;  //计算一次性价格
-			if(billing.billingMode == 1) this.totalBilling += billing.basicPrice * +this.values.TIMELINE.attrValue;
+			if(billing.billingMode == 1 || billing.billingMode == 0) this.totalBilling += billing.basicPrice * +this.values.TIMELINE.attrValue;
 			if(billing.billingMode == 2) this.totalAnnual += billing.unitPrice * billing.disksize * +this.values.TIMELINE.attrValue;
 		})
 	}
