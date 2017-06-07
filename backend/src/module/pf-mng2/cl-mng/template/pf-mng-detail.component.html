@@ -172,7 +172,8 @@
                             <input *ngIf="zone.isEdit" type="text" [(ngModel)]="zone.displayName" name="displayName">
                         </td>
                         <td>
-                            <p *ngFor="let host of zone.hosts">{{host||0}}</p>
+                            <static-tooltip [title]="zone.hostContent"><a href="javascript:void(0);" class="a-active">{{zone.hosts[0]+'...'}}</a></static-tooltip>
+                            <!--<p *ngFor="let host of zone.hosts">{{host||0}}</p>-->
                         </td>
                         <td>{{zone.vcpunum}}</td>
                         <td>{{zone.memSize}}</td>

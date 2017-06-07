@@ -62,8 +62,8 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 	}
 
 
-	isMiddleState(state) {
-		return !!["1","5","20","22","25","26","27","28","29" ].filter(v => v==state).length
+	isMiddleState(state) {   //物理机暂时没有中间状态 有的话添加到数组里即可
+		return !![].filter(v => v==state).length
 	}
 
 	checkListMiddleState() {
