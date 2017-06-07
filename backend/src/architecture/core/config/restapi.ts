@@ -2608,7 +2608,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取镜像的同步信息列表",
         "id":"phy-mng.phy-img-mng.phyimglist.sync.getinfo",
         "method":"GET",
-        "url":"pmimagemgmt/noauth/pmimage/image/{pmImagePoolId}/list"
+        "url":"pmimagemgmt/authsec/pmimage/image/{pmImagePoolId}/list"
     },
     {
         "desc": "保存镜像的同步信息列表",
