@@ -39,8 +39,9 @@
 						<div class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>						
 						<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
 						<textarea [disabled]="!editBasicInfo"  type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
-						 rows="3" [(ngModel)]="tempProductDesc" name="description">
+						 rows="3" [(ngModel)]="tempProductDesc" name="description" maxLength="300">
                             </textarea>
+						<div *ngIf="v.result.description" class="alert alert-danger" role="alert">{{v.result.productName}}</div>
 					</div>
 					</div>
 				</div>

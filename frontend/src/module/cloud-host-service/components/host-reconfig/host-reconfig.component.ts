@@ -36,6 +36,9 @@ export class HostReconfigComponent implements OnInit {
 	modalMessage: string = '';
 	modalOKTitle: string = '';
 
+	oldcpu: number = 0;
+	oldmem: number = 0;
+
 	ot:string = "";
 
 	orderId:string = "";
@@ -99,10 +102,11 @@ export class HostReconfigComponent implements OnInit {
 			res.serivceConfigChangeVMitem.attrList.forEach(attr => {
 				this.config[attr.attrCode] = attr;
 			})
+			this.oldcpu = res.serivceConfigChangeVMitem.oldcpu
+			this.oldmem = res.serivceConfigChangeVMitem.oldmem
 
 			this.selectedPlatform = this.config.PLATFORM.valueList[0];
 			this.selectedZone = this.config.ZONE.mapValueList[this.selectedPlatform.attrValueId][0];
-			console.log(this.config)
 		}).catch(error => {
 			this.layoutService.hide();
 		})
@@ -142,6 +146,16 @@ export class HostReconfigComponent implements OnInit {
 			this.ot = "";
 		})
 
+	}
+
+	afterNgForMem(i, attr) {
+		if( this.isCurrentMemDisable(attr) ) return;
+		if( i===0 ) this.selectedMem = attr
+		this.change();
+	}
+
+	isCurrentMemDisable(attr) {
+		return this.oldcpu ==  +this.selectedCpu.attrValue && this.oldmem == attr.attrValue
 	}
 
 	close() {

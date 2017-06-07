@@ -2389,6 +2389,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "pmresourcemgmt/noauth/pmpool/pm/{pm_id}/pmparts"
     },
+    {
+        "desc": "获取物理机电源状态",
+        "id": "physical-mng.physical.power.status",
+        "method": "GET",
+        "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/powerstatus/{pmId}"     
+    },
 
     //物理机网络管理
     {

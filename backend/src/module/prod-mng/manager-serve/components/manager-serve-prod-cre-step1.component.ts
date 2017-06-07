@@ -70,9 +70,9 @@ export class ManagerServeProdCreStep1Component implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            productName: [this.service.managerServeProduct.name, [this.v.isBase, this.v.isUnBlank], "产品名称格式不正确"],
+            productName: [this.service.managerServeProduct.name, [this.v.isBase, this.v.isUnBlank,this.v.maxLength(50)], "产品名称格式不正确"],
 
-            description: [this.service.managerServeProduct.description, [this.v.maxLength(68)], "描述输入错误"],
+            description: [this.service.managerServeProduct.description, [this.v.maxLength(300)], "描述输入错误"],
 
         }
         console.log(this.v.check(key, regs));
