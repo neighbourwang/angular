@@ -402,9 +402,13 @@ export class PfDetailComponent implements OnInit {
     suspendStorageCof() {
         this.layoutService.show();
         this.platformDetailService.suspendStorage(this.selectedStorage.id).then(res => {
-            console.log(res)
-            this.getStorageList();
+            console.log(res)           
             this.layoutService.hide();
+            if(res&&res.resultCode=='10006003'){
+                this.notice.open('COMMON.ERROR',this.selectedStorage.name+'为启动盘唯一存储后端,禁用这个存储后端之前，需要先禁用启动盘')
+            }else{
+                 this.getStorageList();
+            }
         }).catch(err => {
             console.error('禁用存储区失败', err);
             this.layoutService.hide();
