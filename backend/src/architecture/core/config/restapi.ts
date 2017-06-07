@@ -2614,7 +2614,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "保存镜像的同步信息列表",
         "id":"phy-mng.phy-img-mng.phyimglist.sync.saveinfo",
         "method":"POST",
-        "url":"pmimagemgmt/noauth/pmimage/image/{pmImagePoolId}/savesync"
+        "url":"pmimagemgmt/authsec/pmimage/image/{pmImagePoolId}/savesync"
     },
 
     //Email设置
