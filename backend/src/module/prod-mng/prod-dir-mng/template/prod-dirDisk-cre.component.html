@@ -1,7 +1,7 @@
 <div class="page-content-header icon-create-product">{{pageTitle| translate}}: {{'PROD_MNG.CLOUD_HARD_DISK_SERVICES' | translate}}</div>
 <!--创建产品目录-->
 <!--云硬盘-->
-<div class="page-content fix-page-content">
+<div class="page-content">
 	<div class="row" style="padding-top: 30px;">
 		<div class="col-md-12">
 			<div class="row row-line-height">
@@ -72,8 +72,9 @@
 					<div for="firstname" class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>
 					<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
 						<textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
-						 rows="3" [(ngModel)]="prodDir.description" name="description">
+						 rows="3" [(ngModel)]="prodDir.description" name="description" maxlength="300">
                             </textarea>
+						<div *ngIf="v.result.description" class="alert alert-danger" role="alert">{{v.result.description}}</div>						
 					</div>
 				</div>
 			</div>
@@ -148,7 +149,7 @@
 		</div>
 	</div>
 </div>
-<div class="text-center">
+<div class="text-center mgt30">
 	<button class="fox-cloud-button-lg fox-cloud-button-white" (click)="cancel();" id="cancel">
         <span class="icon-button-label">{{'NET_MNG_OPENSTACK.CNACLE' | translate}}</span>
     </button>
