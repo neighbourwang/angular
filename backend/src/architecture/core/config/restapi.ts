@@ -38,7 +38,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取全部已创建平台信息",
         "id": "pf.conn.mng.platforms.get",
         "method": "GET",
-        "url": "adminui/authsec/platforms/page/{page}/size/{size}"
+        "url": "adminui/authsec/platforms/page/{page}/size/{size}?name={name}"
     },
     {
         "desc": "获取地域",
@@ -1115,7 +1115,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取企业列表",
         "id": "prod-mng.prod-enterprise.list",
         "method": "GET",
-        "url": "adminui/authsec/enterprises/simple "
+        "url": "adminui/authsec/enterprises/simpleall"
     },
     {
         "desc": "根据平台获取企业列表",

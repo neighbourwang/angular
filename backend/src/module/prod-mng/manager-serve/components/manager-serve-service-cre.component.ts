@@ -109,7 +109,7 @@ export class ManagerServeServiceCreComponent implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            serviceName: [this.managerServeService.serviceName, [this.v.isBase, this.v.isUnBlank,this.v.maxLength(50)], "产品目录名称格式不正确"],
+            serviceName: [this.managerServeService.serviceName, [this.v.isBase, this.v.isUnBlank,this.v.minLength(2),this.v.maxLength(50)], "产品目录名称格式不正确"],
 
             description: [this.managerServeService.description, [this.v.maxLength(300)], "描述输入错误"],
         }

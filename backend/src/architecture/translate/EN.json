@@ -1002,6 +1002,7 @@
   "PF_MNG2": {
     "NAME":"name",
     "EXISTS":"exists",
+    "INPUT_NAME_SEARCH":"input and search",
     "PLATFORM_NAME_EXISTS":"platform name exists",
     "SPEC_NAME_EXISTS":"flavour name exists",
     "SPEC_NAME_ERROR":"flavor name error",

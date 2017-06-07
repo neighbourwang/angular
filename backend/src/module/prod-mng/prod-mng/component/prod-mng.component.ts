@@ -219,7 +219,6 @@ export class ProdMngComponent implements OnInit {
         this.query()
     }
     //发布按钮
-
     publishCof() {
         console.log(this.prodList);
         this.ProdListService.changProdstatus({

@@ -246,13 +246,17 @@ export class ClMngListComponent implements OnInit {
         }
         return platForm;
     }
-
-
+    //名字模糊查询
+    keyup:string='';
+    search(){
+        console.log(this.keyup); 
+        this.backend(1,10);       
+    }
     // 获得云平台list
     backend(page: number, size: number) {
         this.layoutService.show();
         this.tp = 0;
-        this.service.getPlatforms(page, size).then(
+        this.service.getPlatforms(page, size,this.keyup).then(
             response => {
                 console.log(response);
                 if (response && 100 == response.resultCode) {
@@ -313,7 +317,6 @@ export class ClMngListComponent implements OnInit {
             }
             );
     }
-
     paging(page) {
         this.backend(page, 10);
     }
@@ -337,9 +340,8 @@ export class ClMngListComponent implements OnInit {
     }
     //初始化状态平台充值资源
     resetInit(item){
-        console.log(item)
         this.idService.setPlatformId(item.id);
-        if(item.platformType=='2'){
+        if(item.platformType=='2'||item.platformType=='0'){
             this.router.navigate(["pf-mng2/cl-mng/cre-step2", { type: item.platformType }]);
         }else if(item.platformType=='3'){
             this.router.navigate(["pf-mng2/cl-mng/desk-cloud-cre-step2", { type: item.platformType }]);             
