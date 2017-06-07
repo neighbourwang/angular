@@ -46,7 +46,7 @@
             <tbody>
             <tr *ngFor="let item of accountList" id="accountList_{{item.id}}">
                 <td>
-                    <input type="radio" name="aliAccount" class="fox-cloud-radio" (change)="getSelectAccount(item);"[checked]="item.isSelect" />
+                    <input type="radio" id="aliAccount" name="aliAccount" class="fox-cloud-radio" (change)="getSelectAccount(item);"[checked]="item.isSelect" />
                 </td>
                 <td><a href="javascript:void(0);" (click)="viewAccount(item);">{{item.loginName}}</a></td>
                 <td>{{item.mainAccountType | dict:service.dictType | async }}</td><!--| dict:service.dictType | async-->
@@ -69,9 +69,9 @@
         <div class="form-group">
             <div class="col-sm-4 form-control-title"><span class="asterisk">*</span>{{'ALI_CLOUD.CAHNGE_TYPE'|translate}}:</div>
             <div class="col-sm-4">
-                <select class="form-control" [(ngModel)]="selectAccountType">
-                    <option value="">{{'ALI_CLOUD.PLEASE_SELECT'|translate}}</option>
-                    <option *ngFor="let v of service.dictType | async" [value]="v.value">{{v.displayValue}}</option>
+                <select class="form-control" [(ngModel)]="selectAccountType" id="selectAccountType">
+                    <option value="" id="all_accountType">{{'ALI_CLOUD.PLEASE_SELECT'|translate}}</option>
+                    <option *ngFor="let v of service.dictType | async" [value]="v.value" id="accountType_{{v.value}}">{{v.displayValue}}</option>
                 </select>
             </div>
         </div>

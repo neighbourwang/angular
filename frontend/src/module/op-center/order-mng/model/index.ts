@@ -17,3 +17,4 @@ export * from './cost-pandect-item';
 export * from './user-info';
 export * from './auto-renew-item';
 export * from './physical-machine';
+export * from './service-instance-item';

@@ -32,7 +32,7 @@
                     
                     <tr *ngFor="let item of enterpriseList "  id="enterpriseList_{{item.id}}">
                         <template  [ngIf]="item.visible == 'true'">
-                            <td ><input type="radio" name="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);"></td>
+                            <td ><input type="radio" id="entprise" name="entprise" class="fox-cloud-radio" [checked]="item.isSelect" (change)="getSelectEnt(item);"></td>
                             <td>{{item.tenantName}}</td>
                             <td [ngClass]="{'font-orange': item.status=='2','font-green': item.status=='1'}"> 
                                 {{item.status| dict:service.dictStatus | async}}

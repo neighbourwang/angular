@@ -42,7 +42,7 @@
             <tbody>
                 <tr *ngFor="let item of accountList |orderBy:'!lastUpdate'" id="accountList_{{item.id}}">
                     <td>
-                         <input type="radio" name="aliAccount" class="fox-cloud-radio" (change)="getSelectAccount(item);"[checked]="item.isSelect" />
+                         <input type="radio" id="aliAccount" name="aliAccount" class="fox-cloud-radio" (change)="getSelectAccount(item);"[checked]="item.isSelect" />
                     </td>
                     <td><a href="javascript:void(0);" (click)="viewAccount(item);">{{item.loginName}}</a></td>
                     <td>{{item.tenantName}}</td>
