@@ -77,17 +77,42 @@ export class PhysicalListComponent implements OnInit {
             console.log("获取的资源池id",id)
             this.pmPoolId=id;      
             this.getPoolInfo();
+            this.getPhysicalList();
              });
-            this.getPhysicalList().then(()=>{
-                 for (var i = this.physicalList.length - 1; i >= 0; i--) {                
-                       //this.physicalList[i].pmPowerStatus= this.getPowerStatus(this.physicalList[i]);
-                       this.getPowerStatus(this.physicalList[i]);
-                          console.log("健康",this.physicalList[i].pmHealthExam)                       
-                    }                
-            });         
+            // this.getPhysicalList().then(()=>{
+            //      for (var i = this.physicalList.length - 1; i >= 0; i--) {                
+            //            //this.physicalList[i].pmPowerStatus= this.getPowerStatus(this.physicalList[i]);
+            //            this.getPowerStatus(this.physicalList[i]);
+            //               console.log("健康",this.physicalList[i].pmHealthExam)                       
+            //         }                
+            // });         
     }
 
    //获取物理机列表
+    //  getPhysicalList(index?: number) :Promise<any>{
+    //     this.pageIndex = index || this.pageIndex;
+        
+    //     this.layoutService.show();
+        
+    //    return  this.service.getPhysicals(this.pageIndex, this.pageSize,this.pmQuery,this.pmPoolId)
+    //         .then(
+    //             response => {
+    //                 this.layoutService.hide();
+    //                 if (response && 100 == response["resultCode"]) {
+    //                     this.layoutService.hide();
+    //                     this.physicalList = response["resultContent"];
+    //                     this.physicalList.forEach((e)=>{e.pmHealthExam=""})
+    //                     console.log("物理机list",this.physicalList);
+    //                     console.log("物理机查询参数",this.pmQuery,this.queryParam);
+    //                     this.totalPage = response.pageInfo.totalPage;
+    //                     //this.checkListMiddleState();
+    //                 } else {
+    //                     this.showAlert("COMMON.OPERATION_ERROR");
+    //                 }
+    //             }
+    //         )
+    //         .catch((e) => this.onRejected(e));
+    // }
      getPhysicalList(index?: number) :Promise<any>{
         this.pageIndex = index || this.pageIndex;
         
@@ -99,8 +124,7 @@ export class PhysicalListComponent implements OnInit {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.layoutService.hide();
-                        this.physicalList = response["resultContent"];
-                        this.physicalList.forEach((e)=>{e.pmHealthExam=""})
+                        
                         console.log("物理机list",this.physicalList);
                         console.log("物理机查询参数",this.pmQuery,this.queryParam);
                         this.totalPage = response.pageInfo.totalPage;
@@ -108,35 +132,38 @@ export class PhysicalListComponent implements OnInit {
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
+                    return response.resultContent;
                 }
             )
+            .then((res)=>{
+                this.physicalList=res;
+                this.physicalList.forEach((e)=>{e.pmHealthExam=""}) 
+                this.checkListMiddleState();
+            })
             .catch((e) => this.onRejected(e));
     }
-//     //检查物理机电源的状态
-//    isMiddleState(state) {
-// 		return !!["1","2","-1" ].filter(v => v==state).length
-// 	}
+    //检查物理机电源的状态
+   isMiddleState(state) {
+		return !![].filter(v => v==state).length
+	}
 
-// 	checkListMiddleState() {
+	checkListMiddleState() {
 
-// 		let mkPromise = (pm) => this.isMiddleState(pm.status) || !pm.status ? this.service.getPhysicalPowerStatus(pm.pmId) : false
-// 		let fecthMiddleStateList = this.physicalList.map(mkPromise)
+		let mkPromise = (pm) => this.isMiddleState(pm.pmPowerStatus) || !pm.pmPowerStatus ? this.service.getPhysicalPowerStatus(pm.pmId) : false
+		let fecthMiddleStateList = this.physicalList.map(mkPromise)
 
-// 		if(!fecthMiddleStateList.filter(l => l).length) return false;   //如果没有中间状态了 则不再循环
-// 		Promise.all(fecthMiddleStateList).then(res => {
-// 			res.forEach((pm, i) => {
-// 				if(pm) {
-//                     this.physicalList[i].pmPowerStatus = pm.status;
-//                     switch (this.physicalList[i].pmPowerStatus){
-//                            case "1":this.physicalList[i].pmHealthExam="1" 
-//                            case "2":this.physicalList[i].pmHealthExam="0"
-//                            case "-1":this.physicalList[i].pmHealthExam="0"
-//                     }                
-//                 }
-// 			})
-// 			setTimeout(this.checkListMiddleState.bind(this) , 10 * 1000)
-// 		})
-// 	}
+		if(!fecthMiddleStateList.filter(l => l).length) return false;   //如果没有中间状态了 则不再循环
+		Promise.all(fecthMiddleStateList).then(res => {
+			res.forEach((pm, i) => {
+				if(pm) {
+                    this.physicalList[i].pmPowerStatus = pm.status;
+                    if(this.physicalList[i].pmPowerStatus =="2") this.physicalList[i].pmHealthExam ="1";
+                    else this.physicalList[i].pmHealthExam ="0";  
+                }
+			})
+			setTimeout(this.checkListMiddleState.bind(this) , 10 * 1000)
+		})
+	}
 //获取物理机电源状态
 getPowerStatus(pm:PhysicalListModel){
     this.layoutService.hide();    

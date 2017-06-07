@@ -116,7 +116,14 @@ export class PhysicalListService {
             },
         ];
         const api = this.restApiCfg.getRestApi("physical-mng.physical.power.status");
-        return this.restApi.request(api.method, api.url, pathParams, null,null);
+        const request= this.restApi.request(api.method, api.url, pathParams, null,null)
+        .then(res => {
+                                if(res.resultCode !== "100"){
+                                    throw "";
+                                }
+                                return res.resultContent;
+                            });
+        return request;
     }
 
     
