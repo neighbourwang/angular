@@ -113,7 +113,6 @@ export class cloudVmComponentOrder implements OnInit {
 		this.dux.subscribe("OS", () => { this.osChanged() })
 		this.dux.subscribe("OS", () => { this.oSfilterBootsize() })
 		this.dux.subscribe("FINDE_VMSKU", () => { this.getSkuMap("vm") })
-		this.dux.subscribe("FINDE_VMSKU", () => { this.oSfilterBootsize() })  //选择新的云主机的话会重新计算启动盘的大小
 		this.dux.subscribe("FINDE_DISKSKU", () => { this.getSkuMap("disk") })
 		this.dux.subscribe("SET_TIME_UNIT", () => { this.setTimeUnit() })
 		this.dux.subscribe("SET_VMPRICE", () => { this.setVmPrice() })
@@ -164,23 +163,24 @@ export class cloudVmComponentOrder implements OnInit {
 					let valueList = this.attrList[code].mapValueList[this.values[subCode].attrValueId] || []
 
 					if( ["MEM"].indexOf(code) > -1 ) valueList = this.filterPlatform(valueList)   //如果是列表里面的code 则需要根据平台过滤
+					valueList = this.customSetValueList(code, valueList)    //继承云主机的页面如果有一些自定义的valueList可覆盖此方法, 物理机和中间件需要根据模板的最小规格来过滤cpu和mem
+
 					this.setValueListAndValue(code, valueList)
 				})
 			}
 		}
 	}
 
+	customSetValueList(code, valueList) { return valueList }
+
 	//设置默认值 并派发事件
 	private setValueListAndValue(code, list?) {
-		if(code === "MEM"){
-			console.log(list)
-		}
 		list = list ? list : this.attrList[code].valueList
 
 		if (code === "IMAGETYPE") list = list.concat(this.tempImagetype) //后端未实现 临时添加
 
 		this.valuesList[code] = list
-		this.values[code] = this.valuesList[code].length ? this.valuesList[code][0] : new Values
+		this.values[code] = this.valuesList[code].length ? this.valuesList[code][0] : new VlueList
 
 		this.dux.dispatch(code)  //派发当前的code的subscriber
 		if (["ZONE", "PLATFORM", "CPU", "MEM", "BOOTSIZE"].indexOf(code) > -1) this.dux.dispatch("FINDE_VMSKU")   //如果是这五个触发 匹配sku的事件
@@ -232,7 +232,6 @@ export class cloudVmComponentOrder implements OnInit {
 
 			this.setValueListAndValue("OS", list)
 		}).catch(error => {
-			this.setValueListAndValue("OS", []);
 			this.layoutService.hide()
 		})
 	}
@@ -247,8 +246,8 @@ export class cloudVmComponentOrder implements OnInit {
 		return filteredList.filter(list => list.platformIds.indexOf(this.values.PLATFORM.attrValueId) > -1)
 	}
 
-	private oSfilterBootsize(): VlueList[] {  //根据os的大小过滤bootsize的大小
-		if (!this.values.OS) return this.bootsizeList = [];
+	oSfilterBootsize(): VlueList[] {  //根据os的大小过滤bootsize的大小
+		if (!this.values.OS.attrValueCode) return this.bootsizeList = [];
 
 		const filteredList = this.valuesList.BOOTSIZE.filter(bootSizeObj =>
 			parseInt(bootSizeObj.attrValue) * 1024 * 1024 * 1024 >= this.values.OS.capacity
@@ -257,10 +256,12 @@ export class cloudVmComponentOrder implements OnInit {
 		setTimeout(res => {
 			this.isZoneSupportOs = !!filteredList.length;
 		}, 0);
-		this.bootsizeList = this.filterPlatform(filteredList);   //过滤可用平台
+		this.bootsizeList = this.customSetValueList("BOOTSIZE", this.filterPlatform(filteredList));   //过滤可用平台 （customSetValueList 再过滤自定义的ValueList 数据库中间件可用到）
+
 		if( this.bootsizeList.length ){
 			this.values.BOOTSIZE = this.bootsizeList[0];
-			this.dux.dispatch("BOOTSIZE")
+			this.dux.dispatch("BOOTSIZE")   
+			this.dux.dispatch("FINDE_VMSKU")   
 		}
 	}
 

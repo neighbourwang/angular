@@ -694,6 +694,12 @@ export let RestApis: RestApiModel[] = [
         "url": "adminui/authsec/enterprises/resouces/quotas/page/{_page}/size/{_size}"
     }
     , {
+        "desc": "企业信息列表搜索框",
+        "id": "ent-mng.ent-est-mng.enterprise-search.post",
+        "method": "POST",
+        "url": "adminui/authsec/enterprises/resouces/quotas/page/{_page}/size/{_size}"
+    }
+    , {
         "desc": "加载企业配额数据",
         "id": "ent-mng.ent-est-mng.enterprise.resourcequota.get",
         "method": "GET",
@@ -2977,6 +2983,12 @@ export let RestApis: RestApiModel[] = [
         "desc": "一次性管理服务系统设置",
         "id": "mtc-center.mng-set.set",
         "method": "POST",
+        "url": "subinstancemgmt/authsec/subinstance/supervise/set"
+    },
+    {
+        "desc": "获取一次性管理服务系统设置",
+        "id": "mtc-center.mng-set.get",
+        "method": "GET",
         "url": "subinstancemgmt/authsec/subinstance/supervise/set"
     },
     //告警通知

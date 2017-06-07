@@ -33,4 +33,8 @@ export class MngSetService {
             });
     }
 
+    getMngService(): Promise<any>{
+        const api = this.restApiCfg.getRestApi("mtc-center.mng-set.get");
+        return this.restApi.request(api.method, api.url, null, null, null);
+    }
 }

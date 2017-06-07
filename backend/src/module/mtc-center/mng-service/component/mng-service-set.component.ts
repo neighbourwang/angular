@@ -38,14 +38,28 @@ export class MngServiceSetComponent implements OnInit{
     minutes= "";
 
     ngOnInit() {
-        this.service.completeDic.then(res =>{
-            this.complete= res[0].value
-        });
-        console.log(this.service.completeDic);
+        this.getMngService();
+    }
+
+    getMngService(){
+        this.layoutService.show();
+        this.service.getMngService()
+            .then(
+                response => {
+                    this.layoutService.hide();
+                    if (response && 100 == response["resultCode"]) {
+                        this.complete= response["resultContent"].completeCode;
+                        this.minutes= response["resultContent"].minutes;
+                    } else {
+                        this.showAlert("COMMON.OPERATION_ERROR");
+                    }
+                }
+            )
+            .catch((e) => this.onRejected(e));
     }
 
     setMngService(){
-        if(!this.validationService.isNumber(this.minutes)){
+        if(this.minutes != null && !this.validationService.isNumber(this.minutes)){
             this.showAlert("时间只能输入数字");
             return;
         }
@@ -60,11 +74,7 @@ export class MngServiceSetComponent implements OnInit{
                 response => {
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
-                        this.service.completeDic.then(res =>{
-                            this.complete= res[0].value
-                        });
-                        this.minutes= "";
-                        this.showAlert("设置成功");
+                            this.showAlert("设置成功");
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }

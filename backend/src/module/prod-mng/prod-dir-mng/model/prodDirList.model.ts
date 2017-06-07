@@ -30,8 +30,7 @@ class Proddir {
         serviceTemplateName: string;
         deploymentMode: string;
         version: string;
-        middleWareType: string;
-       
+        middleWareType: string;       
     };
     constructor() {
         
