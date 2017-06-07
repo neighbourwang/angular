@@ -381,14 +381,14 @@
             <div class="cloud-line"></div>
             <h4 class="cloud-title font-green">{{'VM_INSTANCE.HOST_ONE_PRICE'|translate}}<!--   云主机单价 --></h4>
             <p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}:
-                <font class="font-orange">{{'COMMON.$' | translate}}{{ vmProduct?.billingInfo?.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+                <font class="font-orange">{{'COMMON.$' | translate}}{{ vmProduct?.billingInfo?.basePrice }}</font></p>
             <p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}
                 <!-- 周期费用 -->:
                 <font class="font-orange">{{'COMMON.$' | translate}}{{vmProduct?.billingInfo?.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue }}</font>
             </p>
             <h4 class="cloud-title font-green">中间件单价</h4>
             <p class="cloud-p">{{'COMMON.ONE_TIME_COSTS'|translate}}:
-                <font class="font-orange">{{'COMMON.$' | translate}}{{ dbProduct?.billingInfo?.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+                <font class="font-orange">{{'COMMON.$' | translate}}{{ dbProduct?.billingInfo?.basePrice }}</font></p>
             <p class="cloud-p">{{'VM_INSTANCE.BILLINGARR'|translate}}
                 <!-- 周期费用 -->:
                 <font class="font-orange">{{'COMMON.$' | translate}}{{dbProduct?.billingInfo?.basicPrice}} / {{ values.TIMELINEUNIT.attrDisplayValue }}</font>
@@ -399,7 +399,7 @@
                 <p class="cloud-title">云硬盘{{1+i}}：</p>
                 <p class="cloud-p" *ngIf="!diskProducts[i]">没有匹配到相应的云硬盘产品</p>
 				<p class="cloud-p" *ngIf="diskProducts[i]">云硬盘类型: {{disk?.storage?.attrDisplayValue}}</p>
-				<p class="cloud-p" *ngIf="diskProducts[i]">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{ diskProducts[i]?.billingInfo?.basePrice }}</font>{{'COMMON.YUAN'|translate}}</p>
+				<p class="cloud-p" *ngIf="diskProducts[i]">{{'COMMON.ONE_TIME_COSTS'|translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{ diskProducts[i]?.billingInfo?.basePrice }}</font></p>
 				<p class="cloud-p" *ngIf="diskProducts[i]">{{'VM_INSTANCE.BY_VOLUMN_COSTS'| translate}}: <font class="font-orange">{{'COMMON.$' | translate}} {{diskProducts[i]?.billingInfo?.unitPrice}}/GB/{{ diskProducts[i]?.billingInfo?.unitType | dict:service.unitType | async }}</font></p>
             </ng-container>
             <div class="cloud-p">
@@ -408,7 +408,7 @@
                     <tr>
                         <td>{{'COMMON.ONE_TIME_COSTS'|translate}}： </td>
                         <td>
-                            <font class="font-orange">{{'COMMON.$' | translate}}{{oneTimeTotalPrice}}</font>{{'COMMON.YUAN' | translate}}</td>
+                            <font class="font-orange">{{'COMMON.$' | translate}}{{oneTimeTotalPrice}}</font></td>
                     </tr>
                     <tr>
                         <td>
@@ -416,7 +416,7 @@
                                 <!-- 总周期费用 -->： </font>
                         </td>
                         <td>
-                            <font class="font-orange">{{'COMMON.$' | translate}}{{totalBilling}}</font>{{'COMMON.YUAN'|translate}}<span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
+                            <font class="font-orange">{{'COMMON.$' | translate}}{{totalBilling}}</font><span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -424,7 +424,7 @@
                                 <!-- 总按量费用 -->： </font>
                         </td>
                         <td>
-                            <font class="font-orange">{{'COMMON.$' | translate}}{{totalAnnual}}</font>{{'COMMON.YUAN'|translate}}<span class="float-right">{{'VM_INSTANCE.ANNUAL_SUBSCRIPTION'| translate}}</span></td>
+                            <font class="font-orange">{{'COMMON.$' | translate}}{{totalAnnual}}</font><span class="float-right">按量计费</span></td>
                     </tr>
                 </table>
                 <p class="mgt20">{{'VM_INSTANCE.BILLINGARR_TEXT'|translate}}

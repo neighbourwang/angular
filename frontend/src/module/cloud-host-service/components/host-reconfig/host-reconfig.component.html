@@ -60,7 +60,7 @@
 												*ngFor="let attr of config.CPU.mapValueList[config.PLATFORM.valueList[0].attrValueId];let i = index" 
 												[ngClass]="{'active': selectedCpu?.attrValueId === attr.attrValueId}"
 												class="btn btn-default" id="new_cpu_{{ attr.attrValueCode}}">
-												 	<span (afterNgFor)="i===0 ? change(selectedCpu = attr) : '';">{{attr.attrDisplayValue}}</span>
+													<span (afterNgFor)="i===0 ? change(selectedCpu = attr) : '';">{{attr.attrDisplayValue}}</span>
 											</button>
 										</div>
 									</div>
@@ -68,11 +68,12 @@
 										<div class="col-md-1 line34 no-padding">内存：</div>
 										<div class="col-md-10 no-padding btn-group" *ngIf="config" id="new_mem" data-toggle="buttons">
 											<button 
+												[disabled]="isCurrentMemDisable(attr)" 
 												(click)="selectedMem=attr;change()"
 												*ngFor="let attr of config.MEM.mapValueList[selectedCpu?.attrValueId];let i = index" 
 												[ngClass]="{'active': selectedMem?.attrValueId === attr.attrValueId}"
 												class="btn btn-default" id="new_mem_{{attr.attrValueCode}}">
-													<span (afterNgFor)="i===0 ? change(selectedMem = attr) : '';">{{attr.attrDisplayValue}}</span>
+													<span (afterNgFor)="afterNgForMem(i, attr)">{{attr.attrDisplayValue}}</span>
 											</button>
 
 										</div>
