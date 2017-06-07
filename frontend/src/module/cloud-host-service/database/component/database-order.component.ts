@@ -160,20 +160,25 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 
 		this.database = this.databases.filter(data => data.id === this.dbProduct.templatId)[0]   //确定模板
 		this.database.diskInfoList.forEach(disk => disk.storage = this.values.STORAGE)  //目录下面的所有的硬盘的storage下拉列表设置为第一位
-
 		this.database.attrList.forEach(data => this.attrList[data.attrCode] = data )  //把数据库新加的attrList添加到老的list里面去
+
+		this.dux.dispatch("CPU")    //确定模板后需要过滤根据最小规格过滤 CPU MEM BOOTSIZE，因为MEM依赖CPU，所以这里dispatch CPU 就可以同时更新MEM
+		this.oSfilterBootsize()     //确定模板后需要过滤根据最小规格过滤 重新计算启动盘的大小
 
 		//做一些数据库的选项初始化的工作
 		this.databaseValueInit()
 		this.dux.dispatch("SET_DISK_PRODUCTS")
 	}
 
-	customSetValueList(code, valueList) {
+	customSetValueList(code, valueList) {    //中间件数据库需要根据模板过滤MEM CPU BOOTSIZE的最小配置 
 		if( code === "MEM" && this.database && this.database.memory ) {
-			// return valueList.filter(value => +value.attrValue > this.database.memory * 1024 )
+			return valueList.filter(value => +value.attrValue >= this.database.memory * 1024 )
 		}
 		if( code === "CPU" && this.database && this.database.cpu ) {
-			// return valueList.filter(value => +value.attrValue > this.database.cpu )
+			return valueList.filter(value => +value.attrValue >= this.database.cpu )
+		}
+		if( code === "BOOTSIZE" && this.database && this.database.bootStorageSize ) {
+			return valueList.filter(value => +value.attrValue >= this.database.bootStorageSize )
 		}
 
 		return valueList;
@@ -253,7 +258,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.totalAnnual = 0;
 		billingList.forEach(billing => {
 			this.oneTimeTotalPrice += billing.basePrice;  //计算一次性价格
-			if(billing.billingMode == 1) this.totalBilling += billing.basicPrice * +this.values.TIMELINE.attrValue;
+			if(billing.billingMode == 1 || billing.billingMode == 0) this.totalBilling += billing.basicPrice * +this.values.TIMELINE.attrValue;
 			if(billing.billingMode == 2) this.totalAnnual += billing.unitPrice * billing.disksize * +this.values.TIMELINE.attrValue;
 		})
 	}
