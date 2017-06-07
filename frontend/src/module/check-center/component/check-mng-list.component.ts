@@ -100,7 +100,7 @@ export class CheckMngListComponent implements OnInit {
 								orderItem.platformName=_item.platformName;
 								orderItem.zoneName=_item.zoneName;
 							}
-							if(_item.serviceType==3){
+							if(_item.serviceType==3||_item.serviceType==5){
 								orderItem.specList = _item.specList;
 							}	
 						}
