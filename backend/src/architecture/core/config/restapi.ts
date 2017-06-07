@@ -2979,6 +2979,12 @@ export let RestApis: RestApiModel[] = [
         "method": "POST",
         "url": "subinstancemgmt/authsec/subinstance/supervise/set"
     },
+    {
+        "desc": "获取一次性管理服务系统设置",
+        "id": "mtc-center.mng-set.get",
+        "method": "GET",
+        "url": "subinstancemgmt/authsec/subinstance/supervise/set"
+    },
     //告警通知
     {
         "desc": "告警列表",

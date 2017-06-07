@@ -164,7 +164,7 @@ export class cloudVmComponentOrder implements OnInit {
 
 					if( ["MEM"].indexOf(code) > -1 ) valueList = this.filterPlatform(valueList)   //如果是列表里面的code 则需要根据平台过滤
 					valueList = this.customSetValueList(code, valueList)    //继承云主机的页面如果有一些自定义的valueList可覆盖此方法, 物理机和中间件需要根据模板的最小规格来过滤cpu和mem
-console.log(code, valueList)
+
 					this.setValueListAndValue(code, valueList)
 				})
 			}
@@ -175,9 +175,6 @@ console.log(code, valueList)
 
 	//设置默认值 并派发事件
 	private setValueListAndValue(code, list?) {
-		if(code === "OS"){
-			console.log(list)
-		}
 		list = list ? list : this.attrList[code].valueList
 
 		if (code === "IMAGETYPE") list = list.concat(this.tempImagetype) //后端未实现 临时添加
@@ -249,7 +246,7 @@ console.log(code, valueList)
 		return filteredList.filter(list => list.platformIds.indexOf(this.values.PLATFORM.attrValueId) > -1)
 	}
 
-	private oSfilterBootsize(): VlueList[] {  //根据os的大小过滤bootsize的大小
+	oSfilterBootsize(): VlueList[] {  //根据os的大小过滤bootsize的大小
 		if (!this.values.OS.attrValueCode) return this.bootsizeList = [];
 
 		const filteredList = this.valuesList.BOOTSIZE.filter(bootSizeObj =>
@@ -259,7 +256,8 @@ console.log(code, valueList)
 		setTimeout(res => {
 			this.isZoneSupportOs = !!filteredList.length;
 		}, 0);
-		this.bootsizeList = this.filterPlatform(filteredList);   //过滤可用平台
+		this.bootsizeList = this.customSetValueList("BOOTSIZE", this.filterPlatform(filteredList));   //过滤可用平台 （customSetValueList 再过滤自定义的ValueList 数据库中间件可用到）
+
 		if( this.bootsizeList.length ){
 			this.values.BOOTSIZE = this.bootsizeList[0];
 			this.dux.dispatch("BOOTSIZE")   
