@@ -45,13 +45,13 @@ export class OrderMngSearchDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-     
+  
   }
 
 	loadSubinstanceDetailById(){
 		this.layoutService.show();
     let subinstanceId= this._detail.subinstanceId;
-    $('#osPopover').modal('show');
+   
 		this._subinstanceLoader.Go(null,[{key:'subId',value:subinstanceId}])
 		.then(success=>{
 
@@ -67,9 +67,6 @@ export class OrderMngSearchDetailComponent implements OnInit {
       if(this._subinstanceLoader.FirstItem.SuperviseNoInstanceItems){
         this.SuperviseNoInstanceItems = this._subinstanceLoader.FirstItem.SuperviseNoInstanceItems;
       }
-      
-
-			$('#osPopover').modal('show');
 
 			this.layoutService.hide();
 		})

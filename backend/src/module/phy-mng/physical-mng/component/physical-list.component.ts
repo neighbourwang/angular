@@ -144,7 +144,7 @@ export class PhysicalListComponent implements OnInit {
     }
     //检查物理机电源的状态
    isMiddleState(state) {
-		return !![].filter(v => v==state).length
+		return !!["0"].filter(v => v==state).length
 	}
 
 	checkListMiddleState() {
@@ -157,8 +157,8 @@ export class PhysicalListComponent implements OnInit {
 			res.forEach((pm, i) => {
 				if(pm) {
                     this.physicalList[i].pmPowerStatus = pm.status;
-                    if(this.physicalList[i].pmPowerStatus =="2") this.physicalList[i].pmHealthExam ="1";
-                    else this.physicalList[i].pmHealthExam ="0";  
+                    if(this.physicalList[i].pmPowerStatus =="-1") this.physicalList[i].pmHealthExam ="0";
+                    else this.physicalList[i].pmHealthExam ="1";  
                 }
 			})
 			setTimeout(this.checkListMiddleState.bind(this) , 10 * 1000)
