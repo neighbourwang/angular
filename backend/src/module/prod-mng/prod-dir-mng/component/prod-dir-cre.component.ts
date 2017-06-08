@@ -202,9 +202,9 @@ export class ProdDirCreComponent implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            serviceName: [this.prodDir.serviceName, [this.v.isBase, this.v.isUnBlank], "产品目录名称格式不正确"],
+            serviceName: [this.prodDir.serviceName, [this.v.isBase, this.v.isUnBlank,this.v.maxLength(50),this.v.minLength(2)], "产品目录名称格式不正确"],
 
-            description: [this.prodDir.description, [this.v.maxLength(68)], "描述输入错误"],
+            description: [this.prodDir.description, [this.v.maxLength(255)], "描述输入错误"],
 
         }
         console.log(this.v.check(key, regs));

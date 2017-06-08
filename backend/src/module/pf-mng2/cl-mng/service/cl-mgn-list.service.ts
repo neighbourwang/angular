@@ -17,10 +17,10 @@ export class ClMngListService {
     ) { }    
     
     // 取得全部平台信息
-    getPlatforms(page: number, size: number) {
+    getPlatforms(page: number, size: number,name:string) {
         let api = this.restApiCfg.getRestApi("pf.conn.mng.platforms.get");
 
-        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size }], undefined);
+        return this.restApi.request(api.method, api.url, [{ key: "page", value: page }, { key: "size", value: size },{key:"name",value:name}], undefined);
     }
 
     // 删除特定平台信息

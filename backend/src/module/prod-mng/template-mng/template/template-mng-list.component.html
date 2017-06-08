@@ -7,18 +7,16 @@
             <span class="icon-button-label icon-left-button-label">{{'PROD_MNG.CREATE_TEMPLATE'|translate}}</span><!--创建模板-->
         </button>
 		<button class="pull-right fox-cloud-button-md fox-cloud-button-white" style="line-height:28px ;width:60px; margin-left: 20px"
-		 (click)='onQuery()' id="onQuery">{{'COMMON.SEARCH' | translate}}</button>
-		<div class="dropdown pull-right" style="margin-left: 10px;min-width: 120px">
+		 (click)='search()' id="onQuery">{{'COMMON.SEARCH' | translate}}</button>		 		
+		<div class="dropdown pull-right">
+            <input type="text" placeholder="{{'USER_CENTER.INPUT_ACC_QUICK_SEARCH' | translate}}" style="height : 34px ; padding : 5px" placeholder="{{'PROD_MNG.INPUT_TEMPLATE_NAME' | translate}}" [(ngModel)]="keyup" (keyup.enter)="search()" />
+        </div>		
+		<div class="dropdown pull-right mgr20" style="margin-left: 10px;min-width: 120px">
 			<select class="form-control" [(ngModel)]="templateType">
                  <option *ngFor="let item of templateTypeList;" [value]="item.value" >{{item.type}}</option>
             </select>
 		</div>
-		<span class="pull-right" style="line-height: 34px;margin-left: 20px">{{'模板类型' | translate}}：</span>
-		<!--<div class="btn-group" style="float:right">
-			<button type="button" class="btn btn-default" *ngFor="let item of templateTypeList;let idx = index" (click)="chooseTemplateType(item,idx)"
-			 [ngClass]="{'btn-active': item.selected}">{{item.type}}</button>
-		</div>-->
-
+		<span class="pull-right" style="line-height: 34px;margin-left: 20px">{{'模板类型' | translate}}：</span>	
 	</div>
 	<div class="table-container">
 		<table class="table table-hover">

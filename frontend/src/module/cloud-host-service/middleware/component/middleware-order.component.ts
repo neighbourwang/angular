@@ -29,6 +29,8 @@ export class MiddlewareComponentOrder extends DatabaseComponentOrder implements 
 
 	@ViewChild('notice')
 	public noticeDialog: NoticeComponent;
+	
+	@ViewChild('cartButton') cartButton;
 
 	mwInits = [];
 	mwInit;

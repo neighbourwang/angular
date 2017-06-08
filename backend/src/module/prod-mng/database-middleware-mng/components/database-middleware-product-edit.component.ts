@@ -59,6 +59,8 @@ export class DatabaseMiddlewareEditComponent implements OnInit {
             ele.active = false;
         })
         item.active = true;
+        item.name=='CASE_MNG.CASE_INFO'&&this.cancelPriceEdit();
+        item.name=='PROD_MNG.PRICING_INFORMATION'&&this.cancelBasicEdit();
     }
 
     ngOnInit() {
@@ -153,8 +155,8 @@ export class DatabaseMiddlewareEditComponent implements OnInit {
     // //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            productName: [this.tempProductName, [this.v.isBase, this.v.isUnBlank], "产品名称格式不正确"],
-            description: [this.tempProductDesc, [this.v.maxLength(68)], "描述输入错误"],
+            productName: [this.tempProductName, [this.v.isBase, this.v.isUnBlank,this.v.minLength(2),this.v.maxLength(50)], "产品名称格式不正确"],
+            description: [this.tempProductDesc, [this.v.maxLength(255)], "描述输入错误"],
         }
         console.log(this.v.check(key, regs));
         return this.v.check(key, regs);

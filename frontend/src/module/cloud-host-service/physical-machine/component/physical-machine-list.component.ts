@@ -63,7 +63,8 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 
 
 	isMiddleState(state) {   //物理机暂时没有中间状态 有的话添加到数组里即可
-		return !![].filter(v => v==state).length
+		console.log(state)
+		return !![undefined].filter(v => v==state).length
 	}
 
 	checkListMiddleState() {
@@ -78,7 +79,7 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 			res.forEach((pm, i) => {
 				if(pm) this.list[i].pmstatus = pm.status
 			})
-			setTimeout(this.checkListMiddleState.bind(this) , 10 * 1000)
+			setTimeout(this.checkListMiddleState.bind(this) , 10 * 30000)
 		})
 	}
 
@@ -117,7 +118,10 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 			this.layoutService.hide();
 			this.showNotice("物理机操作" ,msg + "成功");
 
-			this.fetchPMList();
+			pm.pmstatus = undefined;   //手动设置改主机的状态为空 然后再去check中间状态 这样保证操作后只刷新当前主机的状态
+			setTimeout(() => {
+				this.checkListMiddleState()
+			}, 5000)
 		}).catch(error => {
 			this.layoutService.hide();
 			this.showNotice("物理机操作" ,msg + "失败");

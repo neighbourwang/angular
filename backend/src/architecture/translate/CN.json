@@ -1227,6 +1227,7 @@
     "PF_MNG2": {
         "NAME ": "名称",
         "EXISTS": "已存在",
+        "INPUT_NAME_SEARCH":"输入平台名称回车搜索",
         "PLATFORM_NAME_EXISTS": "平台名称已存在",
         "SPEC_NAME_EXISTS": "规格名称已存在",
         "SPEC_NAME_ERROR": "规格名称错误",
@@ -1543,6 +1544,7 @@
         "INCREMENT_CYCLE_PRICE": "增量周期价格",
         "INIT_SIZE": "初始大小",
         "INPUT_PRODUCT_CAT": "请输入产品目录名称",
+        "INPUT_TEMPLATE_NAME":"输入模板名称按回车搜索",
         "INPUT_PRODUCT_NAME": "请输入产品名称",
         "NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT": "不能删除状态为已发布的产品目录",
         "NOT_ALLOW_TO_PUBLISH_THE_PUBLISHED_PRODUCT": "不可以再次发布已发布状态的产品",

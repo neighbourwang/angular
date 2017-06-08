@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input} from '@angular/core';
+import { Component, OnInit, ViewChild, Input,Output,EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApi, RestApiCfg, LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 import { OrderDetailItem } from '../model';
@@ -14,6 +14,8 @@ import {DictService} from '../../../../architecture/core/service/dict-service';
 export class OrderMngDetailComponent implements OnInit {
   @Input('orderDetail')
   private _orderDetail:OrderDetailItem;
+
+   @Output() onSuccess = new EventEmitter();
 
   constructor(
     private layoutService: LayoutService,
@@ -31,7 +33,8 @@ export class OrderMngDetailComponent implements OnInit {
 
   checkOSInfo(id:string){
     //跳转到管理信息详情
-    this.router.navigateByUrl(`cloud-host-service/management-services-list/${id}`);
+    this.onSuccess.emit(id);
+    // this.router.navigateByUrl(`cloud-host-service/management-services-list/${id}`);
     // alert("跳转");
   }
 }

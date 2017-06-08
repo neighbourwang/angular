@@ -1002,6 +1002,7 @@
   "PF_MNG2": {
     "NAME":"name",
     "EXISTS":"exists",
+    "INPUT_NAME_SEARCH":"input and search",
     "PLATFORM_NAME_EXISTS":"platform name exists",
     "SPEC_NAME_EXISTS":"flavour name exists",
     "SPEC_NAME_ERROR":"flavor name error",
@@ -1161,6 +1162,7 @@
     "INCREMENT_CYCLE_PRICE": "Incremental cycle price",
     "INIT_SIZE": "Initial size",
     "INPUT_PRODUCT_CAT": "Please input product catalog ",
+    "INPUT_TEMPLATE_NAME":"search by template name",
     "INPUT_PRODUCT_NAME": " Please input product name",
     "NOT_ALLOW_TO_DELETE_PUBLISHED_PRODUCT_CAT": "Cannot delete already published product catalog",
     "NOT_ALLOW_TO_PUBLISH_THE_PUBLISHED_PRODUCT": "Cannot publish already published product",

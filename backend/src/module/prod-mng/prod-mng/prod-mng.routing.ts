@@ -5,7 +5,6 @@ import { ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { ProdMngComponent } from './component/prod-mng.component';
-import { ProdCreComponent } from './component/prod-cre.component';
 import { ProdDetailComponent } from './component/prod-detail.component';
 
 import { ProdMngCreStep1Component} from './component/prod-mng-cre-step-1.component';
@@ -17,11 +16,7 @@ export const ProdMngRouting: ModuleWithProviders = RouterModule.forChild([
     {
         path: 'prod-mng/prod-mng',
         component: ProdMngComponent
-    },
-    {
-        path: 'prod-mng/prod-cre',
-        component: ProdCreComponent
-    },
+    },   
     {
         path: 'prod-mng/prod-mng-cre-1',
         component: ProdMngCreStep1Component

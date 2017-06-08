@@ -54,10 +54,9 @@ export class PhysicalProdCreStep1Component implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            productName: [this.service.product.name, [this.v.isBase, this.v.isUnBlank], "产品名称格式不正确"],
+            productName: [this.service.product.name, [this.v.isBase, this.v.isUnBlank,this.v.minLength(2),this.v.maxLength(50)], "产品名称格式不正确"],
 
-            description: [this.service.product.desc, [this.v.maxLength(68)], "描述输入错误"],
-
+            description: [this.service.product.desc, [this.v.maxLength(255)], "描述输入错误"],
         }
         console.log(this.v.check(key, regs));
         return this.v.check(key, regs);

@@ -72,9 +72,9 @@ export class DatabaseMiddlewareProdCreStep1Component implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            productName: [this.service.databaseMiddlewareProduct.name,[this.v.isBase,  this.v.maxLength(25),this.v.isUnBlank], "产品名称格式不正确"],
+            productName: [this.service.databaseMiddlewareProduct.name,[this.v.isBase,this.v.minLength(2),this.v.maxLength(50),this.v.isUnBlank], "产品名称格式不正确"],
 
-            description: [this.service.databaseMiddlewareProduct.desc, [this.v.maxLength(68)], "描述输入错误"],
+            description: [this.service.databaseMiddlewareProduct.desc, [this.v.maxLength(255)], "描述输入错误"],
         }
         return this.v.check(key, regs);
     }

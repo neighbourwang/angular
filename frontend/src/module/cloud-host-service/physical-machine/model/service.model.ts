@@ -118,6 +118,7 @@ class PMServiceItem {
 	serviceType :string = ""; //, optional),
 	status :string = ""; //, optional)
 	pmstatus :string = ""; //, optional)
+	subinstanceId: string = "";
 }
 
 class ValuesList {

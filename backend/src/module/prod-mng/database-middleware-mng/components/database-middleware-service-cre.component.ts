@@ -159,7 +159,11 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
     allSelected: boolean = false;
     selectAll(list) {
         this.allSelected = !this.allSelected;
-        list.forEach(ele => ele.selected = this.allSelected);
+        list.forEach(ele => {
+            if (!ele.disabled) {
+                ele.selected = this.allSelected
+            }
+        });
     }
     //选择资源池或平台
     selectOne(idx, list) {
@@ -175,9 +179,9 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            serviceName: [this.databaseMiddlewareService.serviceName, [this.v.isBase, this.v.maxLength(20), this.v.isUnBlank], "产品目录名称格式不正确"],
+            serviceName: [this.databaseMiddlewareService.serviceName, [this.v.isBase, this.v.minLength(2), this.v.maxLength(50), this.v.isUnBlank], "产品目录名称格式不正确"],
 
-            description: [this.databaseMiddlewareService.desc, [this.v.maxLength(68)], "描述输入错误"],
+            description: [this.databaseMiddlewareService.desc, [this.v.maxLength(255)], "描述输入错误"],
 
         }
         console.log(this.v.check(key, regs));
@@ -198,7 +202,7 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
                 this.databaseMiddlewareService.serviceType = tem.serviceTemplatType;
             }
         });
-        if (this.databaseMiddlewareService.serverType == '1'||this.databaseMiddlewareService.serverType == '2') {
+        if (this.databaseMiddlewareService.serverType == '1' || this.databaseMiddlewareService.serverType == '2') {
             // this.databaseMiddlewareService.resourcPoolsProfiles = [];
             // this.databaseMiddlewareService.resourcPoolsProfiles = this.resourcePooList.filter(ele => {
             //     if (ele.selected) {
@@ -207,8 +211,8 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
             //     }
             // })
             // if (this.databaseMiddlewareService.resourcPoolsProfiles.length == 0) {
-                this.notice.open('提示', '准备开发')
-                return
+            this.notice.open('提示', '准备开发')
+            return
             // }
         } else if (this.databaseMiddlewareService.serverType == '0') {
             this.databaseMiddlewareService.platformSimpleItemResp = [];
@@ -226,14 +230,14 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
         if (this.databaseMiddlewareService.serviceId) {
             this.layoutService.show();
             this.service.putDatabaseMiddlewareService(this.databaseMiddlewareService).then(res => {
-                this.layoutService.hide();                
-                if(res&&res.resultCode==12001001){
-                    this.notice.open('COMMON.ERROR','产品目录名称已存在');
-                }else if(res.resultCode==100){
+                this.layoutService.hide();
+                if (res && res.resultCode == 12001001) {
+                    this.notice.open('COMMON.ERROR', '产品目录名称已存在');
+                } else if (res.resultCode == 100) {
                     console.log(res);
-                    this.location.back();                    
-                }else{
-                    this.notice.open('COMMON.ERROR',res.resultCode);
+                    this.location.back();
+                } else {
+                    this.notice.open('COMMON.ERROR', res.resultCode);
                 }
             }).catch(err => {
                 console.error(err);
@@ -243,14 +247,14 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
             console.log(this.databaseMiddlewareService);
             this.layoutService.show();
             this.service.postDatabaseMiddlewareService(this.databaseMiddlewareService).then(res => {
-                this.layoutService.hide();                
-                if(res&&res.resultCode==12001001){
-                    this.notice.open('COMMON.ERROR','产品目录名称已存在');
-                }else if(res.resultCode==100){
+                this.layoutService.hide();
+                if (res && res.resultCode == 12001001) {
+                    this.notice.open('COMMON.ERROR', '产品目录名称已存在');
+                } else if (res.resultCode == 100) {
                     console.log(res);
                     this.location.back();
-                }else{
-                    this.notice.open('COMMON.ERROR',res.resultCode);
+                } else {
+                    this.notice.open('COMMON.ERROR', res.resultCode);
                 }
             }).catch(err => {
                 console.error(err);

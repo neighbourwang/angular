@@ -95,7 +95,7 @@
             <div class="col-sm-4 ">
                 <select class="form-control" [disabled]="editMode !='create'" [(ngModel)]="account.mainAccountType" id="mainAccountType">
                     <option value="" id="allAccountType">{{'ALI_CLOUD.PLEASE_SELECT'|translate}}</option>
-                    <option *ngFor="let v of service.dictType | async" [value]="v.value" id="dictType_v.value" >{{v.displayValue}}</option>
+                    <option *ngFor="let v of service.dictType | async" [value]="v.value" id="dictType_{{v.value}}" >{{v.displayValue}}</option>
                 </select>
             </div>
         </div>

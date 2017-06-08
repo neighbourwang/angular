@@ -73,8 +73,9 @@
 					<div for="firstname" class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}:</div>
 					<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
 						<textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
-						 rows="3" [(ngModel)]="physicalService.desc" name="description">
+						 rows="3" [(ngModel)]="physicalService.desc" name="description" maxlength="300">
                             </textarea>
+						<div *ngIf="v.result.description" class="alert alert-danger" role="alert">{{v.result.description}}</div>
 					</div>
 				</div>
 			</div>

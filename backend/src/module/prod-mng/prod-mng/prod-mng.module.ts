@@ -8,7 +8,6 @@ import { CommonComponentModule } from '../../../architecture';
 
 //Components
 import { ProdMngComponent } from './component/prod-mng.component';
-import { ProdCreComponent } from './component/prod-cre.component';
 import { ProdDetailComponent } from './component/prod-detail.component';
 
 import { ProdMngCreStep1Component} from './component/prod-mng-cre-step-1.component';
@@ -37,7 +36,6 @@ import { ProductEditService } from './service/product.edit.service';
     ],
     declarations: [
         ProdMngComponent,
-        ProdCreComponent,
         ProdDetailComponent,
         ProdMngCreStep1Component,
         ProdMngCreStep2Component,

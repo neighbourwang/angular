@@ -168,8 +168,8 @@ export class PhysicalProdEditComponent implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            productName: [this.tempProductName, [this.v.isBase, this.v.isUnBlank], "产品名称格式不正确"],
-            description: [this.tempProductDesc, [this.v.maxLength(68)], "描述输入错误"],
+            productName: [this.tempProductName, [this.v.isBase, this.v.isUnBlank,this.v.minLength(2),this.v.maxLength(50)], "产品名称格式不正确"],
+            description: [this.tempProductDesc, [this.v.maxLength(255)], "描述输入错误"],
         }
         console.log(this.v.check(key, regs));
         return this.v.check(key, regs);
@@ -232,7 +232,7 @@ export class PhysicalProdEditComponent implements OnInit {
                 this.notice.open('COMMON.OPERATION_ERROR','附加部件价格设置错误')
                 return unit.priceValid = false;
             }
-        }
+        }        
         this.product.basicCyclePrice = this.tempBasicCyclePrice;
         this.product.extendCyclePrice = this.tempExtendCyclePrice;
         this.product.oneTimePrice = this.tempOneTimePrice;

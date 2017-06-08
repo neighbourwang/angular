@@ -93,9 +93,9 @@
             <th class="text-center">区域</th>
             <th class="text-center">状态</th>
             <th class="text-center">到期时间</th>
-            <th class="text-center">附加服务</th>
+            <!-- <th class="text-center">附加服务</th>
             <th class="text-center">类型</th>
-            <th class="text-center">服务级别</th>
+            <th class="text-center">服务级别</th> -->
             <th class="text-center">{{'CLOUD_DRIVE_LIST.OPERATE' | translate}}</th>
         </tr>
         <tr *ngFor="let pm of list;" id="pm_{{pm.pmid}}">
@@ -111,20 +111,20 @@
                 {{pm.pmstatus | dict:service.computeStatus | async}}
             </td>
             <td class="text-center">{{pm.expireDate}}</td>
-            <td class="text-center">{{pm.appendService}}</td>
+<!--             <td class="text-center">{{pm.appendService}}</td>
             <td class="text-center">{{pm.serviceType}}</td>
-            <td class="text-center">{{pm.serviceLevel}}</td>
+            <td class="text-center">{{pm.serviceLevel}}</td> -->
             <td class="text-center">
-                <div class="dropdown">
+                <div class="dropdown" *ngIf="pm.pmstatus">
                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="more_{{pm.id}}">
                     {{'COMMON.MORE_ACTIONS' | translate}}
                     <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a (click)="handlePM('start', pm, '启动')" href="javascript:" id="cloud_control_on_{{pm.itemId}}">{{'COMMON.START'| translate}}</a></li>
-                        <li><a (click)="handlePM('stop', pm, '关机')" href="javascript:" id="cloud_control_off_{{pm.itemId}}">{{'COMMON.SHUTDOWN'| translate}}</a></li>
-                        <li><a (click)="handlePM('hardReboot', pm , '硬重启')" href="javascript:"  id="cloud_control_hard_{{pm.itemId}}">{{'COMMON.HARD_REBOOT'| translate}}</a></li>
-                        <li><a (click)="handlePM('softReboot', pm , '软重启')" href="javascript:" id="cloud_control_soft_{{pm.itemId}}">{{'COMMON.SOFT_RESTART'| translate}}</a></li>
+                        <li><a *ngIf="[1].indexOf(pm.pmstatus) > -1" (click)="handlePM('start', pm, '启动')" href="javascript:" id="cloud_control_on_{{pm.itemId}}">{{'COMMON.START'| translate}}</a></li>
+                        <li><a *ngIf="[2].indexOf(pm.pmstatus) > -1" (click)="handlePM('stop', pm, '关机')" href="javascript:" id="cloud_control_off_{{pm.itemId}}">{{'COMMON.SHUTDOWN'| translate}}</a></li>
+                        <li><a *ngIf="[2].indexOf(pm.pmstatus) > -1" (click)="handlePM('hardReboot', pm , '硬重启')" href="javascript:"  id="cloud_control_hard_{{pm.itemId}}">{{'COMMON.HARD_REBOOT'| translate}}</a></li>
+                        <li><a *ngIf="[2].indexOf(pm.pmstatus) > -1" (click)="handlePM('softReboot', pm , '软重启')" href="javascript:" id="cloud_control_soft_{{pm.itemId}}">{{'COMMON.SOFT_RESTART'| translate}}</a></li>
                     </ul>
                 </div>
             </td>
