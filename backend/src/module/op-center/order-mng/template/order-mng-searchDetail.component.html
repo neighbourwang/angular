@@ -86,9 +86,9 @@
 											
 													</popover-content>
 
-													<a *ngIf="prodItem.serviceType==11" class="hands" [popover]="osPopover">点击查看实例详情</a><!--管理服务-->
-													<popover-content #osPopover placement="right"[animation]="true" [closeOnClickOutside]="true">
-														<div *ngIf="prodItem.serviceType==11"  class="table-container mgb20"><!--云主机-->
+													<a *ngIf="prodItem.serviceType==11" class="hands" [popover]="osPopover" (click)='loadSubinstanceDetailById()'>点击查看实例详情</a><!--管理服务-->
+													<popover-content id="osPopover" #osPopover  placement="right" [animation]="true" [closeOnClickOutside]="true">
+														<div *ngIf="VMItems.length>0"  class="table-container mgb20"><!--云主机-->
 															<table class="table table-bordered mgb20 text-center inner-table">
 																<thead>
 																		<th>平台</th>
@@ -101,20 +101,20 @@
 																		<th>所在区域及可用区</th>
 																</thead>
 																<tbody>
-																	<tr>
-																		<td>磁盘</td>
-																		<td>SSD</td>
-																		<td>100GB</td>
-																		<td>2</td>
-																		<td>128GB</td>
-																		<td>100GB</td>
-																		<td>2</td>
-																		<td>128GB</td>
-																	</tr>		
+																	<tr *ngFor="let vmItem of VMItems">
+																		<td>{{vmItem.platformType}}</td>
+																		<td>{{vmItem.regionZone}}</td>
+																		<td>{{vmItem.instanceName}}</td>
+																		<td>cpu：{{vmItem.vcpus}}/内存：{{vmItem.memoryMb}}/启动盘{{vmItem.rootGb}}</td>
+																		<td>{{vmItem.imageName}}</td>
+																		<td>{{vmItem.privateIP}}</td>
+																		<td>{{vmItem.publicIP}}</td>
+																		<td>{{vmItem.platformType}}&nbsp;&nbsp;{{vmItem.regionZone}}</td>
+																	</tr>			
 																</tbody>
 															</table>
 														</div>
-														<div class="table-container mgb20"><!--云硬盘-->
+														<div *ngIf="DiskInstanceItems.length>0"  class="table-container mgb20"><!--云硬盘-->
 															<table class="table table-bordered mgb20 text-center inner-table">
 																<thead>
 																		<th>平台</th>
@@ -128,21 +128,21 @@
 																		<th>所在区域及可用区</th>
 																</thead>
 																<tbody>
-																	<tr>
-																		<td>磁盘</td>
-																		<td>SSD</td>
-																		<td>100GB</td>
-																		<td>2</td>
-																		<td>128GB</td>
-																		<td>100GB</td>
-																		<td>2</td>
-																		<td>128GB</td>
-																		<td>128GB</td>
+																	<tr  *ngFor="let diskItem of DiskInstanceItems">
+																		<td>{{diskItem.platformType}}</td>
+																		<td>{{diskItem.zoneName}}</td>
+																		<td>{{diskItem.name}}</td>
+																		<td>{{diskItem.type}}</td>
+																		<td>{{diskItem.size}}</td>
+																		<td>{{diskItem.status}}</td>
+																		<td>{{diskItem.relyName}}</td>
+																		<td>{{diskItem.useType}}</td>
+																		<td>{{diskItem.platformName}}&nbsp;&nbsp;{{diskItem.zoneName}}</td>
 																	</tr>		
 																</tbody>
 															</table>
 														</div>
-														<div class="table-container mgb20"><!--物理机-->
+														<div *ngIf="PMServiceItems.length>0"  class="table-container mgb20"><!--物理机-->
 															<table class="table table-bordered mgb20 text-center inner-table">
 																<thead>
 																		<th>地域</th>
@@ -155,21 +155,21 @@
 																		<th>所在区域及可用区</th>
 																</thead>
 																<tbody>
-																	<tr>
-																		<td>磁盘</td>
-																		<td>SSD</td>
-																		<td>100GB</td>
-																		<td>2</td>
-																		<td>128GB</td>
-																		<td>100GB</td>
-																		<td>2</td>
-																		<td>128GB</td>
-																	</tr>		
+																	<tr  *ngFor="let pmItem of PMServiceItems">
+																		<td>{{pmItem.pmConfInfo}}</td>
+																		<td>{{pmItem.appendService}}</td>
+																		<td>{{pmItem.pmName}}</td>
+																		<td>{{pmItem.hostName}}</td>
+																		<td>{{pmItem.status}}</td>
+																		<td>{{pmItem.privateIP}}</td>
+																		<td>{{pmItem.publicIP}}</td>
+																		<td>{{pmItem.pmConfInfo}}&nbsp;&nbsp;{{pmItem.poolRegionInfo}}</td>
+																	</tr>	
 																</tbody>
 															</table>
 														</div>
 
-														<div class="table-container mgb20"><!--手工输入的信息-->
+														<div *ngIf="SuperviseNoInstanceItems.length>0"  class="table-container mgb20"><!--手工输入的信息-->
 															<table class="table table-bordered mgb20 text-center inner-table">
 																<thead>
 																		<th>地域</th>
@@ -179,13 +179,13 @@
 																		<th>实例名称</th>
 																</thead>
 																<tbody>
-																	<tr>
-																		<td>磁盘</td>
-																		<td>SSD</td>
-																		<td>100GB</td>
-																		<td>2</td>
-																		<td>128GB</td>
-																	</tr>		
+																	<tr  *ngFor="let noItem of SuperviseNoInstanceItems">
+																		<td>{{noItem.region}}</td>
+																		<td>{{noItem.zone}}</td>
+																		<td>{{noItem.instanceType}}</td>
+																		<td>{{noItem.instanceId}}</td>
+																		<td>{{noItem.instanceName}}</td>
+																	</tr>	
 																</tbody>
 															</table>
 														</div>

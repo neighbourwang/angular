@@ -844,6 +844,11 @@ export let RestApis: RestApiModel[] = [
         "id": "op-center.order-mng.avail-region-list.get",
         "method": "GET",
         "url": "adminui/authsec/platform/{_id}/zone"
+    },{
+        "desc": "根据subinstancesId获取管理服务详情",
+        "method": "GET",
+        "id": "op-center.order-search.subinstance.get",
+        "url": "subinstancemgmt/authsec/subinstance/supervise/subid/{subId}"
     }
     // ,{
     //     "desc": "订购人列表",

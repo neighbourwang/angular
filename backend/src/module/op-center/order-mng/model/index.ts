@@ -15,3 +15,4 @@ export * from './cost-pandect-param';
 export * from './cost-pandect-item';
 export * from './cost-manage-item';
 export * from './physical-machine';
+export * from './service-instance-item';
