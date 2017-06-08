@@ -77,6 +77,17 @@ export class TemplateMngListComponent implements OnInit {
             this.getDatabaseTemplateList(1);
         }
     }
+    //名称模糊查询
+    keyup:string=null;
+    search(){
+        console.log(this.keyup);
+        // if (this.templateType == '1') {
+        //     this.getMiddlewareTemplateList(1);
+        // } else {
+        //     this.templateType = '0';
+        //     this.getDatabaseTemplateList(1);
+        // }
+    }
     otcreate() {
         console.log(this.templateType);
         this.templateType == '0' && this.router.navigate(['prod-mng/template-mng/template-database', { type: 'new' }])
@@ -125,6 +136,45 @@ export class TemplateMngListComponent implements OnInit {
             this.layoutService.hide();
         })
     }
+    // getDatabaseTemplateList(page) {
+    //     let pageParameter = {
+    //         "currentPage": page,
+    //         "offset": 0,
+    //         "size": 10,
+    //         "sort": {},
+    //         "totalPage": 0
+    //     }
+    //     this.layoutService.show()
+    //     this.service.getMiddlewareTemplatedetail({ name: this.keyup, pageParameter }).then(res => {
+    //         console.log(res);
+    //         this.templateList = res.resultContent;
+    //         this.tp = res.pageInfo.totalPage;
+    //         this.layoutService.hide();
+    //     }).catch(err => {
+    //         console.error(err);
+    //         this.layoutService.hide();
+    //     })
+    // }
+    // //查询中间模板列表
+    // getMiddlewareTemplateList(page) {
+    //     let pageParameter = {
+    //         "currentPage": page,
+    //         "offset": 0,
+    //         "size": 10,
+    //         "sort": {},
+    //         "totalPage": 0
+    //     }
+    //     this.layoutService.show()
+    //     this.service.getMiddlewareTemplatedetail({ name:this.keyup, pageParameter }).then(res => {
+    //         console.log(res);
+    //         this.templateList = res.resultContent;
+    //         this.tp = res.pageInfo.totalPage;
+    //         this.layoutService.hide();
+    //     }).catch(err => {
+    //         console.error(err);
+    //         this.layoutService.hide();
+    //     })
+    // }
     //去详情
     goDetail(tem) {
         console.log(tem);

@@ -320,8 +320,6 @@ export class ClMngListComponent implements OnInit {
     paging(page) {
         this.backend(page, 10);
     }
-
-
     //deleteAryByIndex (items : Array<Platform> , index : number){
     //    let newAr : Array<Platform> = new Array<Platform>();
     //    for(let i = 0 ; i < items.length ; i ++){
