@@ -121,11 +121,15 @@
             <th>跟进信息</th>
             <th>处理人</th>
             <th>处理日期</th>
+            <th>服务状态</th>
+            
         </tr>
         <tr *ngFor="let item of mgmt?.serviceHisItems">
-            <td class="text-center">{{item.status | dict: service.status | async}}</td>
+            <td class="text-center">{{item.message}}</td>
             <td class="text-center">{{item.creater}}</td>
             <td class="text-center">{{item.serviceTime}}</td>
+            <td class="text-center">{{item.status | dict: service.status | async}}</td>
+
         </tr>
     </table>
 </fc-popup>

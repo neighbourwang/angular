@@ -13,7 +13,7 @@
 					</div>-->
 					<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.serviceName}">
 						<input type="text" [(ngModel)]="prodDir.serviceName" (ngModelChange)="checkForm('serviceName')" name="serviceName" placeholder="{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}"
-						 class="form-control">
+						 class="form-control" maxlength="50">
 						<span *ngIf="v.result.serviceName" class="glyphicon glyphicon-remove form-control-feedback"></span>
 						<div *ngIf="v.result.serviceName" class="alert alert-danger" role="alert">{{v.result.serviceName}}</div>
 					</div>
@@ -72,7 +72,7 @@
 					<div for="firstname" class="col-sm-4 form-control-title">{{'COMMON.DESCRIPTION' | translate}}：</div>
 					<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
 						<textarea type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
-						 rows="3" [(ngModel)]="prodDir.description" name="description" maxlength="300">
+						 rows="3" [(ngModel)]="prodDir.description" name="description" maxlength="255">
                             </textarea>
 						<div *ngIf="v.result.description" class="alert alert-danger" role="alert">{{v.result.description}}</div>						
 					</div>

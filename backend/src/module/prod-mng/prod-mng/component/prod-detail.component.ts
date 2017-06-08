@@ -198,7 +198,7 @@ export class ProdDetailComponent implements OnInit {
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
             productName: [this.tempProductName, [this.v.isBase, this.v.isUnBlank,this.v.maxLength(50),this.v.minLength(2)], "产品名称格式不正确"],
-            description: [this.tempProductDesc, [this.v.maxLength(300)], "描述输入错误"],
+            description: [this.tempProductDesc, [this.v.maxLength(255)], "描述输入错误"],
         }
         console.log(this.v.check(key, regs));
         return this.v.check(key, regs);
@@ -245,6 +245,25 @@ export class ProdDetailComponent implements OnInit {
         this.editPriceInfo = false;
     }
     savePrice() {
+        if(this.productType=='0'){
+            if(this.tempBasicCyclePrice<=0||this.tempExtendCyclePrice<=0||this.tempOneTimePrice<=0){
+                this.notice.open('COMMON.ERROR','价格错误，请设置大于零的数值');
+                return;
+            }
+            if(this.tempBasicCyclePrice==this.product.basicCyclePrice&&this.tempExtendCyclePrice==this.product.extendCyclePrice&&this.tempOneTimePrice==this.product.oneTimePrice){
+                this.notice.open('COMMON.ERROR','价格信息未发生改变，不需要保存');
+                return;
+            }
+        }else if(this.productType=='1'){
+            if(this.tempUnitPrice<=0||this.tempOneTimePrice<=0){
+                this.notice.open('COMMON.ERROR','价格错误，请设置大于零的数值');
+                return;
+            }
+            if(this.tempUnitPrice==this.product.unitPrice&&this.tempOneTimePrice==this.product.oneTimePrice){
+                this.notice.open('COMMON.ERROR','价格信息未发生改变，不需要保存');
+                return;
+            }
+        }
         this.product.basicCyclePrice = this.tempBasicCyclePrice;
         this.product.extendCyclePrice = this.tempExtendCyclePrice;
         this.product.oneTimePrice = this.tempOneTimePrice;

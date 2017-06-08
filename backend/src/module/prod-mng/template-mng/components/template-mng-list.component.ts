@@ -56,7 +56,7 @@ export class TemplateMngListComponent implements OnInit {
             this.templateType = params['type'];
         })
         console.log(this.templateType);
-        this.onQuery();
+        this.search();
     }
     createTemplate() {
         this.createTemplatePop.open('PROD_MNG.CREATE_TEMPLATE')
@@ -67,26 +67,26 @@ export class TemplateMngListComponent implements OnInit {
         this.templateTypeList.forEach(tem => tem.selected = false);
         item.selected = true;
     }
-    onQuery() {
-        // (this.templateType=='0')&&(this.getDatabaseTemplateList(1));
-        // (this.templateType=='1')&&(this.getMiddlewareTemplateList(1));
+    // onQuery() {
+    //     // (this.templateType=='0')&&(this.getDatabaseTemplateList(1));
+    //     // (this.templateType=='1')&&(this.getMiddlewareTemplateList(1));
+    //     if (this.templateType == '1') {
+    //         this.getMiddlewareTemplateList(1);
+    //     } else {
+    //         this.templateType = '0';
+    //         this.getDatabaseTemplateList(1);
+    //     }
+    // }
+    //名称模糊查询
+    keyup: string = null;
+    search() {
+        console.log(this.keyup);
         if (this.templateType == '1') {
             this.getMiddlewareTemplateList(1);
         } else {
             this.templateType = '0';
             this.getDatabaseTemplateList(1);
         }
-    }
-    //名称模糊查询
-    keyup:string=null;
-    search(){
-        console.log(this.keyup);
-        // if (this.templateType == '1') {
-        //     this.getMiddlewareTemplateList(1);
-        // } else {
-        //     this.templateType = '0';
-        //     this.getDatabaseTemplateList(1);
-        // }
     }
     otcreate() {
         console.log(this.templateType);
@@ -98,15 +98,19 @@ export class TemplateMngListComponent implements OnInit {
     }
     //查询数据库模板列表
     getDatabaseTemplateList(page) {
-        let pageParameter = {
-            "currentPage": page,
-            "offset": 0,
-            "size": 10,
-            "sort": {},
-            "totalPage": 0
+        let param = {
+            name: this.keyup||null,
+            status: "1",
+            pageParameter: {
+                "currentPage": page,
+                "offset": 0,
+                "size": 10,
+                "sort": {},
+                "totalPage": 0
+            }
         }
         this.layoutService.show()
-        this.service.getDatabaseTemplateList(pageParameter).then(res => {
+        this.service.getDatabaseTemplateList(param).then(res => {
             console.log(res);
             this.templateList = res.resultContent;
             this.tp = res.pageInfo.totalPage;
@@ -118,15 +122,19 @@ export class TemplateMngListComponent implements OnInit {
     }
     //查询中间模板列表
     getMiddlewareTemplateList(page) {
-        let pageParameter = {
-            "currentPage": page,
-            "offset": 0,
-            "size": 10,
-            "sort": {},
-            "totalPage": 0
+        let param = {
+            name: this.keyup||null,
+            status: "1",
+            pageParameter: {
+                "currentPage": page,
+                "offset": 0,
+                "size": 10,
+                "sort": {},
+                "totalPage": 0
+            }
         }
         this.layoutService.show()
-        this.service.getMiddlewareTemplateList(pageParameter).then(res => {
+        this.service.getMiddlewareTemplateList(param).then(res => {
             console.log(res);
             this.templateList = res.resultContent;
             this.tp = res.pageInfo.totalPage;
@@ -136,45 +144,6 @@ export class TemplateMngListComponent implements OnInit {
             this.layoutService.hide();
         })
     }
-    // getDatabaseTemplateList(page) {
-    //     let pageParameter = {
-    //         "currentPage": page,
-    //         "offset": 0,
-    //         "size": 10,
-    //         "sort": {},
-    //         "totalPage": 0
-    //     }
-    //     this.layoutService.show()
-    //     this.service.getMiddlewareTemplatedetail({ name: this.keyup, pageParameter }).then(res => {
-    //         console.log(res);
-    //         this.templateList = res.resultContent;
-    //         this.tp = res.pageInfo.totalPage;
-    //         this.layoutService.hide();
-    //     }).catch(err => {
-    //         console.error(err);
-    //         this.layoutService.hide();
-    //     })
-    // }
-    // //查询中间模板列表
-    // getMiddlewareTemplateList(page) {
-    //     let pageParameter = {
-    //         "currentPage": page,
-    //         "offset": 0,
-    //         "size": 10,
-    //         "sort": {},
-    //         "totalPage": 0
-    //     }
-    //     this.layoutService.show()
-    //     this.service.getMiddlewareTemplatedetail({ name:this.keyup, pageParameter }).then(res => {
-    //         console.log(res);
-    //         this.templateList = res.resultContent;
-    //         this.tp = res.pageInfo.totalPage;
-    //         this.layoutService.hide();
-    //     }).catch(err => {
-    //         console.error(err);
-    //         this.layoutService.hide();
-    //     })
-    // }
     //去详情
     goDetail(tem) {
         console.log(tem);
@@ -215,7 +184,7 @@ export class TemplateMngListComponent implements OnInit {
             "totalPage": 0
         }
         if (this.templateType == '1') {
-            this.layoutService.show();            
+            this.layoutService.show();
             this.service.getMiddlewareTemplatedetail({ id: this.selectedId, pageParameter }).then(res => {
                 res.resultContent[0].status = 0;
                 res.resultContent[0].diskProfileList = JSON.parse(JSON.stringify(res.resultContent[0].diskInfoList));
@@ -223,13 +192,13 @@ export class TemplateMngListComponent implements OnInit {
                 this.layoutService.hide();
                 return this.service.updateMiddlewareTemplate(res.resultContent[0]);
             }).then(() => {
-                this.getMiddlewareTemplateList(1);                
+                this.getMiddlewareTemplateList(1);
             }).catch(err => {
                 console.error(err);
                 this.layoutService.hide();
             })
         } else {
-            this.layoutService.show();            
+            this.layoutService.show();
             this.service.getDatabseTemplatedetail({ id: this.selectedId, pageParameter }).then(res => {
                 res.resultContent[0].status = 0;
                 res.resultContent[0].diskProfileList = JSON.parse(JSON.stringify(res.resultContent[0].diskInfoList));

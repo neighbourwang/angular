@@ -20,7 +20,7 @@
 						<!--产品名称-->
 						<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.productName}">
 							<input type="text" [(ngModel)]="tempProductName" [disabled]="!editBasicInfo" (ngModelChange)="checkForm('productName')" name="productName"
-							 placeholder="{{'PROD_MNG.PROD_NAME' | translate}}" class="form-control">
+							 placeholder="{{'PROD_MNG.PROD_NAME' | translate}}" class="form-control" maxlength="50">
 							<span *ngIf="v.result.productName" class="glyphicon glyphicon-remove form-control-feedback"></span>
 							<div *ngIf="v.result.productName" class="alert alert-danger" role="alert">{{v.result.productName}}</div>
 						</div>
@@ -78,7 +78,7 @@
 						<div class="col-sm-4 form-control-title">描述：</div>
 						<div class="col-sm-4 no-padding" [ngClass]="{'has-error':v.result.description}">
 							<textarea [disabled]="!editBasicInfo" type="text" class="form-control" (ngModelChange)="checkForm('description')" placeholder="{{'HOST_OPENSTACK_MNG.DESCRIPTION' | translate}}"
-							 rows="3" [(ngModel)]="tempProductDesc" name="description" maxLength="300">
+							 rows="3" [(ngModel)]="tempProductDesc" name="description" maxLength="255">
                             </textarea>
 							<div *ngIf="v.result.description" class="alert alert-danger" role="alert">{{v.result.productName}}</div>
 						</div>
