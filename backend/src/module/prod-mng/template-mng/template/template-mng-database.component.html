@@ -13,7 +13,7 @@
 					<!--模板名称-->
 					<div class="col-sm-4 form-group has-feedback no-padding" [ngClass]="{'has-error':v.result.name}">
 						<input type="text" [disabled]="pageType=='edit'" [(ngModel)]="database.name" (ngModelChange)="checkForm('name')" name="name"
-						 placeholder="{{'请输入模板名称' | translate}}" class="form-control">
+						 placeholder="{{'请输入模板名称' | translate}}" class="form-control" maxlength="45">
 						<span *ngIf="v.result.name" class="glyphicon glyphicon-remove form-control-feedback"></span>
 						<div *ngIf="v.result.name" class="alert alert-danger" role="alert">{{v.result.name}}</div>
 					</div>
@@ -127,7 +127,7 @@
 									<td>{{idx + 1}}</td>
 									<td>{{item.useDisplay}}</td>
 									<td>
-										<input class="form-control" [(ngModel)]="item.minDiskSize" style="display: inline;width:120px" maxlength="10">
+										<input class="form-control" [(ngModel)]="item.minDiskSize" style="display: inline;width:120px" maxlength="9">
 									</td>
 									<td>
 										<input class="form-control" [(ngModel)]="item.mountPath" style="display: inline;" maxlength="50">
@@ -136,7 +136,7 @@
 							</tbody>
 						</table>
 						<table class="table table-hover" *ngIf="database.storageType=='ASM'">
-							<thead>
+							<thead>								
 								<tr>
 									<th>编号</th>
 									<th>{{"云硬盘用途" | translate}}</th>
@@ -154,7 +154,7 @@
 										<input class="form-control" [(ngModel)]="item.minDiskSize" style="display: inline;width:120px" maxlength="10">										
 									</td>
 									<td>
-										<input class="form-control" [(ngModel)]="item.diskGroup" style="display: inline;" maxlength="30">
+										<input class="form-control" [(ngModel)]="item.diskGroup" style="display: inline;" maxlength="50">
 									</td>
 									<td>
 										<select name="redundancy" class="form-control" [(ngModel)]="item.copyLevel" style="display: inline;width:80px">

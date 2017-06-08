@@ -66,7 +66,7 @@ export class ProdMngCreStep1Component implements OnInit {
         let regs: ValidationRegs = {  //regs是定义规则的对象
             productName: [this.service.product.name, [this.v.isBase, this.v.isUnBlank,this.v.maxLength(50),this.v.minLength(2)], "产品名称格式不正确"],
 
-            description: [this.service.product.desc, [this.v.maxLength(300)], "描述输入错误"],
+            description: [this.service.product.desc, [this.v.maxLength(255)], "描述输入错误"],
 
         }
         console.log(this.v.check(key, regs));
