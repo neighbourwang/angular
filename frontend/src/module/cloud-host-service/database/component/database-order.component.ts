@@ -184,7 +184,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 			return valueList.filter(value => +value.attrValue >= this.database.bootStorageSize )
 		}
 		if ( code === "TIMELINEUNIT" && this.dbProduct) {
-			console.log(valueList, this.dbProduct)
+			return valueList.filter(value => value.attrValue == this.dbProduct.billingInfo.periodType)   //下面的购买时长列表要和数据库的时长保持一致
 		}
 
 		return valueList;
