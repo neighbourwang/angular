@@ -209,6 +209,7 @@ export class MngServiceListComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.getData();
+                        this.pager.render(1);
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
@@ -225,6 +226,7 @@ export class MngServiceListComponent implements OnInit{
                     this.layoutService.hide();
                     if (response && 100 == response["resultCode"]) {
                         this.getData();
+                        this.pager.render(1);
                     } else {
                         this.showAlert("COMMON.OPERATION_ERROR");
                     }
