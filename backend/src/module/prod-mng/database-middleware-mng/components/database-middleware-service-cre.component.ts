@@ -211,7 +211,7 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
             //     }
             // })
             // if (this.databaseMiddlewareService.resourcPoolsProfiles.length == 0) {
-            this.notice.open('提示', '准备开发')
+            this.notice.open('提示', 'waiting for dev..')
             return
             // }
         } else if (this.databaseMiddlewareService.serverType == '0') {
@@ -236,7 +236,7 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
                 } else if (res.resultCode == 100) {
                     console.log(res);
                     this.location.back();
-                } else {
+                } else{
                     this.notice.open('COMMON.ERROR', res.resultCode);
                 }
             }).catch(err => {
@@ -253,7 +253,9 @@ export class DatabaseMiddlewareServiceCreComponent implements OnInit {
                 } else if (res.resultCode == 100) {
                     console.log(res);
                     this.location.back();
-                } else {
+                } else if(res.resultCode == 12001002) {
+                    this.notice.open('COMMON.ERROR', '模板已关联其他产品目录，请重新选择模板');
+                }else {
                     this.notice.open('COMMON.ERROR', res.resultCode);
                 }
             }).catch(err => {
