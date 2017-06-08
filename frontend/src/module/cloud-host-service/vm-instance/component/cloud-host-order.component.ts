@@ -1,17 +1,9 @@
 /**
  * [订购逻辑]
  * 基本介绍：
- * 1. 本页面能提交一个云主机，和三个挂载到该主机上的云硬盘，总共最多四个订单
+ * 1. 本页面能提交一个云主机，和三个挂载到该主机上的云硬盘，总共最多四个订单  ======》  本页面已经隐藏订购云硬盘的功能，但是部分代码还在不要注释，数据库中间件有用到
  * 2. 每个订单最后提交的都是一个 PayLoad， 发给后端的是payLoadArr 是一个PayLoad数组
- * 3. sendModule是和页面绑定的数据，最终是要转换成PayLoad
- *
- * 流程介绍：
- * 1. 每个订单根据所选来获取一个产品的列表
- * 2. 根据产品的列表获取到启动盘的列表
- * 3. 根据启动盘的列表确定最终的sku
- * 4. 根据sku的id 来获取时长单位
- * 5. 根据sku id与时长单位获取来获取价格 
- * 6. 提交的时候根据sendModule转换成PayLoad
+ * 3. values是和页面绑定的数据，最终是要转换成PayLoad
  */
 
 import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
@@ -186,7 +178,7 @@ export class cloudVmComponentOrder implements OnInit {
 
 		this.dux.dispatch(code)  //派发当前的code的subscriber
 		if (["ZONE", "PLATFORM", "CPU", "MEM", "BOOTSIZE"].indexOf(code) > -1) this.dux.dispatch("FINDE_VMSKU")   //如果是这五个触发 匹配sku的事件
-		if (["ZONE", "PLATFORM", "STORAGE"].indexOf(code) > -1) this.dux.dispatch("FINDE_DISKSKU")   //如果是这五个触发 匹配sku的事件
+		if (["ZONE", "PLATFORM", "STORAGE"].indexOf(code) > -1) this.dux.dispatch("FINDE_DISKSKU")   //如果是这三个触发 匹配sku的事件
 	}
 
 
@@ -299,7 +291,7 @@ export class cloudVmComponentOrder implements OnInit {
 	private setTimeUnit(): void {
 		if (!(this.vmSku && this.vmSku.skuId)) return;
 
-		const timeUnit = this.attrList.TIMELINEUNIT.mapValueList[this.vmSku.skuId];
+		const timeUnit = this.customSetValueList("TIMELINEUNIT", this.attrList.TIMELINEUNIT.mapValueList[this.vmSku.skuId]);
 		this.setValueListAndValue("TIMELINEUNIT", timeUnit)
 
 		this.dux.dispatch("SET_VMPRICE")

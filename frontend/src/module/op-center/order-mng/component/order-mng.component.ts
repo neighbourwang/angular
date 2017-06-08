@@ -172,14 +172,56 @@ export class OrderMngComponent implements OnInit {
 							}
 						}
 					 }
+				
+				   //数据库中间件
+				   let getProperty = _.property("attrDisplayValue");
+
+					if(item.itemList.length>1){
+						for(let innerItem of item.itemList){
+							let type='';
+							let version = '';
+							if(innerItem.serviceType==3){
+								type = getProperty(innerItem.specList.find(n=>n.attrCode == 'DBTYPE'));
+								version= getProperty(innerItem.specList.find(n=>n.attrCode == 'DBVERSION'));
+								 
+							}else if(innerItem.serviceType==5){
+								type = getProperty(innerItem.specList.find(n=>n.attrCode == 'MIDDLEWARETYPE'||n.attrCode == 'WEBLOGICTYPE'));
+								version=getProperty(innerItem.specList.find(n=>n.attrCode == 'MIDDLEWAREVERSION'||n.attrCode == 'WEBLOGICVERSION'));
+								
+							}
+							item.specification = type+'/'+version; 
+						}
+					}
 					if(item.itemList[0].specList){
-						let getProperty = _.property("attrDisplayValue");
-						if(item.productType==0||item.productType==4||item.productType==11){
+						if(item.productType==0||item.productType==3||item.productType==5||item.productType==11){
 							item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'INSTANCENAME'));
+							item.platform = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'PLATFORM'));
+							item.zone = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'ZONE'));
 						}else{
 							item.instanceName = getProperty(item.itemList[0].specList.find(n=>n.attrCode == 'DISKINSNAME'));
 						}
 					}	
+				}
+
+
+				if(item.relatedSubInstanceList){
+					for(let subItem of item.relatedSubInstanceList){
+							let getProperty = _.property("attrDisplayValue");
+							let type='';
+							let version = '';
+							if(subItem.productType==3){
+								type = getProperty(subItem.specList.find(n=>n.attrCode == 'DBTYPE'));
+								version= getProperty(subItem.specList.find(n=>n.attrCode == 'DBVERSION'));
+								subItem.specification = type+'/'+version; 
+								 
+							}else if(subItem.productType==5){
+								type = getProperty(subItem.specList.find(n=>n.attrCode == 'MIDDLEWARETYPE'||n.attrCode == 'WEBLOGICTYPE'));
+								version=getProperty(subItem.specList.find(n=>n.attrCode == 'MIDDLEWAREVERSION'||n.attrCode == 'WEBLOGICVERSION'));
+								subItem.specification = type+'/'+version; 
+							}
+							
+						
+					}
 				}
 				//匹配历史信息的实例名称
 				if(item.hisOrderList){

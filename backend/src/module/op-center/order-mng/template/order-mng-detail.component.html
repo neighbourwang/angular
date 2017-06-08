@@ -113,9 +113,9 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let relatedOrder of _detailLoader.FirstItem.relatedSubInstanceList">
-						<td>{{relatedOrder.orderCode}}</td>
+						<td>{{relatedOrder.instanceCode}}</td>
 						<td>{{relatedOrder.instanceName}}</td>
-						<td>{{relatedOrder.productType}}</td>
+						<td>{{relatedOrder.productType  | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 						<td>{{relatedOrder.specification}}</td>
 						<td>{{relatedOrder.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async}}</td>
 						<td class="font-green">{{relatedOrder.status}}</td>

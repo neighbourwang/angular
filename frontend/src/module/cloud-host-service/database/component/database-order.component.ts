@@ -26,6 +26,8 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	@ViewChild('notice')
 	public noticeDialog: NoticeComponent;
 
+	@ViewChild('cartButton') cartButton;
+
 	dbInits = [];
 	dbInit;
 
@@ -181,6 +183,9 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		if( code === "BOOTSIZE" && this.database && this.database.bootStorageSize ) {
 			return valueList.filter(value => +value.attrValue >= this.database.bootStorageSize )
 		}
+		if ( code === "TIMELINEUNIT" && this.dbProduct) {
+			return valueList.filter(value => value.attrValue == this.dbProduct.billingInfo.periodType)   //下面的购买时长列表要和数据库的时长保持一致
+		}
 
 		return valueList;
 	}
@@ -235,7 +240,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.diskSkuList.forEach(sku => {
 			if(!sku) return arr.push(undefined)
 			let diskTimelineUnit = this.attrList.TIMELINEUNIT.mapValueList[sku.skuId].filter(value => value.attrValueId === this.values.TIMELINEUNIT.attrValueId)   //根据vm的时长id找到硬盘的时长
-console.log(diskTimelineUnit)
+
 			if(!diskTimelineUnit.length) return arr.push(undefined)
 
 			let product = this.proMap[`[${sku.skuId}, ${diskTimelineUnit[0].attrValueCode}]`]
@@ -260,8 +265,8 @@ console.log(diskTimelineUnit)
 		this.totalAnnual = 0;
 		billingList.forEach(billing => {
 			this.oneTimeTotalPrice += billing.basePrice;  //计算一次性价格
-			if(billing.billingMode == 1 || billing.billingMode == 0) this.totalBilling += billing.basicPrice * +this.values.TIMELINE.attrValue;
-			if(billing.billingMode == 2) this.totalAnnual += billing.unitPrice * billing.disksize * +this.values.TIMELINE.attrValue;
+			if(billing.billingMode == 0) this.totalBilling += billing.basicPrice * +this.values.TIMELINE.attrValue;
+			if(billing.billingMode == 1) this.totalAnnual += billing.unitPrice * billing.disksize * +this.values.TIMELINE.attrValue;
 		})
 	}
 

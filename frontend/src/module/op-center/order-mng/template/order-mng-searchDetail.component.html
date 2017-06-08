@@ -81,7 +81,7 @@
 								</popover-content>
 
 								<a *ngIf="item.serviceType==11" class="hands" [popover]="osPopover" (click)='loadSubinstanceDetailById()'>点击查看实例详情</a><!--管理服务-->
-								<popover-content id="osPopover" #osPopover  placement="right"[animation]="true" [closeOnClickOutside]="true">
+								<popover-content id="osPopover" #osPopover  placement="right" [animation]="true" [closeOnClickOutside]="true">
 									<div *ngIf="VMItems.length>0" class="table-container mgb20">
 										<table  class="table table-bordered mgb20 text-center inner-table">
 											<thead>
@@ -108,7 +108,7 @@
 											</tbody>
 										</table>
 									</div>
-									<div *ngIf="DiskInstanceItems.length>0" class="table-container mgb20">
+									<div *ngIf="DiskInstanceItem" class="table-container mgb20">
 										<table class="table table-bordered mgb20 text-center inner-table">
 											<thead>
 													<th>平台</th>
@@ -122,16 +122,16 @@
 													<th>所在区域及可用区</th>
 											</thead>
 											<tbody>
-												<tr  *ngFor="let diskItem of DiskInstanceItems">
-													<td>{{diskItem.platformType}}</td>
-													<td>{{diskItem.zoneName}}</td>
-													<td>{{diskItem.name}}</td>
-													<td>{{diskItem.type}}</td>
-													<td>{{diskItem.size}}</td>
-													<td>{{diskItem.status}}</td>
-													<td>{{diskItem.relyName}}</td>
-													<td>{{diskItem.useType}}</td>
-													<td>{{diskItem.platformName}}&nbsp;&nbsp;{{diskItem.zoneName}}</td>
+												<tr >
+													<td>{{DiskInstanceItem.platformType}}</td>
+													<td>{{DiskInstanceItem.zoneName}}</td>
+													<td>{{DiskInstanceItem.name}}</td>
+													<td>{{DiskInstanceItem.type}}</td>
+													<td>{{DiskInstanceItem.size}}</td>
+													<td>{{DiskInstanceItem.status}}</td>
+													<td>{{DiskInstanceItem.relyName}}</td>
+													<td>{{DiskInstanceItem.useType}}</td>
+													<td>{{DiskInstanceItem.platformName}}&nbsp;&nbsp;{{DiskInstanceItem.zoneName}}</td>
 												</tr>		
 											</tbody>
 										</table>

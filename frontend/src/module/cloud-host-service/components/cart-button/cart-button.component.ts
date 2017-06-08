@@ -37,11 +37,12 @@ export class CartButtonComponent implements OnInit {
 		this.router.navigateByUrl(url);
 	}
 
-	setCartList(): void {
+	setCartList(): boolean {
 		this.cartComplete.getCartList().then(cartList => {
 			this.cartLength = cartList.length;
 			this.cartList = cartList;
-		})
+		});
+		return true;
 	}
 	delectAllCart(): void {
 		this.modalconfirm = () => {
