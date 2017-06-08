@@ -80,7 +80,7 @@
 						
 								</popover-content>
 
-								<a *ngIf="item.serviceType==11" class="hands" [popover]="osPopover"  (click)='loadSubinstanceDetailById()'>点击查看实例详情</a><!--管理服务-->
+								<a *ngIf="item.serviceType==11" class="hands" [popover]="osPopover" (click)='loadSubinstanceDetailById()'>点击查看实例详情</a><!--管理服务-->
 								<popover-content id="osPopover" #osPopover  placement="right"[animation]="true" [closeOnClickOutside]="true">
 									<div *ngIf="VMItems.length>0" class="table-container mgb20">
 										<table  class="table table-bordered mgb20 text-center inner-table">
@@ -194,7 +194,11 @@
 								<middleware-view [values]="item" *ngIf="item.serviceType==5" ></middleware-view><!-- 中间件 -->
 							</td>
 							<td class="text-center">{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}<span *ngIf='item.serviceType==11'>:{{item.instanceName}}</span></td>
-							<td class="text-center">{{item.quantity}}台</td>
+							<td class="text-center">{{item.quantity}}
+								<label *ngIf="item.serviceType==0 || item.serviceType==4">台</label>
+								<label *ngIf="item.serviceType==1">块</label>
+								<label *ngIf="item.serviceType==3 || item.serviceType==5">套</label>
+							</td>
 							<td class="text-center">{{item.period}}<span>{{item.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span><span *ngIf="!item.showPrice">次</span></td>
 							<td style="width: 200px;" class="text-center">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}: {{ 'COMMON.$' | translate }}{{item.oneTimePrice}}<br>
 								<span *ngIf="item.showPrice">{{ 'ORDER_MNG.EXPENSE_$' | translate }}: {{ 'COMMON.$' | translate }}{{item.price}}/

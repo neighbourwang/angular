@@ -197,7 +197,12 @@
 													 <sql-view *ngIf="prodItem.serviceType==3" [values]="prodItem"></sql-view>
 													 <middleware-view [values]="prodItem" *ngIf="prodItem.serviceType==5" ></middleware-view><!-- 中间件 -->
 												</td>
-												<td>{{prodItem.quantity}}<span  *ngIf="prodItem.serviceType==0">台</span><span  *ngIf="prodItem.serviceType==1">块</span></td>
+												<td>{{prodItem.quantity}}
+													<span  *ngIf="prodItem.serviceType==0 || prodItem.serviceType==4">台</span>
+													<span  *ngIf="prodItem.serviceType==1">块</span>
+													<span  *ngIf="prodItem.serviceType==3 || prodItem.serviceType==5">套</span>
+													
+												</td>
 												<td>{{prodItem.period}}<span *ngIf="prodItem.period>0">{{prodItem.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span><span *ngIf="!prodItem.showPrice">次</span></td>
 												<td style="width: 200px;">{{ 'COMMON.ONE_TIME_COSTS' | translate}}: {{ 'COMMON.$' | translate}}{{prodItem.oneTimePrice}}
 													<span *ngIf="prodItem.showPrice"><br>{{ 'COMMON.COST' | translate}}: {{ 'COMMON.$' | translate}}{{prodItem.price}}/{{prodItem.billingInfo.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></td>
