@@ -69,8 +69,8 @@ export class UnsubscribeComponent implements OnInit {
 
             this.detail = detial;
 
-            this.detail.itemList[0].instanceId = detial.instanceId;
-            this.detail.itemList[0].selected = true;
+            this.detail.itemList[0].instanceId = detial.instanceId;   //上面的退订服务默认全选 ， 退订最外层的instanceId
+            this.detail.itemList.forEach(item => item.selected = true)
             this.layoutService.hide();
         }).catch(e => {
             this.layoutService.hide();
@@ -104,7 +104,7 @@ export class UnsubscribeComponent implements OnInit {
     startUnsubscribe(){
         if(this.state === "done") return this.popup.close();
 
-        let selectList = [...this.selectItemList, ...this.selectReleatedList];
+        let selectList = [this.selectItemList[0], ...this.selectReleatedList];
         let instanceList = selectList.map(select => select.instanceId);
 
         if(!selectList.length) return; 
