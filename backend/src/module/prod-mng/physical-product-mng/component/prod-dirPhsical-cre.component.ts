@@ -145,7 +145,7 @@ export class PhsicalProdDirCreComponent implements OnInit {
             this.specValueValid = false;
             return;
         }
-        if (this.newUnitObj.partFlavorNum == 0) {
+        if (this.newUnitObj.partFlavorNum <= 0) {
             this.specNumberValid = false;
             return;
         }

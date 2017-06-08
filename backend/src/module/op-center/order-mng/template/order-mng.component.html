@@ -156,7 +156,11 @@
 										<td>{{prodItem.period}}<span *ngIf="prodItem.period>0">{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
 											<span *ngIf="!prodItem.showPrice">次</span>
 										</td>
-										<td>{{prodItem.quantity}}<span  *ngIf="prodItem.serviceType==0">台</span><span  *ngIf="prodItem.serviceType==1">块</span></td>
+										<td>{{prodItem.quantity}}
+											<span  *ngIf="prodItem.serviceType==0 || prodItem.serviceType==4">台</span>
+											<span  *ngIf="prodItem.serviceType==1">块</span>
+											<span *ngIf="prodItem.serviceType==3 || prodItem.serviceType==5">套</span>
+										</td>
 										<td style="width: 150px!important;">
 										{{ 'COMMON.ONE_TIME_COSTS' | translate}}: ￥{{prodItem.oneTimePrice}}<br/>
 										<span  *ngIf="prodItem.showPrice">{{ 'COMMON.COST' | translate}}: ￥{{prodItem.price}}/<span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></span>

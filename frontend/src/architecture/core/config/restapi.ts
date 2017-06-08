@@ -294,7 +294,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "根据pmImagePoolId显示资源池的分配信息",
         "method": "GET",
         "id": "pmPoolId.image.list",
-        "url": "pmimagemgmt/noauth/pmimage/image/listbype/{pmPoolId}/{enterpriseId}"
+        "url": "pmimagemgmt/authsec/pmimage/image/listbype/{pmPoolId}/{enterpriseId}"
     },
     {
         "desc": "物理机--根据物理机id，获取对应的产品信息",
