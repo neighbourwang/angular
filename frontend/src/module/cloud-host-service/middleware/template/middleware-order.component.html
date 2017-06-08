@@ -19,7 +19,7 @@
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
 							*ngFor="let value of valuesList.ZONE"
-							(click)="values.ZONE = value;dux.dispatch('ZONE')"
+							(click)="values.ZONE = value;dux.dispatch('ZONE');dux.dispatch('OS');"
 							class="btn btn-default" [ngClass]="{'active': values.ZONE.attrValueId === value.attrValueId}" id="zone_{{value.attrValueCode}}">
 							<input type="radio" name="zone" autocomplete="off" value="{{value.attrValueCode}}"> {{ value.attrDisplayValue }}
 						</label>
@@ -115,7 +115,7 @@
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 
 						<label *ngFor="let value of valuesList.CPU;"
-							(click)="values.CPU = value;dux.dispatch('CPU');"
+							(click)="values.CPU = value;dux.dispatch('CPU');dux.dispatch('OS');"
 							class="btn btn-default" [ngClass]="{'active': values.CPU?.attrValueId === value.attrValueId}" id="cpu_{{value.attrValue}}">
 							<input type="radio" name="cpu" autocomplete="off" value="{{value.attrValue}}"> {{ value.attrDisplayValue }}
 						</label>
@@ -124,7 +124,7 @@
 					<div class="col-md-10 btn-group" data-toggle="buttons">
 						<label
 							*ngFor="let value of valuesList.MEM | filterPlatform: values.PLATFORM?.attrValueId"
-							(click)="values.MEM = value;dux.dispatch('MEM')"
+							(click)="values.MEM = value;dux.dispatch('MEM');dux.dispatch('OS');"
 							class="btn btn-default" [ngClass]="{'active': values.MEM?.attrValueId === value.attrValueId}" id="mem_{{value.attrValue}}">
 							<input type="radio" name="mem" autocomplete="off"  value="{{value.attrValue}}"> {{ value.attrDisplayValue }}
 						</label>

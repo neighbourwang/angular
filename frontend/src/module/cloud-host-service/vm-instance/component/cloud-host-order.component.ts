@@ -157,7 +157,7 @@ export class cloudVmComponentOrder implements OnInit {
 					}
 				}
 
-				this.dux.subscribe(subCode, () => {
+				let subscribeFun = () => {
 					if (!this.attrList[code].mapValueList || !this.values[subCode]) return false    //如果父层没有mapvaluelist 返回
 
 					let valueList = this.attrList[code].mapValueList[this.values[subCode].attrValueId] || []
@@ -166,7 +166,9 @@ export class cloudVmComponentOrder implements OnInit {
 					valueList = this.customSetValueList(code, valueList)    //继承云主机的页面如果有一些自定义的valueList可覆盖此方法, 物理机和中间件需要根据模板的最小规格来过滤cpu和mem
 
 					this.setValueListAndValue(code, valueList)
-				})
+				}
+				this.dux.subscribe(subCode, subscribeFun)
+				this.dux.subscribe("REBUILD_"+code, subscribeFun)
 			}
 		}
 	}
@@ -247,6 +249,7 @@ export class cloudVmComponentOrder implements OnInit {
 	}
 
 	oSfilterBootsize(): VlueList[] {  //根据os的大小过滤bootsize的大小
+		console.count()
 		if (!this.values.OS.attrValueCode) return this.bootsizeList = [];
 
 		const filteredList = this.valuesList.BOOTSIZE.filter(bootSizeObj =>
@@ -260,7 +263,6 @@ export class cloudVmComponentOrder implements OnInit {
 
 		if( this.bootsizeList.length ){
 			this.values.BOOTSIZE = this.bootsizeList[0];
-			this.dux.dispatch("BOOTSIZE")   
 			this.dux.dispatch("FINDE_VMSKU")   
 		}
 	}

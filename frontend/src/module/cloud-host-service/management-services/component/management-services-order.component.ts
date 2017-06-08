@@ -230,7 +230,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				let returnData = new Selected;
 				returnData.REGION.attrValue = disk.platformName
 				returnData.ZONE.attrValue = disk.zoneName
-				returnData.INSTANCEID.attrValue = disk.uuid
+				returnData.INSTANCEID.attrValue = disk.id
 				returnData.RELYSUBINSTANCENAME.attrValue = disk.name
 				returnData.relyItemNo = disk.subInstanceId
 
@@ -282,7 +282,7 @@ export class ManagementServicesOrderComponent implements OnInit {
 				returnData.ZONE.attrValue = zone
 				returnData.INSTANCEID.attrValue = vm.itemId
 				returnData.RELYSUBINSTANCENAME.attrValue = vm.instanceName
-				returnData.relyItemNo = vm.subinstanceId
+				returnData.relyItemNo = vm.subInstanceId
 
 				return returnData
 			})

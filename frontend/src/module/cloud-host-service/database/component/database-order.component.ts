@@ -163,7 +163,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.database.diskInfoList.forEach(disk => disk.storage = this.values.STORAGE)  //目录下面的所有的硬盘的storage下拉列表设置为第一位
 		this.database.attrList.forEach(data => this.attrList[data.attrCode] = data )  //把数据库新加的attrList添加到老的list里面去
 
-		this.dux.dispatch("CPU")    //确定模板后需要过滤根据最小规格过滤 CPU MEM BOOTSIZE，因为MEM依赖CPU，所以这里dispatch CPU 就可以同时更新MEM
+		this.dux.dispatch("REBUILD_CPU")    //确定模板后需要过滤根据最小规格过滤 CPU MEM BOOTSIZE，因为MEM依赖CPU，所以这里dispatch CPU 就可以同时更新MEM
 		this.oSfilterBootsize()     //确定模板后需要过滤根据最小规格过滤 重新计算启动盘的大小
 
 		//做一些数据库的选项初始化的工作
@@ -235,6 +235,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.diskSkuList.forEach(sku => {
 			if(!sku) return arr.push(undefined)
 			let diskTimelineUnit = this.attrList.TIMELINEUNIT.mapValueList[sku.skuId].filter(value => value.attrValueId === this.values.TIMELINEUNIT.attrValueId)   //根据vm的时长id找到硬盘的时长
+console.log(diskTimelineUnit)
 			if(!diskTimelineUnit.length) return arr.push(undefined)
 
 			let product = this.proMap[`[${sku.skuId}, ${diskTimelineUnit[0].attrValueCode}]`]
