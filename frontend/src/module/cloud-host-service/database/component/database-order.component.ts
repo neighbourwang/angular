@@ -26,6 +26,8 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 	@ViewChild('notice')
 	public noticeDialog: NoticeComponent;
 
+	@ViewChild('cartButton') cartButton;
+
 	dbInits = [];
 	dbInit;
 
@@ -181,6 +183,9 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		if( code === "BOOTSIZE" && this.database && this.database.bootStorageSize ) {
 			return valueList.filter(value => +value.attrValue >= this.database.bootStorageSize )
 		}
+		if ( code === "TIMELINEUNIT" && this.dbProduct) {
+			console.log(valueList, this.dbProduct)
+		}
 
 		return valueList;
 	}
@@ -235,7 +240,7 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 		this.diskSkuList.forEach(sku => {
 			if(!sku) return arr.push(undefined)
 			let diskTimelineUnit = this.attrList.TIMELINEUNIT.mapValueList[sku.skuId].filter(value => value.attrValueId === this.values.TIMELINEUNIT.attrValueId)   //根据vm的时长id找到硬盘的时长
-console.log(diskTimelineUnit)
+
 			if(!diskTimelineUnit.length) return arr.push(undefined)
 
 			let product = this.proMap[`[${sku.skuId}, ${diskTimelineUnit[0].attrValueCode}]`]

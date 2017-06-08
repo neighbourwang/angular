@@ -299,7 +299,7 @@ export class cloudVmComponentOrder implements OnInit {
 	private setTimeUnit(): void {
 		if (!(this.vmSku && this.vmSku.skuId)) return;
 
-		const timeUnit = this.attrList.TIMELINEUNIT.mapValueList[this.vmSku.skuId];
+		const timeUnit = this.customSetValueList("TIMELINEUNIT", this.attrList.TIMELINEUNIT.mapValueList[this.vmSku.skuId]);
 		this.setValueListAndValue("TIMELINEUNIT", timeUnit)
 
 		this.dux.dispatch("SET_VMPRICE")
