@@ -47,6 +47,7 @@ export class DatabaseMiddlewareProdCreStep1Component implements OnInit {
                 console.log(res);
                 this.service.databaseMiddlewareService = res.resultContent;
                 this.service.databaseMiddlewareProduct.serviceId = res.resultContent.serviceId;
+                this.service.databaseMiddlewareProduct.desc = res.resultContent.desc;
                 if(res.resultContent.platformType=='0'){
                     this.service.databaseMiddlewareProduct.platformSimpleItemResp=res.resultContent.platformSimpleItemResps;
                     this.service.databaseMiddlewareProduct.platformSimpleItemResp.forEach(platform=>platform.selected=true);

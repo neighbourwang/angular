@@ -142,8 +142,10 @@ export class ProdDirListComponent implements OnInit {
 
     // 选择产品目录（多选）
     switchSelectIndividual(id: number) {
-        this.prodDirList[id].isSelected =
-            this.prodDirList[id].isSelected == true ? true : false;
+        console.log(id);
+        this.prodDirList.forEach(dir=>dir.isSelected=false);
+        this.prodDirList[id].isSelected =true;
+            // this.prodDirList[id].isSelected == true ? true : false;
     }
     //全选
     isSelectedAll: boolean = false;
