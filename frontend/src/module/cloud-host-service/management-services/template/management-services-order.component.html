@@ -206,7 +206,7 @@
                         <div class="col-md-2 no-padding">实例类型</div> 
                         <div class="col-md-6 no-padding">
                             <select [(ngModel)]="values.INSTANCETYPE.attrValue" class="form-control">
-                                <option *ngFor="let value of service.instanceList | async;" [ngValue]="value.value">{{ value.displayValue }}</option>
+                                <option *ngFor="let value of service.instanceList | async | filterInstanceList : code;" [ngValue]="value.value">{{ value.displayValue }}</option>
                             </select>
                         </div>
                     </div>
