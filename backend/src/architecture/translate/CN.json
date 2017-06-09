@@ -1779,6 +1779,7 @@
         "DISABLE_SUCCESS": "禁用成功",
         "DELETE": "删除",
         "DELETE_SUCCESS": "删除成功",
+        "DELETE_CANNOT":"启用状态不能删除",
         "PHYSICAL_STATUS": "该物理机已经是{{value_1}}状态，请选择需要{{value_1}}的物理机。",
         "PROMPT": "提示",
         "STATUS": "状态",

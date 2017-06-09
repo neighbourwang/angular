@@ -198,7 +198,13 @@ export class PhyImgListComponent implements OnInit{
     }
     //删除
     delete(){
+        
         if(this.selectedPhyImage){
+            if(this.selectedPhyImage.status == 1){
+                this.showAlert("PHY_IMG_MNG.DELETE_CANNOT");
+                return;
+            }
+
             let id = this.selectedPhyImage.id;
             this.layoutService.show();
             this.service.changeStatus(id, 2).then(
