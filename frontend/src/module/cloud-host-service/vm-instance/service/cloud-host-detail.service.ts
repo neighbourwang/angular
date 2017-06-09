@@ -91,4 +91,11 @@ export class cloudHostDetailService {
         owner: "GLOBAL",
         field: "SERVICE_LEVEL",
     });
+
+    billingMode = this.dict.get({
+        owner: "BILLING_MODE",
+        field: "TYPE",
+    });
+    
+
 }
