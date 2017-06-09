@@ -47,8 +47,9 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th class="check-box-col"><input class="fox-cloud-checkbox" type="checkbox" class="fox-cloud-checkbox" (click)="switchSelectAll();"  id="switchSelectAll" />{{'COMMON.SELECT_ALL'
-						| translate}}</th>
+					<!--<th class="check-box-col"><input class="fox-cloud-checkbox" type="checkbox" class="fox-cloud-checkbox" (click)="switchSelectAll();"  id="switchSelectAll" />{{'COMMON.SELECT_ALL'
+						| translate}}</th>-->
+					<th>{{ 'COMMON.CHOOSE' | translate}}</th>
 					<th>
 						{{'PROD_MNG.PRODUCT_CAT_NAME' | translate}}
 					</th>
@@ -64,8 +65,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let item of prodDirList; let idx = index;" id="prodDirList_{{item.serviceId}}">
-					<td><input type="checkbox" class="fox-cloud-checkbox" [(ngModel)]="item.isSelected"(ngModelChange)="switchSelectIndividual(idx)"
+				<tr *ngFor="let item of prodDirList; let idx = index;">
+					<td><input type="radio" class="fox-cloud-radio" [checked]="item.isSelected" (click)="switchSelectIndividual(idx)"
 						/></td>
 					<td>
 						<a title="点击编辑产品目录" (click)="goDetail(item)" style="cursor:pointer">{{item.serviceName}}</a>
