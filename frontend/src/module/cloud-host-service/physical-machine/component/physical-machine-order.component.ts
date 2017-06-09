@@ -206,7 +206,7 @@ export class PhysicalMachineOrderComponent implements OnInit {
 	private setUserNameValues() {
 		const userName = { 
 			attrValue: this.values.OSYSTEM.osType, 
-			attrDisplayName: this.values.OSYSTEM.osType == 0 ? "administrtor" : "root", 
+			attrDisplayName: this.values.OSYSTEM.osType == 0 ? "administrator" : "root", 
 		}
 		this.setValueListAndValue("USERNAME", [ Object.assign(new ValuesType, userName) ])
 	}
