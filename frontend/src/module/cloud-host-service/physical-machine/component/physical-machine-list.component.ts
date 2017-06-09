@@ -75,12 +75,18 @@ export class PhysicalMachineListComponent implements OnInit, OnDestroy {
 
 		if(!fecthMiddleStateList.filter(l => l).length) return false;   //如果没有中间状态了 则不再循环
 
-		Promise.all(fecthMiddleStateList).then(res => {
-			res.forEach((pm, i) => {
-				if(pm) this.list[i].pmstatus = pm.status
+		fecthMiddleStateList.forEach((listPromise:Promise<any>, i) => {
+			listPromise.then(res => {
+				if(res) this.list[i].pmstatus = res.status
 			})
-			setTimeout(this.checkListMiddleState.bind(this) , 10 * 30000)
 		})
+
+		// Promise.all(fecthMiddleStateList).then(res => {
+		//	res.forEach((pm, i) => {
+		//		if(pm) this.list[i].pmstatus = pm.status
+		//	})
+		//	setTimeout(this.checkListMiddleState.bind(this) , 10 * 30000)
+		// })
 	}
 
 	fetchPMList() {
