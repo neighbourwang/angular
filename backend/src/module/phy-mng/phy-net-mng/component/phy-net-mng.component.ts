@@ -194,6 +194,11 @@ export class PhyNetMngComponent implements OnInit {
                 , "op": "iporempty"
             },
             {
+                "name": "DNS1"
+                , 'value': this.phynet_create.dnsPre
+                , "op": "*"
+            },
+            {
                 "name": "DNS2"
                 , 'value': this.phynet_create.dnsAlt
                 , "op": "iporempty"
@@ -323,6 +328,11 @@ export class PhyNetMngComponent implements OnInit {
                 "name": "DNS1"
                 , 'value': this.phynet_changed.dnsPre
                 , "op": "iporempty"
+            },
+            {
+                "name": "DNS1"
+                , 'value': this.phynet_changed.dnsPre
+                , "op": "*"
             },
             {
                 "name": "DNS2"
