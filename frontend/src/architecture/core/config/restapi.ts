@@ -193,6 +193,12 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/shopping/cart/{itemId}"
     },
     {
+        "desc": "删除所有购物车元素",
+        "method": "DELETE",
+        "id": "delete.all.shopping.cart",
+        "url": "marketplace/authsec/shopping/cart/all"
+    },
+    {
         "desc": "购物车直接购买",
         "method": "POST",
         "id": "shopping.purchase.cart",

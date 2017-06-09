@@ -42,6 +42,14 @@ export class cartCompleteService {
         return request;
     }
 
+    deleteAllCart(): Promise<any> {
+        const api = this.restApiCfg.getRestApi("delete.all.shopping.cart");
+
+        const request = this.restApi.request(api.method, api.url, undefined, undefined, undefined)
+                           
+        return request;
+    }
+
    
     //数据字典所用到的值
     dictProductType = this.dict.get({  //获取产品type
