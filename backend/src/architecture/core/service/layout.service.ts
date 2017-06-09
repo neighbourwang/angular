@@ -45,6 +45,7 @@ export class LayoutService {
     hide() {
         this.count--;
         this.showTimer && window.clearTimeout(this.showTimer);
+        //当所有loadin都完成关闭loading;
         if (this.count <= 0) {
             this.count = 0;
             this.hideTimer = window.setTimeout(() => {

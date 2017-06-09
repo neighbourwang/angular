@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent } from '../../../../architecture';
 import { PhysicalMachineDetailService } from '../service/physical-machine-detail.service'
+import { PhysicalMachineListService } from '../service/physical-machine-list.service'
 
 import { cloudHostDetailComponent } from '../../vm-instance/component/cloud-host-detail.component'
 import { cloudHostDetailService } from '../../vm-instance/service/cloud-host-detail.service'
@@ -22,7 +23,8 @@ export class PhysicalMachineDetailComponent extends cloudHostDetailComponent imp
         public router: Router,
         public route: ActivatedRoute,
         public service: cloudHostDetailService,
-        public PMservice: PhysicalMachineDetailService
+        public PMservice: PhysicalMachineDetailService,
+        public PMlistService: PhysicalMachineListService
     ) {
         super(layoutService, router, route, service)
     }
@@ -38,12 +40,19 @@ export class PhysicalMachineDetailComponent extends cloudHostDetailComponent imp
             this.PMservice.getPmInfo(params["pmId"]).then(res => {
                 this.layoutService.hide();
                 this.pm = res;
-                console.log(res)
+                this.fetchPmState(params["pmId"])
                 
                 callbackFn && callbackFn();
             }).catch(error => {
                 this.layoutService.hide();
             })
         });
+    }
+
+    fetchPmState(pmId) {
+        this.PMlistService.fetchPMState(pmId)
+            .then(res => {
+                this.pm.status = res.status
+            })
     }
 }

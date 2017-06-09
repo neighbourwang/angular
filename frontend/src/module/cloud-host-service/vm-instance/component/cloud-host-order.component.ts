@@ -233,7 +233,7 @@ export class cloudVmComponentOrder implements OnInit {
 	private osChanged() {
 		if (!this.values.USERNAME || !this.values.OS) return
 
-		this.values.USERNAME.attrValue = this.values.OS.osType == 0 ? "administrtor" : "root";
+		this.values.USERNAME.attrValue = this.values.OS.osType == 0 ? "administrator" : "root";
 	}
 
 	private filterPlatform(filteredList) {  //根据平台过滤列表

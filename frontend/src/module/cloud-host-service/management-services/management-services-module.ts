@@ -22,7 +22,7 @@ import { ManagementServicesListService } from './service/management-services-lis
 
 // import { MyDatePickerModule } from 'mydatepicker';
 
-import { CountPartLengthPipe } from './pipe/countPartLength';
+import { FilterInstanceListPipe } from './pipe/filterInstanceList';
 
 
 
@@ -39,7 +39,7 @@ import { CountPartLengthPipe } from './pipe/countPartLength';
     ],
     declarations: [
         ManagementServicesListComponent,
-        CountPartLengthPipe,
+        FilterInstanceListPipe,
         ManagementServicesOrderComponent,
         // ManagementServicesDetailComponent,
     ],

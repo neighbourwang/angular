@@ -49,7 +49,8 @@
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.OPERATION_HOURS' | translate}}:</font></div>   {{convertTimeDiff}}
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.STATUS' | translate}}:</font></div>    {{pm?.status | dict:PMservice.computeStatus | async}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.STATUS' | translate}}:</font></div>  
+                <div *ngIf="!pm?.status" class="loading-icon"></div>   {{pm?.status | dict:PMlistService.computeStatus | async}}
                       </div>
                       <div class="line-box">
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.RESOURCE' | translate}}:</font></div>  订购
@@ -192,7 +193,7 @@
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.ORDER_NUMBER' | translate}}:</font></div>    {{pm?.orderNo}}
                       </div>
                       <div class="line-box">
-                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.PAYMENT_METHODS' | translate}}:</font></div>    {{pm?.paymentType}}
+                          <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.PAYMENT_METHODS' | translate}}:</font></div>    {{pm?.payType | dict:service.billingMode | async }}
                       </div>
                       <div class="line-box">
                           <div class="col-md-2 no-padding"><font>{{'VM_INSTANCE.CREATED_DATE' | translate}}:</font></div> {{pm?.createDate}}
