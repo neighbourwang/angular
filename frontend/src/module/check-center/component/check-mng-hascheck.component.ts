@@ -95,7 +95,7 @@ export class CheckMngHascheckComponent implements OnInit{
 							obj.periodType = orderItem.billingInfo.periodType;
 							if(orderItem.billingInfo.billingMode == 0)//包年包月
 							{
-								obj.priceNum = orderItem.billingInfo.basicPrice + orderItem.billingInfo.cyclePrice
+								obj.priceNum = orderItem.billingInfo.basicPrice;
 							}
 							else if(orderItem.billingInfo.billingMode == 1)//按量
 							{

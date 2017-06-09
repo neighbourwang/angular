@@ -20,10 +20,10 @@ export class OrderMngSearchDetailComponent implements OnInit {
   
 	private _subinstanceLoader:ItemLoader<ServiceInstanceItem>=null;
   
-  private VMItems:Array<VMItem>=[];//云主机
+  private VMItem:VMItem=null;//云主机
   private DiskInstanceItem:DiskInstanceItem=null;//云硬盘
-  private PMServiceItems:Array<PMServiceItem>=[];//物理机
-  private SuperviseNoInstanceItems:Array<SuperviseNoInstanceItem>=[];//其他
+  private PMServiceItem:PMServiceItem=null;//物理机
+  private SuperviseNoInstanceItem:SuperviseNoInstanceItem=null;//其他
 
   constructor(
     private layoutService: LayoutService,
@@ -55,17 +55,17 @@ export class OrderMngSearchDetailComponent implements OnInit {
 		this._subinstanceLoader.Go(null,[{key:'subId',value:subinstanceId}])
 		.then(success=>{
 
-      // if(this._subinstanceLoader.FirstItem.vmItem){
-      //   this.VMItems = this._subinstanceLoader.FirstItem.vmItem;
-      // }
+      if(this._subinstanceLoader.FirstItem.vmItem){
+        this.VMItem = this._subinstanceLoader.FirstItem.vmItem;
+      }
       if(this._subinstanceLoader.FirstItem.diskInstanceItem){
         this.DiskInstanceItem = this._subinstanceLoader.FirstItem.diskInstanceItem;
       }
       if(this._subinstanceLoader.FirstItem.pmServiceItem){
-        this.PMServiceItems = this._subinstanceLoader.FirstItem.pmServiceItem;
+        this.PMServiceItem = this._subinstanceLoader.FirstItem.pmServiceItem;
       }
       if(this._subinstanceLoader.FirstItem.superviseNoInstanceItem){
-        this.SuperviseNoInstanceItems = this._subinstanceLoader.FirstItem.superviseNoInstanceItem;
+        this.SuperviseNoInstanceItem = this._subinstanceLoader.FirstItem.superviseNoInstanceItem;
       }
 
 			this.layoutService.hide();
