@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent ,PaginationComponent} from '../../../../architecture';
 
 import { DatabaseModel } from '../model/template-mng-database.model'
 import { TemplateListService } from '../service/template-mng-list.service';
@@ -23,7 +23,7 @@ export class TemplateMngListComponent implements OnInit {
         private service: TemplateListService,
         private layoutService: LayoutService
     ) {
-
+        this.templateType='0';
     }
 
     @ViewChild('createTemplatePop')
@@ -35,7 +35,11 @@ export class TemplateMngListComponent implements OnInit {
     @ViewChild('notice')
     notice: NoticeComponent;
 
+    @ViewChild('pagination')
+    pagination:PaginationComponent;
+
     tp: number//页数
+    currPage:number=0;
     templateType: string = '0';
     templateList: Array<DatabaseModel> = new Array<DatabaseModel>();
     templateTypeList = [
@@ -51,12 +55,13 @@ export class TemplateMngListComponent implements OnInit {
         }
     ];
 
-    ngOnInit() {
+    ngOnInit() {               
         this.route.params.forEach((params: Params) => {
-            this.templateType = params['type'];
-        })
+            this.templateType =
+                 params['type']?params['type']:'0';
+        });
         console.log(this.templateType);
-        this.search();
+        this.pageInfo(1);
     }
     createTemplate() {
         this.createTemplatePop.open('PROD_MNG.CREATE_TEMPLATE')
@@ -81,11 +86,12 @@ export class TemplateMngListComponent implements OnInit {
     keyup: string = null;
     search() {
         console.log(this.keyup);
+        this.currPage=1;
         if (this.templateType == '1') {
-            this.getMiddlewareTemplateList(1);
+            this.pagination.paging(1);
         } else {
             this.templateType = '0';
-            this.getDatabaseTemplateList(1);
+            this.pagination.paging(1);
         }
     }
     otcreate() {
@@ -97,12 +103,12 @@ export class TemplateMngListComponent implements OnInit {
         console.log(this.service.databaseTypeDic);
     }
     //查询数据库模板列表
-    getDatabaseTemplateList(page) {
+    getDatabaseTemplateList() {
         let param = {
             name: this.keyup||null,
             status: "1",
             pageParameter: {
-                "currentPage": page,
+                "currentPage": this.currPage,
                 "offset": 0,
                 "size": 10,
                 "sort": {},
@@ -114,6 +120,7 @@ export class TemplateMngListComponent implements OnInit {
             console.log(res);
             this.templateList = res.resultContent;
             this.tp = res.pageInfo.totalPage;
+            this.currPage=res.pageInfo.currentPage;            
             this.layoutService.hide();
         }).catch(err => {
             console.error(err);
@@ -121,12 +128,12 @@ export class TemplateMngListComponent implements OnInit {
         })
     }
     //查询中间模板列表
-    getMiddlewareTemplateList(page) {
+    getMiddlewareTemplateList() {
         let param = {
             name: this.keyup||null,
             status: "1",
             pageParameter: {
-                "currentPage": page,
+                "currentPage": this.currPage,
                 "offset": 0,
                 "size": 10,
                 "sort": {},
@@ -138,6 +145,7 @@ export class TemplateMngListComponent implements OnInit {
             console.log(res);
             this.templateList = res.resultContent;
             this.tp = res.pageInfo.totalPage;
+            this.currPage=res.pageInfo.currentPage;
             this.layoutService.hide();
         }).catch(err => {
             console.error(err);
@@ -155,10 +163,13 @@ export class TemplateMngListComponent implements OnInit {
     }
     pageInfo(page) {
         console.log(page);
+        page = page < 1 ? 1 : page > this.tp ? this.tp : page;   //判断分页是否非法
+        // if (this.currPage == page) return;   //如果点击的是当前的page 则不再执行
+        this.currPage = page;
         if (this.templateType == '1') {
-            this.getMiddlewareTemplateList(page);
+            this.getMiddlewareTemplateList();
         } else {
-            this.getDatabaseTemplateList(page);
+            this.getDatabaseTemplateList();
         }
     }
 
@@ -192,7 +203,7 @@ export class TemplateMngListComponent implements OnInit {
                 this.layoutService.hide();
                 return this.service.updateMiddlewareTemplate(res.resultContent[0]);
             }).then(() => {
-                this.getMiddlewareTemplateList(1);
+                this.getMiddlewareTemplateList();
             }).catch(err => {
                 console.error(err);
                 this.layoutService.hide();
@@ -206,7 +217,7 @@ export class TemplateMngListComponent implements OnInit {
                 this.layoutService.hide();
                 return this.service.putDatabaseTemplate(res.resultContent[0]);
             }).then(() => {
-                this.getDatabaseTemplateList(1);
+                this.getDatabaseTemplateList();
             }).catch(err => {
                 console.error(err);
                 this.layoutService.hide();
