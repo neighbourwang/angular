@@ -99,7 +99,7 @@ export class DatabaseComponent implements OnInit {
                 (disk.usageType == 1) && (disk.useDisplay = '数据库文件');
                 (disk.usageType == 2) && (disk.useDisplay = '归档日志,快速恢复区');
             })
-            this.database.diskProfileList.sort((a,b)=>a.usageType-b.usageType);//排下序
+            this.database.diskProfileList.sort((a, b) => a.usageType - b.usageType);//排下序
             console.log(this.database);
             this.storageTypeList.forEach(v => {
                 v.selected = false;
@@ -107,7 +107,7 @@ export class DatabaseComponent implements OnInit {
                     v.selected = true;
                 }
             })
-            this.layoutService.hide();            
+            this.layoutService.hide();
         }).catch(err => {
             console.error(err);
             this.layoutService.hide();
@@ -122,11 +122,15 @@ export class DatabaseComponent implements OnInit {
     //表单验证
     checkForm(key?: string) {
         let regs: ValidationRegs = {  //regs是定义规则的对象
-            name: [this.database.name, [this.v.isBase,this.v.maxLength(45),this.v.minLength(2), this.v.isUnBlank], "模板名称格式不正确"],            
-            cpu: [this.database.cpu, [this.v.isUnBlank, this.v.isNumber,this.v.min(2)], 'CPU设置不正确'],
+            name: [this.database.name, [this.v.isBase, this.v.maxLength(45), this.v.minLength(2), this.v.isUnBlank], "模板名称格式不正确"],
+            cpu: [this.database.cpu, [this.v.isUnBlank, this.v.isNumber, this.v.min(2)], 'CPU设置不正确'],
             memory: [this.database.memory, [this.v.isUnBlank, this.v.isNumber, this.v.min(4)], '内存设置不正确'],
-            bootStorageSize: [this.database.bootStorageSize, [this.v.isUnBlank, this.v.isNumber,this.v.min(20)], '启动盘设置不正确'],
+            bootStorageSize: [this.database.bootStorageSize, [this.v.isUnBlank, this.v.isNumber, this.v.min(20)], '启动盘设置不正确'],
         }
+        for (let i = 0; i < this.database.diskProfileList.length; i++) {
+            regs["diskProfileList_" + i] = [this.database.diskProfileList[i].minDiskSize, [this.v.isUnBlank, this.v.isNumber, this.v.min(0)], `附件云硬盘(${i + 1})最小配置不正确`]
+        }
+
         console.log(this.v.check(key, regs));
         return this.v.check(key, regs);
     }
@@ -143,7 +147,7 @@ export class DatabaseComponent implements OnInit {
             this.service.postDatabaseTemplate(this.database).then(res => {
                 console.log(res);
                 this.layoutService.hide();
-                this.router.navigate(['prod-mng/template-mng/template-list', {type:'0'}])            
+                this.router.navigate(['prod-mng/template-mng/template-list', { type: '0' }])
             }).catch(err => {
                 console.log(err);
                 this.layoutService.hide();
@@ -153,7 +157,7 @@ export class DatabaseComponent implements OnInit {
             this.service.putDatabaseTemplate(this.database).then(res => {
                 console.log(res);
                 this.layoutService.hide();
-                this.router.navigate(['prod-mng/template-mng/template-list', {type:'0'}])            
+                this.router.navigate(['prod-mng/template-mng/template-list', { type: '0' }])
             }).catch(err => {
                 console.log(err);
                 this.layoutService.hide();
@@ -161,7 +165,7 @@ export class DatabaseComponent implements OnInit {
         }
     }
     cancel() {
-        this.router.navigate(['prod-mng/template-mng/template-list', {type:'0'}])
+        this.router.navigate(['prod-mng/template-mng/template-list', { type: '0' }])
     }
     ccf() {
 
