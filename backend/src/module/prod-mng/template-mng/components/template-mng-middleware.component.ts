@@ -96,6 +96,9 @@ export class MiddlewareComponent implements OnInit {
             memory: [this.middleware.memory, [this.v.isUnBlank, this.v.isNumber ,this.v.min(4)], '内存设置不正确'],
             bootStorageSize: [this.middleware.bootStorageSize, [this.v.isUnBlank,this.v.isNumber, this.v.min(20)], '启动盘设置不正确'],
         }
+         for (let i = 0; i < this.middleware.dbMiddlewareDiskTemplateModelList.length; i++) {
+            regs["diskProfileList_" + i] = [this.middleware.dbMiddlewareDiskTemplateModelList[i].minDiskSize, [this.v.isUnBlank, this.v.isNumber, this.v.min(0)], `附件云硬盘(${i + 1})最小配置不正确`]
+        }
         console.log(this.v.check(key, regs));
         return this.v.check(key, regs);
     }
