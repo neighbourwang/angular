@@ -380,8 +380,12 @@ export class DatabaseComponentOrder extends cloudVmComponentOrder implements OnI
 			dbProduct: [this.dbProduct, [this.v.isUnBlank], "请选择数据库产品"],
 			listenpost: [this.databaseValue.LISTENPOST.attrValue, [this.v.isUnBlank, this.v.isNumber], "监听端口输入不正确"],
 			maxconnection: [this.databaseValue.MAXCONNECTION.attrValue, [this.v.isUnBlank, this.v.isNumber], "最大连接数输入不正确"],
-			syspassword: [this.databaseValue.SYSPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
-			syspasswordShadow: [this.syspasswordShadow, [this.v.equalTo(this.databaseValue.SYSPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"]
+            syspassword: [this.databaseValue.SYSPASSWORD.attrValue, [this.v.isPassword, this.v.lengthRange(8, 30), this.v.isUnBlank], "VM_INSTANCE.PASSWORD_FORMAT_IS_NOT_CORRECT"],
+            dbname: [this.databaseValue.DBNAME.attrValue, [this.v.isUnBlank], "不能为空"],
+            dbinsname: [this.databaseValue.DBINSNAME.attrValue, [this.v.isUnBlank], "不能为空"],
+            dbsid:[this.databaseValue.DBSID.attrValue, [this.v.isUnBlank], "不能为空"],
+            syspasswordShadow: [this.syspasswordShadow, [this.v.equalTo(this.databaseValue.SYSPASSWORD.attrValue), this.v.isUnBlank], "VM_INSTANCE.TWO_PASSWORD_ENTRIES_ARE_INCONSISTENT"]
+            
 		}
 
 		if(this.database.storageType==='ASM') {
