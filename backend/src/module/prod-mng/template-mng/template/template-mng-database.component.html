@@ -127,10 +127,10 @@
 									<td>{{idx + 1}}</td>
 									<td>{{item.useDisplay}}</td>
 									<td>
-										<input class="form-control" [(ngModel)]="item.minDiskSize" style="display: inline;width:120px" maxlength="9">
+										<input class="form-control" [(ngModel)]="item.minDiskSize" style="width:120px" maxlength="9">
 									</td>
 									<td>
-										<input class="form-control" [(ngModel)]="item.mountPath" style="display: inline;" maxlength="50">
+										<input class="form-control" [(ngModel)]="item.mountPath"  maxlength="50">
 									</td>
 								</tr>
 							</tbody>
@@ -151,18 +151,18 @@
 									<td>{{idx + 1}}</td>
 									<td>{{item.useDisplay}}</td>
 									<td>										
-										<input class="form-control" [(ngModel)]="item.minDiskSize" style="display: inline;width:120px" maxlength="10">										
+										<input class="form-control" [(ngModel)]="item.minDiskSize" style="width:120px" maxlength="10">										
 									</td>
 									<td>
-										<input class="form-control" [(ngModel)]="item.diskGroup" style="display: inline;" maxlength="50">
+										<input class="form-control" [(ngModel)]="item.diskGroup" maxlength="50">
 									</td>
 									<td>
-										<select name="redundancy" class="form-control" [(ngModel)]="item.copyLevel" style="display: inline;width:80px">
+										<select name="redundancy" class="form-control" [(ngModel)]="item.copyLevel" style="width:80px">
                             				<option [value]="redundancy.value" *ngFor="let redundancy of databaseOptionList.items[0]?.copyleveloption">{{redundancy.label}}</option>
                         				</select>
 									</td>
 									<td>
-										<input class="form-control" [(ngModel)]="item.mountPath" style="display: inline;" maxlength="50">
+										<input class="form-control" [(ngModel)]="item.mountPath" maxlength="50">
 									</td>
 								</tr>
 							</tbody>

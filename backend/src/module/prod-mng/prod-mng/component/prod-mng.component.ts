@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, dictPipe, PaginationComponent} from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, dictPipe, PaginationComponent } from '../../../../architecture';
 //service
 import { ProdListService } from '../service/prodList.service';
 import { ProdDirListService } from '../service/prodDirList.service';
@@ -34,7 +34,7 @@ export class ProdMngComponent implements OnInit {
     // 每页显示的数据条数
     pp: number = 10;
     //当前页
-    currPage:number=0;
+    currPage: number = 0;
     @ViewChild('publishConfirm')
     publishConfirm: ConfirmComponent;
 
@@ -51,7 +51,7 @@ export class ProdMngComponent implements OnInit {
     createPop: PopupComponent;
 
     @ViewChild('pagination')
-    pagination:PaginationComponent;
+    pagination: PaginationComponent;
     //平台
     platformsList = new Array();
     platformId: string = '';
@@ -162,9 +162,9 @@ export class ProdMngComponent implements OnInit {
         return selectedProdList;
 
     }
-    query() {        
+    query() {
         this.pagination.paging(1)
-        this.backend(1,10);
+        this.backend(1, 10);
     }
     //更多操作
     prodList: Array<ProdList>;
@@ -176,6 +176,7 @@ export class ProdMngComponent implements OnInit {
             this.notice.open('COMMON.OPERATION_ERROR', 'PROD_MNG.SELECT_PRODUCT'); //COMMON.OPERATION_ERROR=>操作错误  //PROD_MNG.SELECT_PRODUCT_CAT=>请选择产品 
         } else {
             let message: string = '';
+            this.changStatusIdList = [];
             for (let dir of this.prodList) {
                 message += dir.name + ",";
                 this.changStatusIdList.push(dir.id);
@@ -215,7 +216,7 @@ export class ProdMngComponent implements OnInit {
             "pids": this.changStatusIdList,
             "status": "4"
         })
-        this.backend(this.currPage,10)
+        this.backend(this.currPage, 10)
     }
     //发布按钮
     publishCof() {
@@ -224,7 +225,7 @@ export class ProdMngComponent implements OnInit {
             "pids": this.changStatusIdList,
             "status": "1"
         }).then((response) => {
-            this.backend(this.currPage,10);
+            this.backend(this.currPage, 10);
         }).catch((err) => {
             console.error(err)
         })
@@ -236,7 +237,7 @@ export class ProdMngComponent implements OnInit {
             "pids": this.changStatusIdList,
             "status": "3"
         }).then((response) => {
-            this.backend(this.currPage,10);
+            this.backend(this.currPage, 10);
         }).catch((err) => {
             console.error(err)
         })
@@ -277,7 +278,7 @@ export class ProdMngComponent implements OnInit {
                         this.notice.open('提示', '未找到相关产品信息');
                     }
                     this.tp = response.pageInfo.totalPage;
-                    this.currPage= response.pageInfo.currentPage+1;
+                    this.currPage = response.pageInfo.currentPage + 1;
                     this.productList.forEach(prod => {
                         if (prod.serviceType == '3') {
                             let dbType = '';
