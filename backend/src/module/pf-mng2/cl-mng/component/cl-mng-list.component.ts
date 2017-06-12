@@ -3,7 +3,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LayoutService, NoticeComponent, ConfirmComponent , SystemDictionary,
-    dictPipe} from '../../../../architecture';
+    dictPipe,PaginationComponent} from '../../../../architecture';
 
 import { ClMngListService } from '../service/cl-mgn-list.service';
 
@@ -42,7 +42,7 @@ export class ClMngListComponent implements OnInit {
     // 每页显示的数据条数
     pp: number = 10;
     //当前页数
-    currentPage:number=0;
+    currPage:number=0;
 
 
     @ViewChild('removeConfirm')
@@ -56,6 +56,9 @@ export class ClMngListComponent implements OnInit {
 
     @ViewChild('notice')
     notice: ConfirmComponent;
+
+    @ViewChild('pagination')
+    pagination:PaginationComponent;
 
     // 确认Box/通知Box的标题
     title: String = "";
@@ -179,7 +182,7 @@ export class ClMngListComponent implements OnInit {
         this.service.deletePlatform(platForm.id).then(
             response => {
                 if (response && 100 == response.resultCode) {
-                    this.backend(1, 10);
+                    this.backend(this.currPage, 10);
                     //this.deleteAryByIndex(this.platforms , platForm.id)
                 }
 
@@ -200,7 +203,7 @@ export class ClMngListComponent implements OnInit {
             response => {
                 if (response && 100 == response.resultCode) {
                     // this.notice.open('确认', "启用成功");
-                    this.backend(1, 10);
+                    this.backend(this.currPage, 10);
                 }
             }
         ).catch(
@@ -218,7 +221,7 @@ export class ClMngListComponent implements OnInit {
             response => {
                 if (response && 100 == response.resultCode) {
                     // this.notice.open('确认', "禁用成功");
-                    this.backend(1, 10);
+                    this.backend(this.currPage, 10);
                 }
             }
         ).catch(
@@ -249,8 +252,8 @@ export class ClMngListComponent implements OnInit {
     //名字模糊查询
     keyup:string='';
     search(){
-        console.log(this.keyup); 
-        this.backend(1,10);       
+        console.log(this.keyup);
+        this.pagination.paging(1); 
     }
     // 获得云平台list
     backend(page: number, size: number) {
@@ -298,7 +301,7 @@ export class ClMngListComponent implements OnInit {
                     let pageInfo = response.pageInfo;
 
                     this.tp = pageInfo.totalPage;
-                    this.currentPage=pageInfo.currentPage-1;
+                    this.currPage=pageInfo.currentPage;
                     this.platforms = backend;
                 } else {
                     this.notice.open('COMMON.ERROR', 'PF_MNG2.GET_INFO_ERROR');
@@ -318,7 +321,10 @@ export class ClMngListComponent implements OnInit {
             );
     }
     paging(page) {
-        this.backend(page, 10);
+        page = page < 1 ? 1 : page > this.tp ? this.tp : page;   //判断分页是否非法
+        if (this.currPage == page) return;   //如果点击的是当前的page 则不再执行
+        this.currPage = page;
+        this.backend(this.currPage, 10);
     }
     //deleteAryByIndex (items : Array<Platform> , index : number){
     //    let newAr : Array<Platform> = new Array<Platform>();

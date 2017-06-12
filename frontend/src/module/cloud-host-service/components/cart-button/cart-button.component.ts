@@ -46,8 +46,7 @@ export class CartButtonComponent implements OnInit {
 	}
 	delectAllCart(): void {
 		this.modalconfirm = () => {
-			const promiseList = this.cartList.map(cart => this.cartComplete.deleteCartList(cart.id));
-			Promise.all(promiseList).then(arr => {
+			this.cartComplete.deleteAllCart().then(arr => {
 				this.setCartList();
 				this.noticeDialog.open("","SHOPPING_CART.SUCCESSFULLY_EMPTY_SHOPPING_CART");
 			});

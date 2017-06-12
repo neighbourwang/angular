@@ -47,7 +47,7 @@
 			<tbody>
 				<tr *ngFor="let item of templateList; let idx = index;">
 					<!--<td><input class="fox-cloud-checkbox" type="checkbox" [(ngModel)]="item.isSelected" (ngModelChange)="selectTemplate(idx)"/></td>-->
-					<td>{{idx+1}}</td>
+					<td>{{(currPage-1)*10+idx+1}}</td>
 					<td>
 						<a (click)="goDetail(item)" style="cursor: pointer">{{item.name}}</a>
 					</td>

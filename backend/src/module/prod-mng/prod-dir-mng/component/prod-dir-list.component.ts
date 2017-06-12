@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 
 import {
     LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, SystemDictionaryService,
-    dictPipe, StaticTooltipComponent
+    dictPipe, StaticTooltipComponent,PaginationComponent
 } from '../../../../architecture';
 //service
 import { ProdDirListService } from '../service/prod-dir-list.service';
@@ -54,7 +54,8 @@ export class ProdDirListComponent implements OnInit {
     tp: number = 0;
     // 每页显示的数据条数
     pp: number = 10;
-
+    //当前页
+    currPage:number=0;
     prodDirTypeList = new Array();
     vmProdDirSpecList = new Array<ProdDirSpec>();
     prodDirSpec: ProdDirSpec = new ProdDirSpec();
@@ -98,7 +99,7 @@ export class ProdDirListComponent implements OnInit {
     }
     data: any = {
         "categoryId": "",
-        "page": 1,
+        "page": this.currPage,
         "platformId": "",
         "size": 10,
     };
@@ -112,10 +113,10 @@ export class ProdDirListComponent implements OnInit {
         this.data = {
             "categoryId": this.queryProDirTypeId,
             "platformId": this.platformId,
-            page: 1,
+            page: this.currPage,
             size: this.pp
         }
-        this.backend(this.data);
+        this.pagination.paging(1);
     }
     @ViewChild('publishConfirm')
     publishConfirm: ConfirmComponent;
@@ -131,6 +132,9 @@ export class ProdDirListComponent implements OnInit {
 
     @ViewChild('createProdDir')
     createProdDir: PopupComponent;
+
+    @ViewChild('pagination')
+    pagination:PaginationComponent;
 
     // 确认Box/通知Box的标题
     title: String = "";
@@ -148,13 +152,13 @@ export class ProdDirListComponent implements OnInit {
             // this.prodDirList[id].isSelected == true ? true : false;
     }
     //全选
-    isSelectedAll: boolean = false;
-    switchSelectAll() {
-        this.isSelectedAll = !this.isSelectedAll;
-        for (let dir of this.prodDirList) {
-            dir.isSelected = this.isSelectedAll;
-        }
-    }
+    // isSelectedAll: boolean = false;
+    // switchSelectAll() {
+    //     this.isSelectedAll = !this.isSelectedAll;
+    //     for (let dir of this.prodDirList) {
+    //         dir.isSelected = this.isSelectedAll;
+    //     }
+    // }
 
     // 获得当前选中的产品目录
     getProddir() {
@@ -370,6 +374,7 @@ export class ProdDirListComponent implements OnInit {
                     }
                     let pageInfo = response.pageInfo;
                     this.tp = pageInfo.totalPage;
+                    this.data.page=pageInfo.currentPage+1;
                     this.prodDirList = backend;   
                     //规格编辑
                     this.prodDirList.forEach(dir=>{
@@ -429,11 +434,15 @@ export class ProdDirListComponent implements OnInit {
     nof() {
 
     }
-    paging(page) {
-        this.backend({
+    paging(page) {       
+        console.log(page);
+        page = page < 0 ? 0 : page > this.tp ? this.tp : page;   //判断分页是否非法
+        // if (this.currPage == page) return;   //如果点击的是当前的page 则不再执行
+        this.currPage = page;
+         this.backend({
             "categoryId": this.queryProDirTypeId,
             "platformId": this.platformId,
-            'page': page,
+            'page': this.currPage,
             size: this.pp
         });
     }
