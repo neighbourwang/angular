@@ -83,6 +83,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 			this._productTypeLoader.UpdateWithDic([firstItem], 'productTypeName', 'productType');
 			this._productTypeLoader.UpdateWithDic(firstItem.subInstanceList, 'serviceTypeName', 'serviceType');
+		
 
 			if(firstItem.subInstanceList[0].pmEntity){
 					for(let item of firstItem.subInstanceList[0].pmEntity.partsEntitys){
@@ -394,6 +395,7 @@ showDetail(item:SearchOrderItem)
 		this._orderDetailLoader.Go(null, [{key:"orderNo", value:item.orderNo}])
 		.then(success=>{
 			this._orderDetailLoader.FirstItem.type = item.orderType;
+			this._orderDetailLoader.FirstItem.subinstanceId = item.subinstanceId;
 			$('#searchDetail').modal('show');
 			this.layoutService.hide();
 		})

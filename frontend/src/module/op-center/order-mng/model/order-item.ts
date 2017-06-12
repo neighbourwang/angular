@@ -50,7 +50,8 @@ export class SubInstanceItemResp {
   publicIp:string;
   osType:string;
   subinstanceNo:string;//数据库中间件的子编号
-
+  basePrice:string;
+  basicPrice:string;
 
   pmEntity:PhysicalMachine= new PhysicalMachine();
   showSpecList:boolean = false;//已购服务配置和订单查询配置不一致
