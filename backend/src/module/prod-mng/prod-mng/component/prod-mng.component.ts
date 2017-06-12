@@ -164,7 +164,7 @@ export class ProdMngComponent implements OnInit {
     }
     query() {        
         this.pagination.paging(1)
-        // this.backend(this.currPage, this.pp, data);
+        this.backend(1,10);
     }
     //更多操作
     prodList: Array<ProdList>;
