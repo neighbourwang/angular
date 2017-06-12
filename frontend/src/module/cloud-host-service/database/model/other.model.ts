@@ -29,7 +29,10 @@ class DatabaseValue {
     TIMELINEUNIT : VlueList = new VlueList;
     DBTYPE : VlueList = new VlueList;
     DBVERSION : VlueList = new VlueList;
-    DEPLOYMODE : VlueList = new VlueList;
+    DEPLOYMODE: VlueList = new VlueList;
+    DBNAME: VlueList = new VlueList;
+    DBINSNAME: VlueList = new VlueList;
+    DBSID:VlueList = new VlueList;
 }
 
 export {
