@@ -247,10 +247,9 @@
 										<ul>
 											<li><span>{{ 'COMMON.ONE_TIME_COSTS' | translate }}:
 												￥{{prodItem.oneTimePrice}}</span>
-												<span *ngIf="prodItem.serviceType==4">{{ 'COMMON.ONE_TIME_COSTS' | translate }}:
-												￥{{prodItem.basePrice}}</span>
+												
 												</li>
-											<li *ngIf="prodItem.showPrice"><span>费用:￥{{prodItem.price}}/</span><span *ngIf="prodItem.serviceType==4">费用:￥{{prodItem.basicPrice}}/</span>
+											<li *ngIf="prodItem.showPrice"><span>费用:￥{{prodItem.price}}/</span>
 											<span>{{prodItem.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span></li>
 										</ul>	
 									</td>

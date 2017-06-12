@@ -13,6 +13,9 @@ export class CheckListItem{
 	departmentStr: string = null;//部门
 	entStr: string = null;//企业
 
+	basePrice:string;
+   	basicPrice:string;
+
 	billingModeNum: number = null;//计费模式
 	billingModeName: string = null;//计费模式名称
 	billingDurationStr: string = null;//订单周期

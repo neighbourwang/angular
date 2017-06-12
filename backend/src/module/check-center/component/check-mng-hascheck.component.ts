@@ -73,6 +73,9 @@ export class CheckMngHascheckComponent implements OnInit{
 				obj.userStr = item.submiter;// 用户,提交者
 				obj.departmentStr = item.departmentName;// 部门
 				obj.entStr = item.enterpriseName;// 企业
+
+				obj.basePrice = item.basePrice;// 物理机的一次性费用
+				obj.basicPrice = item.basicPrice;// 物理机的费用
 				//obj.checkResultName = item.operation;//审批结果
 				//obj.checkResultName = '同意';
 				if(item.orderItems){
