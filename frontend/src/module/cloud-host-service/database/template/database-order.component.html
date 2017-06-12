@@ -234,7 +234,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-12 no-padding">
+						<div class="col-md-12 no-padding mgb20">
 							<div class="col-md-2 content-title">数据库字符集</div>
 							<div class="col-md-3 no-padding">
 								<select [(ngModel)]="databaseValue.DBCHARSET.attrValue" class="form-control" id="securitygroup">
@@ -251,6 +251,33 @@
 						        <span *ngIf="dbv.result.maxconnection" class="glyphicon glyphicon-remove form-control-feedback"></span>
 						        <div *ngIf="dbv.result.maxconnection" class="alert alert-danger" role="alert">{{dbv.result.maxconnection | translate}}</div>
 							</div>
+						</div>
+                        <div class="col-md-12 no-padding mgb20">
+							<div class="col-md-2 content-title">数据库名称</div>
+							<div class="col-md-3 no-padding  has-feedback" [ngClass]="{'has-error': dbv.result.dbname }">
+								<input (keyup)="checkDbValue('dbname');" 
+									   [(ngModel)]="databaseValue.DBNAME.attrValue" type="text" class="form-control" id="input_dbname">
+						        <span *ngIf="dbv.result.dbname" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						        <div *ngIf="dbv.result.dbname" class="alert alert-danger" role="alert">{{dbv.result.dbname | translate}}</div>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-2 content-title">实例名称</div>
+							<div class="col-md-3 no-padding mr10 has-feedback" [ngClass]="{'has-error': dbv.result.dbinsname }">
+								<input (keyup)="checkDbValue('dbinsname');" 
+									   [(ngModel)]="databaseValue.DBINSNAME.attrValue" type="text" class="form-control" id="input_insname">
+						        <span *ngIf="dbv.result.dbinsname" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						        <div *ngIf="dbv.result.dbinsname" class="alert alert-danger" role="alert">{{dbv.result.dbinsname | translate}}</div>
+							</div>
+						</div>
+                        <div class="col-md-12 no-padding">
+							<div class="col-md-2 content-title">SID</div>
+							<div class="col-md-3 no-padding  has-feedback" [ngClass]="{'has-error': dbv.result.dbsid }">
+								<input (keyup)="checkDbValue('dbsid');" 
+									   [(ngModel)]="databaseValue.DBSID.attrValue" type="text" class="form-control" id="input_dbsid">
+						        <span *ngIf="dbv.result.dbsid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+						        <div *ngIf="dbv.result.dbsid" class="alert alert-danger" role="alert">{{dbv.result.dbsid | translate}}</div>
+							</div>
+							
 						</div>
 					</div>
 				</div>

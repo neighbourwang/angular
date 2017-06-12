@@ -203,6 +203,16 @@
 						</div>
 					</div>
 
+                    <div class="col-md-12 no-padding mb20">
+						<div class="col-md-2 content-title">域名称</div>
+						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': dbv.result.mwregionname }">
+							<input (keyup)="checkDbValue('mwregionname')" 
+                                   [(ngModel)]="middlewareValue.MIDDLEWARREGIONNAME.attrValue" type="text" class="form-control"    placeholder="" >
+					        <span *ngIf="dbv.result.mwregionname" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					        <div *ngIf="dbv.result.mwregionname" class="alert alert-danger" role="alert">{{dbv.result.mwregionname | translate}}</div>
+						</div>
+					</div>
+
 					<div class="col-md-12 no-padding mgb20">
 						<div class="col-md-2 content-title">weblogic用户名</div>
 						<div class="col-md-4 no-padding has-feedback mgt5" [ngClass]="{'has-error': dbv.result.weblogicUser}">
@@ -232,6 +242,38 @@
 							<input type="password" class="form-control" (keyup)="checkDbValue('mwpasswordShadow')"  [(ngModel)]="mwpasswordShadow"  placeholder="{{'VM_INSTANCE.ENTER_PASSWORD_AGAIN'| translate}}" id="login_confirm_password">
 					        <span *ngIf="dbv.result.mwpasswordShadow" class="glyphicon glyphicon-remove form-control-feedback"></span>
 					        <div *ngIf="dbv.result.mwpasswordShadow" class="alert alert-danger" role="alert">{{dbv.result.mwpasswordShadow | translate}}</div>
+						</div>
+					</div>
+                    <div class="col-md-12 no-padding mb20">
+						<div class="col-md-2 content-title">服务器角色</div>
+						<div class="col-md-4 no-padding" >
+							
+						</div>
+					</div>
+                    <div class="col-md-12 no-padding mb20">
+						<div class="col-md-2 content-title">服务器名称</div>
+						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': dbv.result.mwservicename }">
+							<input (keyup)="checkDbValue('mwservicename')" 
+                                   [(ngModel)]="middlewareValue.MIDDLEWARSERVERNAME.attrValue" type="text" class="form-control"    placeholder="" >
+					        <span *ngIf="dbv.result.mwservicename" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					        <div *ngIf="dbv.result.mwservicename" class="alert alert-danger" role="alert">{{dbv.result.mwservicename | translate}}</div>
+						</div>
+					</div>
+                    <div class="col-md-12 no-padding mb20">
+						<div class="col-md-2 content-title">监听地址</div>
+						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': dbv.result.mwpasswordShadow }">
+							<select class="form-control" [(ngModel)]="middlewareValue.MIDDLEWARLISTENADDR.attrValue">
+                                <option></option>
+                            </select>
+						</div>
+					</div>
+                    <div class="col-md-12 no-padding mb20">
+						<div class="col-md-2 content-title">监听端口</div>
+						<div class="col-md-4 no-padding has-feedback" [ngClass]="{'has-error': dbv.result.mwlistenport }">
+							<input (keyup)="checkDbValue('mwlistenport')" 
+                                   [(ngModel)]="middlewareValue.MIDDLEWARLISTENPORT.attrValue" type="text" class="form-control"    placeholder="" >
+					        <span *ngIf="dbv.result.mwlistenport" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					        <div *ngIf="dbv.result.mwlistenport" class="alert alert-danger" role="alert">{{dbv.result.mwlistenport | translate}}</div>
 						</div>
 					</div>
 				</div>

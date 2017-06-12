@@ -26,7 +26,13 @@ class MiddlewareValue {
     MIDDLEWARETYPE : VlueList = new VlueList;
     MIDDLEWAREVERSION : VlueList = new VlueList;
     TIMELINE : VlueList = new VlueList;
-    TIMELINEUNIT : VlueList = new VlueList;
+    TIMELINEUNIT: VlueList = new VlueList;
+    MIDDLEWARREGIONNAME: VlueList = new VlueList;  //域名称
+    MIDDLEWARSERVERROLE: VlueList = new VlueList;  //服务器角色
+    MIDDLEWARSERVERNAME: VlueList = new VlueList;  //服务器名称
+    MIDDLEWARLISTENADDR: VlueList = new VlueList;  //监听地址
+    MIDDLEWARLISTENPORT: VlueList = new VlueList;  //监听端口
+
 }
 
 export {
