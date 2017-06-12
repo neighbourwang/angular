@@ -83,6 +83,7 @@ export class OrderMngSearchComponent implements OnInit{
 
 			this._productTypeLoader.UpdateWithDic([firstItem], 'productTypeName', 'productType');
 			this._productTypeLoader.UpdateWithDic(firstItem.subInstanceList, 'serviceTypeName', 'serviceType');
+		
 
 			if(firstItem.subInstanceList[0].pmEntity){
 					for(let item of firstItem.subInstanceList[0].pmEntity.partsEntitys){
@@ -149,6 +150,8 @@ export class OrderMngSearchComponent implements OnInit{
 			obj.serviceType = item.serviceType;// 产品类型
 			obj.orderType = item.orderType;// 订单类型
 			obj.status = item.status;// 订单状态
+			obj.basePrice = item.basePrice;
+			obj.basicPrice = item.basicPrice;
 			//费用
 			if(item.orderItems){
 				for (let orderItem of item.orderItems){
@@ -394,6 +397,7 @@ showDetail(item:SearchOrderItem)
 		this._orderDetailLoader.Go(null, [{key:"orderNo", value:item.orderNo}])
 		.then(success=>{
 			this._orderDetailLoader.FirstItem.type = item.orderType;
+			this._orderDetailLoader.FirstItem.subinstanceId = item.subinstanceId;
 			$('#searchDetail').modal('show');
 			this.layoutService.hide();
 		})

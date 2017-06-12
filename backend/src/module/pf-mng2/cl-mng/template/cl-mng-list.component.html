@@ -46,7 +46,7 @@
             <tr *ngFor="let item of platforms; let idx = index;" id="platform_{{item.id}}">
                 <td><input class="fox-cloud-radio" type="radio" name="isSelected" check="item.isSelected" (click)="switchSelectIndividual(idx)"/></td>
                 <!--<td>123</td>-->
-                <td>{{currentPage*pp+idx+1}}</td>
+                <td>{{(currPage-1)*pp+idx+1}}</td>
                 <td (click)="godetail(item)" style="cursor:pointer" [title]="item.status!='0'?'点击查看平台详情':'点击重置资源并启用'">
                     
                 <a disabled>{{item.name}}</a>

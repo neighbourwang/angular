@@ -22,10 +22,10 @@ export class OrderMngSearchDetailComponent implements OnInit{
 
 		private _subinstanceLoader:ItemLoader<ServiceInstanceItem>=null;
   
-		private VMItems:Array<VMItem>=[];//云主机
-		private DiskInstanceItems:Array<DiskInstanceItem>=[];//云硬盘
-		private PMServiceItems:Array<PMServiceItem>=[];//物理机
-		private SuperviseNoInstanceItems:Array<SuperviseNoInstanceItem>=[];//其他
+		private VMItem:VMItem=null;//云主机
+		private DiskInstanceItem:DiskInstanceItem=null;//云硬盘
+		private PMServiceItem:PMServiceItem=null;//物理机
+		private SuperviseNoInstanceItem:SuperviseNoInstanceItem=null;//其他
 	
 	constructor(
 		private layoutService: LayoutService,
@@ -48,32 +48,35 @@ export class OrderMngSearchDetailComponent implements OnInit{
 	}
 
 	loadSubinstanceDetailById(){
-		console.log("tessssssssss");
 		this.layoutService.show();
-    	let subinstanceId= this._detail.id;
-   
-		this._subinstanceLoader.Go(null,[{key:'subId',value:subinstanceId}])
-		.then(success=>{
+		let subinstanceId= this._detail.subinstanceId;
+		this.VMItem = null;
+		this.DiskInstanceItem = null;
+		this.PMServiceItem = null;
+		this.SuperviseNoInstanceItem = null;
+	
+			this._subinstanceLoader.Go(null,[{key:'subId',value:subinstanceId}])
+			.then(success=>{
 
-		if(this._subinstanceLoader.FirstItem.VMItems){
-			this.VMItems = this._subinstanceLoader.FirstItem.VMItems;
+		if(this._subinstanceLoader.FirstItem.vmItem){
+			this.VMItem = this._subinstanceLoader.FirstItem.vmItem;
 		}
-		if(this._subinstanceLoader.FirstItem.DiskInstanceItems){
-			this.DiskInstanceItems = this._subinstanceLoader.FirstItem.DiskInstanceItems;
+		if(this._subinstanceLoader.FirstItem.diskInstanceItem){
+			this.DiskInstanceItem = this._subinstanceLoader.FirstItem.diskInstanceItem;
 		}
-		if(this._subinstanceLoader.FirstItem.PMServiceItems){
-			this.PMServiceItems = this._subinstanceLoader.FirstItem.PMServiceItems;
+		if(this._subinstanceLoader.FirstItem.pmServiceItem){
+			this.PMServiceItem = this._subinstanceLoader.FirstItem.pmServiceItem;
 		}
-		if(this._subinstanceLoader.FirstItem.SuperviseNoInstanceItems){
-			this.SuperviseNoInstanceItems = this._subinstanceLoader.FirstItem.SuperviseNoInstanceItems;
+		if(this._subinstanceLoader.FirstItem.superviseNoInstanceItem){
+			this.SuperviseNoInstanceItem = this._subinstanceLoader.FirstItem.superviseNoInstanceItem;
 		}
 
-			this.layoutService.hide();
-		})
-		.catch(err=>{
-			this.layoutService.hide();
-		})
-		
-	}
+				this.layoutService.hide();
+			})
+			.catch(err=>{
+				this.layoutService.hide();
+			})
+			
+		}
 	
 }

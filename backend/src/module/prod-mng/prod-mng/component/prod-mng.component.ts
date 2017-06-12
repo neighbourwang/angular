@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent ,dictPipe, } from '../../../../architecture';
+import { LayoutService, NoticeComponent, ConfirmComponent, PopupComponent, dictPipe, PaginationComponent} from '../../../../architecture';
 //service
 import { ProdListService } from '../service/prodList.service';
 import { ProdDirListService } from '../service/prodDirList.service';
@@ -23,7 +23,7 @@ export class ProdMngComponent implements OnInit {
         private ProdListService: ProdListService,
         private ProdDirListService: ProdDirListService,
         private route: ActivatedRoute,
-        private dictPipe:dictPipe
+        private dictPipe: dictPipe
     ) { }
 
     // 产品数组
@@ -33,6 +33,8 @@ export class ProdMngComponent implements OnInit {
     tp: number = 0;
     // 每页显示的数据条数
     pp: number = 10;
+    //当前页
+    currPage:number=0;
     @ViewChild('publishConfirm')
     publishConfirm: ConfirmComponent;
 
@@ -48,6 +50,8 @@ export class ProdMngComponent implements OnInit {
     @ViewChild('createProdPop')
     createPop: PopupComponent;
 
+    @ViewChild('pagination')
+    pagination:PaginationComponent;
     //平台
     platformsList = new Array();
     platformId: string = '';
@@ -71,7 +75,7 @@ export class ProdMngComponent implements OnInit {
         if (this.prodDirId) {
             this.query();
         } else {
-            this.backend(1, this.pp, {})
+            this.backend(1, this.pp)
         }
         this.getActivePlatform()
         this.getEnterpriseList()
@@ -158,14 +162,9 @@ export class ProdMngComponent implements OnInit {
         return selectedProdList;
 
     }
-    query() {
-        let data = {
-            "enterpriseId": this.enterpriseId,
-            "platformId": this.platformId,
-            "serviceId": this.prodDirId
-        }
-        console.log(data);
-        this.backend(1, this.pp, data);
+    query() {        
+        this.pagination.paging(1)
+        this.backend(1,10);
     }
     //更多操作
     prodList: Array<ProdList>;
@@ -216,7 +215,7 @@ export class ProdMngComponent implements OnInit {
             "pids": this.changStatusIdList,
             "status": "4"
         })
-        this.query()
+        this.backend(this.currPage,10)
     }
     //发布按钮
     publishCof() {
@@ -225,7 +224,7 @@ export class ProdMngComponent implements OnInit {
             "pids": this.changStatusIdList,
             "status": "1"
         }).then((response) => {
-            this.query();
+            this.backend(this.currPage,10);
         }).catch((err) => {
             console.error(err)
         })
@@ -237,7 +236,7 @@ export class ProdMngComponent implements OnInit {
             "pids": this.changStatusIdList,
             "status": "3"
         }).then((response) => {
-            this.query();
+            this.backend(this.currPage,10);
         }).catch((err) => {
             console.error(err)
         })
@@ -259,7 +258,12 @@ export class ProdMngComponent implements OnInit {
             this.router.navigate(["prod-mng/database-middleware-mng/database-middleware-product-edit", { id: item.id, serviceName: item.serviceName }]);
         }
     }
-    backend(page: number, size: number, data: any) {
+    backend(page: number, size: number) {
+        let data = {
+            "enterpriseId": this.enterpriseId,
+            "platformId": this.platformId,
+            "serviceId": this.prodDirId
+        }
         this.layoutService.show();
         this.tp = 0;
         // console.log(page);
@@ -273,33 +277,34 @@ export class ProdMngComponent implements OnInit {
                         this.notice.open('提示', '未找到相关产品信息');
                     }
                     this.tp = response.pageInfo.totalPage;
-                    this.productList.forEach(prod=>{
-                        if(prod.serviceType=='3'){
-                            let dbType='';
-                            let deploy='';
+                    this.currPage= response.pageInfo.currentPage+1;
+                    this.productList.forEach(prod => {
+                        if (prod.serviceType == '3') {
+                            let dbType = '';
+                            let deploy = '';
                             Promise.all([
-                                this.dictPipe.transform(prod.dataBaseServiceTemplateSpecResp['dbType'],this.ProdListService.databaseTypeDic).then(res =>dbType=res),
-                                this.dictPipe.transform(prod.dataBaseServiceTemplateSpecResp.deploymentMode,this.ProdListService.databaseDeployModeDic).then(res => deploy=res)                                
-                            ]).then(()=>{
-                                prod.serviceSpecification=dbType+' '+deploy+' '+prod.dataBaseServiceTemplateSpecResp.version;                                
+                                this.dictPipe.transform(prod.dataBaseServiceTemplateSpecResp['dbType'], this.ProdListService.databaseTypeDic).then(res => dbType = res),
+                                this.dictPipe.transform(prod.dataBaseServiceTemplateSpecResp.deploymentMode, this.ProdListService.databaseDeployModeDic).then(res => deploy = res)
+                            ]).then(() => {
+                                prod.serviceSpecification = dbType + ' ' + deploy + ' ' + prod.dataBaseServiceTemplateSpecResp.version;
                             });
                         };
-                        if(prod.serviceType=='5'){
-                            let dbType='';
-                            let deploy='';
+                        if (prod.serviceType == '5') {
+                            let dbType = '';
+                            let deploy = '';
                             Promise.all([
-                                this.dictPipe.transform(prod.middleWareServiceTemplateSpecResp.middleWareType,this.ProdListService.middlewareTypeDic).then(res =>dbType=res),
-                                this.dictPipe.transform(prod.middleWareServiceTemplateSpecResp.deploymentMode,this.ProdListService.middlewareDeployModeDic).then(res => deploy=res)                                
-                            ]).then(()=>{
-                                prod.serviceSpecification=dbType+' '+deploy+' '+prod.middleWareServiceTemplateSpecResp.version;                                
+                                this.dictPipe.transform(prod.middleWareServiceTemplateSpecResp.middleWareType, this.ProdListService.middlewareTypeDic).then(res => dbType = res),
+                                this.dictPipe.transform(prod.middleWareServiceTemplateSpecResp.deploymentMode, this.ProdListService.middlewareDeployModeDic).then(res => deploy = res)
+                            ]).then(() => {
+                                prod.serviceSpecification = dbType + ' ' + deploy + ' ' + prod.middleWareServiceTemplateSpecResp.version;
                             });
                         }
-                        if(prod.serviceType=='4'&&prod.phyMachinePartsFlavors.length>0){
-                            prod.serviceSpecification=prod.phyMachinePartsFlavors[0].partsName+' '+prod.phyMachinePartsFlavors[0].specName+' '+prod.phyMachinePartsFlavors[0].partsFlavorValue+' '+prod.phyMachinePartsFlavors[0].partFlavorNum+'...'
-                            prod.specContent='';
-                            for(let spec of prod.phyMachinePartsFlavors){
-                                prod.specContent+='<p>'+spec.partsName+' '+spec.specName+' '+spec.partsFlavorValue+' '+spec.partFlavorNum+'</p>'  
-                            } 
+                        if (prod.serviceType == '4' && prod.phyMachinePartsFlavors.length > 0) {
+                            prod.serviceSpecification = prod.phyMachinePartsFlavors[0].partsName + ' ' + prod.phyMachinePartsFlavors[0].specName + ' ' + prod.phyMachinePartsFlavors[0].partsFlavorValue + ' ' + prod.phyMachinePartsFlavors[0].partFlavorNum + '...'
+                            prod.specContent = '';
+                            for (let spec of prod.phyMachinePartsFlavors) {
+                                prod.specContent += '<p>' + spec.partsName + ' ' + spec.specName + ' ' + spec.partsFlavorValue + ' ' + spec.partFlavorNum + '</p>'
+                            }
                         }
                     })
                 }
@@ -321,7 +326,10 @@ export class ProdMngComponent implements OnInit {
     }
     pageInfo(page) {
         console.log(page);
-        this.backend(page, this.pp, {});
+        page = page < 0 ? 0 : page > this.tp ? this.tp : page;   //判断分页是否非法
+        if (this.currPage == page) return;   //如果点击的是当前的page 则不再执行
+        this.currPage = page;
+        this.backend(this.currPage, this.pp);
     }
     //创建按钮    
     createProd() {

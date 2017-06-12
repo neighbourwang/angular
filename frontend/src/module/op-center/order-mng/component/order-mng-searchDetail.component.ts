@@ -51,6 +51,10 @@ export class OrderMngSearchDetailComponent implements OnInit {
 	loadSubinstanceDetailById(){
 		this.layoutService.show();
     let subinstanceId= this._detail.subinstanceId;
+    this.VMItem = null;
+    this.DiskInstanceItem = null;
+    this.PMServiceItem = null;
+    this.SuperviseNoInstanceItem = null;
    
 		this._subinstanceLoader.Go(null,[{key:'subId',value:subinstanceId}])
 		.then(success=>{
