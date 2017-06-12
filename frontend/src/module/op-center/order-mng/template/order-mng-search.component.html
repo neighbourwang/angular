@@ -95,8 +95,12 @@
 					<td>{{item.serviceType | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 					<td>{{item.orderType | dict:_dictServ.getDic('ORDER', 'TYPE') | async}}</td>
 					<td>{{item.statusName}}</td>
-					<td>{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}: {{ 'COMMON.$' | translate }} {{item.oncePrice}}<br>
-						<span  *ngIf="item.showPrice">{{ 'ORDER_MNG.EXPENSE_$' | translate }}: {{ 'COMMON.$' | translate }} {{item.price}}
+					<td><span *ngIf="item.serviceType!=4">{{ 'ORDER_MNG.NONRECURRING_EXPENSE' | translate }}: {{ 'COMMON.$' | translate }} {{item.oncePrice}}</span>
+						<span *ngIf="item.serviceType==4">{{ 'COMMON.ONE_TIME_COSTS' | translate }}:
+												￥{{item.basePrice}}</span>
+						<br>
+						<span  *ngIf="item.showPrice"><span *ngIf="item.serviceType!=4">{{ 'ORDER_MNG.EXPENSE_$' | translate }}: {{ 'COMMON.$' | translate }} {{item.price}}</span>
+							<span *ngIf="item.serviceType==4">费用:￥{{item.basicPrice}}/</span>
 							<span>/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') | async}}</span>
 						</span>
 					</td>

@@ -150,6 +150,8 @@ export class OrderMngSearchComponent implements OnInit{
 			obj.serviceType = item.serviceType;// 产品类型
 			obj.orderType = item.orderType;// 订单类型
 			obj.status = item.status;// 订单状态
+			obj.basePrice = item.basePrice;
+			obj.basicPrice = item.basicPrice;
 			//费用
 			if(item.orderItems){
 				for (let orderItem of item.orderItems){

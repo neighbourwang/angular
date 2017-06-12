@@ -126,8 +126,14 @@
 						<td>{{item.entStr}}</td>
 						<td>{{'COMMON.BILLING_MODE' | translate}} : {{item.billingMode | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') | async | translate}}<br>
 						 	{{'CHECK_CENTER.ORDER_CYCLE' | translate}} : {{item.billingDurationStr}}{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}<span style="margin: 0;" *ngIf="!item.showPrice">次</span><br>
-						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}} : <span class="font-red">￥{{item.oneTimePriceNum}}</span><br>
-						 	<span *ngIf="item.showPrice">{{'CHECK_CENTER.COST' | translate}} : </span><span *ngIf="item.showPrice" class="font-red">￥{{item.priceNum}}/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</span></td>
+						 	{{'CHECK_CENTER.ONE_TIME_COSTS' | translate}} : 
+							 <span class="font-red" *ngIf="item.serviceTypeIdStr!=4">￥{{item.oneTimePriceNum}}</span>
+								 <span *ngIf="item.serviceTypeIdStr==4" class="font-red" >￥{{item.basePrice}}</span>
+								 <br>
+						 	<span *ngIf="item.showPrice">{{'CHECK_CENTER.COST' | translate}} : </span><span *ngIf="item.showPrice" class="font-red">
+								   <label *ngIf="item.serviceTypeIdStr!=4">￥{{item.priceNum}}</label>
+								  <span *ngIf="item.serviceTypeIdStr==4">￥{{item.basicPrice}}</span>
+								  /{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</span></td>
 						<td>{{item.createTimeStr}}</td>
 						<td><button class=" button-gray-gradient" (click)="accept(item)">{{'CHECK_CENTER.AGREE' | translate}}</button><br><button class=" button-gray-gradient mgt10" (click)="refuse(item)">{{'CHECK_CENTER.REFUSE' | translate}}</button></td>
 					</tr>

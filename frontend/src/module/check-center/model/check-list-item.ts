@@ -14,6 +14,9 @@ export class CheckListItem{
 	departmentStr: string = null;//部门
 	entStr: string = null;//企业
 
+	 basePrice:string;
+  	basicPrice:string;
+
 	get userDepartEntStr():string{//用户，部门，企业
 		return `${this.userStr}<br/>${this.departmentStr}<br/>${this.entStr}`;
 	}

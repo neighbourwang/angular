@@ -143,6 +143,8 @@ export class OrderMngSearchComponent implements OnInit{
 				obj.EndTime = item.completeDate;
 				obj.submitPeople = item.submiter;
 				obj.subinstanceId = item.subinstanceId;
+				obj.basePrice = item.basePrice;
+				obj.basicPrice = item.basicPrice;
 
 
 				//费用
@@ -241,7 +243,8 @@ export class OrderMngSearchComponent implements OnInit{
 		this._orderLoader.Go(pageNumber, null, param)
 		.then(success=>{
 			this.layoutService.hide();
-
+			console.log('test'+this._orderLoader.FirstItem.basePrice);
+			console.log('test BasicPrice'+this._orderLoader.FirstItem.basicPrice);
 		},err=>{
 			this.layoutService.hide();
 		});

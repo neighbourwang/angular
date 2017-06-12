@@ -25,4 +25,7 @@ export class SearchOrderItem{//订单列表
     withDrawOrderFlag : number = 0;//撤单标志，默认0不能撤单，1可以撤单
 
     subinstanceId:string;//实例Id
+    basePrice:string;
+   	basicPrice:string;
+
 }

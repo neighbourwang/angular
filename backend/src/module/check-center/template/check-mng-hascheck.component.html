@@ -139,8 +139,14 @@
 							<td>{{item.entStr}}</td>
 							<td>{{ 'COMMON.COUNT_MODE' | translate }}: {{item.billingModeNum  | dict:_dictServ.getDic('BILLING_MODE', 'TYPE') |async}}
 								<br/>{{ 'COMMON.ORDER_CYCLE' | translate }}: {{item.billingDurationStr}}{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}<span class="no-padding" *ngIf="!item.showPrice">次</span>
-								<br/>{{ 'COMMON.ONE_TIME_COSTS' | translate }}: ￥{{item.oneTimePriceNum}}
-								<span  *ngIf="item.showPrice"><br/>{{ 'COMMON.COST' | translate }}: ￥{{item.priceNum}}/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</span>
+								<br/>{{ 'COMMON.ONE_TIME_COSTS' | translate }}: 
+								<span *ngIf="item.serviceTypeIdStr!=4">￥{{item.oneTimePriceNum}}</span>
+								<span *ngIf="item.serviceTypeIdStr==4">￥{{item.basePrice}}</span>
+								<span  *ngIf="item.showPrice"><br/>
+								{{ 'COMMON.COST' | translate }}: 
+								<span  *ngIf="item.serviceTypeIdStr!=4">￥{{item.priceNum}</span>
+								<span *ngIf="item.serviceTypeIdStr==4">￥{{item.basicPrice}}</span>
+								/{{item.periodType | dict:_dictServ.getDic('PACKAGE_BILLING', 'PERIOD_TYPE') |async}}</span>
 							</td>
 							<td>{{item.createTimeStr}}<br>
 								<a class="hands" [popover]="checkPopover">{{ 'CHECK_CENTER.APPROVE_DETAILS' | translate }}>>>></a>
