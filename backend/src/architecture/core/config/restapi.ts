@@ -2398,7 +2398,7 @@ export let RestApis: RestApiModel[] = [
         "desc": "获取物理机电源状态",
         "id": "physical-mng.physical.power.status",
         "method": "GET",
-        "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/powerstatus/{pmId}"     
+        "url": "pmresourcemgmt/noauth/pmpools/order/pmservice/powerstatus/{pmId}"
     },
 
     //物理机网络管理
@@ -2964,37 +2964,37 @@ export let RestApis: RestApiModel[] = [
         "desc": "管理服务列表",
         "id": "mtc-center.mng-service.list",
         "method": "POST",
-        "url": "subinstancemgmt/authsec/subinstance/supervise/search/page"
+        "url": "adminui/authsec/subinstance/supervise/search/page"
     },
     {
         "desc": "服务跟进",
         "id": "mtc-center.mng-service.followservice",
         "method": "POST",
-        "url": "subinstancemgmt/authsec/subinstance/supervise/service/{itemId}"
+        "url": "adminui/authsec/subinstance/supervise/service/{itemId}"
     },
     {
         "desc": "服务更新",
         "id": "mtc-center.mng-service.updateservice",
         "method": "PUT",
-        "url": "subinstancemgmt/authsec/subinstance/supervise/state/{itemId}"
+        "url": "adminui/authsec/subinstance/supervise/state/{itemId}"
     },
     {
         "desc": "服务详情",
         "id": "mtc-center.mng-detail.detail",
         "method": "GET",
-        "url": "subinstancemgmt/authsec/subinstance/supervise/{itemId}"
+        "url": "adminui/authsec/subinstance/supervise/{itemId}"
     },
     {
         "desc": "一次性管理服务系统设置",
         "id": "mtc-center.mng-set.set",
         "method": "POST",
-        "url": "subinstancemgmt/authsec/subinstance/supervise/set"
+        "url": "adminui/authsec/subinstance/supervise/set"
     },
     {
         "desc": "获取一次性管理服务系统设置",
         "id": "mtc-center.mng-set.get",
         "method": "GET",
-        "url": "subinstancemgmt/authsec/subinstance/supervise/set"
+        "url": "adminui/authsec/subinstance/supervise/set"
     },
     //告警通知
     {

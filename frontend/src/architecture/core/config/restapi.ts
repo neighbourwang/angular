@@ -193,6 +193,12 @@ export let RestApis: RestApiModel[] = [
         "url": "marketplace/authsec/shopping/cart/{itemId}"
     },
     {
+        "desc": "删除所有购物车元素",
+        "method": "DELETE",
+        "id": "delete.all.shopping.cart",
+        "url": "marketplace/authsec/shopping/cart/all"
+    },
+    {
         "desc": "购物车直接购买",
         "method": "POST",
         "id": "shopping.purchase.cart",
@@ -356,13 +362,13 @@ export let RestApis: RestApiModel[] = [
         "desc": "分页获取管理服务列表",
         "method": "POST",
         "id": "mngm-search-page",
-        "url": "subinstancemgmt/authsec/subinstance/supervise/search/page"
+        "url": "marketplace/authsec/subinstance/supervise/search/page"
     },
     {
         "desc": "获取管理服务详情",
         "method": "GET",
         "id": "mngm-detail",
-        "url": "subinstancemgmt/authsec/subinstance/supervise/{itemId}"
+        "url": "marketplace/authsec/subinstance/supervise/{itemId}"
     },
     
     // {

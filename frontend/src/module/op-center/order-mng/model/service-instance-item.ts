@@ -2,10 +2,10 @@ export class ServiceInstanceItem{
     serviceId:string;
     serviceName:string;
     serviceInstanceType:string;
-	vmItem:Array<VMItem> = null;
+	vmItem:VMItem = null;
     diskInstanceItem:DiskInstanceItem = null;
-    pmServiceItem:Array<PMServiceItem> = null;
-    superviseNoInstanceItem:Array<SuperviseNoInstanceItem> = null;
+    pmServiceItem:PMServiceItem= null;
+    superviseNoInstanceItem:SuperviseNoInstanceItem = null;
 }
 
 export class VMItem {

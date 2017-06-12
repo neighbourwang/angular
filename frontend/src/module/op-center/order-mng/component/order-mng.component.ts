@@ -379,7 +379,26 @@ export class OrderMngComponent implements OnInit {
 					orderItem.showCommonStyle = false;
 				}
 
-				if (orderItem.itemList && orderItem.itemList.length > 0) {
+				
+				if(orderItem.itemList && orderItem.itemList.length > 1){
+					for(let subItem of orderItem.itemList ){
+						if(subItem.serviceType == 3 || subItem.serviceType == 5 ){
+							if (subItem.status != "2"&& subItem.status != "7"){//成功、即将过期:7的订单可以续订
+									orderItem.canRenew = false;	
+								}
+							if(subItem.status != "2"){
+								orderItem.canCancel = false;	
+							}
+
+							if(subItem.billingInfo.billingMode!=0){
+								orderItem.canContinueRenew = false;
+							}
+							
+						}
+					}
+				}
+
+				if (orderItem.itemList && orderItem.itemList.length == 1) {
 		           
 					orderItem.itemList[0].showSpecList = true;
 					// if(orderItem.itemList[0].serviceType==4||orderItem.itemList[0].serviceType==11){
@@ -397,9 +416,9 @@ export class OrderMngComponent implements OnInit {
 						orderItem.canCancel = true;
 
 					if (orderItem.itemList.find(n => !canContinueRenew(n) != null))
-						orderItem.canContinueRenew = false;
-					else
 						orderItem.canContinueRenew = true;
+					else
+						orderItem.canContinueRenew = false;
 
 
 					if (orderItem.itemList.find(n => showInstance(n) != null))
@@ -407,13 +426,14 @@ export class OrderMngComponent implements OnInit {
 					else
 						orderItem.showInstance = true;
 				}
-				else {
-					orderItem.canContinueRenew = true;
-					orderItem.canRenew = true;
-					orderItem.showInstance = true;
-				}
+				// else {
+				// 	orderItem.canContinueRenew = true;
+				// 	orderItem.canRenew = true;
+				// 	orderItem.showInstance = true;
+				// }
 
-
+console.log(orderItem.canContinueRenew+"自动续订");
+console.log(orderItem.canRenew+"续订");
 			}
 
 
