@@ -135,9 +135,9 @@
 																		<td>{{DiskInstanceItem.platformType}}</td>
 																		<td>{{DiskInstanceItem.zoneName}}</td>
 																		<td>{{DiskInstanceItem.name}}</td>
-																		<td>{{DiskInstanceItem.type}}</td>
+																		<td>{{DiskInstanceItem.type | dict:_dictServ.getDic('GLOBAL', 'SERVICE_TYPE') | async}}</td>
 																		<td>{{DiskInstanceItem.size}}</td>
-																		<td>{{DiskInstanceItem.status}}</td>
+																		<td>{{DiskInstanceItem.status | dict:_dictServ.getDic("ORDER", "STATUS") | async}}</td>
 																		<td>{{DiskInstanceItem.relyName}}</td>
 																		<td>{{DiskInstanceItem.useType}}</td>
 																		<td>{{DiskInstanceItem.platformName}}&nbsp;&nbsp;{{DiskInstanceItem.zoneName}}</td>
@@ -163,7 +163,7 @@
 																		<td>{{PMServiceItem.appendService}}</td>
 																		<td>{{PMServiceItem.pmName}}</td>
 																		<td>{{PMServiceItem.hostName}}</td>
-																		<td>{{PMServiceItem.status}}</td>
+																		<td>{{PMServiceItem.status | dict:_dictServ.getDic("ORDER", "STATUS") | async}}</td>
 																		<td>{{PMServiceItem.privateIP}}</td>
 																		<td>{{PMServiceItem.publicIP}}</td>
 																		<td>{{PMServiceItem.pmConfInfo}}&nbsp;&nbsp;{{PMServiceItem.poolRegionInfo}}</td>
