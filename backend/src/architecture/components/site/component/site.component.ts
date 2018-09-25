@@ -33,8 +33,8 @@ export class SiteComponent implements OnInit{
   
   ngOnInit() {
     this.layoutService.hide();
-    this.preLoad();
-    this.setName();
+    // this.preLoad();
+    // this.setName();
   }
   setName() {
       this.username = this.restApi.getLoginInfo().userInfo.loginName;

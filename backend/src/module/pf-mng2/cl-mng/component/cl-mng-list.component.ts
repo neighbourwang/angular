@@ -111,7 +111,7 @@ export class ClMngListComponent implements OnInit {
         //         this.notice.open('PF_MNG2.ERROR_PROMPT', '获取云平台列表错误');
         //     }
         //     )
-        this.backend(1, this.pp);
+        // this.backend(1, this.pp);
     }
 
     //删除按钮

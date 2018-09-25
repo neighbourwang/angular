@@ -23,13 +23,13 @@ import { TemplateMngModule } from './template-mng/template-mng.module';
     ],
     declarations: [],
     exports: [
-        ProdDirMngModule,
-        ProdMngModule,
-        ProductMngComponents,
-        PhysicalProdMngModule,
-        ManagerServeModule,
-        DatabaseMiddlewareModule,
-        TemplateMngModule        
+        //ProdDirMngModule,
+        //ProdMngModule,
+        //ProductMngComponents,
+        //PhysicalProdMngModule,
+        //ManagerServeModule,
+        //DatabaseMiddlewareModule,
+        //TemplateMngModule        
     ],
     providers: []
 })

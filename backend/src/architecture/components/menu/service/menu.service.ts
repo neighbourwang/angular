@@ -14,11 +14,13 @@ export class MenuService {
 		private restApi: RestApi) {
 	}
 
-	userInfo = this.restApi.getLoginInfo().userInfo;
+	// userInfo = this.restApi.getLoginInfo().userInfo;
 
 	getMenuList(): Promise<any> {
-		const isRoot: boolean = this.userInfo.isRoot;   //临时判断如果是管理员就不隐藏了
-		const isOrgin: boolean = this.userInfo.roles.map(role => JSON.stringify(role)).join(",").indexOf('"LEVEL1M"') > -1;   //临时判断如果是机构管理员就显示审批设置
+		// const isRoot: boolean = this.userInfo.isRoot;   //临时判断如果是管理员就不隐藏了
+		const isRoot: boolean = false;   //临时判断如果是管理员就不隐藏了
+		// const isOrgin: boolean = this.userInfo.roles.map(role => JSON.stringify(role)).join(",").indexOf('"LEVEL1M"') > -1;   //临时判断如果是机构管理员就显示审批设置
+		const isOrgin: boolean = false;  //临时判断如果是机构管理员就显示审批设置
 
 		return new Promise(resolve => {
 			resolve([
